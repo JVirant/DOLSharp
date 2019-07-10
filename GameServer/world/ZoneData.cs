@@ -16,6 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  */
+using DOL.Database;
 using System;
 using System.Text;
 
@@ -65,5 +66,20 @@ namespace DOL.GS
         private int m_waterLevel;
 		private byte m_divingFlag;
         private bool m_IsLava;
+
+		public ZoneData() { }
+		public ZoneData(Zones z)
+		{
+			OffX = (byte)z.OffsetX;
+			OffY = (byte)z.OffsetY;
+			Height = (byte)z.Height;
+			Width = (byte)z.Width;
+			ZoneID = (ushort)z.ZoneID;
+			RegionID = z.RegionID;
+			Description = z.Name;
+			WaterLevel = z.WaterLevel;
+			DivingFlag = z.DivingFlag;
+			IsLava = z.IsLava;
+		}
     }
 }

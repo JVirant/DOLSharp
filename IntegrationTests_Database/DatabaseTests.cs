@@ -112,7 +112,8 @@ namespace DOL.Database.Tests
 			
 			// Find Object By Key
 			var keyObject = retrieve.First();
-			Assert.IsNotNullOrEmpty(keyObject.ObjectId, "Test Table Retrieved Object should have an Object Id");
+			Assert.IsNotNull(keyObject.ObjectId, "Test Table Retrieved Object should have an Object Id");
+			Assert.IsNotEmpty(keyObject.ObjectId, "Test Table Retrieved Object should have an Object Id");
 			
 			var retrieveKeyObj = Database.FindObjectByKey<TestTable>(keyObject.ObjectId);
 			Assert.IsNotNull(retrieveKeyObj, "Test Table Retrieved Object by Key should not be null.");

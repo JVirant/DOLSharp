@@ -32,8 +32,9 @@ using DOL.GS.Spells;
 using DOL.GS.Commands;
 using DOL.Events;
 using log4net;
-using Microsoft.CSharp;
-using Microsoft.VisualBasic;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using System.Runtime.Loader;
 
 namespace DOL.GS
 {
@@ -420,7 +421,7 @@ namespace DOL.GS
 		/// <param name="dllName">Name of the assembly to be generated</param>
 		/// <param name="asm_names">References to other assemblies</param>
 		/// <returns>True if succeeded</returns>
-		public static bool CompileScripts(bool compileVB, string path, string dllName, string[] asm_names)
+		public static bool CompileScripts(string path, string dllName, string[] asm_names)
 		{
 			if (!path.EndsWith(@"\") && !path.EndsWith(@"/"))
 				path = path + "/";
@@ -429,7 +430,7 @@ namespace DOL.GS
 			m_compiledScripts.Clear();
 
 			//Check if there are any scripts, if no scripts exist, that is fine as well
-			IList<FileInfo> files = ParseDirectory(new DirectoryInfo(path), compileVB ? "*.vb" : "*.cs", true);
+			IList<FileInfo> files = ParseDirectory(new DirectoryInfo(path), "*.cs", true);
 			if (files.Count == 0)
 			{
 				return true;
@@ -515,81 +516,68 @@ namespace DOL.GS
 			if (File.Exists(dllName))
 				File.Delete(dllName);
 
-			CompilerResults res = null;
+			bool ret = true;
 			try
 			{
-				CodeDomProvider compiler;
+				var compiler = CSharpCompilation.Create("scripts")
+#if DEBUG
+					.WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
+#else
+					.WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, optimizationLevel: OptimizationLevel.Release))
+#endif
+					.AddReferences(MetadataReference.CreateFromFile(typeof(object).GetTypeInfo().Assembly.Location))
+					.AddReferences(AppDomain.CurrentDomain.GetAssemblies().Select(a => MetadataReference.CreateFromFile(a.Location)))
+					.AddSyntaxTrees(files.Select(f => CSharpSyntaxTree.ParseText(File.ReadAllText(f.FullName), path: f.FullName)));
 
-				if (compileVB)
+				var result = compiler.Emit(dllName);
+				ret = result.Success;
+				log.Info(result.Success);
+				foreach(var diag in result.Diagnostics)
 				{
-					compiler = new VBCodeProvider();
+					if (diag.Severity != DiagnosticSeverity.Error)
+						continue;
+					var line = diag.Location.GetMappedLineSpan();
+					log.Error(line.Path + ":" + line.StartLinePosition.Line + ":" + line.StartLinePosition.Character + ": " + diag.Severity + " " + diag.Id + ": " + (string)diag.Descriptor.Description);
 				}
-				else
-				{
-					compiler = new CSharpCodeProvider(new Dictionary<string, string> { { "CompilerVersion", "v4.0" } });
-				}
-				
-				// Graveen: allow script compilation in debug or release mode
-				#if DEBUG
-				CompilerParameters param = new CompilerParameters(asm_names, dllName, true);
-				#else
-				CompilerParameters param = new CompilerParameters(asm_names, dllName, false);
-				#endif
-				param.GenerateExecutable = false;
-				param.GenerateInMemory = false;
-				param.WarningLevel = 2;
-				param.CompilerOptions = string.Format("/optimize /lib:.{0}lib", Path.DirectorySeparatorChar);
-				param.ReferencedAssemblies.Add("System.Core.dll");
-
-				string[] filepaths = new string[files.Count];
-				for (int i = 0; i < files.Count; i++)
-					filepaths[i] = ((FileInfo)files[i]).FullName;
-
-				res = compiler.CompileAssemblyFromFile(param, filepaths);
+				log.Info(AppDomain.CurrentDomain.GetAssemblies().Select(a => a.Location).Aggregate((a, b) => a + "\n" + b));
 
 				//After compiling, collect
 				GC.Collect();
 
-				if (res.Errors.HasErrors)
-				{
-					foreach (CompilerError err in res.Errors)
-					{
-						if (err.IsWarning) continue;
+				//if (res.Errors.HasErrors)
+				//{
+				//	foreach (CompilerError err in res.Errors)
+				//	{
+				//		if (err.IsWarning) continue;
 
-						StringBuilder builder = new StringBuilder();
-						builder.Append("   ");
-						builder.Append(err.FileName);
-						builder.Append(" Line:");
-						builder.Append(err.Line);
-						builder.Append(" Col:");
-						builder.Append(err.Column);
-						if (log.IsErrorEnabled)
-						{
-							log.Error("Script compilation failed because: ");
-							log.Error(err.ErrorText);
-							log.Error(builder.ToString());
-						}
-					}
+				//		StringBuilder builder = new StringBuilder();
+				//		builder.Append("   ");
+				//		builder.Append(err.FileName);
+				//		builder.Append(" Line:");
+				//		builder.Append(err.Line);
+				//		builder.Append(" Col:");
+				//		builder.Append(err.Column);
+				//		if (log.IsErrorEnabled)
+				//		{
+				//			log.Error("Script compilation failed because: ");
+				//			log.Error(err.ErrorText);
+				//			log.Error(builder.ToString());
+				//		}
+				//	}
 
-					return false;
-				}
+				//	return false;
+				//}
 
-				AddOrReplaceAssembly(res.CompiledAssembly);
+				var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.GetFullPath(dllName));
+				AddOrReplaceAssembly(assembly);
 			}
 			catch (Exception e)
 			{
 				if (log.IsErrorEnabled)
 					log.Error("CompileScripts", e);
 				m_compiledScripts.Clear();
+				ret = false;
 			}
-			//now notify our callbacks
-			bool ret = false;
-			if (res != null)
-			{
-				ret = !res.Errors.HasErrors;
-			}
-			if (ret == false)
-				return ret;
 
 			XMLConfigFile newconfig = new XMLConfigFile();
 			foreach (FileInfo finfo in files)
@@ -602,7 +590,7 @@ namespace DOL.GS
 
 			newconfig.Save(configFile);
 
-			return true;
+			return ret;
 		}
 		
 		/// <summary>

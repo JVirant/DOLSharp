@@ -860,7 +860,7 @@ namespace DOL.GS.PacketHandler
 		/// <returns>A string with the stacks</returns>
 		public static string GetConnectionThreadpoolStacks()
 		{
-#if LOGACTIVESTACKS
+#if NETFRAMEWORK && LOGACTIVESTACKS
 			var builder = new StringBuilder();
 			//When enumerating over a synchronized hashtable, we need to
 			//lock it's syncroot! Only for reading, not for writing locking

@@ -36,7 +36,7 @@ namespace DOL.Server.Tests
 		public volatile bool finished;
 		public int started;
 
-		[TestFixtureSetUp]
+		[OneTimeSetUp]
 		public void Init()
 		{
 			RegionData data = new RegionData();
@@ -45,7 +45,16 @@ namespace DOL.Server.Tests
 			data.Description = "reg test1";
 			data.Mobs = new Mob[0];
 			m_reg = WorldMgr.RegisterRegion(new GameTimer.TimeManager("RegTest1"), data);
-			//WorldMgr.RegisterZone(5555, 5555, "test zone1", 0, 0, 16, 16);
+			WorldMgr.RegisterZone(new ZoneData
+			{
+				Description = "test zone1",
+				Height = 16,
+				Width = 16,
+				OffX = 0,
+				OffY = 0,
+				WaterLevel = 0
+			},
+				(ushort)(1 + m_reg.ID), m_reg.ID, "test zone1", 0, 0, 0, 0, 1);
 			m_reg.StartRegionMgr();
 		}
 
@@ -150,6 +159,7 @@ namespace DOL.Server.Tests
 			{
 				started = Environment.TickCount;
 				Console.Out.WriteLine("[{0}] started", id);
+				Init();
 				AddRemoveObjects();
 			}
 			catch (Exception e)

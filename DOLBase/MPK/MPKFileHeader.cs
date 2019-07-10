@@ -19,7 +19,7 @@
 using System;
 using System.IO;
 using System.Text;
-using ICSharpCode.SharpZipLib.Checksums;
+using ICSharpCode.SharpZipLib.Checksum;
 
 namespace DOL.MPK
 {
@@ -196,7 +196,7 @@ namespace DOL.MPK
 			_uncompressedSize = rdr.ReadUInt32();
 			_directoryOffset = rdr.ReadUInt32();
 			_compressedSize = rdr.ReadUInt32();
-			_crc.Value = rdr.ReadUInt32();
+			// _crc.Value = rdr.ReadUInt32();
 		}
 
 		/// <summary>

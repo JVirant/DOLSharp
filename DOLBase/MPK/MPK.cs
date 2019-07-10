@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using ICSharpCode.SharpZipLib.Checksums;
+using ICSharpCode.SharpZipLib.Checksum;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 
 namespace DOL.MPK
@@ -246,7 +246,7 @@ namespace DOL.MPK
 			def = new Deflater();
 
 			_crc.Reset();
-			_crc.Update(dir, 0, _sizeDir);
+			_crc.Update(new ArraySegment<byte>(dir, 0, _sizeDir));
 
 			def.SetInput(Encoding.UTF8.GetBytes(_name));
 			def.Finish();
@@ -354,7 +354,6 @@ namespace DOL.MPK
 		{
 			_files.Clear();
 
-			_crc.Value = 0;
 			_sizeDir = 0;
 			_sizeName = 0;
 			_numFiles = 0;
@@ -367,7 +366,7 @@ namespace DOL.MPK
 				buf[i] ^= i;
 			}
 
-			_crc.Value = ((buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3]);
+			long value = ((buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3]);
 			_sizeDir = ((buf[4] << 24) | (buf[5] << 16) | (buf[6] << 8) | buf[7]);
 			_sizeName = ((buf[8] << 24) | (buf[9] << 16) | (buf[10] << 8) | buf[11]);
 			_numFiles = ((buf[12] << 24) | (buf[13] << 16) | (buf[14] << 8) | buf[15]);
@@ -405,7 +404,7 @@ namespace DOL.MPK
 					crc.Reset();
 					crc.Update(buf);
 
-					if (crc.Value != _crc.Value)
+					if (crc.Value != value)
 					{
 						throw new Exception("Invalid or corrupt MPK");
 					}
@@ -430,7 +429,7 @@ namespace DOL.MPK
 						var compbuf = new byte[hdr.CompressedSize];
 						files.Read(compbuf, 0, compbuf.Length);
 
-						crc.Update(compbuf, 0, compbuf.Length);
+						crc.Update(compbuf);
 
 						inf.Reset();
 						inf.SetInput(compbuf, 0, compbuf.Length);

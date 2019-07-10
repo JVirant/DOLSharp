@@ -44,8 +44,8 @@ namespace DOL.Server.Tests
 			Region region = WorldMgr.GetRegion(1);
 			GameObject obj = new GameNPC();
 			obj.Name="TestObject";
-			obj.X = 400000;
-			obj.Y = 200000;
+			obj.X = 4000;
+			obj.Y = 2000;
 			obj.Z = 2000;
 			obj.CurrentRegion = region;
 

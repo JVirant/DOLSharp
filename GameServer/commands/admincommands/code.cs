@@ -17,14 +17,10 @@
  *
  */
 using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using System.Text;
-using Microsoft.CSharp;
 using DOL.GS.PacketHandler;
 using DOL.Language;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
 
 namespace DOL.GS.Commands
 {
@@ -37,10 +33,8 @@ namespace DOL.GS.Commands
 	{
 		private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		public static void ExecuteCode(GameClient client, string code)
+		public async static void ExecuteCode(GameClient client, string code)
 		{
-			CodeDomProvider provider = new CSharpCodeProvider(new Dictionary<string, string> { { "CompilerVersion", "v4.0" } });
-			CompilerParameters cp = new CompilerParameters();
 			StringBuilder text = new StringBuilder();
 			text.Append("using System;\n");
 			text.Append("using System.Reflection;\n");
@@ -60,49 +54,36 @@ namespace DOL.GS.Commands
 			text.Append("using DOL.GS.PacketHandler;\n");
 			text.Append("using DOL.Events;\n");
 			text.Append("using log4net;\n");
-			text.Append("public class DynCode {\n");
-			text.Append("private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);\n");
-			text.Append("public static GameClient Client = null;\n");
-			text.Append("public static void print(object obj) {\n");
-			text.Append("	string str = (obj==null)?\"(null)\":obj.ToString();\n");
-			text.Append("	if (Client==null || Client.Player==null) Log.Debug(str);\n	else Client.Out.SendMessage(str, eChatType.CT_System, eChatLoc.CL_SystemWindow);\n}\n");
-			text.Append("public static void DynMethod(GameObject target, GamePlayer player) {\nif (player!=null) Client = player.Client;\n");
-			text.Append("GameNPC targetNpc = target as GameNPC;");
+			text.Append(@"
+Action<GameObject, GamePlayer> test = (target, player) =>
+	{
+		var Log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+		var Client = player?.Client;
+		var targetNpc = target as GameNPC;
+		Action<object> print = obj =>
+		{
+			string str = (obj == null) ? ""(null)"" : obj.ToString();
+			if (Client == null || Client.Player == null)
+				Log.Debug(str);
+			else
+				Client.Out.SendMessage(str, eChatType.CT_System, eChatLoc.CL_SystemWindow);
+		};
+");
 			text.Append(code);
-			text.Append("\n}\n}\n");
+			text.Append(@"
+	};
+test;
+");
 
-			string[] parameters = GameServer.Instance.Configuration.ScriptAssemblies;
-			foreach (string param in parameters)
-				cp.ReferencedAssemblies.Add(param); //includes
-			cp.ReferencedAssemblies.Add("System.Core.dll");
-			cp.ReferencedAssemblies.Add(GameServer.Instance.Configuration.ScriptCompilationTarget);
-			cp.CompilerOptions = @"/lib:." + Path.DirectorySeparatorChar + "lib";
-			CompilerResults cr = provider.CompileAssemblyFromSource(cp, text.ToString());
-
-			if (cr.Errors.HasErrors)
-			{
-				if (client.Player != null)
-				{
-					client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Code.ErrorCompiling"), eChatType.CT_System, eChatLoc.CL_PopupWindow);
-
-					foreach (CompilerError err in cr.Errors)
-						client.Out.SendMessage(err.ErrorText, eChatType.CT_System, eChatLoc.CL_PopupWindow);
-				}
-				else
-				{
-					log.Debug("Error compiling code.");
-				}
-
-
-				return;
-			}
-
-			Assembly a = cr.CompiledAssembly;
-			MethodInfo methodinf = a.GetType("DynCode").GetMethod("DynMethod");
+			var resultObj = await CSharpScript.EvaluateAsync(text.ToString());
+			var result = resultObj as Action<GameObject, GamePlayer>;
 
 			try
 			{
-				methodinf.Invoke(null, new object[] { client.Player == null ? null : client.Player.TargetObject, client.Player });
+				if (result != null)
+				{
+					result(client?.Player?.TargetObject, client?.Player);
+				}
 
 				if (client.Player != null)
 				{

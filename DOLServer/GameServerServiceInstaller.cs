@@ -19,11 +19,14 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Configuration.Install;
 using System.ServiceProcess;
+#if NETFRAMEWORK
+using System.Configuration.Install;
+#endif
 
 namespace DOL.DOLServer
 {
+#if NETFRAMEWORK
 	/// <summary>
 	/// Zusammenfassung für GameServerServiceInstaller.
 	/// </summary>
@@ -54,4 +57,5 @@ namespace DOL.DOLServer
 		}
 
 	}
+#endif
 }

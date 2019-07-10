@@ -383,6 +383,7 @@ namespace DOL.GS
 		/// <returns>The thread's stacktrace</returns>
 		public static StackTrace GetThreadStack(Thread thread)
 		{
+#if NETFRAMEWORK
 			#pragma warning disable 0618
 			try
 			{
@@ -390,7 +391,7 @@ namespace DOL.GS
 			}
 			catch(Exception e)
 			{
-				return new StackTrace(e);
+				return null;
 			}
 			
 			StackTrace trace;
@@ -410,6 +411,9 @@ namespace DOL.GS
 			#pragma warning restore 0618
 			
 			return trace;
+#else
+			return null;
+#endif
 		}
 
 		/// <summary>
@@ -491,7 +495,7 @@ namespace DOL.GS
 			return IsNearValue(xH, xC, tolerance) && IsNearValue(yH, yC, tolerance) && IsNearValue(zH, zC, tolerance);
 		}
 		
-		#region Collection Utils
+#region Collection Utils
 
 		/// <summary>
 		/// Implementation of a List Shuffle for Generics.
@@ -535,6 +539,6 @@ namespace DOL.GS
                 action(cur);
         }
         
-        #endregion
+#endregion
 	}
 }

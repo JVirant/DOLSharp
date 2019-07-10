@@ -299,14 +299,16 @@ namespace DOL.GS
 			var logConfig = new FileInfo(config.LogConfigFile);
 			if (!logConfig.Exists)
 			{
-			    if (Environment.OSVersion.Platform == PlatformID.Unix)
-				    ResourceUtil.ExtractResource("logconfig_unix.xml", logConfig.FullName);
-			    else
-                    ResourceUtil.ExtractResource("logconfig.xml", logConfig.FullName);
+				if (Environment.OSVersion.Platform == PlatformID.Unix)
+					ResourceUtil.ExtractResource("logconfig_unix.xml", logConfig.FullName);
+				else
+					ResourceUtil.ExtractResource("logconfig.xml", logConfig.FullName);
 			}
 
+			var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly() ?? Assembly.GetExecutingAssembly();
+			var logRepository = LogManager.GetRepository(assembly);
 			//Configure and watch the config file
-			XmlConfigurator.ConfigureAndWatch(logConfig);
+			XmlConfigurator.ConfigureAndWatch(logRepository, logConfig);
 
 			//Create the instance
 			m_instance = new GameServer(config);
@@ -860,7 +862,7 @@ namespace DOL.GS
 			}
 			else
 			{
-				compiled = ScriptMgr.CompileScripts(false, scriptDirectory, Configuration.ScriptCompilationTarget, Configuration.ScriptAssemblies);
+				compiled = ScriptMgr.CompileScripts(scriptDirectory, Configuration.ScriptCompilationTarget, Configuration.ScriptAssemblies);
 			}
 			
 			if (compiled)
@@ -1521,9 +1523,10 @@ namespace DOL.GS
 		protected GameServer(GameServerConfiguration config)
 			: base(config)
 		{
-			m_gmLog = LogManager.GetLogger(Configuration.GMActionsLoggerName);
-			m_cheatLog = LogManager.GetLogger(Configuration.CheatLoggerName);
-		    m_inventoryLog = LogManager.GetLogger(Configuration.InventoryLoggerName);
+			var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly() ?? Assembly.GetExecutingAssembly();
+			m_gmLog = LogManager.GetLogger(assembly, Configuration.GMActionsLoggerName);
+			m_cheatLog = LogManager.GetLogger(assembly, Configuration.CheatLoggerName);
+			m_inventoryLog = LogManager.GetLogger(assembly, Configuration.InventoryLoggerName);
 
 			if (log.IsDebugEnabled)
 			{

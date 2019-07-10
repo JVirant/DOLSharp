@@ -1,6 +1,6 @@
+**/*.user
 /*.suo
 /Ankh.Load
-/Dawn of Light.resharper.user
 /Ophyr.sln
 /Storm.sln
 /_ReSharper.Dawn of Light
@@ -14,6 +14,7 @@
 /desktop.ini
 /_patches
 /.sonar
+/TestResult.xml
 /DOLBase/.sonar
 /DOLConfig/.sonar
 /DOLDatabase/.sonar
@@ -23,8 +24,25 @@
 /sonar-runner.bat
 /sys$command
 /UnitTests/.sonar
-/UnitTests/obj
 /GameServerScripts/.sonar
 /.vs
 /[pP]ackages
 /[bB]uild
+/DOLBase/bin
+/DOLBase/obj
+/DOLConfig/bin
+/DOLConfig/obj
+/DOLDatabase/bin
+/DOLDatabase/obj
+/DOLServer/bin
+/DOLServer/obj
+/GameServer/bin
+/GameServer/obj
+/GameServerScripts/bin
+/GameServerScripts/obj
+/IntegrationTests/bin
+/IntegrationTests/obj
+/IntegrationTests_Database/bin
+/IntegrationTests_Database/obj
+/UnitTests/bin
+/UnitTests/obj

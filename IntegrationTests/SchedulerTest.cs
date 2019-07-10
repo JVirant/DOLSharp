@@ -22,6 +22,7 @@ using System.Linq;
 using NUnit.Framework;
 
 using DOL.GS.Scheduler;
+using System.Reflection;
 
 namespace DOL.Utils.Tests
 {
@@ -35,15 +36,18 @@ namespace DOL.Utils.Tests
 		{
 		}
 		
-		[TestFixtureSetUp]
+		[OneTimeSetUp]
 		public void SetUp()
 		{
-			log4net.Config.BasicConfigurator.Configure(
-				new log4net.Appender.ConsoleAppender {
-					Layout = new log4net.Layout.SimpleLayout()});
+			var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly() ?? Assembly.GetExecutingAssembly();
+			var logRepository = log4net.LogManager.GetRepository(assembly);
+			log4net.Config.BasicConfigurator.Configure(logRepository, new log4net.Appender.ConsoleAppender
+			{
+				Layout = new log4net.Layout.SimpleLayout()
+			});
 		}
 
-		[TestFixtureTearDown]
+		[OneTimeTearDown]
 		public void TearDown()
 		{
 			log4net.LogManager.Shutdown();

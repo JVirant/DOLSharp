@@ -46,8 +46,8 @@ namespace DOL.GS.Spells.Atlantis
 			effect.Owner.DebuffCategory[(int)eProperty.Quickness] += (int)m_spell.Value;
 			effect.Owner.DebuffCategory[(int)eProperty.Intelligence] += (int)m_spell.Value;
 			effect.Owner.DebuffCategory[(int)eProperty.Charisma] += (int)m_spell.Value;
-			effect.Owner.DebuffCategory[(int)eProperty.ArmorAbsorbtion] += (int)m_spell.Value;
-			effect.Owner.DebuffCategory[(int)eProperty.MagicAbsorbtion] += (int)m_spell.Value;
+			effect.Owner.DebuffCategory[(int)eProperty.ArmorAbsorption] += (int)m_spell.Value;
+			effect.Owner.DebuffCategory[(int)eProperty.MagicAbsorption] += (int)m_spell.Value;
 
 			if (effect.Owner is GamePlayer)
 			{
@@ -69,8 +69,8 @@ namespace DOL.GS.Spells.Atlantis
 			effect.Owner.DebuffCategory[(int)eProperty.Quickness] -= (int)m_spell.Value;
 			effect.Owner.DebuffCategory[(int)eProperty.Intelligence] -= (int)m_spell.Value;
 			effect.Owner.DebuffCategory[(int)eProperty.Charisma] -= (int)m_spell.Value;
-			effect.Owner.DebuffCategory[(int)eProperty.ArmorAbsorbtion] -= (int)m_spell.Value;
-			effect.Owner.DebuffCategory[(int)eProperty.MagicAbsorbtion] -= (int)m_spell.Value;
+			effect.Owner.DebuffCategory[(int)eProperty.ArmorAbsorption] -= (int)m_spell.Value;
+			effect.Owner.DebuffCategory[(int)eProperty.MagicAbsorption] -= (int)m_spell.Value;
 
 			if (effect.Owner is GamePlayer)
 			{
@@ -103,7 +103,7 @@ namespace DOL.GS.Spells.Atlantis
 			}
 			if (target is GameNPC)
 			{
-				IAggressiveBrain aggroBrain = ((GameNPC)target).Brain as IAggressiveBrain;
+				var aggroBrain = ((GameNPC)target).Brain as IOldAggressiveBrain;
 				if (aggroBrain != null)
 					aggroBrain.AddToAggroList(Caster, (int)Spell.Value);
 			}

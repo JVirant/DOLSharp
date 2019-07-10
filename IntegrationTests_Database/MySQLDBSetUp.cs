@@ -40,7 +40,7 @@ namespace DOL.Database.MySQLTests
 		public static SQLObjectDatabase Database { get; set; }
 		public static string ConnectionString { get; set; }
 				
-		[SetUp]
+		[OneTimeSetUp]
 		public void SetUp()
 		{
 			var CodeBase = new FileInfo(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath).Directory;
@@ -49,15 +49,17 @@ namespace DOL.Database.MySQLTests
 			Database = (SQLObjectDatabase)ObjectDatabase.GetObjectDatabase(ConnectionType.DATABASE_MYSQL, ConnectionString);
 			
 			Console.WriteLine("DB Configured : {0}, {1}", Database.ConnectionType, ConnectionString);
-			
-			log4net.Config.BasicConfigurator.Configure(
+
+			var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly() ?? Assembly.GetExecutingAssembly();
+			var logRepository = log4net.LogManager.GetRepository(assembly);
+			log4net.Config.BasicConfigurator.Configure(logRepository,
 				new log4net.Appender.ConsoleAppender {
 					Layout = new log4net.Layout.SimpleLayout(),
 					Threshold = log4net.Core.Level.Info
 				});
 		}
 		
-		[TearDown]
+		[OneTimeTearDown]
 		public void TearDown()
 		{
 			log4net.LogManager.Shutdown();
