@@ -535,7 +535,6 @@ namespace DOL.GS
 
 				var result = compiler.Emit(dllName);
 				ret = result.Success;
-				log.Info(result.Success);
 				foreach(var diag in result.Diagnostics)
 				{
 					if (diag.Severity != DiagnosticSeverity.Error)
@@ -543,7 +542,6 @@ namespace DOL.GS
 					var line = diag.Location.GetMappedLineSpan();
 					log.Error(line.Path + ":" + line.StartLinePosition.Line + ":" + line.StartLinePosition.Character + ": " + diag.Severity + " " + diag.Id + ": " + (string)diag.Descriptor.Description);
 				}
-				log.Info(AppDomain.CurrentDomain.GetAssemblies().Select(a => a.Location).Aggregate((a, b) => a + "\n" + b));
 
 				//After compiling, collect
 				GC.Collect();

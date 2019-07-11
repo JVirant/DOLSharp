@@ -25,21 +25,19 @@ dotnet_csproj:
 cache: packages -> **\packages.config
 
 before_build:
-- cmd: >-
-    git submodule update --init --recursive
-    dotnet restore
+- cmd: git submodule update --init --recursive
 
-build:
-  verbosity: minimal
+build_script:
+- cmd: |-
+    dotnet publish .\DOLServer\ -c %CONFIGURATION% -r win-x64 --self-contained true -o bin\win-x64
+    dotnet publish .\DOLServer\ -c %CONFIGURATION% -r linux-x64 --self-contained true -o bin\linux-x64
+    dotnet publish .\DOLServer\ -c %CONFIGURATION% -r linux-arm --self-contained true -o bin\linux-arm
 
 after_build:
-- cmd: >-
-    7z a -tzip DOLServer_net45_%CONFIGURATION%.zip %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\*
-    xcopy %APPVEYOR_BUILD_FOLDER%\sharedModules\SQLite\managedOnly\System.Data.SQLite.dll %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\lib /y /s /q /i
-    del %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\lib\x64 /F /S /Q
-    del %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\lib\x86 /F /S /Q
-    7z a -tzip DOLServer_linux_net45_%CONFIGURATION%.zip %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\*
-    7z a -tzip DOLServer_UnitTests_net45_%CONFIGURATION%.zip %APPVEYOR_BUILD_FOLDER%\build\IntegrationTests\%CONFIGURATION%\*
+- cmd: |-
+    7z a -tzip DOLServer_win-x64_netcore2.2_%CONFIGURATION%.zip DOLServer\bin\win-x64\*
+    7z a -tzip DOLServer_linux-x64_netcore2.2_%CONFIGURATION%.zip DOLServer\bin\linux-x64\*
+    7z a -tzip DOLServer_linux-arm_netcore2.2_%CONFIGURATION%.zip DOLServer\bin\linux-arm\*
 
 artifacts:
 - path: '*.zip'
