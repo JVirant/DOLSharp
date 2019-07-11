@@ -20,6 +20,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using DOL.GS;
 using DOL.GS.PacketHandler;
 using DOLGameServerConsole;
@@ -71,6 +72,18 @@ namespace DOL.DOLServer.Actions
 
 		public void OnAction(Hashtable parameters)
 		{
+			if (Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version.Major >= 10)
+			{
+				// enable VT100 emulation
+				var handle = GetStdHandle(-11); // STD_OUTPUT_HANDLE
+				if (handle != null)
+				{
+					uint mode;
+					GetConsoleMode(handle, out mode);
+					SetConsoleMode(handle, mode | 0x0004); // ENABLE_VIRTUAL_TERMINAL_PROCESSING
+				}
+			}
+
 			Console.WriteLine("Starting GameServer ... please wait a moment!");
 			FileInfo configFile;
 			FileInfo currentAssembly = null;
@@ -155,5 +168,12 @@ namespace DOL.DOLServer.Actions
 			if (GameServer.Instance != null)
 				GameServer.Instance.Stop();
 		}
+
+		[DllImport("kernel32.dll", SetLastError = true)]
+		private static extern IntPtr GetStdHandle(int nStdHandle);
+		[DllImport("kernel32.dll")]
+		private static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
+		[DllImport("kernel32.dll", SetLastError = true)]
+		private static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
 	}
 }
