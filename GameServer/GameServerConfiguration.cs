@@ -347,8 +347,8 @@ namespace DOL.GS
 
 			m_logConfigFile = Path.Combine(Path.Combine(".", "config"), "logconfig.xml");
 
-			m_scriptCompilationTarget = Path.Combine(Path.Combine(".", "lib"), "GameServerScripts.dll");
-			m_scriptAssemblies = "System.dll,System.Xml.dll";
+			m_scriptCompilationTarget = Path.Combine("GameServerScripts.dll");
+			m_scriptAssemblies = "";
 			m_enableCompilation = true;
 			m_autoAccountCreation = true;
 			m_serverType = eGameServerType.GST_Normal;
@@ -426,12 +426,7 @@ namespace DOL.GS
 		{
 			get
 			{
-				return m_scriptAssemblies.Split(',')
-					.Union(new DirectoryInfo(Path.Combine(RootDirectory, "lib"))
-						.EnumerateFiles("*.dll", SearchOption.TopDirectoryOnly)
-						.Select(f => f.Name)
-						.Where(f => !f.Equals(new FileInfo(ScriptCompilationTarget).Name, StringComparison.OrdinalIgnoreCase)))
-					.ToArray();
+				return string.IsNullOrEmpty(m_scriptAssemblies) ? new string[0] : m_scriptAssemblies.Split(',');
 			}
 		}
 		

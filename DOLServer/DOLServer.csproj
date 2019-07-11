@@ -16,16 +16,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DOLBase\DOLBase.csproj" />
-    <ProjectReference Include="..\DOLDatabase\DOLDatabase.csproj" />
-    <ProjectReference Include="..\GameServer\GameServer.csproj" />
+    <ProjectReference Include="../DOLBase/DOLBase.csproj" />
+    <ProjectReference Include="../DOLDatabase/DOLDatabase.csproj" />
+    <ProjectReference Include="../GameServer/GameServer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="../GameServerScripts/**/*.xml" CopyToOutputDirectory="PreserveNewest" Link="scripts/%(RecursiveDir)/%(Filename)%(Extension)" />
     <Content Include="../GameServerScripts/**/*.cs" CopyToOutputDirectory="PreserveNewest" Link="scripts/%(RecursiveDir)/%(Filename)%(Extension)" />
-    <Content Remove="bin\**\*" />
-    <Content Remove="obj\**\*" />
+    <None Remove="../GameServerScripts/obj/**/*.cs" />
   </ItemGroup>
 
+  <Target Name="BeforeBuild">
+    <RemoveDir Directories="$(BaseOutputPath)/scripts" />
+  </Target>
 </Project>

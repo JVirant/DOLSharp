@@ -526,8 +526,12 @@ namespace DOL.GS
 					.WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, optimizationLevel: OptimizationLevel.Release))
 #endif
 					.AddReferences(MetadataReference.CreateFromFile(typeof(object).GetTypeInfo().Assembly.Location))
-					.AddReferences(AppDomain.CurrentDomain.GetAssemblies().Select(a => MetadataReference.CreateFromFile(a.Location)))
-					.AddSyntaxTrees(files.Select(f => CSharpSyntaxTree.ParseText(File.ReadAllText(f.FullName), path: f.FullName)));
+					.AddReferences(AppDomain.CurrentDomain.GetAssemblies().Select(a => MetadataReference.CreateFromFile(a.Location)));
+
+				if (asm_names.Length > 0)
+					compiler.AddReferences(asm_names.Select(asm => MetadataReference.CreateFromFile(asm)));
+
+				compiler.AddSyntaxTrees(files.Select(f => CSharpSyntaxTree.ParseText(File.ReadAllText(f.FullName), path: f.FullName)));
 
 				var result = compiler.Emit(dllName);
 				ret = result.Success;

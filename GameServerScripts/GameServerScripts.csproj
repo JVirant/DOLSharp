@@ -24,11 +24,4 @@
     <ProjectReference Include="..\GameServer\GameServer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="**/*.xml" CopyToOutputDirectory="PreserveNewest" Link="scripts/%(RecursiveDir)/%(Filename)%(Extension)" />
-    <Content Include="**/*.cs" CopyToOutputDirectory="PreserveNewest" Link="scripts/%(RecursiveDir)/%(Filename)%(Extension)" />
-    <Content Remove="bin\**\*" />
-    <Content Remove="obj\**\*" />
-  </ItemGroup>
-
 </Project>
