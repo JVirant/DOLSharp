@@ -96,11 +96,14 @@ namespace DOL.AI.Brain
 						if (!npc.IsFriend(Body) || !npc.IsAggressive || !npc.IsAvailable)
 							continue;
 
-						dynamic brain = npc.Brain;
-						brain.AddToAggroList(PickTarget(attacker), 1);
-						brain.AttackMostWanted();
-						if (++numAdds >= maxAdds)
-							break;
+						var brain = npc.Brain as AmteMobBrain;
+						if (brain != null)
+						{
+							brain.AddToAggroList(PickTarget(attacker), 1);
+							brain.AttackMostWanted();
+							if (++numAdds >= maxAdds)
+								break;
+						}
 					}
 
 					// Increase the range for finding friends to join the fight.
@@ -120,10 +123,13 @@ namespace DOL.AI.Brain
 					.ToList();
 				for (; need > 0 && data.Count > 0; --need)
 				{
-					dynamic brain = data[0].NPC.Brain;
-					brain.AddToAggroList(PickTarget(attacker), 1);
-					brain.AttackMostWanted();
-					data.RemoveAt(0);
+					var brain = data[0].NPC.Brain as AmteMobBrain;
+					if (brain != null)
+					{
+						brain.AddToAggroList(PickTarget(attacker), 1);
+						brain.AttackMostWanted();
+						data.RemoveAt(0);
+					}
 				}
 			}
         }

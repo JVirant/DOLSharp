@@ -2,14 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-static class Utils
+static class AmteUtils
 {
-	public static void Foreach<T>(this IQueryable<T> self, Action<T> function)
-	{
-		foreach (var e in self)
-			function(e);
-	}
-
 	public static void Foreach<T>(this IEnumerable<T> self, Action<T> function)
 	{
 		foreach (var e in self)

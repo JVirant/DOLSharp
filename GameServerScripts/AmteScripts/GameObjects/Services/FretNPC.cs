@@ -20,44 +20,45 @@ namespace DOL.GS.Scripts
 
 		private static readonly Dictionary<string, InteractPlayer> TempItems = new Dictionary<string, InteractPlayer>();
 
-        [GameServerStartedEvent]
-        public static void OnScriptsCompiled(DOLEvent e, object sender, EventArgs args)
-        {
-            GameServer.Database.RegisterDataObject(typeof(DBFret));
-            log.Info("DATABASE Fret LOADED");
+		[GameServerStartedEvent]
+		public static void OnScriptsCompiled(DOLEvent e, object sender, EventArgs args)
+		{
+			GameServer.Database.RegisterDataObject(typeof(DBFret));
+			log.Info("DATABASE Fret LOADED");
 
-            GameEventMgr.AddHandler(GamePlayerEvent.Quit, (ev, s, a) =>
-                                                                {
-                                                                    GamePlayer p = s as GamePlayer;
-                                                                    if (p != null)
-                                                                        TempItems.Remove(p.InternalID);
-                                                                });
-        }
+			GameEventMgr.AddHandler(GamePlayerEvent.Quit, (ev, s, a) =>
+				{
+					GamePlayer p = s as GamePlayer;
+					if (p != null)
+						TempItems.Remove(p.InternalID);
+				}
+			);
+		}
 
-        public FretNPC()
-        {
-            SetOwnBrain(new BlankBrain());
-        }
+		public FretNPC()
+		{
+			SetOwnBrain(new BlankBrain());
+		}
 
-        /// <summary>
-        /// Intéraction avec le PNJ
-        /// </summary>
+		/// <summary>
+		/// Intéraction avec le PNJ
+		/// </summary>
 		public override bool Interact(GamePlayer player)
 		{
 			if (!base.Interact(player)) return false;
 			TurnTo(player);
 			AmteUtils.SendClearPopupWindow(player);
 
-			if (TempItems.ContainsKey(player.InternalID)) 
+			if (TempItems.ContainsKey(player.InternalID))
 				return Recapitulatif(player);
 
 			IList<DBFret> ItemsFret = GameServer.Database.SelectObjects<DBFret>("`ToPlayer` = '" + GameServer.Database.Escape(player.InternalID) + "'");
 
-			if(ItemsFret == null || ItemsFret.Count <= 0)
+			if (ItemsFret == null || ItemsFret.Count <= 0)
 			{
 				player.Out.SendMessage("Bonjour " + player.Name + ", je n'ai aucun colis à votre nom !\n" +
-				                       "\nSi vous voulez envoyer un objet à une personne, donnez le moi et chuchotez-moi (/whisper <nom>) le nom de la personne.",
-				                       eChatType.CT_System, eChatLoc.CL_PopupWindow);
+									   "\nSi vous voulez envoyer un objet à une personne, donnez le moi et chuchotez-moi (/whisper <nom>) le nom de la personne.",
+									   eChatType.CT_System, eChatLoc.CL_PopupWindow);
 			}
 			else
 			{
@@ -67,7 +68,7 @@ namespace DOL.GS.Scripts
 				{
 					message += " [" + id + "] " + fret.Name + " donné par " + fret.FromPlayer + "\n";
 					id++;
-					if(message.Length > 1900)
+					if (message.Length > 1900)
 					{
 						player.Out.SendMessage(message, eChatType.CT_System, eChatLoc.CL_PopupWindow);
 						message = "";
@@ -79,9 +80,9 @@ namespace DOL.GS.Scripts
 			return true;
 		}
 
-        /// <summary>
-        /// Le pnj reçoit un /whisper (ou clic sur du texte entre [])
-        /// </summary>
+		/// <summary>
+		/// Le pnj reçoit un /whisper (ou clic sur du texte entre [])
+		/// </summary>
 		public override bool WhisperReceive(GameLiving source, string str)
 		{
 			if (!base.WhisperReceive(source, str) || !(source is GamePlayer)) return false;
@@ -89,74 +90,75 @@ namespace DOL.GS.Scripts
 			GamePlayer player = source as GamePlayer;
 			AmteUtils.SendClearPopupWindow(player);
 
-            #region Réception d'un item
-            int id;
-            if (int.TryParse(str, out id))
+			#region Réception d'un item
+			int id;
+			if (int.TryParse(str, out id))
 			{
 				IList<DBFret> ItemsFret = GameServer.Database.SelectObjects<DBFret>("`ToPlayer` = '" + GameServer.Database.Escape(player.InternalID) + "'");
 				string msg;
-                try
-                {
-                    DBFret item = ItemsFret[id - 1];
+				try
+				{
+					DBFret item = ItemsFret[id - 1];
 					if (player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, GameInventoryItem.Create(item)))
-                    {
-                        GameServer.Database.DeleteObject(item);
+					{
+						GameServer.Database.DeleteObject(item);
 						if (item.Template is ItemUnique)
 							GameServer.Database.AddObject(item.Template);
-                        msg = "Vous récupérez " + (item.Count > 1 ? item.Count.ToString() : "") + item.Name +
-                              " donné par " + item.FromPlayer + " !";
-                    }
-                    else msg = "Vérifiez que votre sac à dos n'est pas plein !";
-                }
-                catch
-                {
-                    msg = "Un problème est survenu, recommencez la manipulation pour récupérer votre objet.";
-                }
+						msg = "Vous récupérez " + (item.Count > 1 ? item.Count.ToString() : "") + item.Name +
+							  " donné par " + item.FromPlayer + " !";
+					}
+					else msg = "Vérifiez que votre sac à dos n'est pas plein !";
+				}
+				catch
+				{
+					msg = "Un problème est survenu, recommencez la manipulation pour récupérer votre objet.";
+				}
 
 				player.Out.SendMessage(msg, eChatType.CT_System, eChatLoc.CL_PopupWindow);
-            }
-            #endregion
-            #region Envoi du colis
-            else if (str == "Envoyer le colis")
+			}
+			#endregion
+			#region Envoi du colis
+			else if (str == "Envoyer le colis")
 			{
 				if (TempItems.ContainsKey(player.InternalID))
 				{
 					InteractPlayer IP = TempItems[player.InternalID];
-				    player.Out.SendCustomDialog("Voulez-vous envoyer votre colis pour " + Money.GetString(IP.Price) + " ?",
-				                                SendColisResponse);
+					player.Out.SendCustomDialog("Voulez-vous envoyer votre colis pour " + Money.GetString(IP.Price) + " ?",
+												SendColisResponse);
 				}
 				else
 					player.Out.SendMessage("Vous devez préparer un colis avant de l'envoyer !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
-            }
-            #endregion
-            #region Réglage du destinataire
-            else if (TempItems.ContainsKey(player.InternalID) && str.Split(' ').Length == 1)
+			}
+			#endregion
+			#region Réglage du destinataire
+			else if (TempItems.ContainsKey(player.InternalID) && str.Split(' ').Length == 1)
 			{
 				//On récupère le joueur existant à ce nom:
 				DOLCharacters ch = GameServer.Database.SelectObject<DOLCharacters>("`Name` LIKE '" + GameServer.Database.Escape(str) + "'");
 				string msg;
-				if (ch == null) 
+				if (ch == null)
 					msg = "Je ne trouve pas de personne nommée " + str + ", vérifiez le nom.";
 				else
 				{
 					msg = "Votre colis est pour " + ch.Name + ".";
-				    TempItems[player.InternalID].ToPlayerAccountName = ch.AccountName;
+					TempItems[player.InternalID].ToPlayerAccountName = ch.AccountName;
 					TempItems[player.InternalID].ToPlayerID = ch.ObjectId;
 					TempItems[player.InternalID].ToPlayerName = ch.Name;
 				}
 				player.Out.SendMessage(msg, eChatType.CT_System, eChatLoc.CL_PopupWindow);
-            }
-            #endregion
-            else return false;
+			}
+			#endregion
+			else return false;
 			return true;
 		}
 
-        /// <summary>
-        /// Le pnj reçoit un item
-        /// </summary>
+		/// <summary>
+		/// Le pnj reçoit un item
+		/// </summary>
 		public override bool ReceiveItem(GameLiving source, InventoryItem item)
 		{
 			if (!(source is GamePlayer)) return false;
+			if (!item.IsTradable || item.IsDeleted) return false;
 			GamePlayer player = source as GamePlayer;
 			AmteUtils.SendClearPopupWindow(player);
 			AddRemoveItem(player, item);
@@ -164,15 +166,15 @@ namespace DOL.GS.Scripts
 		}
 
 		#region Creation Colis
-        /// <summary>
-        /// Affiche les informations du colis
-        /// </summary>
+		/// <summary>
+		/// Affiche les informations du colis
+		/// </summary>
 		private static bool Recapitulatif(GamePlayer player)
 		{
 			InteractPlayer IP = TempItems[player.InternalID];
 			string msg = "Vous vous préparez à envoyer ce colis :\n";
 			msg += " - Pour: " + (IP.ToPlayerID == "" ? "(Non spécifié, tapez '/whisper <nom>' pour le donner)" : IP.ToPlayerName) + "\n";
-			msg += " - Poids: " + (IP.Weight/10) + "," + (IP.Weight%10) + "livres\n";
+			msg += " - Poids: " + (IP.Weight / 10) + "," + (IP.Weight % 10) + "livres\n";
 			msg += " - Prix: " + Money.GetString(IP.Price) + "\n";
 			msg += " - Objets: " + IP.Items.Count + "/" + MaxItem + "\n";
 			int id = 1;
@@ -186,9 +188,9 @@ namespace DOL.GS.Scripts
 			return true;
 		}
 
-        /// <summary>
-        /// Ajoute ou retire un objet du colis
-        /// </summary>
+		/// <summary>
+		/// Ajoute ou retire un objet du colis
+		/// </summary>
 		private static void AddRemoveItem(GamePlayer player, InventoryItem item)
 		{
 			InteractPlayer IP;
@@ -201,22 +203,22 @@ namespace DOL.GS.Scripts
 			}
 			if (IP.Items.Count >= MaxItem)
 			{
-				player.Out.SendMessage("Vous ne pouvez envoyer que "+MaxItem+" objets dans un colis.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
-			    return;
+				player.Out.SendMessage("Vous ne pouvez envoyer que " + MaxItem + " objets dans un colis.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+				return;
 			}
-			if(IP.Items.Contains(item))
+			if (IP.Items.Contains(item))
 			{
 				IP.RemoveItem(item);
 				player.Out.SendMessage("L'objet \"" + item.Name + "\" a été retiré des objets du colis.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
-			    return;
+				return;
 			}
 			IP.AddItem(item);
-			player.Out.SendMessage("L'objet \""+item.Name+"\" a été ajouté aux autres objets du colis.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+			player.Out.SendMessage("L'objet \"" + item.Name + "\" a été ajouté aux autres objets du colis.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 		}
 
-        /// <summary>
-        /// Réponse à la question de confirmation de l'envoi du colis
-        /// </summary>
+		/// <summary>
+		/// Réponse à la question de confirmation de l'envoi du colis
+		/// </summary>
 		private static void SendColisResponse(GamePlayer player, byte response)
 		{
 			if (response != 0x01) return;
@@ -225,13 +227,13 @@ namespace DOL.GS.Scripts
 			{
 				if (SendColis(player)) player.RemoveMoney(IP.Price);
 			}
-			else 
+			else
 				player.Out.SendMessage("Vous n'avez pas assez d'argent !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 		}
 
-        /// <summary>
-        /// Envoi le colis
-        /// </summary>
+		/// <summary>
+		/// Envoi le colis
+		/// </summary>
 		private static bool SendColis(GamePlayer player)
 		{
 			if (!TempItems.ContainsKey(player.InternalID))
@@ -240,7 +242,7 @@ namespace DOL.GS.Scripts
 				return false;
 			}
 			InteractPlayer IP = TempItems[player.InternalID];
-			if(IP.ToPlayerID == "" || IP.Items.Count <= 0)
+			if (IP.ToPlayerID == "" || IP.Items.Count <= 0)
 			{
 				Recapitulatif(player);
 				return false;
@@ -256,16 +258,16 @@ namespace DOL.GS.Scripts
 					Sended.Add(item);
 					try
 					{
-                        //Log
+						//Log
 						FretLog.WriteLine("[" + DateTime.Now.ToLongTimeString() + "] " + IP.Player.Name + " ("
-						                  + IP.Player.Client.Account.Name + ") => " + IP.ToPlayerName + " ("
-						                  + IP.ToPlayerID + "): " + item.Count + " " + item.Name + " (" + item.Id_nb
-						                  + ")");
-					    //string objectid = (item.Id_nb == "BANQUE_CHEQUE" ? Money.GetMoney(0, item.MaxDurability, item.MaxCondition, 0, item.Condition).ToString() : item.ObjectId);
-                        //GameServer.Instance.LogTradeAction("[FRET] " + IP.Player.Name + " (" + IP.Player.Client.Account.Name + ") -> " + IP.ToPlayerName + " (" + IP.ToPlayerAccountName + "): [ITEM] " + item.Count + " '" + item.Id_nb + "' (" + objectid + ")", 1);
-					    InventoryLogging.LogInventoryAction(player, "(FRET;" + IP.ToPlayerName + ")", eInventoryActionType.Trade, item.Template, item.Count);
+										  + IP.Player.Client.Account.Name + ") => " + IP.ToPlayerName + " ("
+										  + IP.ToPlayerID + "): " + item.Count + " " + item.Name + " (" + item.Id_nb
+										  + ")");
+						//string objectid = (item.Id_nb == "BANQUE_CHEQUE" ? Money.GetMoney(0, item.MaxDurability, item.MaxCondition, 0, item.Condition).ToString() : item.ObjectId);
+						//GameServer.Instance.LogTradeAction("[FRET] " + IP.Player.Name + " (" + IP.Player.Client.Account.Name + ") -> " + IP.ToPlayerName + " (" + IP.ToPlayerAccountName + "): [ITEM] " + item.Count + " '" + item.Id_nb + "' (" + objectid + ")", 1);
+						InventoryLogging.LogInventoryAction(player, "(FRET;" + IP.ToPlayerName + ")", eInventoryActionType.Trade, item.Template, item.Count);
 					}
-					catch(Exception e)
+					catch (Exception e)
 					{
 						log.Error("FretLog error: ", e);
 					}
@@ -276,10 +278,10 @@ namespace DOL.GS.Scripts
 					break;
 				}
 			}
-            //On enregistre l'envoi du colis
-			if(!ok)
+			//On enregistre l'envoi du colis
+			if (!ok)
 			{
-				foreach (InventoryItem item in Sended) 
+				foreach (InventoryItem item in Sended)
 					player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, item);
 				TempItems.Remove(player.InternalID);
 				player.Out.SendMessage("Un problème est survenu lors de l'envoi du colis, veuillez tout recommencer. (Ne déplacez pas vos objets pendant la création du colis)", eChatType.CT_System, eChatLoc.CL_PopupWindow);
@@ -291,16 +293,16 @@ namespace DOL.GS.Scripts
 					GameServer.Database.AddObject(fret.Template);
 				GameServer.Database.AddObject(fret);
 			}
-        	TempItems.Remove(player.InternalID);
+			TempItems.Remove(player.InternalID);
 			player.Out.SendMessage("Votre colis a été envoyé !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 			return true;
 		}
 		#endregion
 
-        #region InteractPlayer
-        /// <summary>
-        /// Classe du joueur qui intéragit avec le pnj et gestion du colis en cours
-        /// </summary>
+		#region InteractPlayer
+		/// <summary>
+		/// Classe du joueur qui intéragit avec le pnj et gestion du colis en cours
+		/// </summary>
 		public class InteractPlayer
 		{
 			public GamePlayer Player;
@@ -309,11 +311,11 @@ namespace DOL.GS.Scripts
 			public long Price;
 			public string ToPlayerID;
 			public string ToPlayerName;
-            public string ToPlayerAccountName;
+			public string ToPlayerAccountName;
 
-            /// <summary>
-            /// Constructeur
-            /// </summary>
+			/// <summary>
+			/// Constructeur
+			/// </summary>
 			public InteractPlayer(GamePlayer pl)
 			{
 				Items = new List<InventoryItem>();
@@ -324,9 +326,9 @@ namespace DOL.GS.Scripts
 				Player = pl;
 			}
 
-            /// <summary>
-            /// Ajoute un item au colis
-            /// </summary>
+			/// <summary>
+			/// Ajoute un item au colis
+			/// </summary>
 			public void AddItem(InventoryItem it)
 			{
 				Items.Add(it);
@@ -334,9 +336,9 @@ namespace DOL.GS.Scripts
 				CalculPrice();
 			}
 
-            /// <summary>
-            /// Retire item du colis
-            /// </summary>
+			/// <summary>
+			/// Retire item du colis
+			/// </summary>
 			public bool RemoveItem(InventoryItem it)
 			{
 				if (!Items.Remove(it)) return false;
@@ -345,22 +347,22 @@ namespace DOL.GS.Scripts
 				return true;
 			}
 
-            /// <summary>
-            /// Recalcule le prix de l'envoi du colis
-            /// </summary>
+			/// <summary>
+			/// Recalcule le prix de l'envoi du colis
+			/// </summary>
 			private void CalculPrice()
 			{
 				//Minimum 10pc l'envoi, 1pa/livre jusqu'à 20livres, 50pc/livre si plus
-				Price = 100*Math.Min(Weight, 200);
-				if (Weight > 200) 
-					Price += 50*(Weight - 200);
+				Price = 100 * Math.Min(Weight, 200);
+				if (Weight > 200)
+					Price += 50 * (Weight - 200);
 				if (Price < 100) Price = 10;
 			}
-        }
-        #endregion
+		}
+		#endregion
 
-        #region Log
-        private static Timer DateChangeTimer;
+		#region Log
+		private static Timer DateChangeTimer;
 		private static StreamWriter FretLog;
 
 		/// <summary>
@@ -378,21 +380,21 @@ namespace DOL.GS.Scripts
 			else
 				file = REPERTOIRE + "\\" + file;
 
-            try
-            {
-                FretLog = new StreamWriter(file + ".log", true) { AutoFlush = true };
-            }
-            catch
-            {
-                try
-                {
-                    FretLog = new StreamWriter(file + "_1.log", true) { AutoFlush = true };
-                }
-                catch
-                {
-                    log.Error("Can't create log fret");
-                }
-            }
+			try
+			{
+				FretLog = new StreamWriter(file + ".log", true) { AutoFlush = true };
+			}
+			catch
+			{
+				try
+				{
+					FretLog = new StreamWriter(file + "_1.log", true) { AutoFlush = true };
+				}
+				catch
+				{
+					log.Error("Can't create log fret");
+				}
+			}
 
 			long wait = 864000000000 + (new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 1).Ticks - DateTime.Now.Ticks);
 			wait /= 10000; //En milliseconde
@@ -401,32 +403,32 @@ namespace DOL.GS.Scripts
 
 		private static void DateChange(object obj)
 		{
-            string file = "Fretlog_" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
+			string file = "Fretlog_" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
 
-            if (!Directory.Exists(REPERTOIRE))
-                Directory.CreateDirectory(REPERTOIRE);
-            if (REPERTOIRE.EndsWith("\\"))
-                file = REPERTOIRE + file;
-            else
-                file = REPERTOIRE + "\\" + file;
+			if (!Directory.Exists(REPERTOIRE))
+				Directory.CreateDirectory(REPERTOIRE);
+			if (REPERTOIRE.EndsWith("\\"))
+				file = REPERTOIRE + file;
+			else
+				file = REPERTOIRE + "\\" + file;
 
-            StreamWriter SW;
-            try
-            {
-                SW = new StreamWriter(file + ".log", true) { AutoFlush = true };
-            }
-            catch
-            {
-                try
-                {
-                    SW = new StreamWriter(file + "_1.log", true) { AutoFlush = true };
-                }
-                catch
-                {
-                    log.Error("Can't create log fret");
-                    return;
-                }
-            }
+			StreamWriter SW;
+			try
+			{
+				SW = new StreamWriter(file + ".log", true) { AutoFlush = true };
+			}
+			catch
+			{
+				try
+				{
+					SW = new StreamWriter(file + "_1.log", true) { AutoFlush = true };
+				}
+				catch
+				{
+					log.Error("Can't create log fret");
+					return;
+				}
+			}
 
 			try
 			{

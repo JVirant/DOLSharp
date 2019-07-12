@@ -71,8 +71,8 @@ namespace DOL.AI.Brain
                 if (count <= 0)
                     return;
                 if (npc.Brain is GuardNPCBrain == false)
-                    return;
-                dynamic brain = npc.Brain;
+                    continue;
+                var brain = npc.Brain as GuardNPCBrain;
                 brain.AddToAggroList(target, 1);
                 brain.AttackMostWanted();
             }

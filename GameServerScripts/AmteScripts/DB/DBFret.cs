@@ -15,6 +15,7 @@ namespace DOL.Database
 
 		public DBFret(InventoryItem template, string toPlayerID, string fromPlayerName) : base(template)
 		{
+			OwnerID = toPlayerID;
 			AllowAdd = true;
 			ToPlayer = toPlayerID;
 			FromPlayer = fromPlayerName;
