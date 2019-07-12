@@ -499,7 +499,8 @@ namespace DOL.GS
 						log.Debug("Script info file missing, recompile required!");
 				}
 			}
-			
+
+			recompileRequired = true;
 			//If we need no compiling, we load the existing assembly!
 			if (!recompileRequired)
 			{
@@ -519,28 +520,43 @@ namespace DOL.GS
 			bool ret = true;
 			try
 			{
-				var compiler = CSharpCompilation.Create("scripts")
+				var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)
 #if DEBUG
-					.WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
+					.WithOptimizationLevel(OptimizationLevel.Debug)
 #else
-					.WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, optimizationLevel: OptimizationLevel.Release))
+					.WithOptimizationLevel(OptimizationLevel.Release)
 #endif
-					.AddReferences(MetadataReference.CreateFromFile(typeof(object).GetTypeInfo().Assembly.Location))
+				;
+
+				var compiler = CSharpCompilation.Create("GameServerScripts.dll")
+					.WithOptions(options)
 					.AddReferences(AppDomain.CurrentDomain.GetAssemblies().Select(a => MetadataReference.CreateFromFile(a.Location)));
 
 				if (asm_names.Length > 0)
-					compiler.AddReferences(asm_names.Select(asm => MetadataReference.CreateFromFile(asm)));
+					compiler = compiler.AddReferences(asm_names.Select(asm => MetadataReference.CreateFromFile(asm)));
 
-				compiler.AddSyntaxTrees(files.Select(f => CSharpSyntaxTree.ParseText(File.ReadAllText(f.FullName), path: f.FullName)));
+				compiler = compiler.AddSyntaxTrees(
+					files.Select(
+						f => CSharpSyntaxTree.ParseText(
+							File.ReadAllText(f.FullName, Encoding.UTF8),
+							path: f.FullName,
+							encoding: Encoding.UTF8
+						)
+					)
+				);
 
-				var result = compiler.Emit(dllName);
+				var result = compiler.Emit(dllName, dllName + ".pdb");
 				ret = result.Success;
 				foreach(var diag in result.Diagnostics)
 				{
 					if (diag.Severity != DiagnosticSeverity.Error)
 						continue;
 					var line = diag.Location.GetMappedLineSpan();
-					log.Error(line.Path + ":" + line.StartLinePosition.Line + ":" + line.StartLinePosition.Character + ": " + diag.Severity + " " + diag.Id + ": " + (string)diag.Descriptor.Description);
+					var sb = new StringBuilder();
+					sb.Append(line.Path + ":" + line.StartLinePosition.Line + ":" + line.StartLinePosition.Character + ": ");
+					sb.Append(diag.Severity + " " + diag.Id + ": ");
+					sb.AppendFormat(diag.Descriptor.MessageFormat.ToString(), diag.Descriptor.CustomTags.ToArray());
+					log.Error(sb.ToString());
 				}
 
 				//After compiling, collect
