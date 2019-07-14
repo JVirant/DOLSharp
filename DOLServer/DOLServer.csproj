@@ -19,6 +19,7 @@
     <ProjectReference Include="../DOLBase/DOLBase.csproj" />
     <ProjectReference Include="../DOLDatabase/DOLDatabase.csproj" />
     <ProjectReference Include="../GameServer/GameServer.csproj" />
+    <ProjectReference Include="..\GameServerScripts\GameServerScripts.csproj" />
   </ItemGroup>
 
   <ItemGroup>
