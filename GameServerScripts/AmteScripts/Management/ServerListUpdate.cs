@@ -22,12 +22,12 @@ namespace DOL.GS.GameEvents
         /// <summary>
         /// Gets the DAoCPortal UserName to authenticate with.
         /// </summary>
-        protected static string UserName = "badamtenael";
+        protected static string UserName = "amtenael";
 
         /// <summary>
         /// Gets the DAoCPortal Password to authenticate wtih.
         /// </summary>
-        protected static string Password = "badamtportal";
+        protected static string Password = "amtportal";
 
         //!!!!!!!!!!!!!!!!!!!!DO NOT EDIT BELOW THIS LINE!!!!!!!!!!!!!!!!!!!!!!!!!!!
         #region Code
