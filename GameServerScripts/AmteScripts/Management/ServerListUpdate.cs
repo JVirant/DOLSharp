@@ -63,7 +63,8 @@ namespace DOL.GS.GameEvents
         [ScriptLoadedEvent]
         public static void OnScriptCompiled(DOLEvent e, object sender, EventArgs args)
         {
-            Init();
+			if (AmteUtils.IsLiveServer)
+				Init();
         }
 
         /// <summary>

@@ -78,7 +78,7 @@ namespace DOL.GS
 
 			if (player.TotalConstitutionLostAtDeath > 0)
 			{
-				int oneConCost = GamePlayer.prcRestore[player.Level < GamePlayer.prcRestore.Length ? player.Level : GamePlayer.prcRestore.Length - 1];
+				int oneConCost = GamePlayer.prcRestore[Math.Min(player.Level, GamePlayer.prcRestore.Length - 1)];
 				player.TempProperties.setProperty(COST_BY_PTS, (long)oneConCost);
                 player.Out.SendCustomDialog(LanguageMgr.GetTranslation(player.Client.Account.Language, "Healer.Interact.Text2", 
                     Money.GetString(player.TotalConstitutionLostAtDeath * (long)oneConCost)), new CustomDialogResponse(HealerDialogResponse));
