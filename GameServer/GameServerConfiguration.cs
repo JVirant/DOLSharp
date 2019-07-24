@@ -189,7 +189,7 @@ namespace DOL.GS
 			m_gmActionsLoggerName = root["Server"]["GMActionLoggerName"].GetString(m_gmActionsLoggerName);
 			m_invalidNamesFile = root["Server"]["InvalidNamesFile"].GetString(m_invalidNamesFile);
 
-			string db = root["Server"]["DBType"].GetString("XML");
+			string db = root["Server"]["DBType"].GetString("SQLITE");
 			switch (db.ToLower())
 			{
 				case "xml":

@@ -157,7 +157,7 @@ namespace DOL.Config
 				return root;
 
 			ConfigElement current = root;
-			using(var reader = new XmlTextReader(configFile.OpenRead()))
+			using (var reader = new XmlTextReader(configFile.OpenRead()))
 			{
 				while (reader.Read())
 				{
@@ -183,6 +183,8 @@ namespace DOL.Config
 							current[reader.Name] = newElement;
 							current = newElement;
 						}
+						if (reader.IsEmptyElement)
+							current = current.Parent;
 					}
 					else if (reader.NodeType == XmlNodeType.Text)
 					{
@@ -196,6 +198,8 @@ namespace DOL.Config
 						}
 					}
 				}
+				if (!reader.EOF)
+					throw new Exception("Can't load the whole serverconfig.xml");
 			}
 
 			return root;
