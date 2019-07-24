@@ -2218,12 +2218,17 @@ namespace DOL.GS
 			this.MessageArticle = template.MessageArticle;
 
 			#region Models, Sizes, Levels, Gender
+			// Dre: don't change an attribute if it's not set in the given template
+
 			// Grav: this.Model/Size/Level accessors are triggering SendUpdate()
 			// so i must use them, and not directly use private variables
-			ushort choosenModel = 1;
-			var splitModel = template.Model.SplitCSV(true);
-			ushort.TryParse(splitModel[Util.Random(0, splitModel.Count - 1)], out choosenModel);
-			this.Model = choosenModel;
+			if (!Util.IsEmpty(template.Model))
+			{
+				ushort choosenModel = 1;
+				var splitModel = template.Model.SplitCSV(true);
+				ushort.TryParse(splitModel[Util.Random(0, splitModel.Count - 1)], out choosenModel);
+				this.Model = choosenModel;
+			}
 
 			// Graveen: template.Gender is 0,1 or 2 for respectively eGender.Neutral("it"), eGender.Male ("he"), 
 			// eGender.Female ("she"). Any other value is randomly choosing a gender for current GameNPC
@@ -2237,21 +2242,21 @@ namespace DOL.GS
 				case 2: this.Gender = eGender.Female; break;
 			}
 
-			byte choosenSize = 50;
 			if (!Util.IsEmpty(template.Size))
 			{
+				byte choosenSize = 50;
 				var split = template.Size.SplitCSV(true);
 				byte.TryParse(split[Util.Random(0, split.Count - 1)], out choosenSize);
+				this.Size = choosenSize;
 			}
-			this.Size = choosenSize;
 
-			byte choosenLevel = 1;
 			if (!Util.IsEmpty(template.Level))
 			{
+				byte choosenLevel = 1;
 				var split = template.Level.SplitCSV(true);
 				byte.TryParse(split[Util.Random(0, split.Count - 1)], out choosenLevel);
+				this.Level = choosenLevel;
 			}
-			this.Level = choosenLevel;
 			#endregion
 
 			#region Stats
@@ -2376,12 +2381,21 @@ namespace DOL.GS
 			BuffBonusCategory4[(int)eStat.EMP] += template.Empathy;
 			BuffBonusCategory4[(int)eStat.CHR] += template.Charisma;
 
-			m_ownBrain = new StandardMobBrain
+			// Dre: don't change the brain if it's already a StandardMobBrain
+			if (this.Brain is StandardMobBrain brain)
 			{
-				Body = this,
-				AggroLevel = template.AggroLevel,
-				AggroRange = template.AggroRange
-			};
+				brain.AggroLevel = template.AggroLevel;
+				brain.AggroRange = template.AggroRange;
+			}
+			else
+			{
+				m_ownBrain = new StandardMobBrain
+				{
+					Body = this,
+					AggroLevel = template.AggroLevel,
+					AggroRange = template.AggroRange
+				};
+			}
 			this.NPCTemplate = template as NpcTemplate;
 		}
 
