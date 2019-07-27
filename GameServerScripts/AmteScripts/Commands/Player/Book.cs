@@ -80,6 +80,8 @@ namespace DOL.GS.Scripts
 										Author = player.Name,
 										Text = "",
 										PlayerID = player.InternalID,
+										Ink = "",
+										InkId = "",
 									};
 						theScroll.Save();
 
@@ -112,9 +114,9 @@ namespace DOL.GS.Scripts
 					#endregion
 					#region Suppression
 					case "remove":
-						for (int i = 20; i <= 79; i++)
+						for (var i = eInventorySlot.FirstBackpack; i <= eInventorySlot.LastBackpack; i++)
 						{
-							InventoryItem itm = player.Inventory.GetItem((eInventorySlot)i);
+							InventoryItem itm = player.Inventory.GetItem(i);
 							if (itm != null && itm.Name == theScroll.Name)
 							{
 								player.Inventory.RemoveCountFromStack(itm, itm.Count);
@@ -164,12 +166,12 @@ namespace DOL.GS.Scripts
 		public string GetInkType(GamePlayer player)
 		{
 			string ItemName;
-			for (int i = 20; i <= 79; i++)
-				if (player.Inventory.GetItem((eInventorySlot)i) != null)
+			for (var i = eInventorySlot.FirstBackpack; i <= eInventorySlot.LastBackpack; i++)
+				if (player.Inventory.GetItem(i) != null)
 				{
-					ItemName = player.Inventory.GetItem((eInventorySlot)i).Id_nb;
+					ItemName = player.Inventory.GetItem(i).Id_nb;
 					if ((ItemName.StartsWith("ink_")) || (ItemName.StartsWith("blood_")))
-						return player.Inventory.GetItem((eInventorySlot)i).Name.Replace("(Special) ", "");
+						return player.Inventory.GetItem(i).Name.Replace("(Special) ", "");
 				}
 			return "Encre Inconnue";
 		}
@@ -180,10 +182,10 @@ namespace DOL.GS.Scripts
 		public string GetInkId(GamePlayer player)
 		{
 			string itemId;
-			for (int i = 20; i <= 79; i++)
-				if (player.Inventory.GetItem((eInventorySlot)i) != null)
+			for (var i = eInventorySlot.FirstBackpack; i <= eInventorySlot.LastBackpack; i++)
+				if (player.Inventory.GetItem(i) != null)
 				{
-					itemId = player.Inventory.GetItem((eInventorySlot)i).Id_nb;
+					itemId = player.Inventory.GetItem(i).Id_nb;
 					if ((itemId.StartsWith("ink_")) || (itemId.StartsWith("blood_")))
 						return itemId;
 				}
@@ -196,9 +198,9 @@ namespace DOL.GS.Scripts
 		public void DecInk(GamePlayer player, string ink)
 		{
 			InventoryItem item;
-			for (int i = 20; i <= 79; i++)
+			for (var i = eInventorySlot.FirstBackpack; i <= eInventorySlot.LastBackpack; i++)
 			{
-				item = player.Inventory.GetItem((eInventorySlot)i);
+				item = player.Inventory.GetItem(i);
 				if (item != null && item.Id_nb == ink)
 				{
 					--item.Condition;
@@ -232,10 +234,10 @@ namespace DOL.GS.Scripts
 		/// </summary>
 		public bool HaveFeather(GamePlayer player)
 		{
-			for (int i = 20; i <= 79; i++)
-				if (player.Inventory.GetItem((eInventorySlot)i) != null)
-					if ((player.Inventory.GetItem((eInventorySlot)i).Id_nb == "feather") ||
-						(player.Inventory.GetItem((eInventorySlot)i).Id_nb.StartsWith("feather_")))
+			for (var i = eInventorySlot.FirstBackpack; i <= eInventorySlot.LastBackpack; i++)
+				if (player.Inventory.GetItem(i) != null)
+					if (player.Inventory.GetItem(i).Id_nb == "feather" ||
+						player.Inventory.GetItem(i).Id_nb.StartsWith("feather_"))
 						return true;
 			player.Out.SendMessage("Vous devez posseder une plume d'écrivain pour ecrire sur un parchemin.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 			return false;
@@ -246,10 +248,10 @@ namespace DOL.GS.Scripts
 		/// </summary>
 		public bool HaveInk(GamePlayer player)
 		{
-			for (int i = 20; i <= 79; i++)
-				if (player.Inventory.GetItem((eInventorySlot)i) != null)
-					if ((player.Inventory.GetItem((eInventorySlot)i).Id_nb.StartsWith("ink_")) ||
-						(player.Inventory.GetItem((eInventorySlot)i).Id_nb.StartsWith("blood_")))
+			for (var i = eInventorySlot.FirstBackpack; i <= eInventorySlot.LastBackpack; i++)
+				if (player.Inventory.GetItem(i) != null)
+					if (player.Inventory.GetItem(i).Id_nb.StartsWith("ink_") ||
+						player.Inventory.GetItem(i).Id_nb.StartsWith("blood_"))
 						return true;
 			player.Out.SendMessage("Vous devez posseder de l'encre ou du sang pour ecrire sur un parchemin.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 			return false;
@@ -260,9 +262,9 @@ namespace DOL.GS.Scripts
 		/// </summary>
 		public bool HaveAcid(GamePlayer player)
 		{
-			for (int i = 20; i <= 79; i++)
-				if (player.Inventory.GetItem((eInventorySlot)i) != null)
-					if (player.Inventory.GetItem((eInventorySlot)i).Id_nb == "corrector")
+			for (var i = eInventorySlot.FirstBackpack; i <= eInventorySlot.LastBackpack; i++)
+				if (player.Inventory.GetItem(i) != null)
+					if (player.Inventory.GetItem(i).Id_nb == "corrector")
 						return true;
 			player.Out.SendMessage("Vous devez posseder un correcteur pour effacer les lignes d'un parchemin.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 			return false;
@@ -273,11 +275,11 @@ namespace DOL.GS.Scripts
 		/// </summary>
 		public bool HaveRightInk(GamePlayer player, string ink)
 		{
-			if (ink == "")
+			if (String.IsNullOrWhiteSpace(ink))
 				return true;
-			for (int i = 20; i <= 79; i++)
-				if (player.Inventory.GetItem((eInventorySlot) i) != null &&
-				    player.Inventory.GetItem((eInventorySlot) i).Id_nb == ink)
+			for (var i = eInventorySlot.FirstBackpack; i <= eInventorySlot.LastBackpack; i++)
+				if (player.Inventory.GetItem(i) != null &&
+				    player.Inventory.GetItem(i).Id_nb == ink)
 					return true;
 			player.Out.SendMessage("Vous devez posseder de l'encre de type \"" + ink + "\" pour continuer l'écriture de ce parchemin.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 			return false;
