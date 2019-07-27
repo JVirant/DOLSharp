@@ -3818,7 +3818,7 @@ namespace DOL.GS
 				else if( parryChance > 0 && !ad.Target.IsStunned && !ad.Target.IsSitting )
 				{
 					if( attackerCount > 1 )
-						parryChance /= attackerCount / 2;
+						parryChance /= attackerCount / 2.0;
 
 					parryChance *= 0.001;
 					parryChance += 0.05 * attackerConLevel;
@@ -3894,7 +3894,7 @@ namespace DOL.GS
 				if( lefthand != null )
 					shieldSize = lefthand.Type_Damage;
 				if( player != null && attackerCount > shieldSize )
-					blockChance *= (shieldSize / attackerCount);
+					blockChance *= shieldSize * 1.0 / attackerCount;
 
 				blockChance *= 0.001;
 				// no chance bonus with ranged attacks?
