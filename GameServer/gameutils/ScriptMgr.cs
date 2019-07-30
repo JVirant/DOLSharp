@@ -500,7 +500,6 @@ namespace DOL.GS
 				}
 			}
 
-			recompileRequired = true;
 			//If we need no compiling, we load the existing assembly!
 			if (!recompileRequired)
 			{
