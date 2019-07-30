@@ -8,6 +8,7 @@ using DOL.GS.PacketHandler;
 using DOL.GS.ServerProperties;
 using DOL.AI.Brain;
 using DOL.GS.Keeps;
+using DOL.GS.Scripts;
 
 namespace DOL.GS.ServerRules
 {
@@ -188,6 +189,12 @@ namespace DOL.GS.ServerRules
             //GMs can't be attacked
             if (playerDefender != null && playerDefender.Client.Account.PrivLevel > 1)
                 return false;
+
+			// Simple GvG Guards
+			if (defender is SimpleGvGGuard && (defender.GuildName == attacker.GuildName || (playerAttacker != null && playerAttacker.GuildName == defender.GuildName)))
+				return false;
+			if (attacker is SimpleGvGGuard && (defender.GuildName == attacker.GuildName || (playerDefender != null && playerDefender.GuildName == attacker.GuildName)))
+				return false;
 
             // allow mobs to attack mobs
 			if (attacker.Realm == 0 && defender.Realm == 0)
