@@ -1883,15 +1883,15 @@ namespace DOL.GS
 
 			string message = "";
 			bool broadcast = true;
-			ArrayList excludes = new ArrayList();
+			var excludes = new List<GameObject>();
 			excludes.Add(ad.Attacker);
 			excludes.Add(ad.Target);
 
 			switch (ad.AttackResult)
 			{
-					case eAttackResult.Parried: message = string.Format("{0} attacks {1} and is parried!", ad.Attacker.GetName(0, true), ad.Target.GetName(0, false)); break;
-					case eAttackResult.Evaded: message = string.Format("{0} attacks {1} and is evaded!", ad.Attacker.GetName(0, true), ad.Target.GetName(0, false)); break;
-					case eAttackResult.Missed: message = string.Format("{0} attacks {1} and misses!", ad.Attacker.GetName(0, true), ad.Target.GetName(0, false)); break;
+				case eAttackResult.Parried: message = string.Format("{0} attacks {1} and is parried!", ad.Attacker.GetName(0, true), ad.Target.GetName(0, false)); break;
+				case eAttackResult.Evaded: message = string.Format("{0} attacks {1} and is evaded!", ad.Attacker.GetName(0, true), ad.Target.GetName(0, false)); break;
+				case eAttackResult.Missed: message = string.Format("{0} attacks {1} and misses!", ad.Attacker.GetName(0, true), ad.Target.GetName(0, false)); break;
 
 				case eAttackResult.Blocked:
 					{
@@ -2078,7 +2078,7 @@ namespace DOL.GS
 			// broadcast messages
 			if (broadcast)
 			{
-				Message.SystemToArea(ad.Attacker, message, eChatType.CT_OthersCombat, (GameObject[])excludes.ToArray(typeof(GameObject)));
+				Message.SystemToArea(ad.Attacker, message, eChatType.CT_OthersCombat, excludes.ToArray<GameObject>());
 			}
 
 			ad.Target.StartInterruptTimer(ad, interruptDuration);
