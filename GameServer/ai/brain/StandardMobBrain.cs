@@ -1166,7 +1166,7 @@ namespace DOL.AI.Brain
 			switch (spell.SpellType.ToUpper())
 			{
                 #region Buffs
-                case "AcuityBuff":
+                case "ACUITYBUFF":
                 case "AFHITSBUFF":
                 case "ALLMAGICRESISTSBUFF":
                 case "ARMORABSORPTIONBUFF":
@@ -1221,12 +1221,12 @@ namespace DOL.AI.Brain
                     {
 						// Buff self, if not in melee, but not each and every mob
 						// at the same time, because it looks silly.
-						if (!LivingHasEffect(Body, spell) && !Body.AttackState && Util.Chance(40) && spell.Target.ToLower() != "pet")
+						if (!LivingHasEffect(Body, spell) && !Body.AttackState && spell.Target.ToLower() != "pet")
 						{
 							Body.TargetObject = Body;
 							break;
 						}
-						if (Body.ControlledBrain != null && Body.ControlledBrain.Body != null && Util.Chance(40) && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range && !LivingHasEffect(Body.ControlledBrain.Body, spell) && spell.Target.ToLower() != "self")
+						if (Body.ControlledBrain != null && Body.ControlledBrain.Body != null && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range && !LivingHasEffect(Body.ControlledBrain.Body, spell) && spell.Target.ToLower() != "self")
 						{
                             Body.TargetObject = Body.ControlledBrain.Body;
 							break;
