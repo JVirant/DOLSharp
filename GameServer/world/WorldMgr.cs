@@ -63,7 +63,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Is the distance a say is broadcast
 		/// </summary>
-		public const int SAY_DISTANCE = 512; // tested
+		public const int SAY_DISTANCE = 1024; // tested
 		/// <summary>
 		/// Is the distance info messages are broadcast (player attacks, spell cast, player stunned/rooted/mezzed, loot dropped)
 		/// </summary>
@@ -75,7 +75,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Is the distance a yell is broadcast
 		/// </summary>
-		public const int YELL_DISTANCE = 1024; // tested
+		public const int YELL_DISTANCE = 2048; // tested
 		/// <summary>
 		/// Is the distance at which livings can give a item
 		/// </summary>
