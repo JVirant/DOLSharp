@@ -1208,6 +1208,17 @@ namespace DOL.GS
 				m_timer = null;
 			}
 
+			// kick everyone
+			foreach (var clientB in _clients)
+			{
+				var client = clientB as GameClient;
+				if (client == null)
+					continue;
+				client.Out.SendPlayerQuit(true);
+				client.Player.SaveIntoDatabase();
+				client.Player.Quit(true);
+			}
+
 			//Stop the base server
 			base.Stop();
 
