@@ -1,4 +1,5 @@
 ﻿using System;
+using AmteScripts.Managers;
 using DOL.GS;
 using DOL.GS.Scripts;
 
@@ -80,8 +81,13 @@ namespace DOL.AI.Brain
 
         public override int CalculateAggroLevelToTarget(GameLiving target)
         {
-        	if (target is AmtePlayer)
-        		return BlacklistMgr.IsBlacklisted((AmtePlayer)target) ? 100 : 0;
+			if (target is AmtePlayer)
+			{
+				var player = (AmtePlayer)target;
+				if (BlacklistMgr.IsBlacklisted(player))
+					return 100;
+				return GuardsMgr.CalculateAggro(player);
+			}
         	if (target.Realm == 0)
                 return Math.Max(100, 200 - target.Level);
             return base.CalculateAggroLevelToTarget(target);
