@@ -142,8 +142,8 @@ namespace DOL.GS.Scripts
                 player.GainExperience(GameLiving.eXPSource.Quest, EchItem.GainXP);
             else if (EchItem.GainXP < 0)
             {
-                long xp = (GameServer.ServerRules.GetExperienceForLiving(player.Level + 1)
-                           - GameServer.ServerRules.GetExperienceForLiving(player.Level)) * EchItem.GainXP / -1000;
+                long xp = (GamePlayer.GetExperienceAmountForLevel(player.Level + 1)
+                           - GamePlayer.GetExperienceAmountForLevel(player.Level)) * EchItem.GainXP / -1000;
                 player.GainExperience(GameLiving.eXPSource.Quest, xp);
             }
 
