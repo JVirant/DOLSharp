@@ -369,6 +369,8 @@ namespace DOL.GS
 			}
 		}
 
+		public string UniqueID;
+
 		/// <summary>
 		/// Gets or sets the player this client is using
 		/// </summary>
