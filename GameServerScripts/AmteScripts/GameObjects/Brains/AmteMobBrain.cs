@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using DOL.GS;
+using DOL.GS.Effects;
+using DOL.GS.RealmAbilities;
 
 namespace DOL.AI.Brain
 {
@@ -351,5 +353,40 @@ namespace DOL.AI.Brain
 				return 100;
 			return AggroLevel;
 		}
-    }
+
+		public override void CheckAbilities()
+		{
+			////load up abilities
+			if (Body.Abilities != null && Body.Abilities.Count > 0)
+			{
+				foreach (Ability ab in Body.Abilities.Values)
+				{
+					switch (ab.KeyName)
+					{
+						case Abilities.ChargeAbility:
+							{
+								if (Body.TargetObject is GameLiving
+									&& !Body.IsWithinRadius(Body.TargetObject, 500)
+									&& GameServer.ServerRules.IsAllowedToAttack(Body, Body.TargetObject as GameLiving, true))
+								{
+									ChargeAbility charge = Body.GetAbility<ChargeAbility>();
+									if (charge != null && Body.GetSkillDisabledDuration(charge) <= 0)
+									{
+										charge.Execute(Body);
+									}
+								}
+								break;
+							}
+					}
+				}
+			}
+		}
+
+		protected override void AttackMostWanted()
+		{
+			base.AttackMostWanted();
+			if (!Body.IsCasting)
+				CheckAbilities();
+		}
+	}
 }

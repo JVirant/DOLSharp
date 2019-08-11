@@ -218,9 +218,16 @@ namespace DOL.GS.Commands
 		{
 			if (GameServer.Instance.IsRunning)
 			{
-				GameServer.Instance.Stop();
+				try
+				{
+					GameServer.Instance.Stop();
+				}
+				catch(Exception e)
+				{
+					log.Error("GameServer.Instance.Stop() error: " + e);
+				}
 				log.Info("Automated server shutdown!");
-				Thread.Sleep(2000);
+				Thread.Sleep(5000);
 				Environment.Exit(0);
 			}
 		}

@@ -70,7 +70,7 @@ Action<GameObject, GamePlayer> test = (target, player) =>
 		};
 ");
 			text.Append(code);
-			text.Append(@"
+			text.Append(@";
 	};
 test;
 ");
