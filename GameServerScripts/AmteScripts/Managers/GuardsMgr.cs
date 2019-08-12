@@ -65,6 +65,8 @@ namespace AmteScripts.Managers
 				gxg.GuildID = guild.GuildID;
 				_attackGuildIDs.Add(gxg.GuildID, gxg);
 			}
+			if (gxg.AllowAdd)
+				GameServer.Database.AddObject(gxg);
 			GameServer.Database.SaveObject(gxg);
 		}
 	}

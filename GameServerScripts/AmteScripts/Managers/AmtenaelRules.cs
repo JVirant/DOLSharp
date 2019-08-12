@@ -237,7 +237,11 @@ namespace DOL.GS.ServerRules
                     return true;
             if (RvrManager.Instance.IsInRvr(source) || RvrManager.Instance.IsInRvr(target))
                 return source.Realm == target.Realm;
-            return base.IsSameRealm(source, target, quiet);
+
+			if (source.Attackers.Contains(target))
+				return false;
+
+			return base.IsSameRealm(source, target, quiet);
         }
 
 		public override bool CheckAbilityToUseItem(GameLiving living, ItemTemplate item)

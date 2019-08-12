@@ -70,6 +70,21 @@ public class AmteMob : GameNPC, IAmteNPC
 			}
 			_nameXcp.Add(cp.name, param);
 		}
+
+		// load some stats from the npctemplate
+		if (NPCTemplate != null && !NPCTemplate.ReplaceMobValues)
+		{
+			if (NPCTemplate.Spells != null) this.Spells = NPCTemplate.Spells;
+			if (NPCTemplate.Styles != null) this.Styles = NPCTemplate.Styles;
+			if (NPCTemplate.Abilities != null)
+			{
+				lock (m_lockAbilities)
+				{
+					foreach (Ability ab in NPCTemplate.Abilities)
+						m_abilities[ab.KeyName] = ab;
+				}
+			}
+		}
 	}
 
 	public override void SaveIntoDatabase()
