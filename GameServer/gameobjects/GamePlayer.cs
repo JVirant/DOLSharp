@@ -6246,7 +6246,7 @@ namespace DOL.GS
 		/// <param name="interruptDuration"></param>
 		/// <param name="dualWield"></param>
 		/// <returns></returns>
-		protected override AttackData MakeAttack(GameObject target, InventoryItem weapon, Style style, double effectiveness, int interruptDuration, bool dualWield)
+		protected override AttackData MakeAttack(GameObject target, InventoryItem weapon, Style style, double effectiveness, int interruptDuration, bool dualWield, bool ignoreLOS)
 		{
 			if (IsCrafting)
 			{
@@ -6256,7 +6256,7 @@ namespace DOL.GS
 				Out.SendCloseTimerWindow();
 			}
 
-			AttackData ad = base.MakeAttack(target, weapon, style, effectiveness * Effectiveness, interruptDuration, dualWield);
+			AttackData ad = base.MakeAttack(target, weapon, style, effectiveness * Effectiveness, interruptDuration, dualWield, ignoreLOS);
 
 			//Clear the styles for the next round!
 			NextCombatStyle = null;
@@ -6270,8 +6270,8 @@ namespace DOL.GS
 						//keep component
 						if ((ad.Target is GameKeepComponent || ad.Target is GameKeepDoor || ad.Target is GameSiegeWeapon) && ad.Attacker is GamePlayer && ad.Attacker.GetModified(eProperty.KeepDamage) > 0)
 						{
-							int keepdamage = (int)Math.Floor((double)ad.Damage * ((double)ad.Attacker.GetModified(eProperty.KeepDamage) / 100));
-							int keepstyle = (int)Math.Floor((double)ad.StyleDamage * ((double)ad.Attacker.GetModified(eProperty.KeepDamage) / 100));
+							int keepdamage = ad.Damage * ad.Attacker.GetModified(eProperty.KeepDamage) / 100;
+							int keepstyle = ad.StyleDamage * ad.Attacker.GetModified(eProperty.KeepDamage) / 100;
 							ad.Damage += keepdamage;
 							ad.StyleDamage += keepstyle;
 						}
@@ -6281,9 +6281,9 @@ namespace DOL.GS
 						    && target is GameKeepDoor == false
 						    && target is GameSiegeWeapon == false)
 						{
-							int perc = Convert.ToInt32(((double)(ad.Damage + ad.CriticalDamage) / 100) * (55 - this.Level));
+							int perc = (ad.Damage + ad.CriticalDamage) * (55 - this.Level) / 100;
 							perc = (perc < 1) ? 1 : ((perc > 15) ? 15 : perc);
-							this.Mana += Convert.ToInt32(Math.Ceiling(((Decimal)(perc * this.MaxMana) / 100)));
+							this.Mana += (int)Math.Ceiling(perc * this.MaxMana / 100.0);
 						}
 
 						//only miss when strafing when attacking a player
@@ -6318,10 +6318,9 @@ namespace DOL.GS
 					if (HasAbility(Abilities.Camouflage) && target is GamePlayer || (target is GameNPC && (target as GameNPC).Brain is IControlledBrain && ((target as GameNPC).Brain as IControlledBrain).GetPlayerOwner() != null))
 					{
 						CamouflageEffect camouflage = EffectList.GetOfType<CamouflageEffect>();
-												
 						if (camouflage != null)// Check if Camo is active, if true, cancel ability.
 						{
-							camouflage.Cancel(false);						
+							camouflage.Cancel(false);
 						}
 						Skill camo = SkillBase.GetAbility(Abilities.Camouflage); // now we find the ability
 						DisableSkill(camo, CamouflageSpecHandler.DISABLE_DURATION); // and here we disable it.
@@ -6330,7 +6329,7 @@ namespace DOL.GS
 					// Multiple Hit check
 					if (ad.AttackResult == eAttackResult.HitStyle)
 					{
-						byte numTargetsCanHit = 0;
+						int numTargetsCanHit = 0;
 						int random;
 						IList extraTargets = new ArrayList();
 						IList listAvailableTargets = new ArrayList();
@@ -6338,12 +6337,12 @@ namespace DOL.GS
 						InventoryItem leftWeapon = (Inventory == null) ? null : Inventory.GetItem(eInventorySlot.LeftHandWeapon);
 						switch (style.ID)
 						{
-								case 374: numTargetsCanHit = 1; break; //Tribal Assault:   Hits 2 targets
-								case 377: numTargetsCanHit = 1; break; //Clan's Might:      Hits 2 targets
-								case 379: numTargetsCanHit = 2; break; //Totemic Wrath:      Hits 3 targets
-								case 384: numTargetsCanHit = 3; break; //Totemic Sacrifice:   Hits 4 targets
-								case 600: numTargetsCanHit = 255; break; //Shield Swipe: No Cap on Targets
-								default: numTargetsCanHit = 0; break; //For others;
+							case 374: numTargetsCanHit = 1; break; //Tribal Assault:   Hits 2 targets
+							case 377: numTargetsCanHit = 1; break; //Clan's Might:      Hits 2 targets
+							case 379: numTargetsCanHit = 2; break; //Totemic Wrath:      Hits 3 targets
+							case 384: numTargetsCanHit = 3; break; //Totemic Sacrifice:   Hits 4 targets
+							case 600: numTargetsCanHit = 255; break; //Shield Swipe: No Cap on Targets
+							default: numTargetsCanHit = 0; break; //For others;
 						}
 						if (numTargetsCanHit > 0)
 						{
@@ -6367,7 +6366,7 @@ namespace DOL.GS
 
 								// remove primary target
 								listAvailableTargets.Remove(target);
-								numTargetsCanHit = (byte)Math.Min(numTargetsCanHit, listAvailableTargets.Count);
+								numTargetsCanHit = Math.Min(numTargetsCanHit, listAvailableTargets.Count);
 
 								if (listAvailableTargets.Count > 1)
 								{
@@ -6383,7 +6382,7 @@ namespace DOL.GS
 										{
 											effectiveness *= 2;
 										}
-										new WeaponOnTargetAction(this, obj as GameObject, attackWeapon, leftWeapon, effectiveness, AttackSpeed(attackWeapon), null).Start(1);  // really start the attack
+										new WeaponOnTargetAction(this, obj, attackWeapon, leftWeapon, effectiveness, AttackSpeed(attackWeapon), null).Start(1);  // really start the attack
 									}
 								}
 							}
@@ -6398,7 +6397,7 @@ namespace DOL.GS
 								}
 
 								listAvailableTargets.Remove(target);
-								numTargetsCanHit = (byte)Math.Min(numTargetsCanHit, listAvailableTargets.Count);
+								numTargetsCanHit = Math.Min(numTargetsCanHit, listAvailableTargets.Count);
 
 								if (listAvailableTargets.Count > 1)
 								{
@@ -6414,7 +6413,7 @@ namespace DOL.GS
 									{
 										if (obj != ad.Target)
 										{
-											this.MakeAttack(obj, attackWeapon, null, 1, ServerProperties.Properties.SPELL_INTERRUPT_DURATION, false, false);
+											this.MakeAttack(obj, attackWeapon, null, 1, Properties.SPELL_INTERRUPT_DURATION, false, false);
 										}
 									}
 								}
@@ -6461,7 +6460,7 @@ namespace DOL.GS
 					// Zerk 2 = 1-50%
 					// Zerk 3 = 1-75%
 					// Zerk 4 = 1-99%
-					critMin = (int)(0.01 * ad.Damage);
+					critMin = ad.Damage / 100;
 					critMax = (int)(Math.Min(0.99, (level * 0.25)) * ad.Damage);
 				}
 				else
@@ -6720,7 +6719,7 @@ namespace DOL.GS
 			if (source is GamePlayer || (source is GameNPC && (source as GameNPC).Brain is IControlledBrain && ((source as GameNPC).Brain as IControlledBrain).GetPlayerOwner() != null))
 			{
 				if (Realm != source.Realm && source.Realm != 0)
-					DamageRvRMemory += (long)(damageAmount + criticalAmount);
+					DamageRvRMemory += (long)damageAmount + criticalAmount;
 			}
 
 			#endregion PVP DAMAGE
@@ -6728,7 +6727,7 @@ namespace DOL.GS
 			base.TakeDamage(source, damageType, damageAmount, criticalAmount);
 			if(this.HasAbility(Abilities.DefensiveCombatPowerRegeneration))
 			{
-				this.Mana += (int)((damageAmount + criticalAmount) * 0.25);
+				this.Mana += (damageAmount + criticalAmount) / 4;
 			}
 		}
 

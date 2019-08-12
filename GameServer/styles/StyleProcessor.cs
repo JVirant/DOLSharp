@@ -436,12 +436,9 @@ namespace DOL.GS.Styles
 					//Increase regular damage by styledamage ... like on live servers
 					attackData.Damage += attackData.StyleDamage;
 
-
+					living.Endurance -= fatCost;
 					if (player != null)
 					{
-						// reduce players endurance
-						player.Endurance -= fatCost;
-
 						if(absorb > 0)
 						{
 							player.Out.SendMessage("A barrier absorbs " + absorb + " damage!", eChatType.CT_YouHit, eChatLoc.CL_SystemWindow);
