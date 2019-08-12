@@ -412,10 +412,13 @@ namespace DOL.GS.PacketHandler.Client.v168
 
 								return;
 							}
-							var count = 2;
 							uniqueId = uniqueId ?? ipAddress;
-							if (WorldMgr.GetAllClients().Count(c => c.UniqueID == uniqueId) >= count)
+							var count = WorldMgr.GetAllClients().Count(c => c.UniqueID == uniqueId);
+							if (count >= 2)
 							{
+								Log.Info($"Refuse client {playerAccount.Name} ({client.TcpEndpoint}), too many ({count}) account connected (UUID: {uniqueId})");
+								var acclist = string.Join(", ", WorldMgr.GetAllClients().Where(c => c.UniqueID == uniqueId).Select(c => c.Account.Name));
+								Log.Info($"Connected accounts with uuid {uniqueId}: {acclist}");
 								client.IsConnected = false;
 								client.Out.SendLoginDenied(eLoginError.AccountAlreadyLoggedIntoOtherServer);
 								GameServer.Instance.Disconnect(client);
