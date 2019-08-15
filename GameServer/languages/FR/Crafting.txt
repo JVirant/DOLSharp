@@ -1,5 +1,3 @@
-﻿
-# CRAFTING
 # (All)
 Crafting.CheckTool.AlchemyKit:            Kit d'alchimie
 Crafting.CheckTool.FindAlchemyKit:			Vous devez trouver un kit d'alchimie!
@@ -38,20 +36,7 @@ Crafting.Name.Tailoring:				Couture
 Crafting.Name.Weaponcraft:				Forge
 Crafting.Name.Woodworking:				Menuiserie
 
-# /CraftLevelToCraftTitle
-CraftersTitle.Helper:				Aide {0}
-CraftersTitle.JuniorApprentice:		Apprenti Débutant {0}
-CraftersTitle.Apprentice:			Apprenti {0}
-CraftersTitle.Neophyte:			Néophyte {0}
-CraftersTitle.Assistant:			Assistant {0}
-CraftersTitle.Junior:				Débutant {0}
-CraftersTitle.Journeyman:			Compagnon {0}
-CraftersTitle.Senior:				Expert {0}
-CraftersTitle.Master:				Maître {0}
-CraftersTitle.Grandmaster:			Grand Maître {0}
-CraftersTitle.Legendary:			{0} Légendaire
-CraftersTitle.LegendaryGrandmaster:		Grand Maître Légendaire {0}
-
+# /CraftLevelToCraftTitle (OLD)
 CraftLevelToCraftTitle.Helper:				Aide {0}
 CraftLevelToCraftTitle.JuniorApprentice:		Apprenti Débutant {0}
 CraftLevelToCraftTitle.Apprentice:			Apprenti {0}
@@ -65,21 +50,36 @@ CraftLevelToCraftTitle.Grandmaster:			Grand Maître {0}
 CraftLevelToCraftTitle.Legendary:			{0} Légendaire
 CraftLevelToCraftTitle.LegendaryGrandmaster:		Grand Maître Légendaire {0}
 
+# /CraftersTitle (NEW)
+CraftersTitle.Helper:				Aide {0}
+CraftersTitle.JuniorApprentice:			Apprenti Débutant {0}
+CraftersTitle.Apprentice:			Apprenti {0}
+CraftersTitle.Neophyte:				Néophyte {0}
+CraftersTitle.Assistant:			Assistant {0}
+CraftersTitle.Junior:				Débutant {0}
+CraftersTitle.Journeyman:			Compagnon {0}
+CraftersTitle.Senior:				Expert {0}
+CraftersTitle.Master:				Maître {0}
+CraftersTitle.Grandmaster:			Grand Maître {0}
+CraftersTitle.Legendary:			{0} Légendaire
+CraftersTitle.LegendaryGrandmaster:		Grand Maître Légendaire {0}
+
 # /CraftersProfession (NEW)
 CraftersProfession.Alchemist:				Alchimiste
-CraftersProfession.Armorer:					Armurier
+CraftersProfession.Armorer:				Armurier
 CraftersProfession.Spellcrafter:			Joailler
 CraftersProfession.Fletcher:				Empenneur
-CraftersProfession.Tailor:					Tailleur
+CraftersProfession.Tailor:				Tailleur
 CraftersProfession.Weaponcrafter:			Forgeron
 CraftersProfession.Siegecrafter:			Ingénieur
+CraftersProfession.BasicCrafter:			Basic crafter
 
-# /CraftMaster
+# /CraftingMaster
 TailorsMaster.AcceptedByOrderName:			Tailleurs
 TailorsMaster.GuildOrder:				Tailleurs
 TailorsMaster.InitialEntersentence:			Voulez-vous rejoindre la loge des [Tailleurs]? En tant que Tailleur, vous pourrez tisser du cuir et du tissu. Quand bien même vous excellerez en tissage, et que vous serez bon en empennage, vous devez vous attendre à de grosses difficultés pour ce qui est de la Forge d'Armes et de l'Armurerie. Un Tailleur bien entrainé peut également faire de la construction d'armes de sièges en cas de besoin.
-SpellCraftingMaster.AcceptedByOrderName:		Alchimistes
-SpellCraftingMaster.GuildOrder:				Alchimistes
+SpellCraftingMaster.AcceptedByOrderName:		Arcanistes
+SpellCraftingMaster.GuildOrder:				Arcanistes
 SpellCraftingMaster.InitialEntersentence:		Voulez-vous rejoindre l'Ordre des [Arcanistes]? Vous pourrez alors enchanter armes et armures en les rendant magiques.
 SiegecraftingMaster.AcceptedByOrderName:		Ingénieurs
 SiegecraftingMaster.GuildOrder:				Ingénieurs
@@ -97,7 +97,7 @@ AlchemistsMaster.GuildOrder:				Alchimistes
 AlchemistsMaster.InitialEntersentence:			Voulez-vous rejoindre l'Ordre des [Alchimistes]? Vous pourrez alors concocter des pigments, des poisons, et diverses potions, mais aussi des teintures magiques qui augmenteront le potentiel offensif et défensif des objets façonnés. Vous apprendrez un peu d'Enchantement des Arcanes et vous vous spécialiserez en joaillerie.
 WeaponCraftingMaster.AcceptedByOrderName:		Forgerons
 WeaponCraftingMaster.GuildOrder:			Forgerons
-WeaponCraftingMaster.InitialEntersentence:	Voulez-vous rejoindre la loge des [Forgerons]? En tant que forgeron, vous pourrez forger épées, haches, marteaux et lances. Quand bien même vous excellerez en forge d'armes, et que vous serez bon en armurerie, vous devez vous attendre à de grosses difficultés pour ce qui est du Tissage et de l'Empennage. Un Forgeron bien entrainé peut également faire de la construction d'armes de sièges en cas de besoin.
+WeaponCraftingMaster.InitialEntersentence:		Voulez-vous rejoindre la loge des [Forgerons]? En tant que forgeron, vous pourrez forger épées, haches, marteaux et lances. Quand bien même vous excellerez en forge d'armes, et que vous serez bon en armurerie, vous devez vous attendre à de grosses difficultés pour ce qui est du Tissage et de l'Empennage. Un Forgeron bien entrainé peut également faire de la construction d'armes de sièges en cas de besoin.
 
 # /AbstractCraftingSkill
 AbstractCraftingSkill.BuildCraftedItem.BackpackFull:   Votre sac est plein. {0} est déposé sur le sol.
@@ -106,6 +106,8 @@ AbstractCraftingSkill.BuildCraftedItem.Successfully:   Vous avez correctement fa
 AbstractCraftingSkill.CheckRawMaterial.NoIngredients:   Vous n'avez pas les ingrédients pour faire le {0}.
 AbstractCraftingSkill.CheckRawMaterial.RawMaterial:	Impossible de trouver l'objet avec l'ID de {0}, veuillez nous contacter!
 AbstractCraftingSkill.CheckRawMaterial.YouAreMissing:   Il vous manque :
+AdvancedCraftingSkill.IsAllowedToCombine.NoGoodCombine:	Cet objet ne peut pas être imprégner de cette teinture!
+AdvancedCraftingSkill.IsAllowedToCombine.ProblemCombine:	L'object est mal configuré, prévenez un gm!
 
 AbstractCraftingSkill.CheckSecondCraftingSkillRequirement.NoClothworkingSkill:      Vous n'avez pas le niveau minimum dans la compétence Tissage ({0}) Pour confectionner le {1}!
 AbstractCraftingSkill.CheckSecondCraftingSkillRequirement.NoLeathercraftingSkill:   Vous n'avez pas le niveau minimum dans la compétence Maroquinerie ({0}) Pour confectionner le {1}!
@@ -129,8 +131,6 @@ AdvancedCraftingSkill.CombineItems.OnlyCombine:		Vous pouvez seulement combiner 
 AdvancedCraftingSkill.IsAllowedToCombine.CraftedItems:	Seulement les objets construits par des artisants peuvent être enchantés!
 AdvancedCraftingSkill.IsAllowedToCombine.Imbue:		Vous avez besoin de quelque chose pour imprégner {0}!
 AdvancedCraftingSkill.IsAllowedToCombine.NoEnchanted:	Cet objet ne peut pas être enchanté!
-AdvancedCraftingSkill.IsAllowedToCombine.NoGoodCombine:	Cet objet ne peut pas être imprégner de cette teinture!
-AdvancedCraftingSkill.IsAllowedToCombine.ProblemCombine:	L'object est mal configuré, prévenez un gm!
 
 # /Alchemy
 Alchemy.IsAllowedToCombine.AlchemyTinctures:		Vous pouvez combiner seulement des teintures créées par un Alchimiste!
