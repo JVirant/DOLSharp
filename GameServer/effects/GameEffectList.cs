@@ -171,6 +171,8 @@ namespace DOL.GS.Effects
 			var effs = GameServer.Database.SelectObjects<PlayerXEffect>("`ChardID` = @ChardID", new QueryParameter("@ChardID", player.ObjectId));
 			if (effs == null)
 				return;
+			foreach (PlayerXEffect eff in effs)
+				GameServer.Database.DeleteObject(eff);
 
 			foreach (PlayerXEffect eff in effs)
 			{
@@ -208,8 +210,6 @@ namespace DOL.GS.Effects
 					e.RestoreVars = vars;
 					e.Start(player);
 				}
-
-				GameServer.Database.DeleteObject(eff);
 			}
 		}
 
