@@ -2703,7 +2703,7 @@ namespace DOL.GS
 						mainHandAD.AnimationId = -2; // virtual code for both weapons swing animation
 					}
 				}
-				else if (mainWeapon != null)
+				else if (mainWeapon != null || owner is GameNPC)
 				{
 					// no left hand used, all is simple here
 					mainHandAD = owner.MakeAttack(m_target, mainWeapon, style, mainHandEffectiveness, m_interruptDuration, false);
@@ -3395,22 +3395,22 @@ namespace DOL.GS
 
 			if (!defenseDisabled)
 			{
-				double evadeChance = TryEvade( ad, lastAD, attackerConLevel, attackerCount );
+				double evadeChance = TryEvade(ad, lastAD, attackerConLevel, attackerCount);
 
-				if( Util.ChanceDouble( evadeChance ) )
+				if (Util.ChanceDouble(evadeChance))
 					return eAttackResult.Evaded;
 
-				if( ad.IsMeleeAttack )
+				if (ad.IsMeleeAttack)
 				{
-					double parryChance = TryParry( ad, lastAD, attackerConLevel, attackerCount );
+					double parryChance = TryParry(ad, lastAD, attackerConLevel, attackerCount);
 
-					if( Util.ChanceDouble( parryChance ) )
+					if (Util.ChanceDouble(parryChance))
 						return eAttackResult.Parried;
 				}
 
-				double blockChance = TryBlock( ad, lastAD, attackerConLevel, attackerCount, engage );
+				double blockChance = TryBlock(ad, lastAD, attackerConLevel, attackerCount, engage);
 
-				if( Util.ChanceDouble( blockChance ) )
+				if (Util.ChanceDouble(blockChance))
 				{
 					// reactive effects on block moved to GamePlayer
 					return eAttackResult.Blocked;
@@ -3687,7 +3687,7 @@ namespace DOL.GS
 			return eAttackResult.HitUnstyled;
 		}
 
-		protected virtual double TryEvade( AttackData ad, AttackData lastAD, double attackerConLevel, int attackerCount )
+		protected virtual double TryEvade(AttackData ad, AttackData lastAD, double attackerConLevel, int attackerCount)
 		{
 			// Evade
 			// 1. A: It isn't possible to give a simple answer. The formula includes such elements
@@ -3701,47 +3701,46 @@ namespace DOL.GS
 			double evadeChance = 0;
 			GamePlayer player = this as GamePlayer;
 
-			GameSpellEffect evadeBuff = SpellHandler.FindEffectOnTarget( this, "EvadeBuff" );
-			if( evadeBuff == null )
-				evadeBuff = SpellHandler.FindEffectOnTarget( this, "SavageEvadeBuff" );
+			GameSpellEffect evadeBuff = SpellHandler.FindEffectOnTarget(this, "EvadeBuff");
+			if (evadeBuff == null)
+				evadeBuff = SpellHandler.FindEffectOnTarget(this, "SavageEvadeBuff");
 
-			if( player != null )
+			if (player != null)
 			{
 				if (player.HasAbility(Abilities.Advanced_Evade) ||
-				    player.EffectList.GetOfType<CombatAwarenessEffect>() != null ||
-				    player.EffectList.GetOfType<RuneOfUtterAgilityEffect>() != null)
-					evadeChance = GetModified( eProperty.EvadeChance );
-				else if( IsObjectInFront( ad.Attacker, 180 ) && ( evadeBuff != null || player.HasAbility( Abilities.Evade ) ) )
+					player.EffectList.GetOfType<CombatAwarenessEffect>() != null ||
+					player.EffectList.GetOfType<RuneOfUtterAgilityEffect>() != null)
+					evadeChance = GetModified(eProperty.EvadeChance);
+				else if (IsObjectInFront(ad.Attacker, 180) && (evadeBuff != null || player.HasAbility(Abilities.Evade)))
 				{
-					int res = GetModified( eProperty.EvadeChance );
-					if( res > 0 )
+					int res = GetModified(eProperty.EvadeChance);
+					if (res > 0)
 						evadeChance = res;
 				}
 			}
-			else if( this is GameNPC && IsObjectInFront( ad.Attacker, 180 ) )
-				evadeChance = GetModified( eProperty.EvadeChance );
+			else if (this is GameNPC && IsObjectInFront(ad.Attacker, 180))
+				evadeChance = GetModified(eProperty.EvadeChance);
 
-			if( evadeChance > 0 && !ad.Target.IsStunned && !ad.Target.IsSitting )
+			if (evadeChance > 0 && !ad.Target.IsStunned && !ad.Target.IsSitting)
 			{
-				if( attackerCount > 1 )
-					evadeChance -= ( attackerCount - 1 ) * 0.03;
-
 				evadeChance *= 0.001;
+				if (attackerCount > 1)
+					evadeChance -= (attackerCount - 1) * 0.03;
 				evadeChance += 0.01 * attackerConLevel; // 1% per con level distance multiplied by evade level
 
-				if( lastAD != null && lastAD.Style != null )
+				if (lastAD != null && lastAD.Style != null)
 				{
 					evadeChance += lastAD.Style.BonusToDefense * 0.01;
 				}
 
-				if( ad.AttackType == AttackData.eAttackType.Ranged )
+				if (ad.AttackType == AttackData.eAttackType.Ranged)
 					evadeChance /= 5.0;
 
-				if( evadeChance < 0.01 )
+				if (evadeChance < 0.01)
 					evadeChance = 0.01;
-				else if( evadeChance > ServerProperties.Properties.EVADE_CAP && ad.Attacker is GamePlayer && ad.Target is GamePlayer )
+				else if (evadeChance > ServerProperties.Properties.EVADE_CAP && ad.Attacker is GamePlayer && ad.Target is GamePlayer)
 					evadeChance = ServerProperties.Properties.EVADE_CAP; //50% evade cap RvR only; http://www.camelotherald.com/more/664.shtml
-				else if( evadeChance > 0.995 )
+				else if (evadeChance > 0.995)
 					evadeChance = 0.995;
 			}
 			if (ad.AttackType == AttackData.eAttackType.MeleeDualWield)
@@ -3749,10 +3748,9 @@ namespace DOL.GS
 				evadeChance = Math.Max(evadeChance - 0.25, 0);
 			}
 			//Excalibur : infi RR5
-			GamePlayer p = ad.Attacker as GamePlayer;
-			if (p != null)
+			if (player != null)
 			{
-				OverwhelmEffect Overwhelm = (OverwhelmEffect)p.EffectList.GetOfType<OverwhelmEffect>();
+				var Overwhelm = player.EffectList.GetOfType<OverwhelmEffect>();
 				if (Overwhelm != null)
 				{
 					evadeChance = Math.Max(evadeChance - OverwhelmAbility.BONUS, 0);
