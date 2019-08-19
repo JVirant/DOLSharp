@@ -35,6 +35,7 @@ using log4net;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using System.Runtime.Loader;
+using Microsoft.CodeAnalysis.Emit;
 
 namespace DOL.GS
 {
@@ -544,9 +545,12 @@ namespace DOL.GS
 					)
 				);
 
-				var result = compiler.Emit(dllName, dllName + ".pdb");
+				EmitResult result;
+				using (var dllStream = File.Open(dllName, FileMode.Create))
+					using (var pdbStream = File.Open(dllName + ".pdb", FileMode.Create))
+						result = compiler.Emit(dllStream, pdbStream, options: new EmitOptions(false, DebugInformationFormat.PortablePdb));
 				ret = result.Success;
-				foreach(var diag in result.Diagnostics)
+				foreach (var diag in result.Diagnostics)
 				{
 					if (diag.Severity != DiagnosticSeverity.Error)
 						continue;
@@ -587,6 +591,17 @@ namespace DOL.GS
 
 				var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.GetFullPath(dllName));
 				AddOrReplaceAssembly(assembly);
+
+				XMLConfigFile newconfig = new XMLConfigFile();
+				foreach (FileInfo finfo in files)
+				{
+					newconfig[finfo.FullName]["size"].Set(finfo.Length);
+					newconfig[finfo.FullName]["lastmodified"].Set(finfo.LastWriteTime.ToFileTime());
+				}
+				if (log.IsDebugEnabled)
+					log.Debug("Writing script info file");
+
+				newconfig.Save(configFile);
 			}
 			catch (Exception e)
 			{
@@ -595,17 +610,6 @@ namespace DOL.GS
 				m_compiledScripts.Clear();
 				ret = false;
 			}
-
-			XMLConfigFile newconfig = new XMLConfigFile();
-			foreach (FileInfo finfo in files)
-			{
-				newconfig[finfo.FullName]["size"].Set(finfo.Length);
-				newconfig[finfo.FullName]["lastmodified"].Set(finfo.LastWriteTime.ToFileTime());
-			}
-			if (log.IsDebugEnabled)
-				log.Debug("Writing script info file");
-
-			newconfig.Save(configFile);
 
 			return ret;
 		}
