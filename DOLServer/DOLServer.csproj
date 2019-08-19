@@ -27,8 +27,11 @@
     <Content Include="../GameServerScripts/**/*.cs" CopyToOutputDirectory="PreserveNewest" Link="scripts/%(RecursiveDir)/%(Filename)%(Extension)" />
     <None Remove="../GameServerScripts/obj/**/*.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <DirsToClean Include="$(TargetDir)/scripts" />
+  </ItemGroup>
 
   <Target Name="BeforeBuild">
-    <RemoveDir Directories="$(BaseOutputPath)/scripts" />
+    <RemoveDir Directories="$(DirsToClean)" />
   </Target>
 </Project>
