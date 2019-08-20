@@ -11,6 +11,8 @@
     <FileVersion>1.9.7.0</FileVersion>
     <PackageId>Dawn of Light - DOLConfig</PackageId>
     <Platforms>AnyCPU;x86</Platforms>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
