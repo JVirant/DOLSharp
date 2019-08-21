@@ -597,54 +597,48 @@ namespace DOL.Database
 			
 			var objects = dataObjects.ToArray();
 			IEnumerable<IEnumerable<DataObject>> objsResults = null;
-
+			
 			// Handle Cache Search if relevent or use a Select Query
 			if (remoteHandler.UsesPreCaching)
 			{
 				// Search with Primary Key or use a Where Clause
 				if (remoteHandler.PrimaryKeys.All(pk => pk.ColumnName.Equals(remoteBind.ColumnName, StringComparison.OrdinalIgnoreCase)))
 				{
-					objsResults = objects
-						.Select(obj =>
-						{
-							var local = localBind.GetValue(obj);
-							if (local == null)
-								return new DataObject[0];
-
-							var retrieve = remoteHandler.GetPreCachedObject(local);
-							if (retrieve == null)
-								return new DataObject[0];
-
-							return new[] { retrieve };
-						});
+					objsResults = objects.Select(obj => {
+					                             	var local = localBind.GetValue(obj);
+					                             	if (local == null)
+					                             		return new DataObject[0];
+					                             	
+					                             	var retrieve = remoteHandler.GetPreCachedObject(local);
+					                             	if (retrieve == null)
+					                             		return new DataObject[0];
+					                             	
+					                             	return new [] { retrieve };
+					                             });
 				}
 				else
 				{
 					objsResults = objects
-						.Select(obj => remoteHandler.SearchPreCachedObjects(rem =>
-						{
-							var local = localBind.GetValue(obj);
-							var remote = remoteBind.GetValue(rem);
-							if (local == null || remote == null)
-								return false;
-
-							if (localBind.ValueType == typeof(string) || remoteBind.ValueType == typeof(string))
-								return remote.ToString().Equals(local.ToString(), StringComparison.OrdinalIgnoreCase);
-
-							return remote == local;
-						}));
+						.Select(obj => remoteHandler.SearchPreCachedObjects(rem => {
+						                                                    	var local = localBind.GetValue(obj);
+						                                                    	var remote = remoteBind.GetValue(rem);
+						                                                    	if (local == null || remote == null)
+						                                                    		return false;
+						                                                    	
+						                                                    	if (localBind.ValueType == typeof(string) || remoteBind.ValueType == typeof(string))
+						                                                    		return remote.ToString().Equals(local.ToString(), StringComparison.OrdinalIgnoreCase);
+						                                                    	
+						                                                    	return remote == local;
+						                                                    }));
 				}
 			}
 			else
 			{
+				
 				var whereClause = string.Format("`{0}` = @{0}", remoteBind.ColumnName);
-				var parameters = objects.Select(obj => {
-					var val = localBind.GetValue(obj);
-					if (val == null && remoteBind.PrimaryKey != null && remoteBind.ValueType == typeof(string))
-						return new[] { new QueryParameter("@" + remoteBind.ColumnName, "__NONE__IMPOSSIBLE_VALUE__", typeof(string)) };
-					return new[] { new QueryParameter(string.Format("@{0}", remoteBind.ColumnName), val, localBind.ValueType) };
-				});
-
+				
+				var parameters = objects.Select(obj => new [] { new QueryParameter(string.Format("@{0}", remoteBind.ColumnName), localBind.GetValue(obj), localBind.ValueType) });
+				
 				objsResults = SelectObjectsImpl(remoteHandler, whereClause, parameters, Transaction.IsolationLevel.DEFAULT);
 			}
 			
