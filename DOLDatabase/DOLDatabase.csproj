@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Product>DAoC Server Side Emulation Package - Dawn of Light</Product>
-    <Description>Configuration software</Description>
+    <Description>DOL's database</Description>
     <Authors>Dawn of Light Development Team</Authors>
     <Copyright>Dawn of Light Development Team</Copyright>
     <AssemblyVersion>1.9.7.0</AssemblyVersion>
