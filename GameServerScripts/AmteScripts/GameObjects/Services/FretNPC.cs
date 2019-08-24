@@ -15,7 +15,7 @@ namespace DOL.GS.Scripts
 	{
 		private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-		public const string REPERTOIRE = "./logs/fret/"; //Répertoire des logs
+		public const string REPERTOIRE = "./logs/fret/"; //RÃ©pertoire des logs
 		public const int MaxItem = 30;
 
 		private static readonly Dictionary<string, InteractPlayer> TempItems = new Dictionary<string, InteractPlayer>();
@@ -41,7 +41,7 @@ namespace DOL.GS.Scripts
 		}
 
 		/// <summary>
-		/// Intéraction avec le PNJ
+		/// IntÃ©raction avec le PNJ
 		/// </summary>
 		public override bool Interact(GamePlayer player)
 		{
@@ -56,17 +56,17 @@ namespace DOL.GS.Scripts
 
 			if (ItemsFret == null || ItemsFret.Count <= 0)
 			{
-				player.Out.SendMessage("Bonjour " + player.Name + ", je n'ai aucun colis à votre nom !\n" +
-									   "\nSi vous voulez envoyer un objet à une personne, donnez le moi et chuchotez-moi (/whisper <nom>) le nom de la personne.",
+				player.Out.SendMessage("Bonjour " + player.Name + ", je n'ai aucun colis Ã  votre nom !\n" +
+									   "\nSi vous voulez envoyer un objet Ã  une personne, donnez le moi et chuchotez-moi (/whisper <nom>) le nom de la personne.",
 									   eChatType.CT_System, eChatLoc.CL_PopupWindow);
 			}
 			else
 			{
-				string message = "Bonjour " + player.Name + ", j'ai " + ItemsFret.Count + " colis à votre nom:\n\n";
+				string message = "Bonjour " + player.Name + ", j'ai " + ItemsFret.Count + " colis Ã  votre nom:\n\n";
 				int id = 1;
 				foreach (DBFret fret in ItemsFret)
 				{
-					message += " [" + id + "] " + fret.Name + " donné par " + fret.FromPlayer + "\n";
+					message += " [" + id + "] " + fret.Name + " donnÃ© par " + fret.FromPlayer + "\n";
 					id++;
 					if (message.Length > 1900)
 					{
@@ -74,14 +74,14 @@ namespace DOL.GS.Scripts
 						message = "";
 					}
 				}
-				message += "\n(pour récupérer un colis, cliquez juste sur son numéro)";
+				message += "\n(pour rÃ©cupÃ©rer un colis, cliquez juste sur son numÃ©ro)";
 				player.Out.SendMessage(message, eChatType.CT_System, eChatLoc.CL_PopupWindow);
 			}
 			return true;
 		}
 
 		/// <summary>
-		/// Le pnj reçoit un /whisper (ou clic sur du texte entre [])
+		/// Le pnj reÃ§oit un /whisper (ou clic sur du texte entre [])
 		/// </summary>
 		public override bool WhisperReceive(GameLiving source, string str)
 		{
@@ -90,7 +90,7 @@ namespace DOL.GS.Scripts
 			GamePlayer player = source as GamePlayer;
 			AmteUtils.SendClearPopupWindow(player);
 
-			#region Réception d'un item
+			#region RÃ©ception d'un item
 			int id;
 			if (int.TryParse(str, out id))
 			{
@@ -104,14 +104,14 @@ namespace DOL.GS.Scripts
 						GameServer.Database.DeleteObject(item);
 						if (item.Template is ItemUnique)
 							GameServer.Database.AddObject(item.Template);
-						msg = "Vous récupérez " + (item.Count > 1 ? item.Count.ToString() : "") + item.Name +
-							  " donné par " + item.FromPlayer + " !";
+						msg = "Vous rÃ©cupÃ©rez " + (item.Count > 1 ? item.Count.ToString() : "") + item.Name +
+							  " donnÃ© par " + item.FromPlayer + " !";
 					}
-					else msg = "Vérifiez que votre sac à dos n'est pas plein !";
+					else msg = "VÃ©rifiez que votre sac Ã  dos n'est pas plein !";
 				}
 				catch
 				{
-					msg = "Un problème est survenu, recommencez la manipulation pour récupérer votre objet.";
+					msg = "Un problÃ¨me est survenu, recommencez la manipulation pour rÃ©cupÃ©rer votre objet.";
 				}
 
 				player.Out.SendMessage(msg, eChatType.CT_System, eChatLoc.CL_PopupWindow);
@@ -127,17 +127,17 @@ namespace DOL.GS.Scripts
 												SendColisResponse);
 				}
 				else
-					player.Out.SendMessage("Vous devez préparer un colis avant de l'envoyer !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+					player.Out.SendMessage("Vous devez prÃ©parer un colis avant de l'envoyer !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 			}
 			#endregion
-			#region Réglage du destinataire
+			#region RÃ©glage du destinataire
 			else if (TempItems.ContainsKey(player.InternalID) && str.Split(' ').Length == 1)
 			{
-				//On récupère le joueur existant à ce nom:
+				//On rÃ©cupÃ©re le joueur existant Ã  ce nom:
 				DOLCharacters ch = GameServer.Database.SelectObject<DOLCharacters>("`Name` LIKE '" + GameServer.Database.Escape(str) + "'");
 				string msg;
 				if (ch == null)
-					msg = "Je ne trouve pas de personne nommée " + str + ", vérifiez le nom.";
+					msg = "Je ne trouve pas de personne nommÃ©e " + str + ", vÃ©rifiez le nom.";
 				else
 				{
 					msg = "Votre colis est pour " + ch.Name + ".";
@@ -153,7 +153,7 @@ namespace DOL.GS.Scripts
 		}
 
 		/// <summary>
-		/// Le pnj reçoit un item
+		/// Le pnj reÃ§oit un item
 		/// </summary>
 		public override bool ReceiveItem(GameLiving source, InventoryItem item)
 		{
@@ -172,8 +172,8 @@ namespace DOL.GS.Scripts
 		private static bool Recapitulatif(GamePlayer player)
 		{
 			InteractPlayer IP = TempItems[player.InternalID];
-			string msg = "Vous vous préparez à envoyer ce colis :\n";
-			msg += " - Pour: " + (IP.ToPlayerID == "" ? "(Non spécifié, tapez '/whisper <nom>' pour le donner)" : IP.ToPlayerName) + "\n";
+			string msg = "Vous vous prÃ©parez Ã  envoyer ce colis :\n";
+			msg += " - Pour: " + (IP.ToPlayerID == "" ? "(Non spÃ©cifiÃ©, tapez '/whisper <nom>' pour le donner)" : IP.ToPlayerName) + "\n";
 			msg += " - Poids: " + (IP.Weight / 10) + "," + (IP.Weight % 10) + "livres\n";
 			msg += " - Prix: " + Money.GetString(IP.Price) + "\n";
 			msg += " - Objets: " + IP.Items.Count + "/" + MaxItem + "\n";
@@ -183,7 +183,7 @@ namespace DOL.GS.Scripts
 				msg += id + ". " + (item.Count > 1 ? item.Count + " " : "") + item.Name + "\n";
 				id++;
 			}
-			msg += "\nPour retirer un objet, donnez le même objet une deuxième fois.\n[Envoyer le colis]";
+			msg += "\nPour retirer un objet, donnez le mÃªme objet une deuxiÃ¨me fois.\n[Envoyer le colis]";
 			player.Out.SendMessage(msg, eChatType.CT_System, eChatLoc.CL_PopupWindow);
 			return true;
 		}
@@ -209,15 +209,15 @@ namespace DOL.GS.Scripts
 			if (IP.Items.Contains(item))
 			{
 				IP.RemoveItem(item);
-				player.Out.SendMessage("L'objet \"" + item.Name + "\" a été retiré des objets du colis.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+				player.Out.SendMessage("L'objet \"" + item.Name + "\" a Ã©tÃ© retirÃ© des objets du colis.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 				return;
 			}
 			IP.AddItem(item);
-			player.Out.SendMessage("L'objet \"" + item.Name + "\" a été ajouté aux autres objets du colis.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+			player.Out.SendMessage("L'objet \"" + item.Name + "\" a Ã©tÃ© ajoutÃ© aux autres objets du colis.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 		}
 
 		/// <summary>
-		/// Réponse à la question de confirmation de l'envoi du colis
+		/// RÃ©ponse Ã  la question de confirmation de l'envoi du colis
 		/// </summary>
 		private static void SendColisResponse(GamePlayer player, byte response)
 		{
@@ -238,7 +238,7 @@ namespace DOL.GS.Scripts
 		{
 			if (!TempItems.ContainsKey(player.InternalID))
 			{
-				player.Out.SendMessage("Vous n'avez pas préparé de colis !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+				player.Out.SendMessage("Vous n'avez pas prÃ©parÃ© de colis !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 				return false;
 			}
 			InteractPlayer IP = TempItems[player.InternalID];
@@ -284,7 +284,7 @@ namespace DOL.GS.Scripts
 				foreach (InventoryItem item in Sended)
 					player.Inventory.AddItem(eInventorySlot.FirstEmptyBackpack, item);
 				TempItems.Remove(player.InternalID);
-				player.Out.SendMessage("Un problème est survenu lors de l'envoi du colis, veuillez tout recommencer. (Ne déplacez pas vos objets pendant la création du colis)", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+				player.Out.SendMessage("Un problÃ¨me est survenu lors de l'envoi du colis, veuillez tout recommencer. (Ne dÃ©placez pas vos objets pendant la crÃ©ation du colis)", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 				return false;
 			}
 			foreach (DBFret fret in frets)
@@ -294,14 +294,14 @@ namespace DOL.GS.Scripts
 				GameServer.Database.AddObject(fret);
 			}
 			TempItems.Remove(player.InternalID);
-			player.Out.SendMessage("Votre colis a été envoyé !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+			player.Out.SendMessage("Votre colis a Ã©tÃ© envoyÃ© !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 			return true;
 		}
 		#endregion
 
 		#region InteractPlayer
 		/// <summary>
-		/// Classe du joueur qui intéragit avec le pnj et gestion du colis en cours
+		/// Classe du joueur qui intÃ©ragit avec le pnj et gestion du colis en cours
 		/// </summary>
 		public class InteractPlayer
 		{
@@ -352,7 +352,7 @@ namespace DOL.GS.Scripts
 			/// </summary>
 			private void CalculPrice()
 			{
-				//Minimum 10pc l'envoi, 1pa/livre jusqu'à 20livres, 50pc/livre si plus
+				//Minimum 10pc l'envoi, 1pa/livre jusqu'Ã  20livres, 50pc/livre si plus
 				Price = 100 * Math.Min(Weight, 200);
 				if (Weight > 200)
 					Price += 50 * (Weight - 200);

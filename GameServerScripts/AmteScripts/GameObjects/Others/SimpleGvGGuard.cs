@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DOL.AI.Brain;
 using DOL.GS;
 

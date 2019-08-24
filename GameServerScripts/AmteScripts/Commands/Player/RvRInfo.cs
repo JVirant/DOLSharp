@@ -7,14 +7,14 @@ namespace DOL.GS.Commands
         new[] { "/score" },
 		ePrivLevel.Player,
 		"Avoir des informations sur le rvr",
-		"'/rvrinfo' Donne des informations à propos du rvr")]
+		"'/rvrinfo' Donne des informations Ã  propos du rvr")]
 	public class RvRInfoCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
         public void OnCommand(GameClient client, string[] args)
         {
             if (IsSpammingCommand(client.Player, "rvrinfo", 500))
             {
-                DisplayMessage(client, "Arrête de spammer la commande ! Tu vas te faire mal aux doigts !");
+                DisplayMessage(client, "ArrÃªte de spammer la commande ! Tu vas te faire mal aux doigts !");
                 return;
             }
 

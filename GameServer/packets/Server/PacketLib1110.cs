@@ -63,7 +63,7 @@ namespace DOL.GS.PacketHandler
 		{
 			using (var pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.DelveInfo)))
 			{
-				pak.WriteString(info, 2048);
+				pak.WriteString(info, 2042);
 				pak.WriteByte(0); // 0-terminated
 				SendTCP(pak);
 			}

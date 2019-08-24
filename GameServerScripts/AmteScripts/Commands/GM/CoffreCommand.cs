@@ -9,20 +9,20 @@ namespace DOL.GS.Scripts
 		 "&coffre",
 		 ePrivLevel.GM,
 		 "Gestions des coffres",
-		 "'/coffre create' créé un nouveau coffre (100% chance d'apparition, 1h d'intervalle entre les items)",
-		 "'/coffre model <model>' change le skin du coffre selectionné",
+		 "'/coffre create' crÃ©Ã© un nouveau coffre (100% chance d'apparition, 1h d'intervalle entre les items)",
+		 "'/coffre model <model>' change le skin du coffre selectionnÃ©",
 		 "'/coffre item <chance> <interval>' change le nombre de chance d'apparition d'un item, interval d'apparition d'un item en minutes",
-		 "'/coffre add <id_nb> <chance>' ajoute ou modifie un item (id_nb) avec son taux de chance d'apparition au coffre selectionné",
-		 "'/coffre remove <id_nb>' retire un item (id_nb) du coffre selectionné",
-		 "'/coffre name <name>' change le nom du coffre selectionné",
-		 "'/coffre movehere' déplace le coffre selectionné à votre position",
-		 "'/coffre delete' supprime le coffre selectionné",
-		 "'/coffre reset' remet à zero la derniere fois que le coffre a été ouvert",
-		 "'/coffre info' donne toutes les informations du coffre selectionné",
-		 "'/coffre copy' copie le coffre selectionné à votre position",
-		 "'/coffre randomcopy' copie le coffre selectionné à votre position mais change les valeurs de plus ou moin 10%",
-		 "'/coffre key <id_nb>' Id_nb de la clef necessaire à l'ouverture du coffre (\"nokey\" pour retirer la clé)",
-		 "'/coffre difficult <difficulté>' difficulté pour crocheter le coffre (en %) si 0, le coffre ne peut pas être crocheté")]
+		 "'/coffre add <id_nb> <chance>' ajoute ou modifie un item (id_nb) avec son taux de chance d'apparition au coffre selectionnÃ©",
+		 "'/coffre remove <id_nb>' retire un item (id_nb) du coffre selectionnÃ©",
+		 "'/coffre name <name>' change le nom du coffre selectionnÃ©",
+		 "'/coffre movehere' dÃ©place le coffre selectionnÃ© Ã  votre position",
+		 "'/coffre delete' supprime le coffre selectionnÃ©",
+		 "'/coffre reset' remet Ã  zero la derniere fois que le coffre a Ã©tÃ© ouvert",
+		 "'/coffre info' donne toutes les informations du coffre selectionnÃ©",
+		 "'/coffre copy' copie le coffre selectionnÃ© Ã  votre position",
+		 "'/coffre randomcopy' copie le coffre selectionnÃ© Ã  votre position mais change les valeurs de plus ou moin 10%",
+		 "'/coffre key <id_nb>' Id_nb de la clef necessaire Ã  l'ouverture du coffre (\"nokey\" pour retirer la clÃ©)",
+		 "'/coffre difficult <difficultÃ©>' difficultÃ© pour crocheter le coffre (en %) si 0, le coffre ne peut pas Ãªtre crochetÃ©")]
 	public class CoffreCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -56,7 +56,7 @@ namespace DOL.GS.Scripts
                     coffre.LoadedFromScript = false;
 					coffre.AddToWorld();
 					coffre.SaveIntoDatabase();
-					ChatUtil.SendSystemMessage(client, "Vous avez créé un coffre (OID:" + coffre.ObjectID + ")");
+					ChatUtil.SendSystemMessage(client, "Vous avez crÃ©Ã© un coffre (OID:" + coffre.ObjectID + ")");
 					break;
 
 				case "model":
@@ -168,7 +168,7 @@ namespace DOL.GS.Scripts
 					coffre.Z = player.Z;
 					coffre.Heading = player.Heading;
 					coffre.SaveIntoDatabase();
-					ChatUtil.SendSystemMessage(client, "Le coffre selectionné a été déplacé à votre position.");
+					ChatUtil.SendSystemMessage(client, "Le coffre selectionnÃ© a Ã©tÃ© dÃ©placÃ© Ã  votre position.");
 					break;
 
 				case "delete":
@@ -179,7 +179,7 @@ namespace DOL.GS.Scripts
 					}
 					coffre.Delete();
 					coffre.DeleteFromDatabase();
-					ChatUtil.SendSystemMessage(client, "Le coffre selectionné a été supprimé.");
+					ChatUtil.SendSystemMessage(client, "Le coffre selectionnÃ© a Ã©tÃ© supprimÃ©.");
 					break;
 					#endregion
 
@@ -192,7 +192,7 @@ namespace DOL.GS.Scripts
 					}
 					coffre.LastOpen = DateTime.MinValue;
 					coffre.SaveIntoDatabase();
-					ChatUtil.SendSystemMessage(client, "Le coffre selectionné a été remit à zéro.");
+					ChatUtil.SendSystemMessage(client, "Le coffre selectionnÃ© a Ã©tÃ© remit Ã  zÃ©ro.");
 					break;
 
 				case "info":
@@ -268,7 +268,7 @@ namespace DOL.GS.Scripts
 					}
 					coffre2.AddToWorld();
 					coffre2.SaveIntoDatabase();
-					ChatUtil.SendSystemMessage(client, "Vous avez créé un coffre (OID:"+coffre2.ObjectID+")");
+					ChatUtil.SendSystemMessage(client, "Vous avez crÃ©Ã© un coffre (OID:"+coffre2.ObjectID+")");
 					break;
 					#endregion
 
@@ -285,7 +285,7 @@ namespace DOL.GS.Scripts
 					{
 						if (GameServer.Database.SelectObject<ItemTemplate>("Id_nb = '" + GameServer.Database.Escape(args[2]) + "'") == null)
 						{
-							ChatUtil.SendSystemMessage(client, "La clef ayant l'id_nb \"" + args[2] + "\" n'éxiste pas.");
+							ChatUtil.SendSystemMessage(client, "La clef ayant l'id_nb \"" + args[2] + "\" n'existe pas.");
 							break;
 						}
 						coffre.KeyItem = args[2];
@@ -293,9 +293,9 @@ namespace DOL.GS.Scripts
 					coffre.SaveIntoDatabase();
 
 					if(coffre.KeyItem == "")
-						ChatUtil.SendSystemMessage(client, "Le coffre \""+coffre.Name+"\" n'a plus besoin de clef pour être ouvert.");
+						ChatUtil.SendSystemMessage(client, "Le coffre \""+coffre.Name+"\" n'a plus besoin de clef pour Ãªtre ouvert.");
 					else
-						ChatUtil.SendSystemMessage(client, "Le coffre \""+coffre.Name+"\" a besoin de la clef ayant l'id_nb \""+coffre.KeyItem+"\" pour être ouvert.");
+						ChatUtil.SendSystemMessage(client, "Le coffre \""+coffre.Name+"\" a besoin de la clef ayant l'id_nb \""+coffre.KeyItem+"\" pour Ãªtre ouvert.");
 					break;
 
 				case "difficult":
@@ -320,9 +320,9 @@ namespace DOL.GS.Scripts
 						break;
 					}
 					if(coffre.LockDifficult > 0)
-						ChatUtil.SendSystemMessage(client, "Le coffre \""+coffre.Name+"\" a maintenant une difficulté pour être crocheter de "+coffre.LockDifficult+"%.");
+						ChatUtil.SendSystemMessage(client, "Le coffre \""+coffre.Name+"\" a maintenant une difficultÃ© pour Ãªtre crocheter de "+coffre.LockDifficult+"%.");
 					else
-						ChatUtil.SendSystemMessage(client, "Le coffre \""+coffre.Name+"\" ne peut plus être crocheté.");
+						ChatUtil.SendSystemMessage(client, "Le coffre \""+coffre.Name+"\" ne peut plus Ãªtre crochetÃ©.");
 					break;
 					#endregion
 			}

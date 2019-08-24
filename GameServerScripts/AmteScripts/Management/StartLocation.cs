@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DOL.Events;
 using DOL.GS;
 
@@ -24,7 +24,9 @@ namespace AmteScripts.Management
 			CharacterEventArgs charArgs = arguments as CharacterEventArgs;
 			if (charArgs == null)
 				return;
-            switch (charArgs.Character.Realm)
+			charArgs.Character.GuildID = "17118d10-a7e9-4aee-82e5-cd6ca50c0c33";
+			charArgs.Character.GuildRank = 8;
+			switch (charArgs.Character.Realm)
             {
                 case (int)eRealm.Albion:
                 default:
@@ -37,7 +39,6 @@ namespace AmteScripts.Management
                     charArgs.Character.BindZpos = 4800;
                     charArgs.Character.BindRegion = 51;
                     charArgs.Character.BindHeading = 2333;
-                    charArgs.Character.GuildID = "17118d10-a7e9-4aee-82e5-cd6ca50c0c33";
                     break;
                 case (int)eRealm.Midgard:
                     charArgs.Character.Xpos = 403686;
@@ -49,7 +50,6 @@ namespace AmteScripts.Management
                     charArgs.Character.BindZpos = 4680;
                     charArgs.Character.BindRegion = 51;
                     charArgs.Character.BindHeading = 1999;
-                    charArgs.Character.GuildID = "17118d10-a7e9-4aee-82e5-cd6ca50c0c33";
                     break;
                 case (int)eRealm.Hibernia:
                     charArgs.Character.Xpos = 427382;
@@ -61,7 +61,6 @@ namespace AmteScripts.Management
                     charArgs.Character.BindZpos = 5712;
                     charArgs.Character.BindRegion = 51;
                     charArgs.Character.BindHeading = 2602;
-                    charArgs.Character.GuildID = "17118d10-a7e9-4aee-82e5-cd6ca50c0c33";
                     break;
             }
 		}

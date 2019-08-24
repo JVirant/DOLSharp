@@ -1,5 +1,5 @@
 /**
- * Created by Virant "Dre" Jérémy for Amtenael
+ * Created by Virant "Dre" JÃ©rÃ©my for Amtenael
  */
 using System;
 using System.Collections.Generic;
@@ -126,7 +126,7 @@ namespace DOL.GS.Scripts
             if (EchItem.GiveTemplate != null)
                 if (!player.Inventory.AddTemplate(GameInventoryItem.Create(EchItem.GiveTemplate), EchItem.ItemGiveCount, eInventorySlot.FirstBackpack, eInventorySlot.LastBackpack))
                 {
-                    player.Out.SendMessage("Votre inventaire est plein, l'objet est déposé au sol.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+                    player.Out.SendMessage("Votre inventaire est plein, l'objet est dÃ©posÃ© au sol.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                     for (int i = 0; i < EchItem.ItemGiveCount; i++)
                         player.CreateItemOnTheGround(GameInventoryItem.Create(EchItem.GiveTemplate));
                 }
@@ -250,7 +250,7 @@ namespace DOL.GS.Scripts
             }
             Reponses = table;
 
-            //Chargement des spells réponses
+            //Chargement des spells rÃ©ponses
             var table2 = new Dictionary<string, ushort>();
             if (TextDB.ReponseSpell != "")
             {
@@ -268,7 +268,7 @@ namespace DOL.GS.Scripts
             }
             SpellReponses = table2;
 
-            //Chargement des emotes réponses
+            //Chargement des emotes rÃ©ponses
             var table3 = new Dictionary<string, eEmote>();
             if (TextDB.ReponseEmote != "")
             {
@@ -286,7 +286,7 @@ namespace DOL.GS.Scripts
             }
             EmoteReponses = table3;
 
-            //phrase/emote aléatoire
+            //phrase/emote alÃ©atoire
             var table4 = new Dictionary<string, eEmote>();
             if (TextDB.RandomPhraseEmote != "")
             {
@@ -325,7 +325,7 @@ namespace DOL.GS.Scripts
             TextDB.MobRealm = (byte)_body.Realm;
             TextDB.Text = Interact_Text;
 
-            //Sauve les réponses
+            //Sauve les rÃ©ponses
             string reponse = "";
             if (Reponses != null && Reponses.Count > 0)
             {
@@ -338,7 +338,7 @@ namespace DOL.GS.Scripts
             }
             TextDB.Reponse = reponse;
 
-            //Sauve les spell réponses
+            //Sauve les spell rÃ©ponses
             reponse = "";
             if (SpellReponses != null && SpellReponses.Count > 0)
             {
@@ -351,7 +351,7 @@ namespace DOL.GS.Scripts
             }
             TextDB.ReponseSpell = reponse;
 
-            //Sauve les emote réponses
+            //Sauve les emote rÃ©ponses
             reponse = "";
             if (EmoteReponses != null && EmoteReponses.Count > 0)
             {
@@ -364,7 +364,7 @@ namespace DOL.GS.Scripts
             }
             TextDB.ReponseEmote = reponse;
 
-            //Sauve les phrase/emote aléatoire
+            //Sauve les phrase/emote alÃ©atoire
             reponse = "";
             if (RandomPhrases != null && RandomPhrases.Count > 0)
             {
@@ -433,8 +433,8 @@ namespace DOL.GS.Scripts
                 if (pair.Value.GainXP < 0)
                     text.Add(" . " + (-pair.Value.GainXP) + "/1000 du niveau en cours");
                 if (Reponses.ContainsKey(pair.Value.ItemRecvID))
-                    text.Add(" . Réponse: " + Reponses[pair.Value.ItemRecvID]);
-                text.Add(" . " + pair.Value.ChangedItemCount + " Items échangés");
+                    text.Add(" . RÃ©ponse: " + Reponses[pair.Value.ItemRecvID]);
+                text.Add(" . " + pair.Value.ChangedItemCount + " Items Ã©changÃ©s");
             }
             return text;
         }

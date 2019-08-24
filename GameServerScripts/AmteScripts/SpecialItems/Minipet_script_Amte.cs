@@ -1,4 +1,4 @@
-// Original code by Dinberg modifié par Norec pour Amtenael seulement
+// Original code by Dinberg modifiÃ© par Norec pour Amtenael seulement
 
 using System;
 using System.Collections.Generic;
@@ -38,7 +38,7 @@ namespace DOL.GS.Scripts
 
         public override bool CheckBeginCast(GameLiving selectedTarget)
         {
-            if (Caster.CurrentRegion.IsRvR) //Edit des régions interdite - Edit Norec
+            if (Caster.CurrentRegion.IsRvR) //Edit des rÃ©gions interdite - Edit Norec
             {
                 MessageToCaster("You cannot cast this spell here!", DOL.GS.PacketHandler.eChatType.CT_SpellResisted);
                 return false;

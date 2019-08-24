@@ -1,4 +1,4 @@
-﻿using DOL.GS;
+using DOL.GS;
 using DOL.GS.PacketHandler;
 using DOL.Database;
 using System.Collections.Generic;

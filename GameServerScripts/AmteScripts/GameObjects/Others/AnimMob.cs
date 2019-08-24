@@ -1,4 +1,4 @@
-﻿using DOL.AI.Brain;
+using DOL.AI.Brain;
 
 namespace DOL.GS.Scripts
 {

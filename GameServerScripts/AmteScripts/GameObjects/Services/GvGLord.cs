@@ -1,4 +1,4 @@
-﻿using AmteScripts.Managers;
+using AmteScripts.Managers;
 
 namespace DOL.GS.Scripts
 {

@@ -1,5 +1,5 @@
 /**
- * Created by Virant "Dre" Jérémy for Amtenael
+ * Created by Virant "Dre" JÃ©rÃ©my for Amtenael
  */
 using System;
 using System.Collections;
@@ -22,7 +22,7 @@ namespace DOL.GS.Scripts
         private int m_Range;
         private byte m_MinLevel;
         private string m_Text = "{5}";
-        private string m_Text_Refuse = "Vous n'avez pas le niveau requis pour être téléporté.";
+        private string m_Text_Refuse = "Vous n'avez pas le niveau requis pour Ãªtre tÃ©lÃ©portÃ©.";
         private DBTeleportNPC db;
         private bool m_Occupe;
 
@@ -58,7 +58,7 @@ namespace DOL.GS.Scripts
 
             if (m_Occupe)
             {
-                player.Out.SendMessage("Je suis occupé pour le moment.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+                player.Out.SendMessage("Je suis occupÃ© pour le moment.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
                 return true;
             }
             string text;
@@ -83,7 +83,7 @@ namespace DOL.GS.Scripts
 
             if (m_Occupe)
             {
-                player.Out.SendMessage("Je suis occupé pour le moment.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+                player.Out.SendMessage("Je suis occupÃ© pour le moment.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
                 return true;
             }
 
@@ -140,7 +140,7 @@ namespace DOL.GS.Scripts
 			GamePlayer player = timer.Properties.getProperty<GamePlayer>("player", null);
             if (pos == null || player == null) return 0;
             if (player.InCombat)
-                player.Out.SendMessage("Vous ne pouvez pas être téléporté en étant en combat !", eChatType.CT_Important,
+                player.Out.SendMessage("Vous ne pouvez pas Ãªtre tÃ©lÃ©portÃ© en Ã©tant en combat !", eChatType.CT_Important,
                                        eChatLoc.CL_SystemWindow);
             else
                 pos.Jump(this, player);
@@ -160,7 +160,7 @@ namespace DOL.GS.Scripts
                 if (player.Level >= m_MinLevel)
                 {
                     if (player.InCombat)
-                        player.Out.SendMessage("Vous ne pouvez pas être téléporté en étant en combat !",
+                        player.Out.SendMessage("Vous ne pouvez pas Ãªtre tÃ©lÃ©portÃ© en Ã©tant en combat !",
                                                eChatType.CT_Important,
                                                eChatLoc.CL_SystemWindow);
                     else
@@ -466,7 +466,7 @@ namespace DOL.GS.Scripts
             public override string ToString()
             {
                 StringBuilder sb = new StringBuilder();
-            	sb.Append("Bind le joueur après l'avoir TP : ");
+            	sb.Append("Bind le joueur aprÃ¨s l'avoir TP : ");
             	sb.Append(Bind ? "oui" : "non");
                 sb.Append("\nVisible dans la liste: ");
                 sb.Append(Visible ? "oui" : "non");

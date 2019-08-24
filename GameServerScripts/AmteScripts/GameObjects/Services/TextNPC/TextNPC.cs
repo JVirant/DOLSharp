@@ -1,5 +1,5 @@
 /**
- * Created by Virant "Dre" Jérémy for Amtenael
+ * Created by Virant "Dre" JÃ©rÃ©my for Amtenael
  */
 using DOL.AI.Brain;
 using DOL.Database;

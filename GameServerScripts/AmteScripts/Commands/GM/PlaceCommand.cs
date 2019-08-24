@@ -1,4 +1,4 @@
-﻿using DOL.GS.Scripts;
+using DOL.GS.Scripts;
 
 namespace DOL.GS.Commands
 {

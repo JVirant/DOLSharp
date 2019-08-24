@@ -5,7 +5,7 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&ssend",
 		ePrivLevel.GM,
-		"Répondre aux report",
+		"RÃ©pondre aux report",
 		"/ssend <nick> <message>")]
 	public class SsendCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
@@ -22,7 +22,7 @@ namespace DOL.GS.Commands
 			cl_player.Out.SendMessage("[Report] " + client.Player.Name + ": " + message, eChatType.CT_Staff, eChatLoc.CL_ChatWindow);
 			foreach (var cl in WorldMgr.GetAllPlayingClients())
 				if (cl.Account.PrivLevel >= 2 && cl != cl_player)
-					cl.Out.SendMessage("[Report] " + client.Player.Name + " à " + cl_player.Player.Name + ": \"" + message + "\".", eChatType.CT_Staff, eChatLoc.CL_ChatWindow);
+					cl.Out.SendMessage("[Report] " + client.Player.Name + " Ã  " + cl_player.Player.Name + ": \"" + message + "\".", eChatType.CT_Staff, eChatLoc.CL_ChatWindow);
         }
 	}
 }

@@ -144,7 +144,7 @@ namespace DOL.GS.Scripts
 			text.Add(" + Effet: " + (HealHarm > 0 ? "heal " : "harm ") + HealHarm + " points de vie (+/- 10%).");
 			text.Add(" + Rayon: " + Radius);
 			text.Add(" + Spell: " + SpellEffect);
-			text.Add(" + Interval: " + IntervalMin + " à " + IntervalMax + " secondes");
+			text.Add(" + Interval: " + IntervalMin + " Ã  " + IntervalMax + " secondes");
 			text.Add(" + Chance de miss: " + MissChance + "%");
 			text.Add(" + Message: " + Message);
 			return text;

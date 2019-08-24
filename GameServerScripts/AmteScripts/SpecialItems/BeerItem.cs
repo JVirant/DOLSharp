@@ -3,19 +3,19 @@
  *	- Id_nb:                                                                        *
  *		Doit commencer par "chope" (/item savetemplate chopeXXXX)                   *
  *	- mbonus:                                                                       *
- *		Règle les bonus/malus de la bière                                           *
+ *		RÃ¨gle les bonus/malus de la biÃ¨re                                           *
  *		(/item mbonus <id sauf 0> <property> <value>)                               *
  *	- Extra bonus:                                                                  *
- *		Règle la vitesse du personnage (/item mbonus 0 145 <value>)                 *
- *		ATTENTION: c'est un pourcentage par rapport à la vitesse de base du perso.  *
+ *		RÃ¨gle la vitesse du personnage (/item mbonus 0 145 <value>)                 *
+ *		ATTENTION: c'est un pourcentage par rapport Ã  la vitesse de base du perso.  *
  *	- Durability:                                                                   *
- *		Règle le temps des effets en secondes (/item durability <value> <maxValue>) *
+ *		RÃ¨gle le temps des effets en secondes (/item durability <value> <maxValue>) *
  *	- Charges:                                                                      *
- *		Règle le nombre de fois que l'on peut boire (/item charges <value>)         *
+ *		RÃ¨gle le nombre de fois que l'on peut boire (/item charges <value>)         *
  ************************************************************************************/
 
 /***********************************
- *	©2006 - Dre - www.Amtenael.com *
+ *	Â©2006 - Dre - www.Amtenael.com *
  *	Version 1.0 - BeerItem.cs      *
  ***********************************/
 
@@ -47,7 +47,7 @@ namespace DOL.GS.Scripts
 			{
 				if(player.TempProperties.getProperty("Drink", false))
 				{
-					player.Out.SendMessage("Vous êtes déjà en train de boire !", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					player.Out.SendMessage("Vous Ãªtes dÃ©jÃ  en train de boire !", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					return;
 				}
 
@@ -146,7 +146,7 @@ namespace DOL.GS.Scripts
 				drinkTimer.Start(6000);
 				player.TempProperties.setProperty("Drink", true);
 
-				//Timer des emotes/phrases aléatoire
+				//Timer des emotes/phrases alÃ©atoire
 				if (!Alcool)
 					return;
                 int RemainTime = player.TempProperties.getProperty("ChopeMaxTime", 0) - player.TempProperties.getProperty("Chopetime", 0);
@@ -195,7 +195,7 @@ namespace DOL.GS.Scripts
 		}
 
 		/// <summary>
-		/// Phrase/Emote aléatoire
+		/// Phrase/Emote alÃ©atoire
 		/// </summary>
 		private static int EmotesCallback(RegionTimer timer)
 		{

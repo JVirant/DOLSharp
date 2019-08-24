@@ -8,8 +8,8 @@ namespace DOL.GS.Commands
 		"&amteboat",
 		ePrivLevel.GM,
 		"Boat Commands",
-        "/amteboat create [model] - créé un GameBoatAmte",
-        "/amteboat info - affiche les infos du GameBoatAmte ciblé",
+        "/amteboat create [model] - crÃ©Ã© un GameBoatAmte",
+        "/amteboat info - affiche les infos du GameBoatAmte ciblÃ©",
         "/amteboat speed <newspeed> - change la vitesse du mob pour le trajet",
         "/amteboat path <path name> - change le nom du trajet que le mob doit suivre")]
 	public class BoatCommandHandler : AbstractCommandHandler, ICommandHandler

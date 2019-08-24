@@ -156,7 +156,7 @@ namespace DOL.Database
 		}
 		
 		/// <summary>
-		/// Temps en minutes avant la réapparition d'un item
+		/// Temps en minutes avant la rÃ©apparition d'un item
 		/// </summary>
 		[DataElement(AllowDbNull=false)]
 		public int ItemInterval
@@ -218,7 +218,7 @@ namespace DOL.Database
 		}
 
 		/// <summary>
-		/// Difficulté d'ouvrir la serrure avec un crochet (sur 1000)
+		/// DifficultÃ© d'ouvrir la serrure avec un crochet (sur 1000)
 		/// </summary>
 		[DataElement(AllowDbNull=false)]
 		public int LockDifficult

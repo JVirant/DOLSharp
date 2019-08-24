@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AmteScripts.Managers;
 using DOL.GS;
 using DOL.GS.Scripts;

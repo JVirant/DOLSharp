@@ -27,17 +27,17 @@ namespace DOL.GS.Scripts
 
             if (IsCasting)
             {
-                player.Out.SendMessage("Je suis occupé pour le moment.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+                player.Out.SendMessage("Je suis occupÃ© pour le moment.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
                 return true;
             }
             TurnTo(player);
 
             if (player.Level > 5)
-                player.Out.SendMessage("Vous avez l'air de très bien vous débrouiller sans moi.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+                player.Out.SendMessage("Vous avez l'air de trÃ¨s bien vous dÃ©brouiller sans moi.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
             else if (player.Health == player.MaxHealth)
-                player.Out.SendMessage("Vous me semblez peu expérimenté, revenez me voir si vous avez besoin de soins !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+                player.Out.SendMessage("Vous me semblez peu expÃ©rimentÃ©, revenez me voir si vous avez besoin de soins !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
             else
-                player.Out.SendMessage("Vous me semblez peu expérimenté, peut etre puis-je vous [aider] ?", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+                player.Out.SendMessage("Vous me semblez peu expÃ©rimentÃ©, peut etre puis-je vous [aider] ?", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 
             return true;
         }
@@ -49,19 +49,19 @@ namespace DOL.GS.Scripts
 
             if (IsCasting)
             {
-                player.Out.SendMessage("Je suis occupé pour le moment.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+                player.Out.SendMessage("Je suis occupÃ© pour le moment.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
                 return true;
             }
             TurnTo(player);
 
             if (player.Level > 5)
-                player.Out.SendMessage("Vous avez l'air de très bien vous débrouiller sans moi.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+                player.Out.SendMessage("Vous avez l'air de trÃ¨s bien vous dÃ©brouiller sans moi.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
             else if (player.Health == player.MaxHealth)
-                player.Out.SendMessage("Vous me semblez peu expérimenté, revenez me voir si vous avez besoin de soins !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+                player.Out.SendMessage("Vous me semblez peu expÃ©rimentÃ©, revenez me voir si vous avez besoin de soins !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
             else if (str == "aider")
             {
                 if (player.InCombat)
-                    player.Out.SendMessage("Je ne peux pas vous aider si vous êtes en combat.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+                    player.Out.SendMessage("Je ne peux pas vous aider si vous Ãªtes en combat.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
                 else
                 {
                     TargetObject = player;

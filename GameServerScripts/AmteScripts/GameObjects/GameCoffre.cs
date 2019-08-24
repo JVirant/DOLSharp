@@ -6,9 +6,6 @@ using DOL.GS.PacketHandler;
 
 namespace DOL.GS.Scripts
 {
-	/// <summary>
-	/// Description résumée de CoffreObject.
-	/// </summary>
 	public class GameCoffre : GameStaticItem
 	{
 		public const string CROCHET = "Crochet"; //Id_nb des crochets
@@ -51,7 +48,7 @@ namespace DOL.GS.Scripts
 		}
 		public DateTime LastOpen;
 		/// <summary>
-		/// Temps de réapparition d'un item (en minutes)
+		/// Temps de rÃ©apparition d'un item (en minutes)
 		/// </summary>
 		public int ItemInterval;
 
@@ -81,7 +78,7 @@ namespace DOL.GS.Scripts
 			//Coffre vide
 			if ((LastOpen.Ticks / 600000000 + ItemInterval) > DateTime.Now.Ticks / 600000000)
 			{
-                player.Out.SendMessage("Quelqu'un a déjà regardé par ici... Revenez-plus tard.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+                player.Out.SendMessage("Quelqu'un a dÃ©jÃ  regardÃ© par ici... Revenez-plus tard.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 				return true;
 			}
 
@@ -89,13 +86,13 @@ namespace DOL.GS.Scripts
 			{
                 if (m_interactPlayer != null && player != m_interactPlayer && (m_lastInteract.Ticks + 200000000) > DateTime.Now.Ticks)
                 {
-                    player.Out.SendMessage("Quelqu'un a déjà regardé par ici... Revenez-plus tard.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+                    player.Out.SendMessage("Quelqu'un a dÃ©jÃ  regardÃ© par ici... Revenez-plus tard.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
                     return true;
                 }
 			    if (KeyItem != "" && player.Inventory.GetFirstItemByID(KeyItem, eInventorySlot.FirstBackpack, eInventorySlot.LastBackpack) != null)
 			    {
 			        if(!KeyItem.StartsWith("oneuse"))
-			            player.Out.SendMessage("Vous avez utilisé " + player.Inventory.GetFirstItemByID(KeyItem, eInventorySlot.FirstBackpack, eInventorySlot.LastBackpack).Name + ".", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+			            player.Out.SendMessage("Vous avez utilisÃ© " + player.Inventory.GetFirstItemByID(KeyItem, eInventorySlot.FirstBackpack, eInventorySlot.LastBackpack).Name + ".", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 			        else
 			        {
 			            InventoryItem it = player.Inventory.GetFirstItemByID(KeyItem, eInventorySlot.FirstBackpack, eInventorySlot.LastBackpack);
@@ -140,7 +137,7 @@ namespace DOL.GS.Scripts
                     m_interactPlayer = null;
                     m_lastInteract = DateTime.MinValue;
                 }
-			    player.Out.SendMessage("Un problème est survenue.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+			    player.Out.SendMessage("Un problÃ¨me est survenue.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				return;
 			}
 		    InventoryLogging.LogInventoryAction(player, this, eInventoryActionType.Other, it.Template);
@@ -151,25 +148,25 @@ namespace DOL.GS.Scripts
 		{
 			CoffreItem coffre = GetRandomItem();
 			if(coffre.Id_nb == "" && coffre.Chance == 0)
-                player.Out.SendMessage("Vous ne trouvez rien d'intéressant.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+                player.Out.SendMessage("Vous ne trouvez rien d'intÃ©ressant.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 			else
 			{
 				ItemTemplate item = GameServer.Database.SelectObject<ItemTemplate>("Id_nb = '" + GameServer.Database.Escape(coffre.Id_nb) + "'");
 				if(item == null)
 				{
-					player.Out.SendMessage("Vous ne trouvez rien d'intéressant. (Erreur de donnée, veuillez le signaliser à un GameMaster)", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+					player.Out.SendMessage("Vous ne trouvez rien d'intÃ©ressant. (Erreur de donnÃ©e, veuillez le signaliser Ã  un GameMaster)", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 					coffre.Chance = 0;
 				}
 				else
 				{
 					if(player.Inventory.AddTemplate(GameInventoryItem.Create(item), 1, eInventorySlot.FirstBackpack, eInventorySlot.LastBackpack))
                     {
-                        player.Out.SendMessage("Vous récupérez un objet!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+                        player.Out.SendMessage("Vous rÃ©cupÃ©rez un objet!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
                         //GameServer.Instance.LogTradeAction("[COFFRE] "+Name+" ("+ToString()+") -> " + player.Name + " (" + player.Client.Account.Name + "): [ITEM] 1 '" + item.Id_nb + "' (" + item.ObjectId + ")", 2);
                         InventoryLogging.LogInventoryAction(this, player, eInventoryActionType.Loot, item);
                     }
 					else
-						player.Out.SendMessage("Vous récupérez un objet mais votre sac-à-dos est plein.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage("Vous rÃ©cupÃ©rez un objet mais votre sac-Ã -dos est plein.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 				}
 			}
             m_interactPlayer = null;
@@ -223,7 +220,7 @@ namespace DOL.GS.Scripts
 
 			int Chance = 100-LockDifficult;
 
-			//Dexterité
+			//DexteritÃ©
 			float dextChance = (float)(player.Dexterity)/125;
 			if (dextChance > 1.0f)
 				dextChance = 1.0f;
@@ -279,19 +276,19 @@ namespace DOL.GS.Scripts
 
 			if (Chance > 0 && Util.Chance(Chance))
 			{
-				player.Out.SendMessage("Vous crochetez le coffre avec succès !", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+				player.Out.SendMessage("Vous crochetez le coffre avec succÃ¨s !", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 				InteractEnd(player);
 			}
 			else
 			{
-				player.Out.SendMessage("Vous n'avez pas réussit à crocheter le coffre et vous cassez un crochet !", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+				player.Out.SendMessage("Vous n'avez pas rÃ©ussi Ã  crocheter le coffre et vous cassez un crochet !", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 				player.Inventory.RemoveTemplate(CROCHET, 1, eInventorySlot.FirstBackpack, eInventorySlot.LastBackpack);
 			}
 			return 0;
 		}
 		#endregion
 
-		#region Item aléatoire
+		#region Item alÃ©atoire
 		private CoffreItem GetRandomItem()
 		{
 			if(!Util.Chance(ItemChance))
@@ -313,9 +310,9 @@ namespace DOL.GS.Scripts
 		/// <summary>
 		/// Ajoute ou modifie la chance d'apparition d'un item
 		/// </summary>
-		/// <param name="Id_nb">Id_nb de l'item à modifier ou ajouter</param>
+		/// <param name="Id_nb">Id_nb de l'item Ã  modifier ou ajouter</param>
 		/// <param name="chance">Nombre de chance d'apparition de l'item</param>
-		/// <returns>Retourne false si l'item n'existe pas dans la base de donné ItemTemplate</returns>
+		/// <returns>Retourne false si l'item n'existe pas dans la base de donnÃ© ItemTemplate</returns>
 		public bool ModifyItemList(string Id_nb, int chance)
 		{
 			ItemTemplate item = GameServer.Database.SelectObject<ItemTemplate>("Id_nb = '" + GameServer.Database.Escape(Id_nb) + "'");
@@ -338,8 +335,8 @@ namespace DOL.GS.Scripts
 		/// <summary>
 		/// Supprime un item de la liste des items
 		/// </summary>
-		/// <param name="Id_nb">item à supprimer</param>
-		/// <returns>Retourne true si l'item est supprimé</returns>
+		/// <param name="Id_nb">item Ã  supprimer</param>
+		/// <returns>Retourne true si l'item est supprimÃ©</returns>
 		public bool DeleteItemFromItemList(string Id_nb)
 		{
 			foreach(CoffreItem item in m_Items)
@@ -445,7 +442,7 @@ namespace DOL.GS.Scripts
 			{
 				string[] values = item.Split('|');
 				if(values.Length < 2)
-					throw new Exception("Pas de caractère séparateur pour l'item \""+item+"\"");
+					throw new Exception("Pas de caractÃ¨re sÃ©parateur pour l'item \""+item+"\"");
 				Id_nb = values[0];
 				try
 				{
@@ -472,12 +469,12 @@ namespace DOL.GS.Scripts
 					"-- Coffre --",
 					" + Chance d'apparition d'un item: " + ItemChance + "%",
 					" + Interval d'apparition d'un item: " + ItemInterval + " minutes",
-					" + Dernière fois que le coffre a été ouvert: " + LastOpen.ToShortDateString() + " " + LastOpen.ToShortTimeString()
+					" + DerniÃ¨re fois que le coffre a Ã©tÃ© ouvert: " + LastOpen.ToShortDateString() + " " + LastOpen.ToShortTimeString()
 				};
 			if (LockDifficult > 0)
-				text.Add(" + Difficulté pour crocheter le coffre: " + LockDifficult + "%");
+				text.Add(" + DifficultÃ© pour crocheter le coffre: " + LockDifficult + "%");
 			else
-				text.Add(" + Ce coffre ne peut pas être crocheté");
+				text.Add(" + Ce coffre ne peut pas Ãªtre crochetÃ©");
 			if (KeyItem != "")
 				text.Add(" + Id_nb de la clef: " + KeyItem);
 			else

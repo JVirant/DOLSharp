@@ -212,7 +212,7 @@ namespace DOL.GS.Scripts
 			var info = base.DelveInfo();
 			info.Add("");
 			info.Add("-- FollowingMob --");
-			info.Add(" + Mob à suivre: " + MobFollow.Name + " (Realm: " + MobFollow.Realm + ", Guilde: " + MobFollow.GuildName + ")");
+			info.Add(" + Mob Ã  suivre: " + MobFollow.Name + " (Realm: " + MobFollow.Realm + ", Guilde: " + MobFollow.GuildName + ")");
 			return info;
 		}
 	}

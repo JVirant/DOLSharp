@@ -37,7 +37,7 @@ namespace DOL.GS
         {
             if (!IsWithinRadius(player, 1024))
             {
-                player.Out.SendMessage("Vous êtes trop loin de " + Name + ".", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+                player.Out.SendMessage("Vous Ãªtes trop loin de " + Name + ".", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 return false;
             }
 

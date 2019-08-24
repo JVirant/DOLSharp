@@ -2,9 +2,6 @@ using DOL.GS.Scripts;
 
 namespace DOL.AI.Brain
 {
-	/// <summary>
-	/// Description résumée de AreaEffectBrain.
-	/// </summary>
 	public class AreaEffectBrain : APlayerVicinityBrain
 	{
 		public override int ThinkInterval

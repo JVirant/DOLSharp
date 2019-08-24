@@ -9,20 +9,20 @@ namespace DOL.GS.Scripts
 	[CmdAttribute(
 		 "&jailrp",
 		 ePrivLevel.GM,
-		 "Pour emprisonner un joueur de faÁon RP.",
-		 "/jailrp <nom du joueur> pour rel‚cher un joueur (connectÈ ou non)",
+		 "Pour emprisonner un joueur de fa√ßon RP.",
+		 "/jailrp <nom du joueur> pour rel√¢cher un joueur (connect√© ou non)",
         "/jailrp <nom du joueur> <raison> <amende en or> [heures] [jours] pour emprisonner un joueur")]
 	[CmdAttribute(
 		 "&jailhrp",
 		 ePrivLevel.GM,
-		 "Pour emprisonner un joueur de faÁon HRP.",
-		 "/jailhrp <nom du joueur> pour rel‚cher un joueur (connectÈ ou non)",
+		 "Pour emprisonner un joueur de fa√ßon HRP.",
+		 "/jailhrp <nom du joueur> pour rel√¢cher un joueur (connect√© ou non)",
 		 "/jailhrp <nom du joueur> <raison> <heures> [jours] pour emprisonner un joueur")]
 	[CmdAttribute(
 		 "&jail", 
 		 ePrivLevel.GM,
-		 "Pour emprisonner un joueur de faÁon RP.",
-		 "'/jail relache <nom du joueur>' Rel‚che le joueur s'il est en prison (RP ou HRP)",
+		 "Pour emprisonner un joueur de fa√ßon RP.",
+		 "'/jail relache <nom du joueur>' Rel√¢che le joueur s'il est en prison (RP ou HRP)",
          "'/jail rp <nom du joueur> <raison> <caution (en po)> <heure> [jours]' Met le joueur en prison RP",
          "'/jail hrp <nom du joueur> <raison> <heure> [jours]' Met le joueur en prison HRP",
 		 "'/jail list [rp/hrp]' pour lister les prisonniers (RP ou HRP ou tous)")]
@@ -87,7 +87,7 @@ namespace DOL.GS.Scripts
 						if (!JailMgr.Relacher(args[2]))
 							client.Out.SendMessage("Joueur '" + args[2] + "' introuvable.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 						else
-							client.Out.SendMessage("Joueur '" + args[2] + "' relachÈ.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+							client.Out.SendMessage("Joueur '" + args[2] + "' relach√©.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 						return;
 					}
 					DisplaySyntax(client, args);
@@ -115,8 +115,8 @@ namespace DOL.GS.Scripts
 			Prisoner Pris = JailMgr.GetPrisoner(args[2]);
 			if (Pris != null)
 			{
-				if (Pris.RP) player.Out.SendMessage("Le joueur '" + Pris.Name + "' est dÈj‡ en prison RP.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-				else player.Out.SendMessage("Le joueur '" + Pris.Name + "' est dÈj‡ en prison HRP.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				if (Pris.RP) player.Out.SendMessage("Le joueur '" + Pris.Name + "' est d√©j√† en prison RP.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				else player.Out.SendMessage("Le joueur '" + Pris.Name + "' est d√©j√† en prison HRP.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				return;
 			}
 
@@ -179,22 +179,22 @@ namespace DOL.GS.Scripts
 				if (RP)
 				{
 					JailMgr.EmprisonnerRP(Prisonnier, cost, sortie, player.Name, raison);
-					player.Out.SendMessage(Prisonnier.Name + " a ÈtÈ emprisonnÈ avec une amende de " + cost + "po.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					player.Out.SendMessage(Prisonnier.Name + " a √©t√© emprisonn√© avec une amende de " + cost + "po.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				}
 				else
 				{
                     JailMgr.EmprisonnerHRP(Prisonnier, sortie, player.Name, raison);
-					player.Out.SendMessage(Prisonnier.Name + " a ÈtÈ emprisonnÈ.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					player.Out.SendMessage(Prisonnier.Name + " a √©t√© emprisonn√©.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				}
 			}
 			else
 			{
                 if (RP && JailMgr.EmprisonnerRP(args[2], cost, sortie, player.Name, raison))
-					player.Out.SendMessage(args[2] + " a ÈtÈ emprisonnÈ avec une amende de " + cost + "po.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					player.Out.SendMessage(args[2] + " a √©t√© emprisonn√© avec une amende de " + cost + "po.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                 else if (!RP && JailMgr.EmprisonnerHRP(args[2], sortie, player.Name, raison))
-					player.Out.SendMessage(args[2] + " a ÈtÈ emprisonnÈ.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					player.Out.SendMessage(args[2] + " a √©t√© emprisonn√©.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				else
-					player.Out.SendMessage("Ce joueur (" + args[2] + ") n'a pas ÈtÈ trouvÈ.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					player.Out.SendMessage("Ce joueur (" + args[2] + ") n'a pas √©t√© trouv√©.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 			}
 		}
 		

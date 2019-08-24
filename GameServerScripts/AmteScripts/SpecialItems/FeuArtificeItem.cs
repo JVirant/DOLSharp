@@ -3,7 +3,7 @@
  *	- Id_nb:                                                                        *
  *		Doit commencer par "feuarti" (/item savetemplate feuartiXXXX)               *
  *	- Durability:                                                                   *
- *		Règle le temps du feu en ticks (1 tick = 2.5s)                              *
+ *		RÃ¨gle le temps du feu en ticks (1 tick = 2.5s)                              *
  ************************************************************************************/
 
 using System;
@@ -38,7 +38,7 @@ namespace DOL.GS.Scripts
 
 			if (player.Inventory.GetItem((eInventorySlot)uArgs.Slot) != null)
 			{
-                //On vérifie que l'item
+                //On vÃ©rifie que l'item
                 InventoryItem item = player.Inventory.GetItem((eInventorySlot)uArgs.Slot);
                 if (!item.Id_nb.StartsWith("feuarti"))
                     return;
@@ -184,7 +184,7 @@ namespace DOL.GS.Scripts
             mobs[8].Y += 250;
             mobs[9].Y += 250;
 	        
-	        //2e étage
+	        //2e Ã©tage
             mobs[10].Z += 250;
             mobs[10].X += 125;
             mobs[10].Y += 125;

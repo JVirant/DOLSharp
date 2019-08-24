@@ -2,9 +2,6 @@ using DOL.GS.Scripts;
 
 namespace DOL.AI.Brain
 {
-	/// <summary>
-	/// Description résumée de TextNPCBrain.
-	/// </summary>
 	public class TextNPCBrain : AmteMobBrain
 	{
 		public override int ThinkInterval

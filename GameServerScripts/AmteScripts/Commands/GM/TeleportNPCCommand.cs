@@ -8,18 +8,18 @@ namespace DOL.GS.Scripts
 		 "&teleportnpc",
 		 ePrivLevel.GM,
 		 "Gestions des TeleportNPC",
-		 "'/teleportnpc create' créé un nouveau TeleportNPC",
-		 "'/teleportnpc text <texte>' texte affiché lorsque le joueur peut se téléporter, le texte doit contenir {5}",
-		 "'/teleportnpc refuse <texte>' texte affiché lorsque le joueur ne peut pas être téléporté",
-		 "'/teleportnpc radius <0 - 500>' rayon dans lequel les joueurs seront téléportés (pas de texte)",
-		 "'/teleportnpc level <min level>' règle le niveau minimum pour être téléporter",
+		 "'/teleportnpc create' crÃ©Ã© un nouveau TeleportNPC",
+		 "'/teleportnpc text <texte>' texte affichÃ© lorsque le joueur peut se tÃ©lÃ©porter, le texte doit contenir {5}",
+		 "'/teleportnpc refuse <texte>' texte affichÃ© lorsque le joueur ne peut pas Ãªtre tÃ©lÃ©portÃ©",
+		 "'/teleportnpc radius <0 - 500>' rayon dans lequel les joueurs seront tÃ©lÃ©portÃ©s (pas de texte)",
+		 "'/teleportnpc level <min level>' rÃ¨gle le niveau minimum pour Ãªtre tÃ©lÃ©porter",
 		 "'/teleportnpc addjump <X> <Y> <Z> <Heading> <RegionID> <Name>' ajoute un jump (ATTENTION Gloc, \"Area\" comme nom pour un teleporteur automatique)",
 		 "'/teleportnpc jump' liste les jumps avec leurs conditions",
 		 "'/teleportnpc removejump <Name>' supprime un lieu",
-		 "'/teleportnpc conditions <nom du jump> visible <on/off>' Détermine si le jump est dans la liste des jumps lorsqu'on clique sur le PNJ",
-		 "'/teleportnpc conditions <nom du jump> item <template>' Item nécessaire pour être téléporté",
+		 "'/teleportnpc conditions <nom du jump> visible <on/off>' DÃ©termine si le jump est dans la liste des jumps lorsqu'on clique sur le PNJ",
+		 "'/teleportnpc conditions <nom du jump> item <template>' Item nÃ©cessaire pour Ãªtre tÃ©lÃ©portÃ©",
 		 "'/teleportnpc conditions <nom du jump> niveaux <min> [max]' Niveau mini et max du jump",
-		 "'/teleportnpc conditions <nom du jump> bind <on/off>' Bind le joueur après l'avoir jump",
+		 "'/teleportnpc conditions <nom du jump> bind <on/off>' Bind le joueur aprÃ¨s l'avoir jump",
 		 "Dans chaque texte: {0} = nom du joueur, {1} = nom de famille, {2} = nom de sa guilde, {3} = nom de sa classe, {4} = nom de sa race, {5} liste des jumps (sauf refuse)")]
 	public class TeleportNPCCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
@@ -47,10 +47,10 @@ namespace DOL.GS.Scripts
 							  Z = player.Z,
 							  Heading = player.Heading,
 							  CurrentRegion = player.CurrentRegion,
-							  Name = "Nouveau téléporteur",
+							  Name = "Nouveau tÃ©lÃ©porteur",
 							  Realm = 0,
 							  Model = 40,
-							  Text = "Texte à définir.{5}"
+							  Text = "Texte Ã  dÃ©finir.{5}"
 						  };
 					if ((npc.Flags & GameNPC.eFlags.PEACE) == 0)
 						npc.Flags ^= GameNPC.eFlags.PEACE;
@@ -70,7 +70,7 @@ namespace DOL.GS.Scripts
 					text = text.Replace(';', '\n');
 					npc.Text = text;
 					npc.SaveIntoDatabase();
-					player.Out.SendMessage("Texte définit:\n" + text, eChatType.CT_System, eChatLoc.CL_PopupWindow);
+					player.Out.SendMessage("Texte dÃ©fini:\n" + text, eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					break;
 
 				case "refuse":
@@ -87,7 +87,7 @@ namespace DOL.GS.Scripts
 					else
 						npc.Text_Refuse = text;
 					npc.SaveIntoDatabase();
-					player.Out.SendMessage("Texte définit:\n" + text, eChatType.CT_System, eChatLoc.CL_PopupWindow);
+					player.Out.SendMessage("Texte dÃ©fini:\n" + text, eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					break;
 				#endregion
 
@@ -160,7 +160,7 @@ namespace DOL.GS.Scripts
 
 					npc.AddJumpPos(text, X, Y, Z, Heading, RegionID);
 					npc.SaveIntoDatabase();
-					player.Out.SendMessage("Le jump \"" + text + "\" a été ajouté.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					player.Out.SendMessage("Le jump \"" + text + "\" a Ã©tÃ© ajoutÃ©.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					break;
 
 				case "removejump":
@@ -171,11 +171,11 @@ namespace DOL.GS.Scripts
 					}
 					if (npc.RemoveJumpPos(text))
 					{
-						player.Out.SendMessage("Le jump \"" + text + "\" a été supprimé.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage("Le jump \"" + text + "\" a Ã©tÃ© supprimÃ©.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 						npc.SaveIntoDatabase();
 					}
 					else
-						player.Out.SendMessage("Le jump \"" + text + "\" n'éxiste pas.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage("Le jump \"" + text + "\" n'existe pas.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					break;
 
 				case "jump":
@@ -217,7 +217,7 @@ namespace DOL.GS.Scripts
 			}
 			if (!npc.JumpPositions.ContainsKey(args[2]))
 			{
-				DisplayMessage(client, "Le pnj sélectionné ne contient pas le jump \"" + args[2] + "\" !");
+				DisplayMessage(client, "Le pnj sÃ©lectionnÃ© ne contient pas le jump \"" + args[2] + "\" !");
 				return;
 			}
 			TeleportNPC.JumpPos jump = npc.JumpPositions[args[2]];
@@ -245,7 +245,7 @@ namespace DOL.GS.Scripts
 				case "item":
 					jump.Conditions.Item = args[4];
 					DisplayMessage(client,
-								   "Le jump \"" + jump.Name + "\" nécessite maintenant l'item avec le template: \""
+								   "Le jump \"" + jump.Name + "\" nÃ©cessite maintenant l'item avec le template: \""
 								   + args[4] + "\".");
 					break;
 				#endregion
@@ -280,9 +280,9 @@ namespace DOL.GS.Scripts
 					{
 						jump.Conditions.Bind = args[4].Equals("on", StringComparison.CurrentCultureIgnoreCase);
 						if (jump.Conditions.Bind)
-							DisplayMessage(client, "Le jump \"" + jump.Name + "\" bind le joueur après l'avoir téléporté.");
+							DisplayMessage(client, "Le jump \"" + jump.Name + "\" bind le joueur aprÃ¨s l'avoir tÃ©lÃ©portÃ©.");
 						else
-							DisplayMessage(client, "Le jump \"" + jump.Name + "\" ne bind pas le joueur après l'avoir téléporté.");
+							DisplayMessage(client, "Le jump \"" + jump.Name + "\" ne bind pas le joueur aprÃ¨s l'avoir tÃ©lÃ©portÃ©.");
 					}
 					else
 					{

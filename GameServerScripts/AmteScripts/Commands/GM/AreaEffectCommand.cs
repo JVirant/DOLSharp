@@ -17,8 +17,8 @@ namespace DOL.GS.Commands
 		"'/areaeffect effect <newEffect>'",
 		"'/areaeffect interval <min> [max]'",
 		"'/areaeffect missChance <chance %>'",
-		"'/areaeffect message <message>' {0} = les points de vie ajouté/retiré, {1} = mana ajouté/retiré, {2} = endu ajouté/retiré.",
-		"'/areaeffect info' Donne les informations sur l'areaeffect sélectionné")]
+		"'/areaeffect message <message>' {0} = les points de vie ajoutÃ©/retirÃ©, {1} = mana ajoutÃ©/retirÃ©, {2} = endu ajoutÃ©/retirÃ©.",
+		"'/areaeffect info' Donne les informations sur l'areaeffect sÃ©lectionnÃ©")]
 	public class AreaEffectCommand : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -35,7 +35,7 @@ namespace DOL.GS.Commands
                         "Endurance: " + AE.AddEndurance + " points d'endurance.",
 				        "Rayon: " + AE.Radius,
 				        "Spell: " + AE.SpellEffect,
-				        "Interval entre chaque effet " + AE.IntervalMin + " à " + AE.IntervalMax + " secondes",
+				        "Interval entre chaque effet " + AE.IntervalMin + " Ã  " + AE.IntervalMax + " secondes",
 				        "Chance de miss: " + AE.MissChance + "%",
 				        "Message: " + AE.Message
 				    };
@@ -80,7 +80,7 @@ namespace DOL.GS.Commands
 					        LoadedFromScript = false
 					    };
 			        AE.AddToWorld();
-					client.Out.SendMessage("Création d'un AreaEffect, OID:" + AE.ObjectID, eChatType.CT_System,
+					client.Out.SendMessage("CrÃ©ation d'un AreaEffect, OID:" + AE.ObjectID, eChatType.CT_System,
 					                       eChatLoc.CL_SystemWindow);
 					break;
 
@@ -197,14 +197,14 @@ namespace DOL.GS.Commands
 					else if (chance < 0)
 						chance = 0;
 					AE.MissChance = chance;
-					client.Out.SendMessage(AE.Name + " a maintenant " + chance + " chance de raté.", eChatType.CT_System,
+					client.Out.SendMessage(AE.Name + " a maintenant " + chance + " chance de ratÃ©.", eChatType.CT_System,
 					                       eChatLoc.CL_SystemWindow);
 					break;
 
 				case "message":
 					AE.Message = string.Join(" ", args, 2, args.Length - 2);
 					client.Out.SendMessage(
-						AE.Name + " a maintenant le message \"" + AE.Message + "\" lorsqu'on est touché par son effect.",
+						AE.Name + " a maintenant le message \"" + AE.Message + "\" lorsqu'on est touchÃ© par son effect.",
 						eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					break;
 

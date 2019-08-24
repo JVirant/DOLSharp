@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -291,7 +291,7 @@ namespace AmteScripts.Managers
                         (_albion.RealmPoints + _midgard.RealmPoints + _hibernia.RealmPoints) + " PR",
                         "",
                         "Le rvr est " + (_isOpen ? "ouvert" : "fermé") + ".",
-                        "(Mis à jour toutes les 30 secondes)"
+                        "(Mise à jour toutes les 30 secondes)"
                     };
             }
             return _statCache;

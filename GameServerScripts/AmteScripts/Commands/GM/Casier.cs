@@ -8,11 +8,11 @@ namespace DOL.GS.Commands
 		"&casier",
 		ePrivLevel.Player,
 		"Gestion des casiers",
-		"'/casier info [account]' Affiche le casier du joueur selectionné ou du compte indiqué",
-		"'/casier add <account> <raison>' Ajoute une entrée public",
-		"'/casier staff <account> <raison>' Ajoute une entrée privé",
-		"'/casier padd <player> <raison>' Ajoute une entrée public",
-		"'/casier pstaff <player> <raison>' Ajoute une entrée privé")]
+		"'/casier info [account]' Affiche le casier du joueur selectionnÃ© ou du compte indiquÃ©",
+		"'/casier add <account> <raison>' Ajoute une entrÃ©e public",
+		"'/casier staff <account> <raison>' Ajoute une entrÃ©e privÃ©",
+		"'/casier padd <player> <raison>' Ajoute une entrÃ©e public",
+		"'/casier pstaff <player> <raison>' Ajoute une entrÃ©e privÃ©")]
 	public class CasierCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
         public void OnCommand(GameClient client, string[] args)
@@ -76,7 +76,7 @@ namespace DOL.GS.Commands
 					}
 
         			GameServer.Database.AddObject(casier = new Casier(client.Account.Name, args[2].ToLower(), args[3], staffOnly));
-					DisplayMessage(client, "Ajouté: " + casier.Date.ToShortDateString() + " " + casier.Date.ToShortTimeString() + ": " + casier.Reason);
+					DisplayMessage(client, "AjoutÃ©: " + casier.Date.ToShortDateString() + " " + casier.Date.ToShortTimeString() + ": " + casier.Reason);
         			break;
 
 				case "pstaff":
@@ -89,7 +89,7 @@ namespace DOL.GS.Commands
 					}
 
 					GameServer.Database.AddObject(casier = new Casier(client.Account.Name, ch.AccountName, args[3], staffOnly));
-					DisplayMessage(client, "Ajouté: " + casier.Date.ToShortDateString() + " " + casier.Date.ToShortTimeString() + ": " + casier.Reason);
+					DisplayMessage(client, "AjoutÃ©: " + casier.Date.ToShortDateString() + " " + casier.Date.ToShortTimeString() + ": " + casier.Reason);
 					break;
         	}
         }

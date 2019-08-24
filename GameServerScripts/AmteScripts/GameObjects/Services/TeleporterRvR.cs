@@ -19,14 +19,14 @@ namespace DOL.GS.Scripts
         {
             if (_isBusy)
             {
-                player.Out.SendMessage("Je suis occupé pour le moment !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+                player.Out.SendMessage("Je suis occupÃ© pour le moment !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
                 return true;
             }
 
             TurnTo(player);
 
             if (!RvrManager.Instance.IsInRvr(player) &&
-                (!RvrManager.Instance.IsOpen || player.Level < 20 || (str != "Prêt" && str != "Partir")))
+                (!RvrManager.Instance.IsOpen || player.Level < 20 || (str != "Pret" && str != "PrÃªt" && str != "Partir")))
             {
                 player.Out.SendMessage(
                     "Bonjour " + player.Name + ", je ne peux rien faire pour vous pour le moment !\r\nRevenez plus tard !",
@@ -50,11 +50,11 @@ namespace DOL.GS.Scripts
 
             if (RvrManager.Instance.IsInRvr(player))
                 player.Out.SendMessage(
-                    "Pff, tu es trop une poule mouillé pour rester ?!\r\n[Partir]",
+                    "Pff, tu es trop une poule mouillÃ©e pour rester ?!\r\n[Partir]",
                     eChatType.CT_System, eChatLoc.CL_PopupWindow);
             else
                 player.Out.SendMessage(
-                        "Bonjour " + player.Name + ", je peux vous envoyer au combat ! [Prêt] ?!",
+                        "Bonjour " + player.Name + ", je peux vous envoyer au combat ! [PrÃªt] ?!",
                         eChatType.CT_System, eChatLoc.CL_PopupWindow);
 
             return true;
@@ -90,7 +90,7 @@ namespace DOL.GS.Scripts
             GamePlayer player = timer.Properties.getProperty<GamePlayer>("player", null);
             if (player == null) return 0;
             if (player.InCombat)
-                player.Out.SendMessage("Vous ne pouvez pas être téléporté en étant en combat !",
+                player.Out.SendMessage("Vous ne pouvez pas Ãªtre tÃ©lÃ©portÃ© en Ã©tant en combat !",
                     eChatType.CT_Important, eChatLoc.CL_SystemWindow);
             else
             {

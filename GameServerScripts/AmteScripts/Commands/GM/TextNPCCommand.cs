@@ -11,15 +11,15 @@ namespace DOL.GS.Scripts
 		 "&textnpc",
 		 ePrivLevel.GM,
 		 "Gestions des TextNPC",
-		 "'/textnpc create' créé un nouveau pnj",
-         "'/textnpc createmerchant' créé un nouveau marchand qui parle",
-         "'/textnpc createguard' créé un garde qui parle",
-		 "'/textnpc reponse' affiche les réponses du pnj (les 20 premières lettres de la réponse)",
+		 "'/textnpc create' crÃ©Ã© un nouveau pnj",
+         "'/textnpc createmerchant' crÃ©Ã© un nouveau marchand qui parle",
+         "'/textnpc createguard' crÃ©Ã© un garde qui parle",
+		 "'/textnpc reponse' affiche les rÃ©ponses du pnj (les 20 premiÃ¨res lettres de la rÃ©ponse)",
 
 		 //text
-		 "'/textnpc text <texte>' définit le texte d'intéraction (clic droit) (mettez le caractère | ou ; pour les sauts de ligne)",
-		 "'/textnpc add <reponse> <texte>' ajoute ou modifie la réponse 'reponse' (mettez le caractère | ou ; pour les sauts de ligne)",
-		 "'/textnpc remove <reponse>' retire la réponse 'reponse'",
+		 "'/textnpc text <texte>' dÃ©finit le texte d'intÃ©raction (clic droit) (mettez le caractÃ¨re | ou ; pour les sauts de ligne)",
+		 "'/textnpc add <reponse> <texte>' ajoute ou modifie la rÃ©ponse 'reponse' (mettez le caractÃ¨re | ou ; pour les sauts de ligne)",
+		 "'/textnpc remove <reponse>' retire la rÃ©ponse 'reponse'",
 
 		 //emote
 		 "'/textnpc emote add <emote> <reponse>'",
@@ -39,20 +39,20 @@ namespace DOL.GS.Scripts
 		 "'/textnpc randomphrase view'",
 
 		 //conditions
-         "'/textnpc quest <on/off>' affiche ou non l'icone pour la quête",
-		 "'/textnpc level <levelmin> <levelmax>' règle le niveau minimum et maximum des personnage pouvant parler au pnj",
-		 "'/textnpc guild add <guildname>' ajoute une guilde à laquelle le pnj ne parle pas (mettre 'NO GUILD' pour les non guildé)",
-		 "'/textnpc guild remove <guildname>' retire une guilde à laquelle le pnj ne parle pas",
-         "'/textnpc guildA add <guildname>' ajoute une guilde à laquelle le pnj parle (mettre 'NO GUILD' pour les non guildé et 'ALL' pour toutes les guildes)",
-         "'/textnpc guildA remove <guildname>' retire une guilde à laquelle le pnj parle",
-		 "'/textnpc race add <race name>' ajoute une race à laquelle le pnj ne parle pas",
-		 "'/textnpc race remove <race name>' retire une race à laquelle le pnj ne parle pas",
+         "'/textnpc quest <on/off>' affiche ou non l'icone pour la quÃªte",
+		 "'/textnpc level <levelmin> <levelmax>' rÃ¨gle le niveau minimum et maximum des personnage pouvant parler au pnj",
+		 "'/textnpc guild add <guildname>' ajoute une guilde Ã  laquelle le pnj ne parle pas (mettre 'NO GUILD' pour les non guildÃ©)",
+		 "'/textnpc guild remove <guildname>' retire une guilde Ã  laquelle le pnj ne parle pas",
+         "'/textnpc guildA add <guildname>' ajoute une guilde Ã  laquelle le pnj parle (mettre 'NO GUILD' pour les non guildÃ© et 'ALL' pour toutes les guildes)",
+         "'/textnpc guildA remove <guildname>' retire une guilde Ã  laquelle le pnj parle",
+		 "'/textnpc race add <race name>' ajoute une race Ã  laquelle le pnj ne parle pas",
+		 "'/textnpc race remove <race name>' retire une race Ã  laquelle le pnj ne parle pas",
 		 "'/textnpc race list' liste les races disponible",
-		 "'/textnpc class add <class name>' ajoute une classe à laquelle le pnj ne parle pas",
-		 "'/textnpc class remove <class name>' retire une classe à laquelle le pnj ne parle pas",
+		 "'/textnpc class add <class name>' ajoute une classe Ã  laquelle le pnj ne parle pas",
+		 "'/textnpc class remove <class name>' retire une classe Ã  laquelle le pnj ne parle pas",
 		 "'/textnpc class list' liste les classes disponible",
-		 "'/textnpc hour <hour min> <hour max>' règle l'heure à laquelle le pnj parle (fonctionne aussi pr les phrases aléatoire)",
-		 "'/textnpc reput <reput min> <reput max>' règle la réputation du joueur à laquelle le pnj parle",
+		 "'/textnpc hour <hour min> <hour max>' rÃ¨gle l'heure Ã  laquelle le pnj parle (fonctionne aussi pr les phrases alÃ©atoire)",
+		 "'/textnpc reput <reput min> <reput max>' rÃ¨gle la rÃ©putation du joueur Ã  laquelle le pnj parle",
 		 "'/textnpc condition list' liste les conditions du pnj",
 		 "'/textnpc condition help' donne plus d'information sur les conditions",
 
@@ -99,7 +99,7 @@ namespace DOL.GS.Scripts
 					if ((((GameNPC)npc).Flags & GameNPC.eFlags.PEACE) == 0)
 						((GameNPC) npc).Flags ^= GameNPC.eFlags.PEACE;
                     ((GameNPC)npc).Model = 40;
-					npc.TextNPCData.Interact_Text = "Texte à définir.";
+					npc.TextNPCData.Interact_Text = "Texte Ã  dÃ©finir.";
                     ((GameNPC)npc).AddToWorld();
 					((GameNPC)npc).SaveIntoDatabase();
 					break;
@@ -117,13 +117,13 @@ namespace DOL.GS.Scripts
 							if(text.Length > 1)
 								text += "\n";
 							if(de.Value.Length > 20)
-								text += "[" + de.Key + "] Réponse: " + de.Value.Substring(0, 20).Trim('[', ']') + "...";
+								text += "[" + de.Key + "] RÃ©ponse: " + de.Value.Substring(0, 20).Trim('[', ']') + "...";
 							else
-								text += "[" + de.Key + "] Réponse: " + de.Value.Trim('[', ']') + "...";
+								text += "[" + de.Key + "] RÃ©ponse: " + de.Value.Trim('[', ']') + "...";
 						}
 					}
 					else
-						text = "Ce pnj n'a aucune réponse de défini.";
+						text = "Ce pnj n'a aucune rÃ©ponse de dÃ©fini.";
 					player.Out.SendMessage(text, eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					break;
 
@@ -141,7 +141,7 @@ namespace DOL.GS.Scripts
                     else
                         npc.TextNPCData.Interact_Text = text;
                     npc.TextNPCData.SaveIntoDatabase();
-					player.Out.SendMessage("Texte définit:\n" + text, eChatType.CT_System, eChatLoc.CL_PopupWindow);
+					player.Out.SendMessage("Texte dÃ©fini:\n" + text, eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					break;
 					#endregion
 
@@ -159,12 +159,12 @@ namespace DOL.GS.Scripts
                     if (npc.TextNPCData.Reponses.ContainsKey(reponse))
 					{
                         npc.TextNPCData.Reponses[reponse] = texte;
-						player.Out.SendMessage("Réponse \""+reponse+"\" modifié avec le texte:\n"+texte, eChatType.CT_System, eChatLoc.CL_PopupWindow);
+						player.Out.SendMessage("RÃ©ponse \""+reponse+"\" modifiÃ© avec le texte:\n"+texte, eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					}
                     else
 					{
                         npc.TextNPCData.Reponses.Add(reponse, texte);
-						player.Out.SendMessage("Réponse \""+reponse+"\" ajouté avec le texte:\n"+texte, eChatType.CT_System, eChatLoc.CL_PopupWindow);
+						player.Out.SendMessage("RÃ©ponse \""+reponse+"\" ajoutÃ© avec le texte:\n"+texte, eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					}
                     npc.TextNPCData.SaveIntoDatabase();
 					break;
@@ -179,15 +179,15 @@ namespace DOL.GS.Scripts
 					{
 						if(npc.TextNPCData.Reponses.ContainsKey(args[2]))
 						{
-							text = "La réponse \""+args[2]+"\" a été supprimé dont le texte était:\n"+npc.TextNPCData.Reponses[args[2]];
+							text = "La rÃ©ponse \""+args[2]+"\" a Ã©tÃ© supprimÃ© dont le texte Ã©tait:\n"+npc.TextNPCData.Reponses[args[2]];
 							npc.TextNPCData.Reponses.Remove(args[2]);
 							npc.TextNPCData.SaveIntoDatabase();
 						}
 						else
-							text = "Ce pnj n'a pas de réponse \""+args[2]+"\" défini.";
+							text = "Ce pnj n'a pas de rÃ©ponse \""+args[2]+"\" dÃ©fini.";
 					}
 					else
-						text = "Ce pnj n'a aucune réponse de défini.";
+						text = "Ce pnj n'a aucune rÃ©ponse de dÃ©fini.";
 					player.Out.SendMessage(text, eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					break;
 					#endregion
@@ -213,12 +213,12 @@ namespace DOL.GS.Scripts
                             if (npc.TextNPCData.EmoteReponses.ContainsKey(reponse))
 							{
                                 npc.TextNPCData.EmoteReponses[reponse] = (eEmote)Enum.Parse(typeof(eEmote), args[3], true);
-								player.Out.SendMessage("Emote réponse \""+reponse+"\" modifié", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+								player.Out.SendMessage("Emote rÃ©ponse \""+reponse+"\" modifiÃ©", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 							}
 							else
 							{
                                 npc.TextNPCData.EmoteReponses.Add(reponse, (eEmote)Enum.Parse(typeof(eEmote), args[3], true));
-								player.Out.SendMessage("Emote réponse \""+reponse+"\" ajouté", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+								player.Out.SendMessage("Emote rÃ©ponse \""+reponse+"\" ajoutÃ©", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 							}
 							npc.TextNPCData.SaveIntoDatabase();
 						}
@@ -239,17 +239,17 @@ namespace DOL.GS.Scripts
 						{
                             npc.TextNPCData.EmoteReponses.Remove(reponse);
 							npc.TextNPCData.SaveIntoDatabase();
-							player.Out.SendMessage("Emote réponse \""+reponse+"\" supprimé", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+							player.Out.SendMessage("Emote rÃ©ponse \""+reponse+"\" supprimÃ©e", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 						}
 					}
 					else if(args[2].ToLower() == "help")
 					{
 						lines = new List<string>();
-						lines.Add("Si la réponse est 'INTERACT' (sans les guillemets) alors l'emote sera faite lorsque le joueur parle au pnj (clic droit)");
+						lines.Add("Si la rÃ©ponse est 'INTERACT' (sans les guillemets) alors l'emote sera faite lorsque le joueur parle au pnj (clic droit)");
 						lines.Add("Liste des emotes:");
 						foreach(string t in Enum.GetNames(typeof(eEmote)))
 							lines.Add(t);
-						player.Out.SendCustomTextWindow("Les emote réponses pour les nuls !", lines);
+						player.Out.SendCustomTextWindow("Les emote rÃ©ponses pour les nuls !", lines);
 					}
 					break;
 					#endregion
@@ -275,12 +275,12 @@ namespace DOL.GS.Scripts
                             if (npc.TextNPCData.SpellReponses.ContainsKey(reponse))
 							{
                                 npc.TextNPCData.SpellReponses[reponse] = ushort.Parse(args[3]);
-								player.Out.SendMessage("Spell réponse \""+reponse+"\" modifié", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+								player.Out.SendMessage("Spell rÃ©ponse \""+reponse+"\" modifiÃ©e", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 							}
 							else
 							{
                                 npc.TextNPCData.SpellReponses.Add(reponse, ushort.Parse(args[3]));
-								player.Out.SendMessage("Spell réponse \""+reponse+"\" ajouté", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+								player.Out.SendMessage("Spell rÃ©ponse \""+reponse+"\" ajoutÃ©e", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 							}
 							npc.TextNPCData.SaveIntoDatabase();
 						}
@@ -302,16 +302,16 @@ namespace DOL.GS.Scripts
 						{
                             npc.TextNPCData.SpellReponses.Remove(reponse);
 							npc.TextNPCData.SaveIntoDatabase();
-							player.Out.SendMessage("Spell réponse \""+reponse+"\" supprimé", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+							player.Out.SendMessage("Spell rÃ©ponse \""+reponse+"\" supprimÃ©e", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 						}
 						else
-							player.Out.SendMessage("Ce pnj n'a pas de spell réponse '"+reponse+"'.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+							player.Out.SendMessage("Ce pnj n'a pas de spell rÃ©ponse '"+reponse+"'.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					}
 					else if(args[2].ToLower() == "help")
 					{
 						lines = new List<string>();
-						lines.Add("Si la réponse est 'INTERACT' (sans les guillemets) alors l'animation du spell sera faite lorsque le joueur parle au pnj (clic droit).");
-						player.Out.SendCustomTextWindow("Les spell réponses pour les nuls !", lines);
+						lines.Add("Si la rÃ©ponse est 'INTERACT' (sans les guillemets) alors l'animation du spell sera faite lorsque le joueur parle au pnj (clic droit).");
+						player.Out.SendCustomTextWindow("Les spell rÃ©ponses pour les nuls !", lines);
 					}
 					break;
 					#endregion
@@ -339,12 +339,12 @@ namespace DOL.GS.Scripts
                                     npc.TextNPCData.RandomPhrases[reponse] = (eEmote)Enum.Parse(typeof(eEmote), args[3], true);
 								else
                                     npc.TextNPCData.RandomPhrases[reponse] = 0;
-								player.Out.SendMessage("L'emote de la phrase \""+reponse+"\" a été modifié", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+								player.Out.SendMessage("L'emote de la phrase \""+reponse+"\" a Ã©tÃ© modifiÃ©", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 							}
 							else
 							{
                                 npc.TextNPCData.RandomPhrases.Add(reponse, (eEmote)Enum.Parse(typeof(eEmote), args[3], true));
-								player.Out.SendMessage("La phrase \""+reponse+"\" a été ajouté", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+								player.Out.SendMessage("La phrase \""+reponse+"\" a Ã©tÃ© ajoutÃ©", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 							}
 							npc.TextNPCData.SaveIntoDatabase();
 						}
@@ -374,7 +374,7 @@ namespace DOL.GS.Scripts
 							else
                                 npc.TextNPCData.RandomPhrases.Remove("em:" + text);
 							npc.TextNPCData.SaveIntoDatabase();
-							player.Out.SendMessage("Phrase \""+text+"\" supprimé", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+							player.Out.SendMessage("Phrase \""+text+"\" supprimÃ©e", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 						}
 						else
 							player.Out.SendMessage("Ce pnj n'a pas de phrase '"+text+"'.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
@@ -406,7 +406,7 @@ namespace DOL.GS.Scripts
 							return;
 						}
 						lines = new List<string>();
-                        lines.Add("Phrases que peut dire le pnj à un interval de " + npc.TextNPCData.PhraseInterval + " secondes:");
+                        lines.Add("Phrases que peut dire le pnj Ã  un interval de " + npc.TextNPCData.PhraseInterval + " secondes:");
                         foreach (var de in npc.TextNPCData.RandomPhrases)
 							lines.Add(de.Key + " - Emote: " + de.Value);
 						player.Out.SendCustomTextWindow("Les phrases de " + ((GameNPC) npc).Name, lines);
@@ -417,9 +417,9 @@ namespace DOL.GS.Scripts
 						lines = new List<string>();
 						lines.Add("Pour ajouter une phrase, utilisez '/textnpc randomphrase <emote> <say/yell> <phrase>'.");
 						lines.Add("emote: Si l'emote est '0' alors il n'y aura pas d'emote lorsque le pnj dira la phrase. (voir '/textnpc emote help' pour les emotes possibles').");
-						lines.Add("say/yell/em: C'est le type de phrase envoyé par le pnj, si c'est 'say' le pnj parlera sur le cc général, si c'est 'yell' le pnj parlera fort (rayon d'entente plus grand) sur le cc général, 'em' est utilisé pour les actions comme '/em <text>'.");
-						lines.Add("phrase: La phrase est choisite aléatoirement dans toutes les phrases disponibles.");
-						player.Out.SendCustomTextWindow("Les phrases aléatoire pour les nuls !", lines);
+						lines.Add("say/yell/em: C'est le type de phrase envoyÃ© par le pnj, si c'est 'say' le pnj parlera sur le cc gÃ©nÃ©ral, si c'est 'yell' le pnj parlera fort (rayon d'entente plus grand) sur le cc gÃ©nÃ©ral, 'em' est utilisÃ© pour les actions comme '/em <text>'.");
+						lines.Add("phrase: La phrase est choisite alÃ©atoirement dans toutes les phrases disponibles.");
+						player.Out.SendCustomTextWindow("Les phrases alÃ©atoire pour les nuls !", lines);
 					}
 					break;
 					#endregion
@@ -476,12 +476,12 @@ namespace DOL.GS.Scripts
 					{
 						if(!GuildMgr.DoesGuildExist(args[3]) && args[3] != "NO GUILD")
 						{
-							player.Out.SendMessage("La guilde \""+ args[3] +"\" n'éxiste pas.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+							player.Out.SendMessage("La guilde \""+ args[3] +"\" n'Ã©xiste pas.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 							break;
 						}
                         npc.TextNPCData.Condition.GuildNames.Add(args[3]);
 						npc.TextNPCData.SaveIntoDatabase();
-						player.Out.SendMessage("La guilde "+args[3]+" a été ajouté aux guildes interdites.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage("La guilde "+args[3]+" a Ã©tÃ© ajoutÃ© aux guildes interdites.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					}
 					else if(args[2].ToLower() == "remove")
 					{
@@ -492,7 +492,7 @@ namespace DOL.GS.Scripts
 						}
                         npc.TextNPCData.Condition.GuildNames.Remove(args[3]);
 						npc.TextNPCData.SaveIntoDatabase();
-						player.Out.SendMessage("La guilde "+args[3]+" a été retirée des guildes interdites.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage("La guilde "+args[3]+" a Ã©tÃ© retirÃ©e des guildes interdites.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					}
 					else
 						DisplaySyntax(client);
@@ -508,17 +508,17 @@ namespace DOL.GS.Scripts
                     {
                         if (!GuildMgr.DoesGuildExist(args[3]) && (args[3] != "NO GUILD" || args[3] != "ALL"))
                         {
-                            player.Out.SendMessage("La guilde \"" + args[3] + "\" n'éxiste pas.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+                            player.Out.SendMessage("La guilde \"" + args[3] + "\" n'existe pas.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                             break;
                         }
                         if (npc.TextNPCData.Condition.GuildNamesA.Contains(args[3]))
 						{
-							DisplayMessage(client, "La guilde \"{0}\" a déjà été ajouté.", args[3]);
+							DisplayMessage(client, "La guilde \"{0}\" a dÃ©jÃ  Ã©tÃ© ajoutÃ©.", args[3]);
 							return;
 						}
                         npc.TextNPCData.Condition.GuildNamesA.Add(args[3]);
                         npc.TextNPCData.SaveIntoDatabase();
-                        player.Out.SendMessage("La guilde " + args[3] + " a été ajouté aux guildes autorisées.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+                        player.Out.SendMessage("La guilde " + args[3] + " a Ã©tÃ© ajoutÃ© aux guildes autorisÃ©es.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                     }
                     else if (args[2].ToLower() == "remove")
                     {
@@ -529,7 +529,7 @@ namespace DOL.GS.Scripts
                         }
                         npc.TextNPCData.Condition.GuildNamesA.Remove(args[3]);
                         npc.TextNPCData.SaveIntoDatabase();
-                        player.Out.SendMessage("La guilde " + args[3] + " a été retirée des guildes autorisées.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+                        player.Out.SendMessage("La guilde " + args[3] + " a Ã©tÃ© retirÃ©e des guildes autorisÃ©es.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
                     }
                     else
                         DisplaySyntax(client);
@@ -545,12 +545,12 @@ namespace DOL.GS.Scripts
 					{
 						if(!_RaceNameExist(args[3]))
 						{
-							player.Out.SendMessage("La race \""+ args[3] +"\" n'éxiste pas, voir '/textnpc race list'", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+							player.Out.SendMessage("La race \""+ args[3] +"\" n'Ã©xiste pas, voir '/textnpc race list'", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 							break;
 						}
                         npc.TextNPCData.Condition.Races.Add(args[3].ToLower());
 						npc.TextNPCData.SaveIntoDatabase();
-						player.Out.SendMessage("La race "+args[3]+" a été ajouté aux races interdites.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage("La race "+args[3]+" a Ã©tÃ© ajoutÃ© aux races interdites.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					}
 					else if(args[2].ToLower() == "remove")
 					{
@@ -561,12 +561,12 @@ namespace DOL.GS.Scripts
 						}
                         npc.TextNPCData.Condition.Races.Remove(args[3].ToLower());
 						npc.TextNPCData.SaveIntoDatabase();
-						player.Out.SendMessage("La race "+args[3]+" a été retirée des races interdites.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage("La race "+args[3]+" a Ã©tÃ© retirÃ©e des races interdites.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					}
 					else if(args[2].ToLower() == "list")
 					{
 						lines = new List<string>();
-						lines.Add("Liste des races éxistantes:");
+						lines.Add("Liste des races existantes:");
 						//TODO: races
 						//foreach(string race in GamePlayer.RACENAMES)
 							//lines.Add(race);
@@ -586,12 +586,12 @@ namespace DOL.GS.Scripts
 					{
 						if(!_ClassNameExist(args[3]))
 						{
-							player.Out.SendMessage("La classe \""+ args[3] +"\" n'éxiste pas, voir '/textnpc class list'", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+							player.Out.SendMessage("La classe \""+ args[3] +"\" n'Ã©xiste pas, voir '/textnpc class list'", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 							break;
 						}
                         npc.TextNPCData.Condition.Classes.Add(args[3].ToLower());
 						npc.TextNPCData.SaveIntoDatabase();
-						player.Out.SendMessage("La classe "+args[3]+" a été ajouté aux classes interdites.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage("La classe "+args[3]+" a Ã©tÃ© ajoutÃ© aux classes interdites.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					}
 					else if(args[2].ToLower() == "remove")
 					{
@@ -602,12 +602,12 @@ namespace DOL.GS.Scripts
 						}
                         npc.TextNPCData.Condition.Classes.Remove(args[3].ToLower());
 						npc.TextNPCData.SaveIntoDatabase();
-						player.Out.SendMessage("La classe "+args[3]+" a été retirée des classes interdites.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage("La classe "+args[3]+" a Ã©tÃ© retirÃ©e des classes interdites.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					}
 					else if(args[2].ToLower() == "list")
 					{
 						lines = new List<string>();
-						lines.Add("Liste des classes éxistantes:");
+						lines.Add("Liste des classes existantes:");
 						foreach(string classe in Enum.GetNames(typeof(eCharacterClass)))
 							lines.Add(classe);
 						player.Out.SendCustomTextWindow("Les classes pour les nuls !", lines);
@@ -654,9 +654,9 @@ namespace DOL.GS.Scripts
 					}
 					catch
 					{
-						player.Out.SendMessage("La réputation max ou min n'est pas valide.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage("La rÃ©putation max ou min n'est pas valide.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					}
-					player.Out.SendMessage("La réputation est maintenant comprise entre " + npc.TextNPCData.Condition.Reput_min + " et " + npc.TextNPCData.Condition.Reput_max + ".", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					player.Out.SendMessage("La rÃ©putation est maintenant comprise entre " + npc.TextNPCData.Condition.Reput_min + " et " + npc.TextNPCData.Condition.Reput_max + ".", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					break;
 					#endregion
 
@@ -674,7 +674,7 @@ namespace DOL.GS.Scripts
 						        	"Conditions du pnj " + ((GameNPC) npc).Name + ":",
 						        	"+ Heure      min: " + npc.TextNPCData.Condition.Heure_min + " max:" +
 						        	npc.TextNPCData.Condition.Heure_max,
-						        	"+ Réputation min: " + npc.TextNPCData.Condition.Reput_min + " max:" +
+						        	"+ RÃ©putation min: " + npc.TextNPCData.Condition.Reput_min + " max:" +
 						        	npc.TextNPCData.Condition.Reput_max
 						        };
 						if (npc.TextNPCData.Condition.Level_min != 1 || npc.TextNPCData.Condition.Level_max != 50)
@@ -687,7 +687,7 @@ namespace DOL.GS.Scripts
 						}
 						if (npc.TextNPCData.Condition.GuildNames != null && npc.TextNPCData.Condition.GuildNames.Count > 0)
 						{
-							lines.Add("+ Guildes autorisées:");
+							lines.Add("+ Guildes autorisÃ©es:");
 							foreach (string guild in npc.TextNPCData.Condition.GuildNamesA)
 								lines.Add("   " + guild);
 						}
@@ -704,7 +704,7 @@ namespace DOL.GS.Scripts
 								lines.Add("   " + classe);
 						}
                         if (npc.TextNPCData.Condition.CanGiveQuest)
-                            lines.Add("+ Quêtes: activé");
+                            lines.Add("+ QuÃªtes: activÃ©es");
                         player.Out.SendCustomTextWindow("Conditions de " + ((GameNPC)npc).Name, lines);
 					}
 					else if(args[2].ToLower() == "help")
@@ -712,11 +712,11 @@ namespace DOL.GS.Scripts
 						lines = new List<string>
 						        {
 						        	"Type de conditions:",
-						        	"+ Level: on règle le niveau minimum et maximum des personnages auquels le pnj parlera. Par exemple, si l'on met 15 en minimum et 50 en maximum, le pnj parlera aux personnages du niveau 15 au niveau 49.",
-						        	"+ Guilde: on ajoute les guildes auquelles le pnj ne parlera pas, donc si l'on met par exemple la guilde 'Legion Noire', le pnj ne parlera pas aux membre de la Legion Noire. Pour que le pnj ne parle pas au non guildé, il faut ajouter la guilde 'NO GUILD'.",
+						        	"+ Level: on rÃ¨gle le niveau minimum et maximum des personnages auquels le pnj parlera. Par exemple, si l'on met 15 en minimum et 50 en maximum, le pnj parlera aux personnages du niveau 15 au niveau 49.",
+						        	"+ Guilde: on ajoute les guildes auquelles le pnj ne parlera pas, donc si l'on met par exemple la guilde 'Legion Noire', le pnj ne parlera pas aux membre de la Legion Noire. Pour que le pnj ne parle pas au non guildÃ©, il faut ajouter la guilde 'NO GUILD'.",
 						        	"+ Race/Classe: on ajoute les races ou classes auquelles le pnj ne parlera pas, donc si on ajoute 'Troll', le pnj ne parlera pas aux trolls. (Voir '/textnpc race list' et '/textnpc class list' pour voir les races/classes possible).",
-						        	"+ Les heures: on règle la tranche d'heure du jeu pendant laquelle parle le pnj. Pour mettre une tranche d'heure de nuit par exemple de 22h à 5h. Il faut mettre 22 en minimum et 5 en maximum, le pnj parlera de 22h00 à 4h59 (heure du jeu). (Cette condition fonctionne aussi pour les phrases/emotes aléatoires",
-						        	"+ Quêtes: permet juste d'afficher ou non l'icone de quêtes."
+						        	"+ Les heures: on rÃ¨gle la tranche d'heure du jeu pendant laquelle parle le pnj. Pour mettre une tranche d'heure de nuit par exemple de 22h Ã  5h. Il faut mettre 22 en minimum et 5 en maximum, le pnj parlera de 22h00 Ã  4h59 (heure du jeu). (Cette condition fonctionne aussi pour les phrases/emotes alÃ©atoires",
+						        	"+ QuÃªtes: permet juste d'afficher ou non l'icone de quÃªtes."
 						        };
 						player.Out.SendCustomTextWindow("Les conditions pour les nuls !", lines);
 					}

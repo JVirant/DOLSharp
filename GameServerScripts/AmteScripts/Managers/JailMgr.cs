@@ -13,7 +13,7 @@ namespace DOL.GS.Scripts
 	{
         public const ushort Radius = 300; //Taille de la prison
 	    
-		// RÈglages prison
+		// R√©glages prison
 		// Bind de prison + tp
 		public const int PrisonHRP_X = 32943;
 		public const int PrisonHRP_Y = 34440;
@@ -152,7 +152,7 @@ namespace DOL.GS.Scripts
 		}
 		#endregion
 
-		#region EntrÈ/Sortie Prison
+		#region Entr√©e/Sortie Prison
 
 		/// <summary>
 		/// Emprisonner un joueur
@@ -165,7 +165,7 @@ namespace DOL.GS.Scripts
 		/// <param name="raison"></param>
 		private static void Emprisonner(GamePlayer player, int cost, DateTime sortie, string GM, bool JailRP, string raison)
 		{
-            //On vÈrifie le tps
+            //On v√©rifie le tps
             long time = (sortie.Ticks - DateTime.Now.Ticks) / 10000;
             if (sortie != DateTime.MinValue && time <= 0)
                 return;
@@ -198,8 +198,8 @@ namespace DOL.GS.Scripts
 			Animation(player);
 
 			if (JailRP)
-				player.Out.SendMessage("Vous avez ÈtÈ mis en prison pour vos actes par "+ GM +". Votre caution s'Èleve ‡ "+cost+" Or. Pour sortir, demandez ‡ quelqu'un de payer votre caution a Stronghold, le gardien de la prison.",eChatType.CT_Important,eChatLoc.CL_SystemWindow);
-			else	player.Out.SendMessage("Vous avez ÈtÈ mis en prison pour HRP par "+ GM +". Vous devez attendre la fin de votre durÈe d'emprisonnement en temps rÈel pour sortir automatiquement.",eChatType.CT_Important,eChatLoc.CL_SystemWindow);
+				player.Out.SendMessage("Vous avez √©t√© mis en prison pour vos actes par "+ GM +". Votre caution s'√©leve √† "+cost+" Or. Pour sortir, demandez √† quelqu'un de payer votre caution √† Stronghold, le gardien de la prison.",eChatType.CT_Important,eChatLoc.CL_SystemWindow);
+			else	player.Out.SendMessage("Vous avez √©t√© mis en prison pour HRP par "+ GM +". Vous devez attendre la fin de votre dur√©e d'emprisonnement en temps r√©el pour sortir automatiquement.",eChatType.CT_Important,eChatLoc.CL_SystemWindow);
 
             if (sortie == DateTime.MinValue) return;
 
@@ -211,7 +211,7 @@ namespace DOL.GS.Scripts
 		}
 
 		/// <summary>
-		/// Emprisonner un joueur non connectÈ
+		/// Emprisonner un joueur non connect√©
 		/// </summary>
 		/// <param name="playerName"></param>
 		/// <param name="cost">Amende</param>
@@ -220,12 +220,12 @@ namespace DOL.GS.Scripts
 		/// <param name="raison"></param>
 		private static bool Emprisonner(string playerName, int cost, DateTime sortie, bool JailRP, string raison)
         {
-            //On vÈrifie le tps
+            //On v√©rifie le tps
 			long time = (sortie.Ticks - DateTime.Now.Ticks) / 10000;
             if (sortie != DateTime.MinValue && time <= 0)
                 return false;
             
-            //On vÈrifie si le joueur existe
+            //On v√©rifie si le joueur existe
         	DOLCharacters perso = GameServer.Database.SelectObject<DOLCharacters>("Name LIKE '" + GameServer.Database.Escape(playerName) + "'");
             if (perso == null || perso.Name.ToLower() != playerName.ToLower())
                 return false;
@@ -274,14 +274,14 @@ namespace DOL.GS.Scripts
         }
 
         /// <summary>
-        /// Emprisonner un joueur connectÈ dans la prison RP
+        /// Emprisonner un joueur connect√© dans la prison RP
         /// </summary>
         public static void EmprisonnerRP(GamePlayer player, int cost, DateTime sortie, string GM, string raison) 
 		{
             Emprisonner(player, cost, sortie, GM, true, raison);
 		}
         /// <summary>
-        /// Emprisonner un joueur connectÈ dans la prison HRP
+        /// Emprisonner un joueur connect√© dans la prison HRP
         /// </summary>
         public static void EmprisonnerHRP(GamePlayer player, DateTime sortie, string GM, string raison) 
 		{
@@ -289,14 +289,14 @@ namespace DOL.GS.Scripts
 		}
 
         /// <summary>
-        /// Emprisonner un joueur dÈconnectÈ dans la prison RP
+        /// Emprisonner un joueur d√©connect√© dans la prison RP
         /// </summary>
         public static bool EmprisonnerRP(string player, int cost, DateTime sortie, string GM, string raison)
         {
             return Emprisonner(player, cost, sortie, true, raison);
         }
         /// <summary>
-        /// Emprisonner un joueur dÈconnectÈ dans la prison HRP
+        /// Emprisonner un joueur d√©connect√© dans la prison HRP
         /// </summary>
         public static bool EmprisonnerHRP(string player, DateTime sortie, string GM, string raison)
         {
@@ -304,7 +304,7 @@ namespace DOL.GS.Scripts
         }
 
 		/// <summary>
-		/// Rel‚che un prisonnier
+		/// Rel√¢che un prisonnier
 		/// </summary>
 		/// <param name="player">Prisonnier</param>
 		/// <returns></returns>
@@ -334,7 +334,7 @@ namespace DOL.GS.Scripts
 		}
 
 		/// <summary>
-		/// Rel‚che un prisonnier
+		/// Rel√¢che un prisonnier
 		/// </summary>
 		/// <param name="player">Prisonnier</param>
 		/// <returns></returns>
@@ -377,7 +377,7 @@ namespace DOL.GS.Scripts
 		}
 
 		/// <summary>
-		/// Rel‚che un prisonnier
+		/// Rel√¢che un prisonnier
 		/// </summary>
 		/// <param name="Name">Nom du prisonnier</param>
 		/// <returns></returns>
@@ -393,7 +393,7 @@ namespace DOL.GS.Scripts
 		#endregion
 
         /// <summary>
-        /// Donne l'entrÈ dans la base du prisonnier par son nom
+        /// Donne l'entr√©e dans la base du prisonnier par son nom
         /// </summary>
         /// <param name="Name">Nom du prisonnier</param>
         /// <returns>Null si non trouvable</returns>
@@ -412,7 +412,7 @@ namespace DOL.GS.Scripts
 		}
 
         /// <summary>
-        /// Donne l'entrÈ dans la base du prisonnier par son nom
+        /// Donne l'entr√©e dans la base du prisonnier par son nom
         /// </summary>
         /// <returns>Null si non trouvable</returns>
         public static Prisoner GetPrisoner(GamePlayer player)

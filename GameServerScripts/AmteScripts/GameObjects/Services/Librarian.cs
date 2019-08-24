@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Text;
 using DOL.Database;
 using DOL.GS.PacketHandler;

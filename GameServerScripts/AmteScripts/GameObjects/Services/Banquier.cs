@@ -29,7 +29,7 @@ namespace DOL.GS.Scripts
             DBBanque bank = GameServer.Database.FindObjectByKey<DBBanque>(player.InternalID);
             if (bank == null)
 			{
-				player.Out.SendMessage("Vous venez de créer un compte à la banque.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				player.Out.SendMessage("Vous venez de crÃ©er un compte Ã  la banque.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				bank = new DBBanque(player.InternalID);
 				GameServer.Database.AddObject(bank);
 			}
@@ -87,7 +87,7 @@ namespace DOL.GS.Scripts
             DBBanque bank = GameServer.Database.FindObjectByKey<DBBanque>(player.InternalID);
             if (bank == null)
 			{
-				player.Out.SendMessage("Bonjour, vous n'avez pas encore de compte.\r\nPour créer un compte il suffit de me donner de l'argent ou un chèque, le compte sera créé automatiquement !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+				player.Out.SendMessage("Bonjour, vous n'avez pas encore de compte.\r\nPour crÃ©er un compte il suffit de me donner de l'argent ou un chÃ¨que, le compte sera crÃ©Ã© automatiquement !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 				return true;
 			}
 
@@ -103,7 +103,7 @@ namespace DOL.GS.Scripts
 			if(Money.GetCopper(bank.Money) != 0)
 				message += Money.GetCopper(bank.Money)+"C ";
 			message += "sur votre compte.\r\n";
-			message += "Que voulez-vous faire ?\n\n[retirer de l'argent]\n[faire un chèque]\n[encaisser un chèque]";
+			message += "Que voulez-vous faire ?\n\n[retirer de l'argent]\n[faire un chÃ¨que]\n[encaisser un chÃ¨que]";
 			player.Out.SendMessage(message, eChatType.CT_System, eChatLoc.CL_PopupWindow);
 			return true;
 		}
@@ -117,28 +117,30 @@ namespace DOL.GS.Scripts
             DBBanque bank = GameServer.Database.FindObjectByKey<DBBanque>(player.InternalID);
             if (bank == null)
 			{
-				player.Out.SendMessage("Bonjour, vous n'avez pas encore de compte.\r\nPour créer un compte il suffit de me donner de l'argent, le compte sera créé automatiquement !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+				player.Out.SendMessage("Bonjour, vous n'avez pas encore de compte.\r\nPour crÃ©er un compte il suffit de me donner de l'argent, le compte sera crÃ©Ã© automatiquement !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 				return true;
 			}
 
-			switch(str)
+			switch(str.ToLower())
 			{
 				case "retirer de l'argent":
-					player.Out.SendMessage("Combien voulez-vous retirer ?\r\n[La totalité] [quelques pièces]", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+					player.Out.SendMessage("Combien voulez-vous retirer ?\r\n[La totalitÃ©] [quelques piÃ¨ces]", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					break;
-				case "La totalité":
+				case "la totalitÃ©":
+				case "la totalite":
 					WithdrawMoney(bank, player, bank.Money);
 					break;
-				case "quelques pièces":
-					player.Out.SendMessage("Pour retirer quelques pièces, il suffit de me sélectionner et de taper la commande /banque.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+				case "quelques piÃ¨ces":
+				case "quelques pieces":
+					player.Out.SendMessage("Pour retirer quelques piÃ¨ces, il suffit de me sÃ©lectionner et de taper la commande /banque.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					break;
-				case "faire un chèque":
+				case "faire un chÃ¨que":
 				case "faire un cheque":
-					player.Out.SendMessage("Pour faire un chèque, il suffit de me sélectionner et de taper la commande /banque cheque.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+					player.Out.SendMessage("Pour faire un chÃ¨que, il suffit de me sÃ©lectionner et de taper la commande /banque cheque.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					break;
-				case "encaisser un chèque":
+				case "encaisser un chÃ¨que":
 				case "encaisser un cheque":
-					player.Out.SendMessage("Pour encaisser un chèque, il suffit de me le donner.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+					player.Out.SendMessage("Pour encaisser un chÃ¨que, il suffit de me le donner.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					break;
 			}
 			return true;

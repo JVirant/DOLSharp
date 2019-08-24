@@ -1,10 +1,10 @@
 /*
 - Interaction
-- Réponse:
+- RÃ©ponse:
 	- Texte
 	- Spell animation
 	- Emotes
-- phrase/emotes aléatoire en cc général
+- phrase/emotes alÃ©atoire en cc gÃ©nÃ©ral
 - Conditions:
 	- Level
 	- guilde

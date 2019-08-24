@@ -36,12 +36,12 @@ namespace DOL.GS.Scripts
 		{
 			if (!IsWithinRadius(player, WorldMgr.INTERACT_DISTANCE))
 			{
-				player.Out.SendMessage("Vous êtes trop loin pour vous asseoir.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				player.Out.SendMessage("Vous Ãªtes trop loin pour vous asseoir.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				return false;
 			}
 
 			if (GetFreeArrayLocation() == -1)
-				player.Out.SendMessage("La place est déjà prise.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				player.Out.SendMessage("La place est dÃ©jÃ  prise.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 			else
 				player.MountSteed(this, false);
 

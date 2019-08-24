@@ -10,7 +10,7 @@ namespace DOL.GS.Scripts
 	[CmdAttribute(
 		 "&book",
 		 ePrivLevel.Player,
-		 "Créer un livre vierge",
+		 "CrÃ©er un livre vierge",
 		 "/book <titre>")]
 	public class BookCommandHandler : ICommandHandler
 	{
@@ -51,7 +51,7 @@ namespace DOL.GS.Scripts
 
 				switch (args[1])
 				{
-					#region Création
+					#region CrÃ©ation
 					case "create":
 
 						ScrollTitle = String.Join(" ", args, 2, args.Length - 2);
@@ -59,14 +59,14 @@ namespace DOL.GS.Scripts
 
 						if ((item.Id_nb != "scroll") || (item.Name != "Parchemin vierge"))
 						{
-							player.Out.SendMessage("Vous devez posseder un parchemin vierge dans le dernier emplacement de votre inventaire pour créer un livre.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+							player.Out.SendMessage("Vous devez posseder un parchemin vierge dans le dernier emplacement de votre inventaire pour crÃ©er un livre.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 							return;
 						}
 
 						var book = GameServer.Database.SelectObject<DBBook>("Title = '" + GameServer.Database.Escape(ScrollTitle) + "'");
 						if (book != null)
 						{
-							player.Out.SendMessage("Ce livre existe déjà.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+							player.Out.SendMessage("Ce livre existe dÃ©jÃ .", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 							return;
 						}
 
@@ -93,7 +93,7 @@ namespace DOL.GS.Scripts
 						         };
 						GameServer.Database.AddObject(iu);
 						player.Inventory.AddItem(eInventorySlot.LastBackpack, GameInventoryItem.Create(iu));
-						player.Out.SendMessage("Vous créez un livre.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage("Vous crÃ©ez un livre.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 						break;
 					#endregion
 					#region Ecriture
@@ -124,7 +124,7 @@ namespace DOL.GS.Scripts
 							}
 						}
 						GameServer.Database.DeleteObject(theScroll);
-						player.Out.SendMessage("Vous brûlez avec peine le dernier exemplaire de l'oeuvre nommée \"" + ScrollTitle + "\"...", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage("Vous brÃ»lez avec peine le dernier exemplaire de l'oeuvre nommÃ©e \"" + ScrollTitle + "\"...", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 						break;
 					#endregion
 					#region Correction
@@ -141,7 +141,7 @@ namespace DOL.GS.Scripts
 						theScroll.Text = theScroll.Text.Substring(0, theScroll.Text.LastIndexOf('\n') + 1);
 
 						theScroll.Save();
-						player.Out.SendMessage("Vous effacez la dernière ligne de \"" + ScrollTitle + "\".", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage("Vous effacez la derniÃ¨re ligne de \"" + ScrollTitle + "\".", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 						break;
 					#endregion
 				}
@@ -239,7 +239,7 @@ namespace DOL.GS.Scripts
 					if (player.Inventory.GetItem(i).Id_nb == "feather" ||
 						player.Inventory.GetItem(i).Id_nb.StartsWith("feather_"))
 						return true;
-			player.Out.SendMessage("Vous devez posseder une plume d'écrivain pour ecrire sur un parchemin.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+			player.Out.SendMessage("Vous devez posseder une plume d'Ã©crivain pour ecrire sur un parchemin.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 			return false;
 		}
 
@@ -281,7 +281,7 @@ namespace DOL.GS.Scripts
 				if (player.Inventory.GetItem(i) != null &&
 				    player.Inventory.GetItem(i).Id_nb == ink)
 					return true;
-			player.Out.SendMessage("Vous devez posseder de l'encre de type \"" + ink + "\" pour continuer l'écriture de ce parchemin.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+			player.Out.SendMessage("Vous devez posseder de l'encre de type \"" + ink + "\" pour continuer l'Ã©criture de ce parchemin.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 			return false;
 		}
 
@@ -291,11 +291,11 @@ namespace DOL.GS.Scripts
 		public void Aide(GamePlayer player)
 		{
 			player.Out.SendMessage("Utilisation du /book :", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-			player.Out.SendMessage("- /book create \"Titre\" : Crée un livre à partir d'un parchemin vierge. (En dernier slot de l'inventaire)", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-			player.Out.SendMessage("- /book write \"Titre\" <Texte à écrire> : Ecrit du texte sur un parchemin.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-			player.Out.SendMessage("-- (Si vous possedez plusieurs type d'encre, la première de votre inventaire sera utilisée)", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-			player.Out.SendMessage("- /book remove \"Titre\" : Détruire totalement un livre. (Auteur seulement)", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-			player.Out.SendMessage("- /book correct \"Titre\" : Efface la dernière ligne d'un parchemin.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+			player.Out.SendMessage("- /book create \"Titre\" : CrÃ©e un livre Ã  partir d'un parchemin vierge. (En dernier slot de l'inventaire)", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+			player.Out.SendMessage("- /book write \"Titre\" <Texte Ã  Ã©crire> : Ecrit du texte sur un parchemin.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+			player.Out.SendMessage("-- (Si vous possedez plusieurs type d'encre, la premiÃ¨re de votre inventaire sera utilisÃ©e)", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+			player.Out.SendMessage("- /book remove \"Titre\" : DÃ©truire totalement un livre. (Auteur seulement)", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+			player.Out.SendMessage("- /book correct \"Titre\" : Efface la derniÃ¨re ligne d'un parchemin.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 			player.Out.SendMessage("- /use (Apres clic droit sur le livre) : Ouvre une fenetre de lecture.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 		}
 	}

@@ -33,7 +33,7 @@ namespace DOL.GS.Scripts
 					Prisoner prison = JailMgr.GetPrisoner(player);
 					if(prison == null) return Interact(player);
 					if (prison.RP)
-						player.Out.SendMessage("Attends le " + prison.Sortie.ToShortDateString() + " vers " + prison.Sortie.Hour + "h ou demande à quelqu'un de payer ta caution.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+						player.Out.SendMessage("Attends le " + prison.Sortie.ToShortDateString() + " vers " + prison.Sortie.Hour + "h ou demande Ã  quelqu'un de payer ta caution.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					else
 						player.Out.SendMessage("Attends le " + prison.Sortie.ToShortDateString() + " vers " + prison.Sortie.Hour + "h.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					break;

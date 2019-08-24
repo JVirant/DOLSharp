@@ -27,8 +27,8 @@ namespace DOL.GS.Scripts
 		"&nightmob",
 		ePrivLevel.GM,
 		"NightMob Commands",
-		"'/nightmob create' - créé un NightMob",
-	    "'/nightmob info' - affiche les infos du NightMob ciblé",
+		"'/nightmob create' - crÃ©Ã© un NightMob",
+	    "'/nightmob info' - affiche les infos du NightMob ciblÃ©",
 	    "'/nightmob time <start> <end>' - change les heures d'apparition du mob")]
 	public class NightMobCommandHandler : AbstractCommandHandler, ICommandHandler
 	{

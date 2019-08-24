@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DOL.Database;
 using DOL.GS.PacketHandler;
 

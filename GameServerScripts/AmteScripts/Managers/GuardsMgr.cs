@@ -1,4 +1,4 @@
-﻿using AmteScripts.Managers;
+using AmteScripts.Managers;
 using DOL.Database;
 using DOL.Database.Attributes;
 using DOL.Events;

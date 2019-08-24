@@ -9,7 +9,7 @@ namespace DOL.GS.Commands
 		"Gestion du rvr",
 		"'/rvr open [region]' Force l'ouverture du rvr (ne se ferme jamais)",
         "'/rvr close' Force la fermeture du rvr",
-        "'/rvr unforce' Permet après un '/rvr open' de fermer le rvr s'il n'est pas dans les bonnes horaires",
+        "'/rvr unforce' Permet aprÃ¨s un '/rvr open' de fermer le rvr s'il n'est pas dans les bonnes horaires",
         "'/rvr refresh' Permet de rafraichir les maps disponible au rvr (voir le wiki)")]
 	public class RvRCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
@@ -31,29 +31,29 @@ namespace DOL.GS.Commands
                         return;
                     }
                     if (RvrManager.Instance.Open(region, true))
-                        DisplayMessage(client, "Le rvr a été ouvert avec la région " + RvrManager.Instance.Region + ".");
+                        DisplayMessage(client, "Le rvr a Ã©tÃ© ouvert avec la rÃ©gion " + RvrManager.Instance.Region + ".");
                     else
-                        DisplayMessage(client, "Le rvr n'a pas pu être ouvert sur la région " + region + ".");
+                        DisplayMessage(client, "Le rvr n'a pas pu Ãªtre ouvert sur la rÃ©gion " + region + ".");
                     break;
 
                 case "close":
-                    DisplayMessage(client, RvrManager.Instance.Close() ? "Le rvr a été fermé." : "Le rvr n'a pas pu être fermé.");
+                    DisplayMessage(client, RvrManager.Instance.Close() ? "Le rvr a Ã©tÃ© fermÃ©." : "Le rvr n'a pas pu Ãªtre fermÃ©.");
                     break;
 
                 case "unforce":
                     if (!RvrManager.Instance.IsOpen)
                     {
-                        DisplayMessage(client, "Le rvr doit être ouvert pour le unforce.");
+                        DisplayMessage(client, "Le rvr doit Ãªtre ouvert pour le unforce.");
                         break;
                     }
                     RvrManager.Instance.Open(0, false);
-                    DisplayMessage(client, "Le rvr sera fermé automatiquement s'il n'est plus dans les bonnes horaires.");
+                    DisplayMessage(client, "Le rvr sera fermÃ© automatiquement s'il n'est plus dans les bonnes horaires.");
                     break;
 
                 case "refresh":
                     if (RvrManager.Instance.IsOpen)
                     {
-                        DisplayMessage(client, "Le rvr doit être fermé pour rafraichir la liste des maps disponibles.");
+                        DisplayMessage(client, "Le rvr doit Ãªtre fermÃ© pour rafraichir la liste des maps disponibles.");
                         break;
                     }
                     string regions = "";

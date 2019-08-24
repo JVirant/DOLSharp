@@ -50,7 +50,7 @@ namespace DOL.GS.Scripts
 				.Append("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
 				.Append("Auteur: ").Append(dbBook.Author).Append("\n")
 				.Append("Titre: ").Append(dbBook.Title).Append("\n")
-				.Append("Encre utilisée: " + dbBook.Ink + "\n")
+				.Append("Encre utilisÃ©e: " + dbBook.Ink + "\n")
 				.Append("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
 			player.Client.Out.SendMessage(sb.ToString(), eChatType.CT_Say, eChatLoc.CL_PopupWindow);

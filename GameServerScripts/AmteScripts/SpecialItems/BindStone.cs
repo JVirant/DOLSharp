@@ -1,4 +1,4 @@
-﻿namespace DOL.GS.Scripts
+namespace DOL.GS.Scripts
 {
     public class BindStone : GameInventoryItem
     {

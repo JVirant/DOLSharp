@@ -11,11 +11,11 @@ namespace DOL.GS.Scripts
 		"Gestions des echangeurs (TextNPC)",
 		"'/echangeur add <nombre d'item> <ID de l'item a donner>' Ajoute un item que le pnj accepte",
 		"'/echangeur remove <ID de l'item a donner>' Retire un item",
-		"'/echangeur money <ID de l'item a donner> <quantitÈ>' Echange de l'argent",
-		"'/echangeur xp <ID de l'item a donner> <quantitÈ>' Mettre une quantitÈ nÈgative pour un pourmille (xp/1000) suivant le niveau du joueur",
+		"'/echangeur money <ID de l'item a donner> <quantit√©>' Echange de l'argent",
+		"'/echangeur xp <ID de l'item a donner> <quantit√©>' Mettre une quantit√© n√©gative pour un pourmille (xp/1000) suivant le niveau du joueur",
 		"'/echangeur item <ID de l'item a donner> <nombre d'item final> <ID de l'item final>' Echange des objets",
-		"'/echangeur info' affiche les infos de l'Èchangeur",
-		"Pour la rÈponse, ajoutez une rÈponse avec l'ID de l'item ‡ donner grace aux commandes des textnpc")]
+		"'/echangeur info' affiche les infos de l'√©changeur",
+		"Pour la r√©ponse, ajoutez une r√©ponse avec l'ID de l'item √† donner grace aux commandes des textnpc")]
 	public class EchangeurNPCCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -58,10 +58,10 @@ namespace DOL.GS.Scripts
 						                        		GainXP = 0
 						                        	};
                         npc.TextNPCData.SaveIntoDatabase();
-						player.Out.SendMessage(item + " a ÈtÈ ajoutÈ.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage(item + " a √©t√© ajout√©.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					}
 					else
-						player.Out.SendMessage(item + " existe dÈj‡.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage(item + " existe d√©j√†.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					break;
 
 				case "remove":
@@ -81,7 +81,7 @@ namespace DOL.GS.Scripts
                         if (npc.TextNPCData.Reponses.ContainsKey(item))
                             npc.TextNPCData.Reponses.Remove(item);
                         npc.TextNPCData.SaveIntoDatabase();
-						player.Out.SendMessage(item + " a ÈtÈ retirÈ.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						player.Out.SendMessage(item + " a √©t√© retir√©.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					}
 					break;
 
@@ -175,8 +175,8 @@ namespace DOL.GS.Scripts
 						if (pair.Value.GainXP < 0)
 							text.Add("     " + (-pair.Value.GainXP) + "/1000 du niveau en cours");
                         if (npc.TextNPCData.Reponses.ContainsKey(pair.Value.ItemRecvID))
-                            text.Add("     RÈponse: " + npc.TextNPCData.Reponses[pair.Value.ItemRecvID]);
-						text.Add(" . " + pair.Value.ChangedItemCount + " Items ÈchangÈs");
+                            text.Add("     R√©ponse: " + npc.TextNPCData.Reponses[pair.Value.ItemRecvID]);
+						text.Add(" . " + pair.Value.ChangedItemCount + " Items √©chang√©s");
 					}
 					player.Out.SendCustomTextWindow("Info " + ((GameNPC)npc).Name, text);
 					break;

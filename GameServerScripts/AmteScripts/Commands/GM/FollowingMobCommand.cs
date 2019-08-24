@@ -7,9 +7,9 @@ namespace DOL.GS.Commands
 		"&followmob",
 		ePrivLevel.GM,
 		"FollowMob Commands",
-		"/followmob create - crÈÈ un FollowMob",
-        "/followmob follow <nom du mob ‡ suivre> - Regle la cible que le mob doit suivre",
-		"/followmob copy - Copie le mob avec la cible dÈj‡ reglÈe")]
+		"/followmob create - cr√©√© un FollowMob",
+        "/followmob follow <nom du mob √† suivre> - Regle la cible que le mob doit suivre",
+		"/followmob copy - Copie le mob avec la cible d√©j√† regl√©e")]
 	public class FollowMobCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -56,7 +56,7 @@ namespace DOL.GS.Commands
 						}
 					if(mob.MobFollow == null)
 					{
-						client.Out.SendMessage("Aucun mob '" + mob.MobFollow.Name + "' trouvÈ.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						client.Out.SendMessage("Aucun mob '" + mob.MobFollow.Name + "' trouv√©.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 						break;
 					}
                     mob.SaveIntoDatabase();
