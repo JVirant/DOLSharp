@@ -3617,15 +3617,15 @@ namespace DOL.GS
 		public override int GetModifiedSpecLevel(string keyName)
 		{
 			if (keyName.StartsWith(GlobalSpellsLines.Champion_Lines_StartWith))
-				return 50;
+				return Level;
 
 			Specialization spec = null;
 			int level = 0;
-			lock (((ICollection)m_specialization).SyncRoot)
+			if (keyName == GlobalSpellsLines.Combat_Styles_Effect)
 			{
-				if (!m_specialization.TryGetValue(keyName, out spec))
+				lock (((ICollection)m_specialization).SyncRoot)
 				{
-					if (keyName == GlobalSpellsLines.Combat_Styles_Effect)
+					if (!m_specialization.TryGetValue(keyName, out spec))
 					{
 						if (CharacterClass.ID == (int)eCharacterClass.Reaver || CharacterClass.ID == (int)eCharacterClass.Heretic)
 							level = GetModifiedSpecLevel(Specs.Flexible);
@@ -3634,11 +3634,9 @@ namespace DOL.GS
 						if (CharacterClass.ID == (int)eCharacterClass.Savage)
 							level = GetModifiedSpecLevel(Specs.Savagery);
 					}
-	
-					level = 0;
 				}
 			}
-			
+
 			if (spec != null)
 			{
 				level = spec.Level;

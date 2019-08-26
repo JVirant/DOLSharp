@@ -34,22 +34,22 @@ namespace DOL.GS.PropertyCalc
 	/// <author>Aredhel</author>
 	[PropertyCalculator(eProperty.Stat_First, eProperty.Stat_Last)]
 	public class StatCalculator : PropertyCalculator
-    {
-        public StatCalculator() { }
+	{
+		public StatCalculator() { }
 
-        public override int CalcValue(GameLiving living, eProperty property)
-        {
-            int propertyIndex = (int)property;
+		public override int CalcValue(GameLiving living, eProperty property)
+		{
+			int propertyIndex = (int)property;
 
-            // Base stats/abilities/debuffs/death.
+			// Base stats/abilities/debuffs/death.
 
-            int baseStat = living.GetBaseStat((eStat)property);
-            int abilityBonus = living.AbilityBonus[propertyIndex];
-            int debuff = living.DebuffCategory[propertyIndex];
+			int baseStat = living.GetBaseStat((eStat)property);
+			int abilityBonus = living.AbilityBonus[propertyIndex];
+			int debuff = living.DebuffCategory[propertyIndex];
 			int deathConDebuff = 0;
 
-            int itemBonus = CalcValueFromItems(living, property);
-            int buffBonus = CalcValueFromBuffs(living, property);
+			int itemBonus = CalcValueFromItems(living, property);
+			int buffBonus = CalcValueFromBuffs(living, property);
 
 			// Special cases:
 			// 1) ManaStat (base stat + acuity, players only).
@@ -61,16 +61,14 @@ namespace DOL.GS.PropertyCalc
 			if (living is GamePlayer)
 			{
 				GamePlayer player = living as GamePlayer;
-				if (property == (eProperty)(player.CharacterClass.ManaStat))
-				{
-					if (player.CharacterClass.ID != (int)eCharacterClass.Scout && player.CharacterClass.ID != (int)eCharacterClass.Hunter && player.CharacterClass.ID != (int)eCharacterClass.Ranger)
-					{
-						abilityBonus += player.AbilityBonus[(int)eProperty.Acuity];
-					}
-				}
+				if (property == (eProperty)(player.CharacterClass.ManaStat)
+					&& player.CharacterClass.ID != (int)eCharacterClass.Scout && player.CharacterClass.ID != (int)eCharacterClass.Hunter && player.CharacterClass.ID != (int)eCharacterClass.Ranger)
+					abilityBonus += player.AbilityBonus[(int)eProperty.Acuity];
 
 				deathConDebuff = player.TotalConstitutionLostAtDeath;
 			}
+			else if (property == eProperty.Intelligence || property == eProperty.Piety || property == eProperty.Empathy || property == eProperty.Charisma)
+				abilityBonus += living.AbilityBonus[(int)eProperty.Acuity];
 
 			// Apply debuffs, 100% effectiveness for player buffs, 50% effectiveness
 			// for item and base stats
@@ -93,106 +91,103 @@ namespace DOL.GS.PropertyCalc
 
 			// Possibly apply constitution loss at death.
 
-			stat -= (property == eProperty.Constitution)? deathConDebuff : 0;
+			stat -= (property == eProperty.Constitution) ? deathConDebuff : 0;
 
 			return Math.Max(1, stat);
-        }
+		}
 
-        /// <summary>
-        /// Calculate modified bonuses from buffs only.
-        /// </summary>
-        /// <param name="living"></param>
-        /// <param name="property"></param>
-        /// <returns></returns>
-        public override int CalcValueFromBuffs(GameLiving living, eProperty property)
-        {
-            if (living == null)
-                return 0;
+		/// <summary>
+		/// Calculate modified bonuses from buffs only.
+		/// </summary>
+		/// <param name="living"></param>
+		/// <param name="property"></param>
+		/// <returns></returns>
+		public override int CalcValueFromBuffs(GameLiving living, eProperty property)
+		{
+			if (living == null)
+				return 0;
 
-            int propertyIndex = (int)property;
-            int baseBuffBonus = living.BaseBuffBonusCategory[propertyIndex];
-            int specBuffBonus = living.SpecBuffBonusCategory[propertyIndex];
+			int propertyIndex = (int)property;
+			int baseBuffBonus = living.BaseBuffBonusCategory[propertyIndex];
+			int specBuffBonus = living.SpecBuffBonusCategory[propertyIndex];
 
-            if (living is GamePlayer)
-            {
-                GamePlayer player = living as GamePlayer;
-                if (property == (eProperty)(player.CharacterClass.ManaStat))
-                    if (player.CharacterClass.ClassType == eClassType.ListCaster)
-                        specBuffBonus += player.BaseBuffBonusCategory[(int)eProperty.Acuity];
-            }
+			if (living is GamePlayer)
+			{
+				var player = (GamePlayer)living;
+				if (property == (eProperty)(player.CharacterClass.ManaStat) && player.CharacterClass.ID != (int)eCharacterClass.Scout && player.CharacterClass.ID != (int)eCharacterClass.Hunter && player.CharacterClass.ID != (int)eCharacterClass.Ranger)
+					specBuffBonus += player.BaseBuffBonusCategory[(int)eProperty.Acuity];
+			}
+			else if (property == eProperty.Intelligence || property == eProperty.Piety || property == eProperty.Empathy || property == eProperty.Charisma)
+				specBuffBonus += living.BaseBuffBonusCategory[(int)eProperty.Acuity];
 
-            // Caps and cap increases. Only players actually have a buff bonus cap, 
-            // pets don't.
+			// Caps and cap increases. Only players actually have a buff bonus cap, 
+			// pets don't.
 
-            int baseBuffBonusCap = (living is GamePlayer) ? (int)(living.Level * 1.25) : Int16.MaxValue;
-            int specBuffBonusCap = (living is GamePlayer) ? (int)(living.Level * 1.5 * 1.25) : Int16.MaxValue;
-            
-            // Apply soft caps.
+			int baseBuffBonusCap = (living is GamePlayer) ? (int)(living.Level * 1.25) : Int16.MaxValue;
+			int specBuffBonusCap = (living is GamePlayer) ? (int)(living.Level * 1.5 * 1.25) : Int16.MaxValue;
 
-            baseBuffBonus = Math.Min(baseBuffBonus, baseBuffBonusCap);
-            specBuffBonus = Math.Min(specBuffBonus, specBuffBonusCap);
+			// Apply soft caps.
 
-            return baseBuffBonus + specBuffBonus;
-        }
+			baseBuffBonus = Math.Min(baseBuffBonus, baseBuffBonusCap);
+			specBuffBonus = Math.Min(specBuffBonus, specBuffBonusCap);
 
-        /// <summary>
-        /// Calculate modified bonuses from items only.
-        /// </summary>
-        /// <param name="living"></param>
-        /// <param name="property"></param>
-        /// <returns></returns>
-        public override int CalcValueFromItems(GameLiving living, eProperty property)
-        {
-            if (living == null)
-                return 0;
+			return baseBuffBonus + specBuffBonus;
+		}
 
-            int itemBonus = living.ItemBonus[(int)property];
-            int itemBonusCap = GetItemBonusCap(living, property);
+		/// <summary>
+		/// Calculate modified bonuses from items only.
+		/// </summary>
+		/// <param name="living"></param>
+		/// <param name="property"></param>
+		/// <returns></returns>
+		public override int CalcValueFromItems(GameLiving living, eProperty property)
+		{
+			if (living == null)
+				return 0;
+
+			int itemBonus = living.ItemBonus[(int)property];
+			int itemBonusCap = GetItemBonusCap(living, property);
 
 
-            if (living is GamePlayer)
-            {
-				GamePlayer player = living as GamePlayer;
+			if (living is GamePlayer)
+			{
+				var player = (GamePlayer)living;
+				if (property == (eProperty)player.CharacterClass.ManaStat && player.CharacterClass.ID != (int)eCharacterClass.Scout && player.CharacterClass.ID != (int)eCharacterClass.Hunter && player.CharacterClass.ID != (int)eCharacterClass.Ranger)
+					itemBonus += living.ItemBonus[(int)eProperty.Acuity];
+			}
+			else if (property == eProperty.Intelligence || property == eProperty.Piety || property == eProperty.Empathy || property == eProperty.Charisma)
+				itemBonus += living.ItemBonus[(int)eProperty.Acuity];
 
-				if (property == (eProperty)player.CharacterClass.ManaStat)
-				{
-					if (player.CharacterClass.ID != (int)eCharacterClass.Scout && player.CharacterClass.ID != (int)eCharacterClass.Hunter && player.CharacterClass.ID != (int)eCharacterClass.Ranger)
-					{
-						itemBonus += living.ItemBonus[(int)eProperty.Acuity];
-					}
-				}
-            }
+			int itemBonusCapIncrease = GetItemBonusCapIncrease(living, property);
+			int mythicalitemBonusCapIncrease = GetMythicalItemBonusCapIncrease(living, property);
+			return Math.Min(itemBonus, itemBonusCap + itemBonusCapIncrease + mythicalitemBonusCapIncrease);
+		}
 
-            int itemBonusCapIncrease = GetItemBonusCapIncrease(living, property);
-            int mythicalitemBonusCapIncrease = GetMythicalItemBonusCapIncrease(living, property);
-            return Math.Min(itemBonus, itemBonusCap + itemBonusCapIncrease + mythicalitemBonusCapIncrease);
-        }
+		/// <summary>
+		/// Returns the stat cap for this living and the given stat.
+		/// </summary>
+		/// <param name="living">The living the cap is to be determined for.</param>
+		/// <param name="property">The stat.</param>
+		/// <returns></returns>
+		public static int GetItemBonusCap(GameLiving living, eProperty property)
+		{
+			if (living == null) return 0;
+			return (int)(living.Level * 1.5);
+		}
 
-        /// <summary>
-        /// Returns the stat cap for this living and the given stat.
-        /// </summary>
-        /// <param name="living">The living the cap is to be determined for.</param>
-        /// <param name="property">The stat.</param>
-        /// <returns></returns>
-        public static int GetItemBonusCap(GameLiving living, eProperty property)
-        {
-            if (living == null) return 0;
-            return (int) (living.Level * 1.5);
-        }
-
-        /// <summary>
-        /// Returns the stat cap increase for this living and the given stat.
-        /// </summary>
-        /// <param name="living">The living the cap increase is to be determined for.</param>
-        /// <param name="property">The stat.</param>
-        /// <returns></returns>
-        public static int GetItemBonusCapIncrease(GameLiving living, eProperty property)
-        {
-            if (living == null) return 0;
-            int itemBonusCapIncreaseCap = GetItemBonusCapIncreaseCap(living);
-            int itemBonusCapIncrease = living.ItemBonus[(int)(eProperty.StatCapBonus_First - eProperty.Stat_First + property)];
-            if (living is GamePlayer)
-            {
+		/// <summary>
+		/// Returns the stat cap increase for this living and the given stat.
+		/// </summary>
+		/// <param name="living">The living the cap increase is to be determined for.</param>
+		/// <param name="property">The stat.</param>
+		/// <returns></returns>
+		public static int GetItemBonusCapIncrease(GameLiving living, eProperty property)
+		{
+			if (living == null) return 0;
+			int itemBonusCapIncreaseCap = GetItemBonusCapIncreaseCap(living);
+			int itemBonusCapIncrease = living.ItemBonus[(int)(eProperty.StatCapBonus_First - eProperty.Stat_First + property)];
+			if (living is GamePlayer)
+			{
 				GamePlayer player = living as GamePlayer;
 
 				if (property == (eProperty)player.CharacterClass.ManaStat)
@@ -202,56 +197,59 @@ namespace DOL.GS.PropertyCalc
 						itemBonusCapIncrease += living.ItemBonus[(int)eProperty.AcuCapBonus];
 					}
 				}
-            }
+			}
+			else if (property == eProperty.Intelligence || property == eProperty.Piety || property == eProperty.Empathy || property == eProperty.Charisma)
+				itemBonusCapIncrease += living.ItemBonus[(int)eProperty.AcuCapBonus];
 
-            return Math.Min(itemBonusCapIncrease, itemBonusCapIncreaseCap);
-        }
-
-
-        //Forsaken Mythical Cap Increase
-        public static int GetMythicalItemBonusCapIncrease(GameLiving living, eProperty property)
-        {
-            if (living == null) return 0;
-            int MythicalitemBonusCapIncreaseCap = GetMythicalItemBonusCapIncreaseCap(living);
-            int MythicalitemBonusCapIncrease = living.ItemBonus[(int)(eProperty.MythicalStatCapBonus_First - eProperty.Stat_First + property)];
-            int itemBonusCapIncrease = GetItemBonusCapIncrease(living, property);
-            if (living is GamePlayer)
-            {
-                GamePlayer player = living as GamePlayer;
-
-                if (property == (eProperty)player.CharacterClass.ManaStat)
-                {
-                    if (player.CharacterClass.ID != (int)eCharacterClass.Scout && player.CharacterClass.ID != (int)eCharacterClass.Hunter && player.CharacterClass.ID != (int)eCharacterClass.Ranger)
-                    {
-                        MythicalitemBonusCapIncrease += living.ItemBonus[(int)eProperty.MythicalAcuCapBonus];
-                    }
-                }
-            }
-            if (MythicalitemBonusCapIncrease + itemBonusCapIncrease > 52)
-            {
-                MythicalitemBonusCapIncrease = 52 - itemBonusCapIncrease;
-            }
-
-            return Math.Min(MythicalitemBonusCapIncrease, MythicalitemBonusCapIncreaseCap);
-        }
+			return Math.Min(itemBonusCapIncrease, itemBonusCapIncreaseCap);
+		}
 
 
-        /// <summary>
-        /// Returns the cap for stat cap increases.
-        /// </summary>
-        /// <param name="living">The living the value is to be determined for.</param>
-        /// <returns>The cap increase cap for this living.</returns>
-        public static int GetItemBonusCapIncreaseCap(GameLiving living)
-        {
-            if (living == null) return 0;
-            return living.Level / 2 + 1;
-        }
+		//Forsaken Mythical Cap Increase
+		public static int GetMythicalItemBonusCapIncrease(GameLiving living, eProperty property)
+		{
+			if (living == null) return 0;
+			int MythicalitemBonusCapIncreaseCap = GetMythicalItemBonusCapIncreaseCap(living);
+			int MythicalitemBonusCapIncrease = living.ItemBonus[(int)(eProperty.MythicalStatCapBonus_First - eProperty.Stat_First + property)];
+			int itemBonusCapIncrease = GetItemBonusCapIncrease(living, property);
+			if (living is GamePlayer)
+			{
+				GamePlayer player = living as GamePlayer;
 
-        //Forsaken Worlds Mythical Cap Cap
-        public static int GetMythicalItemBonusCapIncreaseCap(GameLiving living)
-        {
-            if (living == null) return 0;
-            return 52;
-        }
+				if (property == (eProperty)player.CharacterClass.ManaStat)
+				{
+					if (player.CharacterClass.ID != (int)eCharacterClass.Scout && player.CharacterClass.ID != (int)eCharacterClass.Hunter && player.CharacterClass.ID != (int)eCharacterClass.Ranger)
+					{
+						MythicalitemBonusCapIncrease += living.ItemBonus[(int)eProperty.MythicalAcuCapBonus];
+					}
+				}
+			}
+			else if (property == eProperty.Intelligence || property == eProperty.Piety || property == eProperty.Empathy || property == eProperty.Charisma)
+				MythicalitemBonusCapIncrease += living.ItemBonus[(int)eProperty.MythicalAcuCapBonus];
+
+			if (MythicalitemBonusCapIncrease + itemBonusCapIncrease > 52)
+				MythicalitemBonusCapIncrease = 52 - itemBonusCapIncrease;
+
+			return Math.Min(MythicalitemBonusCapIncrease, MythicalitemBonusCapIncreaseCap);
+		}
+
+
+		/// <summary>
+		/// Returns the cap for stat cap increases.
+		/// </summary>
+		/// <param name="living">The living the value is to be determined for.</param>
+		/// <returns>The cap increase cap for this living.</returns>
+		public static int GetItemBonusCapIncreaseCap(GameLiving living)
+		{
+			if (living == null) return 0;
+			return living.Level / 2 + 1;
+		}
+
+		//Forsaken Worlds Mythical Cap Cap
+		public static int GetMythicalItemBonusCapIncreaseCap(GameLiving living)
+		{
+			if (living == null) return 0;
+			return 52;
+		}
 	}
 }

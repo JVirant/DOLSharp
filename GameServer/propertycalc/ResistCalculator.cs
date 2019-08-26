@@ -80,7 +80,7 @@ namespace DOL.GS.PropertyCalc
         {
             int propertyIndex = (int)property;
             int debuff = living.DebuffCategory[propertyIndex];
-            int racialBonus = (living is GamePlayer) ? SkillBase.GetRaceResist(((living as GamePlayer).Race), (eResist)property) : 0;
+            int racialBonus = SkillBase.GetRaceResist(living.Race, (eResist)property);
             int itemBonus = CalcValueFromItems(living, property);
             int buffBonus = CalcValueFromBuffs(living, property);
             buffBonus -= Math.Abs(debuff);

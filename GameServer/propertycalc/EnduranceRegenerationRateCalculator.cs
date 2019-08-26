@@ -47,11 +47,9 @@ namespace DOL.GS.PropertyCalc
 				debuff = -debuff;
 
 			// buffs allow to regenerate endurance even in combat and while moving
-			double regen =
-				 living.BaseBuffBonusCategory[(int)property]
-				+living.ItemBonus[(int)property];
+			double regen = living.BaseBuffBonusCategory[(int)property] + living.ItemBonus[(int)property];
 
-			if (regen == 0 && living is GamePlayer) //&& ((GamePlayer)living).HasAbility(Abilities.Tireless))
+			if (regen == 0) //&& ((GamePlayer)living).HasAbility(Abilities.Tireless))
 				regen++;
 
 			/*    Patch 1.87 - COMBAT AND REGENERATION CHANGES
@@ -60,17 +58,8 @@ namespace DOL.GS.PropertyCalc
  				  Players will no longer need to sit to regenerate faster.
 			    - Fatigue now regenerates at the standing rate while moving.
 			*/
-			if (!living.InCombat)
-			{
-				if (living is GamePlayer)
-				{
-					if (!((GamePlayer)living).IsSprinting)
-					{
-						regen += 4;
-					}
-				}
-			}
-				
+			if (!living.InCombat && living is GamePlayer && !((GamePlayer)living).IsSprinting)
+				regen += 4;
 
 			regen -= debuff;
 
@@ -82,9 +71,7 @@ namespace DOL.GS.PropertyCalc
 
 			double decimals = regen - (int)regen;
 			if (Util.ChanceDouble(decimals))
-			{
-				regen += 1;	// compensate int rounding error
-			}
+				regen += 1; // compensate int rounding error
 
 			return (int)regen;
 		}

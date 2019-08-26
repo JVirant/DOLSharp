@@ -34,14 +34,12 @@ namespace DOL.GS.PropertyCalc
 	{
 		public SkillLevelCalculator() {}
 
-		public override int CalcValue(GameLiving living, eProperty property) 
+		public override int CalcValue(GameLiving living, eProperty property)
 		{
-//			DOLConsole.WriteSystem("calc skill prop "+property+":");
-			if (living is GamePlayer) 
+			//			DOLConsole.WriteSystem("calc skill prop "+property+":");
+			if (living is GamePlayer player)
 			{
-				GamePlayer player = (GamePlayer)living;
-
-				int itemCap = player.Level/5+1;
+				int itemCap = player.Level / 5 + 1;
 
 				int itemBonus = player.ItemBonus[(int)property];
 
@@ -60,14 +58,10 @@ namespace DOL.GS.PropertyCalc
 					itemBonus = itemCap;
 				int buffs = player.BaseBuffBonusCategory[(int)property]; // one buff category just in case..
 
-//				DOLConsole.WriteLine("item bonus="+itemBonus+"; buffs="+buffs+"; realm="+player.RealmLevel/10);
-				return itemBonus + buffs + player.RealmLevel/10;
-			} 
-			else 
-			{
-				// TODO other living types
+				return itemBonus + buffs + player.RealmLevel / 10;
 			}
-			return 0;
+
+			return living.EffectiveLevel;
 		}
 	}
 }

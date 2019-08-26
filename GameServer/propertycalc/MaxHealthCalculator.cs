@@ -61,12 +61,10 @@ namespace DOL.GS.PropertyCalc
 			}
 			else if (living is GameNPC)
 			{
-				int hp = 0;
+				int hp;
 
-				if (living.Level<10)
-				{
+				if (living.Level <  10)
 					hp = living.Level * 20 + 20 + living.BaseBuffBonusCategory[(int)property];	// default
-				}
 				else
 				{
 					// approx to original formula, thx to mathematica :)
@@ -81,9 +79,7 @@ namespace DOL.GS.PropertyCalc
 				// first adjust hitpoints based on base CON
 
 				if (basecon != ServerProperties.Properties.GAMENPC_BASE_CON)
-				{
 					hp = Math.Max(1, hp + ((basecon - ServerProperties.Properties.GAMENPC_BASE_CON) * ServerProperties.Properties.GAMENPC_HP_GAIN_PER_CON));
-				}
 
 				// Now adjust for buffs
 
@@ -103,7 +99,7 @@ namespace DOL.GS.PropertyCalc
             {
                 if (living.Level < 10)
                 {
-                    return living.Level * 20 + 20 + living.BaseBuffBonusCategory[(int)property];	// default
+                    return living.Level * 20 + 20 + living.BaseBuffBonusCategory[(int)property]; // default
                 }
                 else
                 {
