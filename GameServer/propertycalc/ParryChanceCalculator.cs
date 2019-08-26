@@ -40,41 +40,26 @@ namespace DOL.GS.PropertyCalc
 			if (player != null)
 			{
 				int buff = player.BaseBuffBonusCategory[(int)property] * 10
-				+ player.SpecBuffBonusCategory[(int)property] * 10
-				- player.DebuffCategory[(int)property] * 10
-				+ player.BuffBonusCategory4[(int)property] * 10
-				+ player.AbilityBonus[(int)property] * 10;
+					+ player.SpecBuffBonusCategory[(int)property] * 10
+					- player.DebuffCategory[(int)property] * 10
+					+ player.BuffBonusCategory4[(int)property] * 10
+					+ player.AbilityBonus[(int)property] * 10;
 				int parrySpec = 0;
 				if (player.HasSpecialization(Specs.Parry))
-				{					
-					parrySpec = (player.Dexterity * 2 - 100) / 4 + (player.GetModifiedSpecLevel(Specs.Parry) - 1) * (10 / 2) + 50;
-				}
-                if (parrySpec > 500)
-                {
-                    parrySpec = 500;
-                }
+					parrySpec = Math.Min(500, (player.Dexterity * 2 - 100) / 4 + (player.GetModifiedSpecLevel(Specs.Parry) - 1) * (10 / 2) + 50);
 				return parrySpec + buff;
 			}
-			NecromancerPet pet = living as NecromancerPet;
-			if (pet != null)
+
+			if (living is GameNPC pet && pet.ParryChance > 0)
 			{
-				IControlledBrain brain = pet.Brain as IControlledBrain;
-				if (brain != null)
-				{
-					int buff = pet.BaseBuffBonusCategory[(int)property] * 10
+				int buff = pet.BaseBuffBonusCategory[(int)property] * 10
 					+ pet.SpecBuffBonusCategory[(int)property] * 10
 					- pet.DebuffCategory[(int)property] * 10
 					+ pet.BuffBonusCategory4[(int)property] * 10
 					+ pet.AbilityBonus[(int)property] * 10
 					+ (pet.GetModified(eProperty.Dexterity) * 2 - 100) / 4
 					+ pet.ParryChance * 10;
-					return buff;
-				}
-			}			
-			GameNPC npc = living as GameNPC;
-			if (npc != null)
-			{
-				return npc.ParryChance * 10;
+				return buff;
 			}
 
 			return 0;

@@ -385,8 +385,8 @@ namespace DOL.AI.Brain
 		{
 			GamePlayer playerowner = GetPlayerOwner();
 			
-			long lastUpdate;
-			if (!playerowner.Client.GameObjectUpdateArray.TryGetValue(new Tuple<ushort, ushort>(Body.CurrentRegionID, (ushort)Body.ObjectID), out lastUpdate))
+			long lastUpdate = 0;
+			if (playerowner != null && !playerowner.Client.GameObjectUpdateArray.TryGetValue(new Tuple<ushort, ushort>(Body.CurrentRegionID, (ushort)Body.ObjectID), out lastUpdate))
 				lastUpdate = 0;
 			
 			// Load abilities on first Think cycle.

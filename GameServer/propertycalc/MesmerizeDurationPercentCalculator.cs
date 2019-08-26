@@ -33,12 +33,12 @@ namespace DOL.GS.PropertyCalc
 	[PropertyCalculator(eProperty.MesmerizeDurationReduction)]
 	public class MesmerizeDurationPercentCalculator : PropertyCalculator
 	{
-		public override int CalcValue(GameLiving living, eProperty property) 
+		public override int CalcValue(GameLiving living, eProperty property)
 		{
 			int percent = 100
-				-living.BaseBuffBonusCategory[(int)property] // buff reduce the duration
-				+living.DebuffCategory[(int)property]
-				-living.ItemBonus[(int)property]
+				- living.BaseBuffBonusCategory[(int)property] // buff reduce the duration
+				+ living.DebuffCategory[(int)property]
+				- living.ItemBonus[(int)property]
 				- living.AbilityBonus[(int)property];
 
 			if (living.HasAbility(Abilities.Stoicism))

@@ -59,7 +59,7 @@ namespace DOL.GS.PropertyCalc
 
 			if (living.Level < 26)
 			{
-				regen = 10 + (living.Level * 0.2);
+				regen = 5 + (living.Level * 0.4);
 			}
 			else
 			{
@@ -69,20 +69,14 @@ namespace DOL.GS.PropertyCalc
 			// assumes NPC regen is now half as effective as GamePlayer (as noted above) - tolakram
 			// http://www.dolserver.net/viewtopic.php?f=16&t=13197
 
-			if (living is GameNPC)
-			{
-				if (living.InCombat)
-					regen /= 2.0;
-			}
-            
-			if (regen != 0 && ServerProperties.Properties.HEALTH_REGEN_RATE != 1)
-				regen *= ServerProperties.Properties.HEALTH_REGEN_RATE;
+			if (living is GameNPC && living.InCombat)
+				regen /= 2.0;
+
+			regen *= ServerProperties.Properties.HEALTH_REGEN_RATE;
 
 			double decimals = regen - (int)regen;
 			if (Util.ChanceDouble(decimals)) 
-			{
 				regen += 1;	// compensate int rounding error
-			}
 
 			regen += living.ItemBonus[(int)property];
 

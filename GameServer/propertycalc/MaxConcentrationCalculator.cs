@@ -34,15 +34,15 @@ namespace DOL.GS.PropertyCalc
 	[PropertyCalculator(eProperty.MaxConcentration)]
 	public class MaxConcentrationCalculator : PropertyCalculator
 	{
-		public MaxConcentrationCalculator() {}
+		public MaxConcentrationCalculator() { }
 
-		public override int CalcValue(GameLiving living, eProperty property) 
+		public override int CalcValue(GameLiving living, eProperty property)
 		{
-			if (living is GamePlayer) 
+			if (living is GamePlayer)
 			{
 				GamePlayer player = living as GamePlayer;
-				if (player.CharacterClass.ManaStat == eStat.UNDEFINED) 
-                    return 1000000;
+				if (player.CharacterClass.ManaStat == eStat.UNDEFINED)
+					return 1000000;
 
 				int concBase = (int)((player.Level * 4) * 2.2);
 				int stat = player.GetModified((eProperty)player.CharacterClass.ManaStat);
@@ -53,19 +53,18 @@ namespace DOL.GS.PropertyCalc
 				if (conc < 0)
 				{
 					if (log.IsWarnEnabled)
-						log.WarnFormat(living.Name+": concentration is less than zerro (conc:{0} eff:{1:R} concBase:{2} stat:{3} factor:{4})", conc, player.Effectiveness, concBase, stat, factor);
+						log.WarnFormat(living.Name + ": concentration is less than zerro (conc:{0} eff:{1:R} concBase:{2} stat:{3} factor:{4})", conc, player.Effectiveness, concBase, stat, factor);
 					conc = 0;
 				}
 
-                if (player.GetSpellLine("Perfecter") != null
-				   && player.MLLevel >= 4)
-                    conc += (20 * conc / 100);
+				if (player.GetSpellLine("Perfecter") != null && player.MLLevel >= 4)
+					conc += (20 * conc / 100);
 
 				return conc;
-			} 
-			else 
+			}
+			else
 			{
-				return 1000000;	// default
+				return 1000000; // default
 			}
 		}
 	}

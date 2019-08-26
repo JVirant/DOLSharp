@@ -1786,10 +1786,10 @@ namespace DOL.GS
 				// RA resist check
 				int resist = (int)(damage * ad.Target.GetDamageResist(GetResistTypeForDamage(ad.DamageType)) * -0.01);
 
-				eProperty property = ad.Target.GetResistTypeForDamage(ad.DamageType);
-				int secondaryResistModifier = ad.Target.SpecBuffBonusCategory[(int)property];
+				var property = ad.Target.GetResistTypeForDamage(ad.DamageType);
+				var secondaryResistModifier = ad.Target.SpecBuffBonusCategory[(int)property];
 				int resistModifier = 0;
-				resistModifier += (int)((ad.Damage + (double)resistModifier) * (double)secondaryResistModifier * -0.01);
+				resistModifier += (int)((ad.Damage + resistModifier) * secondaryResistModifier * -0.01);
 
 				damage += resist;
 				damage += resistModifier;
@@ -3622,14 +3622,12 @@ namespace DOL.GS
 				}
 			}
 			if (this is GamePlayer && ((GamePlayer)this).IsSitting)
-			{
-				missrate >>= 1; //halved
-			}
+				missrate /= 2; //halved
 
+			// cap missrate
+			missrate = Math.Min(95, missrate);
 			if (Util.Chance(missrate))
-			{
 				return eAttackResult.Missed;
-			}
 
 			if (ad.IsRandomFumble)
 				return eAttackResult.Fumbled;
@@ -3701,67 +3699,56 @@ namespace DOL.GS
 			double evadeChance = 0;
 			GamePlayer player = this as GamePlayer;
 
-			GameSpellEffect evadeBuff = SpellHandler.FindEffectOnTarget( this, "EvadeBuff" );
-			if( evadeBuff == null )
-				evadeBuff = SpellHandler.FindEffectOnTarget( this, "SavageEvadeBuff" );
+			GameSpellEffect evadeBuff = SpellHandler.FindEffectOnTarget(this, "EvadeBuff");
+			if (evadeBuff == null)
+				evadeBuff = SpellHandler.FindEffectOnTarget(this, "SavageEvadeBuff");
 
-			if( player != null )
+			if (HasAbility(Abilities.Advanced_Evade) ||
+				EffectList.GetOfType<CombatAwarenessEffect>() != null ||
+				EffectList.GetOfType<RuneOfUtterAgilityEffect>() != null)
+				evadeChance = GetModified(eProperty.EvadeChance);
+			else if (IsObjectInFront(ad.Attacker, 180) && (evadeBuff != null || HasAbility(Abilities.Evade)))
 			{
-				if (player.HasAbility(Abilities.Advanced_Evade) ||
-				    player.EffectList.GetOfType<CombatAwarenessEffect>() != null ||
-				    player.EffectList.GetOfType<RuneOfUtterAgilityEffect>() != null)
-					evadeChance = GetModified( eProperty.EvadeChance );
-				else if( IsObjectInFront( ad.Attacker, 180 ) && ( evadeBuff != null || player.HasAbility( Abilities.Evade ) ) )
-				{
-					int res = GetModified( eProperty.EvadeChance );
-					if( res > 0 )
-						evadeChance = res;
-				}
+				int res = GetModified(eProperty.EvadeChance);
+				if (res > 0)
+					evadeChance = res;
 			}
-			else if( this is GameNPC && IsObjectInFront( ad.Attacker, 180 ) )
-				evadeChance = GetModified( eProperty.EvadeChance );
 
-			if( evadeChance > 0 && !ad.Target.IsStunned && !ad.Target.IsSitting )
+			if (evadeChance > 0 && !ad.Target.IsStunned && !ad.Target.IsSitting)
 			{
-				if( attackerCount > 1 )
-					evadeChance -= ( attackerCount - 1 ) * 0.03;
-
 				evadeChance *= 0.001;
+				if (attackerCount > 1)
+					evadeChance -= (attackerCount - 1) * 0.03;
 				evadeChance += 0.01 * attackerConLevel; // 1% per con level distance multiplied by evade level
 
-				if( lastAD != null && lastAD.Style != null )
-				{
+				if (lastAD != null && lastAD.Style != null)
 					evadeChance += lastAD.Style.BonusToDefense * 0.01;
-				}
 
-				if( ad.AttackType == AttackData.eAttackType.Ranged )
+				if (ad.AttackType == AttackData.eAttackType.Ranged)
 					evadeChance /= 5.0;
 
-				if( evadeChance < 0.01 )
+				if (evadeChance < 0.01)
 					evadeChance = 0.01;
-				else if( evadeChance > ServerProperties.Properties.EVADE_CAP && ad.Attacker is GamePlayer && ad.Target is GamePlayer )
+				else if (evadeChance > ServerProperties.Properties.EVADE_CAP && ad.Attacker is GamePlayer && ad.Target is GamePlayer)
 					evadeChance = ServerProperties.Properties.EVADE_CAP; //50% evade cap RvR only; http://www.camelotherald.com/more/664.shtml
-				else if( evadeChance > 0.995 )
+				else if (evadeChance > 0.995)
 					evadeChance = 0.995;
 			}
 			if (ad.AttackType == AttackData.eAttackType.MeleeDualWield)
-			{
 				evadeChance = Math.Max(evadeChance - 0.25, 0);
-			}
+
 			//Excalibur : infi RR5
 			GamePlayer p = ad.Attacker as GamePlayer;
 			if (p != null)
 			{
 				OverwhelmEffect Overwhelm = (OverwhelmEffect)p.EffectList.GetOfType<OverwhelmEffect>();
 				if (Overwhelm != null)
-				{
 					evadeChance = Math.Max(evadeChance - OverwhelmAbility.BONUS, 0);
 				}
-			}
 			return evadeChance;
 		}
 
-		protected virtual double TryParry( AttackData ad, AttackData lastAD, double attackerConLevel, int attackerCount )
+		protected virtual double TryParry(AttackData ad, AttackData lastAD, double attackerConLevel, int attackerCount)
 		{
 			// Parry
 
@@ -3783,51 +3770,49 @@ namespace DOL.GS
 
 			double parryChance = 0;
 
-			if( ad.IsMeleeAttack )
+			if (ad.IsMeleeAttack)
 			{
 				GamePlayer player = this as GamePlayer;
-				BladeBarrierEffect BladeBarrier = null;
+				BladeBarrierEffect BladeBarrier = EffectList.GetOfType<BladeBarrierEffect>();
 
-				GameSpellEffect parryBuff = SpellHandler.FindEffectOnTarget( this, "ParryBuff" );
-				if( parryBuff == null )
-					parryBuff = SpellHandler.FindEffectOnTarget( this, "SavageParryBuff" );
+				GameSpellEffect parryBuff = SpellHandler.FindEffectOnTarget(this, "ParryBuff");
+				if (parryBuff == null)
+					parryBuff = SpellHandler.FindEffectOnTarget(this, "SavageParryBuff");
 
-				if( player != null )
+				if (player != null)
 				{
-					//BladeBarrier overwrites all parrying, 90% chance to parry any attack, does not consider other bonuses to parry
-					BladeBarrier = player.EffectList.GetOfType<BladeBarrierEffect>();
 					//They still need an active weapon to parry with BladeBarrier
-					if( BladeBarrier != null && ( AttackWeapon != null ) )
+					if (BladeBarrier != null && (AttackWeapon != null))
 					{
 						parryChance = 0.90;
 					}
-					else if( IsObjectInFront( ad.Attacker, 120 ) )
+					else if (IsObjectInFront(ad.Attacker, 120))
 					{
-						if( ( player.HasSpecialization( Specs.Parry ) || parryBuff != null ) && ( AttackWeapon != null ) )
-							parryChance = GetModified( eProperty.ParryChance );
+						if ((player.HasSpecialization(Specs.Parry) || parryBuff != null) && (AttackWeapon != null))
+							parryChance = GetModified(eProperty.ParryChance);
 					}
 				}
-				else if( this is GameNPC && IsObjectInFront( ad.Attacker, 120 ) )
-					parryChance = GetModified( eProperty.ParryChance );
+				else if (this is GameNPC && IsObjectInFront(ad.Attacker, 120))
+					parryChance = BladeBarrier != null ? 0.9 : GetModified(eProperty.ParryChance);
 
+				//BladeBarrier overwrites all parrying, 90% chance to parry any attack, does not consider other bonuses to parry
 				//If BladeBarrier is up, do not adjust the parry chance.
-				if( BladeBarrier != null && !ad.Target.IsStunned && !ad.Target.IsSitting )
-				{
+				if (BladeBarrier != null && !ad.Target.IsStunned && !ad.Target.IsSitting)
 					return parryChance;
-				}
-				else if( parryChance > 0 && !ad.Target.IsStunned && !ad.Target.IsSitting )
+
+				if (parryChance > 0 && !ad.Target.IsStunned && !ad.Target.IsSitting)
 				{
-					if( attackerCount > 1 )
+					if (attackerCount > 1)
 						parryChance /= attackerCount / 2.0;
 
 					parryChance *= 0.001;
 					parryChance += 0.05 * attackerConLevel;
 
-					if( parryChance < 0.01 )
+					if (parryChance < 0.01)
 						parryChance = 0.01;
-					else if( parryChance > ServerProperties.Properties.PARRY_CAP && ad.Attacker is GamePlayer && ad.Target is GamePlayer )
+					else if (parryChance > ServerProperties.Properties.PARRY_CAP && ad.Attacker is GamePlayer && ad.Target is GamePlayer)
 						parryChance = ServerProperties.Properties.PARRY_CAP;
-					else if( parryChance > 0.995 )
+					else if (parryChance > 0.995)
 						parryChance = 0.995;
 				}
 			}
@@ -3835,19 +3820,17 @@ namespace DOL.GS
 			GamePlayer p = ad.Attacker as GamePlayer;
 			if (p != null)
 			{
-				OverwhelmEffect Overwhelm = (OverwhelmEffect)p.EffectList.GetOfType<OverwhelmEffect>();
+				var Overwhelm = p.EffectList.GetOfType<OverwhelmEffect>();
 				if (Overwhelm != null)
-				{
 					parryChance = Math.Max(parryChance - OverwhelmAbility.BONUS, 0);
 				}
-			}
 			return parryChance;
 		}
 
-		protected virtual double TryBlock( AttackData ad, AttackData lastAD, double attackerConLevel, int attackerCount, EngageEffect engage )
+		protected virtual double TryBlock(AttackData ad, AttackData lastAD, double attackerConLevel, int attackerCount, EngageEffect engage)
 		{
 			// Block
-      
+
 			//1.Quality does not affect the chance to block at this time.  Grab Bag 3/7/03
 			//2.Condition and enchantment increases the chance to block  Grab Bag 2/27/03
 			//3.There is currently no hard cap on chance to block  Grab Bag 2/27/03 and 8/16/02
@@ -3872,28 +3855,28 @@ namespace DOL.GS
 			GamePlayer player = this as GamePlayer;
 			InventoryItem lefthand = null;
 
-			if( this is GamePlayer && player != null && IsObjectInFront( ad.Attacker, 120 ) && player.HasAbility( Abilities.Shield ) )
+			if (this is GamePlayer && player != null && IsObjectInFront(ad.Attacker, 120) && player.HasAbility(Abilities.Shield))
 			{
-				lefthand = Inventory.GetItem( eInventorySlot.LeftHandWeapon );
-				if( lefthand != null && ( player.AttackWeapon == null || player.AttackWeapon.Item_Type == Slot.RIGHTHAND || player.AttackWeapon.Item_Type == Slot.LEFTHAND ) )
+				lefthand = Inventory.GetItem(eInventorySlot.LeftHandWeapon);
+				if (lefthand != null && (player.AttackWeapon == null || player.AttackWeapon.Item_Type == Slot.RIGHTHAND || player.AttackWeapon.Item_Type == Slot.LEFTHAND))
 				{
-					if( lefthand.Object_Type == (int)eObjectType.Shield && IsObjectInFront( ad.Attacker, 120 ) )
-						blockChance = GetModified( eProperty.BlockChance ) * lefthand.Quality * 0.01;
+					if (lefthand.Object_Type == (int)eObjectType.Shield && IsObjectInFront(ad.Attacker, 120))
+						blockChance = GetModified(eProperty.BlockChance) * lefthand.Quality * 0.01;
 				}
 			}
-			else if( this is GameNPC && IsObjectInFront( ad.Attacker, 120 ) )
+			else if (this is GameNPC && IsObjectInFront(ad.Attacker, 120))
 			{
-				int res = GetModified( eProperty.BlockChance );
-				if( res != 0 )
+				int res = GetModified(eProperty.BlockChance);
+				if (res != 0)
 					blockChance = res;
 			}
-			if( blockChance > 0 && IsObjectInFront( ad.Attacker, 120 ) && !ad.Target.IsStunned && !ad.Target.IsSitting )
+			if (blockChance > 0 && IsObjectInFront(ad.Attacker, 120) && !ad.Target.IsStunned && !ad.Target.IsSitting)
 			{
 				// Reduce block chance if the shield used is too small (valable only for player because npc inventory does not store the shield size but only the model of item)
 				int shieldSize = 0;
-				if( lefthand != null )
+				if (lefthand != null)
 					shieldSize = lefthand.Type_Damage;
-				if( player != null && attackerCount > shieldSize )
+				if (player != null && attackerCount > shieldSize)
 					blockChance *= shieldSize * 1.0 / attackerCount;
 
 				blockChance *= 0.001;
@@ -3914,27 +3897,27 @@ namespace DOL.GS
 					blockChance = .99;
 
 				// Engage raised block change to 85% if attacker is engageTarget and player is in attackstate
-				if( engage != null && AttackState && engage.EngageTarget == ad.Attacker )
+				if (engage != null && AttackState && engage.EngageTarget == ad.Attacker)
 				{
 					// You cannot engage a mob that was attacked within the last X seconds...
-					if( engage.EngageTarget.LastAttackedByEnemyTick > engage.EngageTarget.CurrentRegion.Time - EngageAbilityHandler.ENGAGE_ATTACK_DELAY_TICK )
+					if (engage.EngageTarget.LastAttackedByEnemyTick > engage.EngageTarget.CurrentRegion.Time - EngageAbilityHandler.ENGAGE_ATTACK_DELAY_TICK)
 
 					{
-						if( engage.Owner is GamePlayer )
+						if (engage.Owner is GamePlayer)
 							(engage.Owner as GamePlayer).Out.SendMessage(string.Format(LanguageMgr.GetTranslation((engage.Owner as GamePlayer).Client.Account.Language, "GameLiving.TryBlock.Engage"), engage.EngageTarget.GetName(0, true)), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					}
 					// Check if player has enough endurance left to engage
-					else if( engage.Owner.Endurance >= EngageAbilityHandler.ENGAGE_DURATION_LOST )
+					else if (engage.Owner.Endurance >= EngageAbilityHandler.ENGAGE_DURATION_LOST)
 					{
 						engage.Owner.Endurance -= EngageAbilityHandler.ENGAGE_DURATION_LOST;
-						if( engage.Owner is GamePlayer )
+						if (engage.Owner is GamePlayer)
 							(engage.Owner as GamePlayer).Out.SendMessage(LanguageMgr.GetTranslation((engage.Owner as GamePlayer).Client.Account.Language, "GameLiving.TryBlock.Blocking"), eChatType.CT_Skill, eChatLoc.CL_SystemWindow);
-						if( blockChance < 0.85 )
+						if (blockChance < 0.85)
 							blockChance = 0.85;
 					}
 					// if player ran out of endurance cancel engage effect
 					else
-						engage.Cancel( false );
+						engage.Cancel(false);
 				}
 			}
 			if (ad.AttackType == AttackData.eAttackType.MeleeDualWield)
@@ -3945,12 +3928,10 @@ namespace DOL.GS
 			GamePlayer p = ad.Attacker as GamePlayer;
 			if (p != null)
 			{
-				OverwhelmEffect Overwhelm = (OverwhelmEffect)p.EffectList.GetOfType<OverwhelmEffect>();
+				var Overwhelm = p.EffectList.GetOfType<OverwhelmEffect>();
 				if (Overwhelm != null)
-				{
 					blockChance = Math.Max(blockChance - OverwhelmAbility.BONUS, 0);
 				}
-			}
 			return blockChance;
 		}
 
