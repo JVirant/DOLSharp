@@ -31,7 +31,7 @@ namespace AmteScripts.Managers
         {
             log.Info("RvRManger: Started");
 			_instance = new RvrManager();
-            _timer = new RegionTimer(WorldMgr.GetRegion(51).TimeManager)
+            _timer = new RegionTimer(WorldMgr.GetRegion(1).TimeManager)
             {
                 Callback = _instance._CheckRvr
             };

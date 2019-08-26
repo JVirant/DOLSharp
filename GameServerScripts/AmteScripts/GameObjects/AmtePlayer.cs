@@ -17,10 +17,15 @@ namespace DOL.GS
 
 		public AmtePlayer(GameClient client, DOLCharacters dbChar) : base(client, dbChar) {}
 
-        //public DOLCharacters DBCharacter
-        //{
-        //    get { return m_dbCharacter; }
-        //}
+		public override int BountyPointsValue
+		{
+			get
+			{
+				if (RvrManager.Instance.IsInRvr(this))
+					return (int)(1 + Level * 0.6);
+				return 0;
+			}
+		}
 
 		public override void Die(GameObject killer)
 		{
@@ -71,7 +76,6 @@ namespace DOL.GS
 		}
 		#endregion
 
-		#region Craft/Items
 		public override void CraftItem(ushort itemID)
 		{
 			if (JailMgr.IsPrisoner(this))
@@ -87,6 +91,5 @@ namespace DOL.GS
 				return;
 			base.UseSlot(slot, type);
 		}
-		#endregion
 	}
 }

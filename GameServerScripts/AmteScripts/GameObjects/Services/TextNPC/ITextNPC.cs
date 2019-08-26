@@ -45,7 +45,6 @@ namespace DOL.GS.Scripts
             PhraseInterval = 0;
         }
 
-        #region Interactions
         public bool Interact(GamePlayer player)
         {
             if (string.IsNullOrEmpty(Interact_Text) || !CheckAccess(player))
@@ -142,8 +141,7 @@ namespace DOL.GS.Scripts
                 player.GainExperience(GameLiving.eXPSource.Quest, EchItem.GainXP);
             else if (EchItem.GainXP < 0)
             {
-                long xp = (GamePlayer.GetExperienceAmountForLevel(player.Level + 1)
-                           - GamePlayer.GetExperienceAmountForLevel(player.Level)) * EchItem.GainXP / -1000;
+                long xp = (player.ExperienceForNextLevel - player.ExperienceForCurrentLevel ) * EchItem.GainXP / -1000;
                 player.GainExperience(GameLiving.eXPSource.Quest, xp);
             }
 
@@ -158,7 +156,6 @@ namespace DOL.GS.Scripts
             }
             return true;
         }
-        #endregion
 
         public bool CheckAccess(GamePlayer player)
         {
@@ -215,7 +212,7 @@ namespace DOL.GS.Scripts
 
         public void LoadFromDatabase(DataObject obj)
         {
-            IList<DBEchangeur> objs = GameServer.Database.SelectObjects<DBEchangeur>("`NpcID` = '" + GameServer.Database.Escape(obj.ObjectId) + "'");
+            var objs = GameServer.Database.SelectObjects<DBEchangeur>("`NpcID` = '" + GameServer.Database.Escape(obj.ObjectId) + "'");
             foreach (DBEchangeur echangeur in objs)
                 if (!EchangeurDB.ContainsKey(echangeur.ItemRecvID))
                     EchangeurDB.Add(echangeur.ItemRecvID, echangeur);

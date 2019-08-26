@@ -62,8 +62,8 @@ namespace DOL.GS.PropertyCalc
 				//				- The new run speed will not stack with any other run speed spell or ability, except for Sprint.
 				//				- Pets that are not in combat have also received the new run speed, only when they are following, to allow them to keep up with their owners.
 				double horseSpeed = (player.IsOnHorse ? player.ActiveHorse.Speed * 0.01 : 1.0);
-				if (speed > horseSpeed)
-					horseSpeed = 1.0;
+				if (horseSpeed > 1.0 && speed > 1.0)
+					speed = 1.0; // cancel any buff
 
 				if (ServerProperties.Properties.ENABLE_PVE_SPEED)
 				{
