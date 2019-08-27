@@ -3621,11 +3621,11 @@ namespace DOL.GS
 
 			Specialization spec = null;
 			int level = 0;
-			if (keyName == GlobalSpellsLines.Combat_Styles_Effect)
+			lock (((ICollection)m_specialization).SyncRoot)
 			{
-				lock (((ICollection)m_specialization).SyncRoot)
+				if (!m_specialization.TryGetValue(keyName, out spec))
 				{
-					if (!m_specialization.TryGetValue(keyName, out spec))
+					if (keyName == GlobalSpellsLines.Combat_Styles_Effect)
 					{
 						if (CharacterClass.ID == (int)eCharacterClass.Reaver || CharacterClass.ID == (int)eCharacterClass.Heretic)
 							level = GetModifiedSpecLevel(Specs.Flexible);
