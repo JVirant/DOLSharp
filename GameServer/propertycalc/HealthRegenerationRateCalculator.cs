@@ -57,14 +57,12 @@ namespace DOL.GS.PropertyCalc
               - All health and power regeneration aids are now twice as effective.
              */
 
+			if (living.Level < 10)
+				regen = 7 + (living.Level * 0.2);
 			if (living.Level < 26)
-			{
 				regen = 5 + (living.Level * 0.4);
-			}
 			else
-			{
 				regen = living.Level * 0.6;
-			}
 
 			// assumes NPC regen is now half as effective as GamePlayer (as noted above) - tolakram
 			// http://www.dolserver.net/viewtopic.php?f=16&t=13197
