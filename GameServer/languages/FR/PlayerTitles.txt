@@ -548,8 +548,8 @@ Titles.Solokills.DuelMaster: Maître duelliste
 Titles.Solokills.LoneEnforcer: Aventurier Solitaire
 
 # /Time
-Titles.Time.Account.ElderTitle: Elder
-Titles.Time.Character.Veteran: Vétèran
+Titles.Time.Account.ElderTitle: Ancien
+Titles.Time.Character.Veteran: Vétéran
 
 # /CL
 Titles.CL.Level1: Emissaire du Roy
