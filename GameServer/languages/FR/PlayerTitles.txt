@@ -536,8 +536,8 @@ Titles.Kills.Midgard.BaneOfMidgard: Fléau de Midgard
 Titles.Kills.Midgard.ScourgeOfMidgard: Calamité de Midgard
 
 # /Level
-Titles.Level.Level20Info: Level 20+
-Titles.Level.Level20: Level {0}
+Titles.Level.Level20Info: Niveau 20+
+Titles.Level.Level20: Niveau {0}
 
 # /PrivLevel
 Titles.PrivLevel.Administrator: Administrateur
@@ -572,4 +572,3 @@ Titles.ML.Line5: Nomade
 Titles.ML.Line6: Agent de l'ombre
 Titles.ML.Line7: Seigneur des orages
 Titles.ML.Line8: Stratège
-
