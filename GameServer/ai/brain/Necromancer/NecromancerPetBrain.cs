@@ -228,7 +228,7 @@ namespace DOL.AI.Brain
                 // no attack directive from the owner it will start an attack
                 // after the cast has finished.
 
-                if (target != Body && spellArgs.Spell.Target == "Enemy")
+                if (target != Body && spellArgs.Spell.Target == "enemy")
                 {
                     if (target != null)
                     {
@@ -321,7 +321,7 @@ namespace DOL.AI.Brain
 				// make it our new target.
 
 				// Target must be alive, or this is a self spell, or this is a pbaoe spell
-                if ((spellTarget != null && spellTarget.IsAlive) || spell.Target.ToLower() == "self" || spell.Range == 0)
+                if ((spellTarget != null && spellTarget.IsAlive) || spell.Target == "self" || spell.Range == 0)
 				{
 					Body.TargetObject = spellTarget;
 

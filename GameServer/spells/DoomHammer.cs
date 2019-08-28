@@ -37,7 +37,7 @@ namespace DOL.GS.Spells
 			if(Spell.ResurrectMana>0) foreach (GamePlayer visPlayer in target.GetPlayersInRadius((ushort)WorldMgr.VISIBILITY_DISTANCE))
 				visPlayer.Out.SendSpellEffectAnimation(Caster, target, (ushort)Spell.ResurrectMana, 0, false, 0x01);
 			
-			if((Spell.Duration>0&&Spell.Target!="Area")||Spell.Concentration>0) OnDirectEffect(target,effectiveness);
+			if((Spell.Duration>0&&Spell.Target!="area")||Spell.Concentration>0) OnDirectEffect(target,effectiveness);
 		}
 		public override int OnEffectExpires(GameSpellEffect effect,bool noMessages)
 		{

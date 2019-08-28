@@ -49,7 +49,7 @@ namespace DOL.GS.PropertyCalc
 			if (living is GameKeepDoor)
 				return (int)(living.MaxHealth * 0.05); //5% each time for keep door
 
-			double regen = 1;
+			double regen;
 
 			/* PATCH 1.87 COMBAT AND REGENERATION
 			  - While in combat, health and power regeneration ticks will happen twice as often.
@@ -84,9 +84,7 @@ namespace DOL.GS.PropertyCalc
 
 			regen += living.BaseBuffBonusCategory[(int)property] - debuff;
 
-			if (regen < 1)
-				regen = 1;
-
+			regen = Math.Max(1, regen);
 			return (int)regen;
 		}
 	}

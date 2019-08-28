@@ -311,8 +311,7 @@ namespace DOL.GS
         {
             get
             {
-                return (Target.ToLower() == "enemy" || Target.ToLower() == "area" ||
-                    Target.ToLower() == "cone");
+                return (Target == "enemy" || Target == "area" || Target == "cone");
             }
         }
         
@@ -323,9 +322,7 @@ namespace DOL.GS
 		{
 			get
 			{
-				return (Target.ToUpper() == "COMBATHEAL" || Target.ToUpper() == "HEAL" || Target.ToUpper() == "HEALOVERTIME" || Target.ToUpper() == "HEALTHREGENBUFF" 
-					|| Target.ToUpper() == "MERCHEAL" || Target.ToUpper() == "OMNIHEAL" || Target.ToUpper() == "PBAEHEAL" || Target.ToUpper() == "SPREADHEAL" 
-					|| Target.ToUpper() == "SUMMONHEALINGELEMENTAL");
+				return SpellType == "Heal" || SpellType == "CombatHeal" || SpellType == "HealOverTime";
 			}
 		}
 
@@ -353,7 +350,7 @@ namespace DOL.GS
 			: base(dbspell.Name, dbspell.SpellID, (ushort)dbspell.Icon, requiredLevel, dbspell.TooltipId)
 		{
 			m_description = dbspell.Description;
-			m_target = dbspell.Target;
+			m_target = dbspell.Target.ToLower();
 			m_spelltype = dbspell.Type;
 			m_range = dbspell.Range;
 			m_radius = dbspell.Radius;
@@ -404,7 +401,7 @@ namespace DOL.GS
 			base(spell.Name, spell.ID, (ushort)spell.Icon, spell.Level, spell.InternalID)
 		{
 			m_description = spell.Description;
-			m_target = spell.Target;
+			m_target = spell.Target.ToLower();
 			m_spelltype = spellType; // replace SpellType
 			m_range = spell.Range;
 			m_radius = spell.Radius;
@@ -485,9 +482,9 @@ namespace DOL.GS
 			delve.Add(String.Format("Casting time: {0}",
 				(CastTime == 0) ? "instant" : String.Format("{0} sec", CastTime)));
 
-			if (Target.ToLower() == "enemy" || Target.ToLower() == "area" || Target.ToLower() == "cone")
+			if (Target == "enemy" || Target == "area" || Target == "cone")
 				delve.Add(String.Format("Damage: {0}", 
-					GlobalConstants.DamageTypeToName((eDamageType)DamageType)));
+					GlobalConstants.DamageTypeToName(DamageType)));
 
 			delve.Add("");
 		}
@@ -501,7 +498,7 @@ namespace DOL.GS
 			String target;
 			switch (Target)
 			{
-				case "Enemy":
+				case "enemy":
 					target = "Targetted";
 					break;
 				default:

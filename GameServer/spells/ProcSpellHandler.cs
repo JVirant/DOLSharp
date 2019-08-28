@@ -365,7 +365,7 @@ namespace DOL.GS.Spells
 				ISpellHandler handler = ScriptMgr.CreateSpellHandler((GameLiving)sender, m_procSpell, m_procSpellLine);
 				if (handler != null)
 				{
-					switch(m_procSpell.Target.ToLower())
+					switch(m_procSpell.Target)
 					{
 						case "enemy":
 							handler.StartSpell(ad.Target);
@@ -433,7 +433,7 @@ namespace DOL.GS.Spells
 				ISpellHandler handler = ScriptMgr.CreateSpellHandler((GameLiving)sender, m_procSpell, m_procSpellLine);
 				if (handler != null)
 				{
-					switch(m_procSpell.Target.ToLower())
+					switch(m_procSpell.Target)
 					{
 						case "enemy":
 							handler.StartSpell(ad.Attacker);

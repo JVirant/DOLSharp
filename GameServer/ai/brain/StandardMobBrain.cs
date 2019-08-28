@@ -1080,7 +1080,7 @@ namespace DOL.AI.Brain
 					foreach (Spell spell in Body.Spells)
 					{
 						if (Body.GetSkillDisabledDuration(spell) > 0) continue;
-						if (spell.Target.ToLower() == "enemy" || spell.Target.ToLower() == "area" || spell.Target.ToLower() == "cone") continue;
+						if (spell.Target == "enemy" || spell.Target == "area" || spell.Target == "cone") continue;
 						// If we have no pets
 						if (Body.ControlledBrain == null)
 						{
@@ -1096,12 +1096,12 @@ namespace DOL.AI.Brain
 							if (Util.Chance(30) && Body.ControlledBrain != null && spell.SpellType.ToLower() == "heal" &&
 							    Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range &&
 							    Body.ControlledBrain.Body.HealthPercent < DOL.GS.ServerProperties.Properties.NPC_HEAL_THRESHOLD
-							    && spell.Target.ToLower() != "self")
+							    && spell.Target != "self")
 							{
 								spell_rec.Add(spell);
 								needheal = true;
 							}
-							if (LivingHasEffect(Body.ControlledBrain.Body, spell) && (spell.Target.ToLower() != "self")) continue;
+							if (LivingHasEffect(Body.ControlledBrain.Body, spell) && (spell.Target != "self")) continue;
 						}
 						if (!needpet && !needheal)
 							spell_rec.Add(spell);
@@ -1128,7 +1128,7 @@ namespace DOL.AI.Brain
 						{
 							if (spell.CastTime > 0)
 							{
-								if (spell.Target.ToLower() == "enemy" || spell.Target.ToLower() == "area" || spell.Target.ToLower() == "cone")
+								if (spell.Target == "enemy" || spell.Target == "area" || spell.Target == "cone")
 									spell_rec.Add(spell);
 							}
 						}
@@ -1221,12 +1221,12 @@ namespace DOL.AI.Brain
                     {
 						// Buff self, if not in melee, but not each and every mob
 						// at the same time, because it looks silly.
-						if (!LivingHasEffect(Body, spell) && !Body.AttackState && spell.Target.ToLower() != "pet")
+						if (!LivingHasEffect(Body, spell) && !Body.AttackState && spell.Target != "pet")
 						{
 							Body.TargetObject = Body;
 							break;
 						}
-						if (Body.ControlledBrain != null && Body.ControlledBrain.Body != null && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range && !LivingHasEffect(Body.ControlledBrain.Body, spell) && spell.Target.ToLower() != "self")
+						if (Body.ControlledBrain != null && Body.ControlledBrain.Body != null && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range && !LivingHasEffect(Body.ControlledBrain.Body, spell) && spell.Target != "self")
 						{
                             Body.TargetObject = Body.ControlledBrain.Body;
 							break;
@@ -1243,7 +1243,7 @@ namespace DOL.AI.Brain
 						break;
 					}
 					if (Body.ControlledBrain != null && Body.ControlledBrain.Body != null && Body.ControlledBrain.Body.IsDiseased
-					    && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range && spell.Target.ToLower() != "self")
+					    && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range && spell.Target != "self")
 					{
 						Body.TargetObject = Body.ControlledBrain.Body;
 						break;
@@ -1256,7 +1256,7 @@ namespace DOL.AI.Brain
 						break;
 					}
 					if (Body.ControlledBrain != null && Body.ControlledBrain.Body != null && LivingIsPoisoned(Body.ControlledBrain.Body)
-					    && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range && spell.Target.ToLower() != "self")
+					    && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range && spell.Target != "self")
 					{
 						Body.TargetObject = Body.ControlledBrain.Body;
 						break;
@@ -1295,7 +1295,7 @@ namespace DOL.AI.Brain
                 case "OMNIHEAL":
                 case "PBAEHEAL":
                 case "SPREADHEAL":
-                    if (spell.Target.ToLower() == "self")
+                    if (spell.Target == "self")
 					{
 						// if we have a self heal and health is less than 75% then heal, otherwise return false to try another spell or do nothing
 						if (Body.HealthPercent < DOL.GS.ServerProperties.Properties.NPC_HEAL_THRESHOLD)
@@ -1307,7 +1307,7 @@ namespace DOL.AI.Brain
 
 					// Chance to heal self when dropping below 30%, do NOT spam it.
 					if (Body.HealthPercent < (DOL.GS.ServerProperties.Properties.NPC_HEAL_THRESHOLD / 2.0)
-						&& Util.Chance(10) && spell.Target.ToLower() != "pet")
+						&& Util.Chance(10) && spell.Target != "pet")
 					{
 						Body.TargetObject = Body;
 						break;
@@ -1316,7 +1316,7 @@ namespace DOL.AI.Brain
 					if (Body.ControlledBrain != null && Body.ControlledBrain.Body != null
 					    && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range 
 					    && Body.ControlledBrain.Body.HealthPercent < DOL.GS.ServerProperties.Properties.NPC_HEAL_THRESHOLD 
-					    && spell.Target.ToLower() != "self")
+					    && spell.Target != "self")
 					{
 						Body.TargetObject = Body.ControlledBrain.Body;
 						break;
@@ -1364,7 +1364,7 @@ namespace DOL.AI.Brain
 		/// </summary>
 		protected virtual bool CheckOffensiveSpells(Spell spell)
 		{
-			if (spell.Target.ToLower() != "enemy" && spell.Target.ToLower() != "area" && spell.Target.ToLower() != "cone")
+			if (spell.Target != "enemy" && spell.Target != "area" && spell.Target != "cone")
 				return false;
 
 			if (Body.TargetObject != null && (spell.Duration == 0 || (Body.TargetObject is GameLiving living && LivingHasEffect(living, spell) == false)))

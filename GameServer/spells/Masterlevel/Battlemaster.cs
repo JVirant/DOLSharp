@@ -219,11 +219,11 @@ namespace DOL.GS.Spells
                 ISpellHandler handler = ScriptMgr.CreateSpellHandler((GameLiving)sender, m_procSpell, m_procSpellLine);
                 if (handler != null)
                 {
-                    if (m_procSpell.Target.ToLower() == "enemy")
+                    if (m_procSpell.Target == "enemy")
                         handler.StartSpell(ad.Target);
-                    else if (m_procSpell.Target.ToLower() == "self")
+                    else if (m_procSpell.Target == "self")
                         handler.StartSpell(ad.Attacker);
-                    else if (m_procSpell.Target.ToLower() == "group")
+                    else if (m_procSpell.Target == "group")
                     {
                         GamePlayer player = Caster as GamePlayer;
                         if (Caster is GamePlayer)

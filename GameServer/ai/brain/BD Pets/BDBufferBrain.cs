@@ -79,7 +79,7 @@ namespace DOL.AI.Brain
 								break;
 							}
 
-							if (spell.Target != "Self")
+							if (spell.Target != "self")
 							{
 
 								owner = (this as IControlledBrain).Owner;

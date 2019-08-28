@@ -3030,7 +3030,7 @@ namespace DOL.GS
 												
 						if (spellHandler != null)
 						{
-							bool rangeCheck = spellHandler.Spell.Target.ToLower().Equals("enemy") && spellHandler.Spell.Range > 0;
+							bool rangeCheck = spellHandler.Spell.Target == "enemy" && spellHandler.Spell.Range > 0;
 
 							if (!rangeCheck || ad.Attacker.IsWithinRadius(ad.Target, spellHandler.CalculateSpellRange()))
 								spellHandler.StartSpell(ad.Target, weapon);
