@@ -36,12 +36,10 @@ public class AmteMob : GameNPC, IAmteNPC
 	public override bool IsFriend(GameNPC npc)
 	{
 		if (npc.Brain is IControlledBrain)
-			return !GameServer.ServerRules.IsAllowedToAttack(this, npc, true);
+			return GameServer.ServerRules.IsSameRealm(this, npc, true);
 		if (Faction == null && npc.Faction == null)
 			return npc.Name == Name || (!string.IsNullOrEmpty(npc.GuildName)  && npc.GuildName == GuildName);
-		if (Faction != null)
-			return npc.Faction == Faction || Faction.FriendFactions.Contains(npc.Faction);
-		return false;
+		return base.IsFriend(npc);
 	}
 
 	public override void LoadFromDatabase(DataObject obj)

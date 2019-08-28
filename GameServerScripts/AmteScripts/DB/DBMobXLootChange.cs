@@ -18,11 +18,9 @@ namespace DOL.Database
 		protected string	m_LootChangerTemplateName = "";
 		protected int		m_dropCount;
 		
-// ReSharper disable EmptyConstructor
 		public DBMobXLootChanger()
 		{
 		}
-// ReSharper restore EmptyConstructor
 		
 		[DataElement(AllowDbNull=false)]
 		public string MobName

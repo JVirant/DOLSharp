@@ -78,7 +78,12 @@ namespace DOL.GS.Scripts
 
 			return true;
 		}
-    }
+
+		public override void WalkToSpawn()
+		{
+			WalkToSpawn(MaxSpeed);
+		}
+	}
 
 	public class GuardTextNPC : TextNPC, IGuardNPC
     {

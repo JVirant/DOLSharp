@@ -129,7 +129,7 @@ namespace DOL.GS.ServerRules
 				var controlled = ((GameNPC)attacker).Brain as IControlledBrain;
 				if (controlled != null)
 				{
-					attacker = controlled.GetLivingOwner();
+					attacker = controlled.GetLivingOwner() ?? attacker;
 					quiet = true; // silence all attacks by controlled npc
 				}
 			}
@@ -137,7 +137,7 @@ namespace DOL.GS.ServerRules
 			{
 				var controlled = ((GameNPC)defender).Brain as IControlledBrain;
 				if (controlled != null)
-					defender = controlled.GetLivingOwner();
+					defender = controlled.GetLivingOwner() ?? defender;
 			}
 
 			// RvR Rules

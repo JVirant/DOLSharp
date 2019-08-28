@@ -13,52 +13,52 @@ namespace DOL.GS.Scripts
 		private DBBrainsParam m_param;
 		public string FollowMobID = "";
 
-        private double m_Angle;
-        private int m_DistMob;
+		private double m_Angle;
+		private int m_DistMob;
 
-        private GameNPC m_mobFollow;
-        public GameNPC MobFollow
-        {
-            get { return m_mobFollow; }
-            set
-            {
-                m_mobFollow = value;
-                if (value == null)
-                    return;
+		private GameNPC m_mobFollow;
+		public GameNPC MobFollow
+		{
+			get { return m_mobFollow; }
+			set
+			{
+				m_mobFollow = value;
+				if (value == null)
+					return;
 
-                double DX = SpawnPoint.X - value.SpawnPoint.X;
-                double DY = SpawnPoint.Y - value.SpawnPoint.Y;
-                m_DistMob = (int) Math.Sqrt(DX*DX + DY*DY);
+				double DX = SpawnPoint.X - value.SpawnPoint.X;
+				double DY = SpawnPoint.Y - value.SpawnPoint.Y;
+				m_DistMob = (int)Math.Sqrt(DX * DX + DY * DY);
 
-                if (m_DistMob > 0)
-                {
-                    m_Angle = Math.Asin(DX/m_DistMob);
-                    if (DY > 0) m_Angle += (Math.PI/2 - m_Angle)*2;
-                    m_Angle -= Math.PI/2;
+				if (m_DistMob > 0)
+				{
+					m_Angle = Math.Asin(DX / m_DistMob);
+					if (DY > 0) m_Angle += (Math.PI / 2 - m_Angle) * 2;
+					m_Angle -= Math.PI / 2;
 
-                    m_Angle = (m_Angle - value.SpawnHeading / RADIAN_TO_HEADING) % (Math.PI * 2);
-                }
-                else m_Angle = 0;
-            }
-        }
+					m_Angle = (m_Angle - value.SpawnHeading / RADIAN_TO_HEADING) % (Math.PI * 2);
+				}
+				else m_Angle = 0;
+			}
+		}
 
-        public override bool IsVisibleToPlayers
-        {
-            get { return true; }
-        }
+		public override bool IsVisibleToPlayers
+		{
+			get { return true; }
+		}
 
 		public override bool AddToWorld()
 		{
 			if (!base.AddToWorld())
 				return false;
-            FollowingBrain brain = new FollowingBrain();
-            if (Brain is IOldAggressiveBrain)
-            {
-                brain.AggroLevel = ((IOldAggressiveBrain)Brain).AggroLevel;
-                brain.AggroRange = ((IOldAggressiveBrain)Brain).AggroRange;
-                //brain.AggroLink = ((IAggressiveBrain)Brain).AggroLink;
-            }
-            SetOwnBrain(brain);	
+			FollowingBrain brain = new FollowingBrain();
+			if (Brain is IOldAggressiveBrain)
+			{
+				brain.AggroLevel = ((IOldAggressiveBrain)Brain).AggroLevel;
+				brain.AggroRange = ((IOldAggressiveBrain)Brain).AggroRange;
+				//brain.AggroLink = ((IAggressiveBrain)Brain).AggroLink;
+			}
+			SetOwnBrain(brain);
 			return true;
 		}
 
@@ -66,7 +66,7 @@ namespace DOL.GS.Scripts
 		public override void LoadFromDatabase(DataObject obj)
 		{
 			base.LoadFromDatabase(obj);
-            m_param = GameServer.Database.SelectObject<DBBrainsParam>("`MobID` = '" + obj.ObjectId + "'");
+			m_param = GameServer.Database.SelectObject<DBBrainsParam>("`MobID` = '" + obj.ObjectId + "'");
 			if (m_param != null && m_param.Param == "MobIDToFollow")
 				FollowMobID = m_param.Value;
 		}
@@ -74,12 +74,12 @@ namespace DOL.GS.Scripts
 		public override void SaveIntoDatabase()
 		{
 			base.SaveIntoDatabase();
-			if(FollowMobID != "" && m_param == null)
+			if (FollowMobID != "" && m_param == null)
 			{
-				m_param = new DBBrainsParam {MobID = InternalID, Param = "MobIDToFollow", Value = FollowMobID};
+				m_param = new DBBrainsParam { MobID = InternalID, Param = "MobIDToFollow", Value = FollowMobID };
 				GameServer.Database.AddObject(m_param);
 			}
-			else if(FollowMobID != "" && m_param.Value != FollowMobID)
+			else if (FollowMobID != "" && m_param.Value != FollowMobID)
 			{
 				m_param.Value = FollowMobID;
 				GameServer.Database.SaveObject(m_param);
@@ -94,17 +94,17 @@ namespace DOL.GS.Scripts
 		}
 		#endregion
 
-        public override void StartAttack(GameObject attackTarget)
-        {
-            if (MobFollow != null)
-                StopFollowing();
-            base.StartAttack(attackTarget);
-        }
+		public override void StartAttack(GameObject attackTarget)
+		{
+			if (MobFollow != null)
+				StopFollowing();
+			base.StartAttack(attackTarget);
+		}
 
 		protected override int FollowTimerCallback(RegionTimer callingTimer)
 		{
 			if (IsCasting)
-                return ServerProperties.Properties.GAMENPC_FOLLOWCHECK_TIME;
+				return ServerProperties.Properties.GAMENPC_FOLLOWCHECK_TIME;
 			bool wasInRange = m_followTimer.Properties.getProperty(FOLLOW_TARGET_IN_RANGE, false);
 			m_followTimer.Properties.removeProperty(FOLLOW_TARGET_IN_RANGE);
 
@@ -126,16 +126,16 @@ namespace DOL.GS.Scripts
 			}
 
 			//Calculate the difference between our position and the players position
-			float diffx = (long)followTarget.X - X;
-			float diffy = (long)followTarget.Y - Y;
-			float diffz = (long)followTarget.Z - Z;
+			var diffx = (double)followTarget.X - X;
+			var diffy = (double)followTarget.Y - Y;
+			var diffz = (double)followTarget.Z - Z;
 
 			//SH: Removed Z checks when one of the two Z values is zero(on ground)
-			float distance;
+			double distance;
 			if (followTarget.Z == 0 || Z == 0)
-				distance = (float)Math.Sqrt(diffx * diffx + diffy * diffy);
+				distance = Math.Sqrt(diffx * diffx + diffy * diffy);
 			else
-				distance = (float)Math.Sqrt(diffx * diffx + diffy * diffy + diffz * diffz);
+				distance = Math.Sqrt(diffx * diffx + diffy * diffy + diffz * diffz);
 
 			//if distance is greater then the max follow distance, stop following and return home
 			if (distance > m_followMaxDist)
@@ -155,8 +155,8 @@ namespace DOL.GS.Scripts
 					// Amtenael MODIF : Aggro entre 30 et 45 secondes
 					//long seconds = Util.Random(30, 45);
 					long seconds = 20 + ((brain.GetAggroAmountForLiving(followLiving) / (MaxHealth + 1)) * 100);
-                    long lastattacked = LastAttackTick;
-                    long lasthit = LastAttackedByEnemyTick;
+					long lastattacked = LastAttackTick;
+					long lasthit = LastAttackedByEnemyTick;
 					if (CurrentRegion.Time - lastattacked > seconds * 1000 && CurrentRegion.Time - lasthit > seconds * 1000)
 					{
 						StopFollowing();
@@ -175,13 +175,13 @@ namespace DOL.GS.Scripts
 				//StopMoving();
 				if (followTarget != MobFollow) TurnTo(followTarget);
 				else TurnTo(followTarget.Heading);
-				
+
 				if (!wasInRange)
 				{
 					m_followTimer.Properties.setProperty(FOLLOW_TARGET_IN_RANGE, true);
 					FollowTargetInRange();
 				}
-                return ServerProperties.Properties.GAMENPC_FOLLOWCHECK_TIME;
+				return ServerProperties.Properties.GAMENPC_FOLLOWCHECK_TIME;
 			}
 
 			// follow on distance
@@ -195,16 +195,19 @@ namespace DOL.GS.Scripts
 
 			if (followTarget == MobFollow)
 			{
-                double angle = (m_Angle + followTarget.Heading / RADIAN_TO_HEADING) % (Math.PI * 2);
+				double angle = (m_Angle + followTarget.Heading / RADIAN_TO_HEADING) % (Math.PI * 2);
 
 				newX = (int)(followTarget.X + Math.Cos(angle) * m_DistMob);
 				newY = (int)(followTarget.Y + Math.Sin(angle) * m_DistMob);
 
-                WalkTo(newX, newY, newZ, (short)(MobFollow.CurrentSpeed + 2));
+				var speed = MaxSpeed;
+				if (GetDistance(new Point2D(newX, newY)) < 500)
+					speed = (short)Math.Max(MaxSpeed, MobFollow.CurrentSpeed + 6);
+				WalkTo(newX, newY, newZ, speed);
 			}
 			else
-			    WalkTo(newX, newY, (ushort)newZ, MaxSpeed);
-            return ServerProperties.Properties.GAMENPC_FOLLOWCHECK_TIME;
+				WalkTo(newX, newY, (ushort)newZ, MaxSpeed);
+			return ServerProperties.Properties.GAMENPC_FOLLOWCHECK_TIME;
 		}
 
 		public override IList<string> DelveInfo()
@@ -224,15 +227,15 @@ namespace DOL.AI.Brain
 	{
 		private string FollowMobID
 		{
-			get { return ((FollowingMob) Body).FollowMobID; }
+			get { return ((FollowingMob)Body).FollowMobID; }
 		}
-		
+
 		public override bool Start()
 		{
 			if (!base.Start()) return false;
 			if (FollowMobID != "")
 				SetMobByMobID();
-			if(((FollowingMob)Body).MobFollow != null)
+			if (((FollowingMob)Body).MobFollow != null)
 				Body.Follow(((FollowingMob)Body).MobFollow, 10, 3000);
 			return true;
 		}
@@ -250,30 +253,30 @@ namespace DOL.AI.Brain
 
 			if (!Body.AttackState && !Body.IsCasting && !Body.IsMoving
 				&& Body.Heading != Body.SpawnHeading && Body.X == Body.SpawnPoint.X
-                && Body.Y == Body.SpawnPoint.Y && Body.Z == Body.SpawnPoint.Z)
+				&& Body.Y == Body.SpawnPoint.Y && Body.Z == Body.SpawnPoint.Z)
 				Body.TurnTo(Body.SpawnHeading);
 
 			if (!Body.InCombat)
 				Body.TempProperties.removeProperty(GameLiving.LAST_ATTACK_DATA);
 
-		    if (Body.CurrentSpellHandler != null || Body.IsMoving || Body.AttackState ||
-                Body.InCombat || Body.IsMovingOnPath || Body.CurrentFollowTarget != null)
-                return;
-		    if (((FollowingMob)Body).MobFollow == null && FollowMobID != "")
-		        SetMobByMobID();
+			if (Body.CurrentSpellHandler != null || Body.IsMoving || Body.AttackState ||
+				Body.InCombat || Body.IsMovingOnPath || Body.CurrentFollowTarget != null)
+				return;
+			if (((FollowingMob)Body).MobFollow == null && FollowMobID != "")
+				SetMobByMobID();
 
-		    if (((FollowingMob)Body).MobFollow != null)
-		        Body.Follow(((FollowingMob)Body).MobFollow, 10, 3000);
-		    else
-		        Body.WalkToSpawn();
+			if (((FollowingMob)Body).MobFollow != null)
+				Body.Follow(((FollowingMob)Body).MobFollow, 10, 3000);
+			else
+				Body.WalkToSpawn();
 		}
 
 		private void SetMobByMobID()
 		{
-			foreach (GameNPC npc in Body.GetNPCsInRadius(2000))
+			foreach (GameNPC npc in Body.GetNPCsInRadius(3000))
 				if (npc.InternalID == FollowMobID)
 				{
-					((FollowingMob) Body).MobFollow = npc;
+					((FollowingMob)Body).MobFollow = npc;
 					break;
 				}
 		}
