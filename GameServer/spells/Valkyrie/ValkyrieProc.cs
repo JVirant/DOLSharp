@@ -78,9 +78,9 @@ namespace DOL.GS.Spells
                 ISpellHandler handler = ScriptMgr.CreateSpellHandler((GameLiving)sender, m_procSpell, SkillBase.GetSpellLine(GlobalSpellsLines.Reserved_Spells));
                 if (handler != null)
                 {
-                    if (m_procSpell.Target == "Enemy")
+                    if (m_procSpell.Target == "enemy")
                         handler.StartSpell(ad.Target);
-                    else if (m_procSpell.Target == "Self")
+                    else if (m_procSpell.Target == "self")
                         handler.StartSpell(ad.Attacker);
                 }
             }

@@ -70,7 +70,7 @@ namespace DOL.GS.Spells
             var list = new List<GameLiving>(8);
             GameLiving target = castTarget as GameLiving;
 
-            switch (Spell.Target.ToLower())
+            switch (Spell.Target)
             {
                 //GTAoE
                 case "area":
@@ -265,7 +265,7 @@ namespace DOL.GS.Spells
             var list = new List<GameLiving>(8);
             GameLiving target = castTarget as GameLiving;
 
-            switch (Spell.Target.ToLower())
+            switch (Spell.Target)
             {
                 //GTAoE
                 case "area":
@@ -454,7 +454,7 @@ namespace DOL.GS.Spells
             var list = new List<GameLiving>(8);
             GameLiving target = castTarget as GameLiving;
 
-            switch (Spell.Target.ToLower())
+            switch (Spell.Target)
             {
                 //GTAoE
                 case "area":
@@ -643,7 +643,7 @@ namespace DOL.GS.Spells
             var list = new List<GameLiving>(8);
             GameLiving target = castTarget as GameLiving;
 
-            switch (Spell.Target.ToLower())
+            switch (Spell.Target)
             {
                 //GTAoE
                 case "area":
@@ -853,7 +853,7 @@ namespace DOL.GS.Spells
             var list = new List<GameLiving>(8);
             GameLiving target = castTarget as GameLiving;
 
-            switch (Spell.Target.ToLower())
+            switch (Spell.Target)
             {
                 //GTAoE
                 case "area":

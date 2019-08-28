@@ -435,7 +435,7 @@ namespace DOL.GS.ServerRules
 			{
 				bool isAllowed = false;
 
-				switch (spell.Target.ToLower())
+				switch (spell.Target)
 				{
 					case "self":
 					case "group":

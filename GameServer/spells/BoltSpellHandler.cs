@@ -55,7 +55,7 @@ namespace DOL.GS.Spells
 		{
 			foreach (GameLiving targ in SelectTargets(target))
 			{
-				if (targ is GamePlayer && Spell.Target.ToLower() == "cone" && CheckLOS(Caster))
+				if (targ is GamePlayer && Spell.Target == "cone" && CheckLOS(Caster))
 				{
 					GamePlayer player = targ as GamePlayer;
 					player.Out.SendCheckLOS(Caster, player, new CheckLOSResponse(DealDamageCheckLOS));

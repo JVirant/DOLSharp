@@ -109,7 +109,7 @@ namespace DOL.GS.Spells
 					return false;
 				}
 			}
-			String targetType = m_spell.Target.ToLower();
+			var targetType = m_spell.Target;
 			if (targetType == "area")
 			{
 				if (!m_caster.IsWithinRadius(m_caster.GroundTarget, CalculateSpellRange()))
@@ -309,7 +309,7 @@ namespace DOL.GS.Spells
 
 		public override void FinishSpellCast(GameLiving target)
 		{
-			if (target == null && Spell.Target.ToLower() != "area") return;
+			if (target == null && Spell.Target != "area") return;
 			if (Caster == null) return;
 
 			if (Caster is GamePlayer && Caster.IsStealthed)
@@ -317,7 +317,7 @@ namespace DOL.GS.Spells
 				(Caster as GamePlayer).Stealth(false);
 			}
 
-			if (Spell.Target.ToLower() == "area")
+			if (Spell.Target == "area")
 			{
 				// always put archer into combat when using area (volley)
 				Caster.LastAttackTickPvE = Caster.CurrentRegion.Time;

@@ -8921,7 +8921,7 @@ namespace DOL.GS
 
 													// Tobz: make sure we have the appropriate target for our charge spell,
 													// otherwise don't waste a charge.
-													if (spell.Target.ToLower() == "enemy")
+													if (spell.Target == "enemy")
 													{
 														// we need an enemy target.
 														if (!GameServer.ServerRules.IsAllowedToAttack(this, target, true))
@@ -9219,7 +9219,7 @@ namespace DOL.GS
 				ISpellHandler spellHandler = ScriptMgr.CreateSpellHandler(this, spell, chargeEffectLine);
 				if (spellHandler != null)
 				{
-					if (IsOnHorse && !spellHandler.HasPositiveEffect)
+					if (IsOnHorse && !spellHandler.HasPositiveEffect && spell.Target != "self")
 						IsOnHorse = false;
 
 					Stealth(false);

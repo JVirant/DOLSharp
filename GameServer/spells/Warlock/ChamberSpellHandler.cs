@@ -201,12 +201,12 @@ namespace DOL.GS.Spells
 					MessageToCaster(m_spellTarget.Name + " is immune to this effect!", eChatType.CT_SpellResisted);
 					return false;
 				}
-				if (GameServer.ServerRules.IsAllowedToAttack(Caster, m_spellTarget, true) && chamber.PrimarySpell.Target.ToLower() == "realm")
+				if (GameServer.ServerRules.IsAllowedToAttack(Caster, m_spellTarget, true) && chamber.PrimarySpell.Target == "realm")
 				{
 					MessageToCaster("This spell only works on friendly targets!", eChatType.CT_System);
 					return false;
 				}
-				if (!GameServer.ServerRules.IsAllowedToAttack(Caster, m_spellTarget, true) && chamber.PrimarySpell.Target.ToLower() != "realm")
+				if (!GameServer.ServerRules.IsAllowedToAttack(Caster, m_spellTarget, true) && chamber.PrimarySpell.Target != "realm")
 				{
 					MessageToCaster("That target isn't attackable at this time!", eChatType.CT_System);
 					return false;

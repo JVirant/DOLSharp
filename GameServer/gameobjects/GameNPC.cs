@@ -1358,7 +1358,7 @@ namespace DOL.GS
 		/// </summary>
 		public virtual void WalkToSpawn()
 		{
-			WalkToSpawn((short)(50));
+			WalkToSpawn(50);
 		}
 
 		/// <summary>
