@@ -84,12 +84,10 @@ namespace DOL.AI.Brain
 			{
 				var attackerGroup = attacker.Group;
 				var numAttackers = (attackerGroup == null) ? 1 : attackerGroup.MemberCount;
-				var maxAdds = (numAttackers + 1) / 2 - 1;
-				if (maxAdds <= 0)
-					maxAdds = 1;
+				var maxAdds = Math.Max(1, (numAttackers + 1) / 2 - 1);
 
 				var numAdds = 0;
-				ushort range = 250;
+				ushort range = 256;
 
 				while (numAdds < maxAdds && range <= BAFReinforcementsRange)
 				{
@@ -109,7 +107,6 @@ namespace DOL.AI.Brain
 					}
 
 					// Increase the range for finding friends to join the fight.
-
 					range *= 2;
 				}
 			}

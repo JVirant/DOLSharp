@@ -26,8 +26,7 @@ namespace DOL.AI.Brain
 				return;
 			foreach(GamePlayer pl in Body.GetPlayersInRadius((ushort)AggroRange))
 			{
-				if (!pl.IsAlive || pl.ObjectState != GameObject.eObjectState.Active ||
-					!GameServer.ServerRules.IsAllowedToAttack(Body, pl, true))
+				if (!pl.IsAlive || pl.ObjectState != GameObject.eObjectState.Active || !GameServer.ServerRules.IsAllowedToAttack(Body, pl, true))
 					continue;
 
 				if (pl.IsStealthed)
@@ -37,7 +36,7 @@ namespace DOL.AI.Brain
 				if (aggro <= 0)
 					continue;
 				AddToAggroList(pl, aggro);
-				if (pl.Level > Body.Level - 20 || (pl.Group != null && pl.Group.MemberCount > 2))
+				if (pl.Level > Body.Level - 20 || (pl.Group != null && pl.Group.MemberCount >= 2))
 					BringReinforcements(pl);
 			}
 		}

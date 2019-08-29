@@ -74,7 +74,7 @@ namespace DOL.GS.Scripts
 				return false;
 
 			BlacklistMgr.GuardReportBL(player, item.IUWrapper.MessageArticle);
-			player.Out.SendMessage("Merci de votre préciuse aide !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+			player.Out.SendMessage("Merci de votre précieuse aide !", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 
 			return true;
 		}
