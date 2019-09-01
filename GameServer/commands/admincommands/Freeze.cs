@@ -26,8 +26,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&freeze",
 		ePrivLevel.Admin,
-		"Freeze The region timer you're in. (Test purpose only)",
-		"/freeze {seconds}")]
+		"AdminCommands.Freeze.Description",
+		"AdminCommands.Freeze.Freeze")]
 	public class Freeze : AbstractCommandHandler, ICommandHandler
 	{
 		private int delay = 0;

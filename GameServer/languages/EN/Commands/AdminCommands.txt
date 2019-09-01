@@ -52,3 +52,51 @@ AdminCommands.Account.AccountNameAlreadyRegistered:	This account name is already
 AdminCommands.Account.AccountCreated:				Account created!
 AdminCommands.Account.AccNameForChar:				Account name for character {0} is: {1}
 
+# /benchmark Command
+AdminCommands.Benchmark.Description: Benchmark some aspects of DOL Server.
+AdminCommands.Benchmark.ListSkills:  '/benchmark listskills' # Benchmark server response time for skills list (1000 iteration)
+AdminCommands.Benchmark.ListSpells:  '/benchmark listspells' # Benchmark server response time for spells list (1000 iteration)
+AdminCommands.Benchmark.Styles:      '/benchmark styles'     # Not implemented
+AdminCommands.Benchmark.Respawns:    '/benchmark respawns'   # Not implemented
+AdminCommands.Benchmark.Deaths:      '/benchmark deaths'     # Not implemented
+AdminCommands.Benchmark.Tooltips:    '/benchmark tooltips'   # Not implemented
+AdminCommands.Benchmark.Usage:       {0} Benchmark took {1}ms for {2} iterations...
+
+# /freeze Command
+AdminCommands.Freeze.Description: Freeze The region timer you're in. (Test purpose only)
+AdminCommands.Freeze.Freeze:      "/freeze <seconds>" # Freeze the region a given time
+
+# /refresh Command
+AdminCommands.Refresh.Description:  Refresh some specific static data cache stored in scripts or other objects
+AdminCommands.Refresh.List:         '/refresh list' # List possibilities
+AdminCommands.Refresh.ClassName:    '/refresh <ClassName>.<MethodName> # Refresh a specific class
+AdminCommands.Refresh.Module:       --- Refreshing Module's static cache for: {0}
+AdminCommands.Refresh.ModuleRetval: --- Module returned value: {0}
+AdminCommands.Refresh.ModuleWrong:  Wrong Module argument given... try /refresh list!
+AdminCommands.Refresh.ModuleError:  -!- Error while refreshing Module's static cache for: {0} - {1}
+AdminCommands.Refresh.ModuleDone:   -.- Refresh Module's static cache Finished for: {0}
+AdminCommands.Refresh.Available:    Available Refreshables Modules:
+
+# /reload Command
+AdminCommands.Reload.Description:        Reload various elements.
+AdminCommands.Reload.Usage.Realm:        Realm can be specified by number (0|1|2|3) or by name (n|a|m|h OR none|albion|midgard|hibernia) 
+AdminCommands.Reload.Usage.Mob:          '/reload mob' # Reload all mob in current region.
+AdminCommands.Reload.Usage.Object:       '/reload object # reload all static object in current region.
+AdminCommands.Reload.Usage.Specs:        '/reload specs' # reload all specializations.
+AdminCommands.Reload.Usage.Spells:       '/reload spells' # reload all spells.
+AdminCommands.Reload.Usage.Mob.Realm:    '/reload mob realm <0|1|2|3>' # reload all mob with specific realm in current region.
+AdminCommands.Reload.Usage.Mob.Model:    '/reload mob model <model_ID>' # reload all mob with specific model in current region.
+AdminCommands.Reload.Usage.Mob.Name:     '/reload mob name <name_you_want>' # reload all mob with specific name in current region.
+AdminCommands.Reload.Usage.Object.Realm: '/reload object realm <0|1|2|3>' # reload all static object with specific realm in current region.
+AdminCommands.Reload.Usage.Object.Name:  '/reload object name <name>' # reload all static object with specific name in current region.
+AdminCommands.Reload.Usage.Object.Model: '/reload object model <ID#>' # reload all static object with specific model in current region.
+AdminCommands.Reload.Usage.ObjectMob.Realm: '/reload <object|mob> realm <0|1|2|3>' # reload all element with specific realm in current region.
+AdminCommands.Reload.Usage.Name:         '/reload <object|mob> name <name_you_want>' # Reload all element with a specified name in the region.
+AdminCommands.Reload.Reloaded.Specs:     {0} specializations loaded.
+AdminCommands.Reload.Usage.Model:        '/reload <object|mob> model <ID#>' # Reload all element with a specified name in the region.
+AdminCommands.Reload.Command.Failed:     '/reload command' Failed, review parameters.
+AdminCommands.Reload.Reloaded.Mobs:      {0} mobs reloaded!
+AdminCommands.Reload.Reloaded.Spells:    Reloaded db spells and {0} spells for all lines !
+AdminCommands.Reload.Reloaded.Specs:     {0} specializations loaded.
+AdminCommands.Reload.NotSupported.Console: Region reload not supported from console.
+AdminCommands.Reload.ReloadingMobs:      Reloading Mobs: {0}, {1}. In region: {2}.

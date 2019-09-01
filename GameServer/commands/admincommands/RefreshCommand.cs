@@ -20,6 +20,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
+using DOL.Language;
 
 using DOL.GS;
 
@@ -30,8 +31,9 @@ namespace DOL.GS.Commands
 	/// </summary>
 	[Cmd("&refresh",
 		ePrivLevel.Admin,
-		"Refresh some specific static data cache stored in scripts or other objects",
-		"/refresh list | ClassName 'dot' MethodName"
+		"AdminCommands.Refresh.Description",
+		"AdminCommands.Refresh.List",
+		"AdminCommands.Refresh.ClassName"
 		)]
 	public class RefreshCommand : AbstractCommandHandler, ICommandHandler
 	{
@@ -79,23 +81,24 @@ namespace DOL.GS.Commands
 				
 				if (method.Value == null)
 				{
-					DisplayMessage(client, "Wrong Module argument given... try /refresh list!");
+					//DisplayMessage(client, "Wrong Module argument given... try /refresh list!");
+					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Refresh.ModuleWrong"));
 				}
 				else
 				{
-					DisplayMessage(client, string.Format("--- Refreshing Module's static cache for: {0}", method.Key));
+					DisplayMessage(client, string.Format(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Refresh.Module", method.Key)));
 					try
 					{
 						object value = method.Value.Invoke(null, new object[] { });
 						if (value != null)
-							DisplayMessage(client, string.Format("--- Module returned value: {0}", value));
+							DisplayMessage(client, string.Format(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Refresh.ModuleRetVal", value)));
 					}
 					catch(Exception e)
 					{
-						DisplayMessage(client, string.Format("-!- Error while refreshing Module's static cache for: {0} - {1}", method.Key, e));
+						DisplayMessage(client, string.Format(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Refresh.ModuleError", method.Key, e)));
 					}
 						
-					DisplayMessage(client, string.Format("-.- Refresh Module's static cache Finished for: {0}", method.Key));
+					DisplayMessage(client, string.Format(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Refresh.ModuleDone", method.Key)));
 				}
 			}
 		}
@@ -106,7 +109,7 @@ namespace DOL.GS.Commands
 		/// <param name="client"></param>
 		private void DisplayAvailableModules(GameClient client)
 		{
-			DisplayMessage(client, "Available Refreshables Modules: ");
+			DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Refresh.Available"));
 			foreach(var mods in m_refreshCommandCache.Keys)
 				DisplayMessage(client, mods);
 		}

@@ -1,3 +1,3 @@
-NameRegistrar.YouExamine:	You examine {0}. {1} is {2}.
-NameRegistrar.ReturnToMe:	Return to me when you are {0}th level to choose a last name.
-NameRegistrar.LastName:		I can make you known by a last name of your choice. Use the /lastname <name> command.
+NameRegistrar.YouExamine:	Vous examinez {0}. {1} est {2}.
+NameRegistrar.ReturnToMe:	Vous êtes encore bien jeune. Revenez me voir quand vous serez niveau {0} pour choisir votre nom de famille.
+NameRegistrar.LastName:		Je peux vous faire connaître par le nom de famille de votre choix. (Utilisez la commande '/lastname <nom de famille>')

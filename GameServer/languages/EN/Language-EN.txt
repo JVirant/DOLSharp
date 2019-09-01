@@ -363,7 +363,13 @@ Scripts.Players.Autosplit.Leader:			You must be the leader of the group to use t
 Scripts.Players.Autosplit.Loot:				The leader switched 
 Scripts.Players.Autosplit.Off:				The leader switched off the autosplit.
 Scripts.Players.Autosplit.On:				The leader switched on the autosplit.
-Scripts.Players.Autosplit.Self:				{0} switched 
+Scripts.Players.Autosplit.Coins.On:         The leader switched ON the coin autosplit.
+Scripts.Players.Autosplit.Coins.Off:        The leader switched OFF the coin autosplit.
+Scripts.Players.Autosplit.Loot.On:          The leader switched ON the loot autosplit.
+Scripts.Players.Autosplit.Loot.Off:         The leader switched OFF the loot autosplit.
+Scripts.Players.Autosplit.Self:				{0} switched
+Scripts.Players.Autosplit.Self.On:          {0} switched on their autosplit loot.
+Scripts.Players.Autosplit.Self.Off:         {0} switched off their autosplit loot.
 
 # /Battlegroup
 Scripts.Players.Battlegroup.BattlegroupCount:		There are currently {0} members in your battlegroup.			

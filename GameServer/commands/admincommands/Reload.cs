@@ -22,13 +22,17 @@ using System.Reflection;
 using DOL.Database;
 using DOL.GS.PacketHandler;
 using log4net;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[Cmd("&Reload",
 		ePrivLevel.Admin,
-		"Reload various elements",
-		"/reload mob|object|specs|spells"
+		"AdminCommands.Reload.Description",
+		"AdminCommands.Reload.Usage.Mob",
+        "AdminCommands.Reload.Usage.Object",
+        "AdminCommands.Reload.Usage.Specs",
+        "AdminCommands.Reload.Usage.Spells"
 		)]
 	public class ReloadCommandHandler : ICommandHandler
 	{
@@ -38,50 +42,53 @@ namespace DOL.GS.Commands
 		{
 			if (client.Player != null)
 			{
-				client.Out.SendMessage("\n  ===== [[[ Command Reload ]]] ===== \n", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-				client.Out.SendMessage(" Reload given element.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Description"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 			}
 		}
 		private static void SendSystemMessageMob(GameClient client)
 		{
 			if (client.Player != null)
 			{
-				client.Out.SendMessage(" /reload mob ' reload all mob in region.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-				client.Out.SendMessage(" /reload mob ' realm <0/1/2/3>' reload all mob with specifique realm in region.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-				client.Out.SendMessage(" /reload mob ' name <name_you_want>' reload all mob with specifique name in region.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-				client.Out.SendMessage(" /reload mob ' model <model_ID>' reload all mob with specifique model in region.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Mob"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Mob.Model"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Mob.Name"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Mob.Realm"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Realm"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 			}
 		}
 		private static void SendSystemMessageObject(GameClient client)
 		{
 			if (client.Player != null)
 			{
-				client.Out.SendMessage(" /reload object ' reload all static object in region.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-				client.Out.SendMessage(" /reload object ' realm <0/1/2/3>' reload all static object with specifique realm in region.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-				client.Out.SendMessage(" /reload object ' name <name_you_want>' reload all static object with specifique name in region.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-				client.Out.SendMessage(" /reload object ' model <model_ID>' reload all static object with specifique model in region.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Object"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Object.Model"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Object.Name"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Object.Realm"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Realm"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+
 			}
 		}
 		private static void SendSystemMessageRealm(GameClient client)
 		{
 			if (client.Player != null)
 			{
-				client.Out.SendMessage("\n /reload <object/mob> realm <0/1/2/3>' reload all element with specifique realm in region.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-				client.Out.SendMessage(" can use 0/1/2/3 or n/a/m/h or no/alb/mid/hib....", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.ObjectMob.Realm"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Realm"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+
 			}
 		}
 		private static void SendSystemMessageName(GameClient client)
 		{
 			if (client.Player != null)
 			{
-				client.Out.SendMessage("\n /reload <object/mob>  name <name_you_want>' reload all element with specified name in region.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Name"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 			}
 		}
 		private static void SendSystemMessageModel(GameClient client)
 		{
 			if (client.Player != null)
 			{
-				client.Out.SendMessage("\n /reload <object/mob>  model <model_ID>' reload all element with specified model_ID in region.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Model"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 			}
 		}
 
@@ -100,15 +107,15 @@ namespace DOL.GS.Commands
 					SendSystemMessageBase(client);
 					SendSystemMessageMob(client);
 					SendSystemMessageObject(client);
-					client.Out.SendMessage(" /reload specs - reload all specializations.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-					client.Out.SendMessage(" /reload spells - reload a spells and spelllines, checking db for changed and new spells.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Specs"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Usage.Spells"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				}
-				log.Info("/reload command failed, review parameters.");
+				log.Info("'/reload command' Failed, review parameters.");
 				return;
 			}
 			else if (argLength > 1)
 			{
-				if (args[2] == "realm" || args[2] == "Realm")
+				if (args[2].ToLower() == "realm")
 				{
 					if (argLength == 2)
 					{
@@ -116,13 +123,13 @@ namespace DOL.GS.Commands
 						return;
 					}
 
-					if (args[3] == "0" || args[3] == "None" || args[3] == "none" || args[3] == "no" || args[3] == "n")
+					if (args[3] == "0" || args[3].ToLower() == "none" || args[3] == "no" || args[3] == "n")
 						arg = "None";
-					else if (args[3] == "1" || args[3] == "a" || args[3] == "alb" || args[3] == "Alb" || args[3] == "albion" || args[3] == "Albion")
+					else if (args[3] == "1" || args[3].ToLower() == "a" || args[3].ToLower() == "alb" || args[3].ToLower() == "albion")
 						arg = "Albion";
-					else if (args[3] == "2" || args[3] == "m" || args[3] == "mid" || args[3] == "Mid" || args[3] == "midgard" || args[3] == "Midgard")
+					else if (args[3] == "2" || args[3].ToLower() == "m" || args[3].ToLower() == "mid" || args[3].ToLower() == "midgard")
 						arg = "Midgard";
-					else if (args[3] == "3" || args[3] == "h" || args[3] == "hib" || args[3] == "Hib" || args[3] == "hibernia" || args[3] == "Hibernia")
+					else if (args[3] == "3" || args[3].ToLower() == "h" || args[3].ToLower() == "hib" || args[3].ToLower() == "hibernia")
 						arg = "Hibernia";
 					else
 					{
@@ -130,7 +137,7 @@ namespace DOL.GS.Commands
 						return;
 					}
 				}
-				else if (args[2] == "name" || args[2] == "Name")
+				else if (args[2].ToLower() == "name")
 				{
 					if (argLength == 2)
 					{
@@ -139,7 +146,7 @@ namespace DOL.GS.Commands
 					}
 					arg = String.Join(" ", args, 3, args.Length - 3);
 				}
-				else if (args[2] == "model" || args[2] == "Model")
+				else if (args[2].ToLower() == "model")
 				{
 					if (argLength == 2)
 					{
@@ -150,7 +157,7 @@ namespace DOL.GS.Commands
 				}
 			}
 
-			if (args[1] == "mob" || args[1] == "Mob")
+			if (args[1].ToLower() == "mob")
 			{
 
 				if (argLength == 1)
@@ -165,7 +172,7 @@ namespace DOL.GS.Commands
 				}
 			}
 
-			if (args[1] == "object" || args[1] == "Object")
+			if (args[1].ToLower() == "object")
 			{
 				if (argLength == 1)
 				{
@@ -183,15 +190,15 @@ namespace DOL.GS.Commands
 			{
 				SkillBase.ReloadDBSpells();
 				int loaded = SkillBase.ReloadSpellLines();
-				if (client != null) ChatUtil.SendSystemMessage(client, string.Format("Reloaded db spells and {0} spells for all lines !", loaded));
-				log.Info(string.Format("Reloaded db spells and {0} spells for all spell lines !", loaded));
+				if (client != null) ChatUtil.SendSystemMessage(client, "AdminCommands.Reload.Reloaded.Spells", loaded);
+				log.Info(string.Format("Reloaded db spells and {0} spells for all lines !", loaded));
 				return;
 			}
 
 			if (args[1].ToLower() == "specs")
 			{
 				int count = SkillBase.LoadSpecializations();
-				if (client != null) client.Out.SendMessage(string.Format("{0} specializations loaded.", count), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+				if (client != null) client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Reload.Reloaded.Specs", count), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 				log.Info(string.Format("{0} specializations loaded.", count));
 				return;
 			}
@@ -207,7 +214,7 @@ namespace DOL.GS.Commands
 				return;
 			}
 
-			ChatUtil.SendSystemMessage(player, "Reloading Mobs:  " + arg1 + ", " + arg2 + " ...");
+			ChatUtil.SendSystemMessage(player, LanguageMgr.GetTranslation(player.Client.Account.Language, "AdminCommands.Reload.ReloadingMobs", arg1, arg2, region));
 
 			int count = 0;
 
@@ -284,7 +291,7 @@ namespace DOL.GS.Commands
 				}
 			}
 
-			ChatUtil.SendSystemMessage(player, count + " mobs reloaded!");
+			ChatUtil.SendSystemMessage(player, "AdminCommands.Reload.Reloaded.Spells", count);
 		}
 
 		private void ReloadStaticItem(ushort region, string arg1, string arg2)

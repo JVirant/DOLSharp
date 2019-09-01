@@ -3,11 +3,14 @@
 # Languages
 System.LanguagesName.EN:				English
 System.LanguagesName.IT:				Italian
-
+System.LanguagesName.FR:				French
+System.LanguagesName.DE:	            German
+System.LanguagesName.ES:				Spanish
+System.LanguagesName.CZ:			    Czech
 
 # SYSTEM
-System.NoSense:									Cela n'aurait aucun sens !
-System.MustSelectTarget:						Vous devez selectionner une cible !
+System.NoSense:									Cela n'aurait aucun sens !
+System.MustSelectTarget:						Vous devez selectionner une cible !
 System.ReleaseTimer:							Délai de résurrection
 
 
