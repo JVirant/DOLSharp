@@ -106,10 +106,11 @@ AdminCommands.ShutDown.Description: Shutdown the server in the next minute
 AdminCommands.ShutDown.On:          '/shutdown on <hour>:<min>' # Shutdown on this time
 AdminCommands.ShutDown:             '/shutdown <mins>' – Shutdown in minutes
 AdminCommands.ShutDown.Restart.Auto: Automated server restart / backup triggered. Restart in {0} mins! (Restart at {1})
+AdminCommands.ShutDown.Restart.TZ:  Attention: Server restart in {0} minutes! (restart at {1})
 AdminCommands.ShutDown.Restart.Hours: Server restart in {0} hours!
+AdminCommands.ShutDown.Closed:      Server is now closed (restart in {0} minutes)
+## {0}=Hours, {1}=Minutes, {2}=Seconds
 AdminCommands.ShutDown.Restart.Hours.Mins: Server restart in {0} hours and {1} minutes!
 AdminCommands.ShutDown.Restart.Mins:  Server restart in {1} minutes!
 AdminCommands.ShutDown.Restart.Mins.Secs: Server restart in {1} minutes! ({2} seconds)
 AdminCommands.ShutDown.Restart.Secs:  Server restart in {2} seconds! Please logout!
-AdminCommands.ShutDown.Closed:      Server is now closed (restart in {1} minutes)
-AdminCommands.ShutDown.Restart.TZ:  Attention: Server restart in {0} minutes! (restart at {1})
