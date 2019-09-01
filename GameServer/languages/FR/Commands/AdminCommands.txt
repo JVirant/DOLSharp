@@ -100,3 +100,17 @@ AdminCommands.Reload.Reloaded.Spells:    Rechargement de la bdd des sorts, {0} s
 AdminCommands.Reload.Reloaded.Specs:     {0} compétences ajouté.
 AdminCommands.Reload.NotSupported.Console: Le rechargement régionnal n'est pas supporté depuis la console.
 AdminCommands.Reload.ReloadingMobs:      Rechargement des PNJ : {0}, {1}. Dans la région : {2}.
+
+# /shutdown Command
+AdminCommands.ShutDown.Description: Éteint le serveur dans les prochaines minutes.
+AdminCommands.ShutDown.On:          '/shutdown on <HEURE>:<MINUTE>' # Éteint le serveur dans tant de temps.
+AdminCommands.ShutDown:             '/shutdown <MINUTES>' – Éteint le serveur dans tant de minutes.
+AdminCommands.ShutDown.Restart.Auto: Redémarrage du serveur automatique enclenché. Redémarrage dans {0} minutes! (Prévus à {1})
+AdminCommands.ShutDown.Restart.TZ:  Attention : Le serveur va redémarer dans {0} minutes ! (Prévus à {1})
+AdminCommands.ShutDown.Restart.Hours: Le serveur redémarrera dans {0} heures !
+AdminCommands.ShutDown.Closed:      Le serveur est fermé. Redémarrage dans {0} minutes.
+## {0}=Hours, {1}=Minutes, {2}=Seconds
+AdminCommands.ShutDown.Restart.Hours.Mins: Le serveur redémarrera dans {0} heure·s et {1} minute·s !
+AdminCommands.ShutDown.Restart.Mins:  Le serveur redémarrera dans {1} minutes!
+AdminCommands.ShutDown.Restart.Mins.Secs: Le serveur redémarrera dans {1} minutes ! ({2} secondes)
+AdminCommands.ShutDown.Restart.Secs:  Le serveur redémarrera dans {2} secondes ! Veuillez-vous déconnecter !

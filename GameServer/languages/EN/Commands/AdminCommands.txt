@@ -100,3 +100,16 @@ AdminCommands.Reload.Reloaded.Spells:    Reloaded db spells and {0} spells for a
 AdminCommands.Reload.Reloaded.Specs:     {0} specializations loaded.
 AdminCommands.Reload.NotSupported.Console: Region reload not supported from console.
 AdminCommands.Reload.ReloadingMobs:      Reloading Mobs: {0}, {1}. In region: {2}.
+
+# /shutdown Command
+AdminCommands.ShutDown.Description: Shutdown the server in the next minute
+AdminCommands.ShutDown.On:          '/shutdown on <hour>:<min>' # Shutdown on this time
+AdminCommands.ShutDown:             '/shutdown <mins>' – Shutdown in minutes
+AdminCommands.ShutDown.Restart.Auto: Automated server restart / backup triggered. Restart in {0} mins! (Restart at {1})
+AdminCommands.ShutDown.Restart.Hours: Server restart in {0} hours!
+AdminCommands.ShutDown.Restart.Hours.Mins: Server restart in {0} hours and {1} minutes!
+AdminCommands.ShutDown.Restart.Mins:  Server restart in {1} minutes!
+AdminCommands.ShutDown.Restart.Mins.Secs: Server restart in {1} minutes! ({2} seconds)
+AdminCommands.ShutDown.Restart.Secs:  Server restart in {2} seconds! Please logout!
+AdminCommands.ShutDown.Closed:      Server is now closed (restart in {1} minutes)
+AdminCommands.ShutDown.Restart.TZ:  Attention: Server restart in {0} minutes! (restart at {1})
