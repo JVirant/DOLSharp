@@ -32,7 +32,7 @@ namespace DOL.GS.Commands
 		{
 			if (client.Player.Group == null)
 			{
-				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Scripts.Players.Disband.NotInGroup"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Disband.NotInGroup"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				return;
 			}
 
@@ -45,7 +45,7 @@ namespace DOL.GS.Commands
 			{
 				if (client.Player.Group.Leader != client.Player)
 				{
-					client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Scripts.Players.Disband.NotLeader"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Disband.NotLeader"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					return;
 				}
 
@@ -53,7 +53,7 @@ namespace DOL.GS.Commands
 
 				if (name.Equals(client.Player.Name, System.StringComparison.OrdinalIgnoreCase))
 				{
-					client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Scripts.Players.Disband.NoYourself"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Disband.NoYourself"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					return;
 				}
 
@@ -67,7 +67,7 @@ namespace DOL.GS.Commands
 				//no target found to remove
 				if (client.Player.Group != null && client.Player.Group.MemberCount == startCount)
 				{
-					client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Scripts.Players.Disband.NoPlayer"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Disband.NoPlayer"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					return;
 				}
 			}

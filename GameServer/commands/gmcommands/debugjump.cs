@@ -25,8 +25,8 @@ namespace DOL.GS.Commands
 	[Cmd(
 		"]jump",
 		ePrivLevel.GM,
-		"GMCommands.DebugJump.Description",
-		"GMCommands.DebugJump.Usage")]
+		"Commands.GM.DebugJump.Description",
+		"Commands.GM.DebugJump.Usage")]
 	public class OnDebugJump : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -40,14 +40,14 @@ namespace DOL.GS.Commands
 			ushort zoneID = 0;
 			if (!ushort.TryParse(args[1], out zoneID))
 			{
-				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.DebugJump.InvalidZoneID", args[1]));
+				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.DebugJump.InvalidZoneID", args[1]));
 				return;
 			}
 
 			Zone z = WorldMgr.GetZone(zoneID);
 			if (z == null)
 			{
-				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.DebugJump.UnknownZoneID", args[1]));
+				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.DebugJump.UnknownZoneID", args[1]));
 				return;
 			}
 			
@@ -68,12 +68,12 @@ namespace DOL.GS.Commands
 			Region reg = WorldMgr.GetRegion(RegionID);
 			if (reg == null)
 			{
-				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.DebugJump.UnknownRegion", RegionID.ToString()));
+				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.DebugJump.UnknownRegion", RegionID.ToString()));
 				return false;
 			}
 			else if (reg.Expansion > (int)client.ClientType)
 			{
-				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.DebugJump.RegionNotSuppByClient", reg.Description));
+				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.DebugJump.RegionNotSuppByClient", reg.Description));
 				return false;
 			}
 			return true;

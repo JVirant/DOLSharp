@@ -24,8 +24,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&heal",
 		ePrivLevel.GM,
-		"GMCommands.Heal.Description",
-		"GMCommands.Heal.Usage",
+		"Commands.GM.Heal.Description",
+		"Commands.GM.Heal.Usage",
 		"/heal me - heals self")]
 	public class HealCommandHandler : AbstractCommandHandler, ICommandHandler
 	{

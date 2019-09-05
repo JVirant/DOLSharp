@@ -28,9 +28,9 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&shutdown",
 		ePrivLevel.Admin,
-		"AdminCommands.ShutDown.Description",
-		"AdminCommands.ShutDown.On",
-		"AdminCommands.ShutDown")]
+		"Commands.Admin.ShutDown.Description",
+		"Commands.Admin.ShutDown.On",
+		"Commands.Admin.ShutDown")]
 	public class ShutdownCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -90,7 +90,7 @@ namespace DOL.GS.Commands
 
 				foreach (GameClient m_client in WorldMgr.GetAllPlayingClients())
 				{
-					m_client.Out.SendDialogBox(eDialogCode.SimpleWarning, 0,0,0,0, eDialogType.Ok, true, LanguageMgr.GetTranslation(m_client.Account.Language, "AdminCommands.ShutDown.Restart.Auto", m_counter / 60, date.ToString("HH:mm \"GMT\" zzz")));
+					m_client.Out.SendDialogBox(eDialogCode.SimpleWarning, 0,0,0,0, eDialogType.Ok, true, LanguageMgr.GetTranslation(m_client.Account.Language, "Commands.Admin.ShutDown.Restart.Auto", m_counter / 60, date.ToString("HH:mm \"GMT\" zzz")));
 					//m_client.Out.SendDialogBox(eDialogCode.SimpleWarning, 0, 0, 0, 0, eDialogType.Ok, true, "Automated server restart / backup triggered. Restart in " + m_counter / 60 + " mins! (Restart at " + date.ToString("HH:mm \"GMT\" zzz") + ")");
 					//m_client.Out.SendMessage("Automated server restart / backup triggered. Restart in " + m_counter / 60 + " mins! (Restart on " + date.ToString("HH:mm \"GMT\" zzz") + ")", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 				}
@@ -188,18 +188,18 @@ namespace DOL.GS.Commands
 				{
 					foreach (GameClient client in WorldMgr.GetAllPlayingClients())
 					{
-						sendMessage = LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.ShutDown.Restart." + strType, hours, mins, secs);
+						sendMessage = LanguageMgr.GetTranslation(client.Account.Language, "Commands.Admin.ShutDown.Restart." + strType, hours, mins, secs);
 						client.Out.SendMessage(sendMessage, eChatType.CT_Staff, eChatLoc.CL_ChatWindow);
 					}
 					// If you have an IRC Bot
-					//if (ServerIRC.IRC.Boot != null) ServerIRC.IRCBot.SendMessage(ServerIRC.CHANNEL, LanguageMgr.GetTranslation(ServerProperties.Properties.SERV_LANGUAGE, "AdminCommands.ShutDown.Restart." + strType, hours, mins, secs));
+					//if (ServerIRC.IRC.Boot != null) ServerIRC.IRCBot.SendMessage(ServerIRC.CHANNEL, LanguageMgr.GetTranslation(ServerProperties.Properties.SERV_LANGUAGE, "Commands.Admin.ShutDown.Restart." + strType, hours, mins, secs));
 				}
 
 				if (mins <= 2 && GameServer.Instance.ServerStatus != eGameServerStatus.GSS_Closed) // 2 mins remaining
 				{
 					GameServer.Instance.Close();
 					// You have an IRC Bot
-					//if (ServerIRC.IRCBot != null) ServerIRC.IRCBot.SendMessage(ServerIRC.CHANNEL, LanguageMgr.GetTranslation(ServerProperties.Properties.SERV_LANGUAGE, "AdminCommands.ShutDown.Restart.Closed", mins));
+					//if (ServerIRC.IRCBot != null) ServerIRC.IRCBot.SendMessage(ServerIRC.CHANNEL, LanguageMgr.GetTranslation(ServerProperties.Properties.SERV_LANGUAGE, "Commands.Admin.ShutDown.Restart.Closed", mins));
 				}
 			}
 		}
@@ -300,10 +300,10 @@ namespace DOL.GS.Commands
 				if (popup)
 				{
 					string datestr = date.ToString("HH:mm \"GMT\" zzz"); 
-					m_client.Out.SendDialogBox(eDialogCode.SimpleWarning, 0, 0, 0, 0, eDialogType.Ok, true, LanguageMgr.GetTranslation(m_client.Account.Language, "AdminCommands.ShutDown.Restart.TZ", mins, datestr));
-					m_client.Out.SendMessage(LanguageMgr.GetTranslation(m_client.Account.Language, "AdminCommands.ShutDown.Restart.TZ", mins, datestr), eChatType.CT_System, eChatLoc.CL_PopupWindow);
+					m_client.Out.SendDialogBox(eDialogCode.SimpleWarning, 0, 0, 0, 0, eDialogType.Ok, true, LanguageMgr.GetTranslation(m_client.Account.Language, "Commands.Admin.ShutDown.Restart.TZ", mins, datestr));
+					m_client.Out.SendMessage(LanguageMgr.GetTranslation(m_client.Account.Language, "Commands.Admin.ShutDown.Restart.TZ", mins, datestr), eChatType.CT_System, eChatLoc.CL_PopupWindow);
 				}
-				m_client.Out.SendMessage(LanguageMgr.GetTranslation(m_client.Account.Language, "AdminCommands.ShutDown.Restart.Mins", "", mins), eChatType.CT_Staff, eChatLoc.CL_ChatWindow);
+				m_client.Out.SendMessage(LanguageMgr.GetTranslation(m_client.Account.Language, "Commands.Admin.ShutDown.Restart.Mins", "", mins), eChatType.CT_Staff, eChatLoc.CL_ChatWindow);
 			}
 			string msg = "Server restart in " + m_counter / 60 + " mins!";
 			log.Warn(msg);

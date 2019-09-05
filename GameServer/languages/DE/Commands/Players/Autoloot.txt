@@ -1,0 +1,3 @@
+# /Autoloot
+Commands.Players.Autoloot.Off:				Euer Autoloot-Status ist AUS. Ihr werdet nicht versuchen, alle erbeuteten Gegenstände und Münzen automatisch aufzuheben. Benutzt '/autoloot on', um diese Option anzuschalten.
+Commands.Players.Autoloot.On:				Euer Autoloot-Status ist AN. Wenn Ihr alleine seid oder der Gruppenführer, werdet Ihr versuchen, alle erbeuteten Gegenstände und Münzen automatisch aufzuheben. Benutzt '/autoloot off', um diese Option abzuschalten.

@@ -1,0 +1,4 @@
+# /Cmdhelp
+Commands.Players.Cmdhelp.NoCommand:			Den Befehl {0} gibt es nicht.
+Commands.Players.Cmdhelp.PlvlCommands:			<---------Befehle für Berechtigungsstufe {0}--------->
+Commands.Players.Cmdhelp.Usage:				>-------Befehlsform für {0}-------<

@@ -1,0 +1,5 @@
+# /Boot
+Commands.Players.Boot.InHouseError:			Ihr müsst Euch in Eurem Haus befinden, um diesen Befehl verwenden zu können!
+Commands.Players.Boot.NoHouseError:			Ihr besitzt kein Haus!
+Commands.Players.Boot.NoOneOnline:			Niemand ist mit diesem Namen online den Ihr kicken könnt!
+Commands.Players.Boot.YouRemoved:			Ihr wurdet von {0} aus dem Haus geworfen!

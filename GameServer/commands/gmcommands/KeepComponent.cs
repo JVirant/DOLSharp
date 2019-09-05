@@ -29,15 +29,15 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		 "&keepcomponent",
 		 ePrivLevel.GM,
-		 "GMCommands.KeepComponents.Description",
-		 "GMCommands.KeepComponents.Usage.Create.TID",
-		 "GMCommands.KeepComponents.Usage.Create.T",
-		 "GMCommands.KeepComponents.Usage.Skin",
+		 "Commands.GM.KeepComponents.Description",
+		 "Commands.GM.KeepComponents.Usage.Create.TID",
+		 "Commands.GM.KeepComponents.Usage.Create.T",
+		 "Commands.GM.KeepComponents.Usage.Skin",
 		 "/keepcomponent move - move to your position",
 		 "/keepcomponent rotate [0 - 3]",
 		 "/keepcomponent reload",
 		 "'/keepcomponent save' to save the component in the DB",
-		 "GMCommands.KeepComponents.Usage.Delete")]
+		 "Commands.GM.KeepComponents.Usage.Delete")]
 	public class KeepComponentCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		private readonly ushort INVISIBLE_MODEL = 150;
@@ -136,10 +136,10 @@ namespace DOL.GS.Commands
 						x = (component.X-myKeep.X)/148 = a*cos(t) - b*sin(t)
 						y = (component.Y-myKeep.Y)/148 = a*sin(t) + b*cos(t)
 						a = sqrt((x+b*sin(t))^2 + (y-b*cos(t))^2)
-						a = sqrt(x²+y²+b² +2*x*b*sin(t)-2*y*b*cos(t))
+						a = sqrt(xï¿½+yï¿½+bï¿½ +2*x*b*sin(t)-2*y*b*cos(t))
 						b = sqrt((x-a*cos(t))^2 + (y-a*sin(t))^2)
-						b = sqrt(x²+y²+a²-2*x*a*cos(t)-2*y*a*sin(t))
-						0 = 2x²+2y²-2*x*a*cos(t)-2*y*a*sin(t)+2*x*sqrt(x²+y²+a²-2*x*a*cos(t)-2*y*a*sin(t))*sin(t)-2*y*sqrt(x²+y²+a²-2*x*a*cos(t)-2*y*a*sin(t))*cos(t)
+						b = sqrt(xï¿½+yï¿½+aï¿½-2*x*a*cos(t)-2*y*a*sin(t))
+						0 = 2xï¿½+2yï¿½-2*x*a*cos(t)-2*y*a*sin(t)+2*x*sqrt(xï¿½+yï¿½+aï¿½-2*x*a*cos(t)-2*y*a*sin(t))*sin(t)-2*y*sqrt(xï¿½+yï¿½+aï¿½-2*x*a*cos(t)-2*y*a*sin(t))*cos(t)
 						pfff
 						so must find an other way to find it....
 						*/
@@ -156,7 +156,7 @@ namespace DOL.GS.Commands
 						component.SaveIntoDatabase();
 						client.Out.SendKeepInfo(myKeep);
 						client.Out.SendKeepComponentInfo(component);
-						client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepComponents.Create.KCCreated"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepComponents.Create.KCCreated"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					} break;
 				#endregion Create
                 #region Move
@@ -251,7 +251,7 @@ namespace DOL.GS.Commands
                             cli.Out.SendKeepComponentInfo(component);
 							cli.Out.SendKeepComponentDetailUpdate(component);
                         }
-						//client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepComponents.Skin.YChangeSkin"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						//client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepComponents.Skin.YChangeSkin"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 						client.Out.SendMessage("Component skin updated.  Use /keepcomponent save to save, or reload to reload the original skin.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					} break;
 				#endregion Skin
@@ -267,7 +267,7 @@ namespace DOL.GS.Commands
 						component.RemoveFromWorld();
 						component.Delete();
 						component.DeleteFromDatabase();
-						client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepComponents.Delete.YDeleteKC"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepComponents.Delete.YDeleteKC"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 
 					} break;
 				#endregion Delete

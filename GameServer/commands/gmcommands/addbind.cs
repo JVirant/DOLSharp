@@ -26,8 +26,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&addbind",
 		ePrivLevel.GM,
-		"GMCommands.AddBind.Description",
-		"GMCommands.AddBind.Usage")]
+		"Commands.GM.AddBind.Description",
+		"Commands.GM.AddBind.Usage")]
 	public class AddBindCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -41,7 +41,7 @@ namespace DOL.GS.Commands
 				}
 				catch (Exception e)
 				{
-					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Error", e.Message));
+					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Error", e.Message));
 					return;
 				}
 			}
@@ -53,7 +53,7 @@ namespace DOL.GS.Commands
 			bp.Radius = bindRadius;
 			GameServer.Database.AddObject(bp);
 			client.Player.CurrentRegion.AddArea(new Area.BindArea("bind point", bp));
-			DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.AddBind.BindPointAdded", bp.X, bp.Y, bp.Z, bp.Radius, bp.Region));
+			DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.AddBind.BindPointAdded", bp.X, bp.Y, bp.Z, bp.Radius, bp.Region));
 		}
 	}
 }

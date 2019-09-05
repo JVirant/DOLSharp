@@ -1,0 +1,4 @@
+# /Anonymous
+Commands.Players.Anonymous.Error:			Anonymous mode is disabled.
+Commands.Players.Anonymous.Off:				You are no longer anonymous.
+Commands.Players.Anonymous.On:				You are now anonymous.

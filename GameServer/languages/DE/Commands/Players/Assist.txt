@@ -1,0 +1,10 @@
+# /Assist
+Commands.Players.Assist.CantAssistYourself:		Ihr könnt Euch nicht selbst helfen.
+Commands.Players.Assist.DoesntHaveTarget:		 hat zur Zeit kein Ziel.
+Commands.Players.Assist.DontSee:				Ihr seht hier weit und breit niemanden mit dem Namen {0}!
+Commands.Players.Assist.MemberNotFound:			Es gibt keinen Spieler mit diesem Namen hier in der Gegend.
+Commands.Players.Assist.NoRealmMember:			{0} ist kein Mitglied Eures Reiches!
+Commands.Players.Assist.NoTarget:			Ihr müsst einen Mitbürger Eures Heimatreiches aussuchen, dem Ihr helfen wollt.
+Commands.Players.Assist.NotValid:			Hier gibt es niemanden, der so heißt.
+Commands.Players.Assist.SelectMember:			Ihr müsst erst ein Mitglied Eures Reiches auswählen um es zu unterstützen.
+Commands.Players.Assist.YouAssist:			Ihr helft {0}.

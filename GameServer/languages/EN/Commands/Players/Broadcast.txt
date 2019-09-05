@@ -1,0 +1,7 @@
+# /Broadcast
+Commands.Players.Broadcast.Message:			[Broadcast] {0}: {1}
+Commands.Players.Broadcast.NoHere:			You cannot broadcast here.
+Commands.Players.Broadcast.NoText:			You must broadcast something...
+Commands.Players.Region.Message:				[Region] {0}: {1}
+Commands.Players.LFG.Message:				[LFG] {0}: {1}
+Commands.Players.Trade.Message:				[Trade] {0}: {1}

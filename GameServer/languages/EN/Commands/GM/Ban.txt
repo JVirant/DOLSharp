@@ -1,0 +1,12 @@
+# /ban Command
+Commands.GM.Ban.Description:		Usage of /ban command: 
+Commands.GM.Ban.Usage.IP:			'/ban ip <account or player name> <reason>' Ban selected IP adress
+Commands.GM.Ban.Usage.Account:		'/ban account <player name> <reason>' Ban selected account
+Commands.GM.Ban.Usage.Both:			'/ban both <player name> <reason>' Ban selected account and its related IP adress
+Commands.GM.Ban.UnableToFindPlayer:	Unable to find player!
+Commands.GM.Ban.AAlreadyBanned:		This account has already been banned.
+Commands.GM.Ban.ABanned:			Account {0} has been banned.
+Commands.GM.Ban.IAlreadyBanned:		This IP has already been banned.
+Commands.GM.Ban.IBanned:			IP {0} has been banned.
+Commands.GM.Ban.BAlreadyBanned:		These account and IP have already been banned.
+Commands.GM.Ban.BBanned:			Account {0} and IP {1} have been banned.

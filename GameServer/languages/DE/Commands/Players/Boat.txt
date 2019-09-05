@@ -1,0 +1,34 @@
+# Boats
+Commands.Players.Boat.AlreadyOnBoat:			Dieser Spieler ist bereits in einem Boot!
+Commands.Players.Boat.BoardingDenied:			Eure Bitte an Bord des {0} kommen zu dürfen wurde abgelehnt.
+Commands.Players.Boat.BoardingGranted:			Eurer Bitte an Bord kommen zu dürfen wurde entsprochen.
+Commands.Players.Boat.BoardingRequest:			{0} würde gern an Bord Eures Schiffes komment. Wollt Ihr das zulassen?
+Commands.Players.Boat.BoatTooFar:				{0} ist zu weit entfernt um einsteigen zu können.
+Commands.Players.Boat.BootedBy:				{0} hat Euch von Bord geworfen.
+Commands.Players.Boat.BootedTarget:			Ihr habt {0} von Bord geworfen.
+Commands.Players.Boat.DeleteConfirmation:			Wollt Ihr Euer Boot {0} wirklich zerstören?
+Commands.Players.Boat.FullBoat:				Das Boot kann keine weiteren Passagiere aufnehmen.
+Commands.Players.Boat.Help.Board:				/boat board - An Bord des ausgewählten Bootes gehen.
+Commands.Players.Boat.Help.Boot:				/boat boot - Wirft den ausgewählten Spieler von Bord.
+Commands.Players.Boat.Help.Delete:			/boat delete - Zerstört das Boot, aber fragt zuvor um Eure Zustimmung.
+Commands.Players.Boat.Help.Follow:			/boat follow - Gibt Eurem Boot die Anweisung Eurem Ziel zu folgen.
+Commands.Players.Boat.Help.StopFollow:			/boat stopfollow - Gibt Eurem Boot die Anweisung nicht mehr Eurem Ziel zu folgen.
+Commands.Players.Boat.Help.Summon:			/boat summon - Ruft Euer Boot herbei.
+Commands.Players.Boat.Help.Unsummon:			/boat unsummon - Läßt Euer Boot im Rucksack verschwinden.
+Commands.Players.Boat.InviteNoSelf:			Ihr könnt Euch nicht selbst einladen!
+Commands.Players.Boat.InviteRecieved:			{0} hat Euch eingeladen an Bord zu kommen.
+Commands.Players.Boat.InviteSent:				Ihr habt {0} eingeladen an Bord zu kommen.
+Commands.Players.Boat.MoveFollow:				Euer Boot folgt nun {0}.
+Commands.Players.Boat.NoBoatSelected:			Ihr müßt erst ein Boot auswählen!
+Commands.Players.Boat.NoPlayerSelected:			Ihr müßt zunächst einen Spieler auswählen.
+Commands.Players.Boat.NotInWater:				Ihr müßt Euch ins Wasser begeben um Euer Boot benutzen zu können!
+Commands.Players.Boat.NotOwnBoat:				Ihr besitzt kein eigenes Boot.
+Commands.Players.Boat.OwnerNotOn:				Der Besitzer dieses Boots ist im Moment nicht online.
+Commands.Players.Boat.PlayerIsDead:			Ihr könnt nicht mit einem toten Spieler interagieren!
+Commands.Players.Boat.StopFollow:				Ihr bringt Euer Boot zum Anhalten.
+Commands.Players.Boat.Summoned:				Euer {0} ist nun fahrbereit.
+Commands.Players.Boat.TargetNotInBoat:			{0} befindet sich nicht an Bord.
+Commands.Players.Boat.UnknownCommand:			That is not a valid boat command. /boat for help. Das ist kein gültiger Befehl für Boote. Für Hilfe gebt /boat ein.
+Commands.Players.Boat.Unsummoned:				Euer {0} verschwindet in Eurem Rucksack.
+Commands.Players.Boat.Usage:				Verwendet:
+Commands.Players.Boat.YouBoard:				Ihr geht an Bord des {0}.

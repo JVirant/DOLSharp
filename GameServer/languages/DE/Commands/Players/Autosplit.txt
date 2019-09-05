@@ -1,0 +1,8 @@
+# /Autosplit
+Commands.Players.Autosplit.Coins:			Der Leiter ändert 
+Commands.Players.Autosplit.InGroup:			Ihr müsst für diesen Befehl Mitglied einer Gruppe sein.
+Commands.Players.Autosplit.Leader:			Ihr müsst für diesen Befehl Leiter der Gruppe sein.
+Commands.Players.Autosplit.Loot:				Der Leiter ändert 
+Commands.Players.Autosplit.Off:				Der Leiter hat den Autosplit-Status auf AUS gesetzt.
+Commands.Players.Autosplit.On:				Der Leiter hat den Autosplit-Status auf EIN gesetzt.
+Commands.Players.Autosplit.Self:				{0} ändert 

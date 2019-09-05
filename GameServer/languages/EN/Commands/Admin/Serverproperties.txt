@@ -1,0 +1,5 @@
+# /serverproperties Command
+Commands.Admin.ServerProperties.Description:			Reloads server properties from the database
+Commands.Admin.ServerProperties.Usage:				/serverproperties
+Commands.Admin.ServerProperties.DataBaseXML:			XML is cached sorry, you cannot refresh server properties unless using MySQL!
+Commands.Admin.ServerProperties.PropertiesRefreshed:	Refreshed server properties!

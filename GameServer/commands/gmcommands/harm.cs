@@ -26,8 +26,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&harm",
 		ePrivLevel.GM,
-		"GMCommands.Harm.Description",
-		"GMCommands.Harm.Usage")]
+		"Commands.GM.Harm.Description",
+		"Commands.GM.Harm.Usage")]
 	public class HarmCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -47,7 +47,7 @@ namespace DOL.GS.Commands
 				if (living != null)
 					living.TakeDamage(client.Player, eDamageType.GM, amount, 0);
 				else
-					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Harm.InvalidTarget"));
+					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Harm.InvalidTarget"));
 			}
 			catch (Exception ex)
 			{

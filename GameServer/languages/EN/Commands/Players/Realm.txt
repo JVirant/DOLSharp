@@ -1,0 +1,7 @@
+# /Realm
+Commands.Players.Realm.AlbKeeps:            Albion Outposts
+Commands.Players.Realm.DarknessFalls:      Darkness Falls
+Commands.Players.Realm.HibKeeps:            Hibernia Outposts
+Commands.Players.Realm.MidKeeps:            Midgard Outposts
+Commands.Players.Realm.Title:            Realm status
+Commands.Players.Realm.UseRelicCommand:      Use '/relic' for Relic info

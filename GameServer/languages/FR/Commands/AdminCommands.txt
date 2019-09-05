@@ -1,116 +1,116 @@
 ﻿
 # /serverproperties Command
-AdminCommands.ServerProperties.Description:			Recharger les propriétés du serveur depuis la base de données.
-AdminCommands.ServerProperties.Usage:				/serverproperties
-AdminCommands.ServerProperties.DataBaseXML:			Désolé! XML utilise un cache, vous ne pouvez pas recharger les propriétés du serveur à moins d'utiliser MySQL.
-AdminCommands.ServerProperties.PropertiesRefreshed:	Les propriétés du serveur ont été rechargées.
+Commands.Admin.ServerPropertiesDescription:			Recharger les propriétés du serveur depuis la base de données.
+Commands.Admin.ServerPropertiesUsage:				/serverproperties
+Commands.Admin.ServerPropertiesDataBaseXML:			Désolé! XML utilise un cache, vous ne pouvez pas recharger les propriétés du serveur à moins d'utiliser MySQL.
+Commands.Admin.ServerPropertiesPropertiesRefreshed:	Les propriétés du serveur ont été rechargées.
 
 
 # /plvl Command
-AdminCommands.plvl.Description:						Change le niveau de privilèges ou l'attribution de commande d'un joueur ou d'un compte de jeu.
-AdminCommands.plvl.Usage:							/plvl <NouveauRang> [NomDuJoueur]
-AdminCommands.plvl.Usage.Single:					/plvl single <commande> [NomDuJoueur]
-AdminCommands.plvl.Usage.SingleAccount:				/plvl singleaccount <commande> [NomDuCompte]
-AdminCommands.plvl.Usage.Remove:					/plvl remove <commande> [NomDuJoueur]
-AdminCommands.plvl.Usage.RemoveAccount:				/plvl removeaccount <commande> [NomDuCompte]
-AdminCommands.plvl.NoSelectPlayer:					Vous devez sélectionner un joueur.
-AdminCommands.plvl.AddedSinglePermission:			Vous autorisez le joueur {0} à utiliser la commande: {1}.
-AdminCommands.plvl.AddedSingleAccountPermission:	Vous autorisez le compte de jeu {0} à utiliser la commande: {1}.
-AdminCommands.plvl.RemoveSinglePermission:			Vous retirez au joueur {0} le droit d'utiliser la commande: {1}.
-AdminCommands.plvl.RemoveSingleAccountPermission:	Vous retirez au compte de jeu {0} le droit d'utiliser la commande: {1}.
-AdminCommands.plvl.NoPermissionForCommand:			Il n'existe aucune autorisation pour {0} d'utiliser la commande {1}.
-AdminCommands.plvl.YourPlvlHasBeenSetted:			Vos privilèges sont maintenant de niveau {0}
-AdminCommands.plvl.PlayerPlvlHasBeenSetted:			Le niveau de privilèges du joueur {0} est maintenant: {1}
+Commands.Admin.plvl.Description:						Change le niveau de privilèges ou l'attribution de commande d'un joueur ou d'un compte de jeu.
+Commands.Admin.plvl.Usage:							/plvl <NouveauRang> [NomDuJoueur]
+Commands.Admin.plvl.Usage.Single:					/plvl single <commande> [NomDuJoueur]
+Commands.Admin.plvl.Usage.SingleAccount:				/plvl singleaccount <commande> [NomDuCompte]
+Commands.Admin.plvl.Usage.Remove:					/plvl remove <commande> [NomDuJoueur]
+Commands.Admin.plvl.Usage.RemoveAccount:				/plvl removeaccount <commande> [NomDuCompte]
+Commands.Admin.plvl.NoSelectPlayer:					Vous devez sélectionner un joueur.
+Commands.Admin.plvl.AddedSinglePermission:			Vous autorisez le joueur {0} à utiliser la commande: {1}.
+Commands.Admin.plvl.AddedSingleAccountPermission:	Vous autorisez le compte de jeu {0} à utiliser la commande: {1}.
+Commands.Admin.plvl.RemoveSinglePermission:			Vous retirez au joueur {0} le droit d'utiliser la commande: {1}.
+Commands.Admin.plvl.RemoveSingleAccountPermission:	Vous retirez au compte de jeu {0} le droit d'utiliser la commande: {1}.
+Commands.Admin.plvl.NoPermissionForCommand:			Il n'existe aucune autorisation pour {0} d'utiliser la commande {1}.
+Commands.Admin.plvl.YourPlvlHasBeenSetted:			Vos privilèges sont maintenant de niveau {0}
+Commands.Admin.plvl.PlayerPlvlHasBeenSetted:			Le niveau de privilèges du joueur {0} est maintenant: {1}
 
 # /code Command
-AdminCommands.Code.Description:						Permet l'exécution de code à partir du jeu!
-AdminCommands.Code.Usage:							/code <code>
-AdminCommands.Code.ErrorCompiling:					Erreur de Compilation de l'Expression:
-AdminCommands.Code.CodeExecuted:					Code exécuté...
+Commands.Admin.Code.Description:						Permet l'exécution de code à partir du jeu!
+Commands.Admin.Code.Usage:							/code <code>
+Commands.Admin.Code.ErrorCompiling:					Erreur de Compilation de l'Expression:
+Commands.Admin.Code.CodeExecuted:					Code exécuté...
 
 
 # /account Command
-AdminCommands.Account.Description:					Commande de modification de compte
-AdminCommands.Account.Usage.Create:					/account create <NomDuCompte> <MotDePasse>
-AdminCommands.Account.Usage.ChangePassword:			/account changepassword <NomDuCompte> <MotdePasse>
-AdminCommands.Account.Usage.Delete:					/account delete <NomDuCompte>
-AdminCommands.Account.Usage.DeleteChar:				/account deletecharacter <NomDuPersonnage>
-AdminCommands.Account.Usage.MoveChar:				/account movecharacter <NomDuPersonnage> <NomDuCompteCible>
-AdminCommands.Account.Usage.Status:					/account status <NomDuCompte> <Niveau>
-AdminCommands.Account.Usage.UnBan:					/account unban <NomDuCompte>
-AdminCommands.Account.Usage.AccountName:			/account accountname <NomDuJoueur>
-AdminCommands.Account.AccountNotFound:				Le compte de jeu "{0}" est introuvable!
-AdminCommands.Account.AccountDeleted:				Le compte de jeu "{0}" a été supprimé!
-AdminCommands.Account.CharacterNotFound:			Le joueur "{0}" est introuvable!
-AdminCommands.Account.CharacterDeleted:				Le joueur "{0}" a été supprimé!
-AdminCommands.Account.CharNotFromValidRealm:		Le joueur n'est pas d'un royaume valide.
-AdminCommands.Account.AccountHasNoFreeSlots:		Le compte de jeu "{0}" n'a plus d'emplacement de personnage dsiponible pour ce royaume!
-AdminCommands.Account.CharacterMovedToAccount:		Le Personage "{0}" a été déplacé sur le compte de jeu "{1}".
-AdminCommands.Account.InvalidAccountName:			Le nom de compte de jeu est invalide.
-AdminCommands.Account.InvalidAccountNameOrPassword:	Le nom de compte de jeu et le mot de passe doivent avoir au moins 4 caractères.
-AdminCommands.Account.AccountNameAlreadyRegistered:	Ce nom de compte de jeu est déjà utilisé.
-AdminCommands.Account.AccountCreated:				Compte créé!
-AdminCommands.Account.AccNameForChar:				Le nom de compte de jeu pour le joueur "{0}" est: {1}
+Commands.Admin.Account.Description:					Commande de modification de compte
+Commands.Admin.Account.Usage.Create:					/account create <NomDuCompte> <MotDePasse>
+Commands.Admin.Account.Usage.ChangePassword:			/account changepassword <NomDuCompte> <MotdePasse>
+Commands.Admin.Account.Usage.Delete:					/account delete <NomDuCompte>
+Commands.Admin.Account.Usage.DeleteChar:				/account deletecharacter <NomDuPersonnage>
+Commands.Admin.Account.Usage.MoveChar:				/account movecharacter <NomDuPersonnage> <NomDuCompteCible>
+Commands.Admin.Account.Usage.Status:					/account status <NomDuCompte> <Niveau>
+Commands.Admin.Account.Usage.UnBan:					/account unban <NomDuCompte>
+Commands.Admin.Account.Usage.AccountName:			/account accountname <NomDuJoueur>
+Commands.Admin.Account.AccountNotFound:				Le compte de jeu "{0}" est introuvable!
+Commands.Admin.Account.AccountDeleted:				Le compte de jeu "{0}" a été supprimé!
+Commands.Admin.Account.CharacterNotFound:			Le joueur "{0}" est introuvable!
+Commands.Admin.Account.CharacterDeleted:				Le joueur "{0}" a été supprimé!
+Commands.Admin.Account.CharNotFromValidRealm:		Le joueur n'est pas d'un royaume valide.
+Commands.Admin.Account.AccountHasNoFreeSlots:		Le compte de jeu "{0}" n'a plus d'emplacement de personnage dsiponible pour ce royaume!
+Commands.Admin.Account.CharacterMovedToAccount:		Le Personage "{0}" a été déplacé sur le compte de jeu "{1}".
+Commands.Admin.Account.InvalidAccountName:			Le nom de compte de jeu est invalide.
+Commands.Admin.Account.InvalidAccountNameOrPassword:	Le nom de compte de jeu et le mot de passe doivent avoir au moins 4 caractères.
+Commands.Admin.Account.AccountNameAlreadyRegistered:	Ce nom de compte de jeu est déjà utilisé.
+Commands.Admin.Account.AccountCreated:				Compte créé!
+Commands.Admin.Account.AccNameForChar:				Le nom de compte de jeu pour le joueur "{0}" est: {1}
 
 # /benchmark Command
-AdminCommands.Benchmark.Description: Test les performances « Benchmark » de certaines partie du serveur DOL.
-AdminCommands.Benchmark.ListSkills:  '/benchmark listskills' # Retourne le temps de calcul de 1000 itérations.
-AdminCommands.Benchmark.ListSpells:  '/benchmark listspells' # Retourne le temps de calcul pour 1000 itérations. 
-AdminCommands.Benchmark.Styles:      '/benchmark styles'     # Non implémenté.
-AdminCommands.Benchmark.Respawns:    '/benchmark respawns'   # Non implémenté.
-AdminCommands.Benchmark.Deaths:      '/benchmark deaths'     # Non implémenté.
-AdminCommands.Benchmark.Tooltips:    '/benchmark tooltips'   # Non implémenté.
-AdminCommands.Benchmark.Usage:       Le test de performance de « {0} » à mis {1}ms pour {2} iterations...
+Commands.Admin.Benchmark.Description: Test les performances « Benchmark » de certaines partie du serveur DOL.
+Commands.Admin.Benchmark.ListSkills:  '/benchmark listskills' # Retourne le temps de calcul de 1000 itérations.
+Commands.Admin.Benchmark.ListSpells:  '/benchmark listspells' # Retourne le temps de calcul pour 1000 itérations. 
+Commands.Admin.Benchmark.Styles:      '/benchmark styles'     # Non implémenté.
+Commands.Admin.Benchmark.Respawns:    '/benchmark respawns'   # Non implémenté.
+Commands.Admin.Benchmark.Deaths:      '/benchmark deaths'     # Non implémenté.
+Commands.Admin.Benchmark.Tooltips:    '/benchmark tooltips'   # Non implémenté.
+Commands.Admin.Benchmark.Usage:       Le test de performance de « {0} » à mis {1}ms pour {2} iterations...
 
 # /freeze Command
-AdminCommands.Freeze.Description: Freeze le timer de la région où vous êtes situé (Seulement pour tester)
-AdminCommands.Freeze.Freeze:      "/freeze <seconds>" # Freeze la région pour un temps définit.
+Commands.Admin.Freeze.Description: Freeze le timer de la région où vous êtes situé (Seulement pour tester)
+Commands.Admin.Freeze.Freeze:      "/freeze <seconds>" # Freeze la région pour un temps définit.
 
 
 # /refresh Command
-AdminCommands.Refresh.Description:  Rafraîchi une partie du cache de donnée stocké dans les scripts ou autres objets.
-AdminCommands.Refresh.List:         '/refresh list' # Liste les modules disponibles.
-AdminCommands.Refresh.ClassName:    '/refresh <ClassName>.<MethodName> # Rafraîchi un module.
-AdminCommands.Refresh.Module:       --- Rafraîchi le cache static du module « {0} »
-AdminCommands.Refresh.ModuleRetval: --- Le module a retourné : {0}
-AdminCommands.Refresh.ModuleWrong:  Mauvais module... Vérifier '/refresh list' !
-AdminCommands.Refresh.ModuleError:  -!- Erreur lors du rafraichissement du module : {0} - {1}
-AdminCommands.Refresh.ModuleDone:   -.- Le rafraîchissement du module « {0} » est terminé
-AdminCommands.Refresh.Available:    Modules disponible :
+Commands.Admin.Refresh.Description:  Rafraîchi une partie du cache de donnée stocké dans les scripts ou autres objets.
+Commands.Admin.Refresh.List:         '/refresh list' # Liste les modules disponibles.
+Commands.Admin.Refresh.ClassName:    '/refresh <ClassName>.<MethodName> # Rafraîchi un module.
+Commands.Admin.Refresh.Module:       --- Rafraîchi le cache static du module « {0} »
+Commands.Admin.Refresh.ModuleRetval: --- Le module a retourné : {0}
+Commands.Admin.Refresh.ModuleWrong:  Mauvais module... Vérifier '/refresh list' !
+Commands.Admin.Refresh.ModuleError:  -!- Erreur lors du rafraichissement du module : {0} - {1}
+Commands.Admin.Refresh.ModuleDone:   -.- Le rafraîchissement du module « {0} » est terminé
+Commands.Admin.Refresh.Available:    Modules disponible :
 
 # /reload Command
-AdminCommands.Reload.Description:        Recharge divers éléments du serveur.
-AdminCommands.Reload.Usage.Realm:        Il est possible de spécifier le royaume par son numéro (0|1|2|3), sa première lettre (n|a|m|h) ou nom complet (none|albion|midgard|hibernia)
-AdminCommands.Reload.Usage.Mob:          '/reload mob' # Recharge tous les PNJ de la région.
-AdminCommands.Reload.Usage.Object:       '/reload object # Recharge tous les objets statiques de la région.
-AdminCommands.Reload.Usage.Specs:        '/reload specs' # Recharge toutes les compétences.
-AdminCommands.Reload.Usage.Spells:       '/reload spells' # Recharge tous les sorts.
-AdminCommands.Reload.Usage.Mob.Realm:    '/reload mob realm <ROYAUME>' # Recharge tous les PNJ de la région ayant pour royaume <ROYAUME>.
-AdminCommands.Reload.Usage.Mob.Model:    '/reload mob model <MODELE#>' # Recharge tous les PNJ de la région ayant pour modèle <MODÈLE#> (entier).
-AdminCommands.Reload.Usage.Mob.Name:     '/reload mob name <NOM>' # Recharge de tous les PNJ de la région ayant pour nom <NOM>.
-AdminCommands.Reload.Usage.Object.Realm: '/reload object realm <ROYAUME>' # Recharge les objets statiques de la région ayant pour Royaume <ROYAUME>.
-AdminCommands.Reload.Usage.Object.Name:  '/reload object name <NOM>' # Recharge les objets de la région ayant poru nom <NOM>.
-AdminCommands.Reload.Usage.Object.Model: '/reload object model <MODÈLE#>' # Recharge les objets de la région correspondant au modèle <MODÈLE#>
-AdminCommands.Reload.Usage.ObjectMob.Realm: '/reload <object|mob> realm <ROYAUME>' # Recharge tous les éléments de la région correspondant à un royaume(0|1|2|3 OU n|a|m|h OU no|alb|mid|hib).
-AdminCommands.Reload.Usage.Name:         '/reload <object|mob> name <NOM> # Recharge tous les éléments de la région correspondant au nom <NOM>.
-AdminCommands.Reload.Usage.Model:        '/reload <object|mob> model <MODÈLE#>' # Recharger tous les éléments ou PNJ de la région correspondant au modèle <MODÈLE#>.
-AdminCommands.Reload.Command.Failed:     La commande '/reload' a échoué. Vérifié vos paramètres !
-AdminCommands.Reload.Reloaded.Mobs:      {0} mobs rechargés!
-AdminCommands.Reload.Reloaded.Spells:    Rechargement de la bdd des sorts, {0} sorts pour toutes les lignes !
-AdminCommands.Reload.Reloaded.Specs:     {0} compétences ajouté.
-AdminCommands.Reload.NotSupported.Console: Le rechargement régionnal n'est pas supporté depuis la console.
-AdminCommands.Reload.ReloadingMobs:      Rechargement des PNJ : {0}, {1}. Dans la région : {2}.
+Commands.Admin.Reload.Description:        Recharge divers éléments du serveur.
+Commands.Admin.Reload.Usage.Realm:        Il est possible de spécifier le royaume par son numéro (0|1|2|3), sa première lettre (n|a|m|h) ou nom complet (none|albion|midgard|hibernia)
+Commands.Admin.Reload.Usage.Mob:          '/reload mob' # Recharge tous les PNJ de la région.
+Commands.Admin.Reload.Usage.Object:       '/reload object # Recharge tous les objets statiques de la région.
+Commands.Admin.Reload.Usage.Specs:        '/reload specs' # Recharge toutes les compétences.
+Commands.Admin.Reload.Usage.Spells:       '/reload spells' # Recharge tous les sorts.
+Commands.Admin.Reload.Usage.Mob.Realm:    '/reload mob realm <ROYAUME>' # Recharge tous les PNJ de la région ayant pour royaume <ROYAUME>.
+Commands.Admin.Reload.Usage.Mob.Model:    '/reload mob model <MODELE#>' # Recharge tous les PNJ de la région ayant pour modèle <MODÈLE#> (entier).
+Commands.Admin.Reload.Usage.Mob.Name:     '/reload mob name <NOM>' # Recharge de tous les PNJ de la région ayant pour nom <NOM>.
+Commands.Admin.Reload.Usage.Object.Realm: '/reload object realm <ROYAUME>' # Recharge les objets statiques de la région ayant pour Royaume <ROYAUME>.
+Commands.Admin.Reload.Usage.Object.Name:  '/reload object name <NOM>' # Recharge les objets de la région ayant poru nom <NOM>.
+Commands.Admin.Reload.Usage.Object.Model: '/reload object model <MODÈLE#>' # Recharge les objets de la région correspondant au modèle <MODÈLE#>
+Commands.Admin.Reload.Usage.ObjectMob.Realm: '/reload <object|mob> realm <ROYAUME>' # Recharge tous les éléments de la région correspondant à un royaume(0|1|2|3 OU n|a|m|h OU no|alb|mid|hib).
+Commands.Admin.Reload.Usage.Name:         '/reload <object|mob> name <NOM> # Recharge tous les éléments de la région correspondant au nom <NOM>.
+Commands.Admin.Reload.Usage.Model:        '/reload <object|mob> model <MODÈLE#>' # Recharger tous les éléments ou PNJ de la région correspondant au modèle <MODÈLE#>.
+Commands.Admin.Reload.Command.Failed:     La commande '/reload' a échoué. Vérifié vos paramètres !
+Commands.Admin.Reload.Reloaded.Mobs:      {0} mobs rechargés!
+Commands.Admin.Reload.Reloaded.Spells:    Rechargement de la bdd des sorts, {0} sorts pour toutes les lignes !
+Commands.Admin.Reload.Reloaded.Specs:     {0} compétences ajouté.
+Commands.Admin.Reload.NotSupported.Console: Le rechargement régionnal n'est pas supporté depuis la console.
+Commands.Admin.Reload.ReloadingMobs:      Rechargement des PNJ : {0}, {1}. Dans la région : {2}.
 
 # /shutdown Command
-AdminCommands.ShutDown.Description: Éteint le serveur dans les prochaines minutes.
-AdminCommands.ShutDown.On:          '/shutdown on <HEURE>:<MINUTE>' # Éteint le serveur dans tant de temps.
-AdminCommands.ShutDown:             '/shutdown <MINUTES>' – Éteint le serveur dans tant de minutes.
-AdminCommands.ShutDown.Restart.Auto: Redémarrage du serveur automatique enclenché. Redémarrage dans {0} minutes! (Prévus à {1})
-AdminCommands.ShutDown.Restart.TZ:  Attention : Le serveur va redémarer dans {0} minutes ! (Prévus à {1})
-AdminCommands.ShutDown.Restart.Hours: Le serveur redémarrera dans {0} heures !
-AdminCommands.ShutDown.Closed:      Le serveur est fermé. Redémarrage dans {0} minutes.
+Commands.Admin.ShutDown.Description: Éteint le serveur dans les prochaines minutes.
+Commands.Admin.ShutDown.On:          '/shutdown on <HEURE>:<MINUTE>' # Éteint le serveur dans tant de temps.
+Commands.Admin.ShutDown:             '/shutdown <MINUTES>' – Éteint le serveur dans tant de minutes.
+Commands.Admin.ShutDown.Restart.Auto: Redémarrage du serveur automatique enclenché. Redémarrage dans {0} minutes! (Prévus à {1})
+Commands.Admin.ShutDown.Restart.TZ:  Attention : Le serveur va redémarer dans {0} minutes ! (Prévus à {1})
+Commands.Admin.ShutDown.Restart.Hours: Le serveur redémarrera dans {0} heures !
+Commands.Admin.ShutDown.Closed:      Le serveur est fermé. Redémarrage dans {0} minutes.
 ## {0}=Hours, {1}=Minutes, {2}=Seconds
-AdminCommands.ShutDown.Restart.Hours.Mins: Le serveur redémarrera dans {0} heure·s et {1} minute·s !
-AdminCommands.ShutDown.Restart.Mins:  Le serveur redémarrera dans {1} minutes!
-AdminCommands.ShutDown.Restart.Mins.Secs: Le serveur redémarrera dans {1} minutes ! ({2} secondes)
-AdminCommands.ShutDown.Restart.Secs:  Le serveur redémarrera dans {2} secondes ! Veuillez-vous déconnecter !
+Commands.Admin.ShutDown.Restart.Hours.Mins: Le serveur redémarrera dans {0} heure·s et {1} minute·s !
+Commands.Admin.ShutDown.Restart.Mins:  Le serveur redémarrera dans {1} minutes!
+Commands.Admin.ShutDown.Restart.Mins.Secs: Le serveur redémarrera dans {1} minutes ! ({2} secondes)
+Commands.Admin.ShutDown.Restart.Secs:  Le serveur redémarrera dans {2} secondes ! Veuillez-vous déconnecter !

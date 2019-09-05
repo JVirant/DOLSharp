@@ -27,13 +27,13 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&crafting",
 		ePrivLevel.GM,
-		"GMCommands.Crafting.Description",
-		"GMCommands.Crafting.Usage.Add",
-		"GMCommands.Crafting.Usage.Change",
+		"Commands.GM.Crafting.Description",
+		"Commands.GM.Crafting.Usage.Add",
+		"Commands.GM.Crafting.Usage.Change",
 		"/crafting salvageadd <SalvageYieldID (0 for next free)> <MaterialId_nb> <Count> [Realm] [PackageID]",
 		"/crafting salvageupdate <SalvageYieldID> <MaterialId_nb> <Count> <Realm> [PackageID]",
 		"/crafting salvageinfo <SalvageYieldID>",
-		"GMCommands.Crafting.Usage.List")]
+		"Commands.GM.Crafting.Usage.List")]
 	public class CraftCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -57,7 +57,7 @@ namespace DOL.GS.Commands
 							list.Add(value + " = " + Enum.GetName(typeof(eCraftingSkill), value));
 					}
 
-					client.Out.SendCustomTextWindow(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Crafting.SkillDescription"), list);
+					client.Out.SendCustomTextWindow(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Crafting.SkillDescription"), list);
 					return;
 				}
 				#endregion List
@@ -200,7 +200,7 @@ namespace DOL.GS.Commands
 					target = client.Player.TargetObject as GamePlayer;
 				else
 				{
-					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Crafting.NoPlayerTarget"));
+					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Crafting.NoPlayerTarget"));
 					return;
 				}
 
@@ -220,7 +220,7 @@ namespace DOL.GS.Commands
 								AbstractCraftingSkill skill = CraftingMgr.getSkillbyEnum(craftingSkillID);
 								if (skill == null)
 								{
-									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Crafting.InvalidSkill"));
+									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Crafting.InvalidSkill"));
 								}
 								else
 								{
@@ -228,11 +228,11 @@ namespace DOL.GS.Commands
 									{
 										target.Out.SendUpdateCraftingSkills();
 										target.SaveIntoDatabase();
-										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Crafting.SkillAdded", skill.Name));
+										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Crafting.SkillAdded", skill.Name));
 									}
 									else
 									{
-										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Crafting.AlreadyHaveSkill", target.Name, skill.Name));
+										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Crafting.AlreadyHaveSkill", target.Name, skill.Name));
 									}
 								}
 							}
@@ -260,13 +260,13 @@ namespace DOL.GS.Commands
 								AbstractCraftingSkill skill = CraftingMgr.getSkillbyEnum(craftingSkillID);
 								if (skill == null)
 								{
-									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Crafting.InvalidSkill"));
+									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Crafting.InvalidSkill"));
 								}
 								else
 								{
 									if (target.GetCraftingSkillValue(craftingSkillID) < 0)
 									{
-										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Crafting.NotHaveSkillAddIt", target.Name, skill.Name));
+										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Crafting.NotHaveSkillAddIt", target.Name, skill.Name));
 										return;
 									}
 
@@ -280,8 +280,8 @@ namespace DOL.GS.Commands
 									}
 									target.Out.SendUpdateCraftingSkills();
 									target.SaveIntoDatabase();
-									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Crafting.SkillChanged", skill.Name));
-									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Crafting.NowHasSkillPoints", target.Name, target.GetCraftingSkillValue(craftingSkillID), (eCraftingSkill)craftingSkillID));
+									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Crafting.SkillChanged", skill.Name));
+									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Crafting.NowHasSkillPoints", target.Name, target.GetCraftingSkillValue(craftingSkillID), (eCraftingSkill)craftingSkillID));
 								}
 							}
 							catch (Exception)

@@ -1,0 +1,31 @@
+# /Duel
+Commands.Players.Duel.ChallengesYou:			{0} fordert Euch zu einem Duell heraus! '/duel accept' lässt den Kampf beginnen, '/duel decline' lehnt die Herausforderung ab.
+Commands.Players.Duel.DuelOptions:			Es gibt folgende '/duel'-Optionen: 'challenge/decline/cancel/surrender/accept'
+Commands.Players.Duel.EnemyRealm:			Ihr könnt Euch nicht mit Spielern aus verfeindeten Reichen duellieren.
+Commands.Players.Duel.NeedTarget:			Ihr braucht schon einen Gegenspieler, den Ihr zum Duell fordern könnt!
+Commands.Players.Duel.ConsideringDuel:			Zur Zeit seid Ihr nicht zu einem Duell aufgefordert worden oder habt selbst jemanden aufgefordert.
+Commands.Players.Duel.NotInDuel:				Ihr befindet Euch zur Zeit in keinem Duell!
+Commands.Players.Duel.PlayerVsPlayer:			{0} ergibt sich {1}!
+Commands.Players.Duel.SafeZone:				Dies ist eine geschützte Zone in der Ihr Euch nicht duellieren könnt!
+Commands.Players.Duel.TargetAccept:			{0} hat die Duellforderung angenommen. Auf zum Kampf!
+Commands.Players.Duel.TargetAlreadyChallenging:		{0} hat bereits jemand anderes zum Duell gefordert.
+Commands.Players.Duel.TargetAlreadyConsidering:		{0} hat bereits eine andere Duellforderung zugesagt.
+Commands.Players.Duel.TargetCancel:			{0} hat seine Aufforderung zum Duell zurückgezogen.	
+Commands.Players.Duel.TargetDeclines:			{0} hat Euere Duellforderung abgelehnt.
+Commands.Players.Duel.TargetHealth:			Euer Duellgegner muss völlig gesund sein.
+Commands.Players.Duel.TargetInCombat:			{0} kämpft zur Zeit.
+Commands.Players.Duel.TargetInDuel:			{0} befindet sich bereits in einem Duell.
+Commands.Players.Duel.TargetInGroup:			{0} ist Mitglied einer Gruppe.
+Commands.Players.Duel.TargetSurrender:			{0} ergibt sich Euch!
+Commands.Players.Duel.YouAccept:				Ihr habt die Duellforderung angenommen. Auf zum Kampf!
+Commands.Players.Duel.YouAlreadyChallenging:		Ihr habt bereits {0} zu einem Duell herausgefordert. Zieht diese Forderung zuerst zurück, damit Ihr jemand anderes zum Duell auffordern könnt.
+Commands.Players.Duel.YouAlreadyConsidering:		Ihr habt bereits einem Duell mit {0} zugesagt. Zieht diese Zusage erst zurück, bevor Ihr jemand anderes herausfordert.
+Commands.Players.Duel.YouCancel:				Ihr habt Eure Duellforderung zurückgezogen.
+Commands.Players.Duel.YouChallenge:			Ihr fordert {0} zum Duell heraus!
+Commands.Players.Duel.YouDecline:			Ihr habt die Duellforderung von {0} abgelehnt.
+Commands.Players.Duel.YouHaventChallenged:		Ihr habt niemanden zu einem Duell herausgefordert.
+Commands.Players.Duel.YouHealth:				Ihr müsst erst völlig gesund sein.
+Commands.Players.Duel.YouInCombat:			Ihr befindet Euch in einem Kampf.
+Commands.Players.Duel.YouInDuel:				Ihr befindet Euch schon in einem Duell.
+Commands.Players.Duel.YouInGroup:			Ihr seid Mitglied einer Gruppe.
+Commands.Players.Duel.YouSurrender:			Ihr ergebt Euch {0}!

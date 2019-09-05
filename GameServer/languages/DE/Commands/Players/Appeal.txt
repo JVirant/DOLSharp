@@ -1,0 +1,38 @@
+# /Appeal
+Commands.Players.Appeal.AlreadyActiveAppeal:		Es gibt bereits eine aktive Anfrage von Euch, bitte wartet bis sich ein Gamemaster darum kümmert, bevor Ihr einen weiteren Hilferuf abschickt.	
+Commands.Players.Appeal.AppealSubmitted:			Eure Anfrage wurde bereits übertragen...  gebt "/checkappeal" ein um den Status abzufragen.
+Commands.Players.Appeal.BeingHelped:			Diesem Spieler wurde bereits geholfen.
+Commands.Players.Appeal.CanceledYourAppeal:		Ihr habt Eure Anfrage zurück gezogen.	
+Commands.Players.Appeal.CantCancelWhile:			Ihr könnt Eure Anfrage nicht mehr zurück ziehen, da Euch bereits geholfen wurde.
+Commands.Players.Appeal.CantFindAppeal:			Es konnte keine Anfrage von einem Spieler dieses Namens gefunden werden. Bitte überprüft die Schreibweise.
+Commands.Players.Appeal.CriticalMessage:			Dringende Anfragen werden bevorzugt behandelt!
+Commands.Players.Appeal.CurrentStaffAvailable:		Es sind aktuell {0} Gamemaster online und {1} Anfragen in der Warteschlange.	
+Commands.Players.Appeal.DoesntHaveAppeal:		Dieser Spieler hat seine Anfrage zurück gezogen oder hat keine mehr aktiv.	
+Commands.Players.Appeal.DoNotHaveAppeal:			Ihr habt keine Anfrage laufen, die Ihr zurück ziehen könnt oder diese wurde bereits geschlossen.
+Commands.Players.Appeal.IfYouLogOut:			Eine aktive Anfrage wird beim Abmelden gespeichert und bei Eurem Einloggen wieder aktiviert.  (Auch bei Charakterwechsel)
+Commands.Players.Appeal.LoginMessage:			Falls Ihr Hilfe im Spiel von einem Gamemaster braucht (wie z.B. beim Feststecken Eures Charakters) gebt bitte "/appeal" ein.
+Commands.Players.Appeal.MustBeAssisting:			Die Anfrage eines aktiven Spielers wird zuerst bearbeitet.
+Commands.Players.Appeal.NameNotUnique:			Der Name des Charakters ist nicht eindeutig.
+Commands.Players.Appeal.NeedMoreDetail:			Euer Report wurde nicht entgegengenommen. Bitte sendet diesen noch einmal mit etwas mehr Details.
+Commands.Players.Appeal.NoAppealsinQueue:		Es befinden sich z.Zt. keine Anfragen in der Warteschlange.
+Commands.Players.Appeal.NoAppealToView:			Es gibt keine aktuelle Anfrage von Euch.
+Commands.Players.Appeal.NoLocationToJump:		Kein Ort um zurück zuspringen.
+Commands.Players.Appeal.NoLongerReceiveMsg:		Ihr erhaltet keine weiteren Anfrage-Nachrichten.	
+Commands.Players.Appeal.NotBeingHelped:			Ihr müsst diesem Spieler erst helfen bei seiner Anfrage, bevor Ihr diese freigeben könnt.
+Commands.Players.Appeal.NowReceiveMsg:			Ihr erhaltet wieder Anfrage-Nachrichten.
+Commands.Players.Appeal.PlayerNotFound:			{0} befindet sich nicht im Spiel.
+Commands.Players.Appeal.PleaseBePatient:			Bitte habt etwas Geduld, während wir an Eurer Anfrage arbeiten, um Euch so schnell wie möglich zu helfen.
+Commands.Players.Appeal.RandMessage0:			Hallo {0}, danke dass Ihr gewartet habt. Wie kann ich Euch helfen?
+Commands.Players.Appeal.RandMessage1:			Hallo {0}, was kann ich heute für Euch tun?
+Commands.Players.Appeal.RandMessage2:			Seid gegrüßt {0}! Ich bin hier um Euch zu unterstützen. Wie kann ich Euch helfen?
+Commands.Players.Appeal.RandMessage3:			Hi {0}, Wie ich verstanden habe, sucht Ihr Hilfe. Was kann ich heute für Euch tun?
+Commands.Players.Appeal.RandMessage4:			Hallo {0}, es tut mir leid, dass Ihr Probleme habt, worin bestehen diese?
+Commands.Players.Appeal.StaffChangedStatus:		Der Gamemaster {0} hat den Status Eurer Anfrage auf {1} geändert.
+Commands.Players.Appeal.StaffClosedYourAppeal:		Der Gamemaster {0} hat Eure Anfrage geschlossen.
+Commands.Players.Appeal.SystemDisabled:			Das Supportsystem ist derzeit geschlossen.
+Commands.Players.Appeal.ToCancelYourAppeal:		Eure Anfrage könnt Ihr mit dem Befehl "/checkappeal cancel" zurück ziehen.	
+Commands.Players.Appeal.UseCmdTurnBackOff:		Der Befehl "/gmappeal mute again" schaltet den Empfang von Anfrage-Nachrichten aus.
+Commands.Players.Appeal.UseCmdTurnBackOn:		Der Befehl "/gmappeal mute again" schaltet den Empfang von Anfrage-Nachrichten ein.	
+Commands.Players.Appeal.UseGMappeal:			Benutzt "/gmappeal" um Spieler bei deren Hilfeersuchen zu unterstützen.
+Commands.Players.Appeal.YouAreMuted:			Ihr habt den Empfang von Anfrage-Nachrichten abgeschaltet und seid deshalb z.Zt. nicht berechtigt Anfragen zu stellen.
+Commands.Players.Appeal.YouHavePendingAppeal:		Ihr habt eine unerledigte Anfrage in der Warteschlange stehen, bitte gebt "/checkappeal" ein um den Status abzufragen oder diese zurück zuziehen.	

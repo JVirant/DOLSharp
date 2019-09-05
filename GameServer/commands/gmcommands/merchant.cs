@@ -29,20 +29,20 @@ namespace DOL.GS.Commands
 {
 	[CmdAttribute("&merchant",
 		 ePrivLevel.GM,
-		 "GMCommands.Merchant.Description",
+		 "Commands.GM.Merchant.Description",
 		 //Usage
-		 "GMCommands.Merchant.Usage.Create",
-		 "GMCommands.Merchant.Usage.CreateType",
-		 "GMCommands.Merchant.Usage.Info",
-		 "GMCommands.Merchant.Usage.Save",
+		 "Commands.GM.Merchant.Usage.Create",
+		 "Commands.GM.Merchant.Usage.CreateType",
+		 "Commands.GM.Merchant.Usage.Info",
+		 "Commands.GM.Merchant.Usage.Save",
 		 "'/merchant savelist <newname>' to saves this merchants items list under a new name",
-		 "GMCommands.Merchant.Usage.Remove",
-		 "GMCommands.Merchant.Usage.Sell",
-		 "GMCommands.Merchant.Usage.SellRemove",
-		 "GMCommands.Merchant.Usage.Articles.Add",
-		 "GMCommands.Merchant.Usage.Articles.Remove",
-		 "GMCommands.Merchant.Usage.Articles.Delete",
-		 "GMCommands.Merchant.Usage.Type")]
+		 "Commands.GM.Merchant.Usage.Remove",
+		 "Commands.GM.Merchant.Usage.Sell",
+		 "Commands.GM.Merchant.Usage.SellRemove",
+		 "Commands.GM.Merchant.Usage.Articles.Add",
+		 "Commands.GM.Merchant.Usage.Articles.Remove",
+		 "Commands.GM.Merchant.Usage.Articles.Delete",
+		 "Commands.GM.Merchant.Usage.Type")]
 	public class MerchantCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -63,7 +63,7 @@ namespace DOL.GS.Commands
 
 			if (args[1].ToLower() != "create" && targetMerchant == null)
 			{
-				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.CommandOverview"));
+				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.CommandOverview"));
 				return;
 			}
 
@@ -94,7 +94,7 @@ namespace DOL.GS.Commands
 						}
 						if (merchant == null)
 						{
-							DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.ErrorCreateInstance", theType));
+							DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.ErrorCreateInstance", theType));
 							return;
 						}
 						//Fill the object variables
@@ -105,16 +105,16 @@ namespace DOL.GS.Commands
 						merchant.Heading = client.Player.Heading;
 						merchant.Level = 1;
 						merchant.Realm = client.Player.Realm;
-						merchant.Name = LanguageMgr.GetTranslation(ServerProperties.Properties.SERV_LANGUAGE, "GMCommands.Merchant.NewName");
+						merchant.Name = LanguageMgr.GetTranslation(ServerProperties.Properties.SERV_LANGUAGE, "Commands.GM.Merchant.NewName");
 						merchant.Model = 9;
 						//Fill the living variables
 						merchant.CurrentSpeed = 0;
 						merchant.MaxSpeedBase = 200;
-						merchant.GuildName = LanguageMgr.GetTranslation(ServerProperties.Properties.SERV_LANGUAGE, "GMCommands.Merchant.NewGuildName");
+						merchant.GuildName = LanguageMgr.GetTranslation(ServerProperties.Properties.SERV_LANGUAGE, "Commands.GM.Merchant.NewGuildName");
 						merchant.Size = 50;
 						merchant.AddToWorld();
 						merchant.SaveIntoDatabase();
-						DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Create.Created", merchant.ObjectID));
+						DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Create.Created", merchant.ObjectID));
 						break;
 					}
 				#endregion Create
@@ -124,10 +124,10 @@ namespace DOL.GS.Commands
 						if (args.Length == 2)
 						{
 							if (targetMerchant.TradeItems == null)
-								DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Info.ArtListIsEmpty"));
+								DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Info.ArtListIsEmpty"));
 							else
 							{
-								DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Info.ArtList", targetMerchant.TradeItems.ItemsListID));
+								DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Info.ArtList", targetMerchant.TradeItems.ItemsListID));
 							}
 						}
 						break;
@@ -137,7 +137,7 @@ namespace DOL.GS.Commands
 				case "save":
 					{
 						targetMerchant.SaveIntoDatabase();
-						DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Save.SavedInDB"));
+						DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Save.SavedInDB"));
 						break;
 					}
 				#endregion Save
@@ -167,7 +167,7 @@ namespace DOL.GS.Commands
 					{
 						targetMerchant.DeleteFromDatabase();
 						targetMerchant.Delete();
-						DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Remove.RemovedFromDB"));
+						DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Remove.RemovedFromDB"));
 						break;
 					}
 				#endregion Remove
@@ -186,11 +186,11 @@ namespace DOL.GS.Commands
 											string templateID = args[3];
 											targetMerchant.TradeItems = new MerchantTradeItems(templateID);
 											targetMerchant.SaveIntoDatabase();
-											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Sell.Add.Loaded"));
+											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Sell.Add.Loaded"));
 										}
 										catch (Exception)
 										{
-											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.CommandOverview"));
+											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.CommandOverview"));
 											return;
 										}
 									}
@@ -204,7 +204,7 @@ namespace DOL.GS.Commands
 									{
 										targetMerchant.TradeItems = null;
 										targetMerchant.SaveIntoDatabase();
-										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Sell.Remove.Removed"));
+										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Sell.Remove.Removed"));
 									}
 									break;
 								}
@@ -212,7 +212,7 @@ namespace DOL.GS.Commands
 							#region Default
 							default:
 								{
-									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.CommandOverview"));
+									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.CommandOverview"));
 									return;
 								}
 							#endregion Default
@@ -225,7 +225,7 @@ namespace DOL.GS.Commands
 					{
 						if (args.Length < 3)
 						{
-							DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.CommandOverview"));
+							DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.CommandOverview"));
 							return;
 						}
 
@@ -244,14 +244,14 @@ namespace DOL.GS.Commands
 
 											if (targetMerchant.TradeItems == null)
 											{
-												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Articles.ListNoFound"));
+												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Articles.ListNoFound"));
 												return;
 											}
 
 											ItemTemplate template = GameServer.Database.FindObjectByKey<ItemTemplate>(templateID);
 											if (template == null)
 											{
-												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Articles.Add.ItemTemplateNoFound", templateID));
+												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Articles.Add.ItemTemplateNoFound", templateID));
 												return;
 											}
 
@@ -263,7 +263,7 @@ namespace DOL.GS.Commands
 											slot = targetMerchant.TradeItems.GetValidSlot(page, slot);
 											if (slot == eMerchantWindowSlot.Invalid)
 											{
-												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Articles.Add.PageAndSlotInvalid", page, (MerchantTradeItems.MAX_PAGES_IN_TRADEWINDOWS - 1), slot, (MerchantTradeItems.MAX_ITEM_IN_TRADEWINDOWS - 1)));
+												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Articles.Add.PageAndSlotInvalid", page, (MerchantTradeItems.MAX_PAGES_IN_TRADEWINDOWS - 1), slot, (MerchantTradeItems.MAX_ITEM_IN_TRADEWINDOWS - 1)));
 												return;
 											}
 
@@ -284,17 +284,17 @@ namespace DOL.GS.Commands
 												item.ItemTemplateID = templateID;
 												GameServer.Database.SaveObject(item);
 											}
-											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Articles.Add.ItemAdded"));
+											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Articles.Add.ItemAdded"));
 										}
 										catch (Exception)
 										{
-											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.CommandOverview"));
+											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.CommandOverview"));
 											return;
 										}
 									}
 									else
 									{
-										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.CommandOverview"));
+										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.CommandOverview"));
 									}
 									break;
 								}
@@ -311,19 +311,19 @@ namespace DOL.GS.Commands
 
 											if (page < 0 || page >= MerchantTradeItems.MAX_PAGES_IN_TRADEWINDOWS)
 											{
-												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Articles.Remove.PageInvalid", page, (MerchantTradeItems.MAX_PAGES_IN_TRADEWINDOWS - 1)));
+												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Articles.Remove.PageInvalid", page, (MerchantTradeItems.MAX_PAGES_IN_TRADEWINDOWS - 1)));
 												return;
 											}
 
 											if (slot < 0 || slot >= MerchantTradeItems.MAX_ITEM_IN_TRADEWINDOWS)
 											{
-												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Articles.Remove.SlotInvalid", slot, (MerchantTradeItems.MAX_ITEM_IN_TRADEWINDOWS - 1)));
+												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Articles.Remove.SlotInvalid", slot, (MerchantTradeItems.MAX_ITEM_IN_TRADEWINDOWS - 1)));
 												return;
 											}
 
 											if (targetMerchant.TradeItems == null)
 											{
-												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Articles.ListNoFound"));
+												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Articles.ListNoFound"));
 												return;
 											}
 
@@ -331,22 +331,22 @@ namespace DOL.GS.Commands
 											                                                                   new [] { new QueryParameter("@ItemListID", targetMerchant.TradeItems.ItemsListID), new QueryParameter("@PageNumber", page), new QueryParameter("@SlotPosition", slot) } ).FirstOrDefault();
 											if (item == null)
 											{
-												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Articles.Remove.SlotInPageIsAEmpty", slot, page));
+												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Articles.Remove.SlotInPageIsAEmpty", slot, page));
 												return;
 											}
 											GameServer.Database.DeleteObject(item);
-											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Articles.Remove.SlotInPageCleaned", slot, page));
+											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Articles.Remove.SlotInPageCleaned", slot, page));
 
 										}
 										catch (Exception)
 										{
-											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.CommandOverview"));
+											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.CommandOverview"));
 											return;
 										}
 									}
 									else
 									{
-										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.CommandOverview"));
+										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.CommandOverview"));
 									}
 									break;
 								}
@@ -360,21 +360,21 @@ namespace DOL.GS.Commands
 										{
 											if (targetMerchant.TradeItems == null)
 											{
-												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Articles.ListNoFound"));
+												DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Articles.ListNoFound"));
 												return;
 											}
-											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Articles.Delete.DeletingListTemp"));
+											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Articles.Delete.DeletingListTemp"));
 
 											var merchantitems = GameServer.Database.SelectObjects<MerchantItem>("`ItemListID` = @ItemListID", new QueryParameter("@ItemListID", targetMerchant.TradeItems.ItemsListID));
 											if (merchantitems.Count > 0)
 											{
 												GameServer.Database.DeleteObject(merchantitems);
 											}
-											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Articles.Delete.ListDeleted"));
+											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Articles.Delete.ListDeleted"));
 										}
 										catch (Exception)
 										{
-											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.CommandOverview"));
+											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.CommandOverview"));
 											return;
 										}
 									}
@@ -384,7 +384,7 @@ namespace DOL.GS.Commands
 							#region Default
 							default:
 								{
-									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.CommandOverview"));
+									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.CommandOverview"));
 									return;
 								}
 							#endregion Default
@@ -417,7 +417,7 @@ namespace DOL.GS.Commands
 						}
 						if (merchant == null)
 						{
-							DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.ErrorCreateInstance", theType));
+							DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.ErrorCreateInstance", theType));
 							return;
 						}
 						//Fill the object variables
@@ -442,7 +442,7 @@ namespace DOL.GS.Commands
 						merchant.SaveIntoDatabase();
 						targetMerchant.Delete();
 						targetMerchant.DeleteFromDatabase();
-						DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Merchant.Type.Changed", param));
+						DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Merchant.Type.Changed", param));
 						break;
 					}
 				#endregion Type

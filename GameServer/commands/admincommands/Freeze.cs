@@ -26,8 +26,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&freeze",
 		ePrivLevel.Admin,
-		"AdminCommands.Freeze.Description",
-		"AdminCommands.Freeze.Freeze")]
+		"Commands.Admin.Freeze.Description",
+		"Commands.Admin.Freeze.Freeze")]
 	public class Freeze : AbstractCommandHandler, ICommandHandler
 	{
 		private int delay = 0;

@@ -1,0 +1,4 @@
+# SCRIPTS
+# /Language
+Commands.Players.Language.Set:				Zmenil jsi jazyk na: {0}.
+Commands.Players.Language.Current:			Jazyk je prave nastaven na: {0}.

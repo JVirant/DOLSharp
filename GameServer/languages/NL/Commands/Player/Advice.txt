@@ -1,0 +1,9 @@
+# /advice
+CommandsPlayer.Advice.Description:   Ask for advice from an advisor"
+CommandsPlayer.Advice.Description1:  Advisors will reply via /send
+CommandsPlayer.Advice.Usage: Please  answer them via /send <Name of the Advisor>
+CommandsPlayer.Advice.Advice:        [ADVICE{0}] {1}: "{2}"
+CommandsPlayer.Advice.Advice.Online: There are {0} advisors online!
+CommandsPlayer.Advice.Usage:         /advice - shows all advisors
+CommandsPlayer.Advice.Message:       /advice <message>
+CommandsPlayer.Advice.Muted:         You have been muted and are not allowed to speak in this channel.

@@ -204,10 +204,10 @@ Scripts.Player.Guild.WithdrawInvalid:			Ce n'est pas un montant valide.
 Scripts.Player.Guild.WithdrawTooMuch:			Vous ne pouvez plus ajouter d'argent dans la caisse de guilde.
 
 # /GC
-Scripts.Players.Guild.AllianceInfo:			    Information d'Alliance pour {0} :
-Scripts.Players.Guild.AllianceLeader:			Chef d'Alliance {0}
-Scripts.Players.Guild.AllianceMembers:			Membres de l'Alliance :
-Scripts.Players.Guild.AllianceMember:			{0} - {1}
-Scripts.Players.Guild.AllianceNoLeader:			Pas de chef d'Alliance
+Commands.Players.Guild.AllianceInfo:			    Information d'Alliance pour {0} :
+Commands.Players.Guild.AllianceLeader:			Chef d'Alliance {0}
+Commands.Players.Guild.AllianceMembers:			Membres de l'Alliance :
+Commands.Players.Guild.AllianceMember:			{0} - {1}
+Commands.Players.Guild.AllianceNoLeader:			Pas de chef d'Alliance
 
 Scripts.Player.Guild.InviteNotThis:			    Vous ne pouvez pas inviter un membre de ce royaume dans votre guilde.

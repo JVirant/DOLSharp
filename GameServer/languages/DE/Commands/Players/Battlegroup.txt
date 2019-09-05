@@ -1,0 +1,56 @@
+# /Battlegroup
+Commands.Players.Battlegroup.AlreadyInBattlegroup:	Ihr seid bereits in einer Kampfgruppe.
+Commands.Players.Battlegroup.BattlegroupCount:		Im Moment sind {1} Mitglieder in der Kampfgruppe. 			
+Commands.Players.Battlegroup.BattleGroupLootNormal:	Der Loottyp der Kampfgruppe wurde auf normal gesetzt.    			
+Commands.Players.Battlegroup.BattlegroupLootThresholdOff:Das Lootlevel der Kampfgruppe ist momentan ausgeschaltet.			
+Commands.Players.Battlegroup.BattlegroupLootThresholdOn:	Das Lootlevel der Kampfgruppe ist momentan {0}.			
+Commands.Players.Battlegroup.BattleGroupLootTreasurer:	Der Loottyp der Kampfgruppe wurde auf Schatzmeister gesetzt. 			
+Commands.Players.Battlegroup.BattlegroupStatus:		Der momentane Status der Kampfgruppe ist: {0}. 			
+Commands.Players.Battlegroup.BattlegroupTreasurerIs:	Der Schatzmeister der Kampfgruppe ist ab jetzt: {0}.			
+Commands.Players.Battlegroup.BattlegroupTreasurerIsYou:	Ihr seid zum Schatzmeister der Kampfgruppe ernannt wurden.			
+Commands.Players.Battlegroup.BattlegroupTreasurerOff:	Die Kampfgruppe hat momentan keinen Schatzmeister. 			
+Commands.Players.Battlegroup.BattlegroupTreasurerOn:	Ihr habt {0} zum Schatzmeister der Kampfgruppe ernannt.
+Commands.Players.Battlegroup.Help.Count:			/bg count - Zeigt die Anzahl der Kampfgruppenmitglieder. 			
+Commands.Players.Battlegroup.Help.Credit:		/bg credit - Zeigt an, welche Meisterstufen-Encounter in den letzten 10 Minuten in der Kampfgruppe gutgeschrieben wurden.
+Commands.Players.Battlegroup.Help.GrantCredit:		/bg grantcredit <Meisterstufe> <Spieler> - Schreibt dem <Spieler> den <Meisterstufe> Schritt gut. Es muss sich dabei um einen Kampfgruppenencounter handeln!.
+Commands.Players.Battlegroup.Help.GroupClass:		/bg groupclass - Zeigt die Klassen für jede Gruppe in der Kampfgruppe.
+Commands.Players.Battlegroup.Help.Groups:		/bg groups - Zeigt alle Gruppen und deren Mitglieder in der Kampfgruppe. Ist ein Spieler zwar in einer Gruppe, nicht aber in der Kampfgruppe, wird dieser Name in <Klammern> gezeigt. Zeigt auch die Solo-Spieler (mit Level und Klasse) an.			
+Commands.Players.Battlegroup.Help.Help:			/bg help - Zeigt die Hilfe zur Befehlsformulierung an.
+Commands.Players.Battlegroup.Help.Invite:		/bg invite <Name> - Lädt einen Spieler in die Kampfgruppe ein. Ist dies eine öffentliche Kampfgruppe, kann der Befehl von jedem Kampfgruppenmitglied benutzt werden, ansonsten nur vom Kampfgruppenleiter.
+Commands.Players.Battlegroup.Help.JoinPrivate:		/bg join <Leitername> <Passwort> - Ihr tretet einer passwortgeschützten Kampfgruppe bei.	
+Commands.Players.Battlegroup.Help.JoinPublic:		/bg join <Leitername> - Ihr tretet einer öffentlichen Kampfgruppe bei.	
+Commands.Players.Battlegroup.Help.Leader:		/bg promote <name> - Übergibt die Leitung der Kampfgruppe an einen anderen Spieler. (Nur Leiter)
+Commands.Players.Battlegroup.Help.Leave:			/bg leave - Ihr verlasst die battlegruppe.
+Commands.Players.Battlegroup.Help.Listen:		/bg listen - Schaltet die Kampfgruppe auf "Nur lesen". Nur noch der Kampfgruppenleiter und die Moderatoren können etwas schreiben. (Nur Leiter)
+Commands.Players.Battlegroup.Help.Loot:			/bg loot <normal>/<treasurer> – Schaltet den Schatzmeister der Kampfgruppe ein (treasurer) oder aus (normal). (Nur Leiter) 			
+Commands.Players.Battlegroup.Help.LootLevel:		/bg lootlevel <level> -	Setzt das Level fest, ab dem ein Gegenstand an den Schatzhüter geht. (Nur Leiter)
+Commands.Players.Battlegroup.Help.PasswordClear:		/bg password clear - Löscht das aktuelle Passwort (Nur Leiter)	
+Commands.Players.Battlegroup.Help.PasswordDisplay:	/bg password - Zeigt das aktuelle Passwort (Nur dem Leiter)	
+Commands.Players.Battlegroup.Help.PasswordNew:		/bg password <Neues Passwort> - Setzt ein (neues) Passwort für die Kampfgruppe. (Nur Leiter)	
+Commands.Players.Battlegroup.Help.Private:		/bg private - Schaltet die Kampfgruppe auf Nicht-Öffentlich. Man muss das Passwort kenne oder von einem Leiter eingeladen werden um beizutreten. (Nur Leiter)
+Commands.Players.Battlegroup.Help.Public:		/bg public - Schaltet die Kampfgruppe "Öffentlich". Dann kann jeder mit "/cg join <Leitername>" der Kampfgruppe beitreten. Ausserdem ist sie dann unter "/who BG" finden. (Nur Leiter)
+Commands.Players.Battlegroup.Help.Remove:		/bg remove <Name> - Wirft einen Spieler aus der Kampfgruppe. (Nur Leiter)
+Commands.Players.Battlegroup.Help.Status:		/bg status - Zeigt Informationen wie den Leiter, die Moderatoren und Beuteverteilungseinstellungen an.
+Commands.Players.Battlegroup.Help.Treasurer:		/bg treasurer <name> – Setzt einen Spieler in der Kampfgruppe als Schatzhüter ein. Dieser Spieler erhält (wenn "/bg loot treasurer" an ist) alle Gegenstände, die ein höheres Level als mit "/bg lootlevel" festgelegt. Dies funktioniert nur in einer bestimmten Reichweite (4.000 Einheiten?) um den aufgehobenen Gegenstand und nicht über Ladezonen-Grenzen hinweg. (Nur Leiter) 			
+Commands.Players.Battlegroup.Help.Usage:			Befehle für "/bg" sind:
+Commands.Players.Battlegroup.Help.Who:			/bg who - Zeigt alle Mitglieder der Kampfgruppe.
+Commands.Players.Battlegroup.InBattleGroup:		Ihr seid zur Zeit in keiner Kampfgruppe!
+Commands.Players.Battlegroup.InviteYourself:		Ihr könnt Euch nicht selber einladen.	
+Commands.Players.Battlegroup.JoinBattleGroup:		Wollt Ihr der Kampfgruppe von {0} beitreten?	
+Commands.Players.Battlegroup.LeaderCommand:		Diesen Befehl kann nur der Leiter der Kampfgruppe geben.	
+Commands.Players.Battlegroup.LeaderInvite:		Ihr müsst der Leiter der Kampfgruppe sein, um einen Spieler einladen zukönnen.
+Commands.Players.Battlegroup.ListenMode:			Der "Nur Lesen"-Status der Kampfgruppe wurde geändert.
+Commands.Players.Battlegroup.Moderator:			{0} ist Moderator geworden.
+Commands.Players.Battlegroup.NoPlayer:			Ein Spieler mit diesem Namen ist zur Zeit nicht im Spiel oder gehört einem anderen Reich an.
+Commands.Players.Battlegroup.NotBattleGroupLeader:	Dieser Spieler ist kein Leiter einer Kampfgruppe.	
+Commands.Players.Battlegroup.NotBattleGroupMember:	Dieser Spieler gehört keiner Kampfgruppe an.	
+Commands.Players.Battlegroup.NotPublic:			Das ist keine öffentliche Kampfruppe.
+Commands.Players.Battlegroup.OnlyModerator:		Nur der Leiter oder ein Moderator kann in dieser Kampfgruppe sprechen.	
+Commands.Players.Battlegroup.OwnBattleGroup:		Eurer eigenen Kampfgruppe könnt Ihr nicht beitreten.
+Commands.Players.Battlegroup.Password:			Das Passwort der Kampfgruppe lautet: {0}.
+Commands.Players.Battlegroup.PasswordChanged:		Ihr habt das Passwort der Kampfgruppe geändert in: {0}.	
+Commands.Players.Battlegroup.PlayerInBattlegroup:	{0} ist bereits Mitglied einer Kampfgruppe.	
+Commands.Players.Battlegroup.Private:			Dies ist nun eine private Kampfgruppe.
+Commands.Players.Battlegroup.Public:			Dies ist nun eine öffentliche Kampfgruppe.
+Commands.Players.Battlegroup.Usage:			Verwendet: /bc <text>
+Commands.Players.Battlegroup.UsageInvite:		Verwendet: /bg invite <playername>

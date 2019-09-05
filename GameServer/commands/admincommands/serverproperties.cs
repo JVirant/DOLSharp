@@ -25,19 +25,19 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&serverproperties",
 		ePrivLevel.Admin,
-		"AdminCommands.ServerProperties.Description",
-		"AdminCommands.ServerProperties.Usage")]
+		"Commands.Admin.ServerPropertiesDescription",
+		"Commands.Admin.ServerPropertiesUsage")]
 	public class ServerPropertiesCommand : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
 		{
 			if (GameServer.Instance.Configuration.DBType == DOL.Database.Connection.ConnectionType.DATABASE_XML)
 			{
-				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.ServerProperties.DataBaseXML"));
+				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Admin.ServerPropertiesDataBaseXML"));
 				return;
 			}
 			ServerProperties.Properties.Refresh();
-			DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.ServerProperties.PropertiesRefreshed"));
+			DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Admin.ServerPropertiesPropertiesRefreshed"));
 		}
 	}
 }

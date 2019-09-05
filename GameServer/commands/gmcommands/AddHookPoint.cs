@@ -27,8 +27,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		 "&addhookpoint",
 		 ePrivLevel.GM,
-		 "GMCommands.HookPoint.Description",
-		 "GMCommands.HookPoint.Usage")]
+		 "Commands.GM.HookPoint.Description",
+		 "Commands.GM.HookPoint.Usage")]
 	public class HookPointCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -45,7 +45,7 @@ namespace DOL.GS.Commands
 				GameKeepComponent comp = client.Player.TargetObject as GameKeepComponent;
 				if (comp == null)
 				{
-					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.HookPoint.NoGKCTarget"));
+					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.HookPoint.NoGKCTarget"));
 					return;
 				}
 				skin = Convert.ToInt32(args[1]);
@@ -61,7 +61,7 @@ namespace DOL.GS.Commands
 			}
 			catch (Exception e)
 			{
-				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Error", e.Message));
+				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Error", e.Message));
 			}
 		}
 	}

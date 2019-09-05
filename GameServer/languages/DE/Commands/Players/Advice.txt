@@ -1,0 +1,3 @@
+# /Advice
+Commands.Players.Advice.Advice:				[Anfrage{0}] {1}: "{2}"
+Commands.Players.Advice.AdvicersOn:			Es sind {0} Ratgeber online!

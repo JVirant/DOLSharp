@@ -345,5 +345,3 @@ GamePlayer.UseSlot.CantUseState:			    You can't use {0} in your state.
 GamePlayer.UseSlot.Used:			            {0} has been used.
 GamePlayer.UseSlot.CantUseCast:				You need to finish your current action for use your {0}!
 GamePlayer.Whisper.SelectTarget:				Select a target to whisper to!
-
-

@@ -1,0 +1,2 @@
+# /Dismount
+Commands.Players.Dismount:				You are not riding any steed!

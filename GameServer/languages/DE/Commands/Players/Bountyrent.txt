@@ -1,0 +1,14 @@
+# /Bountyrent
+#Commands.Players.Bountyrent.InHouseError:		Ihr müsst Euch in Eurem Haus befinden, um diesen Befehl verwenden zu können!
+#Commands.Players.Bountyrent.NoHouseError:		Ihr besitzt kein Haus!
+Commands.Players.Bountyrent.AlreadyMaxMoney:		In dieser Mietkasse ist bereits das Maximum an möglichem Gold!
+Commands.Players.Bountyrent.CmdUsage:                   	Ein Kopfgeldpunkt wird zurzeit in {0} Kupfer umgewandelt. Benutzt '/bountyrent personal/guild <amount>' zum Bezahlen.
+Commands.Players.Bountyrent.CorrectFormat:		Das korrekte Format ist '/bountyrent personal | guild <Anzahl>'
+Commands.Players.Bountyrent.NotAHouseGuildLeader:	Dieses Haus gehört keiner Gilde, deren Gildenleiter Ihr seid!
+Commands.Players.Bountyrent.NotEnoughBp:			Ihr habt nicht genug Kopfgeldpunkte.
+Commands.Players.Bountyrent.NotEnoughGuildBp:		Eure Gilde hat nicht genug Kopfgeldpunkte.
+Commands.Players.Bountyrent.NoPayRentPerm:		Ihr habt nicht die Erlaubnis, den '/bountyrent'-Befehl hier zu benutzen!
+Commands.Players.Bountyrent.RangeOfAHouse:		Um den '/bountyrent'-Befehl zu benutzen, müsst Ihr Euch in der Nähe eines Hauses aufhalten.
+Commands.Players.Bountyrent.ToManyMoney:			Soviel Gold passt nicht in die Mietkasse! Einzahlung abgebrochen.
+Commands.Players.Bountyrent.YouSpend:			Ihr bezahlt {0} eigene Kopfgeldpunkte was einer Mietzahlung in Hohe von {1} Goldmünzen entspricht.
+Commands.Players.Bountyrent.YouSpendGuild:		Ihr bezahlt {0} Gildenkopfgeldpunkte was einer Mietzahlung in Hohe von {1} Goldmünzen entspricht.

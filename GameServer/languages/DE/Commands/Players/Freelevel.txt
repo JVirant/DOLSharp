@@ -1,0 +1,8 @@
+# /FreeLevel
+Commands.Players.FreeLevel.AboveMaximumLevel:			Eure Erfahrung ist zu groß für eine weitere freie Stufe.
+Commands.Players.FreeLevel.EligibleFreeLevel:			Ihr seid nun würdig, eine freie Stufe zu erhalten. Klickt auf Euren Ausbilder, um sie zu bekommen! (Der Befehl "/freelevel decline" entfernt diese freie Stufe.)
+Commands.Players.FreeLevel.FreeLevelIn:			Ihr habt eine neue Stufe erreicht und seid Eurer nächsten freien Stufe in {0} Tage, {1} Stunden und {2} Minuten  würdig.
+Commands.Players.FreeLevel.FreeLevelIn2:			Ihr müsst noch {0} Tage, {1} Stunden und {2} Minuten warten, bis der Zeitraum der nächsten freien Stufe beginnt.
+Commands.Players.FreeLevel.FreeLevelSoon:			Ihr braucht eine weitere Stufe, um der nächsten freien Stufe würdig zu sein.
+Commands.Players.FreeLevel.NoFreeLevel:			Ihr habt keine freie Stufe !
+Commands.Players.FreeLevel.Removed:				Diese freie Stufe wurde entfernt.

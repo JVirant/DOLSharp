@@ -43,16 +43,16 @@ namespace DOL.GS.Commands
 			
 			if (client.Account.PrivLevel == 1 && ServerProperties.Properties.ANON_MODIFIER == -1)
 			{
-				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Scripts.Players.Anonymous.Error"));
+				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Anonymous.Error"));
 				return;
 			}
 
 			client.Player.IsAnonymous = !client.Player.IsAnonymous;
 
 			if (client.Player.IsAnonymous)
-				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Scripts.Players.Anonymous.On"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Anonymous.On"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 			else
-				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Scripts.Players.Anonymous.Off"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Anonymous.Off"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 		}
 	}
 }

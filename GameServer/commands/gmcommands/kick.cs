@@ -12,8 +12,8 @@ namespace DOL.GS.Commands
 		"&kick",
 		new string[] { "&k" },
 		ePrivLevel.GM,
-		"GMCommands.Kick.Description",
-		"GMCommands.Kick.Usage",
+		"Commands.GM.Kick.Description",
+		"Commands.GM.Kick.Usage",
 		"/kick <#ClientID> ex. /kick #10")]
 	public class KickCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
@@ -46,7 +46,7 @@ namespace DOL.GS.Commands
 			
 			if (clientc == null)
 			{
-				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Kick.NoPlayerOnLine"));
+				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Kick.NoPlayerOnLine"));
 				return;
 			}
 
@@ -61,11 +61,11 @@ namespace DOL.GS.Commands
 				string message;
 				if (client != null && client.Player != null)
 				{
-					message = LanguageMgr.GetTranslation(clientc, "GMCommands.Kick.RemovedFromServerByGM", client.Player.Name);
+					message = LanguageMgr.GetTranslation(clientc, "Commands.GM.Kick.RemovedFromServerByGM", client.Player.Name);
 				}
 				else
 				{
-					message = LanguageMgr.GetTranslation(clientc, "GMCommands.Kick.RemovedFromServer");
+					message = LanguageMgr.GetTranslation(clientc, "Commands.GM.Kick.RemovedFromServer");
 				}
 
 				clientc.Out.SendMessage(message, eChatType.CT_Help, eChatLoc.CL_SystemWindow);

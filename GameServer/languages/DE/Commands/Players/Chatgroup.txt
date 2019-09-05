@@ -1,0 +1,40 @@
+# /Chatgroup
+Commands.Players.Chatgroup.Help.Help:			/cg help - Zeigt die Hilfe zur Befehlsformulierung an
+Commands.Players.Chatgroup.Help.Invite:			/cg invite <Name> - Lädt einen Spieler in die Chatgruppe ein. Ist dies eine öffentliche Chatgruppe, kann der Befehl von jedem Chatgruppenmitglied benutzt werden, ansonsten nur vom Chatgruppenleiter.
+Commands.Players.Chatgroup.Help.JoinPrivate:		/cg join <Leitername> <Passwort> - Ihr tretet einer öffentlichen, passwortgeschützten Chatgruppe bei.
+Commands.Players.Chatgroup.Help.JoinPublic:		/cg join <Leitername> - Ihr tretet einer öffentlichen Chatgruppe bei.
+Commands.Players.Chatgroup.Help.Leader:			/cg leader <name> - Schaltet einen Spieler als Leiter der Chatgruppe. (Nur Leiter)
+Commands.Players.Chatgroup.Help.Leave:			/cg leave - Ihr verlasst die Chatgruppe.
+Commands.Players.Chatgroup.Help.Listen:			/cg listen - Schaltet die Chatgruppe auf "Nur lesen". Nur noch der Chatgruppenleiter und die Moderatoren können etwas schreiben. (Nur Leiter)
+Commands.Players.Chatgroup.Help.PasswordClear:		/cg password clear - Löscht das aktuelle Passwort (Nur Leiter)
+Commands.Players.Chatgroup.Help.PasswordDisplay:		/cg password - Zeigt das aktuelle Passwort (Nur dem Leiter)
+Commands.Players.Chatgroup.Help.PasswordNew:		/cg password <Neues Passwort> - Setz ein (neues) Passwort für die Chatgruppe. (Nur Leiter)
+Commands.Players.Chatgroup.Help.Private:			/cg private - Schaltet die Chatgruppe auf Nicht-Öffentlich. Man muss das Passwort oder von einem Leiter eingeladen werden um beizutreten. (Nur Leiter)
+Commands.Players.Chatgroup.Help.Public:			/cg public - Schaltet die Chatgruppe "Öffentlich". Dann kann jeder mit "/cg join <Leitername>" der Chatgruppe beitreten. Ausserdem ist sie dann unter "/who CG" finden. (Nur Leiter)
+Commands.Players.Chatgroup.Help.Remove:			/cg remove <Name> - Wirft einen Spieler aus der Chatgruppe. (Nur Leiter)
+Commands.Players.Chatgroup.Help.Usage:			Befehle für "/cg" sind:
+Commands.Players.Chatgroup.Help.Who:			/cg who - Zeigt alle Mitglieder der Chatgruppe.
+Commands.Players.Chatgroup.InChatGroup:			Ihr seid zur Zeit in keiner Chat-Gruppe!
+Commands.Players.Chatgroup.InviteYourself:		Ihr könnt Euch nicht selber einladen.	
+Commands.Players.Chatgroup.JoinChatGroup:		Wollt Ihr der Chat-Gruppe von {0} beitreten?	
+Commands.Players.Chatgroup.LeaderCommand:		Diesen Befehl kann nur der Leiter der Chat-Gruppe geben.	
+Commands.Players.Chatgroup.LeaderInvite:			Ihr müsst der Leiter der Chat-Gruppe sein, um einen Spieler einladen zukönnen.
+Commands.Players.Chatgroup.ListenMode:			Der "Nur Lesen"-Status der Chat-Gruppe wurde geändert auf 
+Commands.Players.Chatgroup.Moderator:			{0} ist Moderator geworden.
+Commands.Players.Chatgroup.NoPlayer:			Ein Spieler mit diesem Namen ist zur Zeit nicht im Spiel oder gehört einem anderen Reich an.
+Commands.Players.Chatgroup.NotChatGroupLeader:		Dieser Spieler ist kein Leiter einer Chat-Gruppe.	
+Commands.Players.Chatgroup.NotChatGroupMember:		Dieser Spieler gehört keiner Chat-Gruppe an.	
+Commands.Players.Chatgroup.NotPublic:			Das ist keine öffentliche Chat-Gruppe.
+Commands.Players.Chatgroup.OnlyModerator:		Nur der Leiter oder ein Moderator kann in dieser Chat-Gruppe sprechen.	
+Commands.Players.Chatgroup.OwnChatGroup:			Eurer eigenen Chat-Gruppe könnt Ihr nicht beitreten.
+Commands.Players.Chatgroup.Password:			Das Passwort der Chat-Gruppe lautet: {0}.
+Commands.Players.Chatgroup.PasswordChanged:		Ihr habt das Passwort der Chat-Gruppe geändert in: {0}.
+Commands.Players.Chatgroup.PasswordClear:		Das Passwort dieser Chat-Gruppe wurde gelöscht.
+Commands.Players.Chatgroup.PasswordUnset:		Diese Chat-Gruppe hat kein Passwort.
+Commands.Players.Chatgroup.PlayerInChatgroup:		{0} ist bereits Mitglied einer Chat-Gruppe.
+Commands.Players.Chatgroup.Private:			Das ist nun eine private Chat-Gruppe.
+Commands.Players.Chatgroup.PrivateAlready:		Das ist bereits eine private Chat-Gruppe.
+Commands.Players.Chatgroup.Public:			Das ist nun eine öffentliche Chat-Gruppe.
+Commands.Players.Chatgroup.PublicAlready:		Das ist bereits eine öffentliche Chat-Gruppe.
+Commands.Players.Chatgroup.Usage:			Verwendet: /c <text>
+Commands.Players.Chatgroup.UsageInvite:			Verwendet: /cg invite <playername>"

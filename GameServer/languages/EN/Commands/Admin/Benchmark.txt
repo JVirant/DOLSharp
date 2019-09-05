@@ -1,0 +1,9 @@
+# /benchmark Command
+Commands.Admin.Benchmark.Description: Benchmark some aspects of DOL Server.
+Commands.Admin.Benchmark.ListSkills:  '/benchmark listskills' # Benchmark server response time for skills list (1000 iteration)
+Commands.Admin.Benchmark.ListSpells:  '/benchmark listspells' # Benchmark server response time for spells list (1000 iteration)
+Commands.Admin.Benchmark.Styles:      '/benchmark styles'     # Not implemented
+Commands.Admin.Benchmark.Respawns:    '/benchmark respawns'   # Not implemented
+Commands.Admin.Benchmark.Deaths:      '/benchmark deaths'     # Not implemented
+Commands.Admin.Benchmark.Tooltips:    '/benchmark tooltips'   # Not implemented
+Commands.Admin.Benchmark.Usage:       {0} Benchmark took {1}ms for {2} iterations...

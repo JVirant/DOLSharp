@@ -1,0 +1,8 @@
+# /Relic
+Commands.Players.Relic.AlbRelics:			Albion Relikte
+Commands.Players.Relic.HibRelics:			Hibernia Relikte
+Commands.Players.Relic.MidRelics:			Midgard Relikte
+Commands.Players.Relic.Power:				Magie
+Commands.Players.Relic.Strength:				Stärke
+Commands.Players.Relic.Title:				Reliktstatus
+Commands.Players.Relic.UseRealmCommand:			Gebt '/realm' für den Reichsstatus ein.

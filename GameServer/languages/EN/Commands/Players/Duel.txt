@@ -1,0 +1,32 @@
+
+# /Duel
+Commands.Players.Duel.ChallengesYou:			{0} challenges you to a duel! /duel accept to begin, /duel decline to decline.
+Commands.Players.Duel.DuelOptions:			/duel options are challenge/decline/cancel/surrender/accept
+Commands.Players.Duel.EnemyRealm:			Can't duel enemy realm players.
+Commands.Players.Duel.NeedTarget:			You need to target someone to duel!
+Commands.Players.Duel.ConsideringDuel:			You're not currently considering a duel.
+Commands.Players.Duel.NotInDuel:				You aren't in a duel!
+Commands.Players.Duel.PlayerVsPlayer:			{0} surrenders to {1}!
+Commands.Players.Duel.SafeZone:				This is a safe zone and you cannot duel here!
+Commands.Players.Duel.TargetAccept:			{0} accepts the duel.  Begin fighting!
+Commands.Players.Duel.TargetAlreadyChallenging:		{0} is already challenging someone to a duel.
+Commands.Players.Duel.TargetAlreadyConsidering:		{0} is already considering a duel.
+Commands.Players.Duel.TargetCancel:			{0} cancels his duel invitation.	
+Commands.Players.Duel.TargetDeclines:			{0} declines your duel invitation.
+Commands.Players.Duel.TargetHealth:			Your target must have full health.
+Commands.Players.Duel.TargetInCombat:			{0} is in combat.
+Commands.Players.Duel.TargetInDuel:			{0} is already in a duel.
+Commands.Players.Duel.TargetInGroup:			{0} is in a group.
+Commands.Players.Duel.TargetSurrender:			{0} surrenders to you!
+Commands.Players.Duel.YouAccept:				You accept your duel!  Begin fighting!
+Commands.Players.Duel.YouAlreadyChallenging:		You are already challenging {0} to a duel. Cancel it first before challenging someone else.
+Commands.Players.Duel.YouAlreadyConsidering:		You are already considering a duel with {0}. Decline it first before challenging someone.
+Commands.Players.Duel.YouCancel:				You cancel your duel invitation.
+Commands.Players.Duel.YouChallenge:			You challenge {0} to a duel!
+Commands.Players.Duel.YouDecline:			You decline {0}'s duel invitation.
+Commands.Players.Duel.YouHaventChallenged:		You haven't challenged anyone to a duel.
+Commands.Players.Duel.YouHealth:				You must have full health.
+Commands.Players.Duel.YouInCombat:			You are in combat.
+Commands.Players.Duel.YouInDuel:				You are already in a duel.
+Commands.Players.Duel.YouInGroup:			You are in a group.
+Commands.Players.Duel.YouSurrender:			You surrender to {0}!

@@ -28,13 +28,13 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&benchmark",
 		ePrivLevel.Admin,
-		"AdminCommands.Benchmark.Description",
-		"AdminCommands.Benchmark.ListSpells",
-		"AdminCommands.Benchmark.ListSkills",
-		"AdminCommands.Benchmark.Styles",
-		"AdminCommands.Benchmark.Respawns",
-		"AdminCommands.Benchmark.Deaths",
-		"AdminCommands.Benchmark.Tooltips")]
+		"Commands.Admin.Benchmark.Description",
+		"Commands.Admin.Benchmark.ListSpells",
+		"Commands.Admin.Benchmark.ListSkills",
+		"Commands.Admin.Benchmark.Styles",
+		"Commands.Admin.Benchmark.Respawns",
+		"Commands.Admin.Benchmark.Deaths",
+		"Commands.Admin.Benchmark.Tooltips")]
 	public class BenchmarkCommand : AbstractCommandHandler, ICommandHandler
 	{		
 		public void OnCommand(GameClient client, string[] args)
@@ -57,7 +57,7 @@ namespace DOL.GS.Commands
 					  }
 					);
 					spent = GameTimer.GetTickCount() - start;
-					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Benchmark.Usage", "Skills", spent, "1000"));
+					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Admin.Benchmark.Usage", "Skills", spent, "1000"));
 				break;
 				case "listspells":
 					start = GameTimer.GetTickCount();
@@ -67,7 +67,7 @@ namespace DOL.GS.Commands
 					  }
 				    );
 					spent = GameTimer.GetTickCount() - start;
-					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Benchmark.Usage", "Spells", spent, "1000"));
+					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Admin.Benchmark.Usage", "Spells", spent, "1000"));
 				break;
 			}
 		}

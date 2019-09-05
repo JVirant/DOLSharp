@@ -1,0 +1,9 @@
+# /advice
+CommandsPlayers.Advice.Description:   Demande un conseil à un conseiller.
+CommandsPlayers.Advice.Description1:  Les conseillers répondent par `/send`
+CommandsPlayers.Advice.Usage: Please  Pour leur répondre utiliser '/send <Nom du conseiller>/
+CommandsPlayers.Advice.Advice:        [Conseil {0}] {1}: "{2}"
+CommandsPlayers.Advice.Advice.Online: Il y a {0} conseiller·s en ligne !
+CommandsPlayers.Advice.Usage:         '/advice' # Montre tous les conseillers actuellement en ligne.
+CommandsPlayers.Advice.Message:       /advice <Message>
+CommandsPlayers.Advice.Muted:         Vous êtes muet et donc, non autorisé à communiquer via ce canal.

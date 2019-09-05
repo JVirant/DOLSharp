@@ -24,8 +24,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&debug",
 		ePrivLevel.GM,
-		"GMCommands.Debug.Description",
-		"GMCommands.Debug.Usage")]
+		"Commands.GM.Debug.Description",
+		"Commands.GM.Debug.Usage")]
 	public class DebugCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -54,14 +54,14 @@ namespace DOL.GS.Commands
 				client.Player.TempProperties.setProperty(GamePlayer.DEBUG_MODE_PROPERTY, true);
 				client.Player.IsAllowedToFly = true;
 				client.Out.SendDebugMode(true);
-				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Debug.ModeON"));
+				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Debug.ModeON"));
 			}
 			else if (args[1].ToLower().Equals("off"))
 			{
 				client.Player.TempProperties.removeProperty(GamePlayer.DEBUG_MODE_PROPERTY);
 				client.Out.SendDebugMode(false);
 				client.Player.IsAllowedToFly = false;
-				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Debug.ModeOFF"));
+				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Debug.ModeOFF"));
 			}
 		}
 	}

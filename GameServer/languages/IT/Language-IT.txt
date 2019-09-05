@@ -440,17 +440,17 @@ StyleProcessor.TryToUseStyle.StyleRequires:		Questo stile richiede un'arma {0}!
 
 # TRAINER
 # /GameTrainer
-GameTrainer.AddGift.NotEnoughSpace:			Non hai spazio nell'inventario per ricevere il tuo dono. Per favore recupera lo spazio.
-GameTrainer.GetExamineMessages.RightClick:		[Clicca col pulsante destro per visualizzare la finestra di allenamento]
-GameTrainer.GetExamineMessages.YouExamine:		Esamini {0}. {1} e' {2} ed allena i membri della classe {3}.
-GameTrainer.GetExamineMessages.YouTarget:		Selezioni [{0}].
-GameTrainer.PromotePlayer.Accepted:			Sei stato accettato da {0}!
-GameTrainer.PromotePlayer.Says:				{0} dice: "{1}"
-GameTrainer.PromotePlayer.Upgraded:			Sei stato promosso alla classe {0}!
-GameTrainer.ReceiveItem.RespecFull:			Un simpatico {0}! Ti ho aggiunto un full respec da usare con /respec all.
-GameTrainer.ReceiveItem.RespecRealm:			Grazie, ti ho aggiunto un realm respec da usare con /respec realm.
-GameTrainer.ReceiveItem.RespecSingle:			Grazie, ti ho aggiunto un single spec respec da usare con /respec <linename>
-GameTrainer.Train.SeekElsewhere:			{0} dice, "Devi cercare altro per allenarti."
+GameObjects.GameTrainer.AddGift.NotEnoughSpace:			Non hai spazio nell'inventario per ricevere il tuo dono. Per favore recupera lo spazio.
+GameObjects.GameTrainer.GetExamineMessages.RightClick:		[Clicca col pulsante destro per visualizzare la finestra di allenamento]
+GameObjects.GameTrainer.GetExamineMessages.YouExamine:		Esamini {0}. {1} e' {2} ed allena i membri della classe {3}.
+GameObjects.GameTrainer.GetExamineMessages.YouTarget:		Selezioni [{0}].
+GameObjects.GameTrainer.PromotePlayer.Accepted:			Sei stato accettato da {0}!
+GameObjects.GameTrainer.PromotePlayer.Says:				{0} dice: "{1}"
+GameObjects.GameTrainer.PromotePlayer.Upgraded:			Sei stato promosso alla classe {0}!
+GameObjects.GameTrainer.ReceiveItem.RespecFull:			Un simpatico {0}! Ti ho aggiunto un full respec da usare con /respec all.
+GameObjects.GameTrainer.ReceiveItem.RespecRealm:			Grazie, ti ho aggiunto un realm respec da usare con /respec realm.
+GameObjects.GameTrainer.ReceiveItem.RespecSingle:			Grazie, ti ho aggiunto un single spec respec da usare con /respec <linename>
+GameObjects.GameTrainer.Train.SeekElsewhere:			{0} dice, "Devi cercare altro per allenarti."
 
 # /EnchanterTrainer
 EnchanterTrainer.Interact.Text1:			{0} dice, "Scegli di allenarti come Enchanter e seguire il Percorso dell'Essenza? La vita da[Enchanter] e' tanto gratificante quanto pericolosa, ma sara' tua se la scegli."
@@ -661,181 +661,181 @@ Scripts.GM.Ban.MustTarget:				Devi selezionare un bersaglio!
 
 # PlayerCommands
 # /Advice
-Scripts.Players.Advice.Advice:				[ADVICE{0}] {1}: "{2}"
-Scripts.Players.Advice.AdvicersOn:			Ci sono {0} advisors online!
+Commands.Players.Advice.Advice:				[ADVICE{0}] {1}: "{2}"
+Commands.Players.Advice.AdvicersOn:			Ci sono {0} advisors online!
 
 # /Advisor
-Scripts.Players.Advisor.Off:				Non riceverai piu' messaggi dal canale advice.
-Scripts.Players.Advisor.On:				Da ora riceverai i messaggi dal canale advice.
+Commands.Players.Advisor.Off:				Non riceverai piu' messaggi dal canale advice.
+Commands.Players.Advisor.On:				Da ora riceverai i messaggi dal canale advice.
 
 # /Afk
-Scripts.Players.Afk.Off:						Non sei piu' segnalato come AFK.
-Scripts.Players.Afk.On:							Ora sei segnalato come AFK.
+Commands.Players.Afk.Off:						Non sei piu' segnalato come AFK.
+Commands.Players.Afk.On:							Ora sei segnalato come AFK.
 
 # /Anonymous
-Scripts.Players.Anonymous.Error:				La modalita' Anonimo e' disabilitata.
-Scripts.Players.Anonymous.Off:					Non sei piu' segnalato come Anonimo.
-Scripts.Players.Anonymous.On:					Ora sei segnalato come Anonimo.
+Commands.Players.Anonymous.Error:				La modalita' Anonimo e' disabilitata.
+Commands.Players.Anonymous.Off:					Non sei piu' segnalato come Anonimo.
+Commands.Players.Anonymous.On:					Ora sei segnalato come Anonimo.
 
 # /Assist
-Scripts.Players.Assist.CantAssistYourself:		Non puoi assistere te stesso.
-Scripts.Players.Assist.DoesntHaveTarget:		non ha attualmente un bersaglio.
-Scripts.Players.Assist.DontSee:					Non vedi {0} qui intorno!
-Scripts.Players.Assist.NoTarget:				Non hai un bersaglio.
-Scripts.Players.Assist.NotValid:				Il bersaglio non e' valido.
-Scripts.Players.Assist.YouAssist:				Assisti {0}.
+Commands.Players.Assist.CantAssistYourself:		Non puoi assistere te stesso.
+Commands.Players.Assist.DoesntHaveTarget:		non ha attualmente un bersaglio.
+Commands.Players.Assist.DontSee:					Non vedi {0} qui intorno!
+Commands.Players.Assist.NoTarget:				Non hai un bersaglio.
+Commands.Players.Assist.NotValid:				Il bersaglio non e' valido.
+Commands.Players.Assist.YouAssist:				Assisti {0}.
 
 # /Autoloot
-Scripts.Players.Autoloot.Off:					Il tuo autoloot e' disattivato. Non tenterai piu' di raccogliere automaticamente qualsiasi oggetto lasciato cadere nell'area.
-Scripts.Players.Autoloot.On:					Your autoloot is on. Ora tenterai di raccogliere automaticamente qualsiasi oggetto lasciato cadere nell'area.
+Commands.Players.Autoloot.Off:					Il tuo autoloot e' disattivato. Non tenterai piu' di raccogliere automaticamente qualsiasi oggetto lasciato cadere nell'area.
+Commands.Players.Autoloot.On:					Your autoloot is on. Ora tenterai di raccogliere automaticamente qualsiasi oggetto lasciato cadere nell'area.
 
 # /Autosplit
-Scripts.Players.Autosplit.Coins:				Il leader ha cambiato 
-Scripts.Players.Autosplit.InGroup:				Devi essere in un gruppo per usare questo comando.
-Scripts.Players.Autosplit.Leader:				Devi essere il leader del gruppo per usare questo comando.
-Scripts.Players.Autosplit.Loot:					Il leader ha cambiato 
-Scripts.Players.Autosplit.Off:					Il leader ha disattivato l'autosplit.
-Scripts.Players.Autosplit.On:					Il leader ha attivato l'autosplit.
-Scripts.Players.Autosplit.Self:					{0} cambiato 
+Commands.Players.Autosplit.Coins:				Il leader ha cambiato 
+Commands.Players.Autosplit.InGroup:				Devi essere in un gruppo per usare questo comando.
+Commands.Players.Autosplit.Leader:				Devi essere il leader del gruppo per usare questo comando.
+Commands.Players.Autosplit.Loot:					Il leader ha cambiato 
+Commands.Players.Autosplit.Off:					Il leader ha disattivato l'autosplit.
+Commands.Players.Autosplit.On:					Il leader ha attivato l'autosplit.
+Commands.Players.Autosplit.Self:					{0} cambiato 
 
 # /Boot
-Scripts.Players.Boot.InHouseError:				Devi essere nella tua casa per usare questo comando!
-Scripts.Players.Boot.NoHouseError:				Non possiedi una casa!
-Scripts.Players.Boot.NoOneOnline:				Nessuno con quel nome e' online per essere espulso!
-Scripts.Players.Boot.YouRemoved:				Sei stato espulso dalla casa da {0}!
+Commands.Players.Boot.InHouseError:				Devi essere nella tua casa per usare questo comando!
+Commands.Players.Boot.NoHouseError:				Non possiedi una casa!
+Commands.Players.Boot.NoOneOnline:				Nessuno con quel nome e' online per essere espulso!
+Commands.Players.Boot.YouRemoved:				Sei stato espulso dalla casa da {0}!
 
 # /Bountyrent
-Scripts.Players.Bountyrent.InHouseError:		Devi essere nella tua casa per usare questo comando!
-Scripts.Players.Bountyrent.NoHouseError:		Non possiedi una casa!
+Commands.Players.Bountyrent.InHouseError:		Devi essere nella tua casa per usare questo comando!
+Commands.Players.Bountyrent.NoHouseError:		Non possiedi una casa!
 
 # /Broadcast
-Scripts.Players.Broadcast.Message:				[Broadcast] {0}: {1}
-Scripts.Players.Broadcast.NoHere:				Non puoi inviare messaggi broadcast qui.
-Scripts.Players.Broadcast.NoText:				Devi scrivere il testo da inviare in broadcast...
-Scripts.Players.Region.Message:					[Region] {0}: {1}
-Scripts.Players.LFG.Message:					[LFG] {0}: {1}
-Scripts.Players.Trade.Message:					[Trade] {0}: {1}
+Commands.Players.Broadcast.Message:				[Broadcast] {0}: {1}
+Commands.Players.Broadcast.NoHere:				Non puoi inviare messaggi broadcast qui.
+Commands.Players.Broadcast.NoText:				Devi scrivere il testo da inviare in broadcast...
+Commands.Players.Region.Message:					[Region] {0}: {1}
+Commands.Players.LFG.Message:					[LFG] {0}: {1}
+Commands.Players.Trade.Message:					[Trade] {0}: {1}
 
 # /Cancelstyle
-Scripts.Players.Cancelstyle.Set:				Annulla Stile e' ora impostato su {0}.
+Commands.Players.Cancelstyle.Set:				Annulla Stile e' ora impostato su {0}.
 
 # /Chatgroup
-Scripts.Players.Chatgroup.Help.Help:			/cg help - Mostra tutti i comandi del chat group
-Scripts.Players.Chatgroup.Help.Invite:			/cg invite [playername] - Invita il giocatore specificato al chat group
-Scripts.Players.Chatgroup.Help.JoinPrivate:		/cg join [moderator name] [password] - Partecipa ad un chat group privato che ha una password impostata
-Scripts.Players.Chatgroup.Help.JoinPublic:		/cg join [moderator name] - Partecipa ad un chat group pubblico dal nome del moderatore
-Scripts.Players.Chatgroup.Help.Leader:			/cg leader <name> - Dichiara un altro membro del chat group come leader; Questo giocatore puo' invitare altri giocatori nel chat group e parlare quando il chat group e' impostata in modalita' ascolto.
-Scripts.Players.Chatgroup.Help.Leave:			/cg leave - Abbandona il chat group
-Scripts.Players.Chatgroup.Help.Listen:			/cg listen - Imposta il chat group in modalita' ascolto; solamente only il moderatore e i leader possono parlare
-Scripts.Players.Chatgroup.Help.PasswordClear:	/cg password clear - Rimuove la password corrente (solamente il moderator)
-Scripts.Players.Chatgroup.Help.PasswordDisplay:	/cg password - Visualizza la password corrente per partecipare al chat group (solamente il moderator)
-Scripts.Players.Chatgroup.Help.PasswordNew:		/cg password [new password]	- Cambia la password corrente per partecipare al chat group (solamente il moderator)
-Scripts.Players.Chatgroup.Help.Private:			/cg private - Il chat group e' solo ad invito oppure con accesso tramite password
-Scripts.Players.Chatgroup.Help.Public:			/cg public - Il chat group e' public e chiunque puo' partecipare digitando /cg join
-Scripts.Players.Chatgroup.Help.Remove:			/cg remove [playername] - Espelli il giocatore specificato dal chat group
-Scripts.Players.Chatgroup.Help.Usage:			/cg usage:
-Scripts.Players.Chatgroup.Help.Who:				/cg who - Elenca tutti i membri del chat group
-Scripts.Players.Chatgroup.InChatGroup:			Devi essere in un chat group per usare questo comando.
-Scripts.Players.Chatgroup.InviteYourself:		Non puoi invitare te stesso al chat group.	
-Scripts.Players.Chatgroup.JoinChatGroup:		Vuoi partecipare al chat group di {0}?	
-Scripts.Players.Chatgroup.LeaderCommand:		Devi essere un leader del chat group per usare questo comando.	
-Scripts.Players.Chatgroup.LeaderInvite:			Devi essere il leader per invitare un giocatore a partecipare al chat group.
-Scripts.Players.Chatgroup.ListenMode:			La modalita' ascolto del chat group e' stata cambiata 
-Scripts.Players.Chatgroup.Moderator:			{0} diventa un moderatore.
-Scripts.Players.Chatgroup.NoPlayer:				Non ci sono giocatori con quel nome.
-Scripts.Players.Chatgroup.NotChatGroupLeader:	Questo giocatore non e' un leader del chat group.
-Scripts.Players.Chatgroup.NotChatGroupMember:	Questo giocatore non e' un membro del chat group.
-Scripts.Players.Chatgroup.NotPublic:			Questo chat group non e' publico.
-Scripts.Players.Chatgroup.OnlyModerator:		Solamente il moderatore puo' parlare in questo chat group.	
-Scripts.Players.Chatgroup.OwnChatGroup:			Non puoi entrare a far parte del tuo stesso chat group.
-Scripts.Players.Chatgroup.Password:				Password del Chat group: {0}.
-Scripts.Players.Chatgroup.PasswordChanged:		Hai cambiato la password del chat group in: {0}.	
-Scripts.Players.Chatgroup.PlayerInChatgroup:	{0} e' gia' in un chat group.	
-Scripts.Players.Chatgroup.Private:				Il chat group e' ora privato.
-Scripts.Players.Chatgroup.Public:				Il chat group e' ora publico.
-Scripts.Players.Chatgroup.Usage:				Utilizzo: /c <text>
-Scripts.Players.Chatgroup.UsageInvite:			Utilizzo: /cg invite <playername>"
+Commands.Players.Chatgroup.Help.Help:			/cg help - Mostra tutti i comandi del chat group
+Commands.Players.Chatgroup.Help.Invite:			/cg invite [playername] - Invita il giocatore specificato al chat group
+Commands.Players.Chatgroup.Help.JoinPrivate:		/cg join [moderator name] [password] - Partecipa ad un chat group privato che ha una password impostata
+Commands.Players.Chatgroup.Help.JoinPublic:		/cg join [moderator name] - Partecipa ad un chat group pubblico dal nome del moderatore
+Commands.Players.Chatgroup.Help.Leader:			/cg leader <name> - Dichiara un altro membro del chat group come leader; Questo giocatore puo' invitare altri giocatori nel chat group e parlare quando il chat group e' impostata in modalita' ascolto.
+Commands.Players.Chatgroup.Help.Leave:			/cg leave - Abbandona il chat group
+Commands.Players.Chatgroup.Help.Listen:			/cg listen - Imposta il chat group in modalita' ascolto; solamente only il moderatore e i leader possono parlare
+Commands.Players.Chatgroup.Help.PasswordClear:	/cg password clear - Rimuove la password corrente (solamente il moderator)
+Commands.Players.Chatgroup.Help.PasswordDisplay:	/cg password - Visualizza la password corrente per partecipare al chat group (solamente il moderator)
+Commands.Players.Chatgroup.Help.PasswordNew:		/cg password [new password]	- Cambia la password corrente per partecipare al chat group (solamente il moderator)
+Commands.Players.Chatgroup.Help.Private:			/cg private - Il chat group e' solo ad invito oppure con accesso tramite password
+Commands.Players.Chatgroup.Help.Public:			/cg public - Il chat group e' public e chiunque puo' partecipare digitando /cg join
+Commands.Players.Chatgroup.Help.Remove:			/cg remove [playername] - Espelli il giocatore specificato dal chat group
+Commands.Players.Chatgroup.Help.Usage:			/cg usage:
+Commands.Players.Chatgroup.Help.Who:				/cg who - Elenca tutti i membri del chat group
+Commands.Players.Chatgroup.InChatGroup:			Devi essere in un chat group per usare questo comando.
+Commands.Players.Chatgroup.InviteYourself:		Non puoi invitare te stesso al chat group.	
+Commands.Players.Chatgroup.JoinChatGroup:		Vuoi partecipare al chat group di {0}?	
+Commands.Players.Chatgroup.LeaderCommand:		Devi essere un leader del chat group per usare questo comando.	
+Commands.Players.Chatgroup.LeaderInvite:			Devi essere il leader per invitare un giocatore a partecipare al chat group.
+Commands.Players.Chatgroup.ListenMode:			La modalita' ascolto del chat group e' stata cambiata 
+Commands.Players.Chatgroup.Moderator:			{0} diventa un moderatore.
+Commands.Players.Chatgroup.NoPlayer:				Non ci sono giocatori con quel nome.
+Commands.Players.Chatgroup.NotChatGroupLeader:	Questo giocatore non e' un leader del chat group.
+Commands.Players.Chatgroup.NotChatGroupMember:	Questo giocatore non e' un membro del chat group.
+Commands.Players.Chatgroup.NotPublic:			Questo chat group non e' publico.
+Commands.Players.Chatgroup.OnlyModerator:		Solamente il moderatore puo' parlare in questo chat group.	
+Commands.Players.Chatgroup.OwnChatGroup:			Non puoi entrare a far parte del tuo stesso chat group.
+Commands.Players.Chatgroup.Password:				Password del Chat group: {0}.
+Commands.Players.Chatgroup.PasswordChanged:		Hai cambiato la password del chat group in: {0}.	
+Commands.Players.Chatgroup.PlayerInChatgroup:	{0} e' gia' in un chat group.	
+Commands.Players.Chatgroup.Private:				Il chat group e' ora privato.
+Commands.Players.Chatgroup.Public:				Il chat group e' ora publico.
+Commands.Players.Chatgroup.Usage:				Utilizzo: /c <text>
+Commands.Players.Chatgroup.UsageInvite:			Utilizzo: /cg invite <playername>"
 
 # /Cmdhelp
-Scripts.Players.Cmdhelp.NoCommand:				Il comando {0} non esiste.
-Scripts.Players.Cmdhelp.PlvlCommands:			<----------Comandi disponibili per plvl {0}---------->
-Scripts.Players.Cmdhelp.Usage:				>----------Utilizzo di {0}----------<
+Commands.Players.Cmdhelp.NoCommand:				Il comando {0} non esiste.
+Commands.Players.Cmdhelp.PlvlCommands:			<----------Comandi disponibili per plvl {0}---------->
+Commands.Players.Cmdhelp.Usage:				>----------Utilizzo di {0}----------<
 
 # /Disband
-Scripts.Players.Disband.Disbanded:			{o} e' stato espulso dal gruppo.
-Scripts.Players.Disband.NoPlayer:			Non ci sono giocatori nel gruppo con quel nome.
-Scripts.Players.Disband.NotInGroup:			Non sei in un gruppo.
-Scripts.Players.Disband.NotLeader:			Non sei leader del tuo gruppo.
-Scripts.Players.Disband.NoYourself:			Non puoi uscire dal gruppo in questo modo.
+Commands.Players.Disband.Disbanded:			{o} e' stato espulso dal gruppo.
+Commands.Players.Disband.NoPlayer:			Non ci sono giocatori nel gruppo con quel nome.
+Commands.Players.Disband.NotInGroup:			Non sei in un gruppo.
+Commands.Players.Disband.NotLeader:			Non sei leader del tuo gruppo.
+Commands.Players.Disband.NoYourself:			Non puoi uscire dal gruppo in questo modo.
 
 # /Dismount
-Scripts.Players.Dismount:					Non stai montando alcuna cavalcatura!
+Commands.Players.Dismount:					Non stai montando alcuna cavalcatura!
 
 # /Duel
-Scripts.Players.Duel.ChallengesYou:			{0} ti sfida in duello! /duel accept per iniziare, /duel decline per rifiutare.
-Scripts.Players.Duel.DuelOptions:			Le opzioni di /duel sono challenge/decline/cancel/surrender/accept
-Scripts.Players.Duel.EnemyRealm:			Non puoi sfidare in duello i nemici del tuo reame.
-Scripts.Players.Duel.NeedTarget:			Devi selezionare il bersaglio da sfidare in duello!
-Scripts.Players.Duel.ConsideringDuel:		Non hai attualmente duelli da accettare.
-Scripts.Players.Duel.NotInDuel:				Non sei in duello!
-Scripts.Players.Duel.PlayerVsPlayer:		{0} si arrende a {1}!
-Scripts.Players.Duel.SafeZone:				Questa e' una zona sicura e non puoi duellare qui!
-Scripts.Players.Duel.TargetAccept:			{0} accetta il duello. Inizia la battaglia!
-Scripts.Players.Duel.TargetAlreadyChallenging:		{0} sta gia' sfidando qualcuno in duello.
-Scripts.Players.Duel.TargetAlreadyConsidering:		{0} sta gia' considerando un duello.
-Scripts.Players.Duel.TargetCancel:			{0} annulla il suo invito a duellare.
-Scripts.Players.Duel.TargetDeclines:			{0} rifiuta il tuo invito a duellare.
-Scripts.Players.Duel.TargetHealth:			Il tuo bersaglio deve essere completamente guarito.
-Scripts.Players.Duel.TargetInCombat:			{0} e' in combattimento.
-Scripts.Players.Duel.TargetInDuel:			{0} e' gia' in duello.
-Scripts.Players.Duel.TargetInGroup:			{0} e' in un gruppo.
-Scripts.Players.Duel.TargetSurrender:			{0} si arrende a te!
-Scripts.Players.Duel.YouAccept:				Hai accettato il duello! Inizia la battaglia!
-Scripts.Players.Duel.YouAlreadyChallenging:		Hai gia' sfidato {0} in duello. Annulla la richiesta prima di sfidare qualcun altro.
-Scripts.Players.Duel.YouAlreadyConsidering:		Stai gia' considerando un duello con {0}. Rifiuta la richiesta prima di sfidare qualcuno.
-Scripts.Players.Duel.YouCancel:				Annulli il tuo invito a duellare.
-Scripts.Players.Duel.YouChallenge:			Sfidi {0} in duello!
-Scripts.Players.Duel.YouDecline:			Rifiuti l'invito di {0} a duellare.
-Scripts.Players.Duel.YouHaventChallenged:	Non hai sfidato nessuno in duello.
-Scripts.Players.Duel.YouHealth:				Devi essere completamente guarito.
-Scripts.Players.Duel.YouInCombat:			Sei in combattimento.
-Scripts.Players.Duel.YouInDuel:				Sei gia' in duello.
-Scripts.Players.Duel.YouInGroup:			Sei in un gruppo.
-Scripts.Players.Duel.YouSurrender:			Ti arrendi a {0}!
+Commands.Players.Duel.ChallengesYou:			{0} ti sfida in duello! /duel accept per iniziare, /duel decline per rifiutare.
+Commands.Players.Duel.DuelOptions:			Le opzioni di /duel sono challenge/decline/cancel/surrender/accept
+Commands.Players.Duel.EnemyRealm:			Non puoi sfidare in duello i nemici del tuo reame.
+Commands.Players.Duel.NeedTarget:			Devi selezionare il bersaglio da sfidare in duello!
+Commands.Players.Duel.ConsideringDuel:		Non hai attualmente duelli da accettare.
+Commands.Players.Duel.NotInDuel:				Non sei in duello!
+Commands.Players.Duel.PlayerVsPlayer:		{0} si arrende a {1}!
+Commands.Players.Duel.SafeZone:				Questa e' una zona sicura e non puoi duellare qui!
+Commands.Players.Duel.TargetAccept:			{0} accetta il duello. Inizia la battaglia!
+Commands.Players.Duel.TargetAlreadyChallenging:		{0} sta gia' sfidando qualcuno in duello.
+Commands.Players.Duel.TargetAlreadyConsidering:		{0} sta gia' considerando un duello.
+Commands.Players.Duel.TargetCancel:			{0} annulla il suo invito a duellare.
+Commands.Players.Duel.TargetDeclines:			{0} rifiuta il tuo invito a duellare.
+Commands.Players.Duel.TargetHealth:			Il tuo bersaglio deve essere completamente guarito.
+Commands.Players.Duel.TargetInCombat:			{0} e' in combattimento.
+Commands.Players.Duel.TargetInDuel:			{0} e' gia' in duello.
+Commands.Players.Duel.TargetInGroup:			{0} e' in un gruppo.
+Commands.Players.Duel.TargetSurrender:			{0} si arrende a te!
+Commands.Players.Duel.YouAccept:				Hai accettato il duello! Inizia la battaglia!
+Commands.Players.Duel.YouAlreadyChallenging:		Hai gia' sfidato {0} in duello. Annulla la richiesta prima di sfidare qualcun altro.
+Commands.Players.Duel.YouAlreadyConsidering:		Stai gia' considerando un duello con {0}. Rifiuta la richiesta prima di sfidare qualcuno.
+Commands.Players.Duel.YouCancel:				Annulli il tuo invito a duellare.
+Commands.Players.Duel.YouChallenge:			Sfidi {0} in duello!
+Commands.Players.Duel.YouDecline:			Rifiuti l'invito di {0} a duellare.
+Commands.Players.Duel.YouHaventChallenged:	Non hai sfidato nessuno in duello.
+Commands.Players.Duel.YouHealth:				Devi essere completamente guarito.
+Commands.Players.Duel.YouInCombat:			Sei in combattimento.
+Commands.Players.Duel.YouInDuel:				Sei gia' in duello.
+Commands.Players.Duel.YouInGroup:			Sei in un gruppo.
+Commands.Players.Duel.YouSurrender:			Ti arrendi a {0}!
 
 # /GC
-Scripts.Players.Guild.AllianceInfo:			Informazioni di alleanza per {0}:
-Scripts.Players.Guild.AllianceLeader:			Leader dell'alleanza {0}
-Scripts.Players.Guild.AllianceMembers:			Membri dell'alleanza:
-Scripts.Players.Guild.AllianceMember:			{0} - {1}
-Scripts.Players.Guild.AllianceNoLeader:			Nessun leader dell'alleanza
+Commands.Players.Guild.AllianceInfo:			Informazioni di alleanza per {0}:
+Commands.Players.Guild.AllianceLeader:			Leader dell'alleanza {0}
+Commands.Players.Guild.AllianceMembers:			Membri dell'alleanza:
+Commands.Players.Guild.AllianceMember:			{0} - {1}
+Commands.Players.Guild.AllianceNoLeader:			Nessun leader dell'alleanza
 
 # /Language
-Scripts.Players.Language.Set:				Cambi la lingua dei messaggi del server in {0}.
-Scripts.Players.Language.Current:			La tua lingua e' attualmente impostata in: {0}.
+Commands.Players.Language.Set:				Cambi la lingua dei messaggi del server in {0}.
+Commands.Players.Language.Current:			La tua lingua e' attualmente impostata in: {0}.
 
 # /Range
-Scripts.Players.Range.NeedTarget:			Distanza dal bersaglio: Non hai selezionato un bersaglio.
-Scripts.Players.Range.Result:				Distanza dal bersaglio: {0} unita'. {1}
-Scripts.Players.Range.InvalidObject:				Questo comando funziona solo sugli oggetti.
-Scripts.Players.Range.NotVisible:			 (Bersaglio non visibile)
+Commands.Players.Range.NeedTarget:			Distanza dal bersaglio: Non hai selezionato un bersaglio.
+Commands.Players.Range.Result:				Distanza dal bersaglio: {0} unita'. {1}
+Commands.Players.Range.InvalidObject:				Questo comando funziona solo sugli oggetti.
+Commands.Players.Range.NotVisible:			 (Bersaglio non visibile)
 
 # /Realm
-Scripts.Players.Realm.AlbKeeps:            Avamposti di Albion
-Scripts.Players.Realm.DarknessFalls:      La Calata delle Tenebre
-Scripts.Players.Realm.HibKeeps:            Avamposti di Hibernia
-Scripts.Players.Realm.MidKeeps:            Avamposti di Midgard
-Scripts.Players.Realm.Title:            Stato del Reame
-Scripts.Players.Realm.UseRelicCommand:      Usa '/relic' per avere informazioni sulla Reliquie
+Commands.Players.Realm.AlbKeeps:            Avamposti di Albion
+Commands.Players.Realm.DarknessFalls:      La Calata delle Tenebre
+Commands.Players.Realm.HibKeeps:            Avamposti di Hibernia
+Commands.Players.Realm.MidKeeps:            Avamposti di Midgard
+Commands.Players.Realm.Title:            Stato del Reame
+Commands.Players.Realm.UseRelicCommand:      Usa '/relic' per avere informazioni sulla Reliquie
 
 # /Relic
-Scripts.Players.Relic.AlbRelics:         Reliquie di Albion
-Scripts.Players.Relic.HibRelics:         Reliquie di Hibernia
-Scripts.Players.Relic.MidRelics:         Reliquie di Midgard
-Scripts.Players.Relic.Power:            Potere
-Scripts.Players.Relic.Strength:            Forza
-Scripts.Players.Relic.Title:            Stato della Reliquia
-Scripts.Players.Relic.UseRealmCommand:      Usa '/realm' per Avere Informazioni sul Reame
+Commands.Players.Relic.AlbRelics:         Reliquie di Albion
+Commands.Players.Relic.HibRelics:         Reliquie di Hibernia
+Commands.Players.Relic.MidRelics:         Reliquie di Midgard
+Commands.Players.Relic.Power:            Potere
+Commands.Players.Relic.Strength:            Forza
+Commands.Players.Relic.Title:            Stato della Reliquia
+Commands.Players.Relic.UseRealmCommand:      Usa '/realm' per Avere Informazioni sul Reame
 
 # QUESTS
 # /ImportantDelivery

@@ -1,49 +1,49 @@
 ﻿
 # /serverproperties Command
-AdminCommands.ServerProperties.Description:			Ricarica le proprietà del server dal database
-AdminCommands.ServerProperties.Usage:				/serverproperties
-AdminCommands.ServerProperties.DataBaseXML:			XML è cache, non poi aggiornare le proprietà del server a meno che non usi il database MySQL!
-AdminCommands.ServerProperties.PropertiesRefreshed:	Le proprietà del server aggiornati!
+Commands.Admin.ServerPropertiesDescription:			Ricarica le proprietà del server dal database
+Commands.Admin.ServerPropertiesUsage:				/serverproperties
+Commands.Admin.ServerPropertiesDataBaseXML:			XML è cache, non poi aggiornare le proprietà del server a meno che non usi il database MySQL!
+Commands.Admin.ServerPropertiesPropertiesRefreshed:	Le proprietà del server aggiornati!
 
 
 # /plvl Command
-AdminCommands.plvl.Description:						Cambia livello di privilegio e aggiungi permessi singoli al giocatore.
-AdminCommands.plvl.Usage:							/plvl <nuovoPLVL>
-AdminCommands.plvl.Usage.Single:					/plvl single <comando>
-AdminCommands.plvl.Usage.Remove:					/plvl remove <comando>
-AdminCommands.plvl.NoSelectPlayer:					Devi selezionare un giocatore per modificare i suoi permessi.
-AdminCommands.plvl.AddedSinglePermission:			Hai aggiunto il singolo permesso a {0} per il comando {1}.
-AdminCommands.plvl.RemoveSinglePermission:			Hai rimosso il singolo permesso di {0} per il comando {1}.
-AdminCommands.plvl.NoPermissionForCommand:			Non vi è alcuna autorizzazione di {0} per il comando {1}.
-AdminCommands.plvl.YourPlvlHasBeenSetted:			Il tuo livello di privilegio è stato fissato a {0}.
-AdminCommands.plvl.PlayerPlvlHasBeenSetted:			{0} livello di privilegio è stato fissato a {1}
+Commands.Admin.plvl.Description:						Cambia livello di privilegio e aggiungi permessi singoli al giocatore.
+Commands.Admin.plvl.Usage:							/plvl <nuovoPLVL>
+Commands.Admin.plvl.Usage.Single:					/plvl single <comando>
+Commands.Admin.plvl.Usage.Remove:					/plvl remove <comando>
+Commands.Admin.plvl.NoSelectPlayer:					Devi selezionare un giocatore per modificare i suoi permessi.
+Commands.Admin.plvl.AddedSinglePermission:			Hai aggiunto il singolo permesso a {0} per il comando {1}.
+Commands.Admin.plvl.RemoveSinglePermission:			Hai rimosso il singolo permesso di {0} per il comando {1}.
+Commands.Admin.plvl.NoPermissionForCommand:			Non vi è alcuna autorizzazione di {0} per il comando {1}.
+Commands.Admin.plvl.YourPlvlHasBeenSetted:			Il tuo livello di privilegio è stato fissato a {0}.
+Commands.Admin.plvl.PlayerPlvlHasBeenSetted:			{0} livello di privilegio è stato fissato a {1}
 
 # /code Command
-AdminCommands.Code.Description:						Esegue codice personalizzato!
-AdminCommands.Code.Usage:							/code <FrammentoDiCodice>
-AdminCommands.Code.ErrorCompiling:					Errore durante la compilazione dell'espressione:
-AdminCommands.Code.CodeExecuted:					Codice eseguito...
+Commands.Admin.Code.Description:						Esegue codice personalizzato!
+Commands.Admin.Code.Usage:							/code <FrammentoDiCodice>
+Commands.Admin.Code.ErrorCompiling:					Errore durante la compilazione dell'espressione:
+Commands.Admin.Code.CodeExecuted:					Codice eseguito...
 
 
 # /account Command
-AdminCommands.Account.Description:					Comando per la modifica del Acconto
-AdminCommands.Account.Usage.Create:					/account create <NomeAcconto> <Password>
-AdminCommands.Account.Usage.ChangePassword:			/account changepassword <NomeAcconto> <NuovaPassword>
-AdminCommands.Account.Usage.Delete:					/account delete <NomeAcconto>
-AdminCommands.Account.Usage.DeleteChar:				/account deletecharacter <NomePersonaggio>
-AdminCommands.Account.Usage.MoveChar:				/account movecharacter <NomePersonaggio> <NuovoNomeAcconto>
-AdminCommands.Account.Usage.Status:					/account status <NomeAcconto> <Livello>
-AdminCommands.Account.Usage.UnBan:					/account unban <NomeAcconto>
-AdminCommands.Account.Usage.AccountName:			/account accountname <NomePersonaggio>
-AdminCommands.Account.AccountNotFound:				Acconto {0} non trovato!
-AdminCommands.Account.AccountDeleted:				Acconto {0} cancellato!
-AdminCommands.Account.CharacterNotFound:			Personaggio {0} non trovato!
-AdminCommands.Account.CharacterDeleted:				Personaggio {0} cancellato!
-AdminCommands.Account.CharNotFromValidRealm:		Il personaggio non ha un valido reame!
-AdminCommands.Account.AccountHasNoFreeSlots:		Acconto {0} non ha un slot libero per un'altro personaggio di questo reame!
-AdminCommands.Account.CharacterMovedToAccount:		Personaggio {0} è stato spostato su acconto {1}!
-AdminCommands.Account.InvalidAccountName:			Nome acconto non valido.
-AdminCommands.Account.InvalidAccountNameOrPassword:	Nome e Password del accounto devono essere di almeno 4 caratteri.
-AdminCommands.Account.AccountNameAlreadyRegistered:	Questo nome acconto è già registrato.
-AdminCommands.Account.AccountCreated:				Acconto creato!
-AdminCommands.Account.AccNameForChar:				Nome acconto del personaggio {0} è: {1}
+Commands.Admin.Account.Description:					Comando per la modifica del Acconto
+Commands.Admin.Account.Usage.Create:					/account create <NomeAcconto> <Password>
+Commands.Admin.Account.Usage.ChangePassword:			/account changepassword <NomeAcconto> <NuovaPassword>
+Commands.Admin.Account.Usage.Delete:					/account delete <NomeAcconto>
+Commands.Admin.Account.Usage.DeleteChar:				/account deletecharacter <NomePersonaggio>
+Commands.Admin.Account.Usage.MoveChar:				/account movecharacter <NomePersonaggio> <NuovoNomeAcconto>
+Commands.Admin.Account.Usage.Status:					/account status <NomeAcconto> <Livello>
+Commands.Admin.Account.Usage.UnBan:					/account unban <NomeAcconto>
+Commands.Admin.Account.Usage.AccountName:			/account accountname <NomePersonaggio>
+Commands.Admin.Account.AccountNotFound:				Acconto {0} non trovato!
+Commands.Admin.Account.AccountDeleted:				Acconto {0} cancellato!
+Commands.Admin.Account.CharacterNotFound:			Personaggio {0} non trovato!
+Commands.Admin.Account.CharacterDeleted:				Personaggio {0} cancellato!
+Commands.Admin.Account.CharNotFromValidRealm:		Il personaggio non ha un valido reame!
+Commands.Admin.Account.AccountHasNoFreeSlots:		Acconto {0} non ha un slot libero per un'altro personaggio di questo reame!
+Commands.Admin.Account.CharacterMovedToAccount:		Personaggio {0} è stato spostato su acconto {1}!
+Commands.Admin.Account.InvalidAccountName:			Nome acconto non valido.
+Commands.Admin.Account.InvalidAccountNameOrPassword:	Nome e Password del accounto devono essere di almeno 4 caratteri.
+Commands.Admin.Account.AccountNameAlreadyRegistered:	Questo nome acconto è già registrato.
+Commands.Admin.Account.AccountCreated:				Acconto creato!
+Commands.Admin.Account.AccNameForChar:				Nome acconto del personaggio {0} è: {1}
