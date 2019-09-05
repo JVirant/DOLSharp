@@ -81,7 +81,7 @@ DetailDisplayHandler.WriteClassicArmorInfos.Factor:	    - {0} Armure
 DetailDisplayHandler.WriteClassicArmorInfos.Quality:	- {0}% Qualité
 DetailDisplayHandler.WriteClassicShieldInfos.BaseDPS:	- {0} DPS de base
 DetailDisplayHandler.WriteClassicShieldInfos.ClampDPS:	- {0} DPS Réel
-DetailDisplayHandler.WriteClassicShieldInfos.DamageMod: Modificateur de dégats (quand utilisé avec les styles Bouclier) :
+DetailDisplayHandler.WriteClassicShieldInfos.DamageMod: Modificateur de dégats (quand utilisé avec les styles Bouclier) :
 DetailDisplayHandler.WriteClassicShieldInfos.Large:     - Taille du Bouclier : Grand
 DetailDisplayHandler.WriteClassicShieldInfos.Medium:	- Taille du Bouclier : Moyen
 DetailDisplayHandler.WriteClassicShieldInfos.Small:     - Taille du Bouclier : Petit
