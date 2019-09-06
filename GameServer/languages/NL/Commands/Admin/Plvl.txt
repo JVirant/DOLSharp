@@ -1,0 +1,15 @@
+# /plvl Command
+Commands.Admin.plvl.Description:					verander recht niveau en voeg een Interne toestemming aan de speler
+Commands.Admin.plvl.Usage:					/plvl <nieuw niveau rang> [Spelernaam]
+Commands.Admin.plvl.Usage.Single:				/plvl single <commando> [spelernaam]
+Commands.Admin.plvl.Usage.SingleAccount:				/plvl singleaccount <commando> [Accountnaam]
+Commands.Admin.plvl.Usage.Remove:				/plvl remove <commando> [PlayerNaam]
+Commands.Admin.plvl.Usage.RemoveAccount:				/plvl removeaccount <commando> [AccountNaam]
+Commands.Admin.plvl.NoSelectPlayer:				U moet een speler selecteren om zijn toestemming te veranderen.
+Commands.Admin.plvl.AddedSinglePermission:			U voegt de interne toestemming om {0} voor {1} commando.
+Commands.Admin.plvl.AddedSingleAccountPermission:		U voegt de interne toestemming om account {0} voor {1} commando.
+Commands.Admin.plvl.RemoveSinglePermission:			U Verwijdert de interne toestemming van {0} voor {1} commando.
+Commands.Admin.plvl.RemoveSingleAccountPermission:		You removed the single permission of account {0} for {1} commando.
+Commands.Admin.plvl.NoPermissionForCommand:			er is geen toestemming van {0} voor {1} commando.
+Commands.Admin.plvl.YourPlvlHasBeenSetted:			Uw voorrecht is ingesteld op {0}.
+Commands.Admin.plvl.PlayerPlvlHasBeenSetted:			{0} voorrecht is ingesteld op {1}.

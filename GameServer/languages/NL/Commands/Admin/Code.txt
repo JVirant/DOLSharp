@@ -1,0 +1,5 @@
+# /code Command
+Commands.Admin.Code.Description:					Voert aangepaste code!
+Commands.Admin.Code.Usage:					/code <codesnippet>
+Commands.Admin.Code.ErrorCompiling:				Fout Compileren Expression:
+Commands.Admin.Code.CodeExecuted:				Code uitgevoerd...
