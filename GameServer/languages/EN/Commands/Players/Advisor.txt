@@ -1,3 +1,6 @@
 # /Advisor
+Commands.Players.Advisor.Description: Toggles Advisor status
+Commands.Players.Advisor.Usage: '/advisor'
+Commands.Players.Advisor.Muted: You have been muted and are not allowed to speak in this channel.
 Commands.Players.Advisor.Off:				You will no longer receive messages from the advice channel.
 Commands.Players.Advisor.On:				You will now receive messages from the advice channel.

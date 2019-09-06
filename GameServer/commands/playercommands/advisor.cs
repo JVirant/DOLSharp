@@ -25,20 +25,20 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&advisor",
 		ePrivLevel.Player,
-		"Toggles Advisor status",
-		"/advisor")]
+		"Commands.Players.Advisor.Description",
+		"Commands.Players.Advisor.Usage")]
 	public class AdvisorCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
 		{
 			if (client.Player.IsMuted)
 			{
-				client.Player.Out.SendMessage("You have been muted and are not allowed to speak in this channel.", eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
+				client.Player.Out.SendMessage(LanguageMgr.GetTranslation(Client.AcCommands.Players.Advisor.Mutedcount.Language, "Commands.Players.Advisor.Muted") eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
 				return;
 			}
 
-			client.Player.Advisor = !client.Player.Advisor;
-			if (client.Player.Advisor)
+			client.Player.Advisor = !client.Player.Advisor;Commands.Players.Advisor.Muted
+			if (client.Player.Advisor)Commands.Players.Advisor.Muted
 				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Advisor.On"));
 			else
 				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Advisor.Off"));
