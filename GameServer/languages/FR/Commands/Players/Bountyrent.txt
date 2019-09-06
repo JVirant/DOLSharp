@@ -1,0 +1,3 @@
+# /Bountyrent
+Commands.Players.Bountyrent.InHouseError:	Vous devez être dans votre maison pour utiliser cette commande !
+Commands.Players.Bountyrent.NoHouseError:	Vous ne possédez pas de maison !

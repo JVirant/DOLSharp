@@ -1,0 +1,7 @@
+# /Broadcast
+Commands.Players.Broadcast.Message:			[Broadcast] {0}: {1}
+Commands.Players.Broadcast.NoHere:			Vous ne pouvez pas diffuser dans le canal régional ici.
+Commands.Players.Broadcast.NoText:			Vous devez dire quelque-chose...
+Commands.Players.Region.Message:			[Region] {0}: {1}
+Commands.Players.LFG.Message:				[LFG] {0}: {1}
+Commands.Players.Trade.Message:				[Trade] {0}: {1}

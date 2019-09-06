@@ -1,0 +1,4 @@
+# /Cmdhelp
+Commands.Players.Cmdhelp.NoCommand:			La commande {0} n'existe pas.
+Commands.Players.Cmdhelp.PlvlCommands:		<----------Commandes disponibles pour le niveau de privilège {0}---------->
+Commands.Players.Cmdhelp.Usage:				>----------Usage pour {0}----------<

@@ -1,0 +1,7 @@
+# /Realm
+Commands.Players.Realm.AlbKeeps:            	Forts Albionnais
+Commands.Players.Realm.DarknessFalls:      	Les Abysses
+Commands.Players.Realm.HibKeeps:            	Forts Hiberniens
+Commands.Players.Realm.MidKeeps:            	Forts Midgardiens
+Commands.Players.Realm.Title:            	Statut de royaume
+Commands.Players.Realm.UseRelicCommand:      Utilisez '/relic' pour afficher le statut des Reliques

@@ -1,0 +1,8 @@
+# /Relic
+Commands.Players.Relic.AlbRelics:         	Reliques Albionnaises
+Commands.Players.Relic.HibRelics:         	Reliques Hiberniennes
+Commands.Players.Relic.MidRelics:         	Reliques Midgardiennes
+Commands.Players.Relic.Power:            	Mana
+Commands.Players.Relic.Strength:             Force
+Commands.Players.Relic.Title:            	Statut des Reliques
+Commands.Players.Relic.UseRealmCommand:      Utilisez '/realm' pour afficher les informations de Royaume

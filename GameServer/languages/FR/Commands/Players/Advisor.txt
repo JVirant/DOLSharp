@@ -1,0 +1,3 @@
+# /Advisor
+Commands.Players.Advisor.Off:				Vous ne recevrez désormais plus de message du canal conseil.
+Commands.Players.Advisor.On:					Vous recevrez désormais des messages du canal conseil.

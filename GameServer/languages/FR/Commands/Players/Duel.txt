@@ -1,0 +1,31 @@
+# /Duel
+Commands.Players.Duel.ChallengesYou:			    {0} vous défie en duel! '/duel accept' pour accepter, '/duel decline' pour refuser.
+Commands.Players.Duel.DuelOptions:			    '/duel <challenge|decline|cancel|surrender|accept> # Option du duel
+Commands.Players.Duel.EnemyRealm:			    Vous ne pouvez pas défier un membre d'un royaume ennemi.
+Commands.Players.Duel.NeedTarget:			    Vous devez cibler quelqu'un pour le défier !
+Commands.Players.Duel.ConsideringDuel:		    Vous n'êtes pas défié·e en duel.
+Commands.Players.Duel.NotInDuel:				    Vous n'êtes pas en duel !
+Commands.Players.Duel.PlayerVsPlayer:		    {0} se rend à {1} !
+Commands.Players.Duel.SafeZone:				    Vous êtes dans une zone sécurisée et ne pouvez vous battre en duel ici !
+Commands.Players.Duel.TargetAccept:			    {0} accepte le duel. Le combat peut commencer !
+Commands.Players.Duel.TargetAlreadyChallenging:  {0} a déjà défié quelqu'un en duel.
+Commands.Players.Duel.TargetAlreadyConsidering:  {0} est déjà défié·e par quelqu'un d'autre.
+Commands.Players.Duel.TargetCancel:			    {0} son invitation au duel.
+Commands.Players.Duel.TargetDeclines:		    {0} décline votre invitation.
+Commands.Players.Duel.TargetHealth:			    Votre cible doit avoir sa vie au maximum.
+Commands.Players.Duel.TargetInCombat:		    {0} est en combat.
+Commands.Players.Duel.TargetInDuel:			    {0} est déjà en duel.
+Commands.Players.Duel.TargetInGroup:			    {0} est dans un groupe.
+Commands.Players.Duel.TargetSurrender:		    {0} se rend à vous !
+Commands.Players.Duel.YouAccept:				    Vous acceptez le duel ! Le combat peut commencer !
+Commands.Players.Duel.YouAlreadyChallenging:	    Vous avez déjà défié {0} en duel. Annulez cette invitation ('/duel cancel') pour défier quelqu'un d'autre.
+Commands.Players.Duel.YouAlreadyConsidering:	    Vous êtes déjà défié·e en duel par {0}. Refusez son invitation avant de défier quelqu'un d'autre.
+Commands.Players.Duel.YouCancel:				    Vous annulez votre invitation au duel.
+Commands.Players.Duel.YouChallenge:			    Vous défiez {0} en duel !
+Commands.Players.Duel.YouDecline:			    Vous refusez l'invitation en duel de {0}.
+Commands.Players.Duel.YouHaventChallenged:	    Vous n'avez défié personne en duel.
+Commands.Players.Duel.YouHealth:				    Vous devez avoir votre maximum de points de vie.
+Commands.Players.Duel.YouInCombat:			    Vous êtes en combat.
+Commands.Players.Duel.YouInDuel:				    Vous êtes déjà en duel.
+Commands.Players.Duel.YouInGroup:			    Vous êtes dans un groupe.
+Commands.Players.Duel.YouSurrender:			    Vous vous rendez à {0} !

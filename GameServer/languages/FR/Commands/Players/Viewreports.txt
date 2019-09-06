@@ -1,0 +1,8 @@
+# VIEWREPORTS
+Scripts.Player.ViewReport.Usage: 			Usage:
+Scripts.Player.ViewReport.Help.Close: 		'/viewreport close <report #>' Ferme le report de bug d'id #.
+Scripts.Player.ViewReport.Help.Delete: 		'/viewreport delete <report #' Efface les reports d'id #.
+Scripts.Player.ViewReport.InvalidReport: 	Ce n'est pas un report de bug valide.
+Scripts.Player.ViewReport.UnknownCommand: 	Ce n'est pas une commande valide.
+Scripts.Player.ViewReport.ReportDeleted: 	Report {0} est maintenant effacé.
+Scripts.Player.ViewReport.NoPriv: 			Vous n'avez pas les privilèges pour éditer les reports.

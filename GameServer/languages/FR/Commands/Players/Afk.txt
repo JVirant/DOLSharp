@@ -1,0 +1,3 @@
+# /Afk
+Commands.Players.Afk.Off:					Vous n'êtes plus considéré·e comme étant AFK.
+Commands.Players.Afk.On:						Vous êtes maintenant considéré·e comme étant AFK.
