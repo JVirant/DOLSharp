@@ -1,0 +1,7 @@
+# ]jump Command
+Commands.GM.DebugJump.Description:			Teleporte au coordonnées specifiées.
+Commands.GM.DebugJump.Usage:					']jump <zoneID> <locX> <locY> <locZ> <heading>' Autoused for *jump in debug mode
+Commands.GM.DebugJump.InvalidZoneID:			Zone Id: {0} non valide.
+Commands.GM.DebugJump.UnknownZoneID:			Zone Id: {0} Inconnue.
+Commands.GM.DebugJump.UnknownRegion:			Region({0}) Inconnue.
+Commands.GM.DebugJump.RegionNotSuppByClient:	La region ({0}) n'est pas supportée par votre client.

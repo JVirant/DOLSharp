@@ -1,0 +1,4 @@
+# /harm Command
+Commands.GM.Harm.Description:				Blesse votre cible
+Commands.GM.Harm.Usage:						/harm <amount>
+Commands.GM.Harm.InvalidTarget:				Vous n'avez pas de cible valide.

@@ -1,0 +1,15 @@
+# /plvl Command
+Commands.Admin.plvl.Description:						Change le niveau de privilèges ou l'attribution de commande d'un joueur ou d'un compte de jeu.
+Commands.Admin.plvl.Usage:							/plvl <NouveauRang> [NomDuJoueur]
+Commands.Admin.plvl.Usage.Single:					/plvl single <commande> [NomDuJoueur]
+Commands.Admin.plvl.Usage.SingleAccount:				/plvl singleaccount <commande> [NomDuCompte]
+Commands.Admin.plvl.Usage.Remove:					/plvl remove <commande> [NomDuJoueur]
+Commands.Admin.plvl.Usage.RemoveAccount:				/plvl removeaccount <commande> [NomDuCompte]
+Commands.Admin.plvl.NoSelectPlayer:					Vous devez sélectionner un joueur.
+Commands.Admin.plvl.AddedSinglePermission:			Vous autorisez le joueur {0} à utiliser la commande: {1}.
+Commands.Admin.plvl.AddedSingleAccountPermission:	Vous autorisez le compte de jeu {0} à utiliser la commande: {1}.
+Commands.Admin.plvl.RemoveSinglePermission:			Vous retirez au joueur {0} le droit d'utiliser la commande: {1}.
+Commands.Admin.plvl.RemoveSingleAccountPermission:	Vous retirez au compte de jeu {0} le droit d'utiliser la commande: {1}.
+Commands.Admin.plvl.NoPermissionForCommand:			Il n'existe aucune autorisation pour {0} d'utiliser la commande {1}.
+Commands.Admin.plvl.YourPlvlHasBeenSetted:			Vos privilèges sont maintenant de niveau {0}
+Commands.Admin.plvl.PlayerPlvlHasBeenSetted:			Le niveau de privilèges du joueur {0} est maintenant: {1}
