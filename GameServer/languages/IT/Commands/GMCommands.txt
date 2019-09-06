@@ -36,6 +36,7 @@ Commands.GM.Ban.Description:					Vari comandi per la gestione dei ban
 Commands.GM.Ban.Usage.IP:					'/ban ip <motivo>' Banna IP del bersaglio
 Commands.GM.Ban.Usage.Account:				'/ban account <motivo>' Banna Acconto del bersaglio
 Commands.GM.Ban.Usage.Both:					'/ban both <motivo>' Banna l'Acconto e IP del bersaglio
+Commands.GM.Ban.Usage.ClientID:             #<ClientID> can be used in place of player name.  Use '/clientlist' to see playing clients.
 Commands.GM.Ban.MustTarget:					È necessario selezionare un bersaglio!
 Commands.GM.Ban.AAlreadyBanned:				Questo acconto è già bannato.
 Commands.GM.Ban.ABanned:						Acconto {0} è stato bannato.

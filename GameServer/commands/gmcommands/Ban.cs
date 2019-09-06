@@ -35,7 +35,7 @@ namespace DOL.GS.Commands
 		"Commands.GM.Ban.Usage.IP",
 		"Commands.GM.Ban.Usage.Account",
 		"Commands.GM.Ban.Usage.Both",
-		"#<ClientID> can be used in place of player name.  Use /clientlist to see playing clients."
+		"Commands.GM.Ban.Usage.ClientID"
 	)]
 	public class BanCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
