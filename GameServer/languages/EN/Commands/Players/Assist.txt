@@ -1,4 +1,6 @@
 # /Assist
+Commands.Players.Assist.Description: Assist your target
+Commands.Players.Assist.Usage: '/assist <playerName>'
 #Commands.Players.Assist.CantAssistYourself:		You can't assist yourself.
 #Commands.Players.Assist.DoesntHaveTarget:	 	doesn't currently have a target.
 #Commands.Players.Assist.DontSee:				You don't see {0} around here!
