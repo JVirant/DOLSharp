@@ -23,7 +23,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&formation",
 		ePrivLevel.Player,
-		"Change the formation of your pets!", "/formation <type>")]
+		"Commands.Players.Formation.Description",
+		"Commands.Players.Formation.Usage")]
 	public class FormationHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -36,24 +37,65 @@ namespace DOL.GS.Commands
 			//No one else needs to use this spell
 			if (player.CharacterClass.ID != (int)eCharacterClass.Bonedancer)
 			{
-				client.Out.SendMessage("Only Bonedancers can use this command!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Formation.OnlyBonedancer"
+					),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow
+				);
 				return;
 			}
 
 			//Help display
 			if (args.Length == 1)
 			{
-				client.Out.SendMessage("Formation commands:", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-				client.Out.SendMessage("'/formation triangle' Place the pets in a triangle formation.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-				client.Out.SendMessage("'/formation line' Place the pets in a line formation.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-				client.Out.SendMessage("'/formation protect' Place the pets in a protect formation that surrounds the commander.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Formation.Usage.Formation"
+					),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow
+				);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Formation.Usage.Triangle"
+					),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow
+				);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Formation.Usage.Line"
+					),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow
+				);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Formation.Usage.Protect"
+					),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow
+				);
 				return;
 			}
 
 			//Check to see if the BD has a commander and minions
 			if (player.ControlledBrain == null)
 			{
-				client.Out.SendMessage("You don't have a commander!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						"Commands.Players.Formation.Commander.Missing"
+					),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow
+				);
 				return;
 			}
 			bool haveminion = false;
@@ -67,7 +109,13 @@ namespace DOL.GS.Commands
 			}
 			if (!haveminion)
 			{
-				client.Out.SendMessage("You don't have any minions!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						"Commands.Players.Formation.Minion.Missing"
+					),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow
+				);
 				return;
 			}
 
@@ -86,7 +134,15 @@ namespace DOL.GS.Commands
 					player.ControlledBrain.Body.Formation = GameNPC.eFormationType.Protect;
 					break;
 				default:
-					client.Out.SendMessage("Unrecognized argument: " + args[1], eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Formation.Argument.Error",
+							args[1]
+						),
+						eChatType.CT_System,
+						eChatLoc.CL_SystemWindow
+					);
 					break;
 			}
 		}
