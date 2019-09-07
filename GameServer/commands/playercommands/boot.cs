@@ -19,7 +19,7 @@ namespace DOL.GS.Commands
 			if (house == null)
 			{
                 DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Boot.InHouseError"));
-				return;Commands.Players.BooCommands.Players.Boot.t.
+				return;
 			}
 
 			// no permission to banish, return

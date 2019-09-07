@@ -33,12 +33,12 @@ namespace DOL.GS.Commands
 		{
 			if (client.Player.IsMuted)
 			{
-				client.Player.Out.SendMessage(LanguageMgr.GetTranslation(Client.AcCommands.Players.Advisor.Mutedcount.Language, "Commands.Players.Advisor.Muted") eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
+				client.Player.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Advisor.Muted"), eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
 				return;
 			}
 
-			client.Player.Advisor = !client.Player.Advisor;Commands.Players.Advisor.Muted
-			if (client.Player.Advisor)Commands.Players.Advisor.Muted
+			client.Player.Advisor = !client.Player.Advisor;
+			if (client.Player.Advisor)
 				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Advisor.On"));
 			else
 				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Advisor.Off"));
