@@ -17,6 +17,7 @@
  *
  */
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
@@ -24,21 +25,33 @@ namespace DOL.GS.Commands
 		"&group",
 		new string[] {"&g"},
 		ePrivLevel.Player,
-		"Say something to other chat group players",
-		"/g <message>")]
+		"Commands.Players.Group.Description",
+		"Commands.Players.Group.Usage")]
 	public class GCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
 		{
 			if (client.Player.Group == null)
 			{
-				DisplayMessage(client, "You are not part of a group");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Group.NotInGroup"
+					)
+				);
 				return;
 			}
 
 			if (IsSpammingCommand(client.Player, "group", 500))
 			{
-				DisplayMessage(client, "Slow down! Think before you say each word!");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Group.SlowDown"
+					)
+				);
 				return;
 			}
 
