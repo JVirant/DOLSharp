@@ -23,11 +23,11 @@ namespace DOL.GS.Commands
 {
 	[CmdAttribute("&autosplit",
 		 ePrivLevel.Player,
-		 "Choose how the loot and money are split between members of group",
-		 "/autosplit on/off (Leader only: Toggles both coins and loot for entire group)",
-		 "/autosplit coins (Leader only: When turned off, will send coins to the person who picked it up, instead of splitting it evenly across other members)",
-		 "/autosplit loot (Leader only: When turned off, will send loot to the person who picked it up, instead of splitting it evenly across other members)",
-		 "/autosplit self (Any group member: Choose not to receive autosplit loot items. You will still receive autosplit coins.)")]
+		 "Commands.Players.Autosplit.Description",
+		 "Commands.Players.Autosplit.Usage",
+		 "Commands.Players.Autosplit.Usage.Coin",
+		 "Commands.Players.Autosplit.Usage.Loot",
+		 "Commands.Players.Autosplit.Usage.Self")]
 	public class AutosplitCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
