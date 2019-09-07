@@ -73,7 +73,11 @@ namespace DOL.GS.Commands
 			}
 
 			string ownRealm = string.Join(" ", args, 1, args.Length - 1);
-			ownRealm = client.Player.Out.SendMessage(client.Account.Language, "Commands.Players.Emote.Act", client.Player.Name, OwnRealm);
+			ownRealm = client.Player.Out.SendMessage(
+				client.Account.Language,
+				"Commands.Players.Emote.Act",
+				client.Player.Name,
+				OwnRealm);
 
 			string diffRealm = client.Player.Out.SendMessage(client.Account.Language, "Commands.Players.Emote.Strange", client.Player.Name);
 			foreach (GamePlayer player in client.Player.GetPlayersInRadius(WorldMgr.SAY_DISTANCE))
