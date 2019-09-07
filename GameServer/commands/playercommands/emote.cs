@@ -17,6 +17,7 @@
  *
  */
 using DOL.GS.PacketHandler;
+using DOL.Languages;
 
 namespace DOL.GS.Commands
 {
@@ -26,7 +27,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&emote", new string[] {"&em", "&e"},
 		ePrivLevel.Player,
-		"Roleplay an action or emotion", "/emote <text>")]
+		"Commands.Players.Emote.Description",
+		"Commands.Players.Emote.Usage")]
 	public class CustomEmoteCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		/// <summary>
@@ -43,27 +45,37 @@ namespace DOL.GS.Commands
 			// no emotes if dead
 			if (!client.Player.IsAlive)
 			{
-				client.Out.SendMessage("You can't emote while dead!", eChatType.CT_Emote, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language, "Commands.Players.Emote.Dead"),
+					eChatType.CT_Emote,
+					eChatLoc.CL_SystemWindow);
 				return;
 			}
 
 			if (args.Length < 2)
 			{
-				client.Out.SendMessage("You need something to emote.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language, "Commands.Players.Emote.Empty"),
+					eChatType.CT_System, 
+					eChatLoc.CL_SystemWindow);
 				return;
 			}
 
 			if (client.Player.IsMuted)
 			{
-				client.Player.Out.SendMessage("You have been muted and cannot emote!", eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
+				client.Player.Out.SendMessage(
+						client.Account.Language, "Commands.Players.Emote.Empty"),
+					eChatType.CT_Staff,
+					eChatLoc.CL_SystemWindow);
 				return;
 			}
 
 			string ownRealm = string.Join(" ", args, 1, args.Length - 1);
-			ownRealm = "<" + client.Player.Name + " " + ownRealm + " >";
+			ownRealm = client.Player.Out.SendMessage(client.Account.Language, "Commands.Players.Emote.Act", client.Player.Name, OwnRealm);
 
-			string diffRealm = "<" + client.Player.Name + " makes strange motions.>";
-
+			string diffRealm = client.Player.Out.SendMessage(client.Account.Language, "Commands.Players.Emote.Strange", client.Player.Name);
 			foreach (GamePlayer player in client.Player.GetPlayersInRadius(WorldMgr.SAY_DISTANCE))
 			{
 				if (GameServer.ServerRules.IsAllowedToUnderstand(client.Player, player))
