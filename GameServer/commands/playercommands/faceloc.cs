@@ -30,8 +30,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&faceloc",
 		ePrivLevel.Player,
-		"Turns and faces your character into the direction of the x, y coordinates provided (using Mythic zone coordinates).",
-		"/faceloc [x] [y]")]
+		"Commands.Players.Faceloc.Description",
+		"Commands.Players.Faceloc.Usage")]
 	public class LocFaceCommandHandler : AbstractCommandHandler,ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -41,15 +41,20 @@ namespace DOL.GS.Commands
 
 			if (client.Player.IsTurningDisabled)
 			{
-				DisplayMessage(client, "You can't use this command now!");
+				DisplayMessage(client,
+					client.Account.Language(
+						"Commands.Players.Faceloc.IsTurningDisabled"
+					)
+				);
 				return;
 			}
 
 			if (args.Length < 3)
 			{
-				client.Out.SendMessage
-					(
-					"Please enter X and Y coordinates.",
+				client.Out.SendMessage(
+					client.Account.Language(
+						"Commands.Players.Faceloc.Error.Coordinates"
+					),
 					eChatType.CT_System,
 					eChatLoc.CL_SystemWindow
 					);
@@ -64,7 +69,13 @@ namespace DOL.GS.Commands
 			}
 			catch
 			{
-				client.Out.SendMessage("Please enter a valid X and Y location.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					client.Account.Language(
+						"Commands.Players.Faceloc.Error.Coordinates"
+					),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow
+				);
 				return;
 			}
 			int Xoffset = client.Player.CurrentZone.XOffset;
