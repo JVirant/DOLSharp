@@ -25,14 +25,15 @@
  */
 using System;
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
 		"&facegloc",
 		ePrivLevel.Player,
-		"Turns and faces your character into the direction of the x, y coordinates provided (using DOL region global coordinates).",
-		"/facegloc [x] [y]")]
+		"Commands.Players.Facgloc.Description",
+		"Commands.Players.Facgloc.Usage")]
 	public class GLocFaceCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -42,7 +43,13 @@ namespace DOL.GS.Commands
 
 			if (args.Length < 3)
 			{
-				client.Out.SendMessage("Please enter X and Y coordinates.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					client.Account.Language(
+						"Commands.Players.Facegloc.Error.Coordinates"
+					),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow
+				);
 				return;
 			}
 
@@ -54,7 +61,13 @@ namespace DOL.GS.Commands
 			}
 			catch (Exception)
 			{
-				client.Out.SendMessage("Please enter X and Y coordinates.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					client.Account.Language(
+						"Commands.Players.Facegloc.Error.Coordinates"
+					),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow
+				);
 				return;
 			}
 
