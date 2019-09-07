@@ -1,4 +1,8 @@
 # /Cmdhelp
-Commands.Players.Cmdhelp.NoCommand:			Command {0} does not exist.
-Commands.Players.Cmdhelp.PlvlCommands:			<----------Commands available for plvl {0}---------->
-Commands.Players.Cmdhelp.Usage:				>----------Usage for {0}----------<
+Commands.Players.Cmdhelp.Description:	Displays available commands
+Commands.Players.Cmdhelp.Usage:			'/cmdhelp' # Displays a list of all the commands and their descriptions
+Commands.Players.Cmdhelp.Usage.Plvl:	'/cmdhelp <plvl>' # Displays a list of all commands that require at least plvl
+Commands.Players.Cmdhelp.Usage.Cmd:		'/cmdhelp <cmd>' # Displays the usage for cmd"
+Commands.Players.Cmdhelp.NoCommand:		Command {0} does not exist.
+Commands.Players.Cmdhelp.PlvlCommands:	<----------Commands available for plvl {0}---------->
+Commands.Players.Cmdhelp.Usage:			>----------Usage for {0}----------<
