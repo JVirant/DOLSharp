@@ -5,8 +5,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&deal",
 		ePrivLevel.Player,
-		"Deal one card to a player in your group. Cards must first be prepared with /shuffle.",
-		"/deal <name> <u/d>")]
+		"Commands.Players.Deal.Description",
+		"Commands.Players.Deal.Usage")]
 	public class DealCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
