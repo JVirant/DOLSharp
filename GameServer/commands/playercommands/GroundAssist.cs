@@ -88,7 +88,7 @@ namespace DOL.GS.Commands
 			if (target.GroundTarget == null || (target.GroundTarget.X == 0 && target.GroundTarget.Y == 0 && target.GroundTarget.Z == 0))
 			{
 				client.Out.SendMessage(
-					LanguageMgr.GetTranlation(
+					LanguageMgr.GetTranslation(
 						client.Account.Language,
 						"Commands.Players.Groundassist.NoTarget",
 						target.Name

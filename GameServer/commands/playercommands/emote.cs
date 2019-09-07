@@ -17,7 +17,7 @@
  *
  */
 using DOL.GS.PacketHandler;
-using DOL.Languages;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
@@ -57,29 +57,41 @@ namespace DOL.GS.Commands
 			{
 				client.Out.SendMessage(
 					LanguageMgr.GetTranslation(
-						client.Account.Language, "Commands.Players.Emote.Empty"),
+						client.Account.Language,
+						"Commands.Players.Emote.Empty"
+					),
 					eChatType.CT_System, 
-					eChatLoc.CL_SystemWindow);
+					eChatLoc.CL_SystemWindow
+				);
 				return;
 			}
 
 			if (client.Player.IsMuted)
 			{
 				client.Player.Out.SendMessage(
-						client.Account.Language, "Commands.Players.Emote.Empty"),
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Emote.Empty"
+					),
 					eChatType.CT_Staff,
-					eChatLoc.CL_SystemWindow);
+					eChatLoc.CL_SystemWindow
+				);
 				return;
 			}
 
-			string ownRealm = string.Join(" ", args, 1, args.Length - 1);
-			ownRealm = client.Player.Out.SendMessage(
+			string EmoteStr = string.Join(" ", args, 1, args.Length - 1);
+			string ownRealm = LanguageMgr.GetTranslation(
 				client.Account.Language,
 				"Commands.Players.Emote.Act",
 				client.Player.Name,
-				OwnRealm);
+				EmoteStr
+			);
 
-			string diffRealm = client.Player.Out.SendMessage(client.Account.Language, "Commands.Players.Emote.Strange", client.Player.Name);
+			string diffRealm = LanguageMgr.GetTranslation(
+				client.Account.Language,
+				"Commands.Players.Emote.Strange",
+				client.Player.Name
+			);
 			foreach (GamePlayer player in client.Player.GetPlayersInRadius(WorldMgr.SAY_DISTANCE))
 			{
 				if (GameServer.ServerRules.IsAllowedToUnderstand(client.Player, player))

@@ -44,7 +44,8 @@ namespace DOL.GS.Commands
 			if (args.Length < 3)
 			{
 				client.Out.SendMessage(
-					client.Account.Language(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
 						"Commands.Players.Facegloc.Error.Coordinates"
 					),
 					eChatType.CT_System,
@@ -62,7 +63,8 @@ namespace DOL.GS.Commands
 			catch (Exception)
 			{
 				client.Out.SendMessage(
-					client.Account.Language(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
 						"Commands.Players.Facegloc.Error.Coordinates"
 					),
 					eChatType.CT_System,

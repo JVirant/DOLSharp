@@ -82,7 +82,7 @@ namespace DOL.GS.Commands
 	public class ChatGroupSetupCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
-		{/cg <option>
+		{
 			if (IsSpammingCommand(client.Player, "chatgroup"))
 				return;
 

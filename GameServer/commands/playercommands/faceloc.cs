@@ -24,6 +24,7 @@
  *
  */
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
@@ -41,8 +42,10 @@ namespace DOL.GS.Commands
 
 			if (client.Player.IsTurningDisabled)
 			{
-				DisplayMessage(client,
-					client.Account.Language(
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
 						"Commands.Players.Faceloc.IsTurningDisabled"
 					)
 				);
@@ -52,12 +55,13 @@ namespace DOL.GS.Commands
 			if (args.Length < 3)
 			{
 				client.Out.SendMessage(
-					client.Account.Language(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
 						"Commands.Players.Faceloc.Error.Coordinates"
 					),
 					eChatType.CT_System,
 					eChatLoc.CL_SystemWindow
-					);
+				);
 				return;
 			}
 			int x = 0;
@@ -70,9 +74,10 @@ namespace DOL.GS.Commands
 			catch
 			{
 				client.Out.SendMessage(
-					client.Account.Language(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
 						"Commands.Players.Faceloc.Error.Coordinates"
-					),
+						),
 					eChatType.CT_System,
 					eChatLoc.CL_SystemWindow
 				);

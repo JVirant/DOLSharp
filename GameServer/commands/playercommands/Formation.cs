@@ -17,6 +17,7 @@
  *
  */
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
@@ -91,6 +92,7 @@ namespace DOL.GS.Commands
 			{
 				client.Out.SendMessage(
 					LanguageMgr.GetTranslation(
+						client.Account.Language,
 						"Commands.Players.Formation.Commander.Missing"
 					),
 					eChatType.CT_System,
@@ -111,6 +113,7 @@ namespace DOL.GS.Commands
 			{
 				client.Out.SendMessage(
 					LanguageMgr.GetTranslation(
+						client.Account.Language,
 						"Commands.Players.Formation.Minion.Missing"
 					),
 					eChatType.CT_System,

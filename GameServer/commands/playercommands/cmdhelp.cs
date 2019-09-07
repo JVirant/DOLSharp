@@ -26,7 +26,7 @@ namespace DOL.GS.Commands
 	[CmdAttribute("&cmdhelp", //command to handle
 		ePrivLevel.Player, //minimum privelege level
 		"Commands.Players.Cmdhelp.Description",
-		"Commands.Players.Cmdhelp.Usage"
+		"Commands.Players.Cmdhelp.Usage",
 		"Commands.Players.Cmdhelp.Usage.Plvl",
 		"Commands.Players.Cmdhelp.Usage.Cmd")]
 	public class CmdHelpCommandHandler : AbstractCommandHandler, ICommandHandler
