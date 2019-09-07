@@ -1,34 +1,45 @@
 # Boats
-Commands.Players.Boat.AlreadyOnBoat:			That player is already on the boat!
-Commands.Players.Boat.BoardingDenied:			Your request to board {0} was denied.
-Commands.Players.Boat.BoardingGranted:			You accepted the boarding request.
-Commands.Players.Boat.BoardingRequest:			{0} is trying to board your boat. Accept?
-Commands.Players.Boat.BoatTooFar:				{0} is too far away for you to board.
+Commands.Players.Boat.Description:			Boat command (use /boat for options)
+Commands.Players.Beat.Usage:				'/boat <option>'
+Commands.Players.Boat.AlreadyOnBoat:		That player is already on the boat!
+Commands.Players.Boat.BoardingDenied:		Your request to board {0} was denied.
+Commands.Players.Boat.BoardingGranted:		You accepted the boarding request.
+Commands.Players.Boat.BoardingRequest:		{0} is trying to board your boat. Accept?
+Commands.Players.Boat.BoatTooFar:			{0} is too far away for you to board.
 Commands.Players.Boat.BootedBy:				You have been kicked off the boat by {0}.
 Commands.Players.Boat.BootedTarget:			You have booted {0} from the boat.
-Commands.Players.Boat.DeleteConfirmation:			Do you really want to delete your boat {0}?
+Commands.Players.Boat.DeleteConfirmation:	Do you really want to delete your boat {0}?
 Commands.Players.Boat.FullBoat:				The boat is currently full.
-Commands.Players.Boat.Help.Board:				'/boat board' - Boards the targeted boat.
-Commands.Players.Boat.Help.Boot:				'/boat boot' - Boots the selected player from your boat.
+Commands.Players.Boat.Help.Board:			'/boat board' - Boards the targeted boat.
+Commands.Players.Boat.Help.Boot:			'/boat boot' - Boots the selected player from your boat.
 Commands.Players.Boat.Help.Delete:			'/boat delete' - Gives a confirmation dialog to delete your current boat !!permanantly!!
 Commands.Players.Boat.Help.Follow:			'/boat follow' - Orders your boat to follow your selected target.
-Commands.Players.Boat.Help.StopFollow:			'/boat stopfollow' - Orders your boat to stop following its target.
+Commands.Players.Boat.Help.StopFollow:		'/boat stopfollow' - Orders your boat to stop following its target.
 Commands.Players.Boat.Help.Summon:			'/boat summon' - Summons your boat.
-Commands.Players.Boat.Help.Unsummon:			'/boat unsummon' - Unsummons your targeted boat.
+Commands.Players.Boat.Help.Unsummon:		'/boat unsummon' - Unsummons your targeted boat.
 Commands.Players.Boat.InviteNoSelf:			You cannot invite yourself!
-Commands.Players.Boat.InviteRecieved:			{0} has invited you to join them on their boat.
-Commands.Players.Boat.InviteSent:				You have invited {0} to join you on your boat.
-Commands.Players.Boat.MoveFollow:				Your boat begins to follow {0}.
-Commands.Players.Boat.NoBoatSelected:			You must select a boat first!
-Commands.Players.Boat.NoPlayerSelected:			You need to select a player first.
-Commands.Players.Boat.NotInWater:				You must be in the water before you can summon your boat!
-Commands.Players.Boat.NotOwnBoat:				You do not own a boat.
-Commands.Players.Boat.OwnerNotOn:				The owner of that boat is not online.
+Commands.Players.Boat.InviteRecieved:		{0} has invited you to join them on their boat.
+Commands.Players.Boat.InviteSent:			You have invited {0} to join you on your boat.
+Commands.Players.Boat.MoveFollow:			Your boat begins to follow {0}.
+Commands.Players.Boat.NoBoatSelected:		You must select a boat first!
+Commands.Players.Boat.NoPlayerSelected:		You need to select a player first.
+Commands.Players.Boat.NotInWater:			You must be in the water before you can summon your boat!
+Commands.Players.Boat.NotOwnBoat:			You do not own a boat.
+Commands.Players.Boat.OwnerNotOn:			The owner of that boat is not online.
 Commands.Players.Boat.PlayerIsDead:			You cannot interact with a dead player!
-Commands.Players.Boat.StopFollow:				You bring your boat to a halt.
+Commands.Players.Boat.StopFollow:			You bring your boat to a halt.
 Commands.Players.Boat.Summoned:				Your {0} has been summoned.
-Commands.Players.Boat.TargetNotInBoat:			{0} is not in your boat.
-Commands.Players.Boat.UnknownCommand:			That is not a valid boat command. /boat for help.
-Commands.Players.Boat.Unsummoned:				Your {0} has been unsummoned.
+Commands.Players.Boat.TargetNotInBoat:		{0} is not in your boat.
+Commands.Players.Boat.UnknownCommand:		That is not a valid boat command. /boat for help.
+Commands.Players.Boat.Unsummoned:			Your {0} has been unsummoned.
 Commands.Players.Boat.Usage:				Usage:
 Commands.Players.Boat.YouBoard:				You board the {0}.
+Commands.Players.Boat.Name.Scout_Boat:		{0}'s scout boat
+Commands.Players.Boat.Name.Warship:			{0}'s warship
+Commands.Players.Boat.Name.Galleon:			{0}'s galleon
+Commands.Players.Boat.Name.Skiff:			{0}'s skiff
+Commands.Players.Boat.Name.Viking_Longship:	{0}'s Viking longship
+Commands.Players.Boat.Name.Longship:		{0}'s Longship
+Commands.Players.Boat.Name.Stygian_Ship:	{0}'s Stygian ship
+Commands.Players.Boat.Name.Atlantean_Ship:	{0}'s Atlantean ship
+Commands.Players.Boat.Name.British_Cog:		{0}'s British Cog

@@ -13,8 +13,8 @@ namespace DOL.GS.Commands
 		"&boat",
 		new string[] { "&boatcommand" },
 		ePrivLevel.Player,
-		"Boat command (use /boat for options)",
-		"/boat <option>")]
+		"Commands.Players.Beat.Description",
+		"Commands.Players.Beat.Usage")]
 	public class BoatCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		/// <summary>
@@ -61,7 +61,7 @@ namespace DOL.GS.Commands
 									GameBoat playerBoat = new GameBoat();
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("scout_boat", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
-									playerBoat.Name = client.Player.Name + "'s scout boat";
+									playerBoat.Name = LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Boat.Name.Scout_Boat", client.Player.Name);
 									playerBoat.X = client.Player.X;
 									playerBoat.Y = client.Player.Y;
 									playerBoat.Z = client.Player.Z;
@@ -93,7 +93,7 @@ namespace DOL.GS.Commands
 									GameBoat playerBoat = new GameBoat();
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("warship", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
-									playerBoat.Name = client.Player.Name + "'s warship";
+									playerBoat.Name = LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Boat.Name.Warship", client.Player.Name);
 									playerBoat.X = client.Player.X;
 									playerBoat.Y = client.Player.Y;
 									playerBoat.Z = client.Player.Z;
@@ -125,7 +125,7 @@ namespace DOL.GS.Commands
 									GameBoat playerBoat = new GameBoat();
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("galleon", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
-									playerBoat.Name = client.Player.Name + "'s galleon";
+									playerBoat.Name = LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Boat.Name.Galleon", client.Player.Name);
 									playerBoat.X = client.Player.X;
 									playerBoat.Y = client.Player.Y;
 									playerBoat.Z = client.Player.Z;
@@ -157,7 +157,7 @@ namespace DOL.GS.Commands
 									GameBoat playerBoat = new GameBoat();
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("skiff", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
-									playerBoat.Name = client.Player.Name + "'s skiff";
+									playerBoat.Name = LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Boat.Name.Skiff", client.Player.Name);
 									playerBoat.X = client.Player.X;
 									playerBoat.Y = client.Player.Y;
 									playerBoat.Z = client.Player.Z;
@@ -189,7 +189,7 @@ namespace DOL.GS.Commands
 									GameBoat playerBoat = new GameBoat();
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("Viking_Longship", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
-									playerBoat.Name = client.Player.Name + "'s Viking longship";
+									playerBoat.Name = LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Boat.Name.Viking_Longship", client.Player.Name);
 									playerBoat.X = client.Player.X;
 									playerBoat.Y = client.Player.Y;
 									playerBoat.Z = client.Player.Z;
@@ -221,7 +221,7 @@ namespace DOL.GS.Commands
 									GameBoat playerBoat = new GameBoat();
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("ps_longship", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
-									playerBoat.Name = client.Player.Name + "'s Longship";
+									playerBoat.Name = LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Boat.Name.Longship", client.Player.Name);
 									playerBoat.X = client.Player.X;
 									playerBoat.Y = client.Player.Y;
 									playerBoat.Z = client.Player.Z;
@@ -253,7 +253,7 @@ namespace DOL.GS.Commands
 									GameBoat playerBoat = new GameBoat();
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("stygian_ship", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
-									playerBoat.Name = client.Player.Name + "'s Stygian ship";
+									playerBoat.Name = LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Boat.Name.Stygian_Ship", client.Player.Name);
 									playerBoat.X = client.Player.X;
 									playerBoat.Y = client.Player.Y;
 									playerBoat.Z = client.Player.Z;
@@ -285,7 +285,7 @@ namespace DOL.GS.Commands
 									GameBoat playerBoat = new GameBoat();
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("atlantean_ship", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
-									playerBoat.Name = client.Player.Name + "'s Atlantean ship";
+									playerBoat.Name = LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Boat.Name.Atlantean_Ship", client.Player.Name);
 									playerBoat.X = client.Player.X;
 									playerBoat.Y = client.Player.Y;
 									playerBoat.Z = client.Player.Z;
@@ -317,7 +317,7 @@ namespace DOL.GS.Commands
 									GameBoat playerBoat = new GameBoat();
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("British_Cog", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
-									playerBoat.Name = client.Player.Name + "'s British Cog";
+									playerBoat.Name = LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Boat.Name.British_Cog", client.Player.Name);
 									playerBoat.X = client.Player.X;
 									playerBoat.Y = client.Player.Y;
 									playerBoat.Z = client.Player.Z;
