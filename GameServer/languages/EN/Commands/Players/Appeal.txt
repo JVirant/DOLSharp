@@ -1,5 +1,7 @@
-
 # /Appeal
+Commands.Players.Appeal.Description: If you have any issue with other player let us know by submitting an appeal message.
+Commands.Players.Appeal.Usage: '/appeal <appeal type> <appeal text>' # Where <appeal type> is one of the following: Harassment, Naming, Conduct, Stuck, Emergency or Other  and <appeal text> is a description of your issue. If you have submitted an appeal, you can check its status by typing '/checkappeal'.
+Commands.Players.Appeal.UseAppeal: Use /appeal to file an appeal
 Commands.Players.Appeal.UseGMappeal:				Use /gmappeal to assist players with their appeal.
 Commands.Players.Appeal.NeedMoreDetail:			Report has NOT been received.  Please resubmit your report with a bit more detail.
 Commands.Players.Appeal.AlreadyActiveAppeal:		You already have an active appeal, please wait for server staff to address your appeal before submitting another.
