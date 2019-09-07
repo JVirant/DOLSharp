@@ -27,8 +27,8 @@ namespace DOL.GS.Commands
 		"&chat",
 		new string[] { "&c" },
 		ePrivLevel.Player,
-		"Chat group command",
-		"/c <text>")]
+		"Commands.Players.Chatgroup.Description",
+		"Commands.Players.Chatgroup.Usage")]
 	public class ChatGroupCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -54,7 +54,8 @@ namespace DOL.GS.Commands
 			}
 
 			StringBuilder text = new StringBuilder(7 + 3 + client.Player.Name.Length + (args.Length - 1) * 8);
-			text.Append("[Chat] ");
+			text.Append(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Chatgroup.Chat"));
+			text.Append(" ");
 			text.Append(client.Player.Name);
 			text.Append(": \"");
 			text.Append(args[1]);
@@ -76,12 +77,12 @@ namespace DOL.GS.Commands
 		"&chatgroup",
 		new string[] { "&cg" },
 		ePrivLevel.Player,
-		"Chat group command",
-		"/cg <option>")]
+		"Commands.Players.Chatgroup.Description",
+		"Commands.Players.Chatgroup.Usage.CG")]
 	public class ChatGroupSetupCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
-		{
+		{/cg <option>
 			if (IsSpammingCommand(client.Player, "chatgroup"))
 				return;
 
