@@ -1,0 +1,2 @@
+Commands.Players.Filter.Description:	Turns off the bad word filter.
+Commands.Players.Filter.Usage:			'/filter'
