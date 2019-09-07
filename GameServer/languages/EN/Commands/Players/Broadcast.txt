@@ -1,7 +1,11 @@
 # /Broadcast
-Commands.Players.Broadcast.Message:			[Broadcast] {0}: {1}
-Commands.Players.Broadcast.NoHere:			You cannot broadcast here.
-Commands.Players.Broadcast.NoText:			You must broadcast something...
-Commands.Players.Region.Message:				[Region] {0}: {1}
-Commands.Players.LFG.Message:				[LFG] {0}: {1}
-Commands.Players.Trade.Message:				[Trade] {0}: {1}
+Commands.Players.Broadcast.Description:	Broadcast something to other players in the same zone
+Commands.Players.Broadcast.Usage:		'/b <message>'
+Commands.Players.Broadcast.Message:		[Broadcast] {0}: {1}
+Commands.Players.Broadcast.NoHere:		You cannot broadcast here.
+Commands.Players.Broadcast.NoText:		You must broadcast something...
+Commands.Players.Region.Message:		[Region] {0}: {1}
+Commands.Players.LFG.Message:			[LFG] {0}: {1}
+Commands.Players.Trade.Message:			[Trade] {0}: {1}
+Commands.Players.Broadcast.Muted:		You have been muted. You cannot broadcast.
+Commands.Players.Broadcast.SlowDown:	Slow down! Think before you say each word!
