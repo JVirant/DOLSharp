@@ -67,261 +67,261 @@ GameObject.GetExamineMessages.YouTarget:      Tvuj cil [{0}].
 GameObject.Interact.TooFarAway:            Jsi prilis daleko pro interakci s  {0}.
 
 # GAMEPLAYER
-GamePlayer.AddAbility.YouLearn:				Naucil jsi se dovednost {0}!
-GamePlayer.AddSpecialisation.YouLearn:		Naucil jsi se dovednost {0}!
-GamePlayer.AddSpellLine.YouLearn:			Naucil jsi se {0} magii!
-GamePlayer.ApplyPoison.CantApplyRecentCombat:	Byl jsi nedavno v boji a jeste nemuzes nanest jed!
-GamePlayer.ApplyPoison.CantPoisonWeapon:	Nemuzes nanest jed na tuto zbran!
-GamePlayer.ApplyPoison.CantUsePoison:		Nemuzes pouzivat tento jed.
-GamePlayer.ApplyPoison.CantUsePoisons:		Nemuzes pouzit jedy.
-GamePlayer.ApplyPoison.PoisonsAppliedWeapons:	Jedy muzou byt naneseny pouze na zbrane.
-GamePlayer.Attack.AlreadyDead:				{0} Je jiz mrtvy!
-GamePlayer.Attack.Blocked:					{0} zablokoval tvuj utok!
-GamePlayer.Attack.CantBeAttacked:			Na toto nemuzes utocit!
-GamePlayer.Attack.CantCritical:				Nemuzes pouzit kriticky vystrel na tvuj cil, pouzijes normalni vystrel.
-GamePlayer.Attack.CantSeeTarget:			Nevidis tvuj cil!
-GamePlayer.Attack.CantUseQuiver:			Nemuzes pouzit tento typ munice pro tuto zbrani!
-GamePlayer.Attack.CouldRepair:				{0} potrebuje opravit.
-GamePlayer.Attack.Critical:					Zasahl jsi {0} krytickym zasahem za dalsich {1} zraneni!
-GamePlayer.Attack.Evade:					{0} na tebe zautocil a ty jsi se vyhnul!
-GamePlayer.Attack.Evaded:					{0} se vyhnul tvemu utoku!
-GamePlayer.Attack.Fumble:					Promachnul jsi a musis se znovu pripravit!
-GamePlayer.Attack.Fumbled:					{0} promachnul!
-GamePlayer.Attack.HitsYour:					{0} te trefil do {1} za {2}{3} zraneni!
-GamePlayer.Attack.HitsYou:					{0} te trefil za {1}{2} zraneni!
-GamePlayer.Attack.HitsYouCritical:			{0} te kriticky zasahl za dalsich {1} zraneni!
-GamePlayer.Attack.InterceptHit:				{0} {1}{2} a zasahl za {3}{4} zraneni!
-GamePlayer.Attack.Intercepted:				{0} stoupnul pred {1} a dostal za nej ranu!
-GamePlayer.Attack.InterceptedHit:			{0} {1}{2} ale trefil {3} za {4}{5} zraneni!
-GamePlayer.Attack.Interrupted:				{0} zautocil na tebe a tvoje {1} bylo preruseno!
-GamePlayer.Attack.Location.Torso:			torso
-GamePlayer.Attack.Location.Arm:				paze
-GamePlayer.Attack.Location.Head:			hlava
-GamePlayer.Attack.Location.Leg:				noha
-GamePlayer.Attack.Location.Hand:			ruka
-GamePlayer.Attack.Location.Foot:			noha
-GamePlayer.Attack.Miss:						Netrefils!
-GamePlayer.Attack.Missed:					{0} na tebe zautocil a netrefil!
-GamePlayer.Attack.MustSelectQuiver:			Musis vybrat toulec z ktereho budes brat!
-GamePlayer.Attack.NeedRepair:				{0} potrebuje opravit.
-GamePlayer.Attack.NeedRepairDire:			{0} je ve strasnem stavu a potrebuje opravit.
-GamePlayer.Attack.NeedTarget:				Musis vybrat cil abys zautocil!
-GamePlayer.Attack.NotInView:				{0} neni videt!
-GamePlayer.Attack.Parried:					{0} odrazil tvuj utok!
-GamePlayer.Attack.Parry:					{0} na tebe zautocil a ty jsi odrazil jeho ranu!
-GamePlayer.Attack.ReadyToFire:				Jsi pripraven ke strelbe!
-GamePlayer.Attack.StrafMiss:				Delal jsi ukroky a netrefil!
-GamePlayer.Attack.TooFarAway:				{0} je moc daleko na to abys zautocil!
-GamePlayer.Attack.TooTired:					Jsi moc unaveny a neudrzis luk dele napnuty!
-GamePlayer.Attack.Type.Shot:				strilet
-GamePlayer.Attack.Type.Throw:				vrhat
-GamePlayer.Attack.WithYour:					svou
-GamePlayer.Attack.YouAttack:				Utocis
-GamePlayer.Attack.YouShot:					Strilis		
-GamePlayer.Bind.Bound:						Nyni jsi nabindovan k teto lokaci.
-GamePlayer.Bind.CantBindDead:				Nemuzes se bindovat kdyz jsi mrtvy!
-GamePlayer.Bind.CantHere:					Tady se nemuzes bindovat!
-GamePlayer.Bind.LastBindPoint:				Posledni Bind Point : {0}.
-GamePlayer.Bind.MustWait:					Musis pockat {0} nez se budes moci znovu nabindovat!
-GamePlayer.CastSpell.CantCastStunned:		Nemuzes kouzlit kdyz jsi omraceny!
-GamePlayer.CastSpell.CantCastMezzed:		Nemuzes kouzlit kdyz jsi zhypnotizovany!
-GamePlayer.CastSpell.AlreadyPlaySong:		Uz hrajes pisnicku!
-GamePlayer.CastSpell.AlreadyCastFollow:		Uz kouzlis nejake kouzlo!  Pripravujes toto kouzlo jako nasledujici!
-GamePlayer.CastSpell.AlreadyCastNoQueue:	Uz kouzlis nejaky kouzlo, pro povoleni razeni kouzle pouzij prikaz '/noqueue'!
-GamePlayer.CommandNpcAttack.TooFarAwayForPet:			Tvuj cil je prilis daleko na to, aby na nej mohl tvuj pomocnik zautocit!
-GamePlayer.CommandNpcGoTarget.MustSelectDestination:	Musis vybrat, kam ma tvuj pomocnik jit.
-GamePlayer.CraftItem.DontHaveAbilityMake:	Neumis vyrobit tento predmet.
-GamePlayer.CurrentTitle.TitleCleared:		Tvuj titul je zrusen.
-GamePlayer.Die.CorpseLies:					{0} umrel. Mrtvy {1} lezi na zemi.
-GamePlayer.Die.DeadRVR:						Zemrel jsi v boji za tvuj realm a neztratis tak zadne zkusenosti!
-GamePlayer.Die.DeathN1:						Toto je tva prvni smrt na teto urovni. Tvoje ztrata zkusenosti a konstituce jsou hodne zredukovany.
-GamePlayer.Die.DeathN2:						Toto je tva druha smrt na teto urovni. Tvoje ztrata zkusenosti a konstituce jsou zredukovany.
-GamePlayer.Die.DuelDefeated:				{0} byl prave porazen v duelu od {1} !
-GamePlayer.Die.Killed:						{0} byl prave zabit !
-GamePlayer.Die.KilledBy:					{0} byl prave zabit od {1}.
-GamePlayer.Die.KilledByLocation:			{0} byl prave zabit od {1} v {2}.
-GamePlayer.Die.KilledLocation:				{0} byl prave zabit v {1} !
-GamePlayer.Die.LoseExperience:				Ztratil jsi nejake zkusenosti!
-GamePlayer.Die.ReleaseToReturn:				Zemrel jsi. Napis /release pro navrat na tvuj posledni bindpoint.
-GamePlayer.Die.YouKilled:					Prave jsi zabil {0}!
-GamePlayer.DrowningTimerCallback.CannotBreath:				Nemuzes dychat pod vodou a zranuje te to!
-GamePlayer.DrowningTimerCallback.Take5%Damage:				Zranilo te to za 5% tvych maximalnich zivotu.
-GamePlayer.DuelStop.DuelEnds:				Duel konci!
-GamePlayer.GainBountyPoints.YouGet:			Dostal jsi {0} premiovych bodu!
-GamePlayer.GainExperience.CannotRaise:		Nemuzes postoupit na sestou uroven dokud nevstoupis do cechu sveho budouciho povolani!
-GamePlayer.GainExperience.TalkToTrainer:	Promluv si s trenerem pro vice informaci.
-GamePlayer.GainExperience.YouGet:			Dostal jsi {0} zkusenosti.
-GamePlayer.GainRealmPoints.Earned:			{0} dosahl 1,000,000 realm bodu v {1}
-GamePlayer.GainRealmPoints.GainBonus:		Ziskal jsi +{0} bonus ke vsem dovednostem!
-GamePlayer.GainRealmPoints.GainedLevel:		Ziskal jsi realm uroven!
-GamePlayer.GainRealmPoints.GainedRank:		Ziskal jsi novou hodnost a novy titul!
-GamePlayer.GainRealmPoints.NewRealmTitle:	Tvuj novy titul je {0}!
-GamePlayer.GainRealmPoints.ReachedRank:			You reached realm rank {0}L0!
-GamePlayer.GainRealmPoints.ReachedRankNews:		{0} dosahl hodnosti {1:#L#} v {2}!
-GamePlayer.GainRealmPoints.YouGet:			Dostal jsi {0} realm bodu!
-GamePlayer.GetExamineMessages.EnemyRealmMember:      Prozkoumavas {0}. {1} je to clen nepratelskeho realmu !
-GamePlayer.GetExamineMessages.NeutralMember:      Prozkoumavas {0}. {1} je to neutralni clen bez gildovni prislusnosti.
-GamePlayer.GetExamineMessages.OtherGuildMember:      Prozkoumavas {0}. {1} je to clen gildy {2} .
-GamePlayer.GetExamineMessages.RealmMember:      Prozkoumavas {0}. {1} je to clen povolání {2}  z tveho realmu.
-GamePlayer.GetExamineMessages.YouExamine:      Prozkoumavas {0}.
-GamePlayer.GetExamineMessages.YourGuildMember:      Prozkoumavas {0}. {1} je to clen povolani {2} ve tve gilde.
-GamePlayer.IsCloakHoodUp.NoLongerWear:		Nebudes mit dale nasazenou kapuci.
-GamePlayer.IsCloakHoodUp.NowWear:			Nyni budes mit nasazenou kapuci.
-GamePlayer.IsOnHorse.DismountSteed:			Sesedavas z kone.
-GamePlayer.IsOnHorse.MountSteed:			Nasedavas na kone.
-GamePlayer.OnItemEquipped.Magic:         Magie z {0} tebou prochazi.
-GamePlayer.OnItemEquipped.WieldBothHands:      Vzal sis {0} do obou rukou.
-GamePlayer.OnItemEquipped.WieldLeftHand:      Vzal sis {0} do leve ruky.
-GamePlayer.OnItemEquipped.WieldRightHand:      Vzal sis {0} do prve ruky.
-GamePlayer.OnLevelUp.AttainedRank:			Dosahl jsi hodnosti {0}!
-GamePlayer.OnLevelUp.FreeLevelEligible:		Mas moznost ziskat uroven zdarma! Klikni na trenera abys ho ziskal (nebo napis /freelevel decline pro odlozeni na pozdeji)
-GamePlayer.OnLevelUp.HitsRaise:				Tvoje zivoty vzrostly o {0} bodu.
-GamePlayer.OnLevelUp.PowerRaise:			Tvoje mana vzrostla o {0} bodu.
-GamePlayer.OnLevelUp.Reached:				{0} dosahl urovne {1} v {2}!
-GamePlayer.OnLevelUp.SecondStage:			Postoupil jsi do druhe etapy {0} urovne!
-GamePlayer.OnLevelUp.StatRaise:				Tvoje vlastnosti se zvysily!
-GamePlayer.OnLevelUp.YouAchieved:			Dosahl jsi {0} urovne!
-GamePlayer.OnLevelUp.YouGetSpec:			Na teto urovni jsi ziskal {0} dovednostnich bodu k rozdeleni!
-GamePlayer.OnLevelUp.YouRaise:				Postoupil jsi na {0} uroven!
-GamePlayer.OnLinkdeath.Linkdead:			{0} ztratil spojeni!
-GamePlayer.OnPlayerMove.CannotCallMount:	Pohybujes se a nemuzes si privolat kone.
-GamePlayer.OnPlayerMove.InterruptCrafting:	Pohnul jsi se a prerusil vyrobu.
-GamePlayer.OnSkillTrained.TrainsInVarious:	{0} se uci novym dovednostem.
-GamePlayer.OnSkillTrained.YouHave:			Na teto urovni ti zbylo {0} dovednostnich bodu.
-GamePlayer.OnSkillTrained.YouSpend:			Vlozil jsi {0} bodu a pokrocil jsi v {1}
-GamePlayer.OpenSelfCraft.AlreadySelfCrafting:			You are already selfcrafting.
-GamePlayer.OpenSelfCraft.CanOnlyCraftBackpack:			You can only self-craft items in your backpack!
-GamePlayer.PickupObject.BackpackFull:		Tvuj batoh je plny. Musis napred neco vyhodit.
-GamePlayer.PickupObject.CantGetThat:		Nemuzes to sebrat!
-GamePlayer.PickupObject.LootDoesntBelongYou:			Tato korist ti nepatry - nemuzes ji sebrat.
-GamePlayer.PickupObject.MustHaveTarget:		Musis mit cil kdyz chces neco sebrat!
-GamePlayer.PickupObject.NoOneGroupWantsMoney:			Nikdo ve skupine nechce penize.
-GamePlayer.Pray.CantPrayNow:				Ted se nemuzes modlit!
-GamePlayer.Pray.NeedTarget:					Musis oznacit hrob u ktereho se chces modlit!
-GamePlayer.Pray.SelectGrave:				Pro modleni oznac svuj hrob!
-GamePlayer.Pray.MustGetCloser:				Musis prijit blize k tvemu hrobu aby ses mohl pomodlit!
-GamePlayer.Pray.MustStandingStill:			Musis stat na miste, pokud se chces modlit.
-GamePlayer.Pray.AlreadyPraying:				Uz se modlis!
-GamePlayer.Pray.Begin:						Zacal jsi svou modlitbu!
-GamePlayer.Pray.GainBack:					Modlis se u sveho hrobu a dostal jsi zpet zkusenosti!
-GamePlayer.Pronoun.Female.Objective:		ji
-GamePlayer.Pronoun.Female.Possessive:		jeji
-GamePlayer.Pronoun.Female.Subjective:		ona
-GamePlayer.Pronoun.Male.Objective:			jemu
-GamePlayer.Pronoun.Male.Possessive:			jeho
-GamePlayer.Pronoun.Male.Subjective:			on
-GamePlayer.Quit.CantQuitDead:				Ted nemuzes ukoncit hru, jsi mrtvy. Napis '/release' pro oziveni tveho tela.
-GamePlayer.Quit.CantQuitMount:				Musis slezt z kone, nez ukoncis hru.
-GamePlayer.Quit.CantQuitStanding:			Musis stat na miste, pokud chces ukoncit hru.
-GamePlayer.Quit.CantQuitCrafting:			Nemuzes ukoncit hru behem vyrabeni.
-GamePlayer.Quit.RecentlyInCombat:			Nedavno jsi byl v boji a musis jeste chvilku pockat, nez budes smet opustit hru.
-GamePlayer.Quit.YouWillQuit2:				Opustis hru za {0} sekund sezeni. Napis '/stand' nebo se pohni, pokud hru nechces opustit.
-GamePlayer.RealmTitle.UnknownRealm:			Neznamy realm
-GamePlayer.ReceiveTradeItem.StillSelfcrafting:	You are still selfcrafting.
-GamePlayer.ReceiveTradeItem.CantTrade:		Nemuzes obchodovat s timto predmetem!
-GamePlayer.RefreshSpec.AfterStyle:			Tento bojovy styl muze byt pouzit po bojovem stylu {0}.
-GamePlayer.RefreshSpec.AfterMissed:			Tento bojovy styl muze byt pouzit pokud jsi tvym poslednim utokem netrefil.
-GamePlayer.RefreshSpec.AfterParried:		Tento bojovy styl muze byt pouzit pokud tvuj posledni utok byl odrazen.
-GamePlayer.RefreshSpec.AfterBlocked:		Tento bojovy styl muze byt pouzit pokud tvuj posledni utok byl zablokovan.
-GamePlayer.RefreshSpec.AfterEvaded:			Tento bojovy styl muze byt pouzit pokud protivnik tvemu poslednimu utoku uhnul.
-GamePlayer.RefreshSpec.AfterFumbles:		Tento bojovy styl muze byt pouzit pokud jsi pri poslednim utoku udelal chybu.
-GamePlayer.RefreshSpec.TargetMisses:		Tento bojovy styl muze byt pouzit pokud se tvuj protivnik poslednim utokem netrefil.
-GamePlayer.RefreshSpec.TargetHits:			Tento bojovy styl muze byt pouzit pokud se tvuj protivnik poslednim utokem trefil.
-GamePlayer.RefreshSpec.TargetParried:		Tento bojovy styl muze byt pouzit pokud jsi posledni protivnikuv utok odrazil.
-GamePlayer.RefreshSpec.TargetBlocked:		Tento bojovy styl muze byt pouzit pokud jsi posledni protivnikuv utok zblkoval.
-GamePlayer.RefreshSpec.TargetEvaded:		Tento bojovy styl muze byt pouzit pokud jsi poslednimu protivnikovu utoku uhnul.
-GamePlayer.RefreshSpec.TargetFumbles:		Tento bojovy styl muze byt pouzit pokud tvuj protivnik pri poslednim utoku udelal chybu.
-GamePlayer.RefreshSpec.TargetStyle:			Tento bojovy styl muze byt pouzit pokud posledni protivnikuv utok byl bojovy styl.
-GamePlayer.RefreshSpec.YouLearn:			Naucil jsi se bojovy styl {0}!
-GamePlayer.Release.CantReleaseDuel:			Nemuzes menit zpusob tveho oziveni po smrti v duelu!
-GamePlayer.Release.GraveErected:			Hrob vyrostl na miste kde jsi byl zabit.
-GamePlayer.Release.LostConstitution:		Prisel jsi o konstituci, promluv si s healerem aby ti ji navratil!
-GamePlayer.Release.NoLongerReleaseAuto:		Od ted nebudes oziven automaticky. ({0} sekund zbyva)
-GamePlayer.Release.NotDead:					Nejsi mrtvy!
-GamePlayer.Release.NoValidBindpoint:		Nemas nastaveny bind point! Budes oziven na miste!
-GamePlayer.Release.ReturnToPray:			Vrat se a pouzij prikaz '/pray' na tvem hrobe abys dostal zpet zkusenosti.
-GamePlayer.Release.SurroundingChange:		Tvoje okoli se nahle zmenilo!
-GamePlayer.Release.WillReleaseAuto:			Budes oziven automaticky za {0} sekund!
-GamePlayer.Release.WillReleaseAutoCity:		Budes oziven automaticky do rodneho mesta za {0} sekund!
-GamePlayer.Release.WillReleaseIn:			Budes automaticky oziven za {0} sekund.
-GamePlayer.Release.YouRelease:				Propustil jsi svoji mrtvolu smrti.
-GamePlayer.RemoveAbility.YouLose:			Prisel jsi o dovednost {0}!
-GamePlayer.RemoveSpecialization.YouLose:	Prisel jsi o dovednost {0}!
-GamePlayer.RemoveSpellLine.YouLose:			Prisel jsi o {0} magii!
-GamePlayer.SaveIntoDatabase.CharacterSaved:	Tvoje postava byla ulozena.
-GamePlayer.Send.target.DontUnderstandYou:         {0} se nezda ze ti rozumi.
-GamePlayer.Send.YouSendTo:            Poslal jsi, "{0}" k {1}.
-GamePlayer.SendReceive.Afk:            {0} je v soucasne dobe AFK.
-GamePlayer.SendReceive.AfkMessage:         <AFK> {0} posila, "{1}"
-GamePlayer.SendReceive.FalseLanguage:         {0} poslal neco v jazyce kteremu nerozumis.
-GamePlayer.SendReceive.Sends:            {0} posila, "{1}"
-GamePlayer.SetControlledNpc.ReleaseTarget:				Prestal jsi ovladat sveho pomocnika.
-GamePlayer.Shade.AlreadyShade:				Uz je z tebe stin!
-GamePlayer.Shade.NoLongerShade:				Nejsi dale stinem!
-GamePlayer.Sit.InterruptCallMount:			Sednul jsi a prerusil tak volani na kone!
-GamePlayer.Sit.AlreadySitting:				Uz sedis!
-GamePlayer.Sit.NotSitting:					Nesedis!
-GamePlayer.Sit.CantSitDead:					Nemuzes si sednout, jsi mrtvy!
-GamePlayer.Sit.CantSitStunned:				Nemuzes odpocivat kdyz jsi omraceny!
-GamePlayer.Sit.CantSitMezzed:				Nemuzes odpocivat kdyz jsi zhypnotizovany!
-GamePlayer.Sit.MustStandingStill:			Nesmis se hybat kdyz si chces sednout.
-GamePlayer.Sit.MustDismount:				Napred musis sesednout.
-GamePlayer.Sit.NoLongerWaitingQuit:			Uz necekas na opusteni hry.
-GamePlayer.Sit.YouSitDown:					Sedis.  Napis '/stand' nebo se pohni aby jsi stoupnul.
-GamePlayer.Sit.YouStandUp:					Stojis.
-GamePlayer.Spell.NotEnoughPowerful:			Nejsi dost silny pro pouziti kouzla z tohoto predmetu.
-GamePlayer.Spell.NotImplemented:			{0} ({1}) neni jeste implementovany na tomto serveru.
-GamePlayer.Spell.Proc.NotImplemented:		Reactive efekt ID {0} jeste neni implementovany na tomto serveru.
-GamePlayer.Sprint.CantSprintHidden:			Nemuzes sprintovat kdyz se skovavas!
-GamePlayer.Sprint.CantSprintDead:			Nemuzes sprintovat kdyz jsi mrtvy!
-GamePlayer.Sprint.NoLongerReady:			Uz nesprintujes.
-GamePlayer.Sprint.PrepareSprint:			Sprintujes!
-GamePlayer.Sprint.TooFatigued:				Jsi prilis unaveny na sprintovani!
-GamePlayer.StartAttack.YouMustWait:			Musis pockat {0} sekund abys mohl zkusit zautocit!
-GamePlayer.StartAttack.YouCantCombat:		Nemuzes vstoupit do bojoveho modu kdyz jsi mrtvy!
-GamePlayer.StartAttack.CantAttackStunned:	Nemuzes utocit kdyz jsi omraceny!
-GamePlayer.StartAttack.CantAttackmesmerized:You Nemuzes utocit kdyz jsi zhypnotizovany!
-GamePlayer.StartAttack.YouMustWaitAgain:	Musis pockat {0} sekund nez budes smet zase zautocit.
-GamePlayer.StartAttack.CannotWithoutWeapon:	Nemuzes vstoupit do bojoveho modu bez zbrane!
-GamePlayer.StartAttack.CannotMelee:			Nemuzes vstoupit do bojoveho modu s hudebnim nastrojem!
-GamePlayer.StartAttack.SelectQuiver:		Musis vybrat toulec z ktereho budes brat!
-GamePlayer.StartAttack.CantUseQuiver:		Nemuzes pouzit vybranou munici pro tvoji zbran!
-GamePlayer.StartAttack.TiredShot:			Jsi prilis unaveny na pouziti kriticke strely!
-GamePlayer.StartAttack.TiredUse:			Jsi prilis unaveny na pouziti {0}!
-GamePlayer.StartAttack.CombatNoTarget:		Vstoupil jsi do bojoveho modu, ale nemas zadny cil!
-GamePlayer.StartAttack.CombatTarget:		Vstoupil jsi do bojoveho modu a tvym cilem je [{0}]
-GamePlayer.StartAttack.SpellCancelled:		Tvoje kouzlo je zruseno!
-GamePlayer.StartAttack.TargetInRange:		, cil je v dosahu
-GamePlayer.StartAttack.TargetOutOfRange:	, cil neni v dosahu
-GamePlayer.StartAttack.YouPrepare:			Pripravujes tvuj {0} ({1}.{2}s do vystrelu{3})
-GamePlayer.Stealth.NowHidden:				Jsi skryty!
-GamePlayer.Stealth.NoLongerHidden:			Nejsi skryty!
-GamePlayer.SwitchQuiver.ShootWith:			Budes strilet s: {0}.
-GamePlayer.SwitchQuiver.NoMoreAmmo:			Nemas v toulci vice munice!
-GamePlayer.SwitchQuiver.NotUseQuiver:		Nebudes pouzivat svuj toulec.
-GamePlayer.SwitchWeapon.SpellCancelled:		Tvoje kouzlo je zruseno!
-GamePlayer.UpdateSpellLine.GainPower:		Ziskal jsi nove kouzlo v {0} magii!
-GamePlayer.UseSlot.AutoReleaseShot:			Automaticky vystrelis.
-GamePlayer.UseSlot.AutoReleaseShotReload:	Automaticky vystrelis a znovu nabijes.
-GamePlayer.UseSlot.CantUseFromBackpack:	Nemuzes tento predmet pouzit z tveho batohu. Napred si to nasad!
-GamePlayer.UseSlot.CantCallMountSeated:		Nemuzes privolat tveho kone kdyz na nem sedis.
-GamePlayer.UseSlot.CantFire:				Nemuzes strilet nebo pouzit tento predmet!
-GamePlayer.UseSlot.CantMountCombat:			Jsi v boji a nemuzes zavolat sveho kone.
-GamePlayer.UseSlot.CantMountMoving:			Nemuzes nasednout behem pohybu.
-GamePlayer.UseSlot.CantMountStealthed:			Nemuzes nasednout kdyz jsi ve stealthu.
-GamePlayer.UseSlot.CantMountWhileDead:		Nemuzes nasednout kdyz jis mrtvy.
-GamePlayer.UseSlot.CantSeeTarget:			Nevidis svuj cil!
-GamePlayer.UseSlot.CantSummonRvR:			Nemuzes privolat tohoto kone v RVR zonach.
-GamePlayer.UseSlot.CantUseInCombat:			Nemuzes pouzit tento predmet v boji!
-GamePlayer.UseSlot.MustDismountBefore:		Musis napred sesednout.
-GamePlayer.UseSlot.NoAutoReleaseShotReload:	Od ted automaticky nevystrelis a neprebijes.
-GamePlayer.UseSlot.NotEnouthPower:			Nejsi dost silny na pouziti kouzla z tohoto predmetu.
-GamePlayer.UseSlot.StopCallingMount:		Prestal jsi volat sveho kone.
-GamePlayer.UseSlot.SummonHorseLevel:			You must have {0} level for summon this horse.
-GamePlayer.UseSlot.WhistleMount:			Piskas na sveho kone.
-GamePlayer.UpdateEncumberance.EncumberedMoveSlowly:		Jsi pretizeny a pohybujes se pomaleji.
-GamePlayer.UpdateEncumberance.Encumbered:	Jsi pretizeny!
-GamePlayer.Whisper.SelectTarget:			Oznac toho, komu chces septat!
+GameObjects.GamePlayer.AddAbility.YouLearn:				Naucil jsi se dovednost {0}!
+GameObjects.GamePlayer.AddSpecialisation.YouLearn:		Naucil jsi se dovednost {0}!
+GameObjects.GamePlayer.AddSpellLine.YouLearn:			Naucil jsi se {0} magii!
+GameObjects.GamePlayer.ApplyPoison.CantApplyRecentCombat:	Byl jsi nedavno v boji a jeste nemuzes nanest jed!
+GameObjects.GamePlayer.ApplyPoison.CantPoisonWeapon:	Nemuzes nanest jed na tuto zbran!
+GameObjects.GamePlayer.ApplyPoison.CantUsePoison:		Nemuzes pouzivat tento jed.
+GameObjects.GamePlayer.ApplyPoison.CantUsePoisons:		Nemuzes pouzit jedy.
+GameObjects.GamePlayer.ApplyPoison.PoisonsAppliedWeapons:	Jedy muzou byt naneseny pouze na zbrane.
+GameObjects.GamePlayer.Attack.AlreadyDead:				{0} Je jiz mrtvy!
+GameObjects.GamePlayer.Attack.Blocked:					{0} zablokoval tvuj utok!
+GameObjects.GamePlayer.Attack.CantBeAttacked:			Na toto nemuzes utocit!
+GameObjects.GamePlayer.Attack.CantCritical:				Nemuzes pouzit kriticky vystrel na tvuj cil, pouzijes normalni vystrel.
+GameObjects.GamePlayer.Attack.CantSeeTarget:			Nevidis tvuj cil!
+GameObjects.GamePlayer.Attack.CantUseQuiver:			Nemuzes pouzit tento typ munice pro tuto zbrani!
+GameObjects.GamePlayer.Attack.CouldRepair:				{0} potrebuje opravit.
+GameObjects.GamePlayer.Attack.Critical:					Zasahl jsi {0} krytickym zasahem za dalsich {1} zraneni!
+GameObjects.GamePlayer.Attack.Evade:					{0} na tebe zautocil a ty jsi se vyhnul!
+GameObjects.GamePlayer.Attack.Evaded:					{0} se vyhnul tvemu utoku!
+GameObjects.GamePlayer.Attack.Fumble:					Promachnul jsi a musis se znovu pripravit!
+GameObjects.GamePlayer.Attack.Fumbled:					{0} promachnul!
+GameObjects.GamePlayer.Attack.HitsYour:					{0} te trefil do {1} za {2}{3} zraneni!
+GameObjects.GamePlayer.Attack.HitsYou:					{0} te trefil za {1}{2} zraneni!
+GameObjects.GamePlayer.Attack.HitsYouCritical:			{0} te kriticky zasahl za dalsich {1} zraneni!
+GameObjects.GamePlayer.Attack.InterceptHit:				{0} {1}{2} a zasahl za {3}{4} zraneni!
+GameObjects.GamePlayer.Attack.Intercepted:				{0} stoupnul pred {1} a dostal za nej ranu!
+GameObjects.GamePlayer.Attack.InterceptedHit:			{0} {1}{2} ale trefil {3} za {4}{5} zraneni!
+GameObjects.GamePlayer.Attack.Interrupted:				{0} zautocil na tebe a tvoje {1} bylo preruseno!
+GameObjects.GamePlayer.Attack.Location.Torso:			torso
+GameObjects.GamePlayer.Attack.Location.Arm:				paze
+GameObjects.GamePlayer.Attack.Location.Head:			hlava
+GameObjects.GamePlayer.Attack.Location.Leg:				noha
+GameObjects.GamePlayer.Attack.Location.Hand:			ruka
+GameObjects.GamePlayer.Attack.Location.Foot:			noha
+GameObjects.GamePlayer.Attack.Miss:						Netrefils!
+GameObjects.GamePlayer.Attack.Missed:					{0} na tebe zautocil a netrefil!
+GameObjects.GamePlayer.Attack.MustSelectQuiver:			Musis vybrat toulec z ktereho budes brat!
+GameObjects.GamePlayer.Attack.NeedRepair:				{0} potrebuje opravit.
+GameObjects.GamePlayer.Attack.NeedRepairDire:			{0} je ve strasnem stavu a potrebuje opravit.
+GameObjects.GamePlayer.Attack.NeedTarget:				Musis vybrat cil abys zautocil!
+GameObjects.GamePlayer.Attack.NotInView:				{0} neni videt!
+GameObjects.GamePlayer.Attack.Parried:					{0} odrazil tvuj utok!
+GameObjects.GamePlayer.Attack.Parry:					{0} na tebe zautocil a ty jsi odrazil jeho ranu!
+GameObjects.GamePlayer.Attack.ReadyToFire:				Jsi pripraven ke strelbe!
+GameObjects.GamePlayer.Attack.StrafMiss:				Delal jsi ukroky a netrefil!
+GameObjects.GamePlayer.Attack.TooFarAway:				{0} je moc daleko na to abys zautocil!
+GameObjects.GamePlayer.Attack.TooTired:					Jsi moc unaveny a neudrzis luk dele napnuty!
+GameObjects.GamePlayer.Attack.Type.Shot:				strilet
+GameObjects.GamePlayer.Attack.Type.Throw:				vrhat
+GameObjects.GamePlayer.Attack.WithYour:					svou
+GameObjects.GamePlayer.Attack.YouAttack:				Utocis
+GameObjects.GamePlayer.Attack.YouShot:					Strilis		
+GameObjects.GamePlayer.Bind.Bound:						Nyni jsi nabindovan k teto lokaci.
+GameObjects.GamePlayer.Bind.CantBindDead:				Nemuzes se bindovat kdyz jsi mrtvy!
+GameObjects.GamePlayer.Bind.CantHere:					Tady se nemuzes bindovat!
+GameObjects.GamePlayer.Bind.LastBindPoint:				Posledni Bind Point : {0}.
+GameObjects.GamePlayer.Bind.MustWait:					Musis pockat {0} nez se budes moci znovu nabindovat!
+GameObjects.GamePlayer.CastSpell.CantCastStunned:		Nemuzes kouzlit kdyz jsi omraceny!
+GameObjects.GamePlayer.CastSpell.CantCastMezzed:		Nemuzes kouzlit kdyz jsi zhypnotizovany!
+GameObjects.GamePlayer.CastSpell.AlreadyPlaySong:		Uz hrajes pisnicku!
+GameObjects.GamePlayer.CastSpell.AlreadyCastFollow:		Uz kouzlis nejake kouzlo!  Pripravujes toto kouzlo jako nasledujici!
+GameObjects.GamePlayer.CastSpell.AlreadyCastNoQueue:	Uz kouzlis nejaky kouzlo, pro povoleni razeni kouzle pouzij prikaz '/noqueue'!
+GameObjects.GamePlayer.CommandNpcAttack.TooFarAwayForPet:			Tvuj cil je prilis daleko na to, aby na nej mohl tvuj pomocnik zautocit!
+GameObjects.GamePlayer.CommandNpcGoTarget.MustSelectDestination:	Musis vybrat, kam ma tvuj pomocnik jit.
+GameObjects.GamePlayer.CraftItem.DontHaveAbilityMake:	Neumis vyrobit tento predmet.
+GameObjects.GamePlayer.CurrentTitle.TitleCleared:		Tvuj titul je zrusen.
+GameObjects.GamePlayer.Die.CorpseLies:					{0} umrel. Mrtvy {1} lezi na zemi.
+GameObjects.GamePlayer.Die.DeadRVR:						Zemrel jsi v boji za tvuj realm a neztratis tak zadne zkusenosti!
+GameObjects.GamePlayer.Die.DeathN1:						Toto je tva prvni smrt na teto urovni. Tvoje ztrata zkusenosti a konstituce jsou hodne zredukovany.
+GameObjects.GamePlayer.Die.DeathN2:						Toto je tva druha smrt na teto urovni. Tvoje ztrata zkusenosti a konstituce jsou zredukovany.
+GameObjects.GamePlayer.Die.DuelDefeated:				{0} byl prave porazen v duelu od {1} !
+GameObjects.GamePlayer.Die.Killed:						{0} byl prave zabit !
+GameObjects.GamePlayer.Die.KilledBy:					{0} byl prave zabit od {1}.
+GameObjects.GamePlayer.Die.KilledByLocation:			{0} byl prave zabit od {1} v {2}.
+GameObjects.GamePlayer.Die.KilledLocation:				{0} byl prave zabit v {1} !
+GameObjects.GamePlayer.Die.LoseExperience:				Ztratil jsi nejake zkusenosti!
+GameObjects.GamePlayer.Die.ReleaseToReturn:				Zemrel jsi. Napis /release pro navrat na tvuj posledni bindpoint.
+GameObjects.GamePlayer.Die.YouKilled:					Prave jsi zabil {0}!
+GameObjects.GamePlayer.DrowningTimerCallback.CannotBreath:				Nemuzes dychat pod vodou a zranuje te to!
+GameObjects.GamePlayer.DrowningTimerCallback.Take5%Damage:				Zranilo te to za 5% tvych maximalnich zivotu.
+GameObjects.GamePlayer.DuelStop.DuelEnds:				Duel konci!
+GameObjects.GamePlayer.GainBountyPoints.YouGet:			Dostal jsi {0} premiovych bodu!
+GameObjects.GamePlayer.GainExperience.CannotRaise:		Nemuzes postoupit na sestou uroven dokud nevstoupis do cechu sveho budouciho povolani!
+GameObjects.GamePlayer.GainExperience.TalkToTrainer:	Promluv si s trenerem pro vice informaci.
+GameObjects.GamePlayer.GainExperience.YouGet:			Dostal jsi {0} zkusenosti.
+GameObjects.GamePlayer.GainRealmPoints.Earned:			{0} dosahl 1,000,000 realm bodu v {1}
+GameObjects.GamePlayer.GainRealmPoints.GainBonus:		Ziskal jsi +{0} bonus ke vsem dovednostem!
+GameObjects.GamePlayer.GainRealmPoints.GainedLevel:		Ziskal jsi realm uroven!
+GameObjects.GamePlayer.GainRealmPoints.GainedRank:		Ziskal jsi novou hodnost a novy titul!
+GameObjects.GamePlayer.GainRealmPoints.NewRealmTitle:	Tvuj novy titul je {0}!
+GameObjects.GamePlayer.GainRealmPoints.ReachedRank:			You reached realm rank {0}L0!
+GameObjects.GamePlayer.GainRealmPoints.ReachedRankNews:		{0} dosahl hodnosti {1:#L#} v {2}!
+GameObjects.GamePlayer.GainRealmPoints.YouGet:			Dostal jsi {0} realm bodu!
+GameObjects.GamePlayer.GetExamineMessages.EnemyRealmMember:      Prozkoumavas {0}. {1} je to clen nepratelskeho realmu !
+GameObjects.GamePlayer.GetExamineMessages.NeutralMember:      Prozkoumavas {0}. {1} je to neutralni clen bez gildovni prislusnosti.
+GameObjects.GamePlayer.GetExamineMessages.OtherGuildMember:      Prozkoumavas {0}. {1} je to clen gildy {2} .
+GameObjects.GamePlayer.GetExamineMessages.RealmMember:      Prozkoumavas {0}. {1} je to clen povolání {2}  z tveho realmu.
+GameObjects.GamePlayer.GetExamineMessages.YouExamine:      Prozkoumavas {0}.
+GameObjects.GamePlayer.GetExamineMessages.YourGuildMember:      Prozkoumavas {0}. {1} je to clen povolani {2} ve tve gilde.
+GameObjects.GamePlayer.IsCloakHoodUp.NoLongerWear:		Nebudes mit dale nasazenou kapuci.
+GameObjects.GamePlayer.IsCloakHoodUp.NowWear:			Nyni budes mit nasazenou kapuci.
+GameObjects.GamePlayer.IsOnHorse.DismountSteed:			Sesedavas z kone.
+GameObjects.GamePlayer.IsOnHorse.MountSteed:			Nasedavas na kone.
+GameObjects.GamePlayer.OnItemEquipped.Magic:         Magie z {0} tebou prochazi.
+GameObjects.GamePlayer.OnItemEquipped.WieldBothHands:      Vzal sis {0} do obou rukou.
+GameObjects.GamePlayer.OnItemEquipped.WieldLeftHand:      Vzal sis {0} do leve ruky.
+GameObjects.GamePlayer.OnItemEquipped.WieldRightHand:      Vzal sis {0} do prve ruky.
+GameObjects.GamePlayer.OnLevelUp.AttainedRank:			Dosahl jsi hodnosti {0}!
+GameObjects.GamePlayer.OnLevelUp.FreeLevelEligible:		Mas moznost ziskat uroven zdarma! Klikni na trenera abys ho ziskal (nebo napis /freelevel decline pro odlozeni na pozdeji)
+GameObjects.GamePlayer.OnLevelUp.HitsRaise:				Tvoje zivoty vzrostly o {0} bodu.
+GameObjects.GamePlayer.OnLevelUp.PowerRaise:			Tvoje mana vzrostla o {0} bodu.
+GameObjects.GamePlayer.OnLevelUp.Reached:				{0} dosahl urovne {1} v {2}!
+GameObjects.GamePlayer.OnLevelUp.SecondStage:			Postoupil jsi do druhe etapy {0} urovne!
+GameObjects.GamePlayer.OnLevelUp.StatRaise:				Tvoje vlastnosti se zvysily!
+GameObjects.GamePlayer.OnLevelUp.YouAchieved:			Dosahl jsi {0} urovne!
+GameObjects.GamePlayer.OnLevelUp.YouGetSpec:			Na teto urovni jsi ziskal {0} dovednostnich bodu k rozdeleni!
+GameObjects.GamePlayer.OnLevelUp.YouRaise:				Postoupil jsi na {0} uroven!
+GameObjects.GamePlayer.OnLinkdeath.Linkdead:			{0} ztratil spojeni!
+GameObjects.GamePlayer.OnPlayerMove.CannotCallMount:	Pohybujes se a nemuzes si privolat kone.
+GameObjects.GamePlayer.OnPlayerMove.InterruptCrafting:	Pohnul jsi se a prerusil vyrobu.
+GameObjects.GamePlayer.OnSkillTrained.TrainsInVarious:	{0} se uci novym dovednostem.
+GameObjects.GamePlayer.OnSkillTrained.YouHave:			Na teto urovni ti zbylo {0} dovednostnich bodu.
+GameObjects.GamePlayer.OnSkillTrained.YouSpend:			Vlozil jsi {0} bodu a pokrocil jsi v {1}
+GameObjects.GamePlayer.OpenSelfCraft.AlreadySelfCrafting:			You are already selfcrafting.
+GameObjects.GamePlayer.OpenSelfCraft.CanOnlyCraftBackpack:			You can only self-craft items in your backpack!
+GameObjects.GamePlayer.PickupObject.BackpackFull:		Tvuj batoh je plny. Musis napred neco vyhodit.
+GameObjects.GamePlayer.PickupObject.CantGetThat:		Nemuzes to sebrat!
+GameObjects.GamePlayer.PickupObject.LootDoesntBelongYou:			Tato korist ti nepatry - nemuzes ji sebrat.
+GameObjects.GamePlayer.PickupObject.MustHaveTarget:		Musis mit cil kdyz chces neco sebrat!
+GameObjects.GamePlayer.PickupObject.NoOneGroupWantsMoney:			Nikdo ve skupine nechce penize.
+GameObjects.GamePlayer.Pray.CantPrayNow:				Ted se nemuzes modlit!
+GameObjects.GamePlayer.Pray.NeedTarget:					Musis oznacit hrob u ktereho se chces modlit!
+GameObjects.GamePlayer.Pray.SelectGrave:				Pro modleni oznac svuj hrob!
+GameObjects.GamePlayer.Pray.MustGetCloser:				Musis prijit blize k tvemu hrobu aby ses mohl pomodlit!
+GameObjects.GamePlayer.Pray.MustStandingStill:			Musis stat na miste, pokud se chces modlit.
+GameObjects.GamePlayer.Pray.AlreadyPraying:				Uz se modlis!
+GameObjects.GamePlayer.Pray.Begin:						Zacal jsi svou modlitbu!
+GameObjects.GamePlayer.Pray.GainBack:					Modlis se u sveho hrobu a dostal jsi zpet zkusenosti!
+GameObjects.GamePlayer.Pronoun.Female.Objective:		ji
+GameObjects.GamePlayer.Pronoun.Female.Possessive:		jeji
+GameObjects.GamePlayer.Pronoun.Female.Subjective:		ona
+GameObjects.GamePlayer.Pronoun.Male.Objective:			jemu
+GameObjects.GamePlayer.Pronoun.Male.Possessive:			jeho
+GameObjects.GamePlayer.Pronoun.Male.Subjective:			on
+GameObjects.GamePlayer.Quit.CantQuitDead:				Ted nemuzes ukoncit hru, jsi mrtvy. Napis '/release' pro oziveni tveho tela.
+GameObjects.GamePlayer.Quit.CantQuitMount:				Musis slezt z kone, nez ukoncis hru.
+GameObjects.GamePlayer.Quit.CantQuitStanding:			Musis stat na miste, pokud chces ukoncit hru.
+GameObjects.GamePlayer.Quit.CantQuitCrafting:			Nemuzes ukoncit hru behem vyrabeni.
+GameObjects.GamePlayer.Quit.RecentlyInCombat:			Nedavno jsi byl v boji a musis jeste chvilku pockat, nez budes smet opustit hru.
+GameObjects.GamePlayer.Quit.YouWillQuit2:				Opustis hru za {0} sekund sezeni. Napis '/stand' nebo se pohni, pokud hru nechces opustit.
+GameObjects.GamePlayer.RealmTitle.UnknownRealm:			Neznamy realm
+GameObjects.GamePlayer.ReceiveTradeItem.StillSelfcrafting:	You are still selfcrafting.
+GameObjects.GamePlayer.ReceiveTradeItem.CantTrade:		Nemuzes obchodovat s timto predmetem!
+GameObjects.GamePlayer.RefreshSpec.AfterStyle:			Tento bojovy styl muze byt pouzit po bojovem stylu {0}.
+GameObjects.GamePlayer.RefreshSpec.AfterMissed:			Tento bojovy styl muze byt pouzit pokud jsi tvym poslednim utokem netrefil.
+GameObjects.GamePlayer.RefreshSpec.AfterParried:		Tento bojovy styl muze byt pouzit pokud tvuj posledni utok byl odrazen.
+GameObjects.GamePlayer.RefreshSpec.AfterBlocked:		Tento bojovy styl muze byt pouzit pokud tvuj posledni utok byl zablokovan.
+GameObjects.GamePlayer.RefreshSpec.AfterEvaded:			Tento bojovy styl muze byt pouzit pokud protivnik tvemu poslednimu utoku uhnul.
+GameObjects.GamePlayer.RefreshSpec.AfterFumbles:		Tento bojovy styl muze byt pouzit pokud jsi pri poslednim utoku udelal chybu.
+GameObjects.GamePlayer.RefreshSpec.TargetMisses:		Tento bojovy styl muze byt pouzit pokud se tvuj protivnik poslednim utokem netrefil.
+GameObjects.GamePlayer.RefreshSpec.TargetHits:			Tento bojovy styl muze byt pouzit pokud se tvuj protivnik poslednim utokem trefil.
+GameObjects.GamePlayer.RefreshSpec.TargetParried:		Tento bojovy styl muze byt pouzit pokud jsi posledni protivnikuv utok odrazil.
+GameObjects.GamePlayer.RefreshSpec.TargetBlocked:		Tento bojovy styl muze byt pouzit pokud jsi posledni protivnikuv utok zblkoval.
+GameObjects.GamePlayer.RefreshSpec.TargetEvaded:		Tento bojovy styl muze byt pouzit pokud jsi poslednimu protivnikovu utoku uhnul.
+GameObjects.GamePlayer.RefreshSpec.TargetFumbles:		Tento bojovy styl muze byt pouzit pokud tvuj protivnik pri poslednim utoku udelal chybu.
+GameObjects.GamePlayer.RefreshSpec.TargetStyle:			Tento bojovy styl muze byt pouzit pokud posledni protivnikuv utok byl bojovy styl.
+GameObjects.GamePlayer.RefreshSpec.YouLearn:			Naucil jsi se bojovy styl {0}!
+GameObjects.GamePlayer.Release.CantReleaseDuel:			Nemuzes menit zpusob tveho oziveni po smrti v duelu!
+GameObjects.GamePlayer.Release.GraveErected:			Hrob vyrostl na miste kde jsi byl zabit.
+GameObjects.GamePlayer.Release.LostConstitution:		Prisel jsi o konstituci, promluv si s healerem aby ti ji navratil!
+GameObjects.GamePlayer.Release.NoLongerReleaseAuto:		Od ted nebudes oziven automaticky. ({0} sekund zbyva)
+GameObjects.GamePlayer.Release.NotDead:					Nejsi mrtvy!
+GameObjects.GamePlayer.Release.NoValidBindpoint:		Nemas nastaveny bind point! Budes oziven na miste!
+GameObjects.GamePlayer.Release.ReturnToPray:			Vrat se a pouzij prikaz '/pray' na tvem hrobe abys dostal zpet zkusenosti.
+GameObjects.GamePlayer.Release.SurroundingChange:		Tvoje okoli se nahle zmenilo!
+GameObjects.GamePlayer.Release.WillReleaseAuto:			Budes oziven automaticky za {0} sekund!
+GameObjects.GamePlayer.Release.WillReleaseAutoCity:		Budes oziven automaticky do rodneho mesta za {0} sekund!
+GameObjects.GamePlayer.Release.WillReleaseIn:			Budes automaticky oziven za {0} sekund.
+GameObjects.GamePlayer.Release.YouRelease:				Propustil jsi svoji mrtvolu smrti.
+GameObjects.GamePlayer.RemoveAbility.YouLose:			Prisel jsi o dovednost {0}!
+GameObjects.GamePlayer.RemoveSpecialization.YouLose:	Prisel jsi o dovednost {0}!
+GameObjects.GamePlayer.RemoveSpellLine.YouLose:			Prisel jsi o {0} magii!
+GameObjects.GamePlayer.SaveIntoDatabase.CharacterSaved:	Tvoje postava byla ulozena.
+GameObjects.GamePlayer.Send.target.DontUnderstandYou:         {0} se nezda ze ti rozumi.
+GameObjects.GamePlayer.Send.YouSendTo:            Poslal jsi, "{0}" k {1}.
+GameObjects.GamePlayer.SendReceive.Afk:            {0} je v soucasne dobe AFK.
+GameObjects.GamePlayer.SendReceive.AfkMessage:         <AFK> {0} posila, "{1}"
+GameObjects.GamePlayer.SendReceive.FalseLanguage:         {0} poslal neco v jazyce kteremu nerozumis.
+GameObjects.GamePlayer.SendReceive.Sends:            {0} posila, "{1}"
+GameObjects.GamePlayer.SetControlledNpc.ReleaseTarget:				Prestal jsi ovladat sveho pomocnika.
+GameObjects.GamePlayer.Shade.AlreadyShade:				Uz je z tebe stin!
+GameObjects.GamePlayer.Shade.NoLongerShade:				Nejsi dale stinem!
+GameObjects.GamePlayer.Sit.InterruptCallMount:			Sednul jsi a prerusil tak volani na kone!
+GameObjects.GamePlayer.Sit.AlreadySitting:				Uz sedis!
+GameObjects.GamePlayer.Sit.NotSitting:					Nesedis!
+GameObjects.GamePlayer.Sit.CantSitDead:					Nemuzes si sednout, jsi mrtvy!
+GameObjects.GamePlayer.Sit.CantSitStunned:				Nemuzes odpocivat kdyz jsi omraceny!
+GameObjects.GamePlayer.Sit.CantSitMezzed:				Nemuzes odpocivat kdyz jsi zhypnotizovany!
+GameObjects.GamePlayer.Sit.MustStandingStill:			Nesmis se hybat kdyz si chces sednout.
+GameObjects.GamePlayer.Sit.MustDismount:				Napred musis sesednout.
+GameObjects.GamePlayer.Sit.NoLongerWaitingQuit:			Uz necekas na opusteni hry.
+GameObjects.GamePlayer.Sit.YouSitDown:					Sedis.  Napis '/stand' nebo se pohni aby jsi stoupnul.
+GameObjects.GamePlayer.Sit.YouStandUp:					Stojis.
+GameObjects.GamePlayer.Spell.NotEnoughPowerful:			Nejsi dost silny pro pouziti kouzla z tohoto predmetu.
+GameObjects.GamePlayer.Spell.NotImplemented:			{0} ({1}) neni jeste implementovany na tomto serveru.
+GameObjects.GamePlayer.Spell.Proc.NotImplemented:		Reactive efekt ID {0} jeste neni implementovany na tomto serveru.
+GameObjects.GamePlayer.Sprint.CantSprintHidden:			Nemuzes sprintovat kdyz se skovavas!
+GameObjects.GamePlayer.Sprint.CantSprintDead:			Nemuzes sprintovat kdyz jsi mrtvy!
+GameObjects.GamePlayer.Sprint.NoLongerReady:			Uz nesprintujes.
+GameObjects.GamePlayer.Sprint.PrepareSprint:			Sprintujes!
+GameObjects.GamePlayer.Sprint.TooFatigued:				Jsi prilis unaveny na sprintovani!
+GameObjects.GamePlayer.StartAttack.YouMustWait:			Musis pockat {0} sekund abys mohl zkusit zautocit!
+GameObjects.GamePlayer.StartAttack.YouCantCombat:		Nemuzes vstoupit do bojoveho modu kdyz jsi mrtvy!
+GameObjects.GamePlayer.StartAttack.CantAttackStunned:	Nemuzes utocit kdyz jsi omraceny!
+GameObjects.GamePlayer.StartAttack.CantAttackmesmerized:You Nemuzes utocit kdyz jsi zhypnotizovany!
+GameObjects.GamePlayer.StartAttack.YouMustWaitAgain:	Musis pockat {0} sekund nez budes smet zase zautocit.
+GameObjects.GamePlayer.StartAttack.CannotWithoutWeapon:	Nemuzes vstoupit do bojoveho modu bez zbrane!
+GameObjects.GamePlayer.StartAttack.CannotMelee:			Nemuzes vstoupit do bojoveho modu s hudebnim nastrojem!
+GameObjects.GamePlayer.StartAttack.SelectQuiver:		Musis vybrat toulec z ktereho budes brat!
+GameObjects.GamePlayer.StartAttack.CantUseQuiver:		Nemuzes pouzit vybranou munici pro tvoji zbran!
+GameObjects.GamePlayer.StartAttack.TiredShot:			Jsi prilis unaveny na pouziti kriticke strely!
+GameObjects.GamePlayer.StartAttack.TiredUse:			Jsi prilis unaveny na pouziti {0}!
+GameObjects.GamePlayer.StartAttack.CombatNoTarget:		Vstoupil jsi do bojoveho modu, ale nemas zadny cil!
+GameObjects.GamePlayer.StartAttack.CombatTarget:		Vstoupil jsi do bojoveho modu a tvym cilem je [{0}]
+GameObjects.GamePlayer.StartAttack.SpellCancelled:		Tvoje kouzlo je zruseno!
+GameObjects.GamePlayer.StartAttack.TargetInRange:		, cil je v dosahu
+GameObjects.GamePlayer.StartAttack.TargetOutOfRange:	, cil neni v dosahu
+GameObjects.GamePlayer.StartAttack.YouPrepare:			Pripravujes tvuj {0} ({1}.{2}s do vystrelu{3})
+GameObjects.GamePlayer.Stealth.NowHidden:				Jsi skryty!
+GameObjects.GamePlayer.Stealth.NoLongerHidden:			Nejsi skryty!
+GameObjects.GamePlayer.SwitchQuiver.ShootWith:			Budes strilet s: {0}.
+GameObjects.GamePlayer.SwitchQuiver.NoMoreAmmo:			Nemas v toulci vice munice!
+GameObjects.GamePlayer.SwitchQuiver.NotUseQuiver:		Nebudes pouzivat svuj toulec.
+GameObjects.GamePlayer.SwitchWeapon.SpellCancelled:		Tvoje kouzlo je zruseno!
+GameObjects.GamePlayer.UpdateSpellLine.GainPower:		Ziskal jsi nove kouzlo v {0} magii!
+GameObjects.GamePlayer.UseSlot.AutoReleaseShot:			Automaticky vystrelis.
+GameObjects.GamePlayer.UseSlot.AutoReleaseShotReload:	Automaticky vystrelis a znovu nabijes.
+GameObjects.GamePlayer.UseSlot.CantUseFromBackpack:	Nemuzes tento predmet pouzit z tveho batohu. Napred si to nasad!
+GameObjects.GamePlayer.UseSlot.CantCallMountSeated:		Nemuzes privolat tveho kone kdyz na nem sedis.
+GameObjects.GamePlayer.UseSlot.CantFire:				Nemuzes strilet nebo pouzit tento predmet!
+GameObjects.GamePlayer.UseSlot.CantMountCombat:			Jsi v boji a nemuzes zavolat sveho kone.
+GameObjects.GamePlayer.UseSlot.CantMountMoving:			Nemuzes nasednout behem pohybu.
+GameObjects.GamePlayer.UseSlot.CantMountStealthed:			Nemuzes nasednout kdyz jsi ve stealthu.
+GameObjects.GamePlayer.UseSlot.CantMountWhileDead:		Nemuzes nasednout kdyz jis mrtvy.
+GameObjects.GamePlayer.UseSlot.CantSeeTarget:			Nevidis svuj cil!
+GameObjects.GamePlayer.UseSlot.CantSummonRvR:			Nemuzes privolat tohoto kone v RVR zonach.
+GameObjects.GamePlayer.UseSlot.CantUseInCombat:			Nemuzes pouzit tento predmet v boji!
+GameObjects.GamePlayer.UseSlot.MustDismountBefore:		Musis napred sesednout.
+GameObjects.GamePlayer.UseSlot.NoAutoReleaseShotReload:	Od ted automaticky nevystrelis a neprebijes.
+GameObjects.GamePlayer.UseSlot.NotEnouthPower:			Nejsi dost silny na pouziti kouzla z tohoto predmetu.
+GameObjects.GamePlayer.UseSlot.StopCallingMount:		Prestal jsi volat sveho kone.
+GameObjects.GamePlayer.UseSlot.SummonHorseLevel:			You must have {0} level for summon this horse.
+GameObjects.GamePlayer.UseSlot.WhistleMount:			Piskas na sveho kone.
+GameObjects.GamePlayer.UpdateEncumberance.EncumberedMoveSlowly:		Jsi pretizeny a pohybujes se pomaleji.
+GameObjects.GamePlayer.UpdateEncumberance.Encumbered:	Jsi pretizeny!
+GameObjects.GamePlayer.Whisper.SelectTarget:			Oznac toho, komu chces septat!
 
 # HOUSING
 HouseEnterLeave.TooFarAway:					Jsi prilis daleko aby jsi mohl vstoupit do domu {0}.
