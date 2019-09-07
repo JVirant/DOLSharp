@@ -1,0 +1,2 @@
+Commands.Players.Bind.Description: Binds your soul to a bind location, you will start from there after you die and /release
+Commands.Players.Bind.Usage: '/bind' # Use it next to a bind location.
