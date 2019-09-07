@@ -355,7 +355,7 @@ namespace DOL.GS.Spells
 		protected virtual void AutoSelectCaster(ref GameLiving target)
 		{
 			GameNPC npc = target as GameNPC;
-			if (Spell.Target.ToUpper() == "REALM" && Caster is GamePlayer &&
+			if (Spell.Target == "realm" && Caster is GamePlayer &&
 				(npc == null || npc.Realm != Caster.Realm || (npc.Flags & GameNPC.eFlags.PEACE) != 0))
 				target = Caster;
 		}
@@ -487,7 +487,7 @@ namespace DOL.GS.Spells
 
 			m_interrupted = false;
 
-			if (Spell.Target.ToLower() == "pet")
+			if (Spell.Target == "pet")
 			{
 				// Pet is the target, check if the caster is the pet.
 
@@ -502,7 +502,7 @@ namespace DOL.GS.Spells
 					}
 				}
 			}
-			else if (Spell.Target.ToLower() == "controlled")
+			else if (Spell.Target == "controlled")
 			{
 				// Can only be issued by the owner of a pet and the target
 				// is always the pet then.
@@ -793,7 +793,7 @@ namespace DOL.GS.Spells
 				}
 			}
 
-			String targetType = m_spell.Target.ToLower();
+			String targetType = m_spell.Target;
 
 			//[Ganrod] Nidel: Can cast pet spell on all Pet/Turret/Minion (our pet)
 			if (targetType.Equals("pet"))
@@ -846,7 +846,7 @@ namespace DOL.GS.Spells
 					return false;
 				}
 
-				switch (m_spell.Target.ToLower())
+				switch (m_spell.Target)
 				{
 					case "enemy":
 						if (selectedTarget == m_caster)
@@ -901,14 +901,14 @@ namespace DOL.GS.Spells
 				}
 
 				//heals/buffs/rez need LOS only to start casting, TargetInView only works if selectedTarget == TargetObject
-				if (selectedTarget == Caster.TargetObject && !m_caster.TargetInView && m_spell.Target.ToLower() != "pet")
+				if (selectedTarget == Caster.TargetObject && !m_caster.TargetInView && m_spell.Target != "pet")
 				{
 					if (!quiet) MessageToCaster("Your target is not in visible!", eChatType.CT_SpellResisted);
 					Caster.Notify(GameLivingEvent.CastFailed, new CastFailedEventArgs(this, CastFailedEventArgs.Reasons.TargetNotInView));
 					return false;
 				}
 
-				if (m_spell.Target.ToLower() != "corpse" && !selectedTarget.IsAlive)
+				if (m_spell.Target != "corpse" && !selectedTarget.IsAlive)
 				{
 					if (!quiet) MessageToCaster(selectedTarget.GetName(0, true) + " is dead!", eChatType.CT_SpellResisted);
 					return false;
@@ -1074,7 +1074,7 @@ namespace DOL.GS.Spells
 				return false;
 			}
 
-			if (m_spell.Target.ToLower() == "area")
+			if (m_spell.Target == "area")
 			{
 				if (!m_caster.IsWithinRadius(m_caster.GroundTarget, CalculateSpellRange()))
 				{
@@ -1082,9 +1082,9 @@ namespace DOL.GS.Spells
 					return false;
 				}
 			}
-			else if (m_spell.Target.ToLower() != "self" && m_spell.Target.ToLower() != "group" && m_spell.Target.ToLower() != "cone" && m_spell.Range > 0)
+			else if (m_spell.Target != "self" && m_spell.Target != "group" && m_spell.Target != "cone" && m_spell.Range > 0)
 			{
-				if (m_spell.Target.ToLower() != "pet")
+				if (m_spell.Target != "pet")
 				{
 					//all other spells that need a target
 					if (target == null || target.ObjectState != GameObject.eObjectState.Active)
@@ -1104,7 +1104,7 @@ namespace DOL.GS.Spells
 
 				switch (m_spell.Target)
 				{
-					case "Enemy":
+					case "enemy":
 						//enemys have to be in front and in view for targeted spells
 						if (!m_caster.IsObjectInFront(target, 180))
 						{
@@ -1118,7 +1118,7 @@ namespace DOL.GS.Spells
 						}
 						break;
 
-					case "Corpse":
+					case "corpse":
 						if (target.IsAlive || !GameServer.ServerRules.IsSameRealm(Caster, target, true))
 						{
 							MessageToCaster("This spell only works on dead members of your realm!",
@@ -1127,14 +1127,14 @@ namespace DOL.GS.Spells
 						}
 						break;
 
-					case "Realm":
+					case "realm":
 						if (GameServer.ServerRules.IsAllowedToAttack(Caster, target, true))
 						{
 							return false;
 						}
 						break;
 
-					case "Pet":
+					case "pet":
 						/*
 						 * [Ganrod] Nidel: Can cast pet spell on all Pet/Turret/Minion (our pet)
 						 * -If caster target's isn't own pet.
@@ -1244,7 +1244,7 @@ namespace DOL.GS.Spells
 				return false;
 			}
 
-			if (m_spell.Target.ToLower() == "area")
+			if (m_spell.Target == "area")
 			{
 				if (!m_caster.IsWithinRadius(m_caster.GroundTarget, CalculateSpellRange()))
 				{
@@ -1252,9 +1252,9 @@ namespace DOL.GS.Spells
 					return false;
 				}
 			}
-			else if (m_spell.Target.ToLower() != "self" && m_spell.Target.ToLower() != "group" && m_spell.Target.ToLower() != "cone" && m_spell.Range > 0)
+			else if (m_spell.Target != "self" && m_spell.Target != "group" && m_spell.Target != "cone" && m_spell.Range > 0)
 			{
-				if (m_spell.Target.ToLower() != "pet")
+				if (m_spell.Target != "pet")
 				{
 					//all other spells that need a target
 					if (target == null || target.ObjectState != GameObject.eObjectState.Active)
@@ -1271,7 +1271,7 @@ namespace DOL.GS.Spells
 					}
 				}
 
-				switch (m_spell.Target.ToLower())
+				switch (m_spell.Target)
 				{
 					case "enemy":
 						//enemys have to be in front and in view for targeted spells
@@ -1449,7 +1449,7 @@ namespace DOL.GS.Spells
 				return false;
 			}
 
-			if (m_spell.Target.ToLower() == "area")
+			if (m_spell.Target == "area")
 			{
 				if (!m_caster.IsWithinRadius(m_caster.GroundTarget, CalculateSpellRange()))
 				{
@@ -1462,9 +1462,9 @@ namespace DOL.GS.Spells
 					return false;
 				}
 			}
-			else if (m_spell.Target.ToLower() != "self" && m_spell.Target.ToLower() != "group" && m_spell.Target.ToLower() != "cone" && m_spell.Range > 0)
+			else if (m_spell.Target != "self" && m_spell.Target != "group" && m_spell.Target != "cone" && m_spell.Range > 0)
 			{
-				if (m_spell.Target.ToLower() != "pet")
+				if (m_spell.Target != "pet")
 				{
 					//all other spells that need a target
 					if (target == null || target.ObjectState != GameObject.eObjectState.Active)
@@ -1483,7 +1483,7 @@ namespace DOL.GS.Spells
 
 				switch (m_spell.Target)
 				{
-					case "Enemy":
+					case "enemy":
 						//enemys have to be in front and in view for targeted spells
 						if (Caster is GamePlayer && !m_caster.IsObjectInFront(target, 180) && !Caster.IsWithinRadius(target, 50))
 						{
@@ -1497,7 +1497,7 @@ namespace DOL.GS.Spells
 						}
 						break;
 
-					case "Corpse":
+					case "corpse":
 						if (target.IsAlive || !GameServer.ServerRules.IsSameRealm(Caster, target, quiet))
 						{
 							if (!quiet) MessageToCaster("This spell only works on dead members of your realm!", eChatType.CT_SpellResisted);
@@ -1505,14 +1505,14 @@ namespace DOL.GS.Spells
 						}
 						break;
 
-					case "Realm":
+					case "realm":
 						if (GameServer.ServerRules.IsAllowedToAttack(Caster, target, true))
 						{
 							return false;
 						}
 						break;
 
-					case "Pet":
+					case "pet":
 						/*
 						 * [Ganrod] Nidel: Can cast pet spell on all Pet/Turret/Minion (our pet)
 						 * -If caster target's isn't own pet.
@@ -1941,9 +1941,9 @@ namespace DOL.GS.Spells
 				PulsingSpellEffect pulseeffect = new PulsingSpellEffect(this);
 				pulseeffect.Start();
 				// show animation on caster for positive spells, negative shows on every StartSpell
-				if (m_spell.Target == "Self" || m_spell.Target == "Group")
+				if (m_spell.Target == "self" || m_spell.Target == "group")
 					SendEffectAnimation(Caster, 0, false, 1);
-				if (m_spell.Target == "Pet")
+				if (m_spell.Target == "pet")
 					SendEffectAnimation(target, 0, false,1);
 			}
 
@@ -2019,7 +2019,7 @@ namespace DOL.GS.Spells
 			var list = new List<GameLiving>(8);
 			GameLiving target = castTarget as GameLiving;
 			bool targetchanged = false;
-			string modifiedTarget = Spell.Target.ToLower();
+			string modifiedTarget = Spell.Target;
 			ushort modifiedRadius = (ushort)Spell.Radius;
 			int newtarget = 0;
 
@@ -2058,8 +2058,7 @@ namespace DOL.GS.Spells
 							}
 							break;
 						case 3: // Apply on buff
-							if (m_spell.Target.ToLower() == "group"
-							    && m_spell.Pulse != 0)
+							if (m_spell.Target == "group" && m_spell.Pulse != 0)
 							{
 								modifiedTarget = "realm";
 								modifiedRadius = (ushort)m_spell.Range;
@@ -2545,7 +2544,7 @@ namespace DOL.GS.Spells
 				// Aggressive NPCs will aggro on every target they hit
 				// with an AoE spell, whether it landed or was resisted.
 
-				if (Spell.Radius > 0 && Spell.Target.ToLower() == "enemy"
+				if (Spell.Radius > 0 && Spell.Target == "enemy"
 				    && Caster is GameNPC && (Caster as GameNPC).Brain is IOldAggressiveBrain)
 					((Caster as GameNPC).Brain as IOldAggressiveBrain).AddToAggroList(t, 1);
 
@@ -2559,13 +2558,13 @@ namespace DOL.GS.Spells
 				{
 					ApplyEffectOnTarget(t, effectiveness);
 				}
-				else if (Spell.Target.ToLower() == "area")
+				else if (Spell.Target == "area")
 				{
 					int dist = t.GetDistanceTo(Caster.GroundTarget);
 					if (dist >= 0)
 						ApplyEffectOnTarget(t, (effectiveness - CalculateAreaVariance(t, dist, Spell.Radius)));
 				}
-				else if (Spell.Target.ToLower() == "cone")
+				else if (Spell.Target == "cone")
 				{
 					int dist = t.GetDistanceTo(Caster);
 					//Cone spells use the range for their variance!
@@ -2580,7 +2579,7 @@ namespace DOL.GS.Spells
 				}
 			}
 
-			if (Spell.Target.ToLower() == "ground")
+			if (Spell.Target == "ground")
 			{
 				ApplyEffectOnTarget(null, 1);
 			}
@@ -2705,7 +2704,7 @@ namespace DOL.GS.Spells
 				return; // no effect
 
             // Apply effect for Duration Spell.
-            if ((Spell.Duration > 0 && Spell.Target.ToLower() != "area") || Spell.Concentration > 0)
+            if ((Spell.Duration > 0 && Spell.Target != "area") || Spell.Concentration > 0)
 			{
 				OnDurationEffectApply(target, effectiveness);
 			}
@@ -3272,7 +3271,7 @@ namespace DOL.GS.Spells
 		{
 			get
 			{
-				if (m_spell.Target.ToLower() != "enemy" && m_spell.Target.ToLower() != "cone" && m_spell.Target.ToLower() != "area")
+				if (m_spell.Target != "enemy" && m_spell.Target != "cone" && m_spell.Target != "area")
 					return true;
 
 				return false;
@@ -4135,17 +4134,17 @@ namespace DOL.GS.Spells
 		{
 			switch (Spell.Target)
 			{
-				case "Realm":
+				case "realm":
 					return 7;
-				case "Self":
+				case "self":
 					return 0;
-				case "Enemy":
+				case "enemy":
 					return 1;
-				case "Pet":
+				case "pet":
 					return 6;
-				case "Group":
+				case "group":
 					return 3;
-				case "Area":
+				case "area":
 					return 0; // TODO
 				default:
 					return 0;

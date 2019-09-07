@@ -70,7 +70,7 @@ namespace DOL.GS.Spells
 				DealDamage(targ);
 				targetCount++;
 
-				if (Spell.Target.ToLower() == "area" && targetCount >= Spell.Value)
+				if (Spell.Target == "area" && targetCount >= Spell.Value)
 				{
 					// Volley is limited to Volley # + 2 targets.  This number is stored in Spell.Value
 					break;
@@ -248,7 +248,7 @@ namespace DOL.GS.Spells
 							{
 								arrowBlock = true;
 								m_handler.MessageToLiving(player, "You block " + caster.GetName(0, false) + "'s arrow!", eChatType.CT_System);
-								if (m_handler.Spell.Target.ToLower() != "area")
+								if (m_handler.Spell.Target != "area")
 								{
 									m_handler.MessageToCaster(player.GetName(0, true) + " blocks your arrow!", eChatType.CT_System);
 									m_handler.DamageTarget(ad, false, 0x02);
@@ -316,7 +316,7 @@ namespace DOL.GS.Spells
 
 					if (ad.CriticalDamage > 0)
 					{
-						if (m_handler.Spell.Target.ToLower() == "area")
+						if (m_handler.Spell.Target == "area")
 						{
 							ad.CriticalDamage = 0;
 						}

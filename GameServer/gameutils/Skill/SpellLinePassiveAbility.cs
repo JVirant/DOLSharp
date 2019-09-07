@@ -37,7 +37,7 @@ namespace DOL.GS
 			var spell = Spell;
 			var line = SpellLine;
 			
-			if (line != null && spell != null && spell.Target.ToLower().Equals("self"))
+			if (line != null && spell != null && spell.Target == "self")
 			{
 				living.CastSpell(this);
 			}
@@ -65,7 +65,7 @@ namespace DOL.GS
 				
 				var spell = Spell;
 				var line = SpellLine;
-				if (line != null && spell != null && spell.Target.ToLower().Equals("self"))
+				if (line != null && spell != null && spell.Target == "self")
 				{
 					m_activeLiving.CastSpell(this);
 				}

@@ -104,7 +104,7 @@ namespace DOL.GS.Spells
 
 			bool spellOK = true;
 
-			if (Spell.Target.ToLower() == "cone" || (Spell.Target == "Enemy" && Spell.Radius > 0 && Spell.Range == 0))
+			if (Spell.Target == "cone" || (Spell.Target == "enemy" && Spell.Radius > 0 && Spell.Range == 0))
 			{
 				spellOK = false;
 			}
@@ -173,7 +173,7 @@ namespace DOL.GS.Spells
 			}
 			else
 			{
-				if (Spell.Target.ToLower() == "enemy" && Spell.Radius == 0 && Spell.Range != 0)
+				if (Spell.Target == "enemy" && Spell.Radius == 0 && Spell.Range != 0)
 				{
 					m_castFailed = true;
 					MessageToCaster("You can't see your target!", eChatType.CT_SpellResisted);

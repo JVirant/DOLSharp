@@ -109,7 +109,7 @@ namespace DOL.GS.Spells
 					return false;
 				}
 			}
-			String targetType = m_spell.Target.ToLower();
+			var targetType = m_spell.Target;
 			if (targetType == "area")
 			{
 				if (!m_caster.IsWithinRadius(m_caster.GroundTarget, CalculateSpellRange()))
@@ -214,7 +214,7 @@ namespace DOL.GS.Spells
 		public override AttackData CalculateDamageToTarget(GameLiving target, double effectiveness)
 		{
 			AttackData ad = base.CalculateDamageToTarget(target, effectiveness);
-			GamePlayer player;
+			var player = target as GamePlayer;
 			GameSpellEffect bladeturn = FindEffectOnTarget(target, "Bladeturn");
 			if (bladeturn != null)
 			{
@@ -222,19 +222,16 @@ namespace DOL.GS.Spells
 				{
 					case (int)eShotType.Critical:
 						{
-							if (target is GamePlayer)
-							{
-								player = target as GamePlayer;
+							if (player != null)
 								player.Out.SendMessage("A shot penetrated your magic barrier!", eChatType.CT_SpellResisted, eChatLoc.CL_SystemWindow);
-							}
 							ad.AttackResult = GameLiving.eAttackResult.HitUnstyled;
 						}
 						break;
 
 					case (int)eShotType.Power:
 						{
-							player = target as GamePlayer;
-							player.Out.SendMessage("A shot penetrated your magic barrier!", eChatType.CT_SpellResisted, eChatLoc.CL_SystemWindow);
+							if (player != null)
+								player.Out.SendMessage("A shot penetrated your magic barrier!", eChatType.CT_SpellResisted, eChatLoc.CL_SystemWindow);
 							ad.AttackResult = GameLiving.eAttackResult.HitUnstyled;
 							bladeturn.Cancel(false);
 						}
@@ -244,17 +241,11 @@ namespace DOL.GS.Spells
 					default:
 						{
 							if (Caster is GamePlayer)
-							{
-								player = Caster as GamePlayer;
-								player.Out.SendMessage("Your strike was absorbed by a magical barrier!", eChatType.CT_SpellResisted, eChatLoc.CL_SystemWindow);
-							}
-							if (target is GamePlayer)
-							{
-								player = target as GamePlayer;
+								((GamePlayer)Caster).Out.SendMessage("Your strike was absorbed by a magical barrier!", eChatType.CT_SpellResisted, eChatLoc.CL_SystemWindow);
+							if (player != null)
 								player.Out.SendMessage("The blow was absorbed by a magical barrier!", eChatType.CT_SpellResisted, eChatLoc.CL_SystemWindow);
-								ad.AttackResult = GameLiving.eAttackResult.Missed;
-								bladeturn.Cancel(false);
-							}
+							ad.AttackResult = GameLiving.eAttackResult.Missed;
+							bladeturn.Cancel(false);
 						}
 						break;
 				}
@@ -289,14 +280,7 @@ namespace DOL.GS.Spells
 		public override eDamageType DetermineSpellDamageType()
 		{
 			GameSpellEffect ef = FindEffectOnTarget(Caster, "ArrowDamageTypes");
-			if (ef != null)
-			{
-				return ef.SpellHandler.Spell.DamageType;
-			}
-			else
-			{
-				return eDamageType.Slash;
-			}
+			return ef != null ? ef.SpellHandler.Spell.DamageType : eDamageType.Slash;
 		}
 
 		/// <summary>
@@ -308,11 +292,12 @@ namespace DOL.GS.Spells
 			double spellDamage = Spell.Damage;
 			GamePlayer player = Caster as GamePlayer;
 
+			int manaStatValue;
 			if (player != null)
-			{
-				int manaStatValue = player.GetModified((eProperty)player.CharacterClass.ManaStat);
-				spellDamage *= (manaStatValue + 300) / 275.0;
-			}
+				manaStatValue = player.GetModified((eProperty)player.CharacterClass.ManaStat);
+			else
+				manaStatValue = Caster.GetModified(eProperty.Intelligence);
+			spellDamage *= (manaStatValue + 300) / 275.0;
 
 			if (spellDamage < 0)
 				spellDamage = 0;
@@ -324,7 +309,7 @@ namespace DOL.GS.Spells
 
 		public override void FinishSpellCast(GameLiving target)
 		{
-			if (target == null && Spell.Target.ToLower() != "area") return;
+			if (target == null && Spell.Target != "area") return;
 			if (Caster == null) return;
 
 			if (Caster is GamePlayer && Caster.IsStealthed)
@@ -332,7 +317,7 @@ namespace DOL.GS.Spells
 				(Caster as GamePlayer).Stealth(false);
 			}
 
-			if (Spell.Target.ToLower() == "area")
+			if (Spell.Target == "area")
 			{
 				// always put archer into combat when using area (volley)
 				Caster.LastAttackTickPvE = Caster.CurrentRegion.Time;
@@ -381,25 +366,15 @@ namespace DOL.GS.Spells
 				//do nothing.
 			}
 			else if (dex < 250)
-			{
 				percent = 1.0 - (dex - 60) * 0.15 * 0.01;
-			}
 			else
-			{
 				percent = 1.0 - ((dex - 60) * 0.15 + (dex - 250) * 0.05) * 0.01;
-			}
 
-			GamePlayer player = m_caster as GamePlayer;
+			percent *= 1.0 - Caster.GetModified(eProperty.CastingSpeed) * 0.01;
+			ticks = (int)(ticks * Math.Max(Caster.CastingSpeedReductionCap, percent));
 
-			if (player != null)
-			{
-				percent *= 1.0 - m_caster.GetModified(eProperty.CastingSpeed) * 0.01;
-			}
-
-			ticks = (int)(ticks * Math.Max(m_caster.CastingSpeedReductionCap, percent));
-
-			if (ticks < m_caster.MinimumCastingSpeed)
-				ticks = m_caster.MinimumCastingSpeed;
+			if (ticks < Caster.MinimumCastingSpeed)
+				ticks = Caster.MinimumCastingSpeed;
 
 			return ticks;
 		}
@@ -408,16 +383,9 @@ namespace DOL.GS.Spells
 
 		public override int CalculateEnduranceCost()
 		{
-			#region [Freya] Nidel: Arcane Syphon chance
 			int syphon = Caster.GetModified(eProperty.ArcaneSyphon);
-			if (syphon > 0)
-			{
-				if(Util.Chance(syphon))
-				{
-					return 0;
-				}
-			}
-			#endregion
+			if (syphon > 0 && Util.Chance(syphon))
+				return 0;
 			return (int)(Caster.MaxEndurance * (Spell.Power * .01));
 		}
 		
@@ -439,7 +407,6 @@ namespace DOL.GS.Spells
 					Caster.TempProperties.setProperty(INTERRUPT_TIMEOUT_PROPERTY, Caster.CurrentRegion.Time + Caster.SpellInterruptDuration);
 					MessageToLiving(Caster, attacker.GetName(0, true) + " attacks you and your shot is interrupted!", eChatType.CT_SpellResisted);
 					InterruptCasting();
-					return true;
 				}
 			}
 			return true;

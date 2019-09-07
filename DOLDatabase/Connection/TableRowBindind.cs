@@ -34,6 +34,7 @@ namespace DOL.Database.Connection
 		/// Column Type
 		/// </summary>
 		public string ColumnType { get; private set; }
+		public string Collation { get; private set; }
 		/// <summary>
 		/// Column Allow Null
 		/// </summary>
@@ -50,10 +51,11 @@ namespace DOL.Database.Connection
 		/// <param name="ColumnType">Row Column Type</param>
 		/// <param name="AllowDbNull">Row DB Null</param>
 		/// <param name="Primary">Row Primary</param>
-		public TableRowBindind(string ColumnName, string ColumnType, bool AllowDbNull, bool Primary)
+		public TableRowBindind(string ColumnName, string ColumnType, string Collation, bool AllowDbNull, bool Primary)
 		{
 			this.ColumnName = ColumnName;
 			this.ColumnType = ColumnType;
+			this.Collation = Collation;
 			this.AllowDbNull = AllowDbNull;
 			this.Primary = Primary;
 		}

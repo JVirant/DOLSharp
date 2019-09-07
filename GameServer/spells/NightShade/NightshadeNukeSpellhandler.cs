@@ -64,14 +64,7 @@ namespace DOL.GS.Spells
 		public override double CalculateDamageBase(GameLiving target)
 		{
 			double spellDamage = Spell.Damage;
-			GamePlayer player = Caster as GamePlayer;
-
-			if (player != null)
-			{
-				int dexValue = player.GetModified((eProperty)player.Dexterity);
-				spellDamage *= (dexValue + 300) / 275.0;
-			}
-
+			spellDamage *= (Caster.GetModified(eProperty.Dexterity) + 300) / 275.0;
 			if (spellDamage < 0)
 				spellDamage = 0;
 

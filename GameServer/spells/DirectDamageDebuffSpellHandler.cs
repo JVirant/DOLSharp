@@ -52,7 +52,7 @@ namespace DOL.GS.Spells
 
 			bool spellOK = true;
 			//cone spells
-			if (Spell.Target == "Frontal" || (Spell.Target == "Enemy" && Spell.Radius > 0 && Spell.Range == 0))
+			if (Spell.Target == "frontal" || (Spell.Target == "enemy" && Spell.Radius > 0 && Spell.Range == 0))
 				spellOK = false;
 
 			if (!spellOK || CheckLOS(Caster))
@@ -131,7 +131,7 @@ namespace DOL.GS.Spells
 				base.ApplyEffectOnTarget(target, effectiveness);
 			}
 
-			if ((Spell.Duration > 0 && Spell.Target != "Area") || Spell.Concentration > 0)
+			if ((Spell.Duration > 0 && Spell.Target != "area") || Spell.Concentration > 0)
 			{
 				OnDirectEffect(target, effectiveness);
 			}

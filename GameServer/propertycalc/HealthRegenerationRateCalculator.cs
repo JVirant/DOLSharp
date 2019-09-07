@@ -49,7 +49,7 @@ namespace DOL.GS.PropertyCalc
 			if (living is GameKeepDoor)
 				return (int)(living.MaxHealth * 0.05); //5% each time for keep door
 
-			double regen = 1;
+			double regen;
 
 			/* PATCH 1.87 COMBAT AND REGENERATION
 			  - While in combat, health and power regeneration ticks will happen twice as often.
@@ -57,32 +57,24 @@ namespace DOL.GS.PropertyCalc
               - All health and power regeneration aids are now twice as effective.
              */
 
+			if (living.Level < 10)
+				regen = 7 + (living.Level * 0.2);
 			if (living.Level < 26)
-			{
-				regen = 10 + (living.Level * 0.2);
-			}
+				regen = 5 + (living.Level * 0.4);
 			else
-			{
 				regen = living.Level * 0.6;
-			}
 
 			// assumes NPC regen is now half as effective as GamePlayer (as noted above) - tolakram
 			// http://www.dolserver.net/viewtopic.php?f=16&t=13197
 
-			if (living is GameNPC)
-			{
-				if (living.InCombat)
-					regen /= 2.0;
-			}
-            
-			if (regen != 0 && ServerProperties.Properties.HEALTH_REGEN_RATE != 1)
-				regen *= ServerProperties.Properties.HEALTH_REGEN_RATE;
+			if (living is GameNPC && living.InCombat)
+				regen /= 2.0;
+
+			regen *= ServerProperties.Properties.HEALTH_REGEN_RATE;
 
 			double decimals = regen - (int)regen;
 			if (Util.ChanceDouble(decimals)) 
-			{
 				regen += 1;	// compensate int rounding error
-			}
 
 			regen += living.ItemBonus[(int)property];
 
@@ -92,9 +84,7 @@ namespace DOL.GS.PropertyCalc
 
 			regen += living.BaseBuffBonusCategory[(int)property] - debuff;
 
-			if (regen < 1)
-				regen = 1;
-
+			regen = Math.Max(1, regen);
 			return (int)regen;
 		}
 	}

@@ -3617,7 +3617,7 @@ namespace DOL.GS
 		public override int GetModifiedSpecLevel(string keyName)
 		{
 			if (keyName.StartsWith(GlobalSpellsLines.Champion_Lines_StartWith))
-				return 50;
+				return Level;
 
 			Specialization spec = null;
 			int level = 0;
@@ -3634,11 +3634,9 @@ namespace DOL.GS
 						if (CharacterClass.ID == (int)eCharacterClass.Savage)
 							level = GetModifiedSpecLevel(Specs.Savagery);
 					}
-	
-					level = 0;
 				}
 			}
-			
+
 			if (spec != null)
 			{
 				level = spec.Level;
@@ -8923,7 +8921,7 @@ namespace DOL.GS
 
 													// Tobz: make sure we have the appropriate target for our charge spell,
 													// otherwise don't waste a charge.
-													if (spell.Target.ToLower() == "enemy")
+													if (spell.Target == "enemy")
 													{
 														// we need an enemy target.
 														if (!GameServer.ServerRules.IsAllowedToAttack(this, target, true))
@@ -9221,7 +9219,7 @@ namespace DOL.GS
 				ISpellHandler spellHandler = ScriptMgr.CreateSpellHandler(this, spell, chargeEffectLine);
 				if (spellHandler != null)
 				{
-					if (IsOnHorse && !spellHandler.HasPositiveEffect)
+					if (IsOnHorse && !spellHandler.HasPositiveEffect && spell.Target != "self")
 						IsOnHorse = false;
 
 					Stealth(false);

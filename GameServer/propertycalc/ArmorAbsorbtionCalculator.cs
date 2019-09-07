@@ -45,8 +45,7 @@ namespace DOL.GS.PropertyCalc
 				else if (living.Level >= 20) abs += 19;
 				else if (living.Level >= 10) abs += 10;
 
-				abs += (living.GetModified(eProperty.Constitution)
-					+ living.GetModified(eProperty.Dexterity) - 120) / 12;
+				abs += (living.GetModified(eProperty.Constitution) + living.GetModified(eProperty.Dexterity) - 120) / 12;
 			}
 
 			return abs;

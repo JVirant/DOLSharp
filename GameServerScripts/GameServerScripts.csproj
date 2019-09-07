@@ -12,6 +12,8 @@
     <Platforms>AnyCPU;x86</Platforms>
     <NoWarn>NU1605</NoWarn>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>

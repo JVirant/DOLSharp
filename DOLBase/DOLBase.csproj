@@ -11,6 +11,8 @@
     <PackageId>Dawn of Light - DOLBase</PackageId>
     <Platforms>AnyCPU;x86</Platforms>
     <NoWarn>NU1605</NoWarn>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>

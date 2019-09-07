@@ -44,19 +44,13 @@ namespace DOL.GS.Spells
 		/// <param name="max">returns max variance</param>
 		public override void CalculateDamageVariance(GameLiving target, out double min, out double max)
 		{
-			int speclevel = 1;
-			if (m_caster is GamePlayer)
-			{
-				speclevel = ((GamePlayer)m_caster).GetModifiedSpecLevel(Specs.Archery);
-			}
+			var speclevel = m_caster.GetModifiedSpecLevel(Specs.Archery);
 
 			min = 1.25;
 			max = 1.25;
 
 			if (target.Level > 0)
-			{
 				min = 0.75 + (speclevel - 1) / (double)target.Level * 0.5;
-			}
 
 			if (speclevel - 1 > target.Level)
 			{

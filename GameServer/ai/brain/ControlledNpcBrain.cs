@@ -385,8 +385,8 @@ namespace DOL.AI.Brain
 		{
 			GamePlayer playerowner = GetPlayerOwner();
 			
-			long lastUpdate;
-			if (!playerowner.Client.GameObjectUpdateArray.TryGetValue(new Tuple<ushort, ushort>(Body.CurrentRegionID, (ushort)Body.ObjectID), out lastUpdate))
+			long lastUpdate = 0;
+			if (playerowner != null && !playerowner.Client.GameObjectUpdateArray.TryGetValue(new Tuple<ushort, ushort>(Body.CurrentRegionID, (ushort)Body.ObjectID), out lastUpdate))
 				lastUpdate = 0;
 			
 			// Load abilities on first Think cycle.
@@ -606,7 +606,7 @@ namespace DOL.AI.Brain
 							break;
 						}
 
-						if (spell.Target == "Realm" || spell.Target == "Group")
+						if (spell.Target == "realm" || spell.Target == "group")
 						{
 							owner = (this as IControlledBrain).Owner;
 							player = null;
@@ -738,7 +738,7 @@ namespace DOL.AI.Brain
                 case "OMNIHEAL":
                 case "PBAEHEAL":
                 case "SPREADHEAL":
-                    if (spell.Target.ToLower() == "self")
+                    if (spell.Target == "self")
 					{
 						// if we have a self heal and health is less than 75% then heal, otherwise return false to try another spell or do nothing
 						if (Body.HealthPercent < DOL.GS.ServerProperties.Properties.NPC_HEAL_THRESHOLD)
@@ -765,7 +765,7 @@ namespace DOL.AI.Brain
 
 					player = GetPlayerOwner();
 
-					if (player.Group != null && (spell.Target.ToLower() == "realm" || spell.Target.ToLower() == "group"))
+					if (player.Group != null && (spell.Target == "realm" || spell.Target == "group"))
 					{
 						foreach (GamePlayer p in player.Group.GetPlayersInTheGroup())
 						{

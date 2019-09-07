@@ -47,7 +47,7 @@ namespace DOL.GS.PropertyCalc
 			GameNPC npc = living as GameNPC;
 			if (npc != null)
 			{
-				return npc.BlockChance * 10;
+				return living.AbilityBonus[(int)property] * 10 + npc.BlockChance * 10;
 			}
 
 			return 0;

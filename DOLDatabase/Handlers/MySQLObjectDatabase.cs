@@ -206,6 +206,11 @@ namespace DOL.Database.Handlers
 			{
                 defaultDef = "NOT NULL";
 			}
+
+			if (bind.ValueType == typeof(string))
+			{
+				defaultDef += " COLLATE 'utf8_general_ci'";
+			}
 			
 			return string.Format("`{0}` {1} {2}", bind.ColumnName, type, defaultDef);
 		}
@@ -221,22 +226,26 @@ namespace DOL.Database.Handlers
 			var currentTableColumns = new List<TableRowBindind>();
 			try
 			{
-				ExecuteSelectImpl(string.Format("DESCRIBE `{0}`", table.TableName),
-				                  reader =>
-				                  {
-				                  	while (reader.Read())
-				                  	{
-				                  		var column = reader.GetString(0);
-				                  		var colType = reader.GetString(1);
-				                  		var allowNull = reader.GetString(2).ToLower() == "yes";
-				                  		var primary = reader.GetString(3).ToLower() == "pri";
-				                  		currentTableColumns.Add(new TableRowBindind(column, colType, allowNull, primary));
-				                  		if (log.IsDebugEnabled)
-				                  			log.DebugFormat("CheckOrCreateTable: Found Column {0} in existing table {1}", column, table.TableName);
-				                  	}
-				                  	if (log.IsDebugEnabled)
-				                  		log.DebugFormat("CheckOrCreateTable: {0} columns existing in table {1}", currentTableColumns.Count, table.TableName);
-				                  }, IsolationLevel.DEFAULT);
+				ExecuteSelectImpl(
+					string.Format("SHOW FULL COLUMNS FROM `{0}`", table.TableName),
+					reader =>
+					{
+						while (reader.Read())
+						{
+							var column = reader.GetString(0);
+							var colType = reader.GetString(1);
+							var collation = reader.IsDBNull(2) ? "" : reader.GetString(2);
+							var allowNull = reader.GetString(3).ToLower() == "yes";
+							var primary = reader.GetString(4).ToLower() == "pri";
+							currentTableColumns.Add(new TableRowBindind(column, colType, collation, allowNull, primary));
+							if (log.IsDebugEnabled)
+								log.DebugFormat("CheckOrCreateTable: Found Column {0} in existing table {1}", column, table.TableName);
+						}
+						if (log.IsDebugEnabled)
+							log.DebugFormat("CheckOrCreateTable: {0} columns existing in table {1}", currentTableColumns.Count, table.TableName);
+					},
+					IsolationLevel.DEFAULT
+				);
 			}
 			catch (Exception e)
 			{
@@ -305,7 +314,8 @@ namespace DOL.Database.Handlers
 
 					// Check Null && Type
 					if ((binding.DataElement != null && binding.DataElement.AllowDbNull) != column.AllowDbNull
-					    || !GetDatabaseType(binding, table).Equals(column.ColumnType, StringComparison.OrdinalIgnoreCase))
+					    || !GetDatabaseType(binding, table).Equals(column.ColumnType, StringComparison.OrdinalIgnoreCase)
+						|| (binding.ValueType == typeof(string) && column.Collation != "utf8_general_ci"))
 					{
 						columnDefs.Add(string.Format("CHANGE `{1}` {0}", GetColumnDefinition(binding, table), binding.ColumnName));
 						alteredColumn.Add(binding.ColumnName);
