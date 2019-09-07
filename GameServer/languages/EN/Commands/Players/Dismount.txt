@@ -1,2 +1,4 @@
 # /Dismount
-Commands.Players.Dismount:				You are not riding any steed!
+Commands.Players.Dismount.Description:	Dismount your steed
+Commands.Players.Dismount.Usage:		'/dismount'
+Commands.Players.Dismount.NotRiding:	You are not riding any steed!

@@ -24,8 +24,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&dismount",
 		ePrivLevel.Player,
-		"Dismount your steed",
-		"/dismount")]
+		"Commands.Players.Dismount.Description",
+		"Commands.Players.Dismount.Usage")]
 	public class RideDismountCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -35,7 +35,7 @@ namespace DOL.GS.Commands
 				if (client.Player.IsOnHorse)
 					client.Player.IsOnHorse = false;
 				else
-					DisplayMessage(client, (LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Dismount")));
+					DisplayMessage(client, (LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Dismount.NotRiding")));
 			}
 			else 
 				client.Player.DismountSteed(false);
