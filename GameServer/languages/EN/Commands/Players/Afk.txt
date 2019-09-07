@@ -1,3 +1,5 @@
 # /Afk
+Commands.Players.Afk.Description: Toggle away from keyboard. You may optional set a message to display.
+Commands.Players.Afk.Usage: '/afk <text>'
 Commands.Players.Afk.Off:				Your AFK flag is now off.
 Commands.Players.Afk.On:					Your AFK flag is now on.
