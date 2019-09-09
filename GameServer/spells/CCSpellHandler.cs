@@ -126,8 +126,8 @@ namespace DOL.GS.Spells
 			{
 				MasteryofConcentrationAbility ra = Caster.GetAbility<MasteryofConcentrationAbility>();
 				if (ra != null)
-					mocFactor = System.Math.Round((double)ra.GetAmountForLevel(ra.Level) * 25 / 100, 2);
-				duration = (double)Math.Round(duration * mocFactor);
+					mocFactor = ra.GetAmountForLevel(ra.Level) * 25 / 100;
+				duration = Math.Round(duration * mocFactor);
 			}
 
 
@@ -158,17 +158,13 @@ namespace DOL.GS.Spells
 		{
 			int resistvalue = 0;
 			int resist = 0;
-			GameSpellEffect fury = SpellHandler.FindEffectOnTarget(target, "Fury");
+			GameSpellEffect fury = FindEffectOnTarget(target, "Fury");
 			if (fury != null)
-			{
 				resist += (int)fury.Spell.Value;
-			}
 
-            //bonedancer rr5
-            if (target.EffectList.GetOfType<AllureofDeathEffect>() != null)
-            {
-                return AllureofDeathEffect.ccchance;
-            }
+			//bonedancer rr5
+			if (target.EffectList.GetOfType<AllureofDeathEffect>() != null)
+				return AllureofDeathEffect.ccchance;
 
 			if (m_spellLine.KeyName == GlobalSpellsLines.Combat_Styles_Effect)
 				return 0;
@@ -177,13 +173,14 @@ namespace DOL.GS.Spells
 
 			int hitchance = CalculateToHitChance(target);
 
-			//Calculate the Resistchance
+			// Calculate the Resistchance
 			resistvalue = (100 - hitchance + resist);
 			if (resistvalue > 100)
 				resistvalue = 100;
-			//use ResurrectHealth=1 if the CC should not be resisted
-			if(Spell.ResurrectHealth==1) resistvalue=0;
-			//always 1% resistchance!
+			// use ResurrectHealth=1 if the CC should not be resisted
+			if (Spell.ResurrectHealth == 1)
+				resistvalue = 0;
+			// always 1% resistchance!
 			else if (resistvalue < 1)
 				resistvalue = 1;
 			return resistvalue;
