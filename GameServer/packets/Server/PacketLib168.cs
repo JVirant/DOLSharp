@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  */
-#define  NOENCRYPTION
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,6 +36,7 @@ using DOL.GS.Spells;
 using DOL.GS.Styles;
 
 using log4net;
+using DOL.Crypt;
 
 namespace DOL.GS.PacketHandler
 {
@@ -50,6 +50,10 @@ namespace DOL.GS.PacketHandler
 		/// </summary>
 		private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
+#if ENCRYPTION
+		public static readonly DAOCRSAManager rsaMgr = new DAOCRSAManager();
+#endif
+
 		/// <summary>
 		/// Constructs a new PacketLib for Version 1.68 clients
 		/// </summary>
@@ -61,7 +65,7 @@ namespace DOL.GS.PacketHandler
 
 		//Packets
 
-		#region IPacketLib Members
+#region IPacketLib Members
 
 		public virtual void SendVersionAndCryptKey()
 		{
@@ -69,29 +73,28 @@ namespace DOL.GS.PacketHandler
 			using (var pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.CryptKey)))
 			{
 				//Enable encryption
-				#if !NOENCRYPTION
+#if ENCRYPTION
 				pak.WriteByte(0x01);
-				#else
+#else
 				pak.WriteByte(0x00);
-				#endif
+#endif
 
 				//if(is_si)
 				pak.WriteByte(0x32);
 				//else
 				//	pak.WriteByte(0x31);
-				pak.WriteByte(ParseVersion((int) m_gameClient.Version, true));
-				pak.WriteByte(ParseVersion((int) m_gameClient.Version, false));
+				pak.WriteByte(ParseVersion((int)m_gameClient.Version, true));
+				pak.WriteByte(ParseVersion((int)m_gameClient.Version, false));
 				//pak.WriteByte(build);
 				pak.WriteByte(0x00);
 
-				#if !NOENCRYPTION
-				byte[] publicKey = new byte[500];
-				UInt32 keyLen = CryptLib168.ExportRSAKey(publicKey, (UInt32) 500, false);
-				pak.WriteShort((ushort) keyLen);
-				pak.Write(publicKey, 0, (int) keyLen);
-				//From now on we expect RSA!
-				((PacketEncoding168) m_gameClient.PacketProcessor.Encoding).EncryptionState = PacketEncoding168.eEncryptionState.RSAEncrypted;
-				#endif
+#if ENCRYPTION
+				byte[] publicKey = rsaMgr.Export(DAOCRSAManager.eRSAKeyFormat.PK_PUBLIC);
+				pak.WriteShort((ushort)publicKey.Length);
+				pak.Write(publicKey, 0, (int)publicKey.Length);
+				// From now on we expect RSA!
+				((PacketEncoding168)m_gameClient.PacketProcessor.Encoding).EncryptionState = PacketEncoding168.eEncryptionState.RSAEncrypted;
+#endif
 
 				SendTCP(pak);
 			}
@@ -3949,7 +3952,7 @@ namespace DOL.GS.PacketHandler
 			get { return 0x1F6; }
 		}
 
-		#endregion
+#endregion
 
 		private byte WarlockChamberEffectId(GameSpellEffect effect)
 		{

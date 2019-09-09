@@ -30,7 +30,7 @@ namespace DOL.Network
 		/// <summary>
 		/// Default Constructor
 		/// </summary>
-		protected PacketOut()
+		protected PacketOut() : base(512)
 		{
 		}
 
