@@ -106,6 +106,10 @@ namespace DOL.GS.ServerRules
 				(attacker.CurrentRegionID == HousingRegionID || defender.CurrentRegionID == HousingRegionID))
 				return false;
 
+			//GMs can't be attacked
+			if (playerDefender != null && playerDefender.Client.Account.PrivLevel > 1)
+				return false;
+
 			if (!_IsAllowedToAttack_PvpImmunity(attacker, playerAttacker, playerDefender, quiet))
 				return false;
 
@@ -138,6 +142,19 @@ namespace DOL.GS.ServerRules
 				var controlled = ((GameNPC)defender).Brain as IControlledBrain;
 				if (controlled != null)
 					defender = controlled.GetLivingOwner() ?? defender;
+			}
+
+			if (playerAttacker != null && JailMgr.IsPrisoner(playerAttacker))
+			{
+				if (quiet == false)
+					MessageToLiving(attacker, "Vous ne pouvez pas attaquer lorsque vous êtes en prison.");
+				return false;
+			}
+			if (playerDefender != null && JailMgr.IsPrisoner(playerDefender))
+			{
+				if (quiet == false)
+					MessageToLiving(attacker, "Vous ne pouvez pas attaquer un prisonnier.");
+				return false;
 			}
 
 			// RvR Rules
@@ -185,10 +202,6 @@ namespace DOL.GS.ServerRules
 					}
 				}
 			}
-
-			//GMs can't be attacked
-			if (playerDefender != null && playerDefender.Client.Account.PrivLevel > 1)
-				return false;
 
 			// Simple GvG Guards
 			if (defender is SimpleGvGGuard && (defender.GuildName == attacker.GuildName || (playerAttacker != null && playerAttacker.GuildName == defender.GuildName)))
@@ -367,10 +380,19 @@ namespace DOL.GS.ServerRules
 			return false;
 		}
 
+		public override bool IsAllowedToCastSpell(GameLiving caster, GameLiving target, Spell spell, SpellLine spellLine)
+		{
+			if ((caster is GamePlayer plc && JailMgr.IsPrisoner(plc)) || (target is GamePlayer plt && JailMgr.IsPrisoner(plt)))
+				return false;
+			return base.IsAllowedToCastSpell(caster, target, spell, spellLine);
+		}
+
 		public override bool IsAllowedToGroup(GamePlayer source, GamePlayer target, bool quiet)
 		{
 			if (RvrManager.Instance.IsInRvr(source) || RvrManager.Instance.IsInRvr(target))
 				return source.Realm == target.Realm;
+			if (JailMgr.IsPrisoner(source) || JailMgr.IsPrisoner(target))
+				return false;
 			return true;
 		}
 
@@ -385,6 +407,8 @@ namespace DOL.GS.ServerRules
 		{
 			if (RvrManager.Instance.IsInRvr(source) || RvrManager.Instance.IsInRvr(target))
 				return source.Realm == target.Realm;
+			if ((source is GamePlayer pls && JailMgr.IsPrisoner(pls)) || (target is GamePlayer plt && JailMgr.IsPrisoner(plt)))
+				return false;
 			return true;
 		}
 
@@ -423,6 +447,12 @@ namespace DOL.GS.ServerRules
 			if (RvrManager.Instance.IsInRvr(source) && RvrManager.Instance.IsInRvr(target) && source.Realm != target.Realm)
 				return "";
 			return base.GetPlayerTitle(source, target);
+		}
+		public override byte GetColorHandling(GameClient client)
+		{
+			if (client.Player != null && RvrManager.Instance.IsInRvr(client.Player))
+				return 0;
+			return base.GetColorHandling(client);
 		}
 	}
 }
