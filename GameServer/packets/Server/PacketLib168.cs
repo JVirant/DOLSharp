@@ -36,7 +36,6 @@ using DOL.GS.Spells;
 using DOL.GS.Styles;
 
 using log4net;
-using DOL.Crypt;
 
 namespace DOL.GS.PacketHandler
 {
