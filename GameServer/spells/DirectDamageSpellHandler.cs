@@ -59,18 +59,11 @@ namespace DOL.GS.Spells
 		/// <returns></returns>
 		public override double CalculateDamageBase(GameLiving target)
 		{
-			GamePlayer player = Caster as GamePlayer;
-
 			// % damage procs
 			if (Spell.Damage < 0)
 			{
-				double spellDamage = 0;
-
-				if (player != null)
-				{
-					// This equation is used to simulate live values - Tolakram
-					spellDamage = (target.MaxHealth * -Spell.Damage * .01) / 2.5;
-				}
+				// This equation is used to simulate live values - Tolakram
+				double spellDamage = (target.MaxHealth * -Spell.Damage * .01) / 2.5;
 
 				if (spellDamage < 0)
 					spellDamage = 0;

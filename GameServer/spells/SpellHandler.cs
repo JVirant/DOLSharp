@@ -3574,8 +3574,8 @@ namespace DOL.GS.Spells
 			// add level mod
 			if (m_caster is GamePlayer)
 			{
-				min += GetLevelModFactor() * (m_caster.Level - target.Level);
-				max += GetLevelModFactor() * (m_caster.Level - target.Level);
+				min += Math.Min(0.6, Math.Max(-0.6, GetLevelModFactor() * (m_caster.Level - target.Level)));
+				max += Math.Min(0.6, Math.Max(-0.6, GetLevelModFactor() * (m_caster.Level - target.Level)));
 			}
 			else if (m_caster is GameNPC && ((GameNPC)m_caster).Brain is IControlledBrain)
 			{
@@ -3583,15 +3583,15 @@ namespace DOL.GS.Spells
 				GameLiving owner = ((IControlledBrain)((GameNPC)m_caster).Brain).GetLivingOwner();
 				if (owner != null)
 				{
-					min += GetLevelModFactor() * (owner.Level - target.Level);
-					max += GetLevelModFactor() * (owner.Level - target.Level);
+					min += Math.Min(0.6, Math.Max(-0.6, GetLevelModFactor() * (owner.Level - target.Level)));
+					max += Math.Min(0.6, Math.Max(-0.6, GetLevelModFactor() * (owner.Level - target.Level)));
 				}
 			}
 
+			if (min > max)
+				max = min;
 			if (max < 0.25)
 				max = 0.25;
-			if (min > max)
-				min = max;
 			if (min < 0)
 				min = 0;
 		}
@@ -3650,20 +3650,18 @@ namespace DOL.GS.Spells
 
 			// For pets the stats of the owner have to be taken into account.
 
-			if (Caster is GameNPC && ((Caster as GameNPC).Brain) is IControlledBrain)
-			{
-				player = (((Caster as GameNPC).Brain) as IControlledBrain).Owner as GamePlayer;
-			}
+			if (Caster is GameNPC && ((GameNPC)Caster).Brain is IControlledBrain brain)
+				player = brain.GetPlayerOwner();
 
 			if (player != null)
 			{
-                		if (Caster is GamePet)
+				if (Caster is GamePet pet)
 				{
 					// There is no reason to cap pet spell damage if it's being scaled anyway.
-					if (ServerProperties.Properties.PET_SCALE_SPELL_MAX_LEVEL == 0)
+					if (Properties.PET_SCALE_SPELL_MAX_LEVEL == 0)
 						spellDamage = CapPetSpellDamage(spellDamage, player);
 
-					spellDamage *= (((Caster as GamePet).Intelligence + 200) / 275.0);
+					spellDamage *= (pet.Intelligence + 200) / 275.0;
 				}
 
 				if (SpellLine.KeyName == GlobalSpellsLines.Combat_Styles_Effect)
@@ -3674,23 +3672,22 @@ namespace DOL.GS.Spells
 				}
 
 				if (player.CharacterClass.ManaStat != eStat.UNDEFINED
-				    && SpellLine.KeyName != GlobalSpellsLines.Combat_Styles_Effect
-				    && m_spellLine.KeyName != GlobalSpellsLines.Mundane_Poisons
-				    && SpellLine.KeyName != GlobalSpellsLines.Item_Effects
-				    && player.CharacterClass.ID != (int)eCharacterClass.MaulerAlb
-				    && player.CharacterClass.ID != (int)eCharacterClass.MaulerMid
-				    && player.CharacterClass.ID != (int)eCharacterClass.MaulerHib
-				    && player.CharacterClass.ID != (int)eCharacterClass.Vampiir)
+					&& SpellLine.KeyName != GlobalSpellsLines.Combat_Styles_Effect
+					&& m_spellLine.KeyName != GlobalSpellsLines.Mundane_Poisons
+					&& SpellLine.KeyName != GlobalSpellsLines.Item_Effects
+					&& player.CharacterClass.ID != (int)eCharacterClass.MaulerAlb
+					&& player.CharacterClass.ID != (int)eCharacterClass.MaulerMid
+					&& player.CharacterClass.ID != (int)eCharacterClass.MaulerHib
+					&& player.CharacterClass.ID != (int)eCharacterClass.Vampiir)
 				{
 					int manaStatValue = player.GetModified((eProperty)player.CharacterClass.ManaStat);
 					spellDamage *= (manaStatValue + 200) / 275.0;
 				}
 			}
-			else if (Caster is GameNPC)
+			else if (Caster is GameNPC npc)
 			{
-				var npc = (GameNPC) Caster;
 				int manaStatValue = npc.GetModified(eProperty.Intelligence);
-				spellDamage = CapNPCSpellDamage(spellDamage, npc)*(manaStatValue + 200)/275.0;
+				spellDamage = CapNPCSpellDamage(spellDamage, npc) * (manaStatValue + 200) / 275.0;
 			}
 
 			if (spellDamage < 0)
@@ -3709,42 +3706,26 @@ namespace DOL.GS.Spells
 		{
 			int spellLevel = Spell.Level;
 
-			GameLiving caster = null;
+			GameLiving caster = m_caster;
 			if (m_caster is GameNPC && (m_caster as GameNPC).Brain is ControlledNpcBrain)
-			{
-				caster = ((ControlledNpcBrain)((GameNPC)m_caster).Brain).Owner;
-			}
-			else
-			{
-				caster = m_caster;
-			}
+				caster = ((ControlledNpcBrain)((GameNPC)m_caster).Brain).GetLivingOwner();
 
 			int spellbonus = caster.GetModified(eProperty.SpellLevel);
 			spellLevel += spellbonus;
 
 			GamePlayer playerCaster = caster as GamePlayer;
 
-			if (playerCaster != null)
-			{
-				if (spellLevel > playerCaster.MaxLevel)
-				{
-					spellLevel = playerCaster.MaxLevel;
-				}
-			}
+			if (playerCaster != null && spellLevel > playerCaster.MaxLevel)
+				spellLevel = playerCaster.MaxLevel;
 
 			GameSpellEffect effect = FindEffectOnTarget(m_caster, "HereticPiercingMagic");
 			if (effect != null)
-			{
 				spellLevel += (int)effect.Spell.Value;
-			}
 
 			if (playerCaster != null && (m_spellLine.KeyName == GlobalSpellsLines.Combat_Styles_Effect || m_spellLine.KeyName.StartsWith(GlobalSpellsLines.Champion_Lines_StartWith)))
-			{
 				spellLevel = Math.Min(playerCaster.MaxLevel, target.Level);
-			}
 
 			int bonustohit = m_caster.GetModified(eProperty.ToHitBonus);
-
 			//Piercing Magic affects to-hit bonus too
 			GameSpellEffect resPierce = SpellHandler.FindEffectOnTarget(m_caster, "PenetrateResists");
 			if (resPierce != null)
@@ -3777,14 +3758,9 @@ namespace DOL.GS.Spells
 			}
 
 			// [Freya] Nidel: Harpy Cloak : They have less chance of landing melee attacks, and spells have a greater chance of affecting them.
-			if((target is GamePlayer))
-			{
-				GameSpellEffect harpyCloak = FindEffectOnTarget(target, "HarpyFeatherCloak");
-				if(harpyCloak != null)
-				{
-					hitchance += (int) ((hitchance*harpyCloak.Spell.Value)*0.01);
-				}
-			}
+			GameSpellEffect harpyCloak = FindEffectOnTarget(target, "HarpyFeatherCloak");
+			if (harpyCloak != null)
+				hitchance += (int)(hitchance * harpyCloak.Spell.Value * 0.01);
 
 			return hitchance;
 		}
@@ -3811,9 +3787,7 @@ namespace DOL.GS.Spells
 			int adjustedDamage = damage;
 
 			if (hitChance < 55)
-			{
 				adjustedDamage += (int)(adjustedDamage * (hitChance - 55) * ServerProperties.Properties.SPELL_HITCHANCE_DAMAGE_REDUCTION_MULTIPLIER * 0.01);
-			}
 
 			return Math.Max(adjustedDamage, 1);
 		}
@@ -3840,14 +3814,10 @@ namespace DOL.GS.Spells
 			CalculateDamageVariance(target, out minVariance, out maxVariance);
 			double spellDamage = CalculateDamageBase(target);
 
+			effectiveness += m_caster.GetModified(eProperty.SpellDamage) * 0.01;
 			if (m_caster is GamePlayer)
-			{
-				effectiveness += m_caster.GetModified(eProperty.SpellDamage) * 0.01;
-
 				// Relic bonus applied to damage, does not alter effectiveness or increase cap
 				spellDamage *= (1.0 + RelicMgr.GetRelicBonusModifier(m_caster.Realm, eRelicType.Magic));
-
-			}
 
 			// Apply casters effectiveness
 			spellDamage *= m_caster.Effectiveness;
@@ -3862,20 +3832,18 @@ namespace DOL.GS.Spells
 			// apply spell effectiveness
 			finalDamage = (int)(finalDamage * effectiveness);
 
-			if ((m_caster is GamePlayer || (m_caster is GameNPC && (m_caster as GameNPC).Brain is IControlledBrain && m_caster.Realm != 0)))
+			if (m_caster is GamePlayer || (m_caster is GameNPC && (m_caster as GameNPC).Brain is IControlledBrain && m_caster.Realm != 0))
 			{
 				if (target is GamePlayer)
-					finalDamage = (int)((double)finalDamage * ServerProperties.Properties.PVP_SPELL_DAMAGE);
+					finalDamage = (int)(finalDamage * ServerProperties.Properties.PVP_SPELL_DAMAGE);
 				else if (target is GameNPC)
-					finalDamage = (int)((double)finalDamage * ServerProperties.Properties.PVE_SPELL_DAMAGE);
+					finalDamage = (int)(finalDamage * ServerProperties.Properties.PVE_SPELL_DAMAGE);
 			}
 
 			// Well the PenetrateResistBuff is NOT ResistPierce
-			GameSpellEffect penPierce = SpellHandler.FindEffectOnTarget(m_caster, "PenetrateResists");
+			GameSpellEffect penPierce = FindEffectOnTarget(m_caster, "PenetrateResists");
 			if (penPierce != null)
-			{
 				finalDamage = (int)(finalDamage * (1.0 + penPierce.Spell.Value / 100.0));
-			}
 
 			int cdamage = 0;
 			if (finalDamage < 0)
@@ -3905,10 +3873,8 @@ namespace DOL.GS.Spells
 			int resiPierce = Caster.GetModified(eProperty.ResistPierce);
 			GamePlayer ply = Caster as GamePlayer;
 			if (resiPierce > 0 && Spell.SpellType != "Archery")
-			{
 				//substract max ItemBonus of property of target, but atleast 0.
 				primaryResistModifier -= Math.Max(0, Math.Min(ad.Target.ItemBonus[(int)property], resiPierce));
-			}
 			#endregion
 
 			#region Secondary Resists
@@ -3930,34 +3896,31 @@ namespace DOL.GS.Spells
 			#endregion
 
 			// Apply damage cap (this can be raised by effectiveness)
-			if (finalDamage > DamageCap(effectiveness))
-			{
-				finalDamage = (int)DamageCap(effectiveness);
-			}
+			finalDamage = Math.Min(finalDamage, (int)DamageCap(effectiveness));
 
 			if (finalDamage < 0)
 				finalDamage = 0;
 
-			int criticalchance = (m_caster.SpellCriticalChance);
+			int criticalchance = m_caster.SpellCriticalChance;
 			if (Util.Chance(Math.Min(50, criticalchance)) && (finalDamage >= 1))
 			{
 				int critmax = (ad.Target is GamePlayer) ? finalDamage / 2 : finalDamage;
 				cdamage = Util.Random(finalDamage / 10, critmax); //think min crit is 10% of damage
 			}
 			//Andraste
-			if(ad.Target is GamePlayer && ad.Target.GetModified(eProperty.Conversion)>0)
+			if (ad.Target is GamePlayer && ad.Target.GetModified(eProperty.Conversion) > 0)
 			{
-				int manaconversion=(int)Math.Round(((double)ad.Damage+(double)ad.CriticalDamage)*(double)ad.Target.GetModified(eProperty.Conversion)/200);
+				int manaconversion = (int)Math.Round(((double)ad.Damage + (double)ad.CriticalDamage) * (double)ad.Target.GetModified(eProperty.Conversion) / 200);
 				//int enduconversion=(int)Math.Round((double)manaconversion*(double)ad.Target.MaxEndurance/(double)ad.Target.MaxMana);
-				int enduconversion=(int)Math.Round(((double)ad.Damage+(double)ad.CriticalDamage)*(double)ad.Target.GetModified(eProperty.Conversion)/200);
-				if(ad.Target.Mana+manaconversion>ad.Target.MaxMana) manaconversion=ad.Target.MaxMana-ad.Target.Mana;
-				if(ad.Target.Endurance+enduconversion>ad.Target.MaxEndurance) enduconversion=ad.Target.MaxEndurance-ad.Target.Endurance;
-				if(manaconversion<1) manaconversion=0;
-				if(enduconversion<1) enduconversion=0;
-				if(manaconversion>=1) (ad.Target as GamePlayer).Out.SendMessage("You gain "+manaconversion+" power points", eChatType.CT_Spell, eChatLoc.CL_SystemWindow);
-				if(enduconversion>=1) (ad.Target as GamePlayer).Out.SendMessage("You gain "+enduconversion+" endurance points", eChatType.CT_Spell, eChatLoc.CL_SystemWindow);
-				ad.Target.Endurance+=enduconversion; if(ad.Target.Endurance>ad.Target.MaxEndurance) ad.Target.Endurance=ad.Target.MaxEndurance;
-				ad.Target.Mana+=manaconversion; if(ad.Target.Mana>ad.Target.MaxMana) ad.Target.Mana=ad.Target.MaxMana;
+				int enduconversion = (int)Math.Round(((double)ad.Damage + (double)ad.CriticalDamage) * (double)ad.Target.GetModified(eProperty.Conversion) / 200);
+				if (ad.Target.Mana + manaconversion > ad.Target.MaxMana) manaconversion = ad.Target.MaxMana - ad.Target.Mana;
+				if (ad.Target.Endurance + enduconversion > ad.Target.MaxEndurance) enduconversion = ad.Target.MaxEndurance - ad.Target.Endurance;
+				if (manaconversion < 1) manaconversion = 0;
+				if (enduconversion < 1) enduconversion = 0;
+				if (manaconversion >= 1) (ad.Target as GamePlayer).Out.SendMessage("You gain " + manaconversion + " power points", eChatType.CT_Spell, eChatLoc.CL_SystemWindow);
+				if (enduconversion >= 1) (ad.Target as GamePlayer).Out.SendMessage("You gain " + enduconversion + " endurance points", eChatType.CT_Spell, eChatLoc.CL_SystemWindow);
+				ad.Target.Endurance += enduconversion; if (ad.Target.Endurance > ad.Target.MaxEndurance) ad.Target.Endurance = ad.Target.MaxEndurance;
+				ad.Target.Mana += manaconversion; if (ad.Target.Mana > ad.Target.MaxMana) ad.Target.Mana = ad.Target.MaxMana;
 			}
 
 			ad.Damage = finalDamage;

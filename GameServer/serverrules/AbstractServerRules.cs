@@ -1025,7 +1025,7 @@ namespace DOL.GS.ServerRules
 
 			eObjectType[] res = (eObjectType[])m_compatibleObjectTypes[(int)objectType];
 			if (res == null)
-				return new eObjectType[0];
+				return new[] { objectType };
 			return res;
 		}
 

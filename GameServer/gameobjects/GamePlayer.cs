@@ -6889,7 +6889,7 @@ namespace DOL.GS
 			return GameServer.ServerRules.GetObjectSpecLevel(this, (eObjectType)weapon.Object_Type);
 		}
 
-		public virtual String GetWeaponSpec(InventoryItem weapon)
+		public virtual string GetWeaponSpec(InventoryItem weapon)
 		{
 			if (weapon == null)
 				return null;
@@ -7053,35 +7053,31 @@ namespace DOL.GS
 		/// <param name="weapon">the weapon used for attack</param>
 		public override double WeaponDamage(InventoryItem weapon)
 		{
-			if (weapon != null)
-			{
-				//TODO if attackweapon is ranged -> attackdamage is arrow damage
-				int DPS = weapon.DPS_AF;
-
-				// apply relic bonus prior to cap
-				DPS = (int)((double)DPS * (1.0 + RelicMgr.GetRelicBonusModifier(Realm, eRelicType.Strength)));
-
-				// apply damage cap before quality
-				// http://www.classesofcamelot.com/faq.asp?mode=view&cat=10
-				int cap = 12 + 3 * Level;
-				if (RealmLevel > 39)
-					cap += 3;
-
-				if (DPS > cap)
-				{
-					DPS = cap;
-				}
-				//(1.0 + BuffBonusCategory1[(int)eProperty.DPS]/100.0 - BuffBonusCategory3[(int)eProperty.DPS]/100.0)
-				DPS = (int)(DPS * (1 + (GetModified(eProperty.DPS) * 0.01)));
-				// beware to use always ConditionPercent, because Condition is abolute value
-				//				return (int) ((DPS/10.0)*(weapon.Quality/100.0)*(weapon.Condition/(double)weapon.MaxCondition)*100.0);
-				double wdamage = (0.001 * DPS * weapon.Quality * weapon.Condition) / weapon.MaxCondition;
-				return wdamage;
-			}
-			else
-			{
+			if (weapon == null)
 				return 0;
+
+			//TODO if attackweapon is ranged -> attackdamage is arrow damage
+			int DPS = weapon.DPS_AF;
+
+			// apply relic bonus prior to cap
+			DPS = (int)((double)DPS * (1.0 + RelicMgr.GetRelicBonusModifier(Realm, eRelicType.Strength)));
+
+			// apply damage cap before quality
+			// http://www.classesofcamelot.com/faq.asp?mode=view&cat=10
+			int cap = 12 + 3 * Level;
+			if (RealmLevel > 39)
+				cap += 3;
+
+			if (DPS > cap)
+			{
+				DPS = cap;
 			}
+			//(1.0 + BuffBonusCategory1[(int)eProperty.DPS]/100.0 - BuffBonusCategory3[(int)eProperty.DPS]/100.0)
+			DPS = (int)(DPS * (1 + (GetModified(eProperty.DPS) * 0.01)));
+			// beware to use always ConditionPercent, because Condition is abolute value
+			//				return (int) ((DPS/10.0)*(weapon.Quality/100.0)*(weapon.Condition/(double)weapon.MaxCondition)*100.0);
+			double wdamage = (0.001 * DPS * weapon.Quality * weapon.Condition) / weapon.MaxCondition;
+			return wdamage;
 		}
 
 		/// <summary>

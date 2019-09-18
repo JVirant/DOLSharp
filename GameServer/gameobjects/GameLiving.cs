@@ -1634,9 +1634,9 @@ namespace DOL.GS
 			{
 				default:
 				case Slot.RIGHTHAND:
-					case Slot.LEFTHAND: ad.AttackType = AttackData.eAttackType.MeleeOneHand; break;
-					case Slot.TWOHAND: ad.AttackType = AttackData.eAttackType.MeleeTwoHand; break;
-					case Slot.RANGED: ad.AttackType = AttackData.eAttackType.Ranged; break;
+				case Slot.LEFTHAND: ad.AttackType = AttackData.eAttackType.MeleeOneHand; break;
+				case Slot.TWOHAND: ad.AttackType = AttackData.eAttackType.MeleeTwoHand; break;
+				case Slot.RANGED: ad.AttackType = AttackData.eAttackType.Ranged; break;
 			}
 
 			//No target, stop the attack
@@ -1668,7 +1668,7 @@ namespace DOL.GS
 				return ad;
 			}
 			//We have no attacking distance!
-			if (!this.IsWithinRadius(ad.Target, ad.Target.ActiveWeaponSlot == eActiveWeaponSlot.Standard ? Math.Max(AttackRange, ad.Target.AttackRange) : AttackRange))
+			if (!IsWithinRadius(ad.Target, ad.Target.ActiveWeaponSlot == eActiveWeaponSlot.Standard ? Math.Max(AttackRange, ad.Target.AttackRange) : AttackRange))
 			{
 				ad.AttackResult = eAttackResult.OutOfRange;
 				return ad;

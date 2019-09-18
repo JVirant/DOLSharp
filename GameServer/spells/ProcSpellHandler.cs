@@ -323,6 +323,9 @@ namespace DOL.GS.Spells
 		/// <param name="arguments"></param>
 		protected override void EventHandler(DOLEvent e, object sender, EventArgs arguments)
 		{
+			if (arguments == null)
+				return;
+
 			AttackFinishedEventArgs args = arguments as AttackFinishedEventArgs;
 			
 			if (args == null || args.AttackData == null || args.AttackData.AttackType == AttackData.eAttackType.Spell)
@@ -340,10 +343,10 @@ namespace DOL.GS.Spells
 			if (baseChance < 1)
 				baseChance = 1;
 			
-			if (ad.Attacker == ad.Attacker as GameNPC) // Add support for multiple procs - Unty
+			if (ad.Attacker is GameNPC) // Add support for multiple procs - Unty
 			{
 				Spell baseSpell = null;
-							
+
 				GameNPC pet = ad.Attacker as GameNPC;
 				var procSpells = new List<Spell>();
 				foreach (Spell spell in pet.Spells)
@@ -356,7 +359,7 @@ namespace DOL.GS.Spells
 				}
 				if (procSpells.Count > 0)
 				{
-					baseSpell = procSpells[Util.Random((procSpells.Count - 1))];					
+					baseSpell = procSpells[Util.Random((procSpells.Count - 1))];
 				}
 				m_procSpell = SkillBase.GetSpellByID((int)baseSpell.Value);
 			}
