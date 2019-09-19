@@ -203,8 +203,8 @@ Scripts.Player.Guild.WithdrawInvalid:			Diese Menge kann nicht entnommen werden.
 Scripts.Player.Guild.WithdrawTooMuch:			Ihr könnt dieses viele Geld nicht aus der Gildenkasse entnehmen.	
 
 # /GC
-Commands.Players.Guild.AllianceInfo:			Allianzinformation für {0}:
-Commands.Players.Guild.AllianceLeader:			Allianzanführer {0}
-Commands.Players.Guild.AllianceMembers:			Allianzmitglieder:
-Commands.Players.Guild.AllianceMember:			{0} - {1}
-Commands.Players.Guild.AllianceNoLeader:			Kein Allianzanführer
+Commands.Players.Guild.Alliance.Info:			Allianzinformation für {0}:
+Commands.Players.Guild.Alliance.Leader:			Allianzanführer {0}
+Commands.Players.Guild.Alliance.Members:			Allianzmitglieder:
+Commands.Players.Guild.Alliance.Member:			{0} - {1}
+Commands.Players.Guild.Alliance.NoLeader:			Kein Allianzanführer
