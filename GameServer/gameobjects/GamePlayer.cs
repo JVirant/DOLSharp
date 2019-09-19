@@ -11906,8 +11906,21 @@ namespace DOL.GS
 								eligibleMember.Out.SendMessage(LanguageMgr.GetTranslation(Client.Account.Language, "GameObjects.GamePlayer.PickupObject.BackpackFull"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 								return false;
 							}
-							Message.SystemToOthers(this, LanguageMgr.GetTranslation(Client.Account.Language, "GameObjects.GamePlayer.PickupObject.GroupMemberPicksUp", Name, floorItem.Item.GetName(1, false)), eChatType.CT_System);
-							group.SendMessageToGroupMembers(LanguageMgr.GetTranslation(Client.Account.Language, "GameObjects.GamePlayer.PickupObject.Autosplit", floorItem.Item.GetName(1, true), eligibleMember.Name), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+							Message.SystemToOthers(
+								this,
+								LanguageMgr.GetTranslation(
+									Client.Account.Language,
+									"GameObjects.GamePlayer.PickupObject.GroupMemberPicksUp",
+									Name,
+									floorItem.Item.GetName(1, false)),
+								eChatType.CT_System);
+							group.SendMessageToGroupMembers(
+								LanguageMgr.GetTranslation(
+									Client.Account.Language,
+									"GameObjects.GamePlayer.PickupObject.Autosplit",
+									floorItem.Item.GetName(1, true),
+									eligibleMember.Name),
+								eChatType.CT_System, eChatLoc.CL_SystemWindow);
 							InventoryLogging.LogInventoryAction("(ground)", this, eInventoryActionType.Loot, floorItem.Item.Template, floorItem.Item.IsStackable ? floorItem.Item.Count : 1);
 						}
 					}
