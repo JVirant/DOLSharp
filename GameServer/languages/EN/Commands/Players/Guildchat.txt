@@ -1,0 +1,16 @@
+Commands.Players.Guildchat.Description:		Guild Chat command
+Commands.Players.Guildchat.Usage:			'/gu <text>'
+Commands.Players.Guildchat.NotGuilded:		You don't belong to a player guild.
+Commands.Players.Guildchat.NoPermission:	You don't have permission to speak on the on guild line.
+Commands.Players.Guildchat.SlowDown:		Slow down! Think before you say each word!
+Commands.Players.Osend.Description:			Speak in officer chat (Must be a guild officer)
+Commands.Players.Osend.Usage:				/o <text>
+Commands.Players.Osend.NotGuilded:			You don't belong to a player guild.
+Commands.Players.Osend.NoPermission:		You don't have permission to speak on the officer line.
+Commands.Players.Osend.SlowDown:			Slow down! Think before you say each word!
+Commands.Players.Asend.Description:			Sends a message to the alliance chat
+Commands.Players.Asend.Usage:				/as <text>
+Commands.Players.Asend.NotGuilded:			You don't belong to a player guild.
+Commands.Players.Asend.NoAlliance:			Your guild doesn't belong to any alliance.
+Commands.Players.Asend.NoPermission:		You can not speak on alliance chan.
+Commands.Players.Asend.Muted:				You have been muted and are not allowed to speak in this channel.

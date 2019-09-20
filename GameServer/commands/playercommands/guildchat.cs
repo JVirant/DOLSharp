@@ -17,6 +17,7 @@
  *
  */
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
@@ -24,27 +25,39 @@ namespace DOL.GS.Commands
 		"&gu",
 		new string[] {"&guild"},
 		ePrivLevel.Player,
-		"Guild Chat command",
-		"/gu <text>")]
+		"Commands.Players.Guildchat.Description",
+		"Commands.Players.Guildchat.Usage")]
 	public class GuildChatCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
 		{
 			if (client.Player.Guild == null)
 			{
-				DisplayMessage(client, "You don't belong to a player guild.");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Guildchat.NotGuilded"));
 				return;
 			}
 
 			if (!client.Player.Guild.HasRank(client.Player, Guild.eRank.GcSpeak))
 			{
-				DisplayMessage(client, "You don't have permission to speak on the on guild line.");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Guildchat.NoPermission"));
 				return;
 			}
 
 			if (IsSpammingCommand(client.Player, "guildchat", 500))
 			{
-				DisplayMessage(client, "Slow down! Think before you say each word!");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Guildchat.SlowDown"));
 				return;
 			}
 
@@ -57,27 +70,41 @@ namespace DOL.GS.Commands
 		"&o",
 		new string[] {"&osend"},
 		ePrivLevel.Player,
-		"Speak in officer chat (Must be a guild officer)",
-		"/o <text>")]
+		"Commands.Players.Osend.Description",
+		"Commands.Players.Osend.Usage")]
 	public class OfficerGuildChatCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
 		{
 			if (client.Player.Guild == null)
 			{
-				DisplayMessage(client, "You don't belong to a player guild.");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Osend.NotGuilded"));
 				return;
 			}
 
 			if (!client.Player.Guild.HasRank(client.Player, Guild.eRank.OcSpeak))
 			{
-				DisplayMessage(client, "You don't have permission to speak on the officer line.");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Osend.NoPermission"
+					)
+				);
 				return;
 			}
 
 			if (IsSpammingCommand(client.Player, "osend", 500))
 			{
-				DisplayMessage(client, "Slow down! Think before you say each word!");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Osend.SlowDown"));
 				return;
 			}
 
@@ -97,33 +124,49 @@ namespace DOL.GS.Commands
 		"&as",
 		new string[] {"&asend"},
 		ePrivLevel.Player,
-		"Sends a message to the alliance chat",
-		"/as <text>")]
+		"Commands.Players.Asend.Description",
+		"Commands.Players.Asend.Usage")]
 	public class AllianceGuildChatCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
 		{
 			if (client.Player.Guild == null)
 			{
-				DisplayMessage(client, "You don't belong to a player guild.");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Asend.NotGuilded"));
 				return;
 			}
 
 			if (client.Player.Guild.alliance == null)
 			{
-				DisplayMessage(client, "Your guild doesn't belong to any alliance.");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Asend.NoAlliance"));
 				return;
 			}
 
 			if (!client.Player.Guild.HasRank(client.Player, Guild.eRank.AcSpeak))
 			{
-				DisplayMessage(client, "You can not speak on alliance chan.");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Asend.NoPermission"));
 				return;
 			}
 
 			if (client.Player.IsMuted)
 			{
-				client.Player.Out.SendMessage("You have been muted and are not allowed to speak in this channel.", eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
+				client.Player.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Asend.Muted"),
+					eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
 				return;
 			}
 
