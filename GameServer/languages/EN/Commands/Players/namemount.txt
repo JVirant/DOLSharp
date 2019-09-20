@@ -1,0 +1,2 @@
+Commands.Players.Namemount.Description:	Name your horse
+Commands.Players.Namemount.Usage:		'/namemount'

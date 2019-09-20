@@ -1,0 +1,2 @@
+Commands.Players.Quit.Description:	Removes the player from the world
+Commands.Players.Quit.Usage:		Usage: '/quit'

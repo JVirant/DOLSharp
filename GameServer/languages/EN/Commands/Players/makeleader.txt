@@ -1,0 +1,7 @@
+Commands.Players.Makeleader.Description:		Set a new group leader (can be used by current leader).
+Commands.Players.Makeleader.Usage:				/makeleader <playerName>
+Commands.Players.Makeleader.NotInGroup:			You are not part of a group.
+Commands.Players.Makeleader.NotLeader:			You are not the leader of your group.
+Commands.Players.Makeleader.TargetNotValid:		You have not selected a valid player as your target.
+Commands.Players.Makeleader.NotFoundInGroup:	No players in group with that name.
+Commands.Players.Makeleader.NotYou:				You are the group leader already.

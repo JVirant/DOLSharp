@@ -1,0 +1,5 @@
+Commands.Players.Ignore.Description:	Adds/Removes a player to/from your Ignorelist!
+Commands.Players.Ignore.Usage:			'/ignore <PlayerName>'
+Commands.Players.Ignore.PlayerNotFound:	No players online with that name.
+Commands.Players.Ignore.NotUnique:		Character name is not unique.
+Commands.Players.Ignore.NotYourself:	You can't add yourself!k

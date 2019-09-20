@@ -1,0 +1,4 @@
+Commands.Players.Roleplay.Description:	Flags a player with an  tag to indicate the player is a role player.
+Commands.Players.Roleplay.Usage:		Usage: '/roleplay <on|off>'
+Commands.Players.Roleplay.On:			Your roleplay flag is ON. You will now be flagged as a roleplayer. Use '/roleplay off' to turn the flag off.
+Commands.Players.Roleplay.Off:			Your roleplay flag is OFF. You will be flagged as a roleplayer. Use '/roleplay on' to turn the flag back on.

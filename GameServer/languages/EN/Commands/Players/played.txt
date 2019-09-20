@@ -1,0 +1,3 @@
+Commands.Players.Played.Description:	Returns the age of the character
+Commands.Players.Played.Usage:			Usage: '/played'
+Commands.Players.Played.Played:			You have played for {0} Years, {1} Months, {2} Days, {3} Hours and {4} Minutes.

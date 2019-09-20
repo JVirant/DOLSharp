@@ -21,8 +21,8 @@ namespace DOL.GS.Commands
 {
 	[CmdAttribute("&hood", //command to handle
 		ePrivLevel.Player, //minimum privelege level
-		"Toggles the hood on and off when wearing a hooded cloak.", //command description
-		"/hood")] //usage
+		"Commands.Players.Hood.Description", //command description
+		"Commands.Players.Hood.Usage")] //usage
 	public class HoodCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)

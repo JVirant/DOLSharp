@@ -1,0 +1,3 @@
+Commands.Players.LFG.Description:	Broadcast a LFG message to other players in the same region
+Commands.Players.LFG.Usage:			'/lfg <message>'
+Commands.Players.LFG.Message:		[LFG] {0}: {1}

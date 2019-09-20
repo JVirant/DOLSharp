@@ -1,0 +1,7 @@
+Commands.Players.Random.Description:	Prints out a random number between 1 and the number specified.
+Commands.Players.Random.Usage:			Usage: '/random <#>' # To get a random number between 1 and the number you specified.
+Commands.Players.Random.SlowDown:		Slow down!
+Commands.Players.Random.Help:			You must select a maximum number for your random selection!
+Commands.Players.Random.Result.Self:	You pick a random number between 1 and {0}: {1}
+Commands.Players.Random.Result.Other:	{0} picks a random number between 1 and {1}: {2}
+Commands.Players.Random.LowNumber:		You must select a maximum number greater than 1!

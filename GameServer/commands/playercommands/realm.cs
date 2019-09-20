@@ -26,9 +26,10 @@ using DOL.GS.ServerRules;
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
-	   "&realm",
-	   ePrivLevel.Player,
-		 "Displays the current realm status.", "/realm")]
+		"&realm",
+		ePrivLevel.Player,
+		"Commands.Players.Realm.Description",
+		"Commands.Players.Realm.Usage")]
 	public class RealmCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		/*          Realm status
@@ -95,16 +96,35 @@ namespace DOL.GS.Commands
 				}
 			}
 			var realmInfo = new List<string>();
-			realmInfo.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Realm.AlbKeeps") + ":");
+			realmInfo.Add(
+				LanguageMgr.GetTranslation(
+					client.Account.Language,
+					"Commands.Players.Realm.AlbKeeps") + ":");
 			realmInfo.Add(albKeeps);
-			realmInfo.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Realm.MidKeeps") + ":");
+			realmInfo.Add(
+				LanguageMgr.GetTranslation(
+					client.Account.Language,
+					"Commands.Players.Realm.MidKeeps") + ":");
 			realmInfo.Add(midKeeps);
-			realmInfo.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Realm.HibKeeps") + ":");
+			realmInfo.Add(
+				LanguageMgr.GetTranslation(
+					client.Account.Language,
+					"Commands.Players.Realm.HibKeeps") + ":");
 			realmInfo.Add(hibKeeps);
-			realmInfo.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Realm.DarknessFalls") + ": " + GlobalConstants.RealmToName(DFEnterJumpPoint.DarknessFallOwner));
+			realmInfo.Add(
+				LanguageMgr.GetTranslation(
+					client.Account.Language,
+					"Commands.Players.Realm.DarknessFalls") + ": " + GlobalConstants.RealmToName(DFEnterJumpPoint.DarknessFallOwner));
 			realmInfo.Add(" ");
-			realmInfo.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Realm.UseRelicCommand"));
-			client.Out.SendCustomTextWindow(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Realm.Title"), realmInfo);
+			realmInfo.Add(
+				LanguageMgr.GetTranslation(
+					client.Account.Language,
+					"Commands.Players.Realm.UseRelicCommand"));
+			client.Out.SendCustomTextWindow(
+				LanguageMgr.GetTranslation(
+					client.Account.Language,
+					"Commands.Players.Realm.Title"),
+				realmInfo);
 		}
 
 		private string KeepStringBuilder(AbstractGameKeep keep)

@@ -1,0 +1,2 @@
+Commands.Players.Held.Description:	List the cards in your hand. Use 'held g' to display faceup cards held by group members.
+Commands.Players.Held.Usage:		'/held <g>'

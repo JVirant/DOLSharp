@@ -30,8 +30,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		 "&lfg",
 		 ePrivLevel.Player,
-		 "Broadcast a LFG message to other players in the same region",
-		 "/lfg <message>")]
+		 "Commands.Players.LFG.Description",
+		 "Commands.Players.LFG.Usage")]
 	public class LFGCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -40,12 +40,20 @@ namespace DOL.GS.Commands
 
 			if (args.Length < 2)
 			{
-				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Broadcast.NoText"));
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Broadcast.NoText"));
 				return;
 			}
 			if (client.Player.IsMuted)
 			{
-				client.Player.Out.SendMessage("You have been muted. You cannot broadcast.", eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
+				client.Player.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Broadcast.Muted"),
+					eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
 				return;
 			}
 			string message = string.Join(" ", args, 1, args.Length - 1);
@@ -58,7 +66,11 @@ namespace DOL.GS.Commands
 			long changeTime = client.Player.CurrentRegion.Time - BroadTick;
 			if (changeTime < 800 && BroadTick > 0)
 			{
-				client.Player.Out.SendMessage("Slow down! Think before you say each word!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Player.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Broadcast.SlowDown"),
+					eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				client.Player.TempProperties.setProperty(BROAD_TICK, client.Player.CurrentRegion.Time);
 				return;
 			}
@@ -73,7 +85,12 @@ namespace DOL.GS.Commands
 			{
 				if (GameServer.ServerRules.IsAllowedToUnderstand(c.Player, player))
 				{
-					c.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "Commands.Players.LFG.Message", player.Name, message), eChatType.CT_LFG, eChatLoc.CL_ChatWindow);
+					c.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							player.Client.Account.Language,
+							"Commands.Players.LFG.Message",
+							player.Name, message),
+						eChatType.CT_LFG, eChatLoc.CL_ChatWindow);
 				}
 			}
 

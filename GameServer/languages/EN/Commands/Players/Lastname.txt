@@ -1,0 +1,16 @@
+Commands.Players.Lastname.Description:		Set/change your lastname.
+Commands.Players.Lastname.Usage:			'/lastname <name>'
+Commands.Players.Lastname.NoAvailable:		You must be {0}th level or {1} in you primary trade skill to register a last name!
+Commands.Players.Lastname.Cost:				Changing your last name costs {0}!
+Commands.Players.Lastname.NeedRegistrar:	You must select a name registrar to set your last name with!
+Commands.Players.Lastname.TooFarAway:		You are too far away to interact with {0}.
+Commands.Players.Lastname.Clear:			Would you like to clear your last name?
+Commands.Players.Lastname.MaxLength:		Last names can be no longer than {0} characters!
+Commands.Players.Lastname.UpperCase:		Your lastname must start with a valid, uppercase character!
+Commands.Players.Lastname.ValidCharacters:	Your lastname must consist of valid characters!
+Commands.Players.Lastname.NotValid:			{0} is not a legal last name! Choose another.
+Commands.Players.Lastname.Setup:			Would you like to set your last name to \x000a{0} ?
+Commands.Players.Lastname.Declined.Take:	You decline to take {0} as your last name.
+Commands.Players.Lastname.Declined.Clear:	You decline to clear as your last name.
+Commands.Players.Lastname.Set.To:			Your last name has been set to {0}!
+Commands.Players.Lastname.Set.Clear:		Your last name has been cleared!

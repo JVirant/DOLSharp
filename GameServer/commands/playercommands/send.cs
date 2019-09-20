@@ -17,6 +17,7 @@
  *
  */
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
@@ -24,21 +25,29 @@ namespace DOL.GS.Commands
 		"&send",
 		new string[] { "&tell", "&t" },
 		ePrivLevel.Player,
-		"Sends a private message to a player",
-		"Use: SEND <TARGET> <TEXT TO SEND>")]
+		"Commands.Players.Send.Description",
+		"Commands.Players.Send.Usage")]
 	public class SendCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
 		{
 			if (args.Length < 3)
 			{
-				client.Out.SendMessage("Use: SEND <TARGET> <TEXT TO SEND>", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Send.Usage"),
+					eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				return;
 			}
 
 			if (IsSpammingCommand(client.Player, "send", 500))
 			{
-				DisplayMessage(client, "Slow down! Think before you say each word!");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Send.SlowDown"));
 				return;
 			}
 
@@ -55,7 +64,12 @@ namespace DOL.GS.Commands
 			if (targetClient == null)
 			{
 				// nothing found
-				client.Out.SendMessage(targetName + " is not in the game, or in another realm.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Send.Target.NotFound",
+						targetName),
+					eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				return;
 			}
 
@@ -64,8 +78,18 @@ namespace DOL.GS.Commands
             {
 				if (client.Account.PrivLevel == (uint)ePrivLevel.Player)
 				{
-					client.Out.SendMessage(targetName + " is not in the game, or in another realm.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-					targetClient.Player.Out.SendMessage(string.Format("You're anon but {0} tried to send: {1}", client.Player.Name, message), eChatType.CT_Send, eChatLoc.CL_ChatWindow);
+					client.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Send.Target.NotFound",
+							targetName),
+						eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					targetClient.Player.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Send.Anon.Received",
+							client.Player.Name, message),
+						eChatType.CT_Send, eChatLoc.CL_ChatWindow);
 				}
 				else
 				{
@@ -78,13 +102,21 @@ namespace DOL.GS.Commands
 			switch (result)
 			{
 				case 2: // name not unique
-					client.Out.SendMessage("Character name is not unique.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Send.Target.NotUnique"),
+						eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					return;
 				case 3: // exact match
 				case 4: // guessed name
 					if (targetClient == client)
 					{
-						client.Out.SendMessage("You can't /send to yourself!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+						client.Out.SendMessage(
+							LanguageMgr.GetTranslation(
+								client.Account.Language,
+								"Commands.Players.Send.Target.Yourself"),
+							eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					}
 					else
 					{

@@ -19,10 +19,11 @@
 
 namespace DOL.GS.Commands
 {
-	[CmdAttribute("&helm", //command to handle
+	[CmdAttribute(
+		"&helm", //command to handle
 		ePrivLevel.Player, //minimum privelege level
-	 "Toggles the helm on and off when wearing an helm.", //command description
-	  "/helm")] //usage
+		"Commands.Players.Helm.Description", //command description
+		"Commands.Players.Helm.Usage")] //usage
 	public class HelmCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)

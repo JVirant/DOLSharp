@@ -1,13 +1,14 @@
 using System;
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
 		"&setwho",
 		ePrivLevel.Player,
-		"Set your class or trade for /who output",
-		"/setwho class | trade")]
+		"Commands.Players.Setwho.Description",
+		"Commands.Players.Setwho.Usage")]
 	public class SetWhoCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -17,7 +18,11 @@ namespace DOL.GS.Commands
 
 			if (args.Length < 2)
 			{
-				DisplayMessage(client, "You need to specify if you want to change to class or trade");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Setwho.Help"));
 				return;
 			}
 
@@ -27,7 +32,11 @@ namespace DOL.GS.Commands
 			{
 				if (client.Player.CraftingPrimarySkill == eCraftingSkill.NoCrafting)
 				{
-					DisplayMessage(client, "You need a profession to enable it in for who messages");
+					DisplayMessage(
+						client,
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Setwho.Missing.Prof"));
 					return;
 				}
 
@@ -35,14 +44,26 @@ namespace DOL.GS.Commands
 			}
 			else
 			{
-				DisplayMessage(client, "You need to specify if you want to change to class or trade");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Setwho.Help"));
 				return;
 			}
 
 			if (client.Player.ClassNameFlag)
-				DisplayMessage(client, "/who will no longer show your crafting title");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Setwho.Craft.Off"));
 			else
-				DisplayMessage(client, "/who will now show your crafting title");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Setwho.Craft.On"));
 		}
 	}
 }

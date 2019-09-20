@@ -1,0 +1,2 @@
+Commands.Players.Play.Description:	You can pray on your gravestones to get some experience back
+Commands.Players.Play.Usage:		Usage: '/pray'

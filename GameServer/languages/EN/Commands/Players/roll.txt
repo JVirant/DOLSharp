@@ -1,0 +1,7 @@
+Commands.Players.Roll.Description:	Simulates a dice roll.
+Commands.Players.Roll.Usage:		Usage: '/roll [#]' # To throw with a specified number of dice
+Commands.Players.Roll.Help:			You must select the number of dice to roll!
+Commands.Players.Roll.Result.Self:	You roll {0} dice and come up with: {1}
+Commands.Players.Roll.Result.Other:	{0} rolls {1} dice and comes up with: {2}
+Commands.Players.Roll.WrongNumber:	You must number of dice between 1 and {0}!
+Commands.Players.Roll.SlowDown:		Slow down!

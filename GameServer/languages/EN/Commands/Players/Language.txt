@@ -1,4 +1,9 @@
 # /Language
-Commands.Players.Language.Current:			Your language is currently set to: {0}.
-Commands.Players.Language.Set:				You change your server display language to {0}.
-Commands.Players.Language.AvailableLanguages: Available languages: {0}
+Commands.Players.Language.Description:			Change your language.
+Commands.Players.Language.Usage.Current:		Use '/language current' to see your current used language.
+Commands.Players.Language.Usage.Set:			Use '/language set [language]' to set your language.
+Commands.Players.Language.Usage.Show:			Use '/language show' to show all available languages and to see your current used language.
+Commands.Players.Language.Current:				Your language is currently set to: {0}.
+Commands.Players.Language.Set:					You change your server display language to {0}.
+Commands.Players.Language.AvailableLanguages:	Available languages: {0}
+Commands.Players.Language.NoChange:				This server does not support changing languages.

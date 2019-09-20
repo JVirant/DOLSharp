@@ -1,0 +1,2 @@
+Commands.Players.Release.Description:	When you are dead you can '/release'. This will bring you back to your bindpoint!
+Commands.Players.Release.Usage:			Usage: '/release'

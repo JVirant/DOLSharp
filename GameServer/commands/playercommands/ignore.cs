@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. 
  */
 using DOL.GS.PacketHandler;
-
+using DOL.Language;
 namespace DOL.GS.Commands
 {
     /// <summary>
@@ -25,8 +25,8 @@ namespace DOL.GS.Commands
     [CmdAttribute(
         "&ignore",
         ePrivLevel.Player,
-        "Adds/Removes a player to/from your Ignorelist!",
-        "/ignore <playerName>")]
+        "Commands.Players.Helm.Description",
+        "Commands.Players.Helm.Usage")]
     public class IgnoreCommandHandler : AbstractCommandHandler, ICommandHandler
     {
         /// <summary>
@@ -59,7 +59,11 @@ namespace DOL.GS.Commands
                 else
                 {
                     // nothing found
-                    DisplayMessage(client, "No players online with that name.");
+                    DisplayMessage(
+                        client,
+                        LanguageMgr.GetTranslation(
+                            client.Account.Language,
+                            "Commands.Players.Ignore.PlayerNotFound"));
                     return;
                 }
             }
@@ -69,7 +73,11 @@ namespace DOL.GS.Commands
                 case 2:
                     {
                         // name not unique
-                        DisplayMessage(client, "Character name is not unique.");
+                        DisplayMessage(
+                            client,
+                            LanguageMgr.GetTranslation(
+                                client.Account.Language,
+                                "Commands.Players.Ignore.NotUnique"));
                         break;
                     }
                 case 3: // exact match
@@ -77,7 +85,11 @@ namespace DOL.GS.Commands
                     {
                         if (fclient == client)
                         {
-                            DisplayMessage(client, "You can't add yourself!");
+                            DisplayMessage(
+                                client,
+                                LanguageMgr.GetTranslation(
+                                    client.Account.Language,
+                                    "Commands.Players.Ignore.NotYourself"));
                             return;
                         }
 

@@ -22,8 +22,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&pray",
 		ePrivLevel.Player,
-		"You can pray on your gravestones to get some experience back",
-		"/pray")]
+		"Commands.Players.Play.Description",
+		"Commands.Players.Play.Usage")]
 	public class PrayCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)

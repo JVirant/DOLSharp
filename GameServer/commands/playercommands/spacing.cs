@@ -17,13 +17,14 @@
  *
  */
 using DOL.GS.PacketHandler;
-
+using DOL.Language;
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
 		"&spacing",
 		ePrivLevel.Player,
-		"Change the spacing of your pets!", "/spacing {normal, big, huge}")]
+		"Commands.Players.Spacing.Description",
+		"Commands.Players.Spacing.Usage")]
 	public class SpacingHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -36,24 +37,48 @@ namespace DOL.GS.Commands
 			//No one else needs to use this spell
 			if (player.CharacterClass.ID != (int)eCharacterClass.Bonedancer)
 			{
-				DisplayMessage(player, "Only Bonedancers can use this command!");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Spacing.Only.Bone"));
 				return;
 			}
 
 			//Help display
 			if (args.Length == 1)
 			{
-				DisplayMessage(player, "Spacing commands:");
-				DisplayMessage(player, "'/spacing normal' Use normal spacing between minions.");
-				DisplayMessage(player, "'/spacing big' Use a larger spacing between minions.");
-				DisplayMessage(player, "'/spacing huge' Use a very large spacing between minions.");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Spacing.Help"));
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Spacing.Help.Normal"));
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Spacing.Help.Big"));
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Spacing.Help.Huge"));
 				return;
 			}
 
 			//Check to see if the BD has a commander and minions
 			if (player.ControlledBrain == null)
 			{
-				DisplayMessage(player, "You don't have a commander!");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Spacing.Missing.Commander"));
 				return;
 			}
 			bool haveminion = false;
@@ -64,7 +89,11 @@ namespace DOL.GS.Commands
 			}
 			if (!haveminion)
 			{
-				DisplayMessage(player, "You don't have any minions!");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Spacing.Missing.Minion"));
 				return;
 			}
 
@@ -83,7 +112,12 @@ namespace DOL.GS.Commands
 					player.ControlledBrain.Body.FormationSpacing = 3;
 					break;
 				default:
-					DisplayMessage(player, "Unrecognized argument: " + args[1]);
+					DisplayMessage(
+						player,
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Spacing.UnknownArg",
+							args[1]));
 					break;
 			}
 		}

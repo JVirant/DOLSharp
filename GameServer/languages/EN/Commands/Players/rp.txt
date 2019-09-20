@@ -1,0 +1,4 @@
+Commands.Players.RP.Description:	Toggle receiving realm points
+Commands.Players.RP.Usage:			Usage: '/rp <on|off>'
+Commands.Players.RP.On:				Your rp flag is ON. You will gain realm points. Use '/rp off' to stop gaining realm points.
+Commands.Players.RP.Off:			Your rp flag is OFF. You will no longer gain realm points. Use '/rp on' to start gaining realm points again.

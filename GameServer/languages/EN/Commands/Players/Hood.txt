@@ -1,0 +1,2 @@
+Commands.Players.Hood.Description:	Toggles the hood on and off when wearing a hooded cloak.
+Commands.Players.Hood.Usage:		'/hood'

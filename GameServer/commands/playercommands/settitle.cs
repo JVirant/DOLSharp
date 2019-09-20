@@ -22,14 +22,15 @@ using DOL.GS;
 using DOL.GS.PacketHandler;
 using DOL.GS.PlayerTitles;
 using DOL.GS.Commands;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[Cmd(
 		 "&settitle",
 		 ePrivLevel.Player,
-		 "Sets the current player title",
-		 "/settitle <index> - to change current title using index in the list")]
+		 "Commands.Players.Settitle.Description",
+		 "Commands.Players.Settitle.Usage")]
 	public class SetTitleCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -45,7 +46,11 @@ namespace DOL.GS.Commands
 
 				IPlayerTitle current = client.Player.CurrentTitle;
 				if (current != null && current.IsForced(client.Player))
-					client.Out.SendMessage("You cannot change the current title.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Settitle.Cannot"),
+						eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				else
 				{
 					var titles = client.Player.Titles.ToArray();

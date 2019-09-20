@@ -75,13 +75,13 @@ DetailDisplayHandler.HandlePacket.MediumBonus:		Medium Bonus
 DetailDisplayHandler.HandlePacket.MediumPenalty:	Medium Penalty
 DetailDisplayHandler.HandlePacket.MustBeInChatGroup:	You must be in a chat group.
 DetailDisplayHandler.HandlePacket.MustBeInBattleGroup:	You must be in a battle group.
-DetailDisplayHandler.HandlePacket.NoBonus:		No Bonus
-DetailDisplayHandler.HandlePacket.NoGroup:		You are not part of a group.
-DetailDisplayHandler.HandlePacket.NoInformation:	No special information!
-DetailDisplayHandler.HandlePacket.None:		None
+DetailDisplayHandler.HandlePacket.NoBonus:				No Bonus
+DetailDisplayHandler.HandlePacket.NoGroup:				You are not part of a group.
+DetailDisplayHandler.HandlePacket.NoInformation:		No special information!
+DetailDisplayHandler.HandlePacket.None:					None
 DetailDisplayHandler.HandlePacket.NoPermissionToSpeak:	You don't have permission to speak on the on guild line.	
-DetailDisplayHandler.HandlePacket.OnlyModerator:	Only moderator can talk on this chat group.
-DetailDisplayHandler.HandlePacket.Opening:		Opening: 
+DetailDisplayHandler.HandlePacket.OnlyModerator:		Only moderator can talk on this chat group.
+DetailDisplayHandler.HandlePacket.Opening:				Opening: 
 DetailDisplayHandler.HandlePacket.OpeningStyle:		Opening Style: 
 DetailDisplayHandler.HandlePacket.Or:			 or {0}
 DetailDisplayHandler.HandlePacket.Positional:		Positional 

@@ -18,14 +18,15 @@
  */
 using DOL.GS;
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
 		 "&safety",
 		 ePrivLevel.Player,
-		 "Turns off PvP safety flag.",
-		 "/safety off")]
+		 "Commands.Players.Safety.Description",
+		 "Commands.Players.Safety.Usage")]
 	public class SafetyCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -36,17 +37,37 @@ namespace DOL.GS.Commands
 			if(args.Length >= 2 && args[1].ToLower() == "off")
 			{
 				client.Player.SafetyFlag = false;
-				DisplayMessage(client, "Your safety flag is now set to OFF!  You can now attack non allied players, as well as be attacked.");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Safety.Off"));
 			}
 			else if(client.Player.SafetyFlag)
 			{
-				DisplayMessage(client, "The safety flag keeps your character from participating in combat");
-				DisplayMessage(client, "with non allied players in designated zones when you are below level 10.");
-				DisplayMessage(client, "Type /safety off to begin participating in PvP combat in these zones, though once it is off it can NOT be turned back on!");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Message.1"));
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Message.2"));
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Message.3"));
 			}
 			else
 			{
-				DisplayMessage(client, "Your safety flag is already off.");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Safety.Off.Already"));
 			}
 		}
 	}

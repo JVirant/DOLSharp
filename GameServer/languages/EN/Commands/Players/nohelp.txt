@@ -1,0 +1,4 @@
+Commands.Players.Nohelp.Description:	Toggle nohelp on or off, to stop receiving help from  your real
+Commands.Players.Nohelp.Usage:			'/nohelp'
+Commands.Players.Nohelp.Off:			You will no longer receive help from members of your realm, type /nohelp again to receive help again.
+Commands.Players.Nohelp.On:				

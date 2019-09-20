@@ -17,14 +17,15 @@
  *
  */
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
 		"&roleplay",
 		ePrivLevel.Player,
-	   "Flags a player with an  tag to indicate the player is a role player.",
-	   "/roleplay on/off")]
+	   "Commands.Players.Roleplay.Description",
+	   "Commands.Players.Roleplay.Usage")]
 	public class RolePlayCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -41,12 +42,20 @@ namespace DOL.GS.Commands
 			if (args[1].ToLower().Equals("on"))
 			{
 				client.Player.RPFlag = true;
-				client.Out.SendMessage("Your roleplay flag is ON. You will now be flagged as a roleplayer. Use '/roleplay off' to turn the flag off.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Roleplay.On"),
+					eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 			}
 			else if (args[1].ToLower().Equals("off"))
 			{
 				client.Player.RPFlag = false;
-				client.Out.SendMessage("Your roleplay flag is OFF. You will be flagged as a roleplayer. Use '/roleplay on' to turn the flag back on.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Roleplay.Off"),
+					eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 			}
 		}
 	}
