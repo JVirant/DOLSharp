@@ -2566,7 +2566,12 @@ namespace DOL.GS.Commands
 							}
 							else
 							{
-								DisplayMessage(client, "Your guild is not a member of an alliance!");
+								DisplayMessage(
+									client,
+									LanguageMgr.GetTranslation(
+										client.Account.Language,
+										"Commands.Players.Guild.Alliance.NoMember")
+									);
 								return;
 							}
 

@@ -86,6 +86,7 @@ Commands.Players.Guild.Guild.ForceLeave:				You have been removed from {1} by {0
 Commands.Players.Guild.Guild.Leave:					You have left your guild.	
 Commands.Players.Guild.Guild.LevelReq:				Your guild is not high enough level for this command.	
 Commands.Players.Guild.Guild.NotExist:				That guild does not exist.	
+Commands.Players.Guild.Alliance.NoMember:			Your guild is not a member of an alliance!
 Commands.Players.Guild.Help.Guild.ACancel:			'/gc acancel' to cancel an alliance invitation	
 Commands.Players.Guild.Help.Guild.AAccept:			'/gc aaccept' to accept an alliance invitation	
 Commands.Players.Guild.Help.Guild.Accept:			'/gc accept ' to accept invite to guild	
