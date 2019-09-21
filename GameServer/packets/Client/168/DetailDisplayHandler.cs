@@ -1727,7 +1727,11 @@ namespace DOL.GS.PacketHandler.Client.v168
 								if (spl.RecastDelay > 0)
 									output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UseItem1", Util.FormatTime(spl.RecastDelay / 1000)));
 								else
-									output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UseItem2"));
+									output.Add(
+										LanguageMgr.GetTranslation(
+											client.Account.Language,
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem2",
+											"3", "00"));
 								long lastChargedItemUseTick = client.Player.TempProperties.getProperty<long>(GamePlayer.LAST_CHARGED_ITEM_USE_TICK);
 								long changeTime = client.Player.CurrentRegion.Time - lastChargedItemUseTick;
 								long recastDelay = (spl.RecastDelay > 0) ? spl.RecastDelay : 60000 * 3;
@@ -2186,7 +2190,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 			switch(style.SpecialType)
 			{
 				case Style.eSpecialType.ExtendedRange:
-					return 128; // Extended Range für Reaver style
+					return 128; // Extended Range fï¿½r Reaver style
 				case Style.eSpecialType.Taunt:
 					return style.SpecialValue;
 			}

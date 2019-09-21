@@ -458,11 +458,16 @@ namespace DOL.GS
 
 				if (minutes == 0)
 				{
-                    delve.Add(String.Format("Can use item every: {0} sec", seconds));
+                    delve.Add(
+						LanguageMgr.GetTranslation(
+							"DetailDisplayHandler.WriteMagicalBonuses.UseItem1", seconds));
 				}
 				else
 				{
-                    delve.Add(String.Format("Can use item every: {0}:{1:00} min", minutes, seconds));
+                    delve.Add(
+						LanguageMgr.GetTranslation(
+							"DetailDisplayHandler.WriteMagicalBonuses.UseItem2",
+							minutes, seconds));
 				}
 
 				// delve.Add(String.Format("Can use item every: {0:00}:{1:00}", minutes, seconds));
@@ -476,11 +481,17 @@ namespace DOL.GS
 
 					if (minutes == 0)
 					{
-                        delve.Add(String.Format("Can use again in: {0} sec", seconds));
+                        delve.Add(
+							LanguageMgr.GetTranslation(
+								"DetailDisplayHandler.WriteMagicalBonuses.UseItem1",
+								seconds));
 					}
 					else
 					{
-                        delve.Add(String.Format("Can use again in: {0}:{1:00} min", minutes, seconds));
+                        delve.Add(
+							LanguageMgr.GetTranslation(
+								"DetailDisplayHandler.WriteMagicalBonuses.UseItem2",
+								minutes, seconds));
 					}
 				}
 			}
@@ -843,14 +854,26 @@ namespace DOL.GS
 								output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UsedItem"));
 								output.Add(" ");
 								if (spl.RecastDelay > 0)
-									output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UseItem1", Util.FormatTime(spl.RecastDelay / 1000)));
+									output.Add(
+										LanguageMgr.GetTranslation(
+											client.Account.Language,
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem1",
+											Util.FormatTime(spl.RecastDelay / 1000)));
 								else
-									output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UseItem2"));
+									output.Add(
+										LanguageMgr.GetTranslation(
+											client.Account.Language,
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem2",
+											"3", "00"));
 								long lastChargedItemUseTick = client.Player.TempProperties.getProperty<long>(GamePlayer.LAST_CHARGED_ITEM_USE_TICK);
 								long changeTime = client.Player.CurrentRegion.Time - lastChargedItemUseTick;
 								long recastDelay = (spl.RecastDelay > 0) ? spl.RecastDelay : 60000 * 3;
 								if (changeTime < recastDelay) //3 minutes reuse timer
-									output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UseItem3", Util.FormatTime((recastDelay - changeTime) / 1000)));
+									output.Add(
+										LanguageMgr.GetTranslation(
+											client.Account.Language,
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem3",
+											Util.FormatTime((recastDelay - changeTime) / 1000)));
 								return;
 							}
 						}
@@ -995,7 +1018,11 @@ namespace DOL.GS
 							// into Future, set with value of "itemtemplate.CanUseEvery" and no longer back into past
 							if (nextPotionAvailTime > client.Player.CurrentRegion.Time)
 							{
-								list.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WritePotionInfo.UseItem3", Util.FormatTime((nextPotionAvailTime - client.Player.CurrentRegion.Time) / 1000)));
+								list.Add(
+									LanguageMgr.GetTranslation(
+										client.Account.Language,
+										"DetailDisplayHandler.WritePotionInfo.UseItem3",
+										Util.FormatTime((nextPotionAvailTime - client.Player.CurrentRegion.Time) / 1000)));
 							}
 							else
 							{
@@ -1004,11 +1031,18 @@ namespace DOL.GS
 
 								if (minutes == 0)
 								{
-                                    list.Add(String.Format("Can use item every: {0} sec", seconds));
+                                    list.Add(
+										LanguageMgr.GetTranslation(
+											client.Account.Language,
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem1",
+											seconds));
 								}
 								else
 								{
-                                    list.Add(String.Format("Can use item every: {0}:{1:00} min", minutes, seconds));
+                                    list.Add(
+										LanguageMgr.GetTranslation(
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem2",
+											minutes, seconds));
 								}
 							}
 

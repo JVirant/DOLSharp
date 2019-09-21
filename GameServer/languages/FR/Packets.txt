@@ -120,7 +120,7 @@ DetailDisplayHandler.WriteMagicalBonuses.StrikeArmor:	- Le sort a une chance d'�
 DetailDisplayHandler.WriteMagicalBonuses.StrikeEnemy:	- Le sort a une chance d'être lancé quand cette arme touche un ennemi.
 DetailDisplayHandler.WriteMagicalBonuses.UsedItem:	    - Le sort a une chance d'être lancé quand l'objet est utilisé.
 DetailDisplayHandler.WriteMagicalBonuses.UseItem1:	    Peut être utilisé toutes les : {0}
-DetailDisplayHandler.WriteMagicalBonuses.UseItem2:	    Peut être utilisé toutes les : 3:00 min.
+DetailDisplayHandler.WriteMagicalBonuses.UseItem2:	    Peut être utilisé toutes les : {0}:{1} min.
 DetailDisplayHandler.WriteMagicalBonuses.UseItem3:	    Peut être réutilisé dans : {0}.
 DetailDisplayHandler.WritePoisonInfo.Charges:		    - {0} Charges
 DetailDisplayHandler.WritePoisonInfo.Level:		        - {0} Niveau

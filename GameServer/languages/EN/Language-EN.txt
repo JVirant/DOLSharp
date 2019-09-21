@@ -160,7 +160,7 @@ DetailDisplayHandler.WriteMagicalBonuses.StrikeArmor:	- Spell has a chance of ca
 DetailDisplayHandler.WriteMagicalBonuses.StrikeEnemy:	- Spell has a chance of casting when this weapon strikes an enemy.
 DetailDisplayHandler.WriteMagicalBonuses.UsedItem:	- Spell has a chance of casting when this item is used.
 DetailDisplayHandler.WriteMagicalBonuses.UseItem1:	Can use item every: {0}
-DetailDisplayHandler.WriteMagicalBonuses.UseItem2:	Can use item every: 3:00 min.
+DetailDisplayHandler.WriteMagicalBonuses.UseItem2:	Can use item every: {0}:{1} min.
 DetailDisplayHandler.WriteMagicalBonuses.UseItem3:	Can use again in: {0}.
 DetailDisplayHandler.WritePoisonInfo.Charges:		- {0} Charges
 DetailDisplayHandler.WritePoisonInfo.Level:		- {0} Level
