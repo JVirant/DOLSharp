@@ -23,14 +23,15 @@ using log4net;
 
 using DOL.GS;
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
 	"&statsanon",
 	ePrivLevel.Player,
-	"Hides your statistics",
-	"/statsanon")]
+	"Commands.Players.Statsanon.Description",
+	"Commands.Players.Statsanon.Usage")]
 	public class StatsAnonHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -45,9 +46,13 @@ namespace DOL.GS.Commands
 
 			client.Player.StatsAnonFlag = !client.Player.StatsAnonFlag;
 			if (client.Player.StatsAnonFlag)
-				msg = "Your stats are no longer visible to other players.";
+				msg = LanguageMgr.GetTranslation(
+					client.Account.Language,
+					"Commands.Players.Statsanon.On");
 			else
-				msg = "Your stats are now visible to other players.";
+				msg = LanguageMgr.GetTranslation(
+					client.Account.Language,
+					"Commands.Players.Statsanon.Off");
 
 			client.Player.Out.SendMessage(msg, eChatType.CT_System, eChatLoc.CL_ChatWindow);
 		}

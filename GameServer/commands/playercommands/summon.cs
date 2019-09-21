@@ -1,9 +1,14 @@
 using System;
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
-	[CmdAttribute("&summon", ePrivLevel.Player,"Summon horse","/summon")]
+	[CmdAttribute(
+		"&summon",
+		ePrivLevel.Player,
+		"Commands.Players.Summon.Description",
+		"Commands.Players.Summon.Usage")]
 	public class SummonHorseCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -17,7 +22,11 @@ namespace DOL.GS.Commands
 			}
 			catch
 			{
-				DisplayMessage(client, "Incorrect format of the command");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Summon.Incorrect"));
 			}
 			finally
 			{

@@ -236,6 +236,7 @@ Commands.Players.Guild.Withdraw.amount:				You withdraw {0} from the guild bank.
 Commands.Players.Guild.Withdraw.Invalid:			That is an invalid amount to withdraw.	
 Commands.Players.Guild.Withdraw.TooMuch:			You cannot withdraw that much money from the guild bank.	
 Commands.Players.Guild.GetListOfOnlineMembers:		{0}) {1} <guild={2}> the Level {3} {4} in {5}
+Commands.Players.Guild.TotalMemberOnline:			Total member online: {0}
 # /GC
 Commands.Players.Guild.Alliance.Info:				Alliance info for {0}:
 Commands.Players.Guild.Alliance.Leader:				Alliance leader {0}

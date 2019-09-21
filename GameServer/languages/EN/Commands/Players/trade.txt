@@ -1,0 +1,2 @@
+Commands.Players.Trade.Description:	Broadcast a trade message to other players in the same region
+Commands.Players.Trade.Usage:		Usage: '/trade <message'

@@ -2290,8 +2290,18 @@ namespace DOL.GS.Commands
 								}
 							}
 							if (ind > WhoCommandHandler.MAX_LIST_SIZE && ind < onlineGuildMembers.Count)
-								client.Out.SendMessage(string.Format(WhoCommandHandler.MESSAGE_LIST_TRUNCATED, onlineGuildMembers.Count), eChatType.CT_Guild, eChatLoc.CL_SystemWindow);
-							else client.Out.SendMessage("total member online:        " + ind.ToString(), eChatType.CT_Guild, eChatLoc.CL_SystemWindow);
+								client.Out.SendMessage(
+									LanguageMgr.GetTranslation(
+										client.Account.Language,
+										"Commands.Players.Who.List.Truncated",
+										onlineGuildMembers.Count),
+									eChatType.CT_Guild, eChatLoc.CL_SystemWindow);
+							else client.Out.SendMessage(
+								LanguageMgr.GetTranslation(
+									client.Account.Language,
+									"Commands.Players.Guild.TotalMemberOnline",
+									ind.ToString()),
+								eChatType.CT_Guild, eChatLoc.CL_SystemWindow);
 
 							break;
 							#endregion

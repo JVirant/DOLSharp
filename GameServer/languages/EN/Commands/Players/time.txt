@@ -1,0 +1,9 @@
+Commands.Players.Time.Description:	Time in game
+Commands.Players.Time.Usage:		Usage: '/time'
+Commands.Players.Time.Usage.Admin:	ADMIN Usage: /time <speed> (24 is normal, higher numbers make faster days) <time> (1 - 1000) - Reset days with new length, starting at the given time.
+Commands.Players.Time.Print:		It is {0}:{1}:{2}{3}
+Commands.Players.Time.:
+Commands.Players.Time.:
+Commands.Players.Time.:
+Commands.Players.Time.:
+Commands.Players.Time.:

@@ -1,0 +1,10 @@
+Commands.Players.Webdisplay.Description:	Set informations displayed on the herald
+Commands.Players.Webdisplay.Usage:			Usage: '/webdisplay <position|template|equipment|craft> [on|off]'
+Commands.Players.Webdisplay.Equipment.On:	Your equipment is displayed.
+Commands.Players.Webdisplay.Equipment.Off:	Your equipment is not displayed.
+Commands.Players.Webdisplay.Position.On:	Your position is displayed.
+Commands.Players.Webdisplay.Position.Off:	Your position is not displayed.
+Commands.Players.Webdisplay.Template.On:	Your template is displayed.
+Commands.Players.Webdisplay.Template.Off:	Your template is not displayed.
+Commands.Players.Webdisplay.Craft.On:		Your crafting skill is displayed
+Commands.Players.Webdisplay.Craft.Off:		Your crafting skill is not displayed

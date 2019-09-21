@@ -1,0 +1,2 @@
+Commands.Players.Stuck.Description:	Removes the player from the world and put it to a safe location
+Commands.Players.Stuck.Usage:		Usage: '/stuck'

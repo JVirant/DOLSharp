@@ -18,14 +18,15 @@
  */
 using System;
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
 		"&time",
 		ePrivLevel.Player,
-		"time in game",
-		"/time")]
+		"Commands.Players.Time.Description",
+		"Commands.Players.Time.Usage")]
 	public class TimeCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -52,8 +53,11 @@ namespace DOL.GS.Commands
 				}
 				catch
 				{
-					client.Out.SendMessage("ADMIN Usage: /time <speed> (24 is normal, higher numbers make faster days) <time> (1 - 1000) - Reset days with new length, starting at the given time.",
-											eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Time.Usage.Admin"),
+						eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				}
 			}
 
@@ -80,8 +84,12 @@ namespace DOL.GS.Commands
 					pm = true;
 				}
 
-				client.Out.SendMessage("It is " + hour.ToString() + ":" + minute.ToString("00") + ":" + seconds.ToString("00") + (pm ? " pm" : ""),
-									   eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Time.Print",
+						hour.ToString(), minute.ToString("00"), seconds.ToString("00"), (pm ? " pm" : "")),
+					eChatType.CT_System, eChatLoc.CL_SystemWindow);
 			}
 		}
 	}

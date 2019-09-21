@@ -1,0 +1,13 @@
+Commands.Players.Viewreports.Description:			Allows you to view submitted bug reports.
+Commands.Players.Viewreports.Usage:					Usage: '/viewreports'
+Commands.Players.Viewreports.Help.Close:			'/viewreport close <report #>' Will close the report of id #.
+Commands.Players.Viewreports.Help.Delete:			'/viewreport delete <report #' Deletes a report of id #.
+Commands.Players.Viewreports.InvalidReport:			That is not a valid report.
+Commands.Players.Viewreports.UnknownCommand:		That is not a valid command.
+Commands.Players.Viewreports.ReportDeleted:			Report {0} has been deleted.
+Commands.Players.ViewReports.NoPriv:				You do not have the privilages to edit reports.
+Commands.Players.ViewReports.Reports.Submitted:		Submitted: {0}
+Commands.Players.ViewReports.Reports.Report:		Report: {0}
+Commands.Players.ViewReports.Reports.CloseBy:		Closed By: {0}
+Commands.Players.ViewReports.Reports.DateClosed:	Date Closed: {0}
+Commands.Players.ViewReports.Reports.

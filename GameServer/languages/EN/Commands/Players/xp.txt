@@ -1,0 +1,4 @@
+Commands.Players.Xp.Description:	Toggle receiving experience points
+Commands.Players.Xp.Usage:			Usage: '/xp <on|off>'
+Commands.Players.Xp.On:				Your xp flag is ON. You will gain experience points. Use '/xp off' to stop gaining experience points.
+Commands.Players.Xp.Off:			Your xp flag is OFF. You will no longer gain experience points. Use '/xp on' to start gaining experience points again.

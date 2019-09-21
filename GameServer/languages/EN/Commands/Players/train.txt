@@ -1,0 +1,9 @@
+Commands.Players.Train.Description:		Trains a line by the specified amount
+Commands.Players.Train.Usage:			Usage: '/train <line> <level>' # e.g. '/train Dual Wield 50'
+Commands.Players.Train.Miss.Trainer:	You have to be at your trainer to use this command.
+Commands.Players.Train.Skill.NotFound:	The provided skill could not be found.
+Commands.Players.Train.Skill.Already:	You have already trained the skill to this amount!
+Commands.Players.Train.CantTrainSpec:	You can't train in this specialization again this level!
+Commands.Players.Train.NotEnoughPoint:	You don't have that many specialization points left for this level.
+Commands.Players.Train.Cost:			That specialization costs {0} specialization points!
+Commands.Players.Train.Complete:		Training complete!

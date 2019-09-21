@@ -1,0 +1,6 @@
+Commands.Players.Target.Description:	Target a player by name
+Commands.Players.Target.Usage:			Usage: '/target <playerName>'
+Commands.Players.Target.NotFound:		You don't see {0} around here!
+Commands.Players.Target.Found:			You target {0}.
+Commands.Players.Target.GM.Found:		[GM] You target {0}.
+Commands.Players.Target.GM.Help:		Usage: '/target <player|mobname>'

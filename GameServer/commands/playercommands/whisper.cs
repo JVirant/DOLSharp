@@ -17,6 +17,7 @@
  *
  */
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
@@ -24,8 +25,8 @@ namespace DOL.GS.Commands
 		"&whisper",
 		new string[] {"&whis"}, //Important, don't remove this alias, its used for communication with mobs!
 		ePrivLevel.Player,
-		"Sends a private message to your target if it is close enough",
-		"/whisper <message>")]
+		"Commands.Players.Whisper.Description",
+		"Commands.Players.Whisper.Usage")]
 	public class WhisperCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -38,14 +39,21 @@ namespace DOL.GS.Commands
 
 			if (IsSpammingCommand(client.Player, "whisper", 500))
 			{
-				DisplayMessage(client, "Slow down! Think before you say each word!");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Whisper.SlowDown"));
 				return;
 			}
 
 			GameObject obj = client.Player.TargetObject;
 			if (obj == null)
 			{
-				DisplayMessage(client, "Select the target you want to whisper to!");
+				DisplayMessage(client,
+				LanguageMgr.GetTranslation(
+					client.Account.Language,
+					"Commands.Players.Whisper.SelectTarget"));
 				return;
 			}
 
@@ -57,7 +65,11 @@ namespace DOL.GS.Commands
 
 			if (obj == client.Player)
 			{
-				DisplayMessage(client, "Hmmmm...you shouldn't talk to yourself!");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Whisper.NotYourself"));
 				return;
 			}
 			client.Player.Whisper(obj, string.Join(" ", args, 1, args.Length - 1));

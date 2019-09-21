@@ -18,10 +18,15 @@
  */
 using System;
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
-	[CmdAttribute("&where", ePrivLevel.Player, "Ask where an NPC is from Guards", "/where <NPC Name>")]
+	[CmdAttribute(
+		"&where",
+		ePrivLevel.Player,
+		"Commands.Players.Where.Description",
+		"Commands.Players.Where.Usage")]
 	public class WhereCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -42,13 +47,26 @@ namespace DOL.GS.Commands
 				GameNPC[] npcs = WorldMgr.GetNPCsByNameFromRegion(name, client.Player.CurrentRegionID, (eRealm) client.Player.Realm);
 				if (npcs == null || npcs.Length <= 0)
 				{
-					targetnpc.SayTo(client.Player, "Sorry, i do not know this person.");
+					targetnpc.SayTo(
+						client.Player,
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Where.DontKnow"));
 					return;
 				}
 				GameNPC npc = npcs[0];
 				ushort heading = targetnpc.GetHeading(npc);
 				string directionstring = GetDirectionFromHeading(heading);
-				targetnpc.SayTo(client.Player, eChatLoc.CL_SystemWindow, npc.Name + " is in the " + directionstring);
+				directionstring = LanguageMgr.GetTranslation(
+									client.Account.Language,
+									"Commands.Players.Where." + directionstring);
+				targetnpc.SayTo(
+					client.Player,
+					eChatLoc.CL_SystemWindow,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Where.Tell",
+						npc.Name, directionstring));
 				targetnpc.TurnTo(npc, 10000);
 				targetnpc.Emote(eEmote.Point);
 			}
@@ -152,15 +170,15 @@ namespace DOL.GS.Commands
 			if (heading >= 3840 || heading <= 256)
 				return "South";
 			else if (heading > 256 && heading < 768)
-				return "South West";
+				return "SouthWest";
 			else if (heading >= 768 && heading <= 1280)
 				return "West";
 			else if (heading > 1280 && heading < 1792)
-				return "North West";
+				return "NorthWest";
 			else if (heading >= 1792 && heading <= 2304)
 				return "North";
 			else if (heading > 2304 && heading < 2816)
-				return "North East";
+				return "NorthEast";
 			else if (heading >= 2816 && heading <= 3328)
 				return "East";
 			else if (heading > 3328 && heading < 3840)

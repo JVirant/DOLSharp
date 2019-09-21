@@ -17,6 +17,7 @@
  *
  */
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
@@ -24,8 +25,8 @@ namespace DOL.GS.Commands
 		"&yell",
 		new string[] { "&y" },
 		ePrivLevel.Player,
-		"Yell something to other players around you",
-		"/yell <message>")]
+		"Commands.Players.Yell.Description",
+		"Commands.Players.Yell.Usage")]
 	public class YellCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -40,12 +41,20 @@ namespace DOL.GS.Commands
 			long changeTime = client.Player.CurrentRegion.Time - YELLTick;
 			if (changeTime < 750 && YELLTick > 0)
 			{
-				DisplayMessage(client, "Slow down! Think before you say each word!");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Yell.SlowDown"));
 				return;
 			}
             if (client.Player.IsMuted)
             {
-                client.Player.Out.SendMessage("You have been muted. You cannot yell.", eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
+                client.Player.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Yell.Muted"),
+					eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
                 return;
             }
 
@@ -63,23 +72,35 @@ namespace DOL.GS.Commands
 						if (headingtotarget >= 3840 || headingtotarget <= 256)
 							direction = "South";
 						else if (headingtotarget > 256 && headingtotarget < 768)
-							direction = "South West";
+							direction = "SouthWest";
 						else if (headingtotarget >= 768 && headingtotarget <= 1280)
 							direction = "West";
 						else if (headingtotarget > 1280 && headingtotarget < 1792)
-							direction = "North West";
+							direction = "NorthWest";
 						else if (headingtotarget >= 1792 && headingtotarget <= 2304)
 							direction = "North";
 						else if (headingtotarget > 2304 && headingtotarget < 2816)
-							direction = "North East";
+							direction = "NorthEast";
 						else if (headingtotarget >= 2816 && headingtotarget <= 3328)
 							direction = "East";
 						else if (headingtotarget > 3328 && headingtotarget < 3840)
-							direction = "South East";
-						player.Out.SendMessage(client.Player.Name + " yells for help from the " + direction + "!", eChatType.CT_Help, eChatLoc.CL_SystemWindow);
+							direction = "SouthEast";
+						direction = LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Yell." + direction);
+						player.Out.SendMessage(
+							LanguageMgr.GetTranslation(
+								player.Client.Account.Language,
+								"Commands.Players.Yell.From",
+								client.Player.Name, direction),
+							eChatType.CT_Help, eChatLoc.CL_SystemWindow);
 					}
 					else
-						client.Out.SendMessage("You yell for help!", eChatType.CT_Help, eChatLoc.CL_SystemWindow);
+						client.Out.SendMessage(
+							LanguageMgr.GetTranslation(
+								client.Account.Language,
+								"Commands.Players.Yell.You"),
+							eChatType.CT_Help, eChatLoc.CL_SystemWindow);
 				}
 				client.Player.TempProperties.setProperty(YELL_TICK, client.Player.CurrentRegion.Time);
 				return;

@@ -1,0 +1,9 @@
+Commands.Players.Task.Description:	Show the actual task
+Commands.Players.Task.Usage:		Usage: '/task'
+Commands.Players.Task.YouAreOn:		You are on {0}
+Commands.Players.Task.WhatToDo:		What to do: {0}
+Commands.Players.Task.WillExpire:	Task will expire at {0}
+Commands.Players.Task.YouHaveDone:	You have done {0} tasks out of {1} until now.
+Commands.Players.Task.NoMore:		You can do no more tasks at your current level
+Commands.Players.Task.NoPending:	You have currently no pending task
+Commands.Players.Task.Snapshot:		Tasks (Snapshot)
