@@ -46,3 +46,4 @@
 /IntegrationTests_Database/obj
 /UnitTests/bin
 /UnitTests/obj
+*.sh
