@@ -1,0 +1,40 @@
+Commands.Players.Appeal.AlreadyActiveAppeal:	You already have an active appeal, please wait for server staff to address your appeal before submitting another.
+Commands.Players.Appeal.AppealSubmitted:		Your appeal has been submitted successfully...  use /checkappeal to check the status of your appeal.
+Commands.Players.Appeal.BeingHelped:			That player is already being helped.
+Commands.Players.Appeal.CanceledYourAppeal:		You have canceled your appeal.
+Commands.Players.Appeal.CantCancelWhile:		You can't cancel your appeal while you are being helped.
+Commands.Players.Appeal.CantFindAppeal:			Could not find an appeal under that offline player's name, make sure spelling is correct.
+Commands.Players.Appeal.CriticalMessage:		Critical Appeals may need urgent attention!
+Commands.Players.Appeal.CurrentStaffAvailable:	There are currently {0} staff available and {1} appeals in queue.
+Commands.Players.Appeal.Description:			If you have any issue with other player let us know by submitting an appeal message.
+Commands.Players.Appeal.DoesntHaveAppeal:		That player has already canceled their appeal or doesn't have one.
+Commands.Players.Appeal.DoNotHaveAppeal:		You do not have an appeal to cancel or it has already been closed for you.
+Commands.Players.Appeal.IfYouLogOut:			If you log out with an active appeal it will be saved and automatically reinstated when you log back in.  (Even if you switch characters)
+Commands.Players.Appeal.LoginMessage:			If you need in-game assistance from server staff (such as stuck character) please use /appeal.
+Commands.Players.Appeal.MustBeAssisting:		You need to be assisting an active player with an appeal first.
+Commands.Players.Appeal.NameNotUnique:			Character name is not unique.
+Commands.Players.Appeal.NeedMoreDetail:			Report has NOT been received.  Please resubmit your report with a bit more detail.
+Commands.Players.Appeal.NoAppealsinQueue:		There are no Appeals currently in queue.
+Commands.Players.Appeal.NoAppealToView:			You currently do not have an appeal to view.
+Commands.Players.Appeal.NoLocationToJump:		No location to jump back to.
+Commands.Players.Appeal.NoLongerReceiveMsg:		You will no longer recieve Appeal messages for this session.
+Commands.Players.Appeal.NotBeingHelped:			You have to be assisting this player with their appeal before you can release it.
+Commands.Players.Appeal.NowReceiveMsg:			You will now recieve Appeal messages again for this session.
+Commands.Players.Appeal.PlayerNotFound:			{0}  is not in the game.
+Commands.Players.Appeal.PleaseBePatient:		Please be patient while we work to address your concern as quickly as possible.
+Commands.Players.Appeal.RandMessage0:			Howdy {0}, thanks for waiting.  How may I help you? 
+Commands.Players.Appeal.RandMessage1:			Hiya {0}, what can I do for you today?
+Commands.Players.Appeal.RandMessage2:			Greetings {0}!  I'm here to assist.  How can I be of service?
+Commands.Players.Appeal.RandMessage3:			Hi {0}, I understand you need some help, what can I do for you today?
+Commands.Players.Appeal.RandMessage4:			Hello {0}, sorry your having problems, what seems to be the matter?
+Commands.Players.Appeal.StaffChangedStatus:		Staffmember {0} has changed the status of your appeal to {1}.
+Commands.Players.Appeal.StaffClosedYourAppeal:	Staffmember {0} has closed your appeal.
+Commands.Players.Appeal.SystemDisabled:			The appeal system is currently disabled.
+Commands.Players.Appeal.ToCancelYourAppeal:		To cancel your appeal use /checkappeal cancel.
+Commands.Players.Appeal.Usage: 					'/appeal <appeal type> <appeal text>' # Where <appeal type> is one of the following: Harassment, Naming, Conduct, Stuck, Emergency or Other  and <appeal text> is a description of your issue. If you have submitted an appeal, you can check its status by typing '/checkappeal'.
+Commands.Players.Appeal.UseAppeal:				Use /appeal to file an appeal
+Commands.Players.Appeal.UseCmdTurnBackOff:		Use /gmappeal mute again to turn the messages back off.
+Commands.Players.Appeal.UseCmdTurnBackOn:		Use /gmappeal mute again to turn the messages back on.
+Commands.Players.Appeal.UseGMappeal:			Use /gmappeal to assist players with their appeal.
+Commands.Players.Appeal.YouAreMuted:			You are muted and are not allowed to submit an appeal at this time.
+Commands.Players.Appeal.YouHavePendingAppeal:	You have a pending appeal in the queue, please use /checkappeal to see its status or to cancel the appeal.

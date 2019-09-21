@@ -1,3 +1,5 @@
 # /Autoloot
-Commands.Players.Autoloot.Off:				Votre autoloot est desactivé. Vous ne ramasserez plus automatiquement les drops alentours.
-Commands.Players.Autoloot.On:				Votre autoloot est activé. Vous ramasserez désormais automatiquement les drops alentours.
+Commands.Players.Autoloot.Description:	Ramasse automatiquement les butins aux alentours.
+Commands.Players.Autoloot.Off:			Votre autoloot est desactivé. Vous ne ramasserez plus automatiquement les butins alentours.
+Commands.Players.Autoloot.On:			Votre autoloot est activé. Vous ramasserez désormais automatiquement les butins alentours.
+Commands.Players.Autoloot.Usage:		Usage : '/autoloot <on|off>'

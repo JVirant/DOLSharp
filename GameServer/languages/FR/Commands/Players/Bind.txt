@@ -1,0 +1,2 @@
+Commands.Players.Bind.Description:	Vous lie à une pierre d’âme, votre point de départ après avoir succombé.
+Commands.Players.Bind.Usage:		Usage : '/bind' # À utiliser à proximité d’une pierre d’âme.

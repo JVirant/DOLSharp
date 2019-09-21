@@ -1,0 +1,2 @@
+Commands.Players.Play.Description:	Vous pouvez prier à votre tombe pour récupérer une partie de votre expérience
+Commands.Players.Play.Usage:		Usage : '/pray'

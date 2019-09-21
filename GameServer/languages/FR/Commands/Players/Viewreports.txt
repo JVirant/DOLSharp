@@ -1,8 +1,12 @@
-# VIEWREPORTS
-Commands.Players.Viewreports.Usage: 			Usage:
-Commands.Players.Viewreports.Help.Close: 		'/viewreport close <report #>' Ferme le report de bug d'id #.
-Commands.Players.Viewreports.Help.Delete: 		'/viewreport delete <report #' Efface les reports d'id #.
-Commands.Players.Viewreports.InvalidReport: 	Ce n'est pas un report de bug valide.
-Commands.Players.Viewreports.UnknownCommand: 	Ce n'est pas une commande valide.
-Commands.Players.Viewreports.ReportDeleted: 	Report {0} est maintenant effacé.
-Commands.Players.ViewReports.NoPriv: 			Vous n'avez pas les privilèges pour éditer les reports.
+Commands.Players.Viewreports.Description:			Permet d’afficher les rapports de bug.
+Commands.Players.Viewreports.Help.Close: 			'/viewreport close <report #>' Ferme le report de bug d'id #.
+Commands.Players.Viewreports.Help.Delete: 			'/viewreport delete <report #' Efface les reports d'id #.
+Commands.Players.Viewreports.InvalidReport: 		Ce n'est pas un report de bug valide.
+Commands.Players.ViewReports.NoPriv: 				Vous n'avez pas les privilèges pour éditer les reports.
+Commands.Players.Viewreports.ReportDeleted: 		Report {0} est maintenant effacé.
+Commands.Players.ViewReports.Reports.CloseBy:		Fermé par : {0}
+Commands.Players.ViewReports.Reports.DateClosed:	Fermé le : {0}
+Commands.Players.ViewReports.Reports.Report:		Rapport : {0}
+Commands.Players.ViewReports.Reports.Submitted:		Envoyé : {0}
+Commands.Players.Viewreports.UnknownCommand: 		Ce n'est pas une commande valide.
+Commands.Players.Viewreports.Usage: 				Usage :

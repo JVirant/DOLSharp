@@ -1,0 +1,7 @@
+Commands.Players.Emote.Act:			« {0} {1} »
+Commands.Players.Emote.Dead:		N’oubliez pas que vous êtes mort.
+Commands.Players.Emote.Description:	Joue une action ou une émotion. '/emote <text>'
+Commands.Players.Emote.Empty:		Vous devez définir quelquechose.
+Commands.Players.Emote.IsMuted:		Vous avez été rendu muet. Impossible de lancer une émote.
+Commands.Players.Emote.Strange:		< {0} fait des mouvements étranges.>
+Commands.Players.Emote.Usage:		Usage : '/emote <text>'

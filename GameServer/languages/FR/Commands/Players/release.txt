@@ -1,0 +1,2 @@
+Commands.Players.Release.Description:	Lorsque vous êtes mort, vous pouvez utiliser la commande '/release'. Elle vous ramenera à la vie à votre pierre d’âme.
+Commands.Players.Release.Usage:			Usage : '/release'

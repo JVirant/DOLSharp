@@ -1,0 +1,9 @@
+Commands.Players.Train.CantTrainSpec:	Vous ne pouvez pas vous entraîner sur cette spécialisation à ce niveau !
+Commands.Players.Train.Complete:		Entraînement terminé !
+Commands.Players.Train.Cost:			Cette spécialisation coûte {0} poînt de spécialisation !
+Commands.Players.Train.Description:		Entraîne une ligne de spécialisation par le nombre indiqué.
+Commands.Players.Train.Miss.Trainer:	Cette commande ne fonctionne qu’en présence de votre entraîneur.
+Commands.Players.Train.NotEnoughPoint:	Vous n’avez pas assez de point de spécialisation pour vous entraîner jusqu’à ce niveau.
+Commands.Players.Train.Skill.Already:	Vous vous êtes déjà entraîné à ce niveau.
+Commands.Players.Train.Skill.NotFound:	La compétence fourni n’est pas trouvable.
+Commands.Players.Train.Usage:			Usage : '/train <Ligne> <Niveau>' # e.g. '/train Dual Wield 50'

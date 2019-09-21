@@ -1,0 +1,7 @@
+Commands.Players.Makeleader.Description:		Définit un nouveau chef de groupe. Ne peut être utilisé que par l’actuel chef de groupe.
+Commands.Players.Makeleader.NotFoundInGroup:	Pas de joueur dans le groupe avec ce nom.
+Commands.Players.Makeleader.NotInGroup:			Vous ne faites pas partis d’un groupe.
+Commands.Players.Makeleader.NotLeader:			Vous n’êtes pas le chef.
+Commands.Players.Makeleader.NotYou:				Vous êtes déjà le chef.
+Commands.Players.Makeleader.TargetNotValid:		Le joueur sélectionné n’est pas valide.
+Commands.Players.Makeleader.Usage:				Usage : '/makeleader <playerName>'

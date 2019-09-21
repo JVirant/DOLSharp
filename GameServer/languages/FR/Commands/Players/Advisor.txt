@@ -1,3 +1,5 @@
-# /Advisor
-Commands.Players.Advisor.Off:				Vous ne recevrez désormais plus de message du canal conseil.
-Commands.Players.Advisor.On:					Vous recevrez désormais des messages du canal conseil.
+Commands.Players.Advisor.Description:	Bascule le status de conseiller.
+Commands.Players.Advisor.Muted:			Vous êtes muet et ne pouvez pas parler sur ce canal.
+Commands.Players.Advisor.Off:			Vous ne recevrez désormais plus de message du canal conseil.
+Commands.Players.Advisor.On:			Vous recevrez désormais des messages du canal conseil.
+Commands.Players.Advisor.Usage			Usage : '/advisor'

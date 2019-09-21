@@ -1,5 +1,7 @@
-# /Boot
-Commands.Players.Boot.InHouseError:			Vous devez être dans votre maison pour utiliser cette commande !
-Commands.Players.Boot.NoHouseError:			Vous ne possédez pas de maison !
-Commands.Players.Boot.NoOneOnline:			Aucun joueur portant ce nom n'est en ligne !
-Commands.Players.Boot.YouRemoved:			Vous avez été éjecté·e de la maison par {0} !
+Commands.Players.Boot.Description:		Fout un joueur à la porte.
+Commands.Players.Boot.InHouseError:		Vous devez être dans votre maison pour utiliser cette commande !
+Commands.Players.Boot.NoHouseError:		Vous ne possédez pas de maison !
+Commands.Players.Boot.NoOneOnline:		Aucun joueur portant ce nom n'est en ligne !
+Commands.Players.Boot.NoPermission:		Vous n’avez pas la permission de faire cette action.
+Commands.Players.Boot.Usage:			Utilisation: '/boot <playername>'
+Commands.Players.Boot.YouRemoved:		Vous avez été foutu à la porte par {0} !

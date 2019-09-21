@@ -1,0 +1,2 @@
+Commands.Players.Trade.Description:	Diffuse un message commercial aux autres joueur·se·s de la région.
+Commands.Players.Trade.Usage:		Usage : '/trade <message'

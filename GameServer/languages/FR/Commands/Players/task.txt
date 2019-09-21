@@ -1,0 +1,9 @@
+Commands.Players.Task.Description:	Affiche la tâche actuelle.
+Commands.Players.Task.NoMore:		Vous ne pouvez plus effectuer de tâches à votre niveau actuel
+Commands.Players.Task.NoPending:	Vous n'avez actuellement aucune tâche en attente
+Commands.Players.Task.Snapshot:		Tâches (actuellement)
+Commands.Players.Task.Usage:		Usage : '/task'
+Commands.Players.Task.WhatToDo:		Que faire : {0}
+Commands.Players.Task.WillExpire:	La tâche expirera à {0}
+Commands.Players.Task.YouAreOn:		Vous êtes sur {0}
+Commands.Players.Task.YouHaveDone:	Vous avez terminé {0} tâche sur {1} jusqu’à maintenant.

@@ -1,0 +1,10 @@
+Commands.Players.Webdisplay.Craft.Off:		Vos compétences d’artisant ne sont pas affiché.
+Commands.Players.Webdisplay.Craft.On:		Vos compétences d’artisant sont affiché.
+Commands.Players.Webdisplay.Description:	Définit les information à afficher dans le « herald »
+Commands.Players.Webdisplay.Equipment.Off:	Votre équipement n’est pas affiché.
+Commands.Players.Webdisplay.Equipment.On:	Votre équipement est affiché.
+Commands.Players.Webdisplay.Position.Off:	Votre position n’est pas affiché.
+Commands.Players.Webdisplay.Position.On:	Votre position est affiché.
+Commands.Players.Webdisplay.Template.Off:	Votre modèle n’est pas affiché.
+Commands.Players.Webdisplay.Template.On:	Votre modèle est affiché.
+Commands.Players.Webdisplay.Usage:			Usage : '/webdisplay <position|template|equipment|craft> [on|off]'

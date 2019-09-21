@@ -1,0 +1,9 @@
+Commands.Players.Level.CantUseSlashLevel:	Vous ne possédez pas de niveau {0} sur votre compte.
+Commands.Players.Level.Description:			Vous permet de monter niveau 20 instantannement, si vous avez un niveau 50.
+Commands.Players.Level.Disabled.Class:		Votre classe ne peut pas utiliser la commande /level.
+Commands.Players.Level.Disabled:			/level est désactivé sur ce serveur.
+Commands.Players.Level.LevelUpTo:			/level ne vous permet d’accéder seulement au niveau {0}
+Commands.Players.Level.NeedTrainer:			Seul votre entraîneur vous permet d’utiliser cette commande. Allez le voir.
+Commands.Players.Level.Rewarded:			You have been rewarded enough Experience to reach level {0} right click on your trainer to gain levels!
+Vous avez été crédité d’assez d’expérience pour atteindre le niveau {0}. Un clic droit sur votre entraîneur pour l’obtenir.
+Commands.Players.Level.Usage:				Usage : '/level'

@@ -1,7 +1,7 @@
 ﻿
 # Horse Emotes
 Commands.Players.HorseEmote.MustBeOnMount:					Vous devez chevaucher votre monture pour utiliser cette commande !
-Commands.Players.HorseEmote.You:							    Vous
+Commands.Players.HorseEmote.You:							Vous
 Commands.Players.HorseEmote.courbette.ToOthers:				La monture de {0} fait une courbette.
 Commands.Players.HorseEmote.courbette.ToSource:				-
 Commands.Players.HorseEmote.courbette.NoTargetToOthers:		La monture de {0} effectue une courbette.

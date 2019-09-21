@@ -1,4 +1,5 @@
-# /Cancelstyle
+Commands.Players.Cancelstyle.Description:	Positionne l’option 'cancelstyle'
+Commands.Players.Cancelstyle.Off:			Désactivé
+Commands.Players.Cancelstyle.On:			Activé
 Commands.Players.Cancelstyle.Set:			L'annulation de style est maintenant {0}.
-Commands.Players.Cancelstyle.On:             Activé
-Commands.Players.Cancelstyle.Off:            Désactivé
+Commands.Players.Cancelstyle.Usage:			Usage : '/cancelstyle'

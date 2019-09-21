@@ -1,0 +1,2 @@
+Commands.Players.Helm.Description:	Montre / Cache votre casque de la vue des autres.
+Commands.Players.Helm.Usage:		Usage : '/helm'

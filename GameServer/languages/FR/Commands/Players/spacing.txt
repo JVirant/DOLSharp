@@ -1,0 +1,10 @@
+Commands.Players.Spacing.Description:		Change l’espacement de vos serviteurs.
+Commands.Players.Spacing.Help.Big:			'/spacing big'    # L’espacement entre vos serviteurs sera grand.
+Commands.Players.Spacing.Help.Huge:			'/spacing huge'   # L’espacement entre vos serviteurs sera énorme.
+Commands.Players.Spacing.Help.Normal:		'/spacing normal' # L’espacement entre vos serviteurs sera normal.
+Commands.Players.Spacing.Help:				Commande d’espacement :
+Commands.Players.Spacing.Missing.Commander:	Vous n’avez pas de général !
+Commands.Players.Spacing.Missing.Minion:	Vous n’avez pas de serviteurs !
+Commands.Players.Spacing.Only.Bone:			Seul le prêtres de Bodgards peuvent utiliser cette commande.
+Commands.Players.Spacing.UnknownArg:		Argument non reconnu : {0}
+Commands.Players.Spacing.Usage:				Usage : '/spacing <normal|big|huge>'

@@ -1,34 +1,43 @@
-# /boat
 Commands.Players.Boat.AlreadyOnBoat:			Ce joueur est déjà sur le bateau !
 Commands.Players.Boat.BoardingDenied:			Votre demande pour {0} est refusée.
-Commands.Players.Boat.BoardingGranted:		Vous avez accepté la demande de contrôle du navire.
-Commands.Players.Boat.BoardingRequest:		{0} essaye de prendre contrôle de votre bateau. Accepter ?
+Commands.Players.Boat.BoardingGranted:			Vous avez accepté la demande de contrôle du navire.
+Commands.Players.Boat.BoardingRequest:			{0} essaye de prendre contrôle de votre bateau. Accepter ?
 Commands.Players.Boat.BoatTooFar:				{0} est trop loin de vous.
-Commands.Players.Boat.BootedBy:				Vous venez de vous faire sortir du bateau par {0}.
-Commands.Players.Boat.BootedTarget:			Vous avez fait sortir {0} du bateau.
+Commands.Players.Boat.BootedBy:					Vous venez de vous faire sortir du bateau par {0}.
+Commands.Players.Boat.BootedTarget:				Vous avez fait sortir {0} du bateau.
 Commands.Players.Boat.DeleteConfirmation:		Vous voulez vraiment retirer votre bateau {0}?
-Commands.Players.Boat.FullBoat:				Le navire est actuellement plein.
+Commands.Players.Boat.Description:				Permet de contrôler votre embarquation
+Commands.Players.Boat.FullBoat:					Le navire est actuellement plein.
 Commands.Players.Boat.Help.Board:				'/boat board' # Fait face au bateau ciblé.
 Commands.Players.Boat.Help.Boot:				'/boat boot' # Sort du bateau le joueur sélectionné.
-Commands.Players.Boat.Help.Delete:			'/boat delete' # Donne la confirmation pour effacer votre bateau !!permanent!!
-Commands.Players.Boat.Help.Follow:			'/boat follow' # Donne l'ordre à votre navire de suivre votre cible.
-Commands.Players.Boat.Help.StopFollow:		'/boat stopfollow' # Donne l'ordre à votre navire d'arrêter de suivre votre cible.
-Commands.Players.Boat.Help.Summon:			'/boat summon' # Mise à l'eau de votre bateau.
+Commands.Players.Boat.Help.Delete:				'/boat delete' # Donne la confirmation pour effacer votre bateau !!permanent!!
+Commands.Players.Boat.Help.Follow:				'/boat follow' # Donne l'ordre à votre navire de suivre votre cible.
+Commands.Players.Boat.Help.StopFollow:			'/boat stopfollow' # Donne l'ordre à votre navire d'arrêter de suivre votre cible.
+Commands.Players.Boat.Help.Summon:				'/boat summon' # Mise à l'eau de votre bateau.
 Commands.Players.Boat.Help.Unsummon:			'/boat unsummon' # Range votre bateau.
-Commands.Players.Boat.InviteNoSelf:			Vous ne pouvez pas vous inviter !
+Commands.Players.Boat.InviteNoSelf:				Vous ne pouvez pas vous inviter !
 Commands.Players.Boat.InviteRecieved:			{0} est invité·e à joindre le navire.
 Commands.Players.Boat.InviteSent:				Vous avez invité {0} à rejoindre le bateau.
 Commands.Players.Boat.MoveFollow:				Votre navire suis maintenant {0}.
+Commands.Players.Boat.Name.Atlantean_Ship:		Navires atlantes de {0}
+Commands.Players.Boat.Name.British_Cog:			Cogue britannique de {0}
+Commands.Players.Boat.Name.Galleon:				Galion de {0}
+Commands.Players.Boat.Name.Longship:			Drakkar de {0}
+Commands.Players.Boat.Name.Scout_Boat:			Bateau éclaireur de {0}
+Commands.Players.Boat.Name.Skiff:				Yole de {0}
+Commands.Players.Boat.Name.Stygian_Ship:		Navire stygian de {0}
+Commands.Players.Boat.Name.Viking_Longship:		Drakkar viking de {0}
+Commands.Players.Boat.Name.Warship:				Navire de guerre de {0}
 Commands.Players.Boat.NoBoatSelected:			Vous devez choisir un bateau !
-Commands.Players.Boat.NoPlayerSelected:		Vous devez sélectionner un joueur.
+Commands.Players.Boat.NoPlayerSelected:			Vous devez sélectionner un joueur.
 Commands.Players.Boat.NotInWater:				Vous devez être dans l'eau pour invoquer votre navire !
 Commands.Players.Boat.NotOwnBoat:				Vous ne possédez pas de bateau.
 Commands.Players.Boat.OwnerNotOn:				Le propriétaire de ce bateau n'est pas en ligne.
-Commands.Players.Boat.PlayerIsDead:			Vous ne pouvez pas faire cela avec un joueur mort !
+Commands.Players.Boat.PlayerIsDead:				Vous ne pouvez pas faire cela avec un joueur mort !
 Commands.Players.Boat.StopFollow:				Vous arrêtez votre bateau.
-Commands.Players.Boat.Summoned:				Votre {0} a été mis à l'eau.
-Commands.Players.Boat.TargetNotInBoat:		{0} n'est pas dans votre bateau.
+Commands.Players.Boat.Summoned:					Votre {0} a été mis à l'eau.
+Commands.Players.Boat.TargetNotInBoat:			{0} n'est pas dans votre bateau.
 Commands.Players.Boat.UnknownCommand:			Ce n'est pas une commande valide pour les navires. '/boat' pour de l'aide.
 Commands.Players.Boat.Unsummoned:				Votre {0} a été rangé.
-Commands.Players.Boat.Usage:				    Utilisation :
-Commands.Players.Boat.YouBoard:				Votre bateau le {0}.
+Commands.Players.Boat.Usage:					Usage :
+Commands.Players.Boat.YouBoard:					Votre bateau le {0}.

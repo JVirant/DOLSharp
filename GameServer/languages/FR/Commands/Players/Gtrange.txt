@@ -1,0 +1,4 @@
+Commands.Players.Gtrange.Description:			Gives a range to a ground target
+Commands.Players.Gtrange.Missing.Groundtarget:	Range to target: You don't have a ground target set.
+Commands.Players.Gtrange.Range:					Range to target: {0} units.
+Commands.Players.Gtrange.Usage:					/gtrange

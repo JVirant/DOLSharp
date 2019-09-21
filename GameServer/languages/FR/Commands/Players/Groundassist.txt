@@ -1,0 +1,6 @@
+Commands.Players.Groundassist.Description:		Affiche les coordonnés actuel
+Commands.Players.Groundassist.NoTarget:			{0} ne possède pas de coordonnées.
+Commands.Players.Groundassist.NotAround:		Vous ne voyez pas {0} autour de vous !
+Commands.Players.Groundassist.NotYourself:		Vous ne pouvez vous « groundassist » seul.
+Commands.Players.Groundassist.UnknownPlayer:	Pas de joueur avec ce nom en jeux.
+Commands.Players.Groundassist.Usage:			Usage : '/groundassist'

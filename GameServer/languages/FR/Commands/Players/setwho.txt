@@ -1,0 +1,6 @@
+Commands.Players.Setwho.Craft.Off:		/who n’affichera plus votre titre d’artisan
+Commands.Players.Setwho.Craft.On:		/who affichera dorénavan votre titre d’artisan
+Commands.Players.Setwho.Description:	Définit votre classe ou votre artisanat pour la commande /who.
+Commands.Players.Setwho.Help:			Vous devez spécifier si vous souhaitez changer pour votre classe ou votre artisanat
+Commands.Players.Setwho.Missing.Prof:	Vous avez besoin d’une profession pour l’activer dans les message /who
+Commands.Players.Setwho.Usage:			Usage: '/setwho <class|trade>'

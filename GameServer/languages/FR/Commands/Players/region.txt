@@ -1,0 +1,2 @@
+Commands.Players.Region.Description:	Diffuse un message aux joueurs de votre région.
+Commands.Players.Region.Usage:			'/region <message>'

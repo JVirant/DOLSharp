@@ -1,0 +1,4 @@
+Commands.Players.Sit.Description:	S’asseoir
+Commands.Players.Sit.Usage:			Usage : '/sit'
+Commands.Players.Stand.Description:	Se lève lorsqu'assis
+Commands.Players.Stand.Usage:		Usage : '/stand'

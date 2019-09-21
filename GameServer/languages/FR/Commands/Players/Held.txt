@@ -1,0 +1,2 @@
+Commands.Players.Held.Description:	Liste les cartes de vos mains. Utilisez '/held g' pour afficher les cartes visible des autres joueurs.
+Commands.Players.Held.Usage:		Usage : '/held <g>'

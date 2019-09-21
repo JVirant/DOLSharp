@@ -1,0 +1,3 @@
+Commands.Players.Sprint.Description:		Active / Désactive le sprint
+Commands.Players.Sprint.Missing.Ability:	Vous ne disposez pas de la compétences sprint.
+Commands.Players.Sprint.Usage:				Usage : '/spint'
