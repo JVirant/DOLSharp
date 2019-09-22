@@ -1,4 +1,4 @@
-﻿DetailDisplayHandler.HandlePacket.UniqueObject:	Unique Object
+DetailDisplayHandler.HandlePacket.UniqueObject:	Unique Object
 
 # MASTERLEVEL
 # 1. Uncomplete steps

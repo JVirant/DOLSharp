@@ -18,14 +18,15 @@
  */
 using System;
 using DOL.GS;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
 		"&webdisplay",
 		ePrivLevel.Player,
-		"Set informations displayed on the herald",
-		"/webdisplay <position|template|equipment|craft> [on|off]")]
+		"Commands.Players.Webdisplay.Description",
+		"Commands.Players.Webdisplay.Usage")]
 	public class WebDisplayCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -73,31 +74,49 @@ namespace DOL.GS.Commands
 			byte webDisplay = client.Player.NotDisplayedInHerald;
 			byte webDisplayFlag;
 
-			string state = "/webdisplay <position|template|equipment|craft> [on|off]\n";
+			string state = LanguageMgr.GetTranslation(
+								client.Account.Language,
+								"Commands.Players.Webdisplay.Usage") + "\n";
 			
 			webDisplayFlag = (byte)GlobalConstants.eWebDisplay.equipment;
 			if ((webDisplay & webDisplayFlag) == webDisplayFlag)
-				state += "Your equipment is not displayed.\n";
+				state += LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Webdisplay.Equipment.Off") + "\n";
 			else
-				state += "Your equipment is displayed.\n";
+				state += LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Webdisplay.Equipment.On") + "\n";
 			
 			webDisplayFlag = (byte)GlobalConstants.eWebDisplay.position;
 			if ((webDisplay & webDisplayFlag) == webDisplayFlag)
-				state += "Your position is not displayed.\n";
+				state += LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Webdisplay.Position.Off") + "\n";
 			else
-				state += "Your position is displayed.\n";
+				state += LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Webdisplay.Position.On") + "\n";
 			
 			webDisplayFlag = (byte)GlobalConstants.eWebDisplay.template;
 			if ((webDisplay & webDisplayFlag) == webDisplayFlag)
-				state += "Your template is not displayed.\n";
+				state += LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Webdisplay.Template.Off") + "\n";
 			else
-				state += "Your template is displayed.\n";
+				state += LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Webdisplay.Template.On") +"\n";
 	
 			webDisplayFlag = (byte)GlobalConstants.eWebDisplay.craft;
 			if ((webDisplay & webDisplayFlag) == webDisplayFlag)
-				state += "Your crafting skill is not displayed.\n";
+				state += LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Webdisplay.Craft.Off") + "\n";
 			else
-				state += "Your crafting skill is displayed.\n";		
+				state += LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Webdisplay.Craft.On") + "\n";		
 			
 			DisplayMessage(client, state);
 		}

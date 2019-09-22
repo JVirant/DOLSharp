@@ -1,0 +1,5 @@
+Commands.Players.Say.Description:	Dit quelque chose au joueurs autours de vous
+Commands.Players.Say.Muted:			Vous avez été placé en sourdine et ne pouvez parler.
+Commands.Players.Say.SlowDown:		Doucement bijoux!
+Commands.Players.Say.Someting:		Bah? Parle !?
+Commands.Players.Say.Usage:			Usage : '/say <message>'

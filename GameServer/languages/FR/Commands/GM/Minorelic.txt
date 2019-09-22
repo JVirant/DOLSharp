@@ -1,0 +1,16 @@
+Commands.GM.MinoRelic.Description:			Divers commande pour les reliques du minotaures
+Commands.GM.MinoRelic.Info.CurrentXP:		- XP de la relique : {0}
+Commands.GM.MinoRelic.Info.Effect:			- Effet : {0}
+Commands.GM.MinoRelic.Info.ID:				- ID : {0}
+Commands.GM.MinoRelic.Info.Level:			- Niveau : {0}
+Commands.GM.MinoRelic.Info.Name:			- Nom : {0}
+Commands.GM.MinoRelic.Info.PositionInfo:	Information de localisation
+Commands.GM.MinoRelic.Info.RelicInfo:		Information sur la relique
+Commands.GM.MinoRelic.Info.SpawnHeading:	- Spawn Heading: {0}
+Commands.GM.MinoRelic.Info.SpawnRegion:		- Spawn Region: {0}
+Commands.GM.MinoRelic.Info.SpawnX:			- Spawn X: {0}
+Commands.GM.MinoRelic.Info.SpawnY:			- Spawn Y: {0}
+Commands.GM.MinoRelic.Info.SpawnZ:			- Spawn Z: {0}
+Commands.GM.MinoRelic.Info.SpellDuration:	- Durée du sort : {0} seconds
+Commands.GM.MinoRelic.Info.SpellID:			- ID du sort : {0}
+Commands.GM.MinoRelic.Info.SpellInfo:	

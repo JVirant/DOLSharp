@@ -1,0 +1,2 @@
+Commands.Players.Helm.Description:	Toggles the helm on and off when wearing an helm.
+Commands.Players.Helm.Usage:		'/helm'

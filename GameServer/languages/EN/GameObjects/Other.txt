@@ -1,4 +1,4 @@
-﻿# CommanderPet
+# CommanderPet
 GameObjects.CommanderPet.WR.Const.1HandedSword:		one handed sword
 GameObjects.CommanderPet.WR.Const.2HandedSword:		two handed sword
 GameObjects.CommanderPet.WR.Const.1HandedHammer:	one handed hammer

@@ -1,6 +1,6 @@
 # Boats
 Commands.Players.Boat.Description:			Boat command (use /boat for options)
-Commands.Players.Beat.Usage:				'/boat <option>'
+Commands.Players.Boat.Usage:				'/boat <option>'
 Commands.Players.Boat.AlreadyOnBoat:		That player is already on the boat!
 Commands.Players.Boat.BoardingDenied:		Your request to board {0} was denied.
 Commands.Players.Boat.BoardingGranted:		You accepted the boarding request.

@@ -1,4 +1,4 @@
-﻿# HOUSING
+# HOUSING
 # /house
 House.DBHousePermissions.AccessLevel:			Access level {0}
 House.Edit.NotEnoughMoney:				You don't have enough money to do that!
@@ -43,53 +43,53 @@ HouseEnterLeave.CantEnter:					You cannot enter the house {0}.
 HousingDecorationRotate.Rotated:			A {0} degrees to {1} degrees turned interior object.
 
 # /HousingPlaceItemHandler
-Scripts.Player.Housing.BadShieldBanner:			That is not a valid shield or banner object.
-Scripts.Player.Housing.CantBeSold:			This item cannot be sold!
-Scripts.Player.Housing.CarpetsRemoved:			Your carpets have been removed.
-Scripts.Player.Housing.ClearHookPoint: 			Would you like to clear the current hookpoint?
-Scripts.Player.Housing.EnteredHouse:			You have entered house number {0}.
-Scripts.Player.Housing.GardenItemPlaced:		Garden object placed. {0} slots remaining.	
-Scripts.Player.Housing.GardenItemPlacedName:		You have placed {0} in your garden.	
-Scripts.Player.Housing.GardenMaxObjects:		You have already placed 30 objects in your garden. You cannot place more.	
-Scripts.Player.Housing.GuildNowOwns:			[Guild] {0} now owns a guild house from {1}!
-Scripts.Player.Housing.HookPointAdded:			That item has been added to your house.
-Scripts.Player.Housing.HookPointAlready: 		That HookPoint already has an item!	
-Scripts.Player.Housing.HookPointCleared: 		That HookPoint has been cleared.	
-Scripts.Player.Housing.HookPointCloser:			Stand as close to the housepoint as possible and face the proper direction and press accept.
-Scripts.Player.Housing.HookPointID:			The hookpoint ID is: {0}
-Scripts.Player.Housing.HookPointLogged:			Logged hookpoint position {0}!
-Scripts.Player.Housing.HookPointLogLoc:			Log this housepoint location?
-Scripts.Player.Housing.HookPointNot:			That is not a hookpoint item!
-Scripts.Player.Housing.HookPointNotPlaced:		That hookpoint item was not placed.	
-Scripts.Player.Housing.HouseUseMaterial:		You need to hold shift+right-click on your house to change those materials.	
-Scripts.Player.Housing.HouseUseMaterial:		You need to hold shift+right-click on your house to change your carpets.	
-Scripts.Player.Housing.IndoorFloorPlaced:		You have placed {0} on the floor of your house.	
-Scripts.Player.Housing.IndoorItemPlaced:		Indoor item placed. {0} slots remaining.	
-Scripts.Player.Housing.IndoorMaxItems:			You have already placed {0} in your house. You cannot place more.
-Scripts.Player.Housing.IndoorWallPlaced:		You have placed {0} onto the wall of your house.	
-Scripts.Player.Housing.InteriorBannersAdded:		Your interior guild banners have been changed.	
-Scripts.Player.Housing.InteriorBannersRemoved:		Your interior guild banners have been removed.	
-Scripts.Player.Housing.InteriorShieldsAdded:		Your interior guild shields have been changed.	
-Scripts.Player.Housing.InteriorShieldsRemoved:		Your interior guild shields have been removed.	
-Scripts.Player.Housing.LeftHouse:			You have exited house number {0}.
-Scripts.Player.Housing.LotAlready:			You already own another lot or house (Number {0})
-Scripts.Player.Housing.LotBought:			You just bought this lot for {0}!
-Scripts.Player.Housing.LotCost:			
-Scripts.Player.Housing.LotNotItem:			That is not a valid house deed.
-Scripts.Player.Housing.LotNotYours:			You do not own this lot!
-Scripts.Player.Housing.LotOffer:			Do you wish to buy this lot? It costs {0}.
-Scripts.Player.Housing.LotTargeted:			You target lot number {0}.
-Scripts.Player.Housing.NotFloorObject:			This item cannot be placed on the floor!
-Scripts.Player.Housing.NotHookPoint:			This item cannot be placed on a hookpoint!
-Scripts.Player.Housing.NotWallObject:			This item cannot be placed on a wall!
-Scripts.Player.Housing.OutdoorBannersAdded:		Your outdoor guild banners have been changed.	
-Scripts.Player.Housing.OutdoorBannersRemoved:		Your outdoor guild banners have been removed.	
-Scripts.Player.Housing.OutdoorShieldsAdded:		Your outdoor guild shields have been changed.	
-Scripts.Player.Housing.OutdoorShieldsRemoved:		Your outdoor guild shields have been removed.	
-Scripts.Player.Housing.PaidChanges:			You have paid {0} for your changes.
-Scripts.Player.Housing.PaidNotEnough:			You do not have enough money to do that!
-Scripts.Player.Housing.PorchAlready:			This house already has a porch!
-Scripts.Player.Housing.PorchNone:			This house does not have a porch!
-Scripts.Player.Housing.PorchNotItem:			This is not a porch item!
-Scripts.Player.Housing.TransferToGuild:			Do you want to transfer this house to {0}?
+Commands.Players.Housing.BadShieldBanner:			That is not a valid shield or banner object.
+Commands.Players.Housing.CantBeSold:			This item cannot be sold!
+Commands.Players.Housing.CarpetsRemoved:			Your carpets have been removed.
+Commands.Players.Housing.ClearHookPoint: 			Would you like to clear the current hookpoint?
+Commands.Players.Housing.EnteredHouse:			You have entered house number {0}.
+Commands.Players.Housing.GardenItemPlaced:		Garden object placed. {0} slots remaining.	
+Commands.Players.Housing.GardenItemPlacedName:		You have placed {0} in your garden.	
+Commands.Players.Housing.GardenMaxObjects:		You have already placed 30 objects in your garden. You cannot place more.	
+Commands.Players.Housing.GuildNowOwns:			[Guild] {0} now owns a guild house from {1}!
+Commands.Players.Housing.HookPointAdded:			That item has been added to your house.
+Commands.Players.Housing.HookPointAlready: 		That HookPoint already has an item!	
+Commands.Players.Housing.HookPointCleared: 		That HookPoint has been cleared.	
+Commands.Players.Housing.HookPointCloser:			Stand as close to the housepoint as possible and face the proper direction and press accept.
+Commands.Players.Housing.HookPointID:			The hookpoint ID is: {0}
+Commands.Players.Housing.HookPointLogged:			Logged hookpoint position {0}!
+Commands.Players.Housing.HookPointLogLoc:			Log this housepoint location?
+Commands.Players.Housing.HookPointNot:			That is not a hookpoint item!
+Commands.Players.Housing.HookPointNotPlaced:		That hookpoint item was not placed.	
+Commands.Players.Housing.HouseUseMaterial:		You need to hold shift+right-click on your house to change those materials.	
+Commands.Players.Housing.HouseUseMaterial:		You need to hold shift+right-click on your house to change your carpets.	
+Commands.Players.Housing.IndoorFloorPlaced:		You have placed {0} on the floor of your house.	
+Commands.Players.Housing.IndoorItemPlaced:		Indoor item placed. {0} slots remaining.	
+Commands.Players.Housing.IndoorMaxItems:			You have already placed {0} in your house. You cannot place more.
+Commands.Players.Housing.IndoorWallPlaced:		You have placed {0} onto the wall of your house.	
+Commands.Players.Housing.InteriorBannersAdded:		Your interior guild banners have been changed.	
+Commands.Players.Housing.InteriorBannersRemoved:		Your interior guild banners have been removed.	
+Commands.Players.Housing.InteriorShieldsAdded:		Your interior guild shields have been changed.	
+Commands.Players.Housing.InteriorShieldsRemoved:		Your interior guild shields have been removed.	
+Commands.Players.Housing.LeftHouse:			You have exited house number {0}.
+Commands.Players.Housing.LotAlready:			You already own another lot or house (Number {0})
+Commands.Players.Housing.LotBought:			You just bought this lot for {0}!
+Commands.Players.Housing.LotCost:			
+Commands.Players.Housing.LotNotItem:			That is not a valid house deed.
+Commands.Players.Housing.LotNotYours:			You do not own this lot!
+Commands.Players.Housing.LotOffer:			Do you wish to buy this lot? It costs {0}.
+Commands.Players.Housing.LotTargeted:			You target lot number {0}.
+Commands.Players.Housing.NotFloorObject:			This item cannot be placed on the floor!
+Commands.Players.Housing.NotHookPoint:			This item cannot be placed on a hookpoint!
+Commands.Players.Housing.NotWallObject:			This item cannot be placed on a wall!
+Commands.Players.Housing.OutdoorBannersAdded:		Your outdoor guild banners have been changed.	
+Commands.Players.Housing.OutdoorBannersRemoved:		Your outdoor guild banners have been removed.	
+Commands.Players.Housing.OutdoorShieldsAdded:		Your outdoor guild shields have been changed.	
+Commands.Players.Housing.OutdoorShieldsRemoved:		Your outdoor guild shields have been removed.	
+Commands.Players.Housing.PaidChanges:			You have paid {0} for your changes.
+Commands.Players.Housing.PaidNotEnough:			You do not have enough money to do that!
+Commands.Players.Housing.PorchAlready:			This house already has a porch!
+Commands.Players.Housing.PorchNone:			This house does not have a porch!
+Commands.Players.Housing.PorchNotItem:			This is not a porch item!
+Commands.Players.Housing.TransferToGuild:			Do you want to transfer this house to {0}?
 

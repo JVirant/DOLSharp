@@ -23,12 +23,16 @@ using System.Reflection;
 using DOL.Database;
 using DOL.GS.PacketHandler;
 using log4net;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
-    [CmdAttribute("&rearrange", ePrivLevel.Player, "Allows you to rearrange your character overview.",
-        "/rearrange list - Shows a list with all to this account assigned characters and their slots.",
-        "/rearrange setslot [source slot] [target slot] - Sets the given source slot to the given target slot.")]
+    [CmdAttribute(
+        "&rearrange",
+        ePrivLevel.Player,
+        "Commands.Players.Rearrange.Description",
+        "Commands.Players.Rearrange.Usage.List",
+        "Commands.Players.Rearrange.Usage.Setslot")]
     public class RearrangeCommandHandler : AbstractCommandHandler, ICommandHandler
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -154,7 +158,12 @@ namespace DOL.GS.Commands
         #region Messages
         private void EmptySlot(GameClient client, int slot)
         {
-            client.Out.SendMessage("The given source slot (" + slot + ") is empty.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+            client.Out.SendMessage(
+                LanguageMgr.GetTranslation(
+                    client.Account.Language,
+                    "Commands.Players.Rearrange.Slot.Empty",
+                    slot),
+                eChatType.CT_System, eChatLoc.CL_SystemWindow);
         }
 
         private void InvalidSlot(GameClient client, int[] slots)
@@ -169,19 +178,32 @@ namespace DOL.GS.Commands
                     str += ", " + slot.ToString();
             }
 
-            client.Out.SendMessage("Invalid character slot" + (slots.Length > 1 ? "s" : "") + ": " + str, eChatType.CT_System, eChatLoc.CL_SystemWindow); 
+            client.Out.SendMessage(
+                LanguageMgr.GetTranslation(
+                    client.Account.Language,
+                    "Commands.Players.Rearrange.Slot.Invalid" + (slots.Length > 1 ? "s" : ""),
+                    str),
+                eChatType.CT_System, eChatLoc.CL_SystemWindow); 
         }
 
         private void NotSameRealm(GameClient client, int sourceSlot, int targetSlot)
         {
-            client.Out.SendMessage("You cannot set a slot to a different realm! (source realm = " + GetRealmBySlotIndex(sourceSlot) +
-                                   ", target realm = " + GetRealmBySlotIndex(targetSlot) + ")", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+            client.Out.SendMessage(
+                LanguageMgr.GetTranslation(
+                    client.Account.Language,
+                    "Commands.Players.Rearrange.Slot.DiffRealm",
+                    GetRealmBySlotIndex(sourceSlot), GetRealmBySlotIndex(targetSlot)),
+                eChatType.CT_System, eChatLoc.CL_SystemWindow);
         }
 
         private void SlotChanged(GameClient client, string name, int oldSlot, int newSlot)
         {
-            client.Out.SendMessage("The character slot for " + name + " has been successfully changed. (old slot = " + oldSlot +
-                                   ", new slot = " + newSlot + ")", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+            client.Out.SendMessage(
+                LanguageMgr.GetTranslation(
+                    client.Account.Language,
+                    "commands.Players.Rearrange.Slot.Changed",
+                    name, oldSlot, newSlot),
+                eChatType.CT_System, eChatLoc.CL_SystemWindow);
         }
         #endregion Messages
 
@@ -209,7 +231,10 @@ namespace DOL.GS.Commands
 
                 for (int i = firstSlot; i <= (firstSlot + 9); i++)
                 {
-                    slots.Add(i, "Empty slot");
+                    string slotEmpty = LanguageMgr.GetTranslation(
+                                        client.Account.Language,
+                                        "Commands.Players.Rearrange.Slot.List.slotEmpty");
+                    slots.Add(i, slotEmpty );
 
                     if (i == (firstSlot + 9))
                     {
@@ -245,7 +270,11 @@ namespace DOL.GS.Commands
                     data.Add("(" + slot.Key + ") " + slot.Value);
             }
 
-            client.Out.SendCustomTextWindow("Character slots", data);
+            client.Out.SendCustomTextWindow(
+                LanguageMgr.GetTranslation(
+                    client.Account.Language,
+                    "commands.Players.Rearrange.Slot.List.characterSlot"),
+                    data);
         }
         #endregion SendCharacterListWindow
 

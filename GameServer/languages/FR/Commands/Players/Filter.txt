@@ -1,0 +1,2 @@
+Commands.Players.Filter.Description:	Désactive le filtre à gros mots.
+Commands.Players.Filter.Usage:			'/filter'

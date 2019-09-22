@@ -1,13 +1,11 @@
-# /cast Command
-Commands.GM.Cast.Description:				Lance l'effet visuel d'un sort
-Commands.GM.Cast.Usage:						'/cast <id> <effect|cast|spell|sound|style>' Cast the Spell/VisualEffect associated with <SpellID>
-Commands.GM.Cast.InvalidId:					ID invalide.
-Commands.GM.Cast.IdNegative:					L'ID ne peut etre negative.
-Commands.GM.Cast.EffectExecuted:				Effect animation executed. Id={0}
-Commands.GM.Cast.CastExecuted:				Cast animation executed. Id={0}
-Commands.GM.Cast.Spell.CastOnLiving:			You cast {0} on {1}.
-Commands.GM.Cast.Spell.CastOnSelf:			You cast {0} on self.
-Commands.GM.Cast.Spell.GMCastOnYou:			{0} {1} cast {2} on you.
-Commands.GM.Cast.Spell.Inexistent:			Spell inexistent. Id={0}# /gmrelicpad Command
-Commands.GM.GMRelicPad.Description:			Création de RelicPad
-Commands.GM.GMRelicPad.Usage:				/gmrelic <magic|strength> <name> <realm>
+Commands.GM.Cast.CastExecuted:			Animation du sort a été executé. Id={0}
+Commands.GM.Cast.Description:			Lance l'effet visuel d'un sort
+Commands.GM.Cast.EffectExecuted:		Effet du sort a été executé. Id={0}
+Commands.GM.Cast.IdNegative:			L'ID ne peut être négative.
+Commands.GM.Cast.Spell.Inexistent:		Sort inexistant. Id={0}# /gmrelicpad Command
+Commands.GM.Cast.InvalidId:				ID invalide.
+Commands.GM.Cast.SoundPlayed:			Bruitage lancé. Id={0}
+Commands.GM.Cast.Spell.CastOnLiving:	Vous lancez {0} sur {1}.
+Commands.GM.Cast.Spell.CastOnSelf:		Vous vous lancez {0}.
+Commands.GM.Cast.Spell.GMCastOnYou:		{0} {1} vous a lancé {2}.
+Commands.GM.Cast.Usage:					'/cast <id> <effect|cast|spell|sound|style>' # Lance le Sort/EffetVisuel associé avec le <SpellID>

@@ -1,0 +1,3 @@
+Commands.Players.Facegloc.Description:			Turns and faces your character into the direction of the x, y coordinates provided (using DOL region global coordinates).
+Commands.Players.Facegloc.Error.Coordinates:	Please enter X and Y coordinates.
+Commands.Players.Facegloc.Usage:				'/facegloc [x] [y]'

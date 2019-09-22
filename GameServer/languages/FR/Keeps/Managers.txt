@@ -1,4 +1,4 @@
-﻿#TemplateManager
+#TemplateManager
 #All
 SetGuardName.Commander:		Commandant des {0}
 SetGuardName.Hastener:		Hâteur

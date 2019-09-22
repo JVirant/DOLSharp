@@ -1,4 +1,4 @@
-﻿Alb.AfterTheAccident.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
+Alb.AfterTheAccident.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
 Alb.AfterTheAccident.CheckPlayerAbortQuest.Text2:	Aborting Quest {0}. You can start over again if you want.
 Alb.AfterTheAccident.Conclusion.Text1:			You have done well. Here is your reward, and my thanks for serving Camelot!
 Alb.AfterTheAccident.Init.Text1:			Recruit's Necklace of Might

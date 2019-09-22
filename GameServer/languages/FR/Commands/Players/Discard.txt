@@ -1,0 +1,2 @@
+Commands.Players.Discard.Description:	Défausse une carte de votre main.
+Commands.Players.Discard.Usage:			Usage : '/discard <#|all>' # Défausse la carte # de votre main. Ou défausse toute les cartes.

@@ -1,0 +1,5 @@
+Commands.Players.CheckAppeal.Description:	Checks the status of your appeal or cancels it.
+Commands.Players.CheckAppeal.Usage.Appeal:	Use /appeal to file an appeal.
+Commands.Players.CheckAppeal.Usage.Cancel:	/checkappeal cancel - Cancel your appeal and remove it from the queue.
+Commands.Players.CheckAppeal.Usage.View:	/checkappeal view - View your appeal status.
+Commands.Players.Guild.UnknownCommand:		{0} is not a valid command.

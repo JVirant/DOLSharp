@@ -1,4 +1,4 @@
-﻿# CommanderPet
+# CommanderPet
 GameObjects.Master:								Master
 GameObjects.Mistress:							Mistress
 GameObjects.CommanderPet.DreadGuardian:			dread guardian

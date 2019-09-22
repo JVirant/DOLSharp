@@ -24,8 +24,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&range",
 		ePrivLevel.Player,
-		"Gives a range to a target",
-		"/range")]
+		"Commands.Players.Range.Description",
+		"Commands.Players.Range.Usage")]
 	public class RangeCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -35,14 +35,28 @@ namespace DOL.GS.Commands
 
 			GameLiving living = client.Player.TargetObject as GameLiving;
 			if (client.Player.TargetObject == null)
-				DisplayMessage(client, (LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Range.NeedTarget")));
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Range.NeedTarget"));
 			else if (living == null || (living != null && client.Account.PrivLevel > 1))
 			{
 				int range = client.Player.GetDistanceTo( client.Player.TargetObject );
-				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Range.Result", range, (client.Player.TargetInView ? "" : LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Range.NotVisible"))));
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Range.Result",
+						range,
+						(client.Player.TargetInView ? "" : LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Range.NotVisible"))));
 			}
 			else
-				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Range.InvalidObject"));
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Range.InvalidObject"));
 		}
 	}
 }

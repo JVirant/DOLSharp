@@ -1,4 +1,4 @@
-﻿# KEEPS
+# KEEPS
 # Managers/Player Manager
 PlayerManager.BroadcastCapture.Captured:		The forces of {0} have captured {1}!
 PlayerManager.BroadcastCapture.CapturedR0:		{0} has been captured!
@@ -75,13 +75,13 @@ DetailDisplayHandler.HandlePacket.MediumBonus:		Medium Bonus
 DetailDisplayHandler.HandlePacket.MediumPenalty:	Medium Penalty
 DetailDisplayHandler.HandlePacket.MustBeInChatGroup:	You must be in a chat group.
 DetailDisplayHandler.HandlePacket.MustBeInBattleGroup:	You must be in a battle group.
-DetailDisplayHandler.HandlePacket.NoBonus:		No Bonus
-DetailDisplayHandler.HandlePacket.NoGroup:		You are not part of a group.
-DetailDisplayHandler.HandlePacket.NoInformation:	No special information!
-DetailDisplayHandler.HandlePacket.None:		None
+DetailDisplayHandler.HandlePacket.NoBonus:				No Bonus
+DetailDisplayHandler.HandlePacket.NoGroup:				You are not part of a group.
+DetailDisplayHandler.HandlePacket.NoInformation:		No special information!
+DetailDisplayHandler.HandlePacket.None:					None
 DetailDisplayHandler.HandlePacket.NoPermissionToSpeak:	You don't have permission to speak on the on guild line.	
-DetailDisplayHandler.HandlePacket.OnlyModerator:	Only moderator can talk on this chat group.
-DetailDisplayHandler.HandlePacket.Opening:		Opening: 
+DetailDisplayHandler.HandlePacket.OnlyModerator:		Only moderator can talk on this chat group.
+DetailDisplayHandler.HandlePacket.Opening:				Opening: 
 DetailDisplayHandler.HandlePacket.OpeningStyle:		Opening Style: 
 DetailDisplayHandler.HandlePacket.Or:			 or {0}
 DetailDisplayHandler.HandlePacket.Positional:		Positional 
@@ -159,9 +159,9 @@ DetailDisplayHandler.WriteMagicalBonuses.MaxCharges:	- {0} Max
 DetailDisplayHandler.WriteMagicalBonuses.StrikeArmor:	- Spell has a chance of casting when enemy strikes at this armor.
 DetailDisplayHandler.WriteMagicalBonuses.StrikeEnemy:	- Spell has a chance of casting when this weapon strikes an enemy.
 DetailDisplayHandler.WriteMagicalBonuses.UsedItem:	- Spell has a chance of casting when this item is used.
-DetailDisplayHandler.WriteMagicalBonuses.UseItem1:	Can use item every: {0}
-DetailDisplayHandler.WriteMagicalBonuses.UseItem2:	Can use item every: 3:00 min.
-DetailDisplayHandler.WriteMagicalBonuses.UseItem3:	Can use again in: {0}.
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.second:	Can use item every: {0}
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.minute:	Can use item every: {0}:{1} min.
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.in:	Can use again in: {0}.
 DetailDisplayHandler.WritePoisonInfo.Charges:		- {0} Charges
 DetailDisplayHandler.WritePoisonInfo.Level:		- {0} Level
 DetailDisplayHandler.WritePoisonInfo.LevelRequired:	Level Requirement:
@@ -350,12 +350,3 @@ Titles.ML.Line5:					Sojourner
 Titles.ML.Line6:					Spymaster
 Titles.ML.Line7:					Stormlord
 Titles.ML.Line8:					Warlord
-
-# VIEWREPORTS
-Scripts.Player.ViewReport.Usage: 			Usage:
-Scripts.Player.ViewReport.Help.Close:			'/viewreport close <report #>' Will close the report of id #.
-Scripts.Player.ViewReport.Help.Delete:			'/viewreport delete <report #' Deletes a report of id #.
-Scripts.Player.ViewReport.InvalidReport:		That is not a valid report.
-Scripts.Player.ViewReport.UnknownCommand:		That is not a valid command.
-Scripts.Player.ViewReport.ReportDeleted:		Report {0} has been deleted.
-Scripts.Player.ViewReport.NoPriv:			You do not have the privilages to edit reports.

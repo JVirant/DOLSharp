@@ -1,4 +1,4 @@
-﻿
+
 
 # Languages
 System.LanguagesName.EN:				English

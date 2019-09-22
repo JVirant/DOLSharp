@@ -1,4 +1,4 @@
-﻿# GameEvents
+# GameEvents
 # /Playerenterexit
 Scripts.Events.PlayerEnterExit.Entered:		{0} vient d'entrer en jeu !
 Scripts.Events.PlayerEnterExit.Left:		{0} vient de quitter le jeu !

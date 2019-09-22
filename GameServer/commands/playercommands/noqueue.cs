@@ -17,12 +17,15 @@
  *
  */
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
-	[CmdAttribute("&Noqueue", //command to handle
-	ePrivLevel.Player, //minimum privelege level
-	"Allows you to disable/enable queuing", "/Noqueue")] //usage
+	[CmdAttribute(
+		"&Noqueue", //command to handle
+		ePrivLevel.Player, //minimum privelege level
+		"Commands.Players.Noqueue.Description",
+		"Commands.Players.Noqueue.Usage")] //usage
 	public class NoqueueCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -34,11 +37,19 @@ namespace DOL.GS.Commands
 
 			if (client.Player.SpellQueue)
 			{
-				DisplayMessage(client, "You are now using the queuing option! To disable queuing use '/noqueue'.");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Noqueue.On"));
 			}
 			else
 			{
-				DisplayMessage(client, "You are no longer using the queuing option! To enable queuing use '/noqueue'.");
+				DisplayMessage(
+					client,
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Noqueue.Off"));
 
 			}
 		}

@@ -1,0 +1,7 @@
+Commands.Players.Report.Description:	Rapporte un bug
+Commands.Players.Report.Disabled:		Les rapports de bugs sont désactivés sur ce serveur !
+Commands.Players.Report.Email:			Si vous avez entrez votre courriel avec la commande '/email', votre rapport sera envoyé par courriel au staff !
+Commands.Players.Report.Muted:			Vous avez été mis en sourdine. Vous n’êtes plus autorisé à soumettre des rapports de bug.
+Commands.Players.Report.Submitted:		Rapport soumis. Si ce n’est pas un rapport de bug l’équipe se fera un plaisir d’ignorer la demande !
+Commands.Players.Report.TooManyReport:	Il y a actuellement trop de rapport, contactez directement un GM ou attendez que les bug soient traités.
+Commands.Players.Report.Usage:			Usage : '/report <message>' # Soyez aussi détaillé que possible SVP.

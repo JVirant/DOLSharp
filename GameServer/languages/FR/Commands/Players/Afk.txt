@@ -1,3 +1,4 @@
-# /Afk
-Commands.Players.Afk.Off:					Vous n'êtes plus considéré·e comme étant AFK.
-Commands.Players.Afk.On:						Vous êtes maintenant considéré·e comme étant AFK.
+Commands.Players.Afk.Description:	Bascule votre status AFK. Il est possible d’y ajouter un message.
+Commands.Players.Afk.Off:			Vous n'êtes plus considéré·e comme étant AFK.
+Commands.Players.Afk.On:			Vous êtes maintenant considéré·e comme étant AFK.
+Commands.Players.Afk.Usage:			Usage : '/afk <text>'

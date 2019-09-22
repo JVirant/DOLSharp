@@ -1,4 +1,4 @@
-﻿#GameKeepGuard
+#GameKeepGuard
 GameKeepGuard.GetExamineMessages.Balancing:	{0} has keep balancing level ({1})
 GameKeepGuard.GetExamineMessages.Upgraded:	{0} has upgraded equipment ({1}).
 GameKeepGuard.GetExamineMessages.YouExamine:	You examine {0}. {1} is {2} and is a realm guard.

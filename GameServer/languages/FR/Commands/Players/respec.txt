@@ -1,0 +1,30 @@
+Commands.Players.Respec.Available.All.Use:		Target any trainer and use /respec ALL
+Commands.Players.Respec.Available.All:			You have {0} full skill respecs available.
+Commands.Players.Respec.Available.Dol.Use:		Target any trainer and use /respec DOL
+Commands.Players.Respec.Available.DOL:			You have {0} DOL ( full skill ) respecs available.
+Commands.Players.Respec.Available.Line.Use:		Target any trainer and use /respec <line name>
+Commands.Players.Respec.Available.Line:			You have {0} single-line respecs available.
+Commands.Players.Respec.Available.Realm.Use:	Target any trainer and use /respec REALM
+Commands.Players.Respec.Available.Realm:		You have {0} realm skill respecs available.
+Commands.Players.Respec.Buy.Line:				You bought a single line respec!
+Commands.Players.Respec.Caution:				CAUTION: All respec changes are final with no second chance. Proceed carefully!
+Commands.Players.Respec.Confirm.Buy:			It costs {0} gold. Want you really buy?
+Commands.Players.Respec.Description:			Respecs the char
+Commands.Players.Respec.Help.All:				'/respec <ALL|DOL>' # To respec all skills
+Commands.Players.Respec.Help.Champion:			'/respec CHAMPION' # To respec champion abilities
+Commands.Players.Respec.Help.Realm:				'/respec REALM' # To respec realm abilities
+Commands.Players.Respec.Help.Trainer:			Target any trainer and use:
+Commands.Players.Respec.Line.Low:				Level of {0} line is less than 2.
+Commands.Players.Respec.Line.NotFound:			No line with name '{0}' found.
+Commands.Players.Respec.Missing.All:			You don't seem to have any full skill respecs available
+Commands.Players.Respec.Missing.DOL:			You don't seem to have any DOL respecs available.
+Commands.Players.Respec.Missing.Line:			You don't seem to have any single-line respecs available.
+Commands.Players.Respec.Missing.Realm:			You don't seem to have any realm skill respecs available.
+Commands.Players.Respec.NeedTrainer:			You must be speaking with your trainer to respec.
+Commands.Players.Respec.NotAvailable.Buy:		Use /respec buy to buy an single-line respec.
+Commands.Players.Respec.NotAvailable.Gold:		You don't have enough money! You need {0} gold!
+Commands.Players.Respec.NotAvailable.Level:		You can't buy a respec on this level again.
+Commands.Players.Respec.NotAvailable:			You don't seem to have any respecs available.
+Commands.Players.Respec.Regain.Realm:			You regain {0} realm specialization points!
+Commands.Players.Respec.Regain.Spec:			You regain {0} specialization points!
+Commands.Players.Respec.Usage:					Usage:	'/respec'

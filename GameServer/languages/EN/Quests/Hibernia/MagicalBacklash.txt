@@ -1,4 +1,4 @@
-﻿Hib.MagicalBacklash.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
+Hib.MagicalBacklash.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
 Hib.MagicalBacklash.CheckPlayerAbortQuest.Text2:	Aborting Quest {0}. You can start over again if you want.
 Hib.MagicalBacklash.Conclusion.Text1:			Thank you.  I couldn't bear the thought of going near that place.  Your much braver then I'll ever be.  You should go speak with some of the other locals.  I'm sure they could use your help.
 Hib.MagicalBacklash.Init.Text1:				Recruit's Short Sword

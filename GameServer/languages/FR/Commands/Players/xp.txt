@@ -1,0 +1,4 @@
+Commands.Players.Xp.Description:	Activer / Désactiver les points d’expériences.
+Commands.Players.Xp.Off:			Votre option « XP » est désactivé. Vous ne recevrez plus de point d’expérience. Utilisez '/xp on' pour de nouveau gagner des points d’expérience.
+Commands.Players.Xp.On:				Votre option « XP » est activé. Vous gagnerez des points d’expériences. Utilisez '/xp off' pour arrêter d’en gagner.
+Commands.Players.Xp.Usage:			Usage : '/xp <on|off>'

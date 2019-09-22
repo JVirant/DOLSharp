@@ -17,14 +17,15 @@
  *
  */
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
 		"&sprint",
 		ePrivLevel.Player,
-		"Toggles sprint mode",
-		"/sprint")]
+		"Commands.Players.Sprint.Description",
+		"Commands.Players.Sprint.Usage")]
 	public class SprintCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -37,7 +38,11 @@ namespace DOL.GS.Commands
 				}
 				else
 				{
-					client.Out.SendMessage("You do not have a sprint ability.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Sprint.Missing.Ability"),
+						eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				}
 			}
 		}

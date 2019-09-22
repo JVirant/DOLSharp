@@ -1,0 +1,5 @@
+Commands.Players.Whisper.Description:	Sends a private message to your target if it is close enough
+Commands.Players.Whisper.Usage:			Usage: '/whisper <message>'
+Commands.Players.Whisper.SlowDown:		Slow down! Think before you say each word!
+Commands.Players.Whisper.SelectTarget:	Select the target you want to whisper to!
+Commands.Players.Whisper.NotYourself:	Hmmmm...you shouldn't talk to yourself!

@@ -19,10 +19,12 @@
 
 namespace DOL.GS.Commands
 {
-	[CmdAttribute("&quit", new string[] { "&q" }, //command to handle
+	[CmdAttribute(
+		"&quit",
+		new string[] { "&q" }, //command to handle
 		ePrivLevel.Player, //minimum privelege level
-		"Removes the player from the world", //command description
-		"/quit")] //usage
+		"Commands.Players.Quit.Description", //command description
+		"Commands.Players.Quit.Usage")] //usage
 	public class QuitCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)

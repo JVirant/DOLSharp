@@ -1,4 +1,4 @@
-﻿Alb.ToReachTheBreach.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
+Alb.ToReachTheBreach.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
 Alb.ToReachTheBreach.CheckPlayerAbortQuest.Text2:	Aborting Quest {0}. You can start over again if you want.
 Alb.ToReachTheBreach.Conclusion.Text1:			You found your way to Demon's Breach, eh?  Mark it's location well, {0}, for your assistance may be needed there one day.  We can't afford to allow hordes of demons, Hibernians or Midgardians to break free into our lands.
 Alb.ToReachTheBreach.Init.Text1:			Recruit's Intelligent Belt

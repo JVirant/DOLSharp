@@ -1,0 +1,4 @@
+Commands.Players.Roleplay.Description:	Indique que le joueur joue un rôle.
+Commands.Players.Roleplay.Off:			Votre option « RolePlay » est DÉSACTIVÉ. Vous ne serez plus considéré comme « roleplayer ». Utilisez '/roleplay on' pour réactiver l’option.
+Commands.Players.Roleplay.On:			Votre option « RolePlay » est ACTIVÉ. Vous êtes dorénavant considéré comme « roleplayer ». Utilisez '/roleplay off' pour désactiver l’option.
+Commands.Players.Roleplay.Usage:		Usage : '/roleplay <on|off>'

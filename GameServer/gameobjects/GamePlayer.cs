@@ -9481,12 +9481,20 @@ namespace DOL.GS
 				type = eChatType.CT_Staff;
 
 			if (GameServer.ServerRules.IsAllowedToUnderstand(source, this))
-				Out.SendMessage(LanguageMgr.GetTranslation(Client.Account.Language, "GameObjects.GamePlayer.SendReceive.Sends", source.Name, str), type,
-				                eChatLoc.CL_ChatWindow);
+				Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						Client.Account.Language,
+						"GameObjects.GamePlayer.SendReceive.Sends",
+						source.Name, str),
+					type, eChatLoc.CL_ChatWindow);
 			else
 			{
-				Out.SendMessage(LanguageMgr.GetTranslation(Client.Account.Language, "GameObjects.GamePlayer.SendReceive.FalseLanguage", source.Name),
-				                eChatType.CT_Send, eChatLoc.CL_ChatWindow);
+				Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						Client.Account.Language,
+						"GameObjects.GamePlayer.SendReceive.FalseLanguage",
+						source.Name),
+					eChatType.CT_Send, eChatLoc.CL_ChatWindow);
 				return true;
 			}
 
@@ -9495,13 +9503,21 @@ namespace DOL.GS
 			{
 				if (afkmessage == "")
 				{
-					source.Out.SendMessage(LanguageMgr.GetTranslation(source.Client.Account.Language, "GameObjects.GamePlayer.SendReceive.Afk", Name),
-					                       eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					source.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							source.Client.Account.Language,
+							"GameObjects.GamePlayer.SendReceive.Afk",
+							Name),
+						eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				}
 				else
 				{
 					source.Out.SendMessage(
-						LanguageMgr.GetTranslation(source.Client.Account.Language, "GameObjects.GamePlayer.SendReceive.AfkMessage", Name, afkmessage), eChatType.CT_Say,
+						LanguageMgr.GetTranslation(
+							source.Client.Account.Language,
+							"GameObjects.GamePlayer.SendReceive.AfkMessage",
+							Name, afkmessage),
+						eChatType.CT_Say,
 						eChatLoc.CL_ChatWindow);
 				}
 			}
@@ -11880,8 +11896,21 @@ namespace DOL.GS
 								eligibleMember.Out.SendMessage(LanguageMgr.GetTranslation(Client.Account.Language, "GameObjects.GamePlayer.PickupObject.BackpackFull"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 								return false;
 							}
-							Message.SystemToOthers(this, LanguageMgr.GetTranslation(Client.Account.Language, "GameObjects.GamePlayer.PickupObject.GroupMemberPicksUp", Name, floorItem.Item.GetName(1, false)), eChatType.CT_System);
-							group.SendMessageToGroupMembers(LanguageMgr.GetTranslation(Client.Account.Language, "GameObjects.GamePlayer.PickupObject.Autosplit", floorItem.Item.GetName(1, true), eligibleMember.Name), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+							Message.SystemToOthers(
+								this,
+								LanguageMgr.GetTranslation(
+									Client.Account.Language,
+									"GameObjects.GamePlayer.PickupObject.GroupMemberPicksUp",
+									Name,
+									floorItem.Item.GetName(1, false)),
+								eChatType.CT_System);
+							group.SendMessageToGroupMembers(
+								LanguageMgr.GetTranslation(
+									Client.Account.Language,
+									"GameObjects.GamePlayer.PickupObject.Autosplit",
+									floorItem.Item.GetName(1, true),
+									eligibleMember.Name),
+								eChatType.CT_System, eChatLoc.CL_SystemWindow);
 							InventoryLogging.LogInventoryAction("(ground)", this, eInventoryActionType.Loot, floorItem.Item.Template, floorItem.Item.IsStackable ? floorItem.Item.Count : 1);
 						}
 					}

@@ -1,14 +1,13 @@
-# GMCommands
-# /ban
-Commands.GM.Ban.Description:				Utilisation de la commande /ban: 
-Commands.GM.Ban.Usage.IP:					'/ban ip <reason>' Ban l'addresse IP de la cible
-Commands.GM.Ban.Usage.Account:				'/ban account <reason>' Ban le compte de la cible
-Commands.GM.Ban.Usage.Both:					'/ban both <reason>' Ban le compte et l'ip
-Commands.GM.Ban.AAlreadyBanned:				Ce compte a déjà été banni.
-Commands.GM.Ban.Usage.ClientID:             #<ClientID> can be used in place of player name.  Use '/clientlist' to see playing clients.
-Commands.GM.Ban.ABanned:					Le compte "{0}" a été banni.
-Commands.GM.Ban.BAlreadyBanned:				Ce compte et cette IP ont déjà été bannis.
-Commands.GM.Ban.BBanned:					Le compte "{0}" et l'adresse IP "{1}" ont été bannis.
-Commands.GM.Ban.IAlreadyBanned:				Cette adresse IP a déjà été bannie.
-Commands.GM.Ban.IBanned:					L'adresse IP "{0}" a été bannie.
-Commands.GM.Ban.MustTarget:					Vous devez sélectionner une cible !
+Commands.GM.Ban.AAlreadyBanned:			Ce compte a déjà été banni.
+Commands.GM.Ban.ABanned:				Le compte « {0} » a été banni.
+Commands.GM.Ban.BAlreadyBanned:			Ce compte et cette IP ont déjà été bannis.
+Commands.GM.Ban.BBanned:				Le compte « {0} » et l'adresse IP « {1} » ont été bannis.
+Commands.GM.Ban.Description:			Permet de bannir un joueur
+Commands.GM.Ban.IAlreadyBanned:			Cette adresse IP a déjà été bannie.
+Commands.GM.Ban.IBanned:				L'adresse IP « {0} » a été bannie.
+Commands.GM.Ban.MustTarget:				Vous devez sélectionner une cible !
+Commands.GM.Ban.UnableToFindPlayer:		Joueur·se introuvable !
+Commands.GM.Ban.Usage.Account:			'/ban account <motif>' # Ban le compte de la cible
+Commands.GM.Ban.Usage.Both:				'/ban both <motif>'    # Ban le compte et l'IP
+Commands.GM.Ban.Usage.ClientID:			# <ClientID> peut être utilisé à la place d’un nom de joueur·se. '/clientlist' pour afficher la liste des clients connectés.
+Commands.GM.Ban.Usage.IP:				'/ban ip <motif>'      # Ban l'addresse IP de la cible

@@ -1,4 +1,4 @@
-﻿Hib.WingsOfTheIsle.Story:	Excuse me {0}, can I ask a favor of you? My daughter Jessica has been having a terrible time ever since the fighting broke out. She used to love taking a boat over to the island to play, but now a days all she does is sulk in the woods north of town. Perhaps you could find the time to speak with her, she won't talk with her father anymore but perhaps you can find out what's been bugging her? 
+Hib.WingsOfTheIsle.Story:	Excuse me {0}, can I ask a favor of you? My daughter Jessica has been having a terrible time ever since the fighting broke out. She used to love taking a boat over to the island to play, but now a days all she does is sulk in the woods north of town. Perhaps you could find the time to speak with her, she won't talk with her father anymore but perhaps you can find out what's been bugging her? 
 Hib.WingsOfTheIsle.Summary:	Visit with Jessica north of town to find out what is bothering her, if you can try and help her for Baeth.
 Hib.WingsOfTheIsle.Goal1:	Find Jessica north of town and speak with her. 
 Hib.WingsOfTheIsle.Goal2:	Search the light house on the island for the flute. 	

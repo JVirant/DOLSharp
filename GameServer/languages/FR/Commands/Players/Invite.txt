@@ -1,0 +1,13 @@
+Commands.Players.Invite.Description:	Invite le joueur spécifié ou la cible à joindre votre groupe.
+Commands.Players.Invite.GM.Added:		(GM) Vous avez ajouté {0} à votre groupe.
+Commands.Players.Invite.GM.You:			GM {0} vous a ajouté à {1} groupe.
+Commands.Players.Invite.InvitedYou:		{0} vous a invité à rejoindre {1} groupe.
+Commands.Players.Invite.InvitedYouTo:	{0} vous a invité à rejoindre {1} groupe. Acceptez vous ?
+Commands.Players.Invite.NotFound:		Vous ne pouvez trouver le joueur spécifié aux alentours.
+Commands.Players.Invite.NotLeader:		Vous n’êtes pas le chef de votre groupe.
+Commands.Players.Invite.NotValidTarget:	Vous n’avez pas sélectionné une cible valide.
+Commands.Players.Invite.NotYourself:	Vous ne pouvez vous inviter vous même.
+Commands.Players.Invite.PlayerNotFound:	Aucun joueur·se en ligne avec ce nom."
+Commands.Players.Invite.StillGrouped:	Le joueur est déjà dans un groupe.
+Commands.Players.Invite.Usage:			Usage : '/invite <playerName>'
+Commands.Players.Invite.YouInvite:		Vous avez invité {0} à rejoindre votre groupe.

@@ -1,4 +1,4 @@
-﻿GameObjects.GamePlayer.AddAbility.YouLearn:				You learn the {0} ability!	
+GameObjects.GamePlayer.AddAbility.YouLearn:				You learn the {0} ability!	
 GameObjects.GamePlayer.AddSpecialisation.YouLearn:		You learn the {0} skill!		
 GameObjects.GamePlayer.AddSpellLine.YouLearn:			You learn the {0} spell list!		
 GameObjects.GamePlayer.AddToWorld.SpecsPointsIncorrect:		Your Specs points total was incorrect. Now corrected, please train again.

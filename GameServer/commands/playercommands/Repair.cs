@@ -19,14 +19,15 @@
 using System;
 using DOL.Database;
 using DOL.GS.Keeps;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
 		"&repair",
 		ePrivLevel.Player,
-		"You can repair an item when you are a crafter",
-		"/repair")]
+		"Commands.Players.Repair.Description",
+		"Commands.Players.Repair.Usage")]
 	public class RepairCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -74,7 +75,11 @@ namespace DOL.GS.Commands
 
 			if ((obj as GameLiving).InCombat)
 			{
-				DisplayMessage(player, "You can't repair object while it is under attack!");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"Commands.Players.Repair.InCombat"));
 				return false;
 			}
             if (obj is GameKeepDoor)
@@ -82,7 +87,11 @@ namespace DOL.GS.Commands
                 GameKeepDoor doorcomponent = obj as GameKeepDoor;
                 if (doorcomponent.Component.AbstractKeep.InCombat)
                 {
-                    DisplayMessage(player, "You can't repair the keep door while keep is under attack!");
+                    DisplayMessage(
+						player,
+						LanguageMgr.GetTranslation(
+							player.Client.Account.Language,
+							"Commands.Players.Repair.Door.KeepInCombat"));
                     return false;
                 }
             }
@@ -90,14 +99,22 @@ namespace DOL.GS.Commands
 			{
 				if (obj.CurrentRegion.Time - obj.LastAttackedByEnemyTick <= 60 * 1000)
 				{
-					DisplayMessage(player, "You can't repair the keep component while it is under attack!");
+					DisplayMessage(
+						player,
+						LanguageMgr.GetTranslation(
+							player.Client.Account.Language,
+							"Commands.Players.Repair.Object.InCombat"));
 					return false;
 				}
 			}
 
 			if ((obj as GameLiving).HealthPercent == 100)
 			{
-				DisplayMessage(player, "The component is already at full health!");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"Commands.Players.Repair.Component.FullHealth"));
 				return false;
 			}
 			if (obj is GameKeepComponent)
@@ -105,43 +122,71 @@ namespace DOL.GS.Commands
 				GameKeepComponent component = obj as GameKeepComponent;
 				if (component.IsRaized)
 				{
-					DisplayMessage(player, "You cannot repair a raized tower!");
+					DisplayMessage(
+						player,
+						LanguageMgr.GetTranslation(
+							player.Client.Account.Language,
+							"Commands.Players.Repair.Component.RaizedTower"));
 					return false;
 				}
 			}
 
 			if (player.IsCrafting)
 			{
-				DisplayMessage(player, "You must end your current action before you repair anything!");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"Commands.Players.Repair.EndAction"));
 				return false;
 			}
 			if (player.IsMoving)
 			{
-				DisplayMessage(player, "You can't repair while moving");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"Commands.Players.Repair.Moving"));
 				return false;
 			}
 
 			if (!player.IsAlive)
 			{
-				DisplayMessage(player, "You can't repair while dead.");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"Commands.Players.Repair.Dead"));
 				return false;
 			}
 
 			if (player.IsSitting)
 			{
-				DisplayMessage(player, "You can't repair while sitting.");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"Commands.Players.Repair.Sitting"));
 				return false;
 			}
 
 			if (player.InCombat)
 			{
-				DisplayMessage(player, "You can't repair while in combat.");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"Commands.Players.Repair.InCombat"));
 				return false;
 			}
 
 			if (!player.IsWithinRadius(obj, WorldMgr.INTERACT_DISTANCE))
 			{
-				DisplayMessage(player, "You are too far away to repair this component.");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"Commands.Players.Repair.TooFar"));
 				return false;
 			}
 
@@ -150,13 +195,22 @@ namespace DOL.GS.Commands
 
 			if (playerswood < repairamount)
 			{
-				DisplayMessage(player, "You need another " + (repairamount - playerswood) + " units of wood!");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"Commands.Players.Repair.NeedWood",
+						(repairamount - playerswood)));
 				return false;
 			}
 
 			if (player.GetCraftingSkillValue(eCraftingSkill.WoodWorking) < 1)
 			{
-				DisplayMessage(player, "You need woodworking skill to repair.");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"Commands.Players.Repair.NeedSkills"));
 				return false;
 			}
 
@@ -168,7 +222,12 @@ namespace DOL.GS.Commands
 		static int workDuration = 20;
 		public void StartRepair(GamePlayer player, GameLiving obj)
 		{
-			player.Out.SendTimerWindow("Repairing: " + obj.Name, workDuration);
+			player.Out.SendTimerWindow(
+				LanguageMgr.GetTranslation(
+					player.Client.Account.Language,
+					"Commands.Players.Repair.Repairing",
+					obj.Name),
+				workDuration);
 			player.CraftTimer = new RegionTimer(player);
 			player.CraftTimer.Callback = new RegionTimerCallback(Proceed);
 			player.CraftTimer.Properties.setProperty("repair_player", player);
@@ -214,7 +273,11 @@ namespace DOL.GS.Commands
 				}
 				int finish = obj.HealthPercent;
 				CalculatePlayersWood(player, (GetTotalWoodForLevel(obj.Level + 1)));
-				DisplayMessage(player, "You successfully repair the component by 15%!");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"Commands.Players.Repair.Success.15"));
 				/*
 				 * - Realm points will now be awarded for successfully repairing a door or outpost piece.
 				 * Players will receive approximately 10% of the amount repaired in realm points.
@@ -226,7 +289,11 @@ namespace DOL.GS.Commands
 			}
 			else
 			{
-				DisplayMessage(player, "You fail to repair the component!");
+				DisplayMessage(
+					player,
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"Commands.Players.Repair.Repair.Failed"));
 			}
 
 			return 0;

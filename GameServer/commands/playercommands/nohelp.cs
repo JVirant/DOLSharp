@@ -24,7 +24,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&nohelp",
 		ePrivLevel.Player,
-		"Toggle nohelp on or off, to stop receiving help from  your realm", "/nohelp>")]
+		"Commands.Players.Nohelp.Description",
+		"Commands.Players.Nohelp.Usage")]
 	public class NoHelpCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -36,11 +37,19 @@ namespace DOL.GS.Commands
 
 			if (client.Player.NoHelp)
 			{
-				client.Out.SendMessage("You will no longer receive help from members of your realm, type /nohelp again to receive help again.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Nohelp.Off"),
+					eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 			}
 			else
 			{
-				client.Out.SendMessage("You will once again receive help from members of your realm, type /nohelp again to stop receiving help.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Nohelp.On"),
+					eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-﻿# REALMABILITIES
+# REALMABILITIES
 # /RAPropertyEnhancer
 RAPropertyEnhancer.DelveInfo.Info1:		Niveau {0}: Montant: {1}{2}
 

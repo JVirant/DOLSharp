@@ -1,0 +1,5 @@
+Commands.Players.Ignore.Description:	Ajoute/Retire un·e joueur·se à/de votre liste noire !
+Commands.Players.Ignore.NotUnique:		Le nom indiqué n’est pas unique.
+Commands.Players.Ignore.NotYourself:	Pas vous !
+Commands.Players.Ignore.PlayerNotFound:	Aucun·e joueur·se avec ce nom.
+Commands.Players.Ignore.Usage:			Usage: '/ignore <Nom>'

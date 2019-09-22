@@ -1,4 +1,4 @@
-﻿Alb.NoHopeForTheHopeful.CheckPlayerAbortQuest.Text1:	Bon, allez maintenant allez là-bas et finissez votre travail!
+Alb.NoHopeForTheHopeful.CheckPlayerAbortQuest.Text1:	Bon, allez maintenant allez là-bas et finissez votre travail!
 Alb.NoHopeForTheHopeful.CheckPlayerAbortQuest.Text2:	Echec de la Quête {0}. Vous pouvez recommencer de nouveau si vous voulez.
 Alb.NoHopeForTheHopeful.Conclusion.Text1:		Excellent, {0}! Vous avez tres bien réussi.
 Alb.NoHopeForTheHopeful.Conclusion.Text2:		Peut-être le mot s'étendra parmi les bandits que les citoyens de Cotswold ne toléreront plus leur peur mongering.

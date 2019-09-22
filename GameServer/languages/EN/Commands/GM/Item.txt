@@ -56,9 +56,9 @@ Commands.GM.Item.Count.NoItemInSlot:			No item in slot {0}!
 Commands.GM.Item.Count.NotStackable:			{0} is not stackable.
 Commands.GM.Item.Info.ItemTemplateUnknown:		ItemTemplate with ID={0} is unknown!
 Commands.GM.Item.Info.Informations:				Item {0} Informations
-Commands.GM.Item.mBonus.NonSetBonusNumber:		Not set bonus number!
+Commands.GM.Item.mBonus.NotSetBonusNumber:		Not set bonus number!
 Commands.GM.Item.mBonus.TypeShouldBeInRange:	Bonus type should be in range from 0 to {0}.
-Commands.GM.Item.mBonus.NonSetBonusType:		Not set bonus type!
+Commands.GM.Item.mBonus.NotSetBonusType:		Not set bonus type!
 Commands.GM.Item.mBonus.NotSetBonusValue:		Not set bonus value!
 Commands.GM.Item.mBonus.UnknownBonusNumber:		Unknown bonus number: {0}
 Commands.GM.Item.SaveTemplate.ItemSaved:		The ItemTemplate {0} was successfully saved.

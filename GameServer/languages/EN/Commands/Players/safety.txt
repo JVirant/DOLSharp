@@ -1,0 +1,7 @@
+Commands.Players.Safety.Description:	Turns off PvP safety flag.
+Commands.Players.Safety.Usage:			Usage: '/safety off'
+Commands.Players.Safety.Off.Already:	Your safety flag is already off.
+Commands.Players.Safety.Off:			Your safety flag is now set to OFF! You can now attack non allied players, as well as be attacked.
+Commands.Players.Safety.Message.1:		The safety flag keeps your character from participating in combat
+Commands.Players.Safety.Message.2:		with non allied players in designated zones when you are below level 10.
+Commands.Players.Safety.Message.3:		Type /safety off to begin participating in PvP combat in these zones, though once it is off it can NOT be turned back on!

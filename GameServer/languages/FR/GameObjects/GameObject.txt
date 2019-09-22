@@ -1,4 +1,4 @@
-﻿# GAMEOBJECT
+# GAMEOBJECT
 GameObject.GetExamineMessages.YouTarget:	Vous ciblez [{0}].
 GameObject.GetName.Article1:				Le {0}
 GameObject.GetName.Article2:				le {0}

@@ -1,4 +1,4 @@
-﻿Alb.DredgeUpAPledge.CheckPlayerAbortQuest.Text1:	Bon, allez maintenant allez là-bas et finissez votre travail!	
+Alb.DredgeUpAPledge.CheckPlayerAbortQuest.Text1:	Bon, allez maintenant allez là-bas et finissez votre travail!	
 Alb.DredgeUpAPledge.CheckPlayerAbortQuest.Text2:	Echec de la Quête {0}. Vous pouvez recommencer de nouveau si vous voulez.
 Alb.DredgeUpAPledge.Conclusion.Text1:			Bon travail, {0}!
 Alb.DredgeUpAPledge.Conclusion.Text2:			Peut-être ces gangsters réflechiront-ils a  deux fois quand ils sont sur le point de promettre leur fidélité. Voici un petit quelque chose pour votre problème.

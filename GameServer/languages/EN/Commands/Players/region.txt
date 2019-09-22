@@ -1,0 +1,2 @@
+Commands.Players.Region.Description:	Broadcast something to other players in the same region
+Commands.Players.Region.Usage:			'/region <message>'

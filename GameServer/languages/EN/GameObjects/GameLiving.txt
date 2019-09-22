@@ -1,4 +1,4 @@
-﻿# GAMELIVING
+# GAMELIVING
 
 GameLiving.AttackData.AttacksYou:		{0} attacks you and you block the blow!
 GameLiving.AttackData.Blocked:			{0} attacks your {1} and is blocked!

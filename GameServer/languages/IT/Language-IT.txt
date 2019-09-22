@@ -579,9 +579,9 @@ DetailDisplayHandler.WriteMagicalBonuses.MaxCharges:	- {0} Max
 DetailDisplayHandler.WriteMagicalBonuses.StrikeArmor:	- L'incantesimo ha una possibilita' di essere lanciato quando il nemico colpisce questo pezzo di armatura.
 DetailDisplayHandler.WriteMagicalBonuses.StrikeEnemy:	- L'incantesimo ha una possibilita' di essere lanciato quando questa arma colpisce un nemico.
 DetailDisplayHandler.WriteMagicalBonuses.UsedItem:	- L'incantesimo ha una possibilita' di essere lanciato quando questo oggetto e' usato.
-DetailDisplayHandler.WriteMagicalBonuses.UseItem1:	Puoi usare l'oggetto ogni: {0}
-DetailDisplayHandler.WriteMagicalBonuses.UseItem2:	Puoi usare l'oggetto ogni: 3:00 min.
-DetailDisplayHandler.WriteMagicalBonuses.UseItem3:	Puoi riusarlo entro: {0}.
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.second:	Puoi usare l'oggetto ogni: {0}
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.minute:	Puoi usare l'oggetto ogni: {0}:{1} min.
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.in:	Puoi riusarlo entro: {0}.
 DetailDisplayHandler.WritePoisonInfo.Charges:		- {0} Cariche
 DetailDisplayHandler.WritePoisonInfo.Level:		- {0} Livello
 DetailDisplayHandler.WritePoisonInfo.LevelRequired:	Livello Richiesto:
@@ -762,7 +762,7 @@ Commands.Players.Cmdhelp.PlvlCommands:			<----------Comandi disponibili per plvl
 Commands.Players.Cmdhelp.Usage:				>----------Utilizzo di {0}----------<
 
 # /Disband
-Commands.Players.Disband.Disbanded:			{o} e' stato espulso dal gruppo.
+Commands.Players.Disband.Disbanded:			{0} e' stato espulso dal gruppo.
 Commands.Players.Disband.NoPlayer:			Non ci sono giocatori nel gruppo con quel nome.
 Commands.Players.Disband.NotInGroup:			Non sei in un gruppo.
 Commands.Players.Disband.NotLeader:			Non sei leader del tuo gruppo.
@@ -804,11 +804,11 @@ Commands.Players.Duel.YouInGroup:			Sei in un gruppo.
 Commands.Players.Duel.YouSurrender:			Ti arrendi a {0}!
 
 # /GC
-Commands.Players.Guild.AllianceInfo:			Informazioni di alleanza per {0}:
-Commands.Players.Guild.AllianceLeader:			Leader dell'alleanza {0}
-Commands.Players.Guild.AllianceMembers:			Membri dell'alleanza:
-Commands.Players.Guild.AllianceMember:			{0} - {1}
-Commands.Players.Guild.AllianceNoLeader:			Nessun leader dell'alleanza
+Commands.Players.Guild.Alliance.Info:			Informazioni di alleanza per {0}:
+Commands.Players.Guild.Alliance.Leader:			Leader dell'alleanza {0}
+Commands.Players.Guild.Alliance.Members:			Membri dell'alleanza:
+Commands.Players.Guild.Alliance.Member:			{0} - {1}
+Commands.Players.Guild.Alliance.NoLeader:			Nessun leader dell'alleanza
 
 # /Language
 Commands.Players.Language.Set:				Cambi la lingua dei messaggi del server in {0}.

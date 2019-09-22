@@ -1,4 +1,4 @@
-﻿Healer.GetExamineMessages.Text1:	Vous examinez {0}. {1} est {2} et est Guérisseur.
+Healer.GetExamineMessages.Text1:	Vous examinez {0}. {1} est {2} et est Guérisseur.
 Healer.HealerDialogResponse.Text1:	Vous êtes trop loin pour parler avec {0}.
 Healer.HealerDialogResponse.Text2:	refusé
 Healer.HealerDialogResponse.Text3:	Vous donnez à {0} une donation de {1}.

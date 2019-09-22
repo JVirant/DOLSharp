@@ -1,8 +1,10 @@
 # /Relic
-Commands.Players.Relic.AlbRelics:         Albion Relics
-Commands.Players.Relic.HibRelics:         Hibernia Relics
-Commands.Players.Relic.MidRelics:         Midgard Relics
-Commands.Players.Relic.Power:            Power
-Commands.Players.Relic.Strength:            Strength
-Commands.Players.Relic.Title:            Relic status
-Commands.Players.Relic.UseRealmCommand:      Use '/realm' for Realm Info.
+Commands.Players.Relic.Description:			Displays the current relic status.
+Commands.Players.Relic.Usage:				Usage: '/relics'
+Commands.Players.Relic.AlbRelics:			Albion Relics
+Commands.Players.Relic.HibRelics:			Hibernia Relics
+Commands.Players.Relic.MidRelics:			Midgard Relics
+Commands.Players.Relic.Power:				Power
+Commands.Players.Relic.Strength:			Strength
+Commands.Players.Relic.Title:				Relic status
+Commands.Players.Relic.UseRealmCommand:		Use '/realm' for Realm Info.

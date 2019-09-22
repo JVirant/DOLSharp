@@ -1,4 +1,4 @@
-﻿#All
+#All
 PlayerClass.GetTitle.none:		none
 
 PlayerClass.Mauler.GetTitle.50:		Master Mauler

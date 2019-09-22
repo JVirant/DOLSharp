@@ -1,0 +1,3 @@
+Commands.Players.Summon.Description:	Summon horse
+Commands.Players.Summon.Usage:			Usage: '/summon'
+Commands.Players.Summon.Incorrect:		Incorrect format of the command

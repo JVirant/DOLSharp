@@ -6,7 +6,11 @@ using DOL.Language;
 
 namespace DOL.GS.Commands
 {
-	[CmdAttribute("&horse", ePrivLevel.Player, "Horse emotes", "/horse <emote>")]
+	[CmdAttribute(
+		"&horse",
+		ePrivLevel.Player,
+		"Commands.Players.HorseEmote.Description",
+		"Commands.Players.HorseEmote.Usage")]
 	public class HorseEmoteCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		private const ushort EMOTE_RANGE_TO_TARGET = 2048;
@@ -19,7 +23,11 @@ namespace DOL.GS.Commands
 
 			if (!client.Player.IsOnHorse)
 			{
-				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.HorseEmote.MustBeOnMount"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.HorseEmote.MustBeOnMount"),
+					eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				return;
 			}
 
@@ -63,6 +71,11 @@ namespace DOL.GS.Commands
 					emoteID = eEmote.Horse_rear;
 					break;
 				default:
+					client.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.HorseEmote.Help"),
+						eChatType.CT_System, eChatLoc.CL_SystemWindow);
 					return;
 			}
 

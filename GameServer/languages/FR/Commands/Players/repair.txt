@@ -1,0 +1,18 @@
+Commands.Players.Repair.Component.FullHealth:	The component is already at full health!
+Commands.Players.Repair.Component.InCombat:		You can't repair the keep component while it is under attack!
+Commands.Players.Repair.Component.RaizedTower:	You cannot repair a raized tower!
+Commands.Players.Repair.Dead:					You can't repair while dead.
+Commands.Players.Repair.Description:			You can repair an item when you are a crafter
+Commands.Players.Repair.Door.KeepInCombat:		"You can't repair the keep door while keep is under attack!"
+Commands.Players.Repair.EndAction:				You must end your current action before you repair anything!
+Commands.Players.Repair.InCombat:				You can't repair while in combat.
+Commands.Players.Repair.Moving:					You can't repair while moving
+Commands.Players.Repair.NeedSkills:				You need woodworking skill to repair.
+Commands.Players.Repair.NeedWood:				You need another {0} units of woods!
+Commands.Players.Repair.Object.InCombat:		You can't repair object while it is under attack!
+Commands.Players.Repair.Repair.Failed:			You fail to repair the component!
+Commands.Players.Repair.Repairing:				Repairing: {0}
+Commands.Players.Repair.Sitting:				You can't repair while sitting.
+Commands.Players.Repair.Success.15:				You successfully repair the component by 15%!
+Commands.Players.Repair.TooFar:					You are too far away to repair this component.
+Commands.Players.Repair.Usage:					Usage : '/usage'

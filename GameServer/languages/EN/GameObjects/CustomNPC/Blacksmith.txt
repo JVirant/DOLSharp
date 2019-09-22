@@ -1,4 +1,4 @@
-﻿
+
 
 Scripts.Blacksmith.AbortRepair:				You refuse letting you repair the {0}.
 Scripts.Blacksmith.CantRepairThat:			I can't repair that.

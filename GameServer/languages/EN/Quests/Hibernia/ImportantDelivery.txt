@@ -1,4 +1,4 @@
-﻿Hib.ImportantDelivery.CheckPlayerAbortQuest.Abort:	Aborting Quest {0}. You can start over again if you want.
+Hib.ImportantDelivery.CheckPlayerAbortQuest.Abort:	Aborting Quest {0}. You can start over again if you want.
 Hib.ImportantDelivery.CheckPlayerAbortQuest.NoAbort:	Good, no go out there and finish your work!
 Hib.ImportantDelivery.CheckPlayerAcceptQuest.Accept:	Congratulations! You are now one step closer to understanding the world of Camelot! During this phase of your training, I will be sending you to different parts of the realm to deliver much needed supplies to various citizens. You will need to check your QUEST JOURNAL from time to time to see what you need to accomplish next on your quest. You can access the quest journal from the COMMAND button on your [character sheet].
 Hib.ImportantDelivery.CheckPlayerAcceptQuest.NoAccept:	Oh well, if you change your mind, please come back!

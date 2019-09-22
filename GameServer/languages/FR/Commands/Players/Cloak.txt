@@ -1,0 +1,6 @@
+Commands.Players.Cloak.AlreadyInvisible:	Votre cape est déjà caché.
+Commands.Players.Cloak.AlreadyVisible:		Votre cape est déjà visible.
+Commands.Players.Cloak.Description:			Montre / Cache votre cape.
+Commands.Players.Cloak.Invisible:			Votre cape sera maintenant invisible.
+Commands.Players.Cloak.Usage:				'/cloak <on|off>' # Exemple : '/cloak off' pour cacher votre cape
+Commands.Players.Cloak.Visible:				Votre cape ne sera plus caché à la vue des autres.

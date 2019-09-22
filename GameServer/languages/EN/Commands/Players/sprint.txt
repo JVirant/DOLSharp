@@ -1,0 +1,3 @@
+Commands.Players.Sprint.Description:		Toggles sprint mode
+Commands.Players.Sprint.Usage:				Usage: '/spint'
+Commands.Players.Sprint.Missing.Ability:	You do not have a sprint ability.

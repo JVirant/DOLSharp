@@ -1,4 +1,4 @@
-﻿
+
 # TRAINER
 # /GameTrainer
 GameObjects.GameTrainer.AddGift.NotEnoughSpace:			Plus de place dans votre inventaire pour recevoir votre cadeau. Faites de la place !

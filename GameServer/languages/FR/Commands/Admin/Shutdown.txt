@@ -1,13 +1,11 @@
-# /shutdown Command
-Commands.Admin.ShutDown.Description: Éteint le serveur dans les prochaines minutes.
-Commands.Admin.ShutDown.On:          '/shutdown on <HEURE>:<MINUTE>' # Éteint le serveur dans tant de temps.
-Commands.Admin.ShutDown:             '/shutdown <MINUTES>' – Éteint le serveur dans tant de minutes.
-Commands.Admin.ShutDown.Restart.Auto: Redémarrage du serveur automatique enclenché. Redémarrage dans {0} minutes! (Prévus à {1})
-Commands.Admin.ShutDown.Restart.TZ:  Attention : Le serveur va redémarer dans {0} minutes ! (Prévus à {1})
-Commands.Admin.ShutDown.Restart.Hours: Le serveur redémarrera dans {0} heures !
-Commands.Admin.ShutDown.Closed:      Le serveur est fermé. Redémarrage dans {0} minutes.
-## {0}=Hours, {1}=Minutes, {2}=Seconds
-Commands.Admin.ShutDown.Restart.Hours.Mins: Le serveur redémarrera dans {0} heure·s et {1} minute·s !
-Commands.Admin.ShutDown.Restart.Mins:  Le serveur redémarrera dans {1} minutes!
-Commands.Admin.ShutDown.Restart.Mins.Secs: Le serveur redémarrera dans {1} minutes ! ({2} secondes)
-Commands.Admin.ShutDown.Restart.Secs:  Le serveur redémarrera dans {2} secondes ! Veuillez-vous déconnecter !
+Commands.Admin.ShutDown.Closed:				Le serveur est fermé. Redémarrage dans {0} minutes.
+Commands.Admin.ShutDown.Description			Éteint le serveur dans les prochaines minutes.
+Commands.Admin.ShutDown.On:					'/shutdown on <HEURE>:<MINUTE>' # Éteint le serveur dans tant de temps.
+Commands.Admin.ShutDown.Restart.Auto:		Redémarrage du serveur automatique enclenché. Redémarrage dans {0} minutes! (Prévus à {1})
+Commands.Admin.ShutDown.Restart.Hours:		Le serveur redémarrera dans {0} heures !
+Commands.Admin.ShutDown.Restart.Hours.Mins:	Le serveur redémarrera dans {0} heure·s et {1} minute·s !
+Commands.Admin.ShutDown.Restart.Mins:		Le serveur redémarrera dans {1} minutes!
+Commands.Admin.ShutDown.Restart.Mins.Secs:	Le serveur redémarrera dans {1} minutes ! ({2} secondes)
+Commands.Admin.ShutDown.Restart.Secs:		Le serveur redémarrera dans {2} secondes ! Veuillez-vous déconnecter !
+Commands.Admin.ShutDown.Restart.TZ:			Attention : Le serveur va redémarer dans {0} minutes ! (Prévus à {1})
+Commands.Admin.ShutDown:					'/shutdown <MINUTES>' – Éteint le serveur dans tant de minutes.

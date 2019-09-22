@@ -23,14 +23,15 @@
 
 using System;
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
 		"&played",
 		ePrivLevel.Player,
-		"Returns the age of the character",
-		"/played")]
+		"Commands.Players.Played.Description",
+		"Commands.Players.Played.Usage")]
 	public class PlayedCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -55,7 +56,16 @@ namespace DOL.GS.Commands
 				daysPlayed -= monthsPlayed*30;
 			}
 
-			client.Out.SendMessage("You have played for " + yearsPlayed + " Years, " + monthsPlayed + " Months, " + daysPlayed + " Days, " + showPlayed.Hours + " Hours and " + showPlayed.Minutes + " Minutes.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+			client.Out.SendMessage(
+				LanguageMgr.GetTranslation(
+					client.Account.Language,
+					"Commands.Players.Played.Played",
+					yearsPlayed,
+					monthsPlayed,
+					daysPlayed,
+					showPlayed.Hours,
+					showPlayed.Minutes),
+				eChatType.CT_System, eChatLoc.CL_SystemWindow);
 		}
 	}
 }

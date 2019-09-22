@@ -1,4 +1,4 @@
-﻿
+
 
 GameMerchant.GetExamineMessages.BuyItemsFor:		{0} says, "You can buy items here for {1}."
 GameMerchant.GetExamineMessages.Nothing:		nothing

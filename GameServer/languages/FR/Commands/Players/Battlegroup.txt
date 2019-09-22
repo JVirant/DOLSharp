@@ -1,4 +1,4 @@
-﻿# /Battlegroup
+# /Battlegroup
 Commands.Players.Battlegroup.Help.Help:              /bg help - Affiche toutes les commandes du groupe de combat.
 Commands.Players.Battlegroup.Help.Invite:			/bg invite <nom du joueur> - Invite le joueur spécifié à rejoindre le groupe de combat.
 Commands.Players.Battlegroup.Help.JoinPrivate:		/bg join <modérateur> <mot de passe> - Rejoindre un groupe de combat protégé par un mot de passe.	
@@ -53,3 +53,67 @@ Commands.Players.Battlegroup.BattlegroupStatus:              Le statut actuel de
 Commands.Players.Battlegroup.BattlegroupCount:               Il y a actuellement {0} membres dans votre groupe de combat.
 Commands.Players.Battlegroup.BattlegroupTreasurerIsYou:      Vous avez été désigné en tant que trésorier de votre groupe de combat.
 Commands.Players.Battlegroup.BattlegroupTreasurerIs:         Le trésorier de votre groupe de combat a été défini à {0}
+
+
+Commands.Players.Battelgroup.CommandNotImplemented:			Cette commande n’est pas implémentée.
+Commands.Players.Battlechat.ChatName:						[BattleGroup]
+Commands.Players.Battlechat.Description:					Commande de discussion des groupes de combats.
+Commands.Players.Battlechat.Usage:							Usage: '/bc <text>' # Envoi un message à votre groupe de combat.
+Commands.Players.Battlegroup.AlreadyInBattlegroup:			Vous êtes déjà dans un groupe de combat.
+Commands.Players.Battlegroup.BattlegroupCount:				Il y a actuellement {0} membres dans votre groupe de combat.
+Commands.Players.Battlegroup.BattleGroupLootNormal:			Le type de butin du groupe de combat est défini à normal.
+Commands.Players.Battlegroup.BattlegroupLootThresholdOff:	Le niveau de butin du groupe de combat est actuellement désactivé. 
+Commands.Players.Battlegroup.BattlegroupLootThresholdOn:	Le niveau de butin du groupe de bataille est actuellement {0}.
+Commands.Players.Battlegroup.BattleGroupLootTreasurer:		Le type de butin du groupe de bataille est défini pour aller au trésorier.
+Commands.Players.Battlegroup.BattlegroupStatus:				Le statut actuel de votre groupe de bataille est {0}.
+Commands.Players.Battlegroup.BattlegroupTreasurerIs:		Le trésorier de votre groupe de combat a été défini à {0}
+Commands.Players.Battlegroup.BattlegroupTreasurerIsYou:		Vous avez été désigné en tant que trésorier de votre groupe de combat.
+Commands.Players.Battlegroup.BattlegroupTreasurerOff:		Le groupe de bataille n’a actuellement plus de trésorier.
+Commands.Players.Battlegroup.BattlegroupTreasurerOn:		Vous avez changé le trésorier du groupe de combat à : {0}.
+Commands.Players.Battlegroup.CurrentlyInBattleGroup:		Joueur participant à ce groupe de combat :
+Commands.Players.Battlegroup.Description:					Commands de gestion des groupes de combats.
+Commands.Players.Battlegroup.Help.Count:					'/bg count' # Compte le nombre de membres dans le groupe de combat.
+Commands.Players.Battlegroup.Help.Credit:					'/bg credit' # Liste les rencontre de type MasterLevel rencontré par votre groupe de combat ces 10 dernières minutes.
+Commands.Players.Battlegroup.Help.GrantCredit:				'/bg grantcredit <masterlevel> <nom du joueur>' # Permet au chef du groupe de combat d'accorder des credits au pour les MasterLevel terminés.
+Commands.Players.Battlegroup.Help.GroupClass:				'/bg groupclass' # Affiche la composition de classe de chacun des groupes du groupe de combat.
+Commands.Players.Battlegroup.Help.Groups:					'/bg groups' # Affiche les membres du groupe de bataille avec leur groupes.
+Commands.Players.Battlegroup.Help.Help:						'/bg help' # Affiche toutes les commandes du groupe de combat.
+Commands.Players.Battlegroup.Help.Invite:					'/bg invite <nom du joueur>' # Invite le joueur spécifié à rejoindre le groupe de combat.
+Commands.Players.Battlegroup.Help.JoinPrivate:				'/bg join <modérateur> <mot de passe>' # Rejoindre un groupe de combat protégé par un mot de passe.
+Commands.Players.Battlegroup.Help.JoinPublic:				'/bg join <modérateur>' # Rejoindre un groupe de combat.
+Commands.Players.Battlegroup.Help.Leader:					'/bg promote <nom>' # Promouvoir un autre joueur comme chef du groupe de combat ; Ce joueur peut inviter d'autres joueurs à rejoindre le canal et peut parler quand le canal est en mode écoute.
+Commands.Players.Battlegroup.Help.Leave:					'/bg leave' # Quitter le groupe de combat.
+Commands.Players.Battlegroup.Help.Listen:					'/bg listen' # Mettre le groupe de combat en mode écoute ; Seul le modérateur et les leads peuvent parler.
+Commands.Players.Battlegroup.Help.Loot:						'/bg loot <normal|treasurer>' # Définit le ramassage d’objets du group de bataille sur normal ou sur trésorier.
+Commands.Players.Battlegroup.Help.LootLevel:				'/bg lootlevel <niveau>' # Définit le niveau d’objet (loot) pour votre groupe de combat.
+Commands.Players.Battlegroup.Help.PasswordClear:			'/bg password clear' # Efface le mot de passe actuel (modérateur uniquement).
+Commands.Players.Battlegroup.Help.PasswordDisplay:			'/bg password' # Affiche le mot de passe actuel (modérateur uniquement).
+Commands.Players.Battlegroup.Help.PasswordNew:				'/bg password <nouveauMotDePasse' # Change le mot de passe actuel.
+Commands.Players.Battlegroup.Help.Private:					'/bg private' # Définir le groupe de combat comme étant privé.
+Commands.Players.Battlegroup.Help.Public:					'/bg public' # Définir le groupe de combat comme étant publique, tout le monde peut rejoindre.
+Commands.Players.Battlegroup.Help.Remove:					'/bg remove <nom du joueur>' # Éjecte le joueur spécifié du groupe de combat.
+Commands.Players.Battlegroup.Help.Status:					'/bg status' # Affiche le nombre de membres de votre groupe de combat.
+Commands.Players.Battlegroup.Help.Treasurer:				'/bg treasurer <player name>' # Définit le trésorier du groupe de combat.
+Commands.Players.Battlegroup.Help.Usage:					'/bg usage :
+Commands.Players.Battlegroup.Help.Who:						'/bg who' # Liste tous les membres du groupe de combat.
+Commands.Players.Battlegroup.InBattleGroup:					Vous devez être dans un groupe de combat pour utiliser cette commande.
+Commands.Players.Battlegroup.InviteYourself:				Vous ne pouvez pas vous inviter vous—même dans un groupe de combat.
+Commands.Players.Battlegroup.JoinBattleGroup:				Voulez vous rejoindre le groupe de combat de {0} ?
+Commands.Players.Battlegroup.LeaderCommand:					Vous devez être le modérateur du groupe de combat pour utiliser cette commande.
+Commands.Players.Battlegroup.LeaderInvite:					Vous devez être le modérateur du groupe de combat pour inviter un joueur à le rejoindre.
+Commands.Players.Battlegroup.Leader:						<Chef>
+Commands.Players.Battlegroup.ListenMode:					Le mode d'écoute du groupe de combat à changé.
+Commands.Players.Battlegroup.Moderator:						{0} est maintenant modérateur du groupe de combat.
+Commands.Players.Battlegroup.NoPlayer:						Il n'y a pas de joueur à ce nom.
+Commands.Players.Battlegroup.NotBattleGroupLeader			Ce joueur n'est pas modérateur d'un groupe de combat.
+Commands.Players.Battlegroup.NotBattleGroupMember			Ce joueur n'est pas membre d'un groupe de combat.
+Commands.Players.Battlegroup.NotPublic:						Ce groupe de combat n'est pas publique.
+Commands.Players.Battlegroup.OnlyModerator:					Seul le modérateur peut parler dans ce groupe de combat.
+Commands.Players.Battlegroup.OwnBattleGroup:				Vous ne pouvez pas rejoindre votre propre groupe de combat.
+Commands.Players.Battlegroup.PasswordChanged:				Nouveau mot de passe du groupe de combat : {0}.
+Commands.Players.Battlegroup.Password:						Mot de passe de ce groupe de combat : {0}.
+Commands.Players.Battlegroup.PlayerInBattlegroup:			{0} est déjà membre d'un groupe de combat.
+Commands.Players.Battlegroup.Private:						Le groupe de combat est maintenant privé.
+Commands.Players.Battlegroup.Public:						Le groupe de combat est maintenant publique.
+Commands.Players.Battlegroup.UsageInvite:					Usage: '/bg invite <nom du joueur>'
+Commands.Players.Battlegroup.Usage:				    		Usage: '/bc <texte>'

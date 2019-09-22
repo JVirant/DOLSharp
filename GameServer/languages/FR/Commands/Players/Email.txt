@@ -1,0 +1,4 @@
+Commands.Players.Email.Description:		Définit un courriel pour votre compte.
+Commands.Players.Email.EmailNotValid:	Veuillez entrer un courriel valide.
+Commands.Players.Email.SetTo:			Votre courriel de contact est {0}. Merci!
+Commands.Players.Email.Usage:			Utilisation: '/email <address>'

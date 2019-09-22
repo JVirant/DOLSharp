@@ -1,4 +1,4 @@
-﻿# /ArtifactQuest
+# /ArtifactQuest
 ArtifactQuest.GiveItem.BackpackFull:			Your backpack is full, please make room and try again.
 
 # /ArtifactTurnInQuest

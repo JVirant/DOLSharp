@@ -1,4 +1,4 @@
-﻿Alb.ANewHeroesWelcome.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
+Alb.ANewHeroesWelcome.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
 Alb.ANewHeroesWelcome.CheckPlayerAbortQuest.Text2:	Aborting Quest {0}. You can start over again if you want.
 Alb.ANewHeroesWelcome.Conclusion.Text1:			Thank you, {0}.
 Alb.ANewHeroesWelcome.Conclusion.Text2:			I'll send a herald to the healers in Black Mountains South.  This war is depleting our resources and we have much to do on all fronts.  I certainly have more than my share of work.  Let me know if you would like to help out.

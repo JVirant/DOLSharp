@@ -36,8 +36,7 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&stats",
 		ePrivLevel.Player,
-		"Displays player statistics")]
-
+		"Commands.Players.Stats.Description")]
 	public class StatsCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)

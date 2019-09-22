@@ -1,0 +1,16 @@
+Commands.Players.Lastname.Clear:			Voulez-vous retirer votre nom de famille ?
+Commands.Players.Lastname.Cost:				Changez votre nom de famille coûte {0} !
+Commands.Players.Lastname.Declined.Clear:	Vous avez refusé de retirer votre nom de famille.
+Commands.Players.Lastname.Declined.Take:	Vous avez refuser de prendre {0} comme nom de famille.
+Commands.Players.Lastname.Description:		Définit / Change votre nom de famille.
+Commands.Players.Lastname.MaxLength:		Les noms de familles ne peuvent être plus long que {0} charactères!
+Commands.Players.Lastname.NeedRegistrar:	Seul la personne compétente peut traiter votre demande. Demander le « Name Registrar »
+Commands.Players.Lastname.NoAvailable:		Vous devez être niveau {0} ou bien {1} dans votre compétence primaire d’artisanat pour enregistrer un nom de famille !
+Commands.Players.Lastname.NotValid:			{0} n’est pas un nom légal! Choisissez un autre.
+Commands.Players.Lastname.Set.Clear:		Votre nom de famille a été retiré !
+Commands.Players.Lastname.Set.To:			Votre nom de famille a été définit à 0} !
+Commands.Players.Lastname.Setup:			Voulez-vous définir « {0} » comme nom de famille ?
+Commands.Players.Lastname.TooFarAway:		Vous êtes trop loin pour intéragir avec {0}.
+Commands.Players.Lastname.UpperCase:		Votre nom de famille doit commencer par une majuscule valide !
+Commands.Players.Lastname.Usage:			'/lastname <name>'
+Commands.Players.Lastname.ValidCharacters:	Votre nom de famille ne peut comporter que des lettres valides !

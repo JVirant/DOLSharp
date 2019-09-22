@@ -1,4 +1,4 @@
-﻿# /SkillBase
+# /SkillBase
 SkillBase.RegisterPropertyNames.Acuity:               Acuité
 SkillBase.RegisterPropertyNames.AcuityBonusCap:         Bonus au cap d'attribut : Acuité
 SkillBase.RegisterPropertyNames.AllArcherySkills:      Toutes compétences d'Archerie

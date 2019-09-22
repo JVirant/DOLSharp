@@ -1,0 +1,16 @@
+Commands.Players.Asend.Description:			Envoi un message au canal d’alliance
+Commands.Players.Asend.Muted:				Vous avez été mis en sourdine. Impossible de parler.
+Commands.Players.Asend.NoAlliance:			Votre guilde n’appartient pas à une alliance
+Commands.Players.Asend.NoPermission:		Vous ne pouvez pas parler dans le canal de guilde.
+Commands.Players.Asend.NotGuilded:			Vous n’appartenez pas à une guilde.
+Commands.Players.Asend.Usage:				Usage : '/as <text>'
+Commands.Players.Guildchat.Description:		Commande du canal de Guilde
+Commands.Players.Guildchat.NoPermission:	Vous n’avez pas la permission de parler dans ce canal.
+Commands.Players.Guildchat.NotGuilded:		Vous n’appartenez pas à une guilde.
+Commands.Players.Guildchat.SlowDown:		Doucement bijoux !
+Commands.Players.Guildchat.Usage:			Usage : '/gu <text>'
+Commands.Players.Osend.Description:			Envoi un message dans le canal des officier (Réservé aux officiers de guilde)
+Commands.Players.Osend.NoPermission:		Vous n’avez pas la permission de discuter dans le canal d’officier.
+Commands.Players.Osend.NotGuilded:			Vous n’appartenez pas à une guilde.
+Commands.Players.Osend.SlowDown:			Doucement bijoux !
+Commands.Players.Osend.Usage:				usage : '/o <text>'

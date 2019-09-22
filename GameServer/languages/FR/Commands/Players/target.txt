@@ -1,0 +1,6 @@
+Commands.Players.Target.Description:	Cible un joueur par son nom.
+Commands.Players.Target.Found:			Vous ciblez {0}.
+Commands.Players.Target.GM.Found:		[GM] Vous ciblez {0}.
+Commands.Players.Target.GM.Help:		Usage : '/target <Joueur|PNJ>'
+Commands.Players.Target.NotFound:		Vous ne trouvez pas {0} dans le coin!
+Commands.Players.Target.Usage:			Usage : '/target <Joueur>'

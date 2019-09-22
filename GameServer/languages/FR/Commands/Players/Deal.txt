@@ -1,0 +1,2 @@
+Commands.Players.Deal.Description:	Distribue une carte à un joueur de votre groupe. N’oubliez pas de mélanger ('/shuffle') avant de distribuer.
+Commands.Players.Deal.Usage:		Usage: '/deal <nom> <u|d>' # Distribue une carte à un joueur face caché (d) ou non (u)

@@ -1,5 +1,5 @@
-﻿
-# /Chatgroup
+Commands.Players.Chatgroup.Chat:					[Chat]
+Commands.Players.Chatgroup.Description:				Chat group command
 Commands.Players.Chatgroup.Help.Help:			/cg help - Affiche toutes les commandes du groupe de discussion.
 Commands.Players.Chatgroup.Help.Invite:			/cg invite <nom du joueur> - Invite le joueur spécifié à rejoindre le groupe de discussion.
 Commands.Players.Chatgroup.Help.JoinPrivate:		/cg join <moderateur> <mot de passe> - Rejoindre un groupe de discussion protégé par un mot de passe.	
@@ -28,11 +28,15 @@ Commands.Players.Chatgroup.NotChatGroupMember:	Ce joueur n'est pas membre d'un g
 Commands.Players.Chatgroup.NotPublic:			Ce groupe de discussion n'est pas publique.
 Commands.Players.Chatgroup.OnlyModerator:		Seul le modérateur peut parler dans ce groupe de discussion.	
 Commands.Players.Chatgroup.OwnChatGroup:			Vous ne pouvez pas rejoindre votre propre groupe de discussion.
-Commands.Players.Chatgroup.Password:				Mot de passe de ce groupe de discussion : {0}.
 Commands.Players.Chatgroup.PasswordChanged:		Nouveau mot de passe du groupe de discussion : {0}.	
+Commands.Players.Chatgroup.PasswordClear:			The password for this chatgroup has been cleared.
+Commands.Players.Chatgroup.Password:				Mot de passe de ce groupe de discussion : {0}.
+Commands.Players.Chatgroup.PasswordUnset:			The password to this chat group is currently unset.
 Commands.Players.Chatgroup.PlayerInChatgroup:	{0} est déjà membre d'un groupe de discussion.	
+Commands.Players.Chatgroup.PrivateAlready:			This is already a private chat group.
 Commands.Players.Chatgroup.Private:				Le groupe de discussion est maintenant privé.
+Commands.Players.Chatgroup.PublicAlready:			This is already a public chat group.
 Commands.Players.Chatgroup.Public:				Le groupe de discussion est maintenant publique.
-Commands.Players.Chatgroup.Usage:				Usage: /c <texte>
+Commands.Players.Chatgroup.Usage.CG:				/cg <option>
 Commands.Players.Chatgroup.UsageInvite:			Usage: /cg invite <nom du joueur>"
-
+Commands.Players.Chatgroup.Usage:				Usage: /c <texte>

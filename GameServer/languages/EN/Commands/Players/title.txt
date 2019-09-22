@@ -1,0 +1,3 @@
+Commands.Players.Settitle.Description:	Sets the current player title
+Commands.Players.Settitle.Usage:		Usage: '/settitle <index>' # To change current title using index in the list
+Commands.Players.Settitle.Cannot:		You cannot change the current title.

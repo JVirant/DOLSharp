@@ -1,4 +1,4 @@
-﻿# (All)
+# (All)
 Crafting.CheckTool.AlchemyKit:				alchemy kit
 Crafting.CheckTool.FindAlchemyKit:			You must find a alchemy kit!
 Crafting.CheckTool.FindAlchemyTable:		You must find a alchemy table!

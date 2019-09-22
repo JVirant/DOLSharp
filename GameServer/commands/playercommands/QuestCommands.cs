@@ -18,6 +18,7 @@
  */
 
 using DOL.GS.Quests;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
@@ -27,8 +28,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&search",
 		ePrivLevel.Player,
-		"Search the current area.",
-		"/search")]
+		"Commands.Players.Search.Description",
+		"Commands.Players.Search.Usage")]
 	public class QuestSearchCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -69,7 +70,12 @@ namespace DOL.GS.Commands
 
 			if (searched == false)
 			{
-				player.Out.SendMessage("You can't do that here!", DOL.GS.PacketHandler.eChatType.CT_Important, DOL.GS.PacketHandler.eChatLoc.CL_SystemWindow);
+				player.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Search.NotHere"),
+					DOL.GS.PacketHandler.eChatType.CT_Important,
+					DOL.GS.PacketHandler.eChatLoc.CL_SystemWindow);
 			}
 		}
 	}

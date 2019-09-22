@@ -1,4 +1,4 @@
-﻿Alb.WhenGoodBrowniesGoBad.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
+Alb.WhenGoodBrowniesGoBad.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
 Alb.WhenGoodBrowniesGoBad.CheckPlayerAbortQuest.Text2:	Aborting Quest {0}. You can start over again if you want.
 Alb.WhenGoodBrowniesGoBad.Conclusion.Text1:		Ah, you've returned with the blood! While I hate to see harm done to any creature not inherently evil, it's becoming necessary to take drastic measures to get to the root of this problem. Hopefully, I shall. Please accept this reward for your aid.	
 Alb.WhenGoodBrowniesGoBad.Init.Text1:			Light Red Cloth Dye

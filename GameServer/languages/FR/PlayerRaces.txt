@@ -1,4 +1,4 @@
-﻿# Race names male
+# Race names male
 GamePlayer.PlayerRace.Unknown:					Nécrite
 GamePlayer.PlayerRace.Male.Briton:				Breton
 GamePlayer.PlayerRace.Male.Avalonian:			Avalonien

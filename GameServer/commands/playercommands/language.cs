@@ -25,10 +25,13 @@ using DOL.Language;
 
 namespace DOL.GS.Commands
 {
-    [Cmd("&language", ePrivLevel.Player, "Change your language.",
-        "Use '/language current' to see your current used language.",
-        "Use '/language set [language]' to set your language.",
-        "Use '/language show' to show all available languages and to see your current used language."
+    [Cmd(
+        "&language",
+        ePrivLevel.Player,
+        "Commands.Players.Language.Description",
+        "Commands.Players.Language.Usage.Current",
+        "Commands.Players.Language.Usage.Set",
+        "Commands.Players.Language.Usage.Show"
     )]
     public class LanguageCommandHandler : AbstractCommandHandler, ICommandHandler
     {
@@ -39,7 +42,11 @@ namespace DOL.GS.Commands
 
             if (client.Account.PrivLevel == (uint)ePrivLevel.Player && !DOL.GS.ServerProperties.Properties.ALLOW_CHANGE_LANGUAGE)
             {
-                DisplayMessage(client, "This server does not support changing languages.");
+                DisplayMessage(
+                    client,
+                    LanguageMgr.GetTranslation(
+                        client.Account.Language,
+                        "Commands.Players.Language.NoChange"));
                 return;
             }
 
@@ -54,7 +61,12 @@ namespace DOL.GS.Commands
                 #region current
                 case "current":
                     {
-                        DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Language.Current"), client.Account.Language);
+                        DisplayMessage(
+                            client,
+                            LanguageMgr.GetTranslation(
+                                client.Account.Language,
+                                "Commands.Players.Language.Current"),
+                            client.Account.Language);
                         return;
                     }
                 #endregion current
@@ -70,13 +82,23 @@ namespace DOL.GS.Commands
 
                         if (!LanguageMgr.Languages.Contains(args[2].ToUpper()))
                         {
-                            DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Language.LanguageNotSupported", args[2].ToUpper()));
+                            DisplayMessage(
+                                client,
+                                LanguageMgr.GetTranslation(
+                                    client.Account.Language,
+                                    "Commands.Players.Language.LanguageNotSupported",
+                                    args[2].ToUpper()));
                             return;
                         }
 
                         client.Account.Language = args[2];
                         GameServer.Database.SaveObject(client.Account);
-                        DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Language.Set", args[2].ToUpper()));
+                        DisplayMessage(
+                            client,
+                            LanguageMgr.GetTranslation(
+                                client.Account.Language,
+                                "Commands.Players.Language.Set",
+                                args[2].ToUpper()));
                         return;
                     }
                 #endregion set
@@ -96,7 +118,12 @@ namespace DOL.GS.Commands
                         if (languages.EndsWith(","))
                             languages = languages.Substring(0, languages.Length - 1);
 
-                        DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Language.AvailableLanguages", languages));
+                        DisplayMessage(
+                            client,
+                            LanguageMgr.GetTranslation(
+                                client.Account.Language,
+                                "Commands.Players.Language.AvailableLanguages",
+                                languages));
                         return;
                     }
                 #endregion show

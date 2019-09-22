@@ -1,0 +1,10 @@
+Commands.Players.Spacing.Description:		Change the spacing of your pets!
+Commands.Players.Spacing.Usage:				Usage: '/spacing <normal|big|huge>'
+Commands.Players.Spacing.Only.Bone:			Only Bonedancers can use this command!
+Commands.Players.Spacing.Help:				Spacing commands:
+Commands.Players.Spacing.Help.Normal:		'/spacing normal' # Use normal spacing between minions.
+Commands.Players.Spacing.Help.Big:			'/spacing big'    # Use a larger spacing between minions.
+Commands.Players.Spacing.Help.Huge:			'/spacing huge'   # Use a very large spacing between minions.
+Commands.Players.Spacing.Missing.Commander:	You don't have a commander!
+Commands.Players.Spacing.Missing.Minion:	You don't have any minions!
+Commands.Players.Spacing.UnknownArg:		Unrecognized argument: {0}

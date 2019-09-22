@@ -1,0 +1,3 @@
+Commands.Players.LFG.Description:	Diffuse un message de type LFG (Recherche de groupe) dans la région.
+Commands.Players.LFG.Message:		[LFG] {0}: {1}
+Commands.Players.LFG.Usage:			Usage : '/lfg <message>'

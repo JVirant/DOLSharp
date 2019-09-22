@@ -17,15 +17,15 @@
  *
  */
 using DOL.GS.PacketHandler;
-
+using DOL.Language;
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
 		"&say",
 		new string[] {"&s"},
 		ePrivLevel.Player,
-		"Say something to other players around you",
-		"/say <message>")]
+		"Commands.Players.Say.Description",
+		"Commands.Players.Say.Usage")]
 	public class SayCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -34,7 +34,11 @@ namespace DOL.GS.Commands
 
 			if (args.Length < 2)
 			{
-				client.Out.SendMessage("You must say something...", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Say.Someting"),
+					eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				return;
 			}
 			string message = string.Join(" ", args, 1, args.Length - 1);
@@ -48,12 +52,20 @@ namespace DOL.GS.Commands
 			long changeTime = client.Player.CurrentRegion.Time - SayTick;
 			if (changeTime < 500 && SayTick > 0)
 			{
-				client.Player.Out.SendMessage("Slow down! Think before you say each word!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Player.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Say.SlowDown"),
+					eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				return;
 			}
             if (client.Player.IsMuted)
             {
-                client.Player.Out.SendMessage("You have been muted. You cannot talk.", eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
+                client.Player.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Say.Muted"),
+					eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
                 return;
             }
 

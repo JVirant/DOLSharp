@@ -1,0 +1,7 @@
+Commands.Players.Roll.Description:	Simule un lancer de dés.
+Commands.Players.Roll.Help:			Vous devez indiquer le nombre de dés à lancer.
+Commands.Players.Roll.Result.Other:	{0} lance {1} dé·s. Il en résulte : {2}
+Commands.Players.Roll.Result.Self:	Vous lancez {0} dé·s. Il en résulte : {1}
+Commands.Players.Roll.SlowDown:		Doucement!
+Commands.Players.Roll.Usage:		Usage : '/roll [#]' # Pour jeter un nombre spécifique de dés.
+Commands.Players.Roll.WrongNumber:	Vous devez sélectionner un nombre de dés entre 1 et {0}!

@@ -1,0 +1,7 @@
+Commands.Players.Report.Description:	Reports a bug
+Commands.Players.Report.Usage:			Usage: '/report <message>' # Please be as detailed as possible.
+Commands.Players.Report.Disabled:		Bug reporting has been disabled for this server!
+Commands.Players.Report.Muted:			You have been muted and are not allowed to submit bug reports.
+Commands.Players.Report.TooManyReport:	There are too many reports, please contact a GM or wait until they are cleaned.
+Commands.Players.Report.Submitted:		Report submitted, if this is not a bug report it will be ignored!
+Commands.Players.Report.Email:			If you enter your email address for your account with /email command, your bug reports will send an email to the staff!

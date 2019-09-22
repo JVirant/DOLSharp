@@ -1,4 +1,4 @@
-﻿
+
 
 Quests.Albion.AFewRepairs.Title:							A Few Repairs
 Quests.Albion.AFewRepairs.Description.Step1:				Continue talking to Brice Yarley.

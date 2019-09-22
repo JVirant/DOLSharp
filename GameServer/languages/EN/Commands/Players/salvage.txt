@@ -1,0 +1,2 @@
+Commands.Players.Salvage.Description:	You can salvage an item when you are a crafter
+Commands.Players.Salvage.Usage:			Usage: '/salvage'

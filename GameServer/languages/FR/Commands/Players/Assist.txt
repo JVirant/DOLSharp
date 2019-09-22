@@ -1,7 +1,11 @@
-# /Assist
+Commands.Players.Assist.Description:		Assiste une cible.
 Commands.Players.Assist.CantAssistYourself:	Vous ne pouvez pas vous assister vous-même.
 Commands.Players.Assist.DoesntHaveTarget:	{0} n'a pas de cible actuellement.
-Commands.Players.Assist.DontSee:				Vous ne voyez pas {0} aux alentours !
+Commands.Players.Assist.DontSee:			Vous ne voyez pas {0} aux alentours !
+Commands.Players.Assist.MemberNotFound:		Il n’y a personne avec ce nom dans les alentours.
+Commands.Players.Assist.NoRealmMember:		{0} n’est pas membre de votre royaume!
 Commands.Players.Assist.NoTarget:			Vous n'avez pas de cible.
 Commands.Players.Assist.NotValid:			La cible n'est pas valide.
+Commands.Players.Assist.SelectMember:		Vous devez sélectionner le membre de votre royaume que vous souhaitez assister.
+Commands.Players.Assist.Usage:				Usage : '/assist <playerName>'
 Commands.Players.Assist.YouAssist:			Vous assistez {0}.

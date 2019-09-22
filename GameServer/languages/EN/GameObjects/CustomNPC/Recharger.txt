@@ -1,4 +1,4 @@
-﻿
+
 
 Scripts.Recharger.GetExamineMessages:			You examine {0}. {1} is {2} and can recharge your equipment.
 Scripts.Recharger.Interact:				I can recharge weapons or armor for you, Just hand me the item you want recharged and I'll see what I can do, for a small fee.

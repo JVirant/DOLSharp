@@ -1,4 +1,4 @@
-﻿# /BaseQuest
+# /BaseQuest
 BaseQuest.TeleportTo.Text1:			{0} est téléporté à {1}.
 
 # /RewardQuest

@@ -1,0 +1,65 @@
+Commands.GM.Item.Blank.CreationError:			Erreur lors de la création de l’objet.
+Commands.GM.Item.Blank.ItemCreated:				Une objet vide (Blank item) a été créé dans le premier emplacement vide de votre sac.
+Commands.GM.Item.Count.NoItemInSlot:			Pas d’objet à l’emplacement {0} !
+Commands.GM.Item.Count.NotStackable:			{0} n’est pas empilable.
+Commands.GM.Item.Create.Created:				Objet créé : Niveau={0}, Nom={1}, Nombre={2}
+Commands.GM.Item.Create.NotFound:				ItemTemplate ayant l’identifiant {0} n’a pu être trouvé !
+Commands.GM.Item.Description:					Divers commandes de gestion des objets !
+Commands.GM.Item.FindID.MatchingIDsForX:		ID correspondant pour {0}. Nombre {1}.
+Commands.GM.Item.FindName.MatchingNamesForX:	Nom correspondant pour {0}. Nombre {1}.
+Commands.GM.Item.Info.Informations:				Objet {0} informations
+Commands.GM.Item.Info.ItemTemplateUnknown:		ItemTemplate ayant pour identifiant « {0} » est inconnu !
+Commands.GM.Item.Information:					Numéro d’emplacement est optionnel, si non indiqué l’emplacement 79 est sélectionné par défaut (Le dernier emplacement de votre sac). Les noms avec espace doivent être entre guillemet "Nom Avec Espace".
+Commands.GM.Item.SaveTemplate.ItemSaved:		ItemTemplate {0} a été sauvegardé.
+Commands.GM.Item.Scroll.Created:				Scroll {0} créé.
+Commands.GM.Item.Scroll.NotFound:				Scroll page {0} pour l’artefact {1} n’a pu être trouvé.
+Commands.GM.Item.Usage.Blank:					'/item blank' # Créé un objet vide.
+Commands.GM.Item.Usage.Bonus:					'/item bonus <bonus> [slot #]' # Définit le « bonus » de l’objet.
+Commands.GM.Item.Usage.CanDropAsLoot:			'/item candropasloot <true|false> [slot #]' # Définit si un objet peut ou non être poser à terre.
+Commands.GM.Item.Usage.Color:					'/item color <ColorID> [slot #]' # Change la « couleur » de l’objet.
+Commands.GM.Item.Usage.Condition:				'/item condition <con> <maxCon> [slot #]' # Change la « condition » de l’objet.
+Commands.GM.Item.Usage.Count:					'/item count <Amount> [slot #]' # Change le « nombre » de cet objet.
+Commands.GM.Item.Usage.CrafterName:				'/item craftername <CrafterNameID> [slot #]' # Change le nom de l’artisant.
+Commands.GM.Item.Usage.Create:					'/item create <ItemTemplateName> [count]' # Créé un nouvel objet à partir d’un modèle.
+Commands.GM.Item.Usage.DPS_AF:					'/item dps_af <NewDPS_AF> [slot #]' # Change le « DPS_AF » de l’objet.
+Commands.GM.Item.Usage.DamageType:				'/item damagetype <DamageTypeID> [slot #]' # Change le type de dommage de l’objet.
+Commands.GM.Item.Usage.Durability:				'/item durability <dur> <maxDur> [slot #]' # Change la durabilité de l’objet.
+Commands.GM.Item.Usage.Effect:					'/item effect <EffectID> [slot #]' # Change l’effet de l’objet.
+Commands.GM.Item.Usage.Emblem:					'/item emblem <EmblemID> [slot #]' # Change l’emblème de l’objet.
+Commands.GM.Item.Usage.Extension:				'/item extension <ExtensionID> [slot #]' # Change l’extention de l’objet.
+Commands.GM.Item.Usage.FindID:					'/item findid <part_of_id>' # Cherche un objet par son ID.
+Commands.GM.Item.Usage.FindName:				'/item findname <part_of_name>' # Cherche un objet par son nom.
+Commands.GM.Item.Usage.Hand:					'/item hand <HandID> [slot #]' # Change la main de l’objet.
+Commands.GM.Item.Usage.Info:					'/item info <ItemTemplateName>' # Récuprère les informations d’un modèle.
+Commands.GM.Item.Usage.IsIndestructible:		'/item isindestructible <true|false> [slot #]' # Définit si oui ou non, un objet est indestructible via shit+d.
+Commands.GM.Item.Usage.IsNotLosingDUR:			'/item isnotlosingdur <true|false> [slot #]' # Définit si oui ou non, un objet perd sa durabilité après réparation.
+Commands.GM.Item.Usage.IsStackable:				'/item isstackable <true|false> [slot #]' # Définit si oui ou non, un objet est empilable.
+Commands.GM.Item.Usage.IsTradable:				'/item istradable <true|false> [slot #]' # Définit si oui ou non, un objet peut être échangé.
+Commands.GM.Item.Usage.Material:				'/item material <Material> <MaterialLevel> [slot #]' # Change les matériaux de l’objet.
+Commands.GM.Item.Usage.MaxCount:				'/item maxcount <Amount> [slot #]' # Change le nombre maximum empilable dans un emplacement.
+Commands.GM.Item.Usage.Model:					'/item model <ModelID> [slot #]' # Change le modèle de l’objet.
+Commands.GM.Item.Usage.Name:					'/item name <NameID> [slot #]' # Change le nom de l’objet.
+Commands.GM.Item.Usage.Object:					'/item object <ObjectID> [slot #]' # Change le type de l’objet.
+Commands.GM.Item.Usage.PackSize:				'/item packsize <Amount> [slot #]' # Change le nombre d’objet pouvant être vendu en même temps.
+Commands.GM.Item.Usage.Poison:					'/item poison <Charges> <MaxCharges> <SpellID> [slot #]' # Change le type de poison.
+Commands.GM.Item.Usage.Price:					'/item price <platinum> <gold> <silver> <copper> [slot #]' # Change le prix d’un objet.
+Commands.GM.Item.Usage.Proc1:					'/item proc1 <SpellID> [slot #]' # Change le « proc#1 » d’un objet.
+Commands.GM.Item.Usage.Proc:					'/item proc <SpellID> [slot #]' # Change le « proc#0 » d’un objet.
+Commands.GM.Item.Usage.Quality:					'/item quality <qua> [slot #]' # Change la qualité d’un objet.
+Commands.GM.Item.Usage.Realm:					'/item realm <num> [slot #]' # Change le royaume d’un objet.
+Commands.GM.Item.Usage.SPD_ABS:					'/item spd_abs <NewSPD_ABS> [slot #]' # Change la valeur « SPD_ABS »
+Commands.GM.Item.Usage.SaveTemplate:			'/item savetemplate <TemplateID> [slot #]' # Créer un nouveau modèle.
+Commands.GM.Item.Usage.Scroll:					'/item scroll <ArtifactID> <PageNumber>' # Créer un nouveau « scroll » d’artefact.
+Commands.GM.Item.Usage.Spell1:					'/item spell1 <Charges> <MaxCharges> <SpellID> [slot #]' # Change le nombre de charge du sort #1.
+Commands.GM.Item.Usage.Spell:					'/item spell <Charges> <MaxCharges> <SpellID> [slot #]' # Change le nombre de charge du sort #0.
+Commands.GM.Item.Usage.TemplateID:				'/item templateid <TemplateID> [slot #]' # Change le modèle de l’objet.
+Commands.GM.Item.Usage.Type:					'/item type <TypeID> [slot #]' # Change le type de l’objet.
+Commands.GM.Item.Usage.Weight:					'/item weight <weight> [slot #]' # Définit le poid de l’objet.
+Commands.GM.Item.Usage.isDropable:				'/item isdropable <true|false> [slot #]' # Définit si oui ou non un objet peut poser à terre.
+Commands.GM.Item.Usage.isPickable:				'/item ispickable <true|false> [slot #]' # Définit si oui ou non un objet peut être ramassé.
+Commands.GM.Item.Usage.mBonus:					'/item mbonus <num> <BonusType> <value> [slot #]' # Définit les bonus magiques de l’objet (0 = ExtraBonus)
+Commands.GM.Item.mBonus.NotSetBonusNumber:		Le numéro de bonus n’est pas définit !
+Commands.GM.Item.mBonus.NotSetBonusType:		Le type de bonus n’est pas définit !
+Commands.GM.Item.mBonus.NotSetBonusValue:		La valeur du bonus n’a pas été définit !
+Commands.GM.Item.mBonus.TypeShouldBeInRange:	Le type de bonus doit être entre 0 et {0}.
+Commands.GM.Item.mBonus.UnknownBonusNumber:		Numéro de bonus inconnu : {0}

@@ -1,4 +1,4 @@
-﻿Alb.WhenBloodSpeaks.CheckPlayerAbortQuest.Text1:	Bien ! Maintenant, vous pouvez partir finir votre travail !
+Alb.WhenBloodSpeaks.CheckPlayerAbortQuest.Text1:	Bien ! Maintenant, vous pouvez partir finir votre travail !
 Alb.WhenBloodSpeaks.CheckPlayerAbortQuest.Text2:	Echec de la Quête {0}. Vous pouvez recommencer de nouveau si vous voulez.
 Alb.WhenBloodSpeaks.Conclusion.Text1:			Ah, vous avez le  spriggarn blood, excellent! Avec optimisme c'est seulement une question de temps maintenant avant que je suis capable d'assembler les morceaux de tout cela. Merci pour votre aide, {0}!
 Alb.WhenBloodSpeaks.Init.Text1:				Recruit's Quilted Pants

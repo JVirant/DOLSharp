@@ -13,8 +13,8 @@ namespace DOL.GS.Commands
 		"&boat",
 		new string[] { "&boatcommand" },
 		ePrivLevel.Player,
-		"Commands.Players.Beat.Description",
-		"Commands.Players.Beat.Usage")]
+		"Commands.Players.Boat.Description",
+		"Commands.Players.Boat.Usage")]
 	public class BoatCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		/// <summary>

@@ -25,8 +25,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&news",
 		ePrivLevel.Player,
-		"Show news on social interface",
-		"/news")]
+		"Commands.Players.News.Description",
+		"Commands.Players.News.Usage")]
 	public class NewsCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)

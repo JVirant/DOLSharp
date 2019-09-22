@@ -1,0 +1,30 @@
+Commands.Players.Who.Description:		Montre qui est en ligne
+Commands.Players.Who.Help:				Utilisez '/who help' pour afficher les possibilités de cette commande.
+Commands.Players.Who.List.Admin:		<Admin>
+Commands.Players.Who.List.ADV:			<ADV>
+Commands.Players.Who.List.AFK:			<AFK>
+Commands.Players.Who.List.ANON:			<ANON>
+Commands.Players.Who.List.BG:			[BG]
+Commands.Players.Who.List.CG:			[CG]
+Commands.Players.Who.List.GM:			<GM>
+Commands.Players.Who.List.Guild:		« {0} »
+Commands.Players.Who.List.In:			in {0}
+Commands.Players.Who.List.Language:		<{0}>
+Commands.Players.Who.List.Level:		niveau {0}
+Commands.Players.Who.List.Truncated:	(Trop de résultats ({0}). La liste a été tronqué.)
+Commands.Players.Who.NoMatch:			Pas de résultats.
+Commands.Players.Who.Player.Online:		{0} joueur actuellement connecté.
+Commands.Players.Who.Players.Online:	{0} joueurs actuellement connectés.
+Commands.Players.Who.Usage.All:			'/who all'        # Affiche tous les joueurs connectés.
+Commands.Players.Who.Usage.Class:		'/who <Classe>'   # Affiche les joueurs connectés appartenant à une classe.
+Commands.Players.Who.Usage.CSR:			'/who csr'        # Affiche les représentants du service client connectés.
+Commands.Players.Who.Usage.DEV:			'/who dev'        # Affiche les membres de l’équipe de développement connectés.
+Commands.Players.Who.Usage.GuildName:	'/who <NomDeGuilde> # Affiche les joueurs connectés de la guilde.
+Commands.Players.Who.Usage.Language:	'/who <Langue>    # Affiche les joueurs connectés avec une langue spécifique.
+Commands.Players.Who.Usage.LevelLevel:	'/who <Niveau#> <Niveau#> # Affiche les joueurs connectés inclus dans une plage de niveau.
+Commands.Players.Who.Usage.Level:		'/who <Niveau#>'  # Affiche les joueurs connectés du niveau indiqué.
+Commands.Players.Who.Usage.Location:	'/who <Région>'   # Affiche les joueurs connectés étant dans une région spécifique.
+Commands.Players.Who.Usage.Name:		'/who <Nom>'      # Affiche tous les joueurs connecté ayant un nom qui commence par le nom indiqué.
+Commands.Players.Who.Usage.NF:			'/who nf'         # Affiche tous les joueurs de New Frontiers.
+Commands.Players.Who.Usage.QTA:			'/who qta'        # Affiche l’équipe des assistants de quête connecté.
+Commands.Players.Who.Usage:				Usage: '/who <all|nf|name|guild|class|location|level|language>'

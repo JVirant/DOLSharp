@@ -458,11 +458,18 @@ namespace DOL.GS
 
 				if (minutes == 0)
 				{
-                    delve.Add(String.Format("Can use item every: {0} sec", seconds));
+                    delve.Add(
+						LanguageMgr.GetTranslation(
+							player.Client.Account.Language,
+							"DetailDisplayHandler.WriteMagicalBonuses.UseItem.second", seconds));
 				}
 				else
 				{
-                    delve.Add(String.Format("Can use item every: {0}:{1:00} min", minutes, seconds));
+                    delve.Add(
+						LanguageMgr.GetTranslation(
+							player.Client.Account.Language,
+							"DetailDisplayHandler.WriteMagicalBonuses.UseItem.minute",
+							minutes, seconds));
 				}
 
 				// delve.Add(String.Format("Can use item every: {0:00}:{1:00}", minutes, seconds));
@@ -476,11 +483,19 @@ namespace DOL.GS
 
 					if (minutes == 0)
 					{
-                        delve.Add(String.Format("Can use again in: {0} sec", seconds));
+                        delve.Add(
+							LanguageMgr.GetTranslation(
+								player.Client.Account.Language,
+								"DetailDisplayHandler.WriteMagicalBonuses.UseItem.second",
+								seconds));
 					}
 					else
 					{
-                        delve.Add(String.Format("Can use again in: {0}:{1:00} min", minutes, seconds));
+                        delve.Add(
+							LanguageMgr.GetTranslation(
+								player.Client.Account.Language,
+								"DetailDisplayHandler.WriteMagicalBonuses.UseItem.minute",
+								minutes, seconds));
 					}
 				}
 			}
@@ -489,18 +504,30 @@ namespace DOL.GS
 				delve.Add(" ");
 
 			if (!IsPickable)
-				delve.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "DetailDisplayHandler.HandlePacket.CannotTraded"));
+				delve.Add(LanguageMgr.GetTranslation(
+					player.Client.Account.Language,
+					"DetailDisplayHandler.HandlePacket.CannotTraded"));
 
 			if (!IsDropable)
-				delve.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "DetailDisplayHandler.HandlePacket.CannotSold"));
+				delve.Add(
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"DetailDisplayHandler.HandlePacket.CannotSold"));
 
 			if (IsIndestructible)
-				delve.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "DetailDisplayHandler.HandlePacket.CannotDestroyed"));
+				delve.Add(
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"DetailDisplayHandler.HandlePacket.CannotDestroyed"));
 
 			if (BonusLevel > 0)
 			{
 				delve.Add(" ");
-				delve.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "DetailDisplayHandler.HandlePacket.BonusLevel", BonusLevel));
+				delve.Add(
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"DetailDisplayHandler.HandlePacket.BonusLevel",
+						BonusLevel));
 			}
 
 			//Add admin info
@@ -843,14 +870,26 @@ namespace DOL.GS
 								output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UsedItem"));
 								output.Add(" ");
 								if (spl.RecastDelay > 0)
-									output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UseItem1", Util.FormatTime(spl.RecastDelay / 1000)));
+									output.Add(
+										LanguageMgr.GetTranslation(
+											client.Account.Language,
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem.second",
+											Util.FormatTime(spl.RecastDelay / 1000)));
 								else
-									output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UseItem2"));
+									output.Add(
+										LanguageMgr.GetTranslation(
+											client.Account.Language,
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem.minute",
+											"3", "00"));
 								long lastChargedItemUseTick = client.Player.TempProperties.getProperty<long>(GamePlayer.LAST_CHARGED_ITEM_USE_TICK);
 								long changeTime = client.Player.CurrentRegion.Time - lastChargedItemUseTick;
 								long recastDelay = (spl.RecastDelay > 0) ? spl.RecastDelay : 60000 * 3;
 								if (changeTime < recastDelay) //3 minutes reuse timer
-									output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UseItem3", Util.FormatTime((recastDelay - changeTime) / 1000)));
+									output.Add(
+										LanguageMgr.GetTranslation(
+											client.Account.Language,
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem.in",
+											Util.FormatTime((recastDelay - changeTime) / 1000)));
 								return;
 							}
 						}
@@ -984,9 +1023,17 @@ namespace DOL.GS
 					{
 						if (spl.ID == SpellID)
 						{
-							list.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WritePotionInfo.ChargedMagic"));
-							list.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WritePotionInfo.Charges", Charges));
-							list.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WritePotionInfo.MaxCharges", MaxCharges));
+							list.Add(
+								LanguageMgr.GetTranslation(
+								client.Account.Language,
+								"DetailDisplayHandler.WritePotionInfo.ChargedMagic"));
+							list.Add(
+								LanguageMgr.GetTranslation(
+									client.Account.Language,
+									"DetailDisplayHandler.WritePotionInfo.Charges", Charges));
+							list.Add(LanguageMgr.GetTranslation(
+								client.Account.Language,
+								"DetailDisplayHandler.WritePotionInfo.MaxCharges", MaxCharges));
 							list.Add(" ");
 							WritePotionSpellsInfos(list, client, spl, potionLine);
 							list.Add(" ");
@@ -995,7 +1042,11 @@ namespace DOL.GS
 							// into Future, set with value of "itemtemplate.CanUseEvery" and no longer back into past
 							if (nextPotionAvailTime > client.Player.CurrentRegion.Time)
 							{
-								list.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WritePotionInfo.UseItem3", Util.FormatTime((nextPotionAvailTime - client.Player.CurrentRegion.Time) / 1000)));
+								list.Add(
+									LanguageMgr.GetTranslation(
+										client.Account.Language,
+										"DetailDisplayHandler.WritePotionInfo.UseItem3",
+										Util.FormatTime((nextPotionAvailTime - client.Player.CurrentRegion.Time) / 1000)));
 							}
 							else
 							{
@@ -1004,18 +1055,28 @@ namespace DOL.GS
 
 								if (minutes == 0)
 								{
-                                    list.Add(String.Format("Can use item every: {0} sec", seconds));
+                                    list.Add(
+										LanguageMgr.GetTranslation(
+											client.Account.Language,
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem.second",
+											seconds));
 								}
 								else
 								{
-                                    list.Add(String.Format("Can use item every: {0}:{1:00} min", minutes, seconds));
+                                    list.Add(
+										LanguageMgr.GetTranslation(
+											client.Account.Language,
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem.minute",
+											minutes, seconds));
 								}
 							}
 
 							if (spl.CastTime > 0)
 							{
 								list.Add(" ");
-								list.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WritePotionInfo.NoUseInCombat"));
+								list.Add(LanguageMgr.GetTranslation(
+									client.Account.Language,
+									"DetailDisplayHandler.WritePotionInfo.NoUseInCombat"));
 							}
 							break;
 						}

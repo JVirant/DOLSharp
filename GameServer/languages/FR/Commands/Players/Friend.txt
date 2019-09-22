@@ -1,0 +1,7 @@
+Commands.Players.Friend.Added:			{0} was added to your friend list!
+Commands.Players.Friend.Description:	Adds/Removes a player to/from your friendlist!
+Commands.Players.Friend.NotUnique:		Character name is not unique.
+Commands.Players.Friend.NotYourself:	You can't add yourself!
+Commands.Players.Friend.Removed:		{0} was removed from your friend list!
+Commands.Players.Friend.Unknown:		No players online with that name.
+Commands.Players.Friend.Usage:			/friend <playerName>
