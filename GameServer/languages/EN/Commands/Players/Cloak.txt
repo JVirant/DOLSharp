@@ -1,0 +1,7 @@
+# /cloak command
+Commands.Players.Cloak.Description:			Show / hide your cloak.
+Commands.Players.Cloak.Usage:				'/cloak <on|off>' # Example: '/cloak off' to hide your cloak
+Commands.Players.Cloak.Visible:				Your cloak will no longer be hidden from view.
+Commands.Players.Cloak.AlreadyVisible:		Your cloak is already visible.
+Commands.Players.Cloak.Invisible:			Your cloak will now be hidden from view.
+Commands.Players.Cloak.AlreadyInvisible:	Your cloak is already invisible.

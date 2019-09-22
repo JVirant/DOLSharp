@@ -6,8 +6,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 	  "&boot",
 	  ePrivLevel.Player,
-	   "Kicks a player out of your house",
-		 "Useage: /boot [playername]")]
+	  "Commands.Players.Boot.Description",
+	  "Commands.Players.Boot.Usage")]
 	public class BootCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -25,7 +25,7 @@ namespace DOL.GS.Commands
 			// no permission to banish, return
 			if (!house.CanBanish(client.Player))
 			{
-				DisplayMessage(client, "You do not have permissions to do that.");
+				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Boot.NoPermission"));
 				return;
 			}
 

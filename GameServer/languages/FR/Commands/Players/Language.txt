@@ -1,0 +1,3 @@
+# /Language
+Commands.Players.Language.Set:				Vous changez la langue d'affichage du serveur en {0}.
+Commands.Players.Language.Current:			La langue d'affichage est actuellement : {0}.

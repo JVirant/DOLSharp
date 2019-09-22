@@ -5,14 +5,15 @@
 using System;
 using System.Text.RegularExpressions;
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[Cmd(
 		"&email",
 		ePrivLevel.Player,
-		"Set e-mail address for current account",
-		"/email <address>")]
+		"Commands.Players.Email.Description",
+		"Commands.Players.Email.Usage")]
 	public class EmailCommand : AbstractCommandHandler, ICommandHandler
 	{
 		#region ICommandHandler Members
@@ -24,9 +25,11 @@ namespace DOL.GS.Commands
 
 			if (args.Length == 1)
 			{
-				client.Out.SendMessage("Usage: /email <address>",
-				                       eChatType.CT_System,
-				                       eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language, "Commands.Players.Email.Usage"),
+				eChatType.CT_System,
+				eChatLoc.CL_SystemWindow);
 				return;
 			}
 			EmailSyntaxValidator emailsyntaxvalidator; // validate mail
@@ -34,9 +37,11 @@ namespace DOL.GS.Commands
 			emailsyntaxvalidator = new EmailSyntaxValidator(EmailAddy, true);
 			if (!emailsyntaxvalidator.IsValid)
 			{
-				client.Out.SendMessage("Please enter a valid e-mail address.",
-				                       eChatType.CT_System,
-				                       eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language, "Commands.Players.Email.EmailNotValid"),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow);
 				return;
 			}
 
@@ -55,15 +60,20 @@ namespace DOL.GS.Commands
 					// Log change
 					AuditMgr.AddAuditEntry(client, AuditType.Account, AuditSubtype.AccountEmailChange, oldEmail, EmailAddy);
 
-					client.Out.SendMessage("Contact e-mail address set to " +
-					                       obj.Client.Account.Mail + ". Thanks!",
-					                       eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							client.Account.Language, "Commands.Players.Email.SetTo", obj.Client.Account.Mail),
+						eChatType.CT_System,
+						eChatLoc.CL_SystemWindow);
 				}
 			}
 			catch (Exception)
 			{
-				client.Out.SendMessage("Error - Usage: /email <address>",
-				                       eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language, "Commands.Players.Email.Usage"),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow);
 			}
 		}
 
@@ -382,13 +392,14 @@ namespace DOL.GS.Commands
 			domainvalidatorpattern += "j[emop]|"; //je,jm,jo,jp
 			domainvalidatorpattern += "k[eg-imnprwyz]|"; //ke,kg,kh,ki,km,kn,kp,kr,kw,ky,kz
 			domainvalidatorpattern += "l[a-cikr-vy]|"; //la,lb,lc,li,lk,lr,ls,lt,lu,lv,ly
-			domainvalidatorpattern += "m[acdghk-z]|"; //ma,mc,md,mg,mh,mk,ml,mm,mn,mo,mp,mq,mr,ms,mt,mu,mv,mw,mx,my,mz
+			domainvalidatorpattern += "m[acdeghk-z]|"; //ma,mc,md,me,mg,mh,mk,ml,mm,mn,mo,mp,mq,mr,ms,mt,mu,mv,mw,mx,my,mz
 			domainvalidatorpattern += "n[ace-giloprtuz]|"; //na,nc,ne,nf,ng,ni,nl,no,np,nr,nt,nu,nz
 			domainvalidatorpattern += "om|"; //om
 			domainvalidatorpattern += "p[ae-hk-nrtwy]|"; //pa,pe,pf,pg,ph,pk,pl,pm,pn,pr,pt,pw,py
 			domainvalidatorpattern += "qa|"; //qa
 			domainvalidatorpattern += "r[eouw]|"; //re,ro,ru,rw
 			domainvalidatorpattern += "s[a-eg-ort-vyz]|"; //sa,sb,sc,sd,se,sg,sh,si,sj,sk,sl,sm,sn,so,sr,st,su,sv,sy,sz
+			domainvalidatorpattern += "ski|"; //ski
 			domainvalidatorpattern += "t[cdf-hjkm-prtvwz]|"; //tc,td,tf,tg,th,tj,tk,tm,tn,to,tp,tr,tt,tv,tx,tz
 			domainvalidatorpattern += "u[agkmsyz]|"; //ua,ug,uk,um,us,uy,uz
 			domainvalidatorpattern += "v[aceginu]|"; //va,vc,ve,vg,vy,vn,vu

@@ -24,7 +24,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&afk",
 		ePrivLevel.Player,
-		"Toggle away from keyboard. You may optional set a message to display.", "/afk <text>")]
+		"Commands.Players.Afk.Description",
+		"Commands.Players.Afk.Usage")]
 	public class AFKCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)

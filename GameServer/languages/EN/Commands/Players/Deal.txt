@@ -1,0 +1,2 @@
+Commands.Players.Deal.Description:	Deal one card to a player in your group. Cards must first be prepared with /shuffle.
+Commands.Players.Deal.Usage:		'/deal <name> <u/d>' # Deal a card to <name>.

@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  */
-
+using DOL.Language;
 namespace DOL.GS.Commands
 {
 	/// <summary>
@@ -25,8 +25,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&bind",
 		ePrivLevel.Player,
-		"Binds your soul to a bind location, you will start from there after you die and /release",
-		"/bind")]
+		"Commands.Players.Bind.Description",
+		"Commands.Players.Bind.Usage")]
 	public class BindCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		/// <summary>

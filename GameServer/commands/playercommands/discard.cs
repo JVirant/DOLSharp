@@ -1,12 +1,13 @@
 using System;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
 		"&discard",
 		ePrivLevel.Player,
-		"Discard card # from your hand, or discard all cards.",
-		"/discard <#|all>")]
+		"Commands.Players.Discard.Description",
+		"Commands.Players.Discard.Usage")]
 	public class DiscardCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)

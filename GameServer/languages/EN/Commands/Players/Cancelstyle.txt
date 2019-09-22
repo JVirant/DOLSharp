@@ -1,4 +1,6 @@
 # /Cancelstyle
+Commands.Players.Cancelstyle.Description:	Toggle cancelstyle flag.
+Commands.Players.Cancelstyle.Usage:			'/cancelstyle'
 Commands.Players.Cancelstyle.Set:			Cancel Style now set to {0}.
-Commands.Players.Cancelstyle.On:				ON
+Commands.Players.Cancelstyle.On:			ON
 Commands.Players.Cancelstyle.Off:			OFF

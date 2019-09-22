@@ -17,15 +17,17 @@
 *
 */
 using DOL.GS.PacketHandler;
+using DOL.Language;
 
 
 namespace DOL.GS.Commands
 {
-	[CmdAttribute("&cloak", //command to handle
-		ePrivLevel.Player, //minimum privelege level
-	   "Show / hide your cloak.", //command description
-	   "Usage: /cloak [on|off].", //usage
-	   "Example: \"/cloak off\" to hide your cloak")] 
+	[CmdAttribute(
+		"&cloak",
+		ePrivLevel.Player,
+		"Commands.Players.Cloak.Description",
+		"Commands.Players.Cloak.Usage"
+	)]
 	public class CloakCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		/* version 1.98 :
@@ -50,12 +52,26 @@ namespace DOL.GS.Commands
 				if(client.Player.IsCloakInvisible)
 				{
 					client.Player.IsCloakInvisible = false;
-					client.Out.SendMessage("Your cloak will no longer be hidden from view.", eChatType.CT_YouWereHit, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Cloak.Visible"
+						),
+						eChatType.CT_YouWereHit,
+						eChatLoc.CL_SystemWindow
+					);
 					return;
 				}
 				else
 				{
-					client.Out.SendMessage("Your cloak is already visible.", eChatType.CT_YouWereHit, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Cloak.AlreadyVisible"
+						),
+						eChatType.CT_YouWereHit,
+						eChatLoc.CL_SystemWindow
+					);
 					return;
 				}
 			}
@@ -64,13 +80,27 @@ namespace DOL.GS.Commands
 			{
 				if (client.Player.IsCloakInvisible)
 				{
-					client.Out.SendMessage("Your cloak is already invisible.", eChatType.CT_YouWereHit, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Cloak.AlreadyInvisible"
+							),
+						eChatType.CT_YouWereHit,
+						eChatLoc.CL_SystemWindow
+					);
 					return;
 				}
 				else
 				{
 					client.Player.IsCloakInvisible = true;
-					client.Out.SendMessage("Your cloak will now be hidden from view.", eChatType.CT_YouWereHit, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Cloak.Invisible"
+						),
+						eChatType.CT_YouWereHit,
+						eChatLoc.CL_SystemWindow
+					);
 					return;
 				}
 			}

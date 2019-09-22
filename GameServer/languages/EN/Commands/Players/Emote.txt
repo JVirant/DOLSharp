@@ -1,0 +1,7 @@
+Commands.Players.Emote.Description:	Roleplay an action or emotion", "/emote <text>
+Commands.Players.Emote.Usage:		'/emote <text>'
+Commands.Players.Emote.Dead:		You can't emote while dead!
+Commands.Players.Emote.Empty:		You need something to emote.
+Commands.Players.Emote.IsMuted:		You have been muted and cannot emote!
+Commands.Players.Emote.Strange:		< {0} makes strange motions.>
+Commands.Players.Emote.Act:			< {0} {1} >

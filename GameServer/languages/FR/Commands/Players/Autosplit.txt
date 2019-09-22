@@ -1,0 +1,14 @@
+# /Autosplit
+Commands.Players.Autosplit.Coins:			The leader switched 
+Commands.Players.Autosplit.InGroup:			Vous devez être dans un groupe pour utiliser cette commande.
+Commands.Players.Autosplit.Leader:			Vous devez être le chef de groupe pour utiliser cette commande.
+Commands.Players.Autosplit.Loot:				The leader switched 
+Commands.Players.Autosplit.Off:				Le chef de groupe a désactivé l'autosplit.
+Commands.Players.Autosplit.On:				Le chef de groupe a activé l'autosplit.
+Commands.Players.Autosplit.Coins.On:         Le chef de groupe a activé le partage automatique des pièces.
+Commands.Players.Autosplit.Coins.Off:        Le chef de groupe a désactivé le partage automatique des pièces.
+Commands.Players.Autosplit.Loot.On:          Le chef de groupe a activé le partage automatique des loots.
+Commands.Players.Autosplit.Loot.Off:         Le chef de groupe a désactivé le partage automatique des loots.
+Commands.Players.Autosplit.Self:				{0} switched
+Commands.Players.Autosplit.Self.On:          {0} a activé le partage automatique des loots.
+Commands.Players.Autosplit.Self.Off:         {0} a desactivé le partage automatique des loots.

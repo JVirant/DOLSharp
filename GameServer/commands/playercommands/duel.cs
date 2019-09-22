@@ -26,8 +26,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		 "&duel",
 		 ePrivLevel.Player,
-		 "Duel another player",
-		 "/duel")]
+		 "Commands.Players.Duel.Description",
+		 "Commands.Players.Duel.Usage")]
 
 /*
 [11:44:14] You're not currently considering a duel.

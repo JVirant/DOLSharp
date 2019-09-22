@@ -16,13 +16,13 @@
 * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 *
 */
-
+using DOL.Language;
 namespace DOL.GS.Commands
 {
     [CmdAttribute("&dropmr", //command to handle
         ePrivLevel.Player, //minimum privelege level
-        "Drops the Minotaurrelic.", //command description
-        "/dropmr")] //usage
+        "Commands.Players.Dropmr.Description", //command description
+        "Commands.Players.Dropmr.Usage")] //usage
     public class DropmrCommandHandler : ICommandHandler
     {
         public void OnCommand(GameClient client, string[] args)

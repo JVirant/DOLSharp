@@ -17,13 +17,13 @@
  *
  */
 using DOL.GS.PacketHandler;
-
+using DOL.Language;
 namespace DOL.GS.Commands
 {
 	[CmdAttribute("&groundassist", //command to handle
 		 ePrivLevel.Player, //minimum privelege level
-		 "Show the current coordinates", //command description
-		 "/groundassist")] //command usage
+		 "Commands.Players.Groundassist.Description", //command description
+		 "Commands.Players.Groundassist.Usage")] //command usage
 	public class GroundAssistCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -38,7 +38,14 @@ namespace DOL.GS.Commands
 				myclient = WorldMgr.GetClientByPlayerName(args[1], true, true);
 				if (myclient == null)
 				{
-					client.Player.Out.SendMessage("No player with this name in game.", eChatType.CT_Say, eChatLoc.CL_SystemWindow);
+					client.Player.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							client.Account.Language,
+							"Commands.Players.Groundassist.UnknownPlayer"
+						),
+						eChatType.CT_Say,
+						eChatLoc.CL_SystemWindow
+					);
 					return;
 				}
 				target = myclient.Player;
@@ -46,7 +53,14 @@ namespace DOL.GS.Commands
 
 			if (target == client.Player)
 			{
-				client.Out.SendMessage("You can't groundassist yourself.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Groundassist.NotYourself"
+					),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow
+				);
 				return;
 			}
 
@@ -59,13 +73,29 @@ namespace DOL.GS.Commands
 
 			if (!client.Player.IsWithinRadius( target, 2048 ))
 			{
-				client.Out.SendMessage("You don't see " + args[1] + " around here!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Groundassist.NotAround",
+						args[1]
+					),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow
+				);
 				return;
 			}
 
 			if (target.GroundTarget == null || (target.GroundTarget.X == 0 && target.GroundTarget.Y == 0 && target.GroundTarget.Z == 0))
 			{
-				client.Out.SendMessage(target.Name + " doesn't currently have a ground target.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						client.Account.Language,
+						"Commands.Players.Groundassist.NoTarget",
+						target.Name
+					),
+					eChatType.CT_System,
+					eChatLoc.CL_SystemWindow
+				);
 				return;
 			}
 			client.Player.Out.SendChangeGroundTarget(target.GroundTarget);

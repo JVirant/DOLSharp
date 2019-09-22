@@ -1,0 +1,4 @@
+Commands.Players.Group.Description:	Say something to other chat group players
+Commands.Players.Group.Usage:		'/g <message>'
+Commands.Players.Group.NotInGroup:	You are not part of a group
+Commands.Players.Group.SlowDown:	Slow down! Think before you say each word!

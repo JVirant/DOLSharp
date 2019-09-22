@@ -24,8 +24,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&autoloot",
 		ePrivLevel.Player,
-		"automaticly pick up any loot that drops in your area",
-		"/autoloot <on/off>")]
+		"Commands.Players.Autoloot.Description",
+		"Commands.Players.Autoloot.Usage")]
 	public class AutolootCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)

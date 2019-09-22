@@ -1,0 +1,22 @@
+# /account Command
+Commands.Admin.Account.Description:				Account modification command
+Commands.Admin.Account.Usage.Create:				/account create <AccountNaam> <Wachtwoord>
+Commands.Admin.Account.Usage.ChangePassword:			/account changepassword <AccountNaam> <Nieuw Wachtwoord>
+Commands.Admin.Account.Usage.Delete:				/account delete <AccountName>
+Commands.Admin.Account.Usage.DeleteChar:				/account deletecharacter <PersonageNaam>
+Commands.Admin.Account.Usage.MoveChar:				/account movecharacter <PersonageNaam> <Nieuw AccountNaam>
+Commands.Admin.Account.Usage.Status:				/account status <AccountNaam> <Niveau>
+Commands.Admin.Account.Usage.UnBan:				/account unban <AccountNaam>
+Commands.Admin.Account.Usage.AccountName:			/account accountname <PersonageNaam>
+Commands.Admin.Account.AccountNotFound:				Account {0} niet gevonden!
+Commands.Admin.Account.AccountDeleted:				Account {0} verwijderd!
+Commands.Admin.Account.CharacterNotFound:			Personage {0} niet gevonden!
+Commands.Admin.Account.CharacterDeleted:				Personage {0} verwijderd!
+Commands.Admin.Account.CharNotFromValidRealm:			De personage is niet van een geldige rijk!
+Commands.Admin.Account.AccountHasNoFreeSlots:			Account {0} heeft geen vrije personage slots voor dit rijk!
+Commands.Admin.Account.CharacterMovedToAccount:			Personage {0} verplaatst naar Account {1}!
+Commands.Admin.Account.InvalidAccountName:			ongeldig account naam.
+Commands.Admin.Account.InvalidAccountNameOrPassword:		Account naam en wachtwoord moet ten minsten 4 letter zijn.
+Commands.Admin.Account.AccountNameAlreadyRegistered:		Deze account naam is al geregistreerd.
+Commands.Admin.Account.AccountCreated:				Account gemaakt!
+Commands.Admin.Account.AccNameForChar:				Account naam voor personage {0} is: {1}

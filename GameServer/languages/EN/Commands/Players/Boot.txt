@@ -1,5 +1,8 @@
 # /Boot
-Commands.Players.Boot.InHouseError:			You have to be in your house to use this command!
-Commands.Players.Boot.NoHouseError:			You don't own a house!
-Commands.Players.Boot.NoOneOnline:			No one with that name is online to Kick!
-Commands.Players.Boot.YouRemoved:			You have been removed from the house by {0}!
+Commands.Players.Boot.Description:	Kicks a player out of your house
+Commands.Players.Boot.Usage:		'/boot <playername>'
+Commands.Players.Boot.NoPermission: You do not have permissions to do that.
+Commands.Players.Boot.InHouseError:	You have to be in your house to use this command!
+Commands.Players.Boot.NoHouseError:	You don't own a house!
+Commands.Players.Boot.NoOneOnline:	No one with that name is online to Kick!
+Commands.Players.Boot.YouRemoved:	You have been removed from the house by {0}!

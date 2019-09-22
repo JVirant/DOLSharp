@@ -1,0 +1,10 @@
+Commands.Players.Formation.Description:			Change the formation of your pets!
+Commands.Players.Formation.Usage:				'/formation <type>'
+Commands.Players.Formation.OnlyBonedancer:		Only Bonedancers can use this command!
+Commands.Players.Formation.Usage.Formation:		Formation commands:
+Commands.Players.Formation.Usage.Triangle:		'/formation triangle' # Place the pets in a triangle formation.
+Commands.Players.Formation.Usage.Line:			'/formation line' # Place the pets in a line formation.
+Commands.Players.Formation.Usage.Protect:		'/formation protect' # Place the pets in a protect formation that surrounds the commander.
+Commands.Players.Formation.Commander.Missing:	You don't have a commander!
+Commands.Players.Formation.Minion.Missing:		You don't have any minions!
+Commands.Players.Formation.Argument.Error:		Unrecognized argument: {0}

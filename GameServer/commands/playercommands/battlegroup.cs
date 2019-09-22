@@ -28,8 +28,8 @@ namespace DOL.GS.Commands
 		"&battlechat",
 		new string[] { "&bc" },
 		ePrivLevel.Player,
-		"Battle group command",
-		"/bc <text>")]
+		"Commands.Players.Battlechat.Description",
+		"Commands.Players.Battlechat.Usage")]
 	public class BattleGroupCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -57,7 +57,8 @@ namespace DOL.GS.Commands
 			StringBuilder text = new StringBuilder(7 + 3 + client.Player.Name.Length + (args.Length - 1) * 8);
             if ((bool)mybattlegroup.Members[client.Player] == true)
             {
-                text.Append("[BattleGroup] ");
+                text.Append(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Battlechat.ChatName"));
+				text.Append(" ");
                 text.Append(client.Player.Name);
                 text.Append(": \"");
                 text.Append(args[1]);
@@ -75,7 +76,8 @@ namespace DOL.GS.Commands
             }
             else
             {
-                text.Append("[BattleGroup] ");
+                text.Append(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Battlechat.ChatName"));
+				text.Append(" ");
                 text.Append(client.Player.Name);
                 text.Append(": \"");
                 text.Append(args[1]);
@@ -98,8 +100,8 @@ namespace DOL.GS.Commands
 		"&battlegroup",
 		new string[] { "&bg" },
 		ePrivLevel.Player,
-		"Battle group command",
-		"/bg <option>")]
+		"Commands.Players.Battlegroup.BG.Description",
+		"Commands.Players.Battlegroup.BG.Usage")]
 	public class BattleGroupSetupCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
@@ -229,7 +231,8 @@ namespace DOL.GS.Commands
 
                             if ((bool)mybattlegroup.Members[nongrouped] == true)
                             {
-                                text.Append(" <Leader>");
+                                text.Append(" ");
+								text.Append(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Battlegroup.Leader"));
                             }
                             text.Append(nongrouped.Name + '\n');
                             client.Out.SendMessage(text.ToString(), eChatType.CT_BattleGroup, eChatLoc.CL_SystemWindow);
@@ -251,7 +254,7 @@ namespace DOL.GS.Commands
                    ArrayList curBattleGroupNotGrouped = new ArrayList();
                    int i = 1; //This will list each group in the battle group.
                    text.Length = 0;
-                   text.Append("Players crrently in Battle Group:");
+				   text.Append(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Battlegroup.CurrentlyInBattleGroup"));
                    client.Out.SendMessage(text.ToString(), eChatType.CT_BattleGroup, eChatLoc.CL_SystemWindow);
                    text.Length = 0;
 
@@ -307,7 +310,8 @@ namespace DOL.GS.Commands
 
                        if ((bool)mybattlegroup.Members[nongrouped] == true)
                        {
-                           text.Append(" <Leader>");
+							text.Append(" ");
+							text.Append(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Battlegroup.Leader"));
                        }
                        text.Append("(" + nongrouped.CharacterClass.Name + ")");
                        text.Append(nongrouped.Name + '\n');
@@ -328,8 +332,8 @@ namespace DOL.GS.Commands
                     int i = 0;
                     StringBuilder text = new StringBuilder(ServerProperties.Properties.BATTLEGROUP_MAX_MEMBER);
                     text.Length = 0;
-                    text.Append("Players currently in BattleGroup:");
-                    client.Out.SendMessage(text.ToString(), eChatType.CT_BattleGroup, eChatLoc.CL_SystemWindow);
+					text.Append(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Battlegroup.CurrentlyInBattleGroup"));
+					client.Out.SendMessage(text.ToString(), eChatType.CT_BattleGroup, eChatLoc.CL_SystemWindow);
                     
                     foreach (GamePlayer player in mybattlegroup.Members.Keys)
                     {
@@ -339,9 +343,10 @@ namespace DOL.GS.Commands
                         text.Append(") ");
 
                         if ((bool)mybattlegroup.Members[player] == true)
-                        {
-                            text.Append(" <Leader> ");
-                        }
+						{
+							text.Append(" ");
+							text.Append(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Battlegroup.Leader"));
+						}
                         text.Append(player.Name);
 
                         client.Out.SendMessage(text.ToString(), eChatType.CT_BattleGroup, eChatLoc.CL_SystemWindow);
@@ -457,12 +462,12 @@ namespace DOL.GS.Commands
 					break;
                 case "credit":
                     {
-							client.Out.SendMessage("Command is not yet implimented.", eChatType.CT_BattleGroup, eChatLoc.CL_SystemWindow);
+							client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Battlegroup.CommandNotImplemented"), eChatType.CT_BattleGroup, eChatLoc.CL_SystemWindow);
                     }
                     break;
                 case "grantcredit":
                     {
-                        client.Out.SendMessage("Command is not yet implimented.", eChatType.CT_BattleGroup, eChatLoc.CL_SystemWindow);
+                        client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Players.Battlegroup.CommandNotImplemented"), eChatType.CT_BattleGroup, eChatLoc.CL_SystemWindow);
                     }
                     break;
                 case "private":

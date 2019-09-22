@@ -25,7 +25,9 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&disband",
 		ePrivLevel.Player,
-		"Disband from a group", "/disband")]
+		"Commands.Players.Disband.Description",
+		"Commands.Players.Disband.Usage",
+		"Commands.Players.Disband.Usage.Name")]
 	public class DisbandCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)
