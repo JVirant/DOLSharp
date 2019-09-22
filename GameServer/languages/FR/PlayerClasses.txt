@@ -1,4 +1,4 @@
-﻿# /PlayerClass
+# /PlayerClass
 PlayerClass.Profession.Academy:             Académie
 PlayerClass.Profession.ChurchofAlbion:		Église d'Albion
 PlayerClass.Profession.DefendersofAlbion:   Défenseurs d'Albion

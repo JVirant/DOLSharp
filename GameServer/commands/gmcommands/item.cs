@@ -851,7 +851,7 @@ namespace DOL.GS.Commands
 							}
 							catch
 							{
-								client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Item.mBonus.NonSetBonusNumber"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+								client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Item.mBonus.NotSetBonusNumber"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 							}
 							try
 							{
@@ -864,7 +864,7 @@ namespace DOL.GS.Commands
 							}
 							catch
 							{
-								client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Item.mBonus.NonSetBonusType"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+								client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Item.mBonus.NotSetBonusType"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 							}
 							try
 							{

@@ -1,4 +1,4 @@
-﻿
+
 AI.Brain.Necromancer.CastSpellAfterAction:	{0} lancera ce sort quand l'action en cours sera terminée.
 AI.Brain.Necromancer.ServantFarAwayToCast:	Votre servant est trop éloigné de votre cible pour pouvoir lancer un sort !
 AI.Brain.Necromancer.PetCantSeeTarget:		Votre {0} ne peut pas voir la cible!

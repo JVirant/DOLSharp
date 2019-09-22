@@ -1,0 +1,36 @@
+# /keep Command
+Commands.GM.Keep.Description:					Various keep creation commands!
+Commands.GM.Keep.Usage.FastCreate:				'/keep fastcreate <type> <id> <name>' To create a keep with base template
+Commands.GM.Keep.Usage.FastCreate.Info:			'/keep fastcreate ' To show all template available in fast create
+Commands.GM.Keep.Usage.Create:					'/keep create <keepid> <baselevel> <radius (set to 0 for default)> <name>' To create a keep
+Commands.GM.Keep.Usage.TowerCreate:				'/keep towercreate <keepid> <baselevel> <name>' To create a tower
+Commands.GM.Keep.Usage.Remove:					'/keep remove' To delete a keep from the database
+Commands.GM.Keep.Usage.Name:					'/keep name <Name>' To change name
+Commands.GM.Keep.Usage.KeepID:					'/keep keepid <keepID>' To assign keepid to keep
+Commands.GM.Keep.Usage.Level:					'/keep level <level>' To change level of keep
+Commands.GM.Keep.Usage.BaseLevel:				'/keep baselevel <level>' To change base level of keep
+# Commands.GM.Keep.Usage.MoveHere:				'/keep movehere' To move keep to player position
+# Commands.GM.Keep.Usage.AddComponent:			'/keep addcomponent <compx> <compy> <comphead> <skin> <height>' To add component to current keep
+Commands.GM.Keep.Usage.Save:					'/keep save' To save keep into DB
+Commands.GM.Keep.Usage.AddTeleporter:			'/keep addteleporter' To create a teleporter stone
+Commands.GM.Keep.Usage.AddBanner:				'/keep addbanner <realm|guild>' To create a banner
+Commands.GM.Keep.Usage.Realm:					'/keep realm <newrealm>' To change the realm of a keep
+Commands.GM.Keep.Usage.Radius:					'/keep radius <newRadius (set to 0 for default)>' To change the radius of a keep
+Commands.GM.Keep.FastCreate.TypeOfKeep:			Type of keep:
+Commands.GM.Keep.FastCreate.CompCreated:		CompID={0}; KeepID={1}
+Commands.GM.Keep.FastCreate.KeepCreated:		You have created a keep.
+Commands.GM.Keep.TowerCreate.InvalidKeepID:		Invalid entry for KeepID!
+Commands.GM.Keep.TowerCreate.KeepIDExists:		KeepID {0} already exists!
+Commands.GM.Keep.TowerCreate.WrongKeepID:		Wrong KeepID ({0}): a tower KeepID must be higher than 255!
+Commands.GM.Keep.TowerCreate.InvalidBaseLev:	Invalid entry for BaseLevel!
+Commands.GM.Keep.TowerCreate.CreatedSaved:		Tower created and saved at your location!
+Commands.GM.Keep.Remove.YourNotInAKeepArea:		You're not in a keep area!
+Commands.GM.Keep.Remove.KeepUnloaded:			Keep Unloaded!
+Commands.GM.Keep.Remove.MustCreateKeepFirst:	You must create a keep first.
+Commands.GM.Keep.Remove.YouChangeKeepName:		You change the name of the current keep to {0}.
+Commands.GM.Keep.Level.YouChangeKeepLevel:		You change the level of the current keep to {0}.
+Commands.GM.Keep.BaseLevel.YouChangeBaseLev:	You change the base level of the current keep to {0}.
+Commands.GM.Keep.Realm.YouChangeKeepRealm:		You change the realm of the current keep to {0}.
+Commands.GM.Keep.Radius.YouChangeKeepRadius:	You change the radius of the current keep to {0}.
+Commands.GM.Keep.Save.KeepSavedInDatabase:		Keep saved in database.
+Commands.GM.Keep.AddTeleport.StoneAdded:		Teleport Stone added!

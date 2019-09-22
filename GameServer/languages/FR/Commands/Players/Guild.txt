@@ -1,4 +1,4 @@
-﻿
+
 Commands.Players.Guild.AccountRemoved:            {0} a été retiré par {1} de la guilde.
 Commands.Players.Guild.ActiveBuff:			    Votre guilde possède déjà un sort d'amélioration. Vous devez attendre que le sort expire pour le relancer.
 Commands.Players.Guild.AllianceAlreadyOther:      Cette guilde possède déjà une alliance.

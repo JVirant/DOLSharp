@@ -1,4 +1,4 @@
-﻿# Language file for DOL
+# Language file for DOL
 # Language used : FRENCH / FRANCAIS
 # Create by DOL
 #

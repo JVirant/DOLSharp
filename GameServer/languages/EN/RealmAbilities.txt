@@ -1,4 +1,4 @@
-﻿# /AdrenalineRushAbility
+# /AdrenalineRushAbility
 AdrenalineRushAbility.AddEffectsInfo.Info1:		
 AdrenalineRushAbility.AddEffectsInfo.Info2:		
 AdrenalineRushAbility.AddEffectsInfo.Info3:		

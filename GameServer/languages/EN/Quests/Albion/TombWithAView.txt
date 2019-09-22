@@ -1,4 +1,4 @@
-﻿Alb.TombWithAView.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
+Alb.TombWithAView.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
 Alb.TombWithAView.CheckPlayerAbortQuest.Text2:	Aborting Quest {0}. You can start over again if you want.
 Alb.TombWithAView.Conclusion.Text1:		Ah, found your way to the Burial Tomb, did you?  'Tis a fearsome place, to be sure!  Now that you know where to find the tomb, you'll know where to go, if and when Taskmaster Traint tasks you with helping clear it out.
 Alb.TombWithAView.Init.Text1:			Recruit's Quilted Boots

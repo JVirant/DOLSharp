@@ -1,4 +1,4 @@
-﻿PlayerClass.Profession.Academy:			Academy
+PlayerClass.Profession.Academy:			Academy
 PlayerClass.Profession.ChurchofAlbion:		Church of Albion
 PlayerClass.Profession.DefendersofAlbion:	Defenders of Albion
 PlayerClass.Profession.GuildofShadows:		Guild of Shadows

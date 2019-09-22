@@ -1,0 +1,20 @@
+Commands.GM.KeepGuard.Create.GuardAdded:		Guarde ajouté !
+Commands.GM.KeepGuard.Create.NoKCompTarget:		Vous devez cibler une composant de donjon pour créer une patrouille !
+Commands.GM.KeepGuard.Description:				Diverses commandes de guarde de donjon !
+Commands.GM.KeepGuard.Information:				Utilisez la commande '/mob' pour changer les autres paramêtres du guarde.
+Commands.GM.KeepGuard.Path.CreationStarted:		Création du chemin a commencé ! Vous pouvez maintenant ajouter d’autre points de passages via '/keepguard path add' !
+Commands.GM.KeepGuard.Path.NoPathCreatedYet:	Vous avez besoin de commencer un chemin d’abord ! Utilisez '/keepguard path create' d’abord !
+Commands.GM.KeepGuard.Path.NoValidSpLimit:		Limite de vitesse non valide « {0} » !
+Commands.GM.KeepGuard.Path.PPAdded:				Point de passage ajouté. Taille du chemin : {0}.
+Commands.GM.KeepGuard.Path.Saved:				Chemin sauvegardé
+Commands.GM.KeepGuard.Path.TargPatrolGuard:		Ciblez d’abord un garde qui effectura une patrouille !
+Commands.GM.KeepGuard.Position.GuardPAdded:		Position du garde ajouté !
+Commands.GM.KeepGuard.Position.GuardRemoved:	Position du guarde supprimé !
+Commands.GM.KeepGuard.Position.PAlreadyAss:		Vous avez déjà assigné une position pour la hauteur {0}, veuillez d’abord la supprimer !
+Commands.GM.KeepGuard.Position.TargetGuard:		Ciblez un d’abord un guarde !
+Commands.GM.KeepGuard.Usage.Create:				'/keepguard create <lord|fighter|archer|healer|stealther|caster|hastener|mission|patrol> <static(optional for archer and caster)>'.
+Commands.GM.KeepGuard.Usage.Path.Add:			'/keepguard path add' # Ajout un point de passage
+Commands.GM.KeepGuard.Usage.Path.Create:		'/keepguard path create' # Démarre un nouveau chemin de patrouille
+Commands.GM.KeepGuard.Usage.Path.Save:			'/keepguard path save' # Sauvegarde le chemin de patrouille
+Commands.GM.KeepGuard.Usage.Position.Add:		'/keepguard position add <height(optional)>' # Ajoute une position au guarde ciblé.
+Commands.GM.KeepGuard.Usage.Position.Remove:	'/keepguard position remove' # Supprime la position du guarde ciblé

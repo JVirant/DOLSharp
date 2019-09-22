@@ -1,0 +1,4 @@
+# /addbind Command
+Commands.GM.AddBind.Description:				Adds a bindpoint to the game.
+Commands.GM.AddBind.Usage:					/addbind [radius=750]
+Commands.GM.AddBind.BindPointAdded:			Bindpoint added: X={0}, Y={1}, Z={2}, Radius={3}, Region={4}

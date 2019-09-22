@@ -1,0 +1,4 @@
+# /addhookpoint Command
+Commands.GM.HookPoint.Description:			Add hookpoint on a keep component.
+Commands.GM.HookPoint.Usage:					'/addhookpoint <skin> <id>' to add a hookpoint (select the GameKeepComponent)
+Commands.GM.HookPoint.NoGKCTarget:			You are not targeting a GameKeepComponent!

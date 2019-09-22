@@ -1,4 +1,4 @@
-﻿# GameHastener
+# GameHastener
 
 GameHastener.BorderKeepPortOffer:		If you have to not achieved your tenth season I can transport you to the [borderkeep] so that you may assist in battleground combat. 
 GameHastener.Greeting:					Greetings,

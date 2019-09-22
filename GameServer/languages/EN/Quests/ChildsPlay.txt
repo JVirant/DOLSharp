@@ -1,4 +1,4 @@
-﻿ChildsPlay.CheckPlayerAbortQuest.Text1:		Good, no go out there and finish your work!
+ChildsPlay.CheckPlayerAbortQuest.Text1:		Good, no go out there and finish your work!
 ChildsPlay.CheckPlayerAbortQuest.Text2:		Aborting Quest {0}. You can start over again if you want.
 ChildsPlay.CheckPlayerAcceptQuest.Text1:	Oh well, if you change your mind, please come back!
 ChildsPlay.CheckPlayerAcceptQuest.Text2:	Great, we'll, uh, wait right here while you go do it. See, Raymond, not everyone's a big chicken like you. Chicken!

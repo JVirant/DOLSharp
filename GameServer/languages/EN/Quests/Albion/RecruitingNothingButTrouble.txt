@@ -1,4 +1,4 @@
-﻿Alb.RecruitingNothingButTrouble.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
+Alb.RecruitingNothingButTrouble.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
 Alb.RecruitingNothingButTrouble.CheckPlayerAbortQuest.Text2:	Aborting Quest {0}. You can start over again if you want.
 Alb.RecruitingNothingButTrouble.Conclusion.Text1:		Well I'll be!  You actually managed to get my sword back!  I must admit I thought I would never see it again.  Please accept this modest reward as payment for your services.
 Alb.RecruitingNothingButTrouble.Init.Text1:			Recruit's Short Sword

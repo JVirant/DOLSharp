@@ -1,4 +1,4 @@
-﻿# HOUSING
+# HOUSING
 # /house
 House.DBHousePermissions.AccessLevel:			Access level {0}
 House.Edit.NotEnoughMoney:				You don't have enough money to do that!

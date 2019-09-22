@@ -1,4 +1,4 @@
-﻿# GAMENPC
+# GAMENPC
 GameNPC.DropLoot.AdditionalMoney:				Vous ramassez {0} grâce aux forts controlés par votre royaume !
 GameNPC.DropLoot.Drops:						    {0} laisse {1}.
 GameNPC.GetAggroLevelString.Aggressive1:		agressif

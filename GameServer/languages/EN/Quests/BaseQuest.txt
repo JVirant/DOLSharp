@@ -1,4 +1,4 @@
-﻿# BaseQuest
+# BaseQuest
 BaseQuest.TeleportTo.Text1:			{0} is being teleported to {1}.
 
 #RewardQuest

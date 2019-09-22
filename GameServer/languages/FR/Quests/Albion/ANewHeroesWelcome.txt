@@ -1,4 +1,4 @@
-﻿Alb.ANewHeroesWelcome.CheckPlayerAbortQuest.Text1:	Très bien, maintenant, allez accomplir votre travail!
+Alb.ANewHeroesWelcome.CheckPlayerAbortQuest.Text1:	Très bien, maintenant, allez accomplir votre travail!
 
 Alb.ANewHeroesWelcome.CheckPlayerAbortQuest.Text2:	Quête {0} abandonée. Vous pourrez la recommencer plus tard si vous le désirez.
 

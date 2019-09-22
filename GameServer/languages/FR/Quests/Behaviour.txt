@@ -1,4 +1,4 @@
-﻿
+
 Behaviour.DestroyItemAction.Destroyed:		{0} est detruite.
 Behaviour.DropItemAction.DropsFrontYou:		{0} drops en face de vous.
 Behaviour.GiveItemAction.GiveButInventFull:	veux vous donner {0}, mais votre inventaire est plein!

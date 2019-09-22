@@ -1,4 +1,4 @@
-﻿# Startup guilds
+# Startup guilds
 Guild.StartupGuild.Hibernia:		Tir na Nog Adventurers
 Guild.StartupGuild.Albion:		Clan Cotswold
 Guild.StartupGuild.Midgard:		Mularn Protectors

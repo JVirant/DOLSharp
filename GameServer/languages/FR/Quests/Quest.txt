@@ -1,4 +1,4 @@
-﻿
+
 # /Quests
 # AbstractQuest
 AbstractQuest.FinishQuest.Completed:		Vous avez terminé la quête: {0} !

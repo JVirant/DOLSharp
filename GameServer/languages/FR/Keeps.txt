@@ -1,4 +1,4 @@
-﻿
+
 # KEEPS
 # Managers/Player Manager
 PlayerManager.BroadcastCapture.Captured:		Les Forces de {0} ont capturé {1} !

@@ -1,0 +1,36 @@
+Commands.GM.Merchant.Articles.Add.ItemAdded:				Objet ajouté à la liste d’article du marchand !
+Commands.GM.Merchant.Articles.Add.ItemTemplateNoFound:		ItemTemplate ayant pour ID {0} n’a pu être trouvé !
+Commands.GM.Merchant.Articles.Add.PageAndSlotInvalid:		Le numéro de page ({0}) doit être entre 0 et {1} et l’emplacement ({2}) doit être entre 0 et {3}.
+Commands.GM.Merchant.Articles.Delete.DeletingListTemp:		Supprime un modèle de liste d’article...
+Commands.GM.Merchant.Articles.Delete.ListDeleted:			La liste d’article du marchand a été supprimé.
+Commands.GM.Merchant.Articles.ListNoFound:					La liste d’article du marchand n’a pas été trouvé !
+Commands.GM.Merchant.Articles.Remove.PageInvalid:			Numéro de page ({0}) doit être entre 0 et [0-{1}]!
+Commands.GM.Merchant.Articles.Remove.SlotInPageCleaned:		Emplacement {0} de la liste d’article du marchand de la page {1} nettoyé !
+Commands.GM.Merchant.Articles.Remove.SlotInPageIsAEmpty:	Emplacement {0} de la pag {1} est déjà vide.
+Commands.GM.Merchant.Articles.Remove.SlotInvalid:			Emplacement ({0}) doit être entre [0-{1}]!
+Commands.GM.Merchant.CommandOverview:						Utilisez '/merchant' pour un aperçu de la commande.
+Commands.GM.Merchant.Create.Created:						Marchand créé : OID={0}
+Commands.GM.Merchant.Create.NewGuildName:					Marchang général
+Commands.GM.Merchant.Create.NewName:						Nouveau marchand
+Commands.GM.Merchant.Description:							Divers commandes pour créer un marchand.
+Commands.GM.Merchant.ErrorCreateInstance:					Une erreur s'est produite lors de la création d'une instance de {0}!
+Commands.GM.Merchant.Info.ArtListIsEmpty:					Liste d’article du marchand est vide !
+Commands.GM.Merchant.Info.ArtList:							Liste d’article du marchand : "{0}"
+Commands.GM.Merchant.NewGuildName:							Marchand
+Commands.GM.Merchant.NewName:								Nouveau marchand
+Commands.GM.Merchant.Remove.RemovedFromDB:					Le marchand ciblé a été retiré de la base de donnée !
+Commands.GM.Merchant.Save.SavedInDB:						Le marchand ciblé a été sauvegardé dans la base de donnée !
+Commands.GM.Merchant.Sell.Add.Loaded:						Liste d’article du marchand Merchant articles list loaded!
+Commands.GM.Merchant.Sell.Remove.Removed:					La liste d’article du marchand a été supprimé !
+Commands.GM.Merchant.Type.Changed:							Le type du marchand a changé pour {0}.
+Commands.GM.Merchant.Usage.Articles.Add:					'/merchant articles add <itemTemplateID> <pageNumber> [slot]' # Ajoute un objet au modèle de liste d’article du marchand.
+Commands.GM.Merchant.Usage.Articles.Delete:					'/merchant articles delete' # Supprime le modèle de liste d’objet du marchand.
+Commands.GM.Merchant.Usage.Articles.Remove:					'/merchant articles remove <pageNumber> <slot>' # Supprime un objet du modèle de la liste d’objet du marchand.
+Commands.GM.Merchant.Usage.Create:							'/merchant create' # Créer un nouveau marchand.
+Commands.GM.Merchant.Usage.CreateType:						'/merchant create <type>' # Créer un nouveau marchand avec un type prédéfinit;
+Commands.GM.Merchant.Usage.Info:							'/merchant info' # Affiche les informations à propos de ce marchand.
+Commands.GM.Merchant.Usage.Remove:							'/merchant remove' # Supprime ce marchand de la base de données.
+Commands.GM.Merchant.Usage.Save:							'/merchant save' # Sauvegarde ce marchand en tant que nouvel objet dans la base de données.
+Commands.GM.Merchant.Usage.Sell:							'/merchant sell add <itemsListTemplateID>' # Assigne à ce marchand un modèle de liste d’objet.
+Commands.GM.Merchant.Usage.SellRemove:						'/merchant sellremove' # Supprime la liste des objets de ce marchand.
+Commands.GM.Merchant.Usage.Type:							'/merchant type <classtype>' # Change le type du marchand.

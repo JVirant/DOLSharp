@@ -1,4 +1,4 @@
-﻿# /Battlegroup
+# /Battlegroup
 Commands.Players.Battlegroup.Help.Help:              /bg help - Affiche toutes les commandes du groupe de combat.
 Commands.Players.Battlegroup.Help.Invite:			/bg invite <nom du joueur> - Invite le joueur spécifié à rejoindre le groupe de combat.
 Commands.Players.Battlegroup.Help.JoinPrivate:		/bg join <modérateur> <mot de passe> - Rejoindre un groupe de combat protégé par un mot de passe.	

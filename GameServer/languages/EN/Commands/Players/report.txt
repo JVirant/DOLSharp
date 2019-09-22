@@ -5,7 +5,3 @@ Commands.Players.Report.Muted:			You have been muted and are not allowed to subm
 Commands.Players.Report.TooManyReport:	There are too many reports, please contact a GM or wait until they are cleaned.
 Commands.Players.Report.Submitted:		Report submitted, if this is not a bug report it will be ignored!
 Commands.Players.Report.Email:			If you enter your email address for your account with /email command, your bug reports will send an email to the staff!
-Commands.Players.Report.
-Commands.Players.Report.
-Commands.Players.Report.
-Commands.Players.Report.

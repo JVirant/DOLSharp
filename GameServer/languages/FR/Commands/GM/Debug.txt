@@ -1,5 +1,4 @@
-# /debug Command
-Commands.GM.Debug.Description:				Active ou desactive le mode Debug
-Commands.GM.Debug.Usage:						/debug <on/off>
-Commands.GM.Debug.ModeON:					Debug mode ON
-Commands.GM.Debug.ModeOFF:					Debug mode OFF
+Commands.GM.Debug.Description:	Active ou désactive le mode Debug
+Commands.GM.Debug.ModeOFF:		Mode « debug » désactivé
+Commands.GM.Debug.ModeON:		Mode « debug » activé
+Commands.GM.Debug.Usage:		Usage : '/debug <on|off>'

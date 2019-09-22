@@ -1,4 +1,4 @@
-﻿
+
 
 # /Arbiter
 Albion.Arbiter.Interact.BeginTrials:			{0}, welcome to Atlantis. When you are ready, you may begin the Trials. Come to me then.

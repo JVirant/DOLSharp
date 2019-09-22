@@ -1,4 +1,4 @@
-﻿Skill.Ability.CannotUseDead:	You cannot use this while Dead!
+Skill.Ability.CannotUseDead:	You cannot use this while Dead!
 Skill.Ability.CannotUseMezzed:	You cannot use this while Mezzed!
 Skill.Ability.CannotUseStunned:	You cannot use this while Stunned!
 Skill.Ability.CannotUseStanding:	You must be standing to use this ability!

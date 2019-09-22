@@ -1,4 +1,4 @@
-﻿
+
 
 # /Blacksmith
 Scripts.Blacksmith.AbortRepair:				Vous refusez la réparation de {0}.

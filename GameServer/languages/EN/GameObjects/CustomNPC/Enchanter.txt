@@ -1,4 +1,4 @@
-﻿Enchanter.EnchanterDialogResponse.Text1:	Invalid item.
+Enchanter.EnchanterDialogResponse.Text1:	Invalid item.
 Enchanter.EnchanterDialogResponse.Text2:	I need {0} to enchant that.
 Enchanter.EnchanterDialogResponse.Text3:	bright
 Enchanter.EnchanterDialogResponse.Text4:	You give {0} {1}.

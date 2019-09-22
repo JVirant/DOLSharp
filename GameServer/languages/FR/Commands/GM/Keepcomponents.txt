@@ -1,0 +1,8 @@
+Commands.GM.KeepComponents.Create.KCCreated:	Vous avez créé un composant de donjon.
+Commands.GM.KeepComponents.Delete.YDeleteKC:	Vous supprimé le composant.
+Commands.GM.KeepComponents.Description:			Diverses commandes de création de composant de donjon !
+Commands.GM.KeepComponents.Skin.YChangeSkin:	Vous changez l'apparence du composant de donjon !
+Commands.GM.KeepComponents.Usage.Create.TID:	'/keepcomponent create <type> <keepid>' # Créer un composant dans un donjon (<keppid>)
+Commands.GM.KeepComponents.Usage.Create.T:		'/keepcomponent create <type>' # Créer un composant dans le donjon le plus proche.
+Commands.GM.KeepComponents.Usage.Delete:		'/keepcomponent delete' # Supprime un composant.
+Commands.GM.KeepComponents.Usage.Skin:			'/keepcomponent skin <skin>' # Change l’apparence de l’objet.

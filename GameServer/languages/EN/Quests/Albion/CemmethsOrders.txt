@@ -1,4 +1,4 @@
-﻿Alb.CemmethsOrders.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
+Alb.CemmethsOrders.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
 Alb.CemmethsOrders.CheckPlayerAbortQuest.Text2:	Aborting Quest {0}. You can start over again if you want.
 Alb.CemmethsOrders.Conclusion.Text1:		Well done, {0}, well done! We've certainly got our work cut out for us, what with all the unliving vermin stomping about.  You've set a fine example for the other would-be heroes and adventurers, my friend.  Please accept this small token of appreciation.
 Alb.CemmethsOrders.Init.Text1:			Recruit's Quilted Vest

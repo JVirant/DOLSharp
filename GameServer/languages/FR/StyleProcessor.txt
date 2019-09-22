@@ -1,4 +1,4 @@
-﻿
+
 
 # /StyleProcessor
 StyleProcessor.ExecuteStyle.BackStrike:         Vous infligez un coup critique dans le dos de votre cible.

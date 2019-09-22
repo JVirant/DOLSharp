@@ -1,4 +1,4 @@
-﻿# MASTERLEVEL
+# MASTERLEVEL
 # 1. Uncomplete steps
 SendMasterLevelWindow.Uncomplete.ML1.Step1:		Ianetor aime jouer avec le , et recherche des aventuriers pour participer à un jeu explosif en Anatolie d'Océania ! Ce défi est réservé à un groupe d'aventuriers.
 SendMasterLevelWindow.Uncomplete.ML1.Step2:		Le voleur qui a dérobé Lornas est toujours en vie ! Ce défi est réservé à un groupe d'aventuriers.

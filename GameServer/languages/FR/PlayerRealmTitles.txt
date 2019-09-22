@@ -1,4 +1,4 @@
-﻿# Unknown
+# Unknown
 GamePlayer.RealmTitle.UnknownRealm:				Royaume Inconnu
 # Starter titles
 GamePlayer.RealmTitle.Defender:					Defenseur

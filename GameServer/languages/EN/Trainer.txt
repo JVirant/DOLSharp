@@ -1,4 +1,4 @@
-﻿## Albion
+## Albion
 # /FriarTrainer
 FriarTrainer.Interact.Text1:				{0} says, "Do you desire to [join the Defenders of Albion] and defend our realm as a Friar?"
 FriarTrainer.Interact.Text2:				{0} says, "insert english text"

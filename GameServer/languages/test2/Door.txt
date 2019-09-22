@@ -1,0 +1,14 @@
+# /Door Command
+Commands.GM.Door.Description:				Modfication des portes
+Commands.GM.Door.Name:					'/door name <texte>'change le nom de la porte.
+Commands.GM.Door.Level:					'/door level <valeur>'change le level de la porte. 
+Commands.GM.Door.Realm:					'/door realm <valeur>'change le realm de la porte. ! Attention si realm 0 la porte ne s'ouvre pas tant qu'elle est pas tuée
+Commands.GM.Door.Guild:					'/door guild <texte>'change la guilde de la porte.
+Commands.GM.Door.Info:					'/door info' donne les info de la porte.
+Commands.GM.Door.Heal:					'/door heal' redonne le maximum de vie a la porte.
+Commands.GM.Door.Kill:					'/door kill' "tue la porte".
+Commands.GM.Door.Locked:					'/door locked 'verouille completement la porte.
+Commands.GM.Door.Unlocked:				'/door unlocked 'deverouille la porte.
+Commands.GM.Door.Update:					'/door update 'maj de la porte avec X Y Z de l'admin.
+Commands.GM.Door.Delete:					'/door delete 'supprime la porte ciblée.
+Commands.GM.Door.Add:					'/door add' ajoute une porte

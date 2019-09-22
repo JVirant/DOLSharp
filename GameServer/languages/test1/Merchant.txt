@@ -1,0 +1,37 @@
+# /merchant Command
+Commands.GM.Merchant.Description:			Various merchant creation commands!
+Commands.GM.Merchant.Usage.Create:			'/merchant create' to create an empty merchant;
+Commands.GM.Merchant.Usage.CreateType:		'/merchant create <type>' to create an empty merchant with class typed;
+Commands.GM.Merchant.Usage.Info:				'/merchant info' to show info about merchant;
+Commands.GM.Merchant.Usage.Save:				'/merchant save' to save this merchant as new object in the DB;
+Commands.GM.Merchant.Usage.Remove:			'/merchant remove' to remove this merchant from the DB;
+Commands.GM.Merchant.Usage.Sell:				'/merchant sell add <itemsListTemplateID>' to assign this merchant with an articles list template;
+Commands.GM.Merchant.Usage.SellRemove:		'/merchant sellremove' to remove the articles list template from merchant;
+Commands.GM.Merchant.Usage.Articles.Add:		'/merchant articles add <itemTemplateID> <pageNumber> [slot]' to add an item to the merchant articles list template;
+Commands.GM.Merchant.Usage.Articles.Remove:	'/merchant articles remove <pageNumber> <slot>' to remove item from the specified slot in this merchant inventory articles list template;
+Commands.GM.Merchant.Usage.Articles.Delete:	'/merchant articles delete' to delete the inventory articles list template of the merchant;
+Commands.GM.Merchant.Usage.Type:				'/merchant type <classtype>';
+Commands.GM.Merchant.CommandOverview:		Type /merchant for command overview
+Commands.GM.Merchant.ErrorCreateInstance:	There was an error creating an instance of {0}!
+Commands.GM.Merchant.Create.NewName:			New merchant
+Commands.GM.Merchant.Create.NewGuildName:	General Merchant
+Commands.GM.Merchant.Create.Created:			Merchant created: OID={0}
+Commands.GM.Merchant.Info.ArtListIsEmpty:	Merchant articles list is empty!
+Commands.GM.Merchant.Info.ArtList:			Merchant articles list: "{0}"
+Commands.GM.Merchant.NewName:			New Merchant
+Commands.GM.Merchant.NewGuildName:		Merchant
+Commands.GM.Merchant.Save.SavedInDB:			Target Merchant saved in DB!
+Commands.GM.Merchant.Remove.RemovedFromDB:	Target Merchant removed from DB!
+Commands.GM.Merchant.Sell.Add.Loaded:		Merchant articles list loaded!
+Commands.GM.Merchant.Sell.Remove.Removed:	Merchant articles list removed!
+Commands.GM.Merchant.Articles.ListNoFound:				Merchant articles list no found!
+Commands.GM.Merchant.Articles.Add.ItemTemplateNoFound:	ItemTemplate with id {0} could not be found!
+Commands.GM.Merchant.Articles.Add.PageAndSlotInvalid:	Page number ({0}) must be from 0 to {1} and slot ({2}) must be from 0 to {3}.
+Commands.GM.Merchant.Articles.Add.ItemAdded:				Item added to the merchant articles list!
+Commands.GM.Merchant.Articles.Remove.PageInvalid:		Page number ({0}) must be between [0-{1}]!
+Commands.GM.Merchant.Articles.Remove.SlotInvalid:		Slot ({0}) must be between [0-{1}]!
+Commands.GM.Merchant.Articles.Remove.SlotInPageIsAEmpty:	Slot {0} in page {1} is already empty.
+Commands.GM.Merchant.Articles.Remove.SlotInPageCleaned:	Merchant articles list slot {0} in page {1} cleaned!
+Commands.GM.Merchant.Articles.Delete.DeletingListTemp:	Deleting articles list template ...
+Commands.GM.Merchant.Articles.Delete.ListDeleted:		Merchant articles list deleted.
+Commands.GM.Merchant.Type.Changed:			Merchant type changed to {0}.

@@ -1,4 +1,4 @@
-﻿
+
 # QUESTS
 # /ImportantDelivery
 Hib.ImportantDelivery.CheckPlayerAbortQuest.Abort:	Aborting Quest {0}. You can start over again if you want.

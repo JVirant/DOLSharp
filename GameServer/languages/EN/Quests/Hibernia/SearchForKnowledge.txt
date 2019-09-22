@@ -1,4 +1,4 @@
-﻿Hib.SearchForKnowledge.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
+Hib.SearchForKnowledge.CheckPlayerAbortQuest.Text1:	Good, now go out there and finish your work!
 Hib.SearchForKnowledge.CheckPlayerAbortQuest.Text2:	Aborting Quest {0}. You can start over again if you want.
 Hib.SearchForKnowledge.Conclusion.Text1:		Thank you, {0}. I'll send a summons to my apprentices in Lough Gur.  The war is depleting our resources and we've much to do on all fronts.  I certainly have more than my share of work.  Let me know if you would like to help out.
 Hib.SearchForKnowledge.Init.Text1:			Recruit's Cloak

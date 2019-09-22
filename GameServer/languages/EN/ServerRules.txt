@@ -1,4 +1,4 @@
-﻿# SERVERRULES
+# SERVERRULES
 # /AbstractServerRules/PlayerStatistics
 # /Kills
 PlayerStatistic.Kill.Title:				Kill Report

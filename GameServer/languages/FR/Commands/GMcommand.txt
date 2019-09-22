@@ -1,2 +1,2 @@
-﻿# General Sentences
+# General Sentences
 Commands.GM.Error:	Erreur: {0}

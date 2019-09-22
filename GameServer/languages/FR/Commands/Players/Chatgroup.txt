@@ -1,4 +1,4 @@
-﻿Commands.Players.Chatgroup.Chat:					[Chat]
+Commands.Players.Chatgroup.Chat:					[Chat]
 Commands.Players.Chatgroup.Description:				Chat group command
 Commands.Players.Chatgroup.Help.Help:			/cg help - Affiche toutes les commandes du groupe de discussion.
 Commands.Players.Chatgroup.Help.Invite:			/cg invite <nom du joueur> - Invite le joueur spécifié à rejoindre le groupe de discussion.

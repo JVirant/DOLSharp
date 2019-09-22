@@ -1,4 +1,4 @@
-﻿Skill.Ability.CannotUseMezzed:	Vous ne pouvez pas utiliser cette compétence en étant hypnotisé(e)!
+Skill.Ability.CannotUseMezzed:	Vous ne pouvez pas utiliser cette compétence en étant hypnotisé(e)!
 Skill.Ability.CannotUseStunned:	Vous ne pouvez pas utiliser cette compétence en étant étourdi(e)!
 Skill.Ability.CannotUseStanding:	Vous ne pouvez pas utiliser cette compétence en étant assis(e)!
 Skill.Ability.CannotUseSnared:	Vous ne pouvez pas utiliser cette compétence sous l'emprise d'un sort de ralentissement(e)!

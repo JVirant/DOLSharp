@@ -1,4 +1,4 @@
-﻿GamePlayer.CastSpell.MustWaitBeforeCast:	Vous devez attendre {0} secondes pour lancer un sort !
+GamePlayer.CastSpell.MustWaitBeforeCast:	Vous devez attendre {0} secondes pour lancer un sort !
 SpellHandler.DelveInfo.Sec:	sec
 SpellHandler.CasterMove:	Vous bougez et interromper votre sort !
 

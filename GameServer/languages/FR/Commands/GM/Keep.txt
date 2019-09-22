@@ -1,0 +1,33 @@
+Commands.GM.Keep.AddTeleport.StoneAdded:		Téléporteur ajouté!
+Commands.GM.Keep.BaseLevel.YouChangeBaseLev:	Vous changez le niveau de base du donjon actuel à {0}.
+Commands.GM.Keep.Description:					Diverses commandes de création de donjon.
+Commands.GM.Keep.FastCreate.CompCreated:		CompID={0}; KeepID={1}
+Commands.GM.Keep.FastCreate.KeepCreated:		Vous avez créé un donjon.
+Commands.GM.Keep.FastCreate.TypeOfKeep:			Type de donjon :
+Commands.GM.Keep.Level.YouChangeKeepLevel:		Vous changez le niveau du donjon actuel à {0}.
+Commands.GM.Keep.Radius.YouChangeKeepRadius:	Vous changez le rayon du donjon actuel à {0}.
+Commands.GM.Keep.Realm.YouChangeKeepRealm:		Vous changez le royaume du donjon actuel pour {0}.
+Commands.GM.Keep.Remove.KeepUnloaded:			Donjon déchargé!
+Commands.GM.Keep.Remove.MustCreateKeepFirst:	Vous devez d’abord créer un donjon.
+Commands.GM.Keep.Remove.YouChangeKeepName:		Vous changez le nom du donjon actuel pour {0}.
+Commands.GM.Keep.Remove.YourNotInAKeepArea:		Vous n’êtes pas dans une zone de donjon !
+Commands.GM.Keep.Save.KeepSavedInDatabase:		Donjon sauvegardé en base !
+Commands.GM.Keep.TowerCreate.CreatedSaved:		Tour créé et sauvegardé à votre emplacement !
+Commands.GM.Keep.TowerCreate.InvalidBaseLev:	Entrée invalide pour BaseLevel !
+Commands.GM.Keep.TowerCreate.InvalidKeepID:		Entrée invalide pour KeepID!
+Commands.GM.Keep.TowerCreate.KeepIDExists:		KeepID {0} existe déjà !
+Commands.GM.Keep.TowerCreate.WrongKeepID:		Mauvais KeepID ({0}) : Une tour KeepID doit être supérieur à 255 !
+Commands.GM.Keep.Usage.AddBanner:				'/keep addbanner <realm|guild>' # Créer un bannière.
+Commands.GM.Keep.Usage.AddTeleporter:			'/keep addteleporter' # Créer un téléporteur.
+Commands.GM.Keep.Usage.BaseLevel:				'/keep baselevel <level>' # Change le niveau de base du donjon.
+Commands.GM.Keep.Usage.Create:					'/keep create <keepid> <baselevel> <radius (set to 0 for default)> <name>' # Créer un donjon.
+Commands.GM.Keep.Usage.FastCreate.Info:			'/keep fastcreate ' # Montre tous les modèles disponible pour une création rapide.
+Commands.GM.Keep.Usage.FastCreate:				'/keep fastcreate <type> <id> <name>' # Pour créer un donjon à partir d’un modèle de base.
+Commands.GM.Keep.Usage.KeepID:					'/keep keepid <keepID>' # Assigne un « KeepID » au donjon.
+Commands.GM.Keep.Usage.Level:					'/keep level <level>' # Change le niveau du donjon.
+Commands.GM.Keep.Usage.Name:					'/keep name <Name>' # Change le nom du donjon.
+Commands.GM.Keep.Usage.Radius:					'/keep radius <newRadius (set to 0 for default)>' # Change le rayon du donjon.
+Commands.GM.Keep.Usage.Realm:					'/keep realm <newrealm>' # Change le royaume d’un donjon.
+Commands.GM.Keep.Usage.Remove:					'/keep remove' # Supprime le donjon de la base de donnée.
+Commands.GM.Keep.Usage.Save:					'/keep save' # Sauvegarde le donjon dans la base de donnée.
+Commands.GM.Keep.Usage.TowerCreate:				'/keep towercreate <keepid> <baselevel> <name>' # Créer une tour.

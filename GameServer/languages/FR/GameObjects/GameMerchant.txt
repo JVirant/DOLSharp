@@ -1,4 +1,4 @@
-﻿# GAMEMERCHANT
+# GAMEMERCHANT
 GameMerchant.GetExamineMessages.BuyItemsFor:	{0} dit, "Vous pouvez acheter des objets ici ! (Monnaie: {1} )."
 GameMerchant.GetExamineMessages.Nothing:		Rien
 GameMerchant.GetExamineMessages.RightClick:		[Cliquez-droit pour afficher une fenêtre de marchandage]

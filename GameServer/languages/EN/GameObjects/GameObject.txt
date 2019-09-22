@@ -1,4 +1,4 @@
-﻿
+
 
 GameObject.Casting.CastsASpell:				{0} casts a spell!
 GameObject.GetExamineMessages.YouTarget:	You target [{0}].

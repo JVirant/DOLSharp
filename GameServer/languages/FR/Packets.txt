@@ -1,4 +1,4 @@
-﻿# /DetailDisplayHandler
+# /DetailDisplayHandler
 DetailDisplayHandler.GetShortItemInfo.CrafterName:  Artisan : {0}
 DetailDisplayHandler.GetShortItemInfo.NoDrop:       Ne peut être jeté.
 DetailDisplayHandler.GetShortItemInfo.NoSell:       Ne peut être vendu.
