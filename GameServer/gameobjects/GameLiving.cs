@@ -1718,8 +1718,7 @@ namespace DOL.GS
 			ad.AttackResult = ad.Target.CalculateEnemyAttackResult(ad, weapon);
 
 			// calculate damage only if we hit the target
-			if (ad.AttackResult == eAttackResult.HitUnstyled
-			    || ad.AttackResult == eAttackResult.HitStyle)
+			if (ad.AttackResult == eAttackResult.HitUnstyled || ad.AttackResult == eAttackResult.HitStyle)
 			{
 				double damage = AttackDamage(weapon) * effectiveness;
 
@@ -1752,34 +1751,23 @@ namespace DOL.GS
 					{
 						// Albion dual spec penalty, which sets minimum damage to the base damage spec
 						if (weapon.Type_Damage == (int)eDamageType.Crush)
-						{
 							weaponTypeToUse.Object_Type = (int)eObjectType.CrushingWeapon;
-						}
 						else if (weapon.Type_Damage == (int)eDamageType.Slash)
-						{
 							weaponTypeToUse.Object_Type = (int)eObjectType.SlashingWeapon;
-						}
 						else
-						{
 							weaponTypeToUse.Object_Type = (int)eObjectType.ThrustWeapon;
-						}
 					}
 				}
 
 				int lowerboundary = (WeaponSpecLevel(weaponTypeToUse) - 1) * 50 / (ad.Target.EffectiveLevel + 1) + 75;
-				lowerboundary = Math.Max(lowerboundary, 75);
-				lowerboundary = Math.Min(lowerboundary, 125);
+				lowerboundary = lowerboundary.Clamp(75, 125);
 				damage *= (GetWeaponSkill(weapon) + 90.68) / (ad.Target.GetArmorAF(ad.ArmorHitLocation) + 20 * 4.67);
 
 				// Badge Of Valor Calculation 1+ absorb or 1- absorb
 				if (ad.Attacker.EffectList.GetOfType<BadgeOfValorEffect>() != null)
-				{
 					damage *= 1.0 + Math.Min(0.85, ad.Target.GetArmorAbsorb(ad.ArmorHitLocation));
-				}
 				else
-				{
 					damage *= 1.0 - Math.Min(0.85, ad.Target.GetArmorAbsorb(ad.ArmorHitLocation));
-				}
 				damage *= (lowerboundary + Util.Random(50)) * 0.01;
 				ad.Modifier = (int)(damage * (ad.Target.GetResist(ad.DamageType) + SkillBase.GetArmorResist(armor, ad.DamageType)) * -0.01);
 				damage += ad.Modifier;
@@ -1788,8 +1776,7 @@ namespace DOL.GS
 
 				var property = ad.Target.GetResistTypeForDamage(ad.DamageType);
 				var secondaryResistModifier = ad.Target.SpecBuffBonusCategory[(int)property];
-				int resistModifier = 0;
-				resistModifier += (int)((ad.Damage + resistModifier) * secondaryResistModifier * -0.01);
+				var resistModifier = ad.Damage * secondaryResistModifier / -100;
 
 				damage += resist;
 				damage += resistModifier;
@@ -1802,11 +1789,11 @@ namespace DOL.GS
 
 				if ((this is GamePlayer || (this is GameNPC && (this as GameNPC).Brain is IControlledBrain && this.Realm != 0)) && target is GamePlayer)
 				{
-					ad.Damage = (int)((double)ad.Damage * ServerProperties.Properties.PVP_MELEE_DAMAGE);
+					ad.Damage = (int)(ad.Damage * ServerProperties.Properties.PVP_MELEE_DAMAGE);
 				}
 				else if ((this is GamePlayer || (this is GameNPC && (this as GameNPC).Brain is IControlledBrain && this.Realm != 0)) && target is GameNPC)
 				{
-					ad.Damage = (int)((double)ad.Damage * ServerProperties.Properties.PVE_MELEE_DAMAGE);
+					ad.Damage = (int)(ad.Damage * ServerProperties.Properties.PVE_MELEE_DAMAGE);
 				}
 
 				ad.UncappedDamage = ad.Damage;
@@ -1814,44 +1801,28 @@ namespace DOL.GS
 				//Eden - Conversion Bonus (Crocodile Ring)  - tolakram - critical damage is always 0 here, needs to be moved
 				if (ad.Target is GamePlayer && ad.Target.GetModified(eProperty.Conversion) > 0)
 				{
-					int manaconversion = (int)Math.Round(((double)ad.Damage + (double)ad.CriticalDamage) * (double)ad.Target.GetModified(eProperty.Conversion) / 100);
-					//int enduconversion=(int)Math.Round((double)manaconversion*(double)ad.Target.MaxEndurance/(double)ad.Target.MaxMana);
-					int enduconversion = (int)Math.Round(((double)ad.Damage + (double)ad.CriticalDamage) * (double)ad.Target.GetModified(eProperty.Conversion) / 100);
+					int manaconversion = (ad.Damage + ad.CriticalDamage) * ad.Target.GetModified(eProperty.Conversion) / 100;
+					int enduconversion = (ad.Damage + ad.CriticalDamage) * ad.Target.GetModified(eProperty.Conversion) / 100;
 					if (ad.Target.Mana + manaconversion > ad.Target.MaxMana) manaconversion = ad.Target.MaxMana - ad.Target.Mana;
 					if (ad.Target.Endurance + enduconversion > ad.Target.MaxEndurance) enduconversion = ad.Target.MaxEndurance - ad.Target.Endurance;
 					if (manaconversion < 1) manaconversion = 0;
 					if (enduconversion < 1) enduconversion = 0;
 					if (manaconversion >= 1) (ad.Target as GamePlayer).Out.SendMessage(string.Format(LanguageMgr.GetTranslation((ad.Target as GamePlayer).Client.Account.Language, "GameLiving.AttackData.GainPowerPoints"), manaconversion), eChatType.CT_Spell, eChatLoc.CL_SystemWindow);
 					if (enduconversion >= 1) (ad.Target as GamePlayer).Out.SendMessage(string.Format(LanguageMgr.GetTranslation((ad.Target as GamePlayer).Client.Account.Language, "GameLiving.AttackData.GainEndurancePoints"), enduconversion), eChatType.CT_Spell, eChatLoc.CL_SystemWindow);
-					ad.Target.Endurance += enduconversion; if (ad.Target.Endurance > ad.Target.MaxEndurance) ad.Target.Endurance = ad.Target.MaxEndurance;
-					ad.Target.Mana += manaconversion; if (ad.Target.Mana > ad.Target.MaxMana) ad.Target.Mana = ad.Target.MaxMana;
+					ad.Target.Endurance += enduconversion;
+					ad.Target.Mana += manaconversion;
 				}
 
 				// Tolakram - let's go ahead and make it 1 damage rather than spamming a possible error
-				if (ad.Damage == 0)
-				{
-					ad.Damage = 1;
-
-					// log this as a possible error if we should do some damage to target
-					//if (ad.Target.Level <= Level + 5 && weapon != null)
-					//{
-					//    log.ErrorFormat("Possible Damage Error: {0} Damage = 0 -> miss vs {1}.  AttackDamage {2}, weapon name {3}", Name, (ad.Target == null ? "null" : ad.Target.Name), AttackDamage(weapon), (weapon == null ? "None" : weapon.Name));
-					//}
-
-					//ad.AttackResult = eAttackResult.Missed;
-				}
+				ad.Damage = Math.Max(1, ad.Damage);
 			}
 
 			//Add styled damage if style hits and remove endurance if missed
 			if (StyleProcessor.ExecuteStyle(this, ad, weapon))
-			{
-				ad.AttackResult = GameLiving.eAttackResult.HitStyle;
-			}
+				ad.AttackResult = eAttackResult.HitStyle;
 
 			if ((ad.AttackResult == eAttackResult.HitUnstyled || ad.AttackResult == eAttackResult.HitStyle))
-			{
 				ad.CriticalDamage = GetMeleeCriticalDamage(ad, weapon);
-			}
 
 			// Attacked living may modify the attack data.  Primarily used for keep doors and components.
 			ad.Target.ModifyAttack(ad);
@@ -5499,15 +5470,15 @@ namespace DOL.GS
 			ConcentrationEffects.CancelAll(leaveSelf);
 
 			// cancel all active conc spell effects from other casters
-			ArrayList concEffects = new ArrayList();
+			var concEffects = new List<GameSpellEffect>();
 			lock (EffectList)
 			{
 				foreach (IGameEffect effect in EffectList)
 				{
-					if (effect is GameSpellEffect && ((GameSpellEffect)effect).Spell.Concentration > 0)
+					if (effect is GameSpellEffect eff && eff.Spell.Concentration > 0)
 					{
-						if (!leaveSelf || leaveSelf && ((GameSpellEffect)effect).SpellHandler.Caster != this)
-							concEffects.Add(effect);
+						if (!leaveSelf || (leaveSelf && eff.SpellHandler.Caster != this))
+							concEffects.Add(eff);
 					}
 				}
 			}

@@ -3134,8 +3134,7 @@ namespace DOL.GS
 		{
 			string res = null;
 			if (!m_objectTypeToSpec.TryGetValue(objectType, out res))
-				if (log.IsWarnEnabled)
-					log.Warn("Not found spec for object type " + objectType);
+				log.Warn("Not found spec for object type " + objectType);
 			return res;
 		}
 

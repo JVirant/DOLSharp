@@ -196,12 +196,12 @@ namespace DOL.GS.Styles
 				{
 					if (player != null)
 						player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "StyleProcessor.TryToUseStyle.CantCombatMode"), eChatType.CT_YouHit, eChatLoc.CL_SystemWindow);
-					
+
 					return;
 				}
 				if (living.IsDisarmed)
 				{
-					if(living is GamePlayer) (living as GamePlayer).Out.SendMessage("You are disarmed and cannot attack!", eChatType.CT_YouHit, eChatLoc.CL_SystemWindow);
+					if (living is GamePlayer) (living as GamePlayer).Out.SendMessage("You are disarmed and cannot attack!", eChatType.CT_YouHit, eChatLoc.CL_SystemWindow);
 					return;
 				}
 				//Can't use styles with range weapon
@@ -227,7 +227,6 @@ namespace DOL.GS.Styles
 				}
 
 				InventoryItem weapon = (style.WeaponTypeRequirement == (int)eObjectType.Shield) ? living.Inventory.GetItem(eInventorySlot.LeftHandWeapon) : living.AttackWeapon;
-				//				if (weapon == null) return;	// no weapon = no style
 				if (!CheckWeaponType(style, living, weapon))
 				{
 					if (player != null)
@@ -240,14 +239,12 @@ namespace DOL.GS.Styles
 					return;
 				}
 
-				if (player != null) //Do mob use endurance?
+				int fatCost = CalculateEnduranceCost(living, style, weapon.SPD_ABS);
+				if (living.Endurance < fatCost)
 				{
-					int fatCost = CalculateEnduranceCost(player, style, weapon.SPD_ABS);
-					if (player.Endurance < fatCost)
-					{
+					if (player != null)
 						player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "StyleProcessor.TryToUseStyle.Fatigued"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
-						return;
-					}
+					return;
 				}
 
 				if (player != null)
@@ -363,12 +360,8 @@ namespace DOL.GS.Styles
 					return false;
 
 				if (weapon != null && weapon.Object_Type == (int)eObjectType.Shield)
-				{
 					attackData.AnimationId = (weapon.Hand != 1) ? attackData.Style.Icon : attackData.Style.TwoHandAnimation; // 2h shield?
-				}
-				int fatCost = 0;
-				if (weapon != null)
-					fatCost = CalculateEnduranceCost(living, attackData.Style, weapon.SPD_ABS);
+				int fatCost = CalculateEnduranceCost(living, attackData.Style, weapon != null ? weapon.SPD_ABS : 40);
 
 				//Reduce endurance if styled attack missed
 				switch (attackData.AttackResult)
@@ -377,28 +370,22 @@ namespace DOL.GS.Styles
 					case GameLiving.eAttackResult.Evaded:
 					case GameLiving.eAttackResult.Missed:
 					case GameLiving.eAttackResult.Parried:
-						if (player != null) //No mob endu lost yet
-							living.Endurance -= Math.Max(1, fatCost / 2);
+						living.Endurance -= Math.Max(1, fatCost / 2);
 						return false;
 				}
 
 				//Ignore all other attack results
-				if (attackData.AttackResult != GameLiving.eAttackResult.HitUnstyled
-					&& attackData.AttackResult != GameLiving.eAttackResult.HitStyle)
+				if (attackData.AttackResult != GameLiving.eAttackResult.HitUnstyled && attackData.AttackResult != GameLiving.eAttackResult.HitStyle)
 					return false;
 
 				//Did primary and backup style fail?
 				if (!CanUseStyle(living, attackData.Style, weapon))
 				{
+					// reduce players endurance, full endurance if failed style
+					living.Endurance -= fatCost;
 					if (player != null)
-					{
-						// reduce players endurance, full endurance if failed style
-						player.Endurance -= fatCost;
-
-						//"You must be hidden to perform this style!"
 						//Print a style-fail message
 						player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "StyleProcessor.ExecuteStyle.ExecuteFail", attackData.Style.Name), eChatType.CT_YouHit, eChatLoc.CL_SystemWindow);
-					}
 					return false;
 				}
 				else
@@ -409,15 +396,13 @@ namespace DOL.GS.Styles
 					bool staticGrowth = attackData.Style.StealthRequirement;  //static growth is not a function of (effective) weapon speed
 					double absorbRatio = attackData.Damage / living.UnstyledDamageCap(weapon); //scaling factor for style damage
 					double effectiveWeaponSpeed = living.AttackSpeed(weapon) * 0.001;
-					double styleGrowth = Math.Max(0,attackData.Style.GrowthOffset + attackData.Style.GrowthRate * living.GetModifiedSpecLevel(attackData.Style.Spec));
+					double styleGrowth = Math.Max(0, attackData.Style.GrowthOffset + attackData.Style.GrowthRate * living.GetModifiedSpecLevel(attackData.Style.Spec));
 					double styleDamageBonus = living.GetModified(eProperty.StyleDamage) * 0.01 - 1;
 
 					if (staticGrowth)
 					{
 						if (living.AttackWeapon.Item_Type == Slot.TWOHAND)
-						{
 							styleGrowth = styleGrowth * 1.25 + living.WeaponDamage(living.AttackWeapon) * Math.Max(0,living.AttackWeapon.SPD_ABS - 21) * 10 / 66d;
-						}
 						attackData.StyleDamage = (int)(absorbRatio * styleGrowth * ServerProperties.Properties.CS_OPENING_EFFECTIVENESS);
 					}
 					else
@@ -426,10 +411,10 @@ namespace DOL.GS.Styles
 					attackData.StyleDamage += (int)(attackData.Damage * styleDamageBonus);
 
 					//Eden - style absorb bonus
-					int absorb=0;
-					if(attackData.Target is GamePlayer && attackData.Target.GetModified(eProperty.StyleAbsorb) > 0)
+					int absorb = 0;
+					if (attackData.Target is GamePlayer && attackData.Target.GetModified(eProperty.StyleAbsorb) > 0)
 					{
-						absorb=(int)Math.Floor((double)attackData.StyleDamage * ((double)attackData.Target.GetModified(eProperty.StyleAbsorb)/100));
+						absorb = attackData.StyleDamage * attackData.Target.GetModified(eProperty.StyleAbsorb) / 100;
 						attackData.StyleDamage -= absorb;
 					}
 
@@ -439,10 +424,10 @@ namespace DOL.GS.Styles
 					living.Endurance -= fatCost;
 					if (player != null)
 					{
-						if(absorb > 0)
+						if (absorb > 0)
 						{
 							player.Out.SendMessage("A barrier absorbs " + absorb + " damage!", eChatType.CT_YouHit, eChatLoc.CL_SystemWindow);
-							if(living is GamePlayer) (living as GamePlayer).Out.SendMessage("A barrier absorbs " + absorb + " damage!", eChatType.CT_YouHit, eChatLoc.CL_SystemWindow);
+							if (living is GamePlayer pl) pl.Out.SendMessage("A barrier absorbs " + absorb + " damage!", eChatType.CT_YouHit, eChatLoc.CL_SystemWindow);
 						}
 					}
 
@@ -620,7 +605,8 @@ namespace DOL.GS.Styles
 		protected static ISpellHandler CreateMagicEffect(GameLiving caster, GameLiving target, int spellID)
 		{
 			SpellLine styleLine = SkillBase.GetSpellLine(GlobalSpellsLines.Combat_Styles_Effect);
-			if (styleLine == null) return null;
+			if (styleLine == null)
+				return null;
 
 			List<Spell> spells = SkillBase.GetSpellList(styleLine.KeyName);
 
@@ -636,17 +622,11 @@ namespace DOL.GS.Styles
 
 			ISpellHandler spellHandler = ScriptMgr.CreateSpellHandler(caster, styleSpell, styleLine);
 			if (spellHandler == null && styleSpell != null && caster is GamePlayer)
-			{
 				((GamePlayer)caster).Out.SendMessage(styleSpell.Name + " not implemented yet (" + styleSpell.SpellType + ")", eChatType.CT_System, eChatLoc.CL_SystemWindow);
-			}
 
 			// No negative effects can be applied on a keep door or via attacking a keep door
 			if ((target is GameKeepComponent || target is GameKeepDoor) && spellHandler.HasPositiveEffect == false)
-			{
 				return null;
-			}
-
-
 			return spellHandler;
 		}
 

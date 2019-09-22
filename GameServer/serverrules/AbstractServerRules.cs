@@ -922,7 +922,10 @@ namespace DOL.GS.ServerRules
 
 			foreach (eObjectType obj in GetCompatibleObjectTypes(objectType))
 			{
-				int spec = player.GetModifiedSpecLevel(SkillBase.ObjectTypeToSpec(obj));
+				var specName = SkillBase.ObjectTypeToSpec(obj);
+				if (specName == null)
+					continue;
+				int spec = player.GetModifiedSpecLevel(specName);
 				if (res < spec)
 					res = spec;
 			}
@@ -941,7 +944,10 @@ namespace DOL.GS.ServerRules
 
 			foreach (eObjectType obj in GetCompatibleObjectTypes(objectType))
 			{
-				int spec = player.GetBaseSpecLevel(SkillBase.ObjectTypeToSpec(obj));
+				var specName = SkillBase.ObjectTypeToSpec(obj);
+				if (specName == null)
+					continue;
+				int spec = player.GetBaseSpecLevel(specName);
 				if (res < spec)
 					res = spec;
 			}

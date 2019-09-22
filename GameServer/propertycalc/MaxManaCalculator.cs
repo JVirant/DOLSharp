@@ -37,7 +37,7 @@ namespace DOL.GS.PropertyCalc
 		public override int CalcValue(GameLiving living, eProperty property)
 		{
 			if (!(living is GamePlayer))
-				return Math.Max(5, (living.Level * 5) + (living.GetModified(eProperty.Intelligence) - 25));
+				return living.AbilityBonus[(int)property] + Math.Max(5, (living.Level * 5) + (living.GetModified(eProperty.Intelligence) - 25));
 
 			GamePlayer player = living as GamePlayer;
 			eStat manaStat = player.CharacterClass.ManaStat;

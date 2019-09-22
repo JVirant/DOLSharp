@@ -2373,6 +2373,22 @@ namespace DOL.GS
 						VisibleActiveWeaponSlots = template.VisibleActiveWeaponSlot;
 				}
 				#endregion
+
+				// Dre: don't change the brain if it's already a StandardMobBrain
+				if (Brain is StandardMobBrain brain)
+				{
+					brain.AggroLevel = template.AggroLevel;
+					brain.AggroRange = template.AggroRange;
+				}
+				else
+				{
+					m_ownBrain = new StandardMobBrain
+					{
+						Body = this,
+						AggroLevel = template.AggroLevel,
+						AggroRange = template.AggroRange
+					};
+				}
 			}
 
 			if (template.Spells != null) Spells = template.Spells;
@@ -2384,22 +2400,6 @@ namespace DOL.GS
 					foreach (Ability ab in template.Abilities)
 						m_abilities[ab.KeyName] = ab;
 				}
-			}
-
-			// Dre: don't change the brain if it's already a StandardMobBrain
-			if (Brain is StandardMobBrain brain)
-			{
-				brain.AggroLevel = template.AggroLevel;
-				brain.AggroRange = template.AggroRange;
-			}
-			else
-			{
-				m_ownBrain = new StandardMobBrain
-				{
-					Body = this,
-					AggroLevel = template.AggroLevel,
-					AggroRange = template.AggroRange
-				};
 			}
 		}
 
@@ -4031,30 +4031,19 @@ namespace DOL.GS
 		}
 
 		/// <summary>
-		/// npcs can always have mana to cast
-		/// </summary>
-		public override int Mana
-		{
-			get { return 5000; }
-		}
-
-		/// <summary>
-		/// The Max Mana for this NPC
-		/// </summary>
-		public override int MaxMana
-		{
-			get { return 1000; }
-		}
-
-		/// <summary>
-		/// The Concentration for this NPC
+		/// Gets the concentration left
 		/// </summary>
 		public override int Concentration
 		{
-			get
-			{
-				return 500;
-			}
+			get { return MaxConcentration - ConcentrationEffects.UsedConcentration; }
+		}
+
+		/// <summary>
+		/// Gets the maximum concentration for this player
+		/// </summary>
+		public override int MaxConcentration
+		{
+			get { return GetModified(eProperty.MaxConcentration); }
 		}
 
 		/// <summary>
