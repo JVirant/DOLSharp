@@ -1725,18 +1725,18 @@ namespace DOL.GS.PacketHandler.Client.v168
 								output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UsedItem"));
 								output.Add(" ");
 								if (spl.RecastDelay > 0)
-									output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UseItem1", Util.FormatTime(spl.RecastDelay / 1000)));
+									output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UseItem.second", Util.FormatTime(spl.RecastDelay / 1000)));
 								else
 									output.Add(
 										LanguageMgr.GetTranslation(
 											client.Account.Language,
-											"DetailDisplayHandler.WriteMagicalBonuses.UseItem2",
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem.minute",
 											"3", "00"));
 								long lastChargedItemUseTick = client.Player.TempProperties.getProperty<long>(GamePlayer.LAST_CHARGED_ITEM_USE_TICK);
 								long changeTime = client.Player.CurrentRegion.Time - lastChargedItemUseTick;
 								long recastDelay = (spl.RecastDelay > 0) ? spl.RecastDelay : 60000 * 3;
 								if (changeTime < recastDelay) //3 minutes reuse timer
-									output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UseItem3", Util.FormatTime((recastDelay - changeTime) / 1000)));
+									output.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WriteMagicalBonuses.UseItem.in", Util.FormatTime((recastDelay - changeTime) / 1000)));
 								return;
 							}
 						}

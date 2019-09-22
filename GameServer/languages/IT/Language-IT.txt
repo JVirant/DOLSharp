@@ -579,9 +579,9 @@ DetailDisplayHandler.WriteMagicalBonuses.MaxCharges:	- {0} Max
 DetailDisplayHandler.WriteMagicalBonuses.StrikeArmor:	- L'incantesimo ha una possibilita' di essere lanciato quando il nemico colpisce questo pezzo di armatura.
 DetailDisplayHandler.WriteMagicalBonuses.StrikeEnemy:	- L'incantesimo ha una possibilita' di essere lanciato quando questa arma colpisce un nemico.
 DetailDisplayHandler.WriteMagicalBonuses.UsedItem:	- L'incantesimo ha una possibilita' di essere lanciato quando questo oggetto e' usato.
-DetailDisplayHandler.WriteMagicalBonuses.UseItem1:	Puoi usare l'oggetto ogni: {0}
-DetailDisplayHandler.WriteMagicalBonuses.UseItem2:	Puoi usare l'oggetto ogni: {0}:{1} min.
-DetailDisplayHandler.WriteMagicalBonuses.UseItem3:	Puoi riusarlo entro: {0}.
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.second:	Puoi usare l'oggetto ogni: {0}
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.minute:	Puoi usare l'oggetto ogni: {0}:{1} min.
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.in:	Puoi riusarlo entro: {0}.
 DetailDisplayHandler.WritePoisonInfo.Charges:		- {0} Cariche
 DetailDisplayHandler.WritePoisonInfo.Level:		- {0} Livello
 DetailDisplayHandler.WritePoisonInfo.LevelRequired:	Livello Richiesto:

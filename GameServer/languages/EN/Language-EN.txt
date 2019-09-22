@@ -159,9 +159,9 @@ DetailDisplayHandler.WriteMagicalBonuses.MaxCharges:	- {0} Max
 DetailDisplayHandler.WriteMagicalBonuses.StrikeArmor:	- Spell has a chance of casting when enemy strikes at this armor.
 DetailDisplayHandler.WriteMagicalBonuses.StrikeEnemy:	- Spell has a chance of casting when this weapon strikes an enemy.
 DetailDisplayHandler.WriteMagicalBonuses.UsedItem:	- Spell has a chance of casting when this item is used.
-DetailDisplayHandler.WriteMagicalBonuses.UseItem1:	Can use item every: {0}
-DetailDisplayHandler.WriteMagicalBonuses.UseItem2:	Can use item every: {0}:{1} min.
-DetailDisplayHandler.WriteMagicalBonuses.UseItem3:	Can use again in: {0}.
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.second:	Can use item every: {0}
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.minute:	Can use item every: {0}:{1} min.
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.in:	Can use again in: {0}.
 DetailDisplayHandler.WritePoisonInfo.Charges:		- {0} Charges
 DetailDisplayHandler.WritePoisonInfo.Level:		- {0} Level
 DetailDisplayHandler.WritePoisonInfo.LevelRequired:	Level Requirement:

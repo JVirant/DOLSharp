@@ -119,9 +119,9 @@ DetailDisplayHandler.WriteMagicalBonuses.MaxCharges:	- {0} Max
 DetailDisplayHandler.WriteMagicalBonuses.StrikeArmor:	- Zauber wird aktiv, wenn enemy strikes at this armor.
 DetailDisplayHandler.WriteMagicalBonuses.StrikeEnemy:	- Zauber wird aktiv, wenn this weapon strikes an enemy.
 DetailDisplayHandler.WriteMagicalBonuses.UsedItem:	- Zauber wird aktiv, wenn der Gegenstand benutzt wird.
-DetailDisplayHandler.WriteMagicalBonuses.UseItem1:	Wiederverwendbar alle {0} Minuten.
-DetailDisplayHandler.WriteMagicalBonuses.UseItem2:	Wiederverwendbar alle {0}:{1} Minuten.
-DetailDisplayHandler.WriteMagicalBonuses.UseItem3:	Kann wieder verwendet werden in: {0}.
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.second:	Wiederverwendbar alle {0} Minuten.
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.minute:	Wiederverwendbar alle {0}:{1} Minuten.
+DetailDisplayHandler.WriteMagicalBonuses.UseItem.in:	Kann wieder verwendet werden in: {0}.
 DetailDisplayHandler.WritePoisonInfo.Charges:		- {0} Ladungen
 DetailDisplayHandler.WritePoisonInfo.Level:		- Stufe {0}
 DetailDisplayHandler.WritePoisonInfo.LevelRequired:	Benötigte Erfahrung:

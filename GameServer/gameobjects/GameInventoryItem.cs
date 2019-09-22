@@ -460,13 +460,15 @@ namespace DOL.GS
 				{
                     delve.Add(
 						LanguageMgr.GetTranslation(
-							"DetailDisplayHandler.WriteMagicalBonuses.UseItem1", seconds));
+							player.Client.Account.Language,
+							"DetailDisplayHandler.WriteMagicalBonuses.UseItem.second", seconds));
 				}
 				else
 				{
                     delve.Add(
 						LanguageMgr.GetTranslation(
-							"DetailDisplayHandler.WriteMagicalBonuses.UseItem2",
+							player.Client.Account.Language,
+							"DetailDisplayHandler.WriteMagicalBonuses.UseItem.minute",
 							minutes, seconds));
 				}
 
@@ -483,14 +485,16 @@ namespace DOL.GS
 					{
                         delve.Add(
 							LanguageMgr.GetTranslation(
-								"DetailDisplayHandler.WriteMagicalBonuses.UseItem1",
+								player.Client.Account.Language,
+								"DetailDisplayHandler.WriteMagicalBonuses.UseItem.second",
 								seconds));
 					}
 					else
 					{
                         delve.Add(
 							LanguageMgr.GetTranslation(
-								"DetailDisplayHandler.WriteMagicalBonuses.UseItem2",
+								player.Client.Account.Language,
+								"DetailDisplayHandler.WriteMagicalBonuses.UseItem.minute",
 								minutes, seconds));
 					}
 				}
@@ -500,18 +504,30 @@ namespace DOL.GS
 				delve.Add(" ");
 
 			if (!IsPickable)
-				delve.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "DetailDisplayHandler.HandlePacket.CannotTraded"));
+				delve.Add(LanguageMgr.GetTranslation(
+					player.Client.Account.Language,
+					"DetailDisplayHandler.HandlePacket.CannotTraded"));
 
 			if (!IsDropable)
-				delve.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "DetailDisplayHandler.HandlePacket.CannotSold"));
+				delve.Add(
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"DetailDisplayHandler.HandlePacket.CannotSold"));
 
 			if (IsIndestructible)
-				delve.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "DetailDisplayHandler.HandlePacket.CannotDestroyed"));
+				delve.Add(
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"DetailDisplayHandler.HandlePacket.CannotDestroyed"));
 
 			if (BonusLevel > 0)
 			{
 				delve.Add(" ");
-				delve.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "DetailDisplayHandler.HandlePacket.BonusLevel", BonusLevel));
+				delve.Add(
+					LanguageMgr.GetTranslation(
+						player.Client.Account.Language,
+						"DetailDisplayHandler.HandlePacket.BonusLevel",
+						BonusLevel));
 			}
 
 			//Add admin info
@@ -857,13 +873,13 @@ namespace DOL.GS
 									output.Add(
 										LanguageMgr.GetTranslation(
 											client.Account.Language,
-											"DetailDisplayHandler.WriteMagicalBonuses.UseItem1",
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem.second",
 											Util.FormatTime(spl.RecastDelay / 1000)));
 								else
 									output.Add(
 										LanguageMgr.GetTranslation(
 											client.Account.Language,
-											"DetailDisplayHandler.WriteMagicalBonuses.UseItem2",
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem.minute",
 											"3", "00"));
 								long lastChargedItemUseTick = client.Player.TempProperties.getProperty<long>(GamePlayer.LAST_CHARGED_ITEM_USE_TICK);
 								long changeTime = client.Player.CurrentRegion.Time - lastChargedItemUseTick;
@@ -872,7 +888,7 @@ namespace DOL.GS
 									output.Add(
 										LanguageMgr.GetTranslation(
 											client.Account.Language,
-											"DetailDisplayHandler.WriteMagicalBonuses.UseItem3",
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem.in",
 											Util.FormatTime((recastDelay - changeTime) / 1000)));
 								return;
 							}
@@ -1007,9 +1023,17 @@ namespace DOL.GS
 					{
 						if (spl.ID == SpellID)
 						{
-							list.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WritePotionInfo.ChargedMagic"));
-							list.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WritePotionInfo.Charges", Charges));
-							list.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WritePotionInfo.MaxCharges", MaxCharges));
+							list.Add(
+								LanguageMgr.GetTranslation(
+								client.Account.Language,
+								"DetailDisplayHandler.WritePotionInfo.ChargedMagic"));
+							list.Add(
+								LanguageMgr.GetTranslation(
+									client.Account.Language,
+									"DetailDisplayHandler.WritePotionInfo.Charges", Charges));
+							list.Add(LanguageMgr.GetTranslation(
+								client.Account.Language,
+								"DetailDisplayHandler.WritePotionInfo.MaxCharges", MaxCharges));
 							list.Add(" ");
 							WritePotionSpellsInfos(list, client, spl, potionLine);
 							list.Add(" ");
@@ -1034,14 +1058,15 @@ namespace DOL.GS
                                     list.Add(
 										LanguageMgr.GetTranslation(
 											client.Account.Language,
-											"DetailDisplayHandler.WriteMagicalBonuses.UseItem1",
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem.second",
 											seconds));
 								}
 								else
 								{
                                     list.Add(
 										LanguageMgr.GetTranslation(
-											"DetailDisplayHandler.WriteMagicalBonuses.UseItem2",
+											client.Account.Language,
+											"DetailDisplayHandler.WriteMagicalBonuses.UseItem.minute",
 											minutes, seconds));
 								}
 							}
@@ -1049,7 +1074,9 @@ namespace DOL.GS
 							if (spl.CastTime > 0)
 							{
 								list.Add(" ");
-								list.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.WritePotionInfo.NoUseInCombat"));
+								list.Add(LanguageMgr.GetTranslation(
+									client.Account.Language,
+									"DetailDisplayHandler.WritePotionInfo.NoUseInCombat"));
 							}
 							break;
 						}
