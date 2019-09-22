@@ -1,9 +1,0 @@
-# /keepcomponent Command
-Commands.GM.KeepComponents.Description:			Various keep component creation commands!
-Commands.GM.KeepComponents.Usage.Create.TID:	'/keepcomponent create <type> <keepid>' To create a keep component.
-Commands.GM.KeepComponents.Usage.Create.T:		'/keepcomponent create <type>' To create a keep component assign to nearest keep.
-Commands.GM.KeepComponents.Usage.Skin:			'/keepcomponent skin <skin>' to change the skin.
-Commands.GM.KeepComponents.Usage.Delete:		'/keepcomponent delete' to delete the component.
-Commands.GM.KeepComponents.Create.KCCreated:	You have created a keep component.
-Commands.GM.KeepComponents.Skin.YChangeSkin:	You change the skin of current keep component.
-Commands.GM.KeepComponents.Delete.YDeleteKC:	You delete the current component.

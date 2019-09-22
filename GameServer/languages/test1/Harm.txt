@@ -1,4 +1,0 @@
-# /harm Command
-Commands.GM.Harm.Description:	Harms your target (health)
-Commands.GM.Harm.Usage:			/harm <amount>
-Commands.GM.Harm.InvalidTarget:	You have not selected a valid target

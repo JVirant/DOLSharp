@@ -1,3 +1,0 @@
-# /gmrelic Command
-Commands.GM.GMRelic.Description:				Création de relique
-Commands.GM.GMRelic.Usage:					/gmrelic <magic|strength> <realm>

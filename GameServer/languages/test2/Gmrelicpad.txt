@@ -1,3 +1,0 @@
-# /gmrelicpad Command
-Commands.GM.GMRelicPad.Description:			Création de RelicPad
-Commands.GM.GMRelicPad.Usage:				/gmrelic <magic|strength> <name> <realm>

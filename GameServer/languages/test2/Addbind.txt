@@ -1,4 +1,0 @@
-# /addbind Command
-Commands.GM.AddBind.Description:				Ajout d'un point de bind
-Commands.GM.AddBind.Usage:					/addbind [radius=750]
-Commands.GM.AddBind.BindPointAdded:			Point de Bind ajouté en: X={0}, Y={1}, Z={2}, Radius={3}, Region={4}
