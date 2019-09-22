@@ -2936,6 +2936,7 @@ namespace DOL.GS
 				Mana = MaxMana;
 			else if (Mana > 0 && MaxMana > 0)
 				StartPowerRegeneration();
+			StartEnduranceRegeneration();
 
 			//If the Mob has a Path assigned he will now walk on it!
 			if (MaxSpeedBase > 0 && CurrentSpellHandler == null && !IsMoving

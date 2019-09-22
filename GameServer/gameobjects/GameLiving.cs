@@ -5293,7 +5293,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Maximum value that can be in m_endurance
 		/// </summary>
-		protected int m_maxEndurance;
+		private int m_maxEndurance;
 
 		/// <summary>
 		/// Gets/sets the object health
@@ -5384,9 +5384,9 @@ namespace DOL.GS
 			get { return m_endurance; }
 			set
 			{
-				m_endurance = Math.Min(value, m_maxEndurance);
-				m_endurance = Math.Max(m_endurance, 0);
-				if (IsAlive && m_endurance < m_maxEndurance)
+				m_endurance = Math.Min(value, MaxEndurance);
+				m_endurance = Math.Max(MaxEndurance, 0);
+				if (IsAlive && m_endurance < MaxEndurance)
 				{
 					StartEnduranceRegeneration();
 				}
