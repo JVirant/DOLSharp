@@ -278,14 +278,16 @@ GameObjects.GamePlayer.SayReceive.Says:					{0} dit, "{1}"
 GameObjects.GamePlayer.SayReceive.FalseLanguage:		{0} dit quelque chose dans une langue que vous ne comprenez pas.
 
 GameObjects.GamePlayer.Send.YouSendTo:					Vous envoyez, "{0}" à {1}.
-GameObjects.GamePlayer.SendReceive.Sends:				{0} envoie, "{1}"
-GameObjects.GamePlayer.SendReceive.FalseLanguage:       {0} envoi quelquechose dans un langage que vous ne comprenez pas.
-GameObjects.GamePlayer.SendReceive.Afk:                 {0} est AFK.
-GameObjects.GamePlayer.SendReceive.AfkMessage:          <AFK> {0} envoi, "{1}"
-GameObjects.GamePlayer.Send.target.DontUnderstandYou:   {0} ne vous comprend pas.
+#GameObjects.GamePlayer.SendReceive.Sends:				{0} envoie, "{1}"
+GameObjects.GamePlayer.SendReceive.Sends:				{0} sends, "{1}"
+GameObjects.GamePlayer.SendReceive.FalseLanguage:		{0} envoi quelquechose dans un langage que vous ne comprenez pas.
+GameObjects.GamePlayer.SendReceive.Afk:					{0} est AFK.
+#GameObjects.GamePlayer.SendReceive.AfkMessage:			<AFK> {0} envoi, "{1}"
+GameObjects.GamePlayer.SendReceive.AfkMessage:			<AFK> {0} sends, "{1}"
+GameObjects.GamePlayer.Send.target.DontUnderstandYou:	{0} ne vous comprend pas.
 
 GameObjects.GamePlayer.SetControlledNpc.ReleaseTarget:	Vous relâchez le contrôle de votre cible.
-GameObjects.GamePlayer.SetControlledNpc.ReleaseTarget2: Vous perdez le controle de votre {0}.
+GameObjects.GamePlayer.SetControlledNpc.ReleaseTarget2:	Vous perdez le controle de votre {0}.
 
 GameObjects.GamePlayer.Shade.AlreadyShade:				Vous êtes déjà dissimulé·e !
 GameObjects.GamePlayer.Shade.NoLongerShade:				Vous n'ête plus dissimulé·e !

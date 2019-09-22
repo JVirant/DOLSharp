@@ -9507,12 +9507,20 @@ namespace DOL.GS
 				type = eChatType.CT_Staff;
 
 			if (GameServer.ServerRules.IsAllowedToUnderstand(source, this))
-				Out.SendMessage(LanguageMgr.GetTranslation(Client.Account.Language, "GameObjects.GamePlayer.SendReceive.Sends", source.Name, str), type,
-				                eChatLoc.CL_ChatWindow);
+				Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						Client.Account.Language,
+						"GameObjects.GamePlayer.SendReceive.Sends",
+						source.Name, str),
+					type, eChatLoc.CL_ChatWindow);
 			else
 			{
-				Out.SendMessage(LanguageMgr.GetTranslation(Client.Account.Language, "GameObjects.GamePlayer.SendReceive.FalseLanguage", source.Name),
-				                eChatType.CT_Send, eChatLoc.CL_ChatWindow);
+				Out.SendMessage(
+					LanguageMgr.GetTranslation(
+						Client.Account.Language,
+						"GameObjects.GamePlayer.SendReceive.FalseLanguage",
+						source.Name),
+					eChatType.CT_Send, eChatLoc.CL_ChatWindow);
 				return true;
 			}
 
@@ -9521,13 +9529,21 @@ namespace DOL.GS
 			{
 				if (afkmessage == "")
 				{
-					source.Out.SendMessage(LanguageMgr.GetTranslation(source.Client.Account.Language, "GameObjects.GamePlayer.SendReceive.Afk", Name),
-					                       eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					source.Out.SendMessage(
+						LanguageMgr.GetTranslation(
+							source.Client.Account.Language,
+							"GameObjects.GamePlayer.SendReceive.Afk",
+							Name),
+						eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				}
 				else
 				{
 					source.Out.SendMessage(
-						LanguageMgr.GetTranslation(source.Client.Account.Language, "GameObjects.GamePlayer.SendReceive.AfkMessage", Name, afkmessage), eChatType.CT_Say,
+						LanguageMgr.GetTranslation(
+							source.Client.Account.Language,
+							"GameObjects.GamePlayer.SendReceive.AfkMessage",
+							Name, afkmessage),
+						eChatType.CT_Say,
 						eChatLoc.CL_ChatWindow);
 				}
 			}
