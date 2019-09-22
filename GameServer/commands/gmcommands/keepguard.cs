@@ -35,14 +35,14 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&keepguard",
 		ePrivLevel.GM,
-		"GMCommands.KeepGuard.Description",
-		"GMCommands.KeepGuard.Information",
-		"GMCommands.KeepGuard.Usage.Create",
-		"GMCommands.KeepGuard.Usage.Position.Add",
-		"GMCommands.KeepGuard.Usage.Position.Remove",
-		"GMCommands.KeepGuard.Usage.Path.Create",
-		"GMCommands.KeepGuard.Usage.Path.Add",
-		"GMCommands.KeepGuard.Usage.Path.Save")]
+		"Commands.GM.KeepGuard.Description",
+		"Commands.GM.KeepGuard.Information",
+		"Commands.GM.KeepGuard.Usage.Create",
+		"Commands.GM.KeepGuard.Usage.Position.Add",
+		"Commands.GM.KeepGuard.Usage.Position.Remove",
+		"Commands.GM.KeepGuard.Usage.Path.Create",
+		"Commands.GM.KeepGuard.Usage.Path.Add",
+		"Commands.GM.KeepGuard.Usage.Path.Save")]
 	public class KeepGuardCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		/// <summary>
@@ -170,7 +170,7 @@ namespace DOL.GS.Commands
 
 									if (client.Player.TargetObject is GameKeepComponent == false)
 									{
-										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Create.NoKCompTarget"));
+										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepGuard.Create.NoKCompTarget"));
 										return;
 									}
 									GameKeepComponent c = client.Player.TargetObject as GameKeepComponent;;
@@ -244,7 +244,7 @@ namespace DOL.GS.Commands
 
 						PositionMgr.FillPositions();
 
-						DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Create.GuardAdded"));
+						DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepGuard.Create.GuardAdded"));
 						break;
 					}
 				#endregion Create
@@ -258,7 +258,7 @@ namespace DOL.GS.Commands
 								{
 									if (!(client.Player.TargetObject is GameKeepGuard))
 									{
-										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Position.TargetGuard"));
+										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepGuard.Position.TargetGuard"));
 										return;
 									}
 
@@ -274,7 +274,7 @@ namespace DOL.GS.Commands
 									
 									if (PositionMgr.GetPosition(guard) != null)
 									{
-										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Position.PAlreadyAss", height));
+										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepGuard.Position.PAlreadyAss", height));
 										return;
 									}
 
@@ -282,7 +282,7 @@ namespace DOL.GS.Commands
 									PositionMgr.AddPosition(pos);
 									PositionMgr.FillPositions();
 
-									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Position.GuardPAdded"));
+									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepGuard.Position.GuardPAdded"));
 									break;
 								}
 							#endregion Add
@@ -291,7 +291,7 @@ namespace DOL.GS.Commands
 								{
 									if (!(client.Player.TargetObject is GameKeepGuard))
 									{
-										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Position.TargetGuard"));
+										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepGuard.Position.TargetGuard"));
 										return;
 									}
 
@@ -319,7 +319,7 @@ namespace DOL.GS.Commands
 
 									PositionMgr.FillPositions();
 
-									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Position.GuardRemoved"));
+									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepGuard.Position.GuardRemoved"));
 									break;
 								}
 							#endregion Remove
@@ -347,7 +347,7 @@ namespace DOL.GS.Commands
 									PathPoint startpoint = new PathPoint(client.Player.X, client.Player.Y, client.Player.Z, 100000, ePathType.Once);
 									client.Player.TempProperties.setProperty(TEMP_PATH_FIRST, startpoint);
 									client.Player.TempProperties.setProperty(TEMP_PATH_LAST, startpoint);
-									client.Player.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Path.CreationStarted"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+									client.Player.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepGuard.Path.CreationStarted"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 									CreateTempPathObject(client, startpoint, "TMP PP 1");
 									break;
 								}
@@ -358,7 +358,7 @@ namespace DOL.GS.Commands
 									PathPoint path = (PathPoint)client.Player.TempProperties.getProperty<object>(TEMP_PATH_LAST, null);
 									if (path == null)
 									{
-										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Path.NoPathCreatedYet"));
+										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepGuard.Path.NoPathCreatedYet"));
 										return;
 									}
 
@@ -371,7 +371,7 @@ namespace DOL.GS.Commands
 										}
 										catch
 										{
-											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Path.NoValidSpLimit", args[2]));
+											DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepGuard.Path.NoValidSpLimit", args[2]));
 											return;
 										}
 									}
@@ -390,7 +390,7 @@ namespace DOL.GS.Commands
 									len += 2;
 
 									CreateTempPathObject(client, newpp, "TMP PP " + len);
-									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Path.PPAdded", len));
+									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepGuard.Path.PPAdded", len));
 									break;
 								}
 							#endregion Add
@@ -400,20 +400,20 @@ namespace DOL.GS.Commands
 									PathPoint path = (PathPoint)client.Player.TempProperties.getProperty<object>(TEMP_PATH_LAST, null);
 									if (path == null)
 									{
-										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Path.NoPathCreatedYet"));
+										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepGuard.Path.NoPathCreatedYet"));
 										return;
 									}
 
 									GameKeepGuard guard = client.Player.TargetObject as GameKeepGuard;
 									if (guard == null || guard.PatrolGroup == null)
 									{
-										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Path.TargPatrolGuard"));
+										DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepGuard.Path.TargPatrolGuard"));
 										return;
 									}
 
 									path.Type = ePathType.Loop;
 									PositionMgr.SavePatrolPath(guard.TemplateID, path, guard.Component);
-									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Path.Saved"));
+									DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.KeepGuard.Path.Saved"));
 									RemoveAllTempPathObjects(client);
 									guard.PatrolGroup.InitialiseGuards();
 

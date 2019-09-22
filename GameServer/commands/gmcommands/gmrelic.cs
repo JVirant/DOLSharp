@@ -26,8 +26,8 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&gmrelic",
 		ePrivLevel.GM,
-		"GMCommands.GMRelic.Description",
-		"GMCommands.GMRelic.Usage")]
+		"Commands.GM.GMRelic.Description",
+		"Commands.GM.GMRelic.Usage")]
 	public class GMRelicCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		public void OnCommand(GameClient client, string[] args)

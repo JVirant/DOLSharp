@@ -1,0 +1,23 @@
+# /reload Command
+Commands.Admin.Reload.Description:        Reload various elements.
+Commands.Admin.Reload.Usage.Realm:        Realm can be specified by number (0|1|2|3) or by name (n|a|m|h OR none|albion|midgard|hibernia) 
+Commands.Admin.Reload.Usage.Mob:          '/reload mob' # Reload all mob in current region.
+Commands.Admin.Reload.Usage.Object:       '/reload object # reload all static object in current region.
+Commands.Admin.Reload.Usage.Specs:        '/reload specs' # reload all specializations.
+Commands.Admin.Reload.Usage.Spells:       '/reload spells' # reload all spells.
+Commands.Admin.Reload.Usage.Mob.Realm:    '/reload mob realm <0|1|2|3>' # reload all mob with specific realm in current region.
+Commands.Admin.Reload.Usage.Mob.Model:    '/reload mob model <model_ID>' # reload all mob with specific model in current region.
+Commands.Admin.Reload.Usage.Mob.Name:     '/reload mob name <name_you_want>' # reload all mob with specific name in current region.
+Commands.Admin.Reload.Usage.Object.Realm: '/reload object realm <0|1|2|3>' # reload all static object with specific realm in current region.
+Commands.Admin.Reload.Usage.Object.Name:  '/reload object name <name>' # reload all static object with specific name in current region.
+Commands.Admin.Reload.Usage.Object.Model: '/reload object model <ID#>' # reload all static object with specific model in current region.
+Commands.Admin.Reload.Usage.ObjectMob.Realm: '/reload <object|mob> realm <0|1|2|3>' # reload all element with specific realm in current region.
+Commands.Admin.Reload.Usage.Name:         '/reload <object|mob> name <name_you_want>' # Reload all element with a specified name in the region.
+Commands.Admin.Reload.Reloaded.Specs:     {0} specializations loaded.
+Commands.Admin.Reload.Usage.Model:        '/reload <object|mob> model <ID#>' # Reload all element with a specified name in the region.
+Commands.Admin.Reload.Command.Failed:     '/reload command' Failed, review parameters.
+Commands.Admin.Reload.Reloaded.Mobs:      {0} mobs reloaded!
+Commands.Admin.Reload.Reloaded.Spells:    Reloaded db spells and {0} spells for all lines !
+Commands.Admin.Reload.Reloaded.Specs:     {0} specializations loaded.
+Commands.Admin.Reload.NotSupported.Console: Region reload not supported from console.
+Commands.Admin.Reload.ReloadingMobs:      Reloading Mobs: {0}, {1}. In region: {2}.

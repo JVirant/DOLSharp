@@ -1,0 +1,21 @@
+# /keepguard Command
+Commands.GM.KeepGuard.Description:				Various keep guard commands!
+Commands.GM.KeepGuard.Information:				Use '/mob' command if you want to change other param of guard.
+Commands.GM.KeepGuard.Usage.Create:				'/keepguard create <lord|fighter|archer|healer|stealther|caster|hastener|mission|patrol> <static(optional for archer and caster)>'.
+Commands.GM.KeepGuard.Usage.Position.Add:		'/keepguard position add <height(optional)>'.
+Commands.GM.KeepGuard.Usage.Position.Remove:	'/keepguard position remove'.
+Commands.GM.KeepGuard.Usage.Path.Create:		'/keepguard path create'.
+Commands.GM.KeepGuard.Usage.Path.Add:			'/keepguard path add'.
+Commands.GM.KeepGuard.Usage.Path.Save:			'/keepguard path save'.
+Commands.GM.KeepGuard.Create.NoKCompTarget:		You need to target a keep component to create a patrol!
+Commands.GM.KeepGuard.Create.GuardAdded:		Guard added!
+Commands.GM.KeepGuard.Position.PAlreadyAss:		You already have a position assigned for height {0}, remove first!
+Commands.GM.KeepGuard.Position.GuardPAdded:		Guard position added
+Commands.GM.KeepGuard.Position.TargetGuard:		Target a Guard first!
+Commands.GM.KeepGuard.Position.GuardRemoved:	Guard position removed!
+Commands.GM.KeepGuard.Path.CreationStarted:		Path creation started! You can add new pathpoints via '/keepguard path add' now!
+Commands.GM.KeepGuard.Path.NoPathCreatedYet:	No path created yet! Use '/keepguard path create' first!
+Commands.GM.KeepGuard.Path.NoValidSpLimit:		No valid speedlimit '{0}'!
+Commands.GM.KeepGuard.Path.PPAdded:				PathPoint added. Current PathLength = {0}.
+Commands.GM.KeepGuard.Path.TargPatrolGuard:		Target a patrol guard first!
+Commands.GM.KeepGuard.Path.Saved:				Path saved

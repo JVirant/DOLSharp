@@ -1,0 +1,10 @@
+# /refresh Command
+Commands.Admin.Refresh.Description:  Rafraîchi une partie du cache de donnée stocké dans les scripts ou autres objets.
+Commands.Admin.Refresh.List:         '/refresh list' # Liste les modules disponibles.
+Commands.Admin.Refresh.ClassName:    '/refresh <ClassName>.<MethodName> # Rafraîchi un module.
+Commands.Admin.Refresh.Module:       --- Rafraîchi le cache static du module « {0} »
+Commands.Admin.Refresh.ModuleRetval: --- Le module a retourné : {0}
+Commands.Admin.Refresh.ModuleWrong:  Mauvais module... Vérifier '/refresh list' !
+Commands.Admin.Refresh.ModuleError:  -!- Erreur lors du rafraichissement du module : {0} - {1}
+Commands.Admin.Refresh.ModuleDone:   -.- Le rafraîchissement du module « {0} » est terminé
+Commands.Admin.Refresh.Available:    Modules disponible :

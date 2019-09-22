@@ -1,0 +1,36 @@
+﻿
+# Horse Emotes
+Commands.Players.HorseEmote.MustBeOnMount:					Vous devez chevaucher votre monture pour utiliser cette commande !
+Commands.Players.HorseEmote.You:							    Vous
+Commands.Players.HorseEmote.courbette.ToOthers:				La monture de {0} fait une courbette.
+Commands.Players.HorseEmote.courbette.ToSource:				-
+Commands.Players.HorseEmote.courbette.NoTargetToOthers:		La monture de {0} effectue une courbette.
+Commands.Players.HorseEmote.courbette.NoTargetToSource:		Votre monture effectue une courbette.
+Commands.Players.HorseEmote.graze.ToOthers:					La monture de {0} broute
+Commands.Players.HorseEmote.graze.ToSource:					-
+Commands.Players.HorseEmote.graze.NoTargetToOthers:			{0} laisse sa monture brouter.
+Commands.Players.HorseEmote.graze.NoTargetToSource:			Vous laissez votre monture brouter.
+Commands.Players.HorseEmote.halt.ToOthers:					{0} fait signe à {1} de s'arrêter.
+Commands.Players.HorseEmote.halt.ToSource:					Vous faites signe à {0} de s'arrêter.
+Commands.Players.HorseEmote.halt.NoTargetToOthers:			{0} fait signe à tout le monde de s'arrêter.
+Commands.Players.HorseEmote.halt.NoTargetToSource:			Vous faites signe à tout le monde de s'arrêter.
+Commands.Players.HorseEmote.nod.ToOthers:					La monture de {0} incline la tête devant {1} !
+Commands.Players.HorseEmote.nod.ToSource:					Votre monture incline la tête devant {0}.
+Commands.Players.HorseEmote.nod.NoTargetToOthers:			La monture de {0} incline la tête.
+Commands.Players.HorseEmote.nod.NoTargetToSource:			Votre monture incline la tête.
+Commands.Players.HorseEmote.pet.ToOthers:					-
+Commands.Players.HorseEmote.pet.ToSource:					-
+Commands.Players.HorseEmote.pet.NoTargetToOthers:			{0} caresse sa monture.
+Commands.Players.HorseEmote.pet.NoTargetToSource:			Vous caressez votre monture.
+Commands.Players.HorseEmote.rear.ToOthers:					La monture de {0} se cabre face à {1} !
+Commands.Players.HorseEmote.rear.ToSource:					Votre monture se cabre face à {0}.
+Commands.Players.HorseEmote.rear.NoTargetToOthers:			La monture de {0} se cabre.
+Commands.Players.HorseEmote.rear.NoTargetToSource:			Votre monture se cabre.
+Commands.Players.HorseEmote.startle.ToOthers:				La monture de {0} a un mouvement de crainte face à {1} !
+Commands.Players.HorseEmote.startle.ToSource:				Votre monture a un mouvement de crainte face à {0}.
+Commands.Players.HorseEmote.startle.NoTargetToOthers:		La monture de {0} a un mouvement de crainte.
+Commands.Players.HorseEmote.startle.NoTargetToSource:		Votre monture a un mouvement de crainte.
+Commands.Players.HorseEmote.trick.ToOthers:					{0} se tient debout sur sa monture pour impressionner {1} !
+Commands.Players.HorseEmote.trick.ToSource:					Vous vous tenez debout sur votre monture pour impressionner {0}.
+Commands.Players.HorseEmote.trick.NoTargetToOthers:			{0} se tient debout sur sa monture pour impressionner l'assistance.
+Commands.Players.HorseEmote.trick.NoTargetToSource:			Vous vous tenez debout sur votre monture pour impressionner l'assistance.

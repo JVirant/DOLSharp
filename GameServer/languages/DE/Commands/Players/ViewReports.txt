@@ -1,0 +1,8 @@
+# /ViewReport
+Commands.Players.ViewReport.Help.Close:			'/viewreport close <report #>' Schließt den Bericht mit der ID #. 
+Commands.Players.ViewReport.Help.Delete:			'/viewreport delete <report #' Löscht den Bericht mit der ID #. 
+Commands.Players.ViewReport.InvalidReport:		Das ist kein gültiger Bericht.
+Commands.Players.ViewReport.NoPriv:			Ihr seid nicht berechtigt Berichte zu verändern.
+Commands.Players.ViewReport.ReportDeleted:		Bericht {0} wurde gelöscht. 
+Commands.Players.ViewReport.UnknownCommand:		Das ist kein gültiger Befehl. 
+Commands.Players.ViewReport.Usage:			Verwendet: 

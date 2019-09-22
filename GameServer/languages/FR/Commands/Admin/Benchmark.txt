@@ -1,0 +1,9 @@
+# /benchmark Command
+Commands.Admin.Benchmark.Description: Test les performances « Benchmark » de certaines partie du serveur DOL.
+Commands.Admin.Benchmark.ListSkills:  '/benchmark listskills' # Retourne le temps de calcul de 1000 itérations.
+Commands.Admin.Benchmark.ListSpells:  '/benchmark listspells' # Retourne le temps de calcul pour 1000 itérations. 
+Commands.Admin.Benchmark.Styles:      '/benchmark styles'     # Non implémenté.
+Commands.Admin.Benchmark.Respawns:    '/benchmark respawns'   # Non implémenté.
+Commands.Admin.Benchmark.Deaths:      '/benchmark deaths'     # Non implémenté.
+Commands.Admin.Benchmark.Tooltips:    '/benchmark tooltips'   # Non implémenté.
+Commands.Admin.Benchmark.Usage:       Le test de performance de « {0} » à mis {1}ms pour {2} iterations...

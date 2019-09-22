@@ -1,0 +1,4 @@
+# /Cancelstyle
+Commands.Players.Cancelstyle.Set:			Kampfstil-Abbruch {0}geschaltet.
+Commands.Players.Cancelstyle.On:			an
+Commands.Players.Cancelstyle.Off:			aus

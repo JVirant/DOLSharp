@@ -1,0 +1,5 @@
+# /serverproperties Command
+Commands.Admin.ServerProperties.Description:			Recharger les propriétés du serveur depuis la base de données.
+Commands.Admin.ServerProperties.Usage:				/serverproperties
+Commands.Admin.ServerProperties.DataBaseXML:			Désolé! XML utilise un cache, vous ne pouvez pas recharger les propriétés du serveur à moins d'utiliser MySQL.
+Commands.Admin.ServerProperties.PropertiesRefreshed:	Les propriétés du serveur ont été rechargées.

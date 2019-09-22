@@ -1,0 +1,6 @@
+# /Disband
+Commands.Players.Disband.Disbanded:			{o} was disbanded from group.
+Commands.Players.Disband.NoPlayer:			No players in group with that name.
+Commands.Players.Disband.NotInGroup:			You are not in a group.
+Commands.Players.Disband.NotLeader:			You are not the leader of your group.
+Commands.Players.Disband.NoYourself:			Can't disband yourself in such way.

@@ -1,0 +1,5 @@
+# /Range
+Commands.Players.Range.InvalidObject:			This command only works on objects.
+Commands.Players.Range.NeedTarget:			Range to target: You don't have a valid target set.
+Commands.Players.Range.NotVisible:			 (Target not visible)
+Commands.Players.Range.Result:				Range to target: {0} units. {1}

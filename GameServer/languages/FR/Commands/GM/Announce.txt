@@ -1,0 +1,7 @@
+# /announce Command
+Commands.GM.Announce.Description:			Envoyer un Message à tous les joueurs connectés
+Commands.GM.Announce.Usage:					/announce <log|window|send|center|confirm> <message>
+Commands.GM.Announce.LogAnnounce:			[Announce]: {0}
+Commands.GM.Announce.WindowAnnounce:			Annonce de {0}
+Commands.GM.Announce.SendAnnounce:			[Announce]: {0}
+Commands.GM.Announce.ConfirmAnnounce:		Annonce de {0}: {1}

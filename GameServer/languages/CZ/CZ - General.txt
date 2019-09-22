@@ -343,11 +343,6 @@ HousingPlaceItemHandler.IndoorObjectPlaced:	Vnitrní objekt umisten. {0} pozic z
 HousingPlaceItemHandler.NoHookpoint:		Zadne uchycovaci body nejsou momentalne k dispozici !
 HousingPlaceItemHandler.PutMoney:			Dal jsi penize na tvuj dum.
 
-# SCRIPTS
-# /Language
-Scripts.Players.Language.Set:				Zmenil jsi jazyk na: {0}.
-Scripts.Players.Language.Current:			Jazyk je prave nastaven na: {0}.
-
 # ZONE BONUSES
 
 ZoneBonus.AdditionalXP: You gain an additional {0} experience for adventuring in this zone!

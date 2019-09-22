@@ -1,0 +1,8 @@
+# /FreeLevel
+CommandsPlayer.FreeLevel.AboveMaximumLevel:	Vous êtes au dessus du niveau maximum pour obtenir un niveau supplémentaire.
+CommandsPlayer.FreeLevel.EligibleFreeLevel:	Vous êtes éligible à un niveau gratuit ! Cliquer sur votre Instructeur pour le reçevoir (ou '/freelevel decline' pour l'annuler).
+CommandsPlayer.FreeLevel.FreeLevelIn:	    Vous serez éligible à un niveau gratuit dans: {0} jour {1} heures {2} minutes.
+CommandsPlayer.FreeLevel.FreeLevelIn2:	    Vous serez bientôt éligible à un niveau gratuit, lorsque vous gagnerez un niveau et dans: {0} jour {1} heures {2} minutes.
+CommandsPlayer.FreeLevel.FreeLevelSoon:	    Vous serez bientôt éligible à un niveau gratuit, lorsque vous gagnerez un niveau.
+CommandsPlayer.FreeLevel.NoFreeLevel:	    Vosu n'avez aucun niveau gratuit!
+CommandsPlayer.FreeLevel.Removed:		    Votre niveau gratuit à été supprimé.

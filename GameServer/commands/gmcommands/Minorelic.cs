@@ -30,19 +30,19 @@ namespace DOL.GS.Commands
     [Cmd(
      "&minorelic",
      ePrivLevel.GM,
-     "GMCommands.MinoRelic.Description",
-     "GMCommands.MinoRelic.Usage.Create",
-     "GMCommands.MinoRelic.Usage.MoveHere",
-     "GMCommands.MinoRelic.Usage.Name",
-	 "GMCommands.MinoRelic.Usage.Spell",
-     "GMCommands.MinoRelic.Usage.Model",
-     "GMCommands.MinoRelic.Usage.Effect",
-     "GMCommands.MinoRelic.Usage.Info",
-     "GMCommands.MinoRelic.Usage.DeSpawn",
-     "GMCommands.MinoRelic.Usage.Remove",
-	 "GMCommands.MinoRelic.Usage.XP",
-     "GMCommands.MinoRelic.Usage.ShowAll",
-     "GMCommands.MinoRelic.Usage.Spawn")]
+     "Commands.GM.MinoRelic.Description",
+     "Commands.GM.MinoRelic.Usage.Create",
+     "Commands.GM.MinoRelic.Usage.MoveHere",
+     "Commands.GM.MinoRelic.Usage.Name",
+	 "Commands.GM.MinoRelic.Usage.Spell",
+     "Commands.GM.MinoRelic.Usage.Model",
+     "Commands.GM.MinoRelic.Usage.Effect",
+     "Commands.GM.MinoRelic.Usage.Info",
+     "Commands.GM.MinoRelic.Usage.DeSpawn",
+     "Commands.GM.MinoRelic.Usage.Remove",
+	 "Commands.GM.MinoRelic.Usage.XP",
+     "Commands.GM.MinoRelic.Usage.ShowAll",
+     "Commands.GM.MinoRelic.Usage.Spawn")]
     public class MinoRelicCommandHandler : AbstractCommandHandler, ICommandHandler
     {
         public void OnCommand(GameClient client, string[] args)
@@ -236,33 +236,33 @@ namespace DOL.GS.Commands
 
 						var info = new List<string>();
                         info.Add("===========================");
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.RelicInfo"));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.RelicInfo"));
                         info.Add("===========================");
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.Name", relic.Name));
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.ID", relic.RelicID));
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.CurrentXP", relic.XP));
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.Level", relic.Level));
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.Effect", relic.Effect));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.Name", relic.Name));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.ID", relic.RelicID));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.CurrentXP", relic.XP));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.Level", relic.Level));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.Effect", relic.Effect));
                         info.Add("===========================");
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.PositionInfo"));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.PositionInfo"));
                         info.Add("===========================");
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.SpawnX", relic.SpawnX));
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.SpawnY", relic.SpawnX));
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.SpawnZ", relic.SpawnZ));
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.SpawnHeading" + relic.SpawnHeading));
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.SpawnRegion", relic.SpawnRegion));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.SpawnX", relic.SpawnX));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.SpawnY", relic.SpawnX));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.SpawnZ", relic.SpawnZ));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.SpawnHeading" + relic.SpawnHeading));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.SpawnRegion", relic.SpawnRegion));
                         info.Add("===========================");
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.SpellInfo"));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.SpellInfo"));
                         info.Add("===========================");
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.SpellID", relic.RelicSpell));
-						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.SpellTarget", relic.RelicTarget));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.SpellID", relic.RelicSpell));
+						info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.SpellTarget", relic.RelicTarget));
 
                         Spell spell = SkillBase.GetSpellByID(relic.RelicSpellID);
                         if (spell != null)
                         {
-							info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.SpellName", spell.Name));
-							info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.SpellType", spell.SpellType));
-							info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Info.SpellDuration", (spell.Duration / 1000)));
+							info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.SpellName", spell.Name));
+							info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.SpellType", spell.SpellType));
+							info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Info.SpellDuration", (spell.Duration / 1000)));
                         }
 
 						client.Out.SendCustomTextWindow("[ " + relic.Name + " ]", info);
@@ -423,9 +423,9 @@ namespace DOL.GS.Commands
                                 }
                             }
 
-							info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.ShowAll.Count", info.Count));
+							info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.ShowAll.Count", info.Count));
 
-							client.Out.SendCustomTextWindow(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.ShowAll.Infos"), info);
+							client.Out.SendCustomTextWindow(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.ShowAll.Infos"), info);
 
                             return;
                         }
@@ -439,9 +439,9 @@ namespace DOL.GS.Commands
                             }
                         }
 
-                        info.Add(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.ShowAll.Count", MinotaurRelicManager.m_minotaurrelics.Count));
+                        info.Add(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.ShowAll.Count", MinotaurRelicManager.m_minotaurrelics.Count));
 
-						client.Out.SendCustomTextWindow(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.ShowAll.Infos"), info);
+						client.Out.SendCustomTextWindow(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.ShowAll.Infos"), info);
 
 						break;
 					}
@@ -465,7 +465,7 @@ namespace DOL.GS.Commands
 
                         if (relic.respawntimer == null)
                         {
-							DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.MinoRelic.Spawn.AlreadySpawned"));
+							DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.MinoRelic.Spawn.AlreadySpawned"));
                             return;
                         }
 

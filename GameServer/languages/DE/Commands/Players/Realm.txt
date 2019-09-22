@@ -1,0 +1,7 @@
+# /Realm
+Commands.Players.Realm.AlbKeeps:				Albion Festungen
+Commands.Players.Realm.DarknessFalls:			Darkness Falls
+Commands.Players.Realm.HibKeeps:				Hibernia Festungen
+Commands.Players.Realm.MidKeeps:				Midgard Festungen
+Commands.Players.Realm.Title:				Reichsstatus
+Commands.Players.Realm.UseRelicCommand:			Gebt '/relic' für den Reliktstatus ein.

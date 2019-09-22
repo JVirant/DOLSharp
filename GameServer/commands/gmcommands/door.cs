@@ -34,20 +34,20 @@ namespace DOL.GS.Commands
 	[Cmd(
 		"&door",
 		ePrivLevel.GM,
-		"GMCommands.door.Description",
+		"Commands.GM.door.Description",
 		"'/door show' toggle enable/disable add dialog when targeting doors",
-		"GMCommands.door.Add",
-		"GMCommands.door.Update",
-		"GMCommands.door.Delete",
-		"GMCommands.door.Name",
-		"GMCommands.door.Level",
-		"GMCommands.door.Realm",
-		"GMCommands.door.Guild",
+		"Commands.GM.door.Add",
+		"Commands.GM.door.Update",
+		"Commands.GM.door.Delete",
+		"Commands.GM.door.Name",
+		"Commands.GM.door.Level",
+		"Commands.GM.door.Realm",
+		"Commands.GM.door.Guild",
 		"'/door sound <soundid>'",
-		"GMCommands.door.Info",
-		"GMCommands.door.Heal",
-		"GMCommands.door.Locked",
-		"GMCommands.door.Unlocked")]
+		"Commands.GM.door.Info",
+		"Commands.GM.door.Heal",
+		"Commands.GM.door.Locked",
+		"Commands.GM.door.Unlocked")]
 	public class NewDoorCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		private int DoorID;

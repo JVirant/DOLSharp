@@ -1,0 +1,66 @@
+# /item Command
+Commands.GM.Item.Description:					Various Item commands!
+Commands.GM.Item.Information:					Slot numbers are optional, if not included the default is 79 (the last backpack slot). Names with spaces are given in quotes "<name>".
+Commands.GM.Item.Usage.Blank:					'/item blank' - Create a blank item
+Commands.GM.Item.Usage.Info:					'/item info <ItemTemplateName>' - Get Info on a ItemTemplate
+Commands.GM.Item.Usage.Create:					'/item create <ItemTemplateName> [count]' - Create a new item from a template
+Commands.GM.Item.Usage.Count:					'/item count <Amount> [slot #]' - Change item count
+Commands.GM.Item.Usage.MaxCount:				'/item maxcount <Amount> [slot #]' - Change max amount allowed in one slot
+Commands.GM.Item.Usage.PackSize:				'/item packsize <Amount> [slot #]' - Change amount of items sold at once
+Commands.GM.Item.Usage.Model:					'/item model <ModelID> [slot #]' - Change item model
+Commands.GM.Item.Usage.Extension:				'/item extension <ExtensionID> [slot #]' - Change item extension
+Commands.GM.Item.Usage.Color:					'/item color <ColorID> [slot #]' - Change item color
+Commands.GM.Item.Usage.Effect:					'/item effect <EffectID> [slot #]' - Change item effect
+Commands.GM.Item.Usage.Name:					'/item name <NameID> [slot #]' - Change item name
+Commands.GM.Item.Usage.CrafterName:				'/item craftername <CrafterNameID> [slot #]' - Change item crafter name
+Commands.GM.Item.Usage.Type:					'/item type <TypeID> [slot #]' - Change item type
+Commands.GM.Item.Usage.Object:					'/item object <ObjectID> [slot #]' - Change object type
+Commands.GM.Item.Usage.Hand:					'/item hand <HandID> [slot #]' - Change item hand
+Commands.GM.Item.Usage.DamageType:				'/item damagetype <DamageTypeID> [slot #]' - Change item damage type
+Commands.GM.Item.Usage.Emblem:					'/item emblem <EmblemID> [slot #]' - Change item emblem
+Commands.GM.Item.Usage.Price:					'/item price <platinum> <gold> <silver> <copper> [slot #]' - Change the price of an item
+Commands.GM.Item.Usage.Condition:				'/item condition <con> <maxCon> [slot #]' - Change the condition of an item
+Commands.GM.Item.Usage.Quality:					'/item quality <qua> [slot #]' - Change the quality of an item
+Commands.GM.Item.Usage.Durability:				'/item durability <dur> <maxDur> [slot #]' - Change the durability of an item
+Commands.GM.Item.Usage.isPickable:				'/item ispickable <true|false> [slot #]' - Sets whether or not an item can be picked up
+Commands.GM.Item.Usage.isDropable:				'/item isdropable <true|false> [slot #]' - Sets whether or not an item can be dropped
+Commands.GM.Item.Usage.IsTradable:				'/item istradable <true|false> [slot #]' - Sets whether or not an item can be traded
+Commands.GM.Item.Usage.IsStackable:				'/item isstackable <true|false> [slot #]' - Sets whether or not an item is stackable
+Commands.GM.Item.Usage.IsNotLosingDUR:			'/item isnotlosingdur <true|false> [slot #]' - Sets whether or not an item is losing dur after repairs
+Commands.GM.Item.Usage.IsIndestructible:		'/item isindestructible <true|false> [slot #]' - Sets whether or not an item is indestructible via shit+d
+Commands.GM.Item.Usage.CanDropAsLoot:			'/item candropasloot <true|false> [slot #]' - Sets whether or not an item can be looted
+Commands.GM.Item.Usage.Bonus:					'/item bonus <bonus> [slot #]' - Sets the item bonus
+Commands.GM.Item.Usage.mBonus:					'/item mbonus <num> <BonusType> <value> [slot #]' - Sets the item magical bonus (num 0 = ExtraBonus)
+Commands.GM.Item.Usage.Weight:					'/item weight <weight> [slot #]' - Sets the item weight
+Commands.GM.Item.Usage.DPS_AF:					'/item dps_af <NewDPS_AF> [slot #]' - Change item DPS_AF
+Commands.GM.Item.Usage.SPD_ABS:					'/item spd_abs <NewSPD_ABS> [slot #]' - Change item SPD_ABS
+Commands.GM.Item.Usage.Material:				'/item material <Material> <MaterialLevel> [slot #]' - Change item material
+Commands.GM.Item.Usage.Scroll:					'/item scroll <ArtifactID> <PageNumber>' - Create an artifact scroll
+Commands.GM.Item.Usage.Spell:					'/item spell <Charges> <MaxCharges> <SpellID> [slot #]' - Change item spell charges #0
+Commands.GM.Item.Usage.Spell1:					'/item spell1 <Charges> <MaxCharges> <SpellID> [slot #]' - Change item spell charges #1
+Commands.GM.Item.Usage.Proc:					'/item proc <SpellID> [slot #]' - Change item proc #0
+Commands.GM.Item.Usage.Proc1:					'/item proc1 <SpellID> [slot #]' - Change item proc #1
+Commands.GM.Item.Usage.Poison:					'/item poison <Charges> <MaxCharges> <SpellID> [slot #]' - Change item poison
+Commands.GM.Item.Usage.Realm:					'/item realm <num> [slot #]' - Change items realm
+Commands.GM.Item.Usage.SaveTemplate:			'/item savetemplate <TemplateID> [slot #]' - Create a new template
+Commands.GM.Item.Usage.TemplateID:				'/item templateid <TemplateID> [slot #]' - Change an items template ID
+Commands.GM.Item.Usage.FindID:					'/item findid <part_of_id>'
+Commands.GM.Item.Usage.FindName:				'/item findname <part_of_name>'
+Commands.GM.Item.Blank.ItemCreated:				Blank item created in first free backpack slot.
+Commands.GM.Item.Blank.CreationError:			Error in item creation.
+Commands.GM.Item.Scroll.NotFound:				Scroll page {0} for artifact {1} could not be found.
+Commands.GM.Item.Scroll.Created:				Scroll {0} created.
+Commands.GM.Item.Create.NotFound:				ItemTemplate with id {0} could not be found!
+Commands.GM.Item.Create.Created:				Item created: Level={0}, Name={1}, Count={2}
+Commands.GM.Item.Count.NoItemInSlot:			No item in slot {0}!
+Commands.GM.Item.Count.NotStackable:			{0} is not stackable.
+Commands.GM.Item.Info.ItemTemplateUnknown:		ItemTemplate with ID={0} is unknown!
+Commands.GM.Item.Info.Informations:				Item {0} Informations
+Commands.GM.Item.mBonus.NonSetBonusNumber:		Not set bonus number!
+Commands.GM.Item.mBonus.TypeShouldBeInRange:	Bonus type should be in range from 0 to {0}.
+Commands.GM.Item.mBonus.NonSetBonusType:		Not set bonus type!
+Commands.GM.Item.mBonus.NotSetBonusValue:		Not set bonus value!
+Commands.GM.Item.mBonus.UnknownBonusNumber:		Unknown bonus number: {0}
+Commands.GM.Item.SaveTemplate.ItemSaved:		The ItemTemplate {0} was successfully saved.
+Commands.GM.Item.FindID.MatchingIDsForX:		Matching ID's for {0} count {1}.
+Commands.GM.Item.FindName.MatchingNamesForX:	Matching Names for {0} count {1}.

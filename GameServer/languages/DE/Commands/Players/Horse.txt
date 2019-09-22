@@ -1,0 +1,35 @@
+# /horse
+Commands.Players.Commands.Players.HorseEmote.MustBeOnMount:				Ihr könnt dies nicht machen während Ihr reitet.
+Commands.Players.Commands.Players.HorseEmote.You:						Ihr
+Commands.Players.Commands.Players.HorseEmote.courbette.ToOthers:				-
+Commands.Players.Commands.Players.HorseEmote.courbette.ToSource:				-
+Commands.Players.Commands.Players.HorseEmote.courbette.NoTargetToOthers:			{0}s Reittier verbeugt sich.
+Commands.Players.Commands.Players.HorseEmote.courbette.NoTargetToSource:			Euer Reittier verbeugt sich.
+Commands.Players.Commands.Players.HorseEmote.graze.ToOthers:				-
+Commands.Players.Commands.Players.HorseEmote.graze.ToSource:				-
+Commands.Players.Commands.Players.HorseEmote.graze.NoTargetToOthers:			{0} lässt {1} Reittier grasen.
+Commands.Players.Commands.Players.HorseEmote.graze.NoTargetToSource:			Ihr lasst Euer Reittier grasen.
+Commands.Players.Commands.Players.HorseEmote.halt.ToOthers:				{0} befiehlt {1} zu halten.
+Commands.Players.Commands.Players.HorseEmote.halt.ToSource:				Ihr befehlt {0} zu halten.
+Commands.Players.Commands.Players.HorseEmote.halt.NoTargetToOthers:			{0} befiehlt jedem zu halten.
+Commands.Players.Commands.Players.HorseEmote.halt.NoTargetToSource:			Ihr befehlt jedem zu halten.
+Commands.Players.Commands.Players.HorseEmote.nod.ToOthers:				{0}s Reittier nickt {1} zu.
+Commands.Players.Commands.Players.HorseEmote.nod.ToSource:				Euer Reiitier nickt {0} zu.
+Commands.Players.Commands.Players.HorseEmote.nod.NoTargetToOthers:			{0}s Reittier nickt.
+Commands.Players.Commands.Players.HorseEmote.nod.NoTargetToSource:			Euer Reittier nickt.
+Commands.Players.Commands.Players.HorseEmote.pet.ToOthers:				-
+Commands.Players.Commands.Players.HorseEmote.pet.ToSource:				-
+Commands.Players.Commands.Players.HorseEmote.pet.NoTargetToOthers:			{0} streichelt {1} Reittier.
+Commands.Players.Commands.Players.HorseEmote.pet.NoTargetToSource:			Ihr streichelt Euer Reittier.
+Commands.Players.Commands.Players.HorseEmote.rear.ToOthers:				{0}s Reittier bäumt sich auf beim Anblick von {1}.
+Commands.Players.Commands.Players.HorseEmote.rear.ToSource:				Euer Reittier bäumt sich auf beim Anblick von {0}.
+Commands.Players.Commands.Players.HorseEmote.rear.NoTargetToOthers:			{0}s Reittier bäumt sich auf.
+Commands.Players.Commands.Players.HorseEmote.rear.NoTargetToSource:			Euer Reittier bäumt sich auf.
+Commands.Players.Commands.Players.HorseEmote.startle.ToOthers:				{0}s Reittier erschreckt sich durch {1}.
+Commands.Players.Commands.Players.HorseEmote.startle.ToSource:				Euer Reittier erschreckt sich durch {0}.
+Commands.Players.Commands.Players.HorseEmote.startle.NoTargetToOthers:			{0}s Reittier erschreckt sich.
+Commands.Players.Commands.Players.HorseEmote.startle.NoTargetToSource:			Euer Reittier is erschreckt sich.
+Commands.Players.Commands.Players.HorseEmote.trick.ToOthers:				{0} steht auf {2} Reittier um {1} zu beeindrucken.
+Commands.Players.Commands.Players.HorseEmote.trick.ToSource:				Ihr steht auf Eurem Reittier um {0} zu beeindrucken.
+Commands.Players.Commands.Players.HorseEmote.trick.NoTargetToOthers:			{0} steht auf {1} Reittier um alle zu beeindrucken.
+Commands.Players.Commands.Players.HorseEmote.trick.NoTargetToSource:			Ihr steht auf Eurem Reittier um alle zu beeindrucken.

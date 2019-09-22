@@ -1,0 +1,5 @@
+# /code Command
+Commands.Admin.Code.Description:						Executes custom code!
+Commands.Admin.Code.Usage:							/code <codesnippet>
+Commands.Admin.Code.ErrorCompiling:					Error Compiling Expression:
+Commands.Admin.Code.CodeExecuted:					Code executed...

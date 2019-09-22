@@ -69,7 +69,7 @@ namespace DOL.GS
 				return 0;
 			}
 
-			player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "Repair.BeginWork.BeginRepairing2", item.Name, CalculateSuccessChances(player, item).ToString()), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+			player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "Repair.BeginWork.BeginRepairing1", item.Name, CalculateSuccessChances(player, item).ToString()), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 			if (tradePartner != null) tradePartner.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "Repair.BeginWork.BeginRepairing2", player.Name, item.Name), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 
 			int workDuration = GetRepairTime(player, item);

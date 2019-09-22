@@ -1,0 +1,3 @@
+# /Afk
+Commands.Players.Afk.Off:				Your AFK flag is now off.
+Commands.Players.Afk.On:					Your AFK flag is now on.

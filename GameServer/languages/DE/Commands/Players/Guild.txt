@@ -1,0 +1,210 @@
+# /Guilds
+Scripts.Player.Guild.AccountRemoved:			{0} hat {1} aus der Gilde entfernt.
+Scripts.Player.Guild.ActiveBuff:			Eure Gilde verfügt bereits über einen Bonuszauber. Ihr müßt warten, bis dieser vorbei ist.
+Scripts.Player.Guild.AllianceAlreadyOther:		Diese Gilde ist bereits in einer Allianz.
+Scripts.Player.Guild.AllianceAnsCancel:			Das Angebot, der Allianz beizutreten wurde zurückgezogen.
+Scripts.Player.Guild.AllianceDeclined:			Ihr lehnt es ab, der Allianz beizutreten.	
+Scripts.Player.Guild.AllianceDeclinedOther:		Das Angebot, der Allianz beizutreten wurde abgelehnt.
+Scripts.Player.Guild.AllianceDisabled:			Allianzen sind auf diesem Server nicht erlaubt.
+Scripts.Player.Guild.AllianceIndexNotVal:		Die Allianz-ID ist ungültig.
+Scripts.Player.Guild.AllianceInfo:			Allianz-Informationen für {0}:
+Scripts.Player.Guild.AllianceInvite:			Ihr habt einer Gilde angeboten, Eurer Allianz beizutreten.
+Scripts.Player.Guild.AllianceInvited:			Euch wurde angeboten, der Allianz von {0} beizutreten.
+Scripts.Player.Guild.AllianceLeader:			Anführer der Allianz {0}	
+Scripts.Player.Guild.AllianceMax:			Ihr könnt dieser Gilde nicht anbieten Eurer Allianz beizutreten, da bereits zuviele Gilden in Eurer Allianz sind.
+Scripts.Player.Guild.AllianceMember:			{0} - {1}	
+Scripts.Player.Guild.AllianceMembers:			Mitglieder der Allianz:	
+Scripts.Player.Guild.AllianceMemNotSel:			Ihr müßt ein Mitglied derselben Allianz auswählen.
+Scripts.Player.Guild.AllianceNoGMSelected:		Ihr müßt einen Anführer der Gilde auswählen.
+Scripts.Player.Guild.AllianceNoLeader:			Kein Anführer der Allianz
+Scripts.Player.Guild.AllianceNotLeader:			Ihr müßt der Anführer der Allianz sein, um eine Gilde aus der Allianz entfernen zu können.
+Scripts.Player.Guild.AllianceNotMember:			Um das zu tun, müßtet Ihr erstmal in einer Allianz sein.
+Scripts.Player.Guild.AlreadyInGuild:			{0} gehört bereits einer Gilde an.
+Scripts.Player.Guild.AlreadyInGuild:			Die gehören bereits einer Gilde an.
+Scripts.Player.Guild.AMotdSet:				Ihr habt die Willkommensnachricht für diese Gilde geändert.
+Scripts.Player.Guild.BannerAlready:			Eure Gilde hat schon ein Banner.
+Scripts.Player.Guild.BannerBought:			Ihr habt ein Gildenbanner für {0} Kopfgeldpunkte erworben.
+Scripts.Player.Guild.BannerGroupSummoned:		Jemand aus Eurer Gruppe hat bereits das Gildenbanner gehisst.
+Scripts.Player.Guild.BannerGuildSummoned:		Jemand aus Eurer Gilde hat bereits das Gildenbanner gehisst.	
+Scripts.Player.Guild.BannerNoGroup:			Ihr müßt in einer Gruppe sein, um das Gildenbanner hissen zu können.
+Scripts.Player.Guild.BannerNone:			Eure Gilde besitzt kein Gildenbanner.
+Scripts.Player.Guild.BannerNotAfford:			Ihr benötigt 50.000 Kopfgeldpunkte, um ein Gildenbanner kaufen zu können.
+Scripts.Player.Guild.BannerSummoned:			Ihr habt das Gildenbanner gehisst.
+Scripts.Player.Guild.BannerUnsummoned:			Ihr habt das Gildenbanner eingeholt.	
+Scripts.Player.Guild.BannerNotRvR:			You need to be in an RvR zone to summon a guild banner!
+Scripts.Player.Guild.BuffActivated:			[Gildenbonuszauber] {0} hat 1000 Gildenverdienstpunkte ausgegeben, und einen Gildenbonuszauber aktiviert!
+Scripts.Player.Guild.BuffBountyPoints:			Eure Gilde wird für die nächsten 24 Stunden einen 5% Bonus auf Kopfgeldpunkte erhalten!
+Scripts.Player.Guild.BuffBPActivated:			[Gildenbonuszauber] Eure Gilde wird für die nächsten 24 Stunden einen Bonus auf Kopfgeldpunkte erhalten!	
+Scripts.Player.Guild.BuffMPActivated:			[Gildenbonuszauber] Eure Gilde wird für die nächsten 24 Stunden einen Bonus auf Verdienstpunkte erhalten!	
+Scripts.Player.Guild.BuffRealmPoints:			Eure Gilde wird für die nächsten 24 Stunden einen 5% Bonus auf Reichspunkte erhalten!
+Scripts.Player.Guild.ClaimNotNear:			Ihr müßt Euch in der Nähe der Festung befinden, um Euren Anspruch geltend machen zu können.
+Scripts.Player.Guild.ConfirmLeave:			Wollt Ihr {0} wirklich verlassen?
+Scripts.Player.Guild.DemotedHigherThanPlayer:		Das steht Euch nicht zu!
+Scripts.Player.Guild.DemotedOther:			{0} wurde zum {1} degradiert.	
+Scripts.Player.Guild.DemotedSelf:			Ihr wurdet zum {0} degradiert.	
+Scripts.Player.Guild.DepositAmount:			Ihr zahlt {0} auf das Konto Eurer Gilde ein.
+Scripts.Player.Guild.DepositFull:			Es scheint, als ob das Konto Eurer Gilde voll ist.
+Scripts.Player.Guild.DepositInvalid:			Das ist kein gültiger Betrag.
+Scripts.Player.Guild.DepositTooMuch:			Ihr habt dafür nicht genug Geld!
+Scripts.Player.Guild.DuesOff:				Es werden zur Zeit keine Gildenabgaben gefordert.
+Scripts.Player.Guild.DuesOn:				Die Gildenabgaben belaufen sich zur Zeit auf {0} Prozent.
+Scripts.Player.Guild.EmailSet:				Ihr habt die E-Mail-Adresse für die Gilde auf {0} geändert.
+Scripts.Player.Guild.EmblemAlready:			Eure Gilde hat bereits ein Abzeichen, aber Ihr könnt es für einen stattlichen Betrag von 100 Gold ändern. Wenn Ihr das dennoch zu tun wünscht, sprecht noch einmal mit dem Siegelmacher.	
+Scripts.Player.Guild.EmblemNeedGold:			Ihr benötigt 200 Gold für ein neues Gildenabzeichen.
+Scripts.Player.Guild.EmblemNeedNPC:			Ihr müßt mit dem Siegelmacher sprechen.
+Scripts.Player.Guild.EmblemNPCNotSelected:		Ihr müßt mit dem Siegelmacher sprechen.	
+Scripts.Player.Guild.EmblemRedo:			Wollt Ihr ein neues Gildenabzeichen für 100 Gold erwerben?
+Scripts.Player.Guild.FormNoGroup:			Ihr müßt einer Gruppe angehören um eine Gilde zu gründen.
+Scripts.Player.Guild.FormNoMembers:			Ihr benötigt {0} Spieler in Eurer Gruppe, um eine Gilde zu gründen.
+Scripts.Player.Guild.GuildCreated:			Die Gilde "{0}" wurde gegründet mit {1} als Anführer.
+Scripts.Player.Guild.GuildExists:			Diese Gilde gibt es schon.
+Scripts.Player.Guild.GuildForceLeave:			{0} hat Dich aus {1} entfernt.
+Scripts.Player.Guild.GuildLeave:			Ihr habt Eure Gilde verlassen.
+Scripts.Player.Guild.GuildLevelReq:			Eure Gilde ist nicht befugt, diesen Befehl auszuführen.
+Scripts.Player.Guild.GuildNotExist:			Diese Gilde gibt es nicht.
+Scripts.Player.Guild.Help.GuildACancel:			/gc acancel - eine Einladung für eine Allianz zurückziehen	
+Scripts.Player.Guild.Help.GuildAAccept:			/gc aaccept - eine Einladung für eine Allianz annehmen	
+Scripts.Player.Guild.Help.GuildAccept:			/gc accept - eine Einladung für eine Gilde annehmen	
+Scripts.Player.Guild.Help.GuildADecline:		/gc adecline - eine Einladung für eine Allianz ausschlagen	
+Scripts.Player.Guild.Help.GuildAInvite:			/gc ainvite - eine andere Gilde in Eure Allianz einladen	
+Scripts.Player.Guild.Help.GuildALeave:			/gc aleave - eure Gilde aus der Allianz entfernen
+Scripts.Player.Guild.Help.GuildAlli:			/gc alliance - Informationen zu einer Allianz anzeigen	
+Scripts.Player.Guild.Help.GuildAMotd:			/gc amotd <text> - Willkommensbotschaft für eine Allianz ändern	
+Scripts.Player.Guild.Help.GuildARemove:			/gc aremove - aus der Allianz austreten (betrifft alle in der Gilde)	
+Scripts.Player.Guild.Help.GuildARemoveAlli:		/gc aremove alliance [#] - eine Gilde aus der Allianz ausschliessen (ID erforderlich)
+Scripts.Player.Guild.Help.GuildAutoRemove:		/gc autoremove <playername> - entfernt einen Charakter aus der Gilde, auch wenn dieser nicht eingeloggt ist
+Scripts.Player.Guild.Help.GuildAutoRemoveAcc:		/gc autoremove account <playername> - entfernt alle Charakter eines Spielers aus der Gilde, auch wenn dieser nicht eingeloggt ist
+Scripts.Player.Guild.Help.GuildBannerSummon:		/gc summon - hisst das Gildenbanner, sofern vorhanden	
+Scripts.Player.Guild.Help.GuildBuff:			/gc buff <artifact, crafting, rps, bps, xp or mlxp> - einen Bonuszauber für die Gilde kaufen	
+Scripts.Player.Guild.Help.GuildBuyBanner:		/gc buybanner - ein Gildenbanner kaufen	
+Scripts.Player.Guild.Help.GuildCancel:			/gc cancel <option> [value] - alle vorherigen Befehle zurückziehen	
+Scripts.Player.Guild.Help.GuildClaim:			/gc claim - eine Festung für die Gilde in Anspruch nehmen
+Scripts.Player.Guild.Help.GuildDecline:			/gc decline - eine Einladung für eine Gilde ausschlagen	
+Scripts.Player.Guild.Help.GuildDemote:			/gc demote <rank#> [name] - einen Spieler degradieren (gültige Ränge: 0-10)	
+Scripts.Player.Guild.Help.GuildDeposit:			/gc deposit <amount> - Geld auf das Gildenkonto einzahlen	
+Scripts.Player.Guild.Help.GuildDues:			/gc dues <amount> - Gildenabgaben verlangen (0-100%)	
+Scripts.Player.Guild.Help.GuildEdit:			/gc edit - zeige eine Liste der für /gc edit verfügbaren Optionen an	
+Scripts.Player.Guild.Help.GuildEditACHear:		/gc edit <ranknum> achear <y/n> - bestimmt ob der Rang den Allianz-Chat hören kann oder nicht
+Scripts.Player.Guild.Help.GuildEditACSpeak:		/gc edit <ranknum> acspeak <y/n> - bestimmt ob der Rang im Allianz-Chat schreiben kann oder nicht
+Scripts.Player.Guild.Help.GuildEditAlli:		/gc edit <ranknum> alli <y/n>-  bestimmt ob der Rang einer Allianz beitreten oder diese verlassen kann (ernennt einen Diplomaten)
+Scripts.Player.Guild.Help.GuildEditClaim:		/gc edit <ranknum> claim <y/n> - bestimmt ob der Rang eine Festung/einen Turm beanspruchen kann
+Scripts.Player.Guild.Help.GuildEditDues:		/gc edit <ranknum> dues <y/n> - bestimmt ob der Rang die Gildensteuer aktivieren/deaktivieren kann oder nicht
+Scripts.Player.Guild.Help.GuildEditEmblem:		/gc edit <ranknum> emblem <y/n> - bestimmt ob der Rang das Gildenwappen tragen darf oder nicht
+Scripts.Player.Guild.Help.GuildEditGCHear:		/gc edit <ranknum> gchear <y/n> - bestimmt ob der Rang den Gildenchat hören kann oder nicht	
+Scripts.Player.Guild.Help.GuildEditGCSpeak:		/gc edit <ranknum> gcspeak <y/n> - bestimmt ob der Rang im Gildenchat reden kann oder nicht
+Scripts.Player.Guild.Help.GuildEditInvite:		/gc edit <ranknum> invite <y/n> - bestimmt ob der Rang neue Gildenmitglieder einladen darf oder nicht
+Scripts.Player.Guild.Help.GuildEditOCHear:		/gc edit <ranknum> ochear <y/n> - bestimmt ob der Rang den Offizierschat hören kann oder nicht
+Scripts.Player.Guild.Help.GuildEditOCSpeak:		/gc edit <ranknum> ocspeak <y/n> - bestimmt ob der Rang im Offizierschat reden kann oder nicht
+Scripts.Player.Guild.Help.GuildEditPromote:		/gc edit <ranknum> promote <y/n> - bestimmt ob der Rang andere Gildenmitglieder befördern oder degradieren darf (maximal bis ein Rang unter seinem eigenen)
+Scripts.Player.Guild.Help.GuildEditRankLevel:		/gc edit <ranknum> ranklevel <level> - bestimmt die Rangordnung
+Scripts.Player.Guild.Help.GuildEditRelease:		/gc edit <ranknum> release <y/n> - bestimmt ob der Rang eine Festung/einen Turm aufgeben darf
+Scripts.Player.Guild.Help.GuildEditRemove:		/gc edit <ranknum> remove <y/n> - bestimmt ob der Rang andere Gildenmitglieder aus der Gilde entfernen darf (maximal bis ein Rang unter seinem eignen)
+Scripts.Player.Guild.Help.GuildEditTitle:		/gc edit <ranknum> title <text> - teilt einen Titel dem Rang zu
+Scripts.Player.Guild.Help.GuildEditUpgrade:		/gc edit <ranknum> upgrade <y/n> -  bestimmt ob der Rang eine Festung oder einen Turm upgraden (also im Level verändern) darf	
+Scripts.Player.Guild.Help.GuildEditView:		/gc edit <ranknum> view <y/n> - edits this rank with the ability to display the /gc info screen	
+Scripts.Player.Guild.Help.GuildEditWithdraw:		/gc edit <ranknum> withdraw <y/n> -  bestimmt ob der Rang Geld vom Gildensteuerkonto abheben kann oder nicht
+Scripts.Player.Guild.Help.GuildEmail:			/gc email <contact@guildpage.com> - Legt die Emailadresse der Gilde fest. Diese Informationen werden mit /gc info und in den Chroniken angezeigt.
+Scripts.Player.Guild.Help.GuildEmblem:			/gc emblem - das Gildenwappen durch einen Gildenregistrar erstellen lassen
+Scripts.Player.Guild.Help.GuildForm:			/gc form <Name> - eine Gilde mit allen Gruppenmitgliedern gründen	
+Scripts.Player.Guild.Help.GuildGMAddPlayer:		/gc addplayer <player> to <guild> - fügt einen Spieler der Gilde hinzu	
+Scripts.Player.Guild.Help.GuildGMCommands:		Game Master commands:
+Scripts.Player.Guild.Help.GuildGMCreate:		/gc create <Name> - erstellt eine neue Gilde mit dem ausgewählten Spieler als Leiter	
+Scripts.Player.Guild.Help.GuildGMPurge:			/gc purge <Name> - löscht eine Gilde komplett
+Scripts.Player.Guild.Help.GuildGMRemovePlayer:		/gc removeplayer <player> from <guild> - entfernt einen Spieler aus der Gilde	
+Scripts.Player.Guild.Help.GuildGMRename:		/gc rename <OldName> to <NewName - benennt eine Gilde um
+Scripts.Player.Guild.Help.GuildInfo:			/gc info - Anzeige der Gildeninformationen
+Scripts.Player.Guild.Help.GuildInvite:			/gc invite [name] -  Spieler in die Gilde einladen, ohne Namensangabe wird anvisierter Spieler eingeladen
+Scripts.Player.Guild.Help.GuildLeader:			/gc leader [name] - einen neuen Gildenanführer ernennen
+Scripts.Player.Guild.Help.GuildList:			/gc list - Anzeige aller Gilden im Reich
+Scripts.Player.Guild.Help.GuildMotd:			/gc motd <text> - Die "Nachricht des Tages" für die Gilde erstellen
+Scripts.Player.Guild.Help.GuildNoteSelf:		/gc noteself <note> - erstellt eine Bemerkung zu Eurem Charakter für die Gilde
+Scripts.Player.Guild.Help.GuildOMotd:			/gc omotd <text> - Die "Nachricht des Tages" für die Offiziere der Gilde erstellen
+Scripts.Player.Guild.Help.GuildPromote:			/gc promote <rank#> [name] - einen Spieler befördern (gültige Ränge: 0-10)
+Scripts.Player.Guild.Help.GuildQuit:			/gc quit - die aktuelle Gilde verlassen
+Scripts.Player.Guild.Help.GuildRanks:			/gc ranks - Anzeige der Gildenränge
+Scripts.Player.Guild.Help.GuildRemAccount:		/gc removeaccount <accountname> - jeden Charakter des Spielers aus der Gilde entlassen
+Scripts.Player.Guild.Help.GuildRemove:			/gc remove <playername> - einen Spieler aus der Gilde entlassen
+Scripts.Player.Guild.Help.GuildUsage:			Usage:
+Scripts.Player.Guild.Help.GuildWebpage:			/gc webpage <the.guildpage.com> - Legt die Gildenwebseite fest. Diese Informationen werden mit /gc info und in den Chroniken angezeigt.
+Scripts.Player.Guild.Help.GuildWho:			/gc who - Anzeige aller Gildenmitglieder im Spiel
+Scripts.Player.Guild.Help.GuildWithdraw:		/gc withdraw <amount> - hebt eine Summe (in Kupferstücken) vom Gildensteuerkonto ab 	
+Scripts.Player.Guild.InCombat:				Ihr könnt das Banner nicht mitten im Kampf einholen!	
+Scripts.Player.Guild.InfoAMotd:				Allianznachricht: {0}	
+Scripts.Player.Guild.InfoCEmail:			Kontaktemail: {0}	
+Scripts.Player.Guild.InfoGDuesBank:			Abgabe: {0} Kasse: {1} Kupfer	
+Scripts.Player.Guild.InfoGuild:				Guildeninfo für {0}:	
+Scripts.Player.Guild.InfoGuildLevel:			Gildenstufe: {0}	
+Scripts.Player.Guild.InfoMotd:				Nachricht:  {0}	
+Scripts.Player.Guild.InfoOMotd:				Offiziersnachricht: {0}	
+Scripts.Player.Guild.InfoRPBPMP:			Reichspunkte: {0} Kopfgeldpunkte: {1} Erfolgspunkte: {2}	
+Scripts.Player.Guild.InfoWebpage:			Webseite: {0}	
+Scripts.Player.Guild.InvalidLetters:			Einige dieser Zeichen können nicht verwendet werden.	
+Scripts.Player.Guild.InvalidRank:			Das ist kein zugelassener Rang.
+Scripts.Player.Guild.InviteDead:			Ihr könnt keinen toten Spieler in Eure Gilde einladen.
+Scripts.Player.Guild.InviteNoSelected:			Ihr müsst erst einen Spieler auswählen.
+Scripts.Player.Guild.InviteNoSelf:			Ihr könnt Euch nicht selbst einladen.
+Scripts.Player.Guild.InviteNotThis:			Dieses Mitglied könnt Ihr nicht einladen.
+Scripts.Player.Guild.InviteRecieved:			{0} hat Euch eingeladen seiner Gilde beizutreten.	
+Scripts.Player.Guild.InviteSent:			Ihr habt {0} in Eure Gilde eingeladen.	
+Scripts.Player.Guild.Keep:				Eure Gilde hat auf {0} Anspruch erhoben.	
+Scripts.Player.Guild.LevelUp:				[Guilde] Eure Gilde hat Stufe {0} erreicht!	
+Scripts.Player.Guild.LoginsOff:				Ihr werdet nicht länger über die Anmeldung eines Gildenmitgliedes informiert, gebt "/gc logins" ein, um wieder eine Mitteilung zu bekommen.
+Scripts.Player.Guild.LoginsOn:				Ihr werdet wieder über die Anmeldung eines Gildenmitgliedes informiert, gebt "/gc logins" ein, um keine Mitteilung mehr zu bekommen.
+Scripts.Player.Guild.MadeLeader:			Ihr seid nun der Leiter von {0}.	
+Scripts.Player.Guild.MadeLeaderOther:			{0} wurde zum Leiter von {1} gemacht.
+Scripts.Player.Guild.MemberLogin:			{0} hat diese Welt betreten.
+Scripts.Player.Guild.MemberLogoff:			{0} hat diese Welt verlassen.
+Scripts.Player.Guild.MemberRemoved:			{0} hat {1} aus der Gilde entlassen.
+Scripts.Player.Guild.MeritPointReq:			Eure Gilde hat nicht die erforderliche Anzahl von Erfogspunkten.
+Scripts.Player.Guild.MotdSet:				Ihr habt die "Nachricht des Tages" für die Gilde erstellt.
+Scripts.Player.Guild.NoKeep:				Für diesen Befehl braucht Ihr eine Festung.
+Scripts.Player.Guild.NoPlayerSelected:			Ihr müsst erst einen Spieler auswählen.	
+Scripts.Player.Guild.NoPlayersInAcc:			Diesen Spieler gibt es in Eurer Gilde nicht.	
+Scripts.Player.Guild.NoPrivilages:			Ihr habt nicht die erforderliche Berechtigung in Eurer Gilde für diesen Befehl.	
+Scripts.Player.Guild.NoteSet:				Die Gildennotiz wurde von Euch geändert auf: {0}
+Scripts.Player.Guild.NotInYourGuild:			Dieser Spieler gehört nicht zu Eurer Gilde.
+Scripts.Player.Guild.NotMember:				Gildenbefehle können nur von Euch genutzt werden, wenn Ihr Mitglied einer Gilde seid.	
+Scripts.Player.Guild.OMotdSet:				Ihr habt die "Nachricht des Tages" für die Offiziere Eurer Gilde erstellt.	
+Scripts.Player.Guild.PlayerNotFound:			Dieser Spieler ist nicht auf dieser Welt.
+Scripts.Player.Guild.PromotedOther:			{0} wurde zum {1} befördert.	
+Scripts.Player.Guild.PromotedSelf:			Ihr wurdet zum {0} befördert.	
+Scripts.Player.Guild.PromoteHaveToUseDemote:		Ihr könnt dieses Gildenmitglied nicht degradieren mit dem "promote"-Befehl. Verwendet "/gc demote <ranklevel> Name".
+Scripts.Player.Guild.PromoteHigherThanPlayer:		Ihr könnt nur Ränge vergeben, die unter dem Euren liegen.	
+Scripts.Player.Guild.Purged:				{0} wurde gepurged.
+Scripts.Player.Guild.RankACHearSet:			Ihr habt {0} the ACHear of the rank {1}.	
+Scripts.Player.Guild.RankACSpeakSet:			Ihr habt {0} the ACSpeak of the rank {1}.	
+Scripts.Player.Guild.RankAlliSet:			Ihr habt {0} the Alliance of the rank {1}.	
+Scripts.Player.Guild.RankBuffSet:			Ihr habt {0} the Buff of the rank {1}.	
+Scripts.Player.Guild.RankClaimSet:			Ihr habt {0} the Claim of the rank {1}.	
+Scripts.Player.Guild.RankDuesSet:			Ihr habt {0} the Dues of the rank {1}.	
+Scripts.Player.Guild.RankEmblemSet:			Ihr habt {0} the emblem of the rank {1}.	
+Scripts.Player.Guild.RankGCHearSet:			Ihr habt {0} the GCHear of the rank {1}.	
+Scripts.Player.Guild.RankGCSpeakSet:			Ihr habt {0} the GCSpeak of the rank {1}.	
+Scripts.Player.Guild.RankInviteSet:			Ihr habt {0} the Invite of the rank {1}.	
+Scripts.Player.Guild.RankLevelSet:			Ihr habt die Stufes des Ranges auf {0} geändert.	
+Scripts.Player.Guild.RankOCHearSet:			Ihr habt {0} the OCHear of the rank {1}.	
+Scripts.Player.Guild.RankOCSpeakSet:			Ihr habt {0} the OCSpeak of the rank {1}.	
+Scripts.Player.Guild.RankPromoteSet:			Ihr habt {0} the Promote of the rank {1}.	
+Scripts.Player.Guild.RankReleaseSet:			Ihr habt {0} the Release of the rank {1}.	
+Scripts.Player.Guild.RankRemoveSet:			Ihr habt {0} the Remove of the rank {1}.	
+Scripts.Player.Guild.RankTitleSet:			Ihr habt den Titel des Ranges auf {0} geändert.	
+Scripts.Player.Guild.RankUpgradeSet:			Ihr habt {0} the Upgrade of the rank {1}.	
+Scripts.Player.Guild.RankViewSet:			Ihr habt {0} the View of the rank {1}.	
+Scripts.Player.Guild.RankWithdrawSet:			Ihr habt {0} the Withdraw of the rank {1}.	
+Scripts.Player.Guild.ThirdArgNotNum:			Das dritte Argument muss eine Zahl sein.
+Scripts.Player.Guild.UnableToCreate:			Die Gilde"{0}" konnte nicht erstellt werden.	
+Scripts.Player.Guild.UnableToCreateLead:		Die Gilde "{0}" konnte nicht mit "{1}" als Leiter erstellt werden.	
+Scripts.Player.Guild.UnknownCommand:			Unbekannter Befehl. Gebt "/gc help" ein, um mehr Informationen zu erhalten.	
+Scripts.Player.Guild.UpgradeNoLevel:			Ihr müsst eine Stufe als Ziel für diese Änderung angeben.	
+Scripts.Player.Guild.UpgradeScndArg:			Das zweite Argument muss eine Zahl sein.	
+Scripts.Player.Guild.WebpageSet:			Ihr habt die Gildenwebseite auf {0} geändert.	
+Scripts.Player.Guild.Withdrawamount:			Ihr nehmt {0} aus der Gildenkasse.	
+Scripts.Player.Guild.WithdrawInvalid:			Diese Menge kann nicht entnommen werden.	
+Scripts.Player.Guild.WithdrawTooMuch:			Ihr könnt dieses viele Geld nicht aus der Gildenkasse entnehmen.	
+
+# /GC
+Commands.Players.Guild.AllianceInfo:			Allianzinformation für {0}:
+Commands.Players.Guild.AllianceLeader:			Allianzanführer {0}
+Commands.Players.Guild.AllianceMembers:			Allianzmitglieder:
+Commands.Players.Guild.AllianceMember:			{0} - {1}
+Commands.Players.Guild.AllianceNoLeader:			Kein Allianzanführer

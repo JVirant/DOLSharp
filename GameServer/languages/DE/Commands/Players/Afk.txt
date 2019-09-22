@@ -1,0 +1,3 @@
+# /Afk
+Commands.Players.Afk.Off:	AFK ausgeschaltet.
+Commands.Players.Afk.On:	AFK eingeschaltet.

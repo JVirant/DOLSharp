@@ -13,7 +13,7 @@ System.LanguagesName.EN:					Anglais
 System.LanguagesName.FR:					Français
 System.LanguagesName.DE:					Allemand
 System.LanguagesName.ES:					Espagnol
-System.LanguagesName.CZ:						Tchèque
+System.LanguagesName.CZ:					Tchèque
 System.LanguagesName.IT:					Italien 
 
 

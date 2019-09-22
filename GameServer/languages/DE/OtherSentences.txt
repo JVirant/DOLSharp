@@ -30,7 +30,7 @@ Scripts.Events.PlayerEnterExit.Left:	{0} verlässt gerade diese Welt!
 Scripts.Events.PlayerEnterExit.Staff:	[Staff] {0}
 
 # /Emotes
-Scripts.Players.Emotes.Message1:	Sieht aus wie jemand der heute zu viel Koffein hatte.
-Scripts.Players.Emotes.Message2:	Hey! Langsam. Nehmt Euch ein paar Minuten, beruhigt Euch und sammelt Eure Gedanken.
-Scripts.Players.Emotes.Message3:	Seid vorsichtig oder Euer Gesicht wird so bleiben.
-Scripts.Players.Emotes.Message4:	Langsam, Ihr seid zu schnell! Genießt diesen Augenblick.
+Commands.Players.Emotes.Message1:	Sieht aus wie jemand der heute zu viel Koffein hatte.
+Commands.Players.Emotes.Message2:	Hey! Langsam. Nehmt Euch ein paar Minuten, beruhigt Euch und sammelt Eure Gedanken.
+Commands.Players.Emotes.Message3:	Seid vorsichtig oder Euer Gesicht wird so bleiben.
+Commands.Players.Emotes.Message4:	Langsam, Ihr seid zu schnell! Genießt diesen Augenblick.

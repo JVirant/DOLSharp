@@ -1,5 +1,4 @@
-﻿
-# CommanderPet
+﻿# CommanderPet
 GameObjects.Master:								Master
 GameObjects.Mistress:							Mistress
 GameObjects.CommanderPet.DreadGuardian:			dread guardian
@@ -11,35 +10,34 @@ GameObjects.CommanderPet.ReturnedCommander:		returned commander
 GameObjects.CommanderPet.SkeletalCommander:		skeletal commander
 GameObjects.CommanderPet.BoneCommander:			bone commander			
 # in mobxambientbehaviournow: GameObjects.CommanderPet.HailMaster:			Hail, {0}. As my summoner, you may target me and say Commander to learn more about the abilities I possess.
-GameObjects.CommanderPet.WR.Const.Commander:	commander
-GameObjects.CommanderPet.WR.Const.Spells:		spells
-GameObjects.CommanderPet.WR.Const.Empower:		empower
+GameObjects.CommanderPet.WR.Const.Commander:	commandant
+GameObjects.CommanderPet.WR.Const.Spells:		sorts
+GameObjects.CommanderPet.WR.Const.Empower:		renforce
 GameObjects.CommanderPet.WR.Const.Combat:		combat
-GameObjects.CommanderPet.WR.Const.Snares:		snares
-GameObjects.CommanderPet.WR.Const.Debilitating:	debilitating
-GameObjects.CommanderPet.WR.Const.Damage:		damage
-GameObjects.CommanderPet.WR.Const.Assist:		assist
-GameObjects.CommanderPet.WR.Const.Taunt:		taunt
-GameObjects.CommanderPet.WR.Const.Weapons:		weapons
-GameObjects.CommanderPet.WR.Const.One:			one
-GameObjects.CommanderPet.WR.Const.Two:			two
-GameObjects.CommanderPet.WR.Const.Harm:			harm
-GameObjects.CommanderPet.WR.Const.Drain:		drain
-GameObjects.CommanderPet.WR.Const.Suppress:		suppress
-GameObjects.CommanderPet.WR.Const.1HandedSword:	one handed sword
-GameObjects.CommanderPet.WR.Const.2HandedSword:	two handed sword
-GameObjects.CommanderPet.WR.Const.1HandedHammer:	one handed hammer
-GameObjects.CommanderPet.WR.Const.2HandedHammer:	two handed hammer
-GameObjects.CommanderPet.WR.Const.1HandedAxe:	one handed axe
-GameObjects.CommanderPet.WR.Const.2HandedAxe:	two handed axe
-GameObjects.CommanderPet.WR.DreadGuardian:		The {0} says, "As one of Bogdar's chosen guardians, I have mastered the ability to {1} his enemies and {2} myself with extra defenses. I also have various {3} tactics at your disposal."
-GameObjects.CommanderPet.WR.DreadLich:			The {0} says, "As one of Bogdar's mystics, I have mastered many dark {1}. I also have the means to {2} my spells to be more effective. I also have various {3} tactics at your disposal."
-GameObjects.CommanderPet.WR.DreadArcher:		The {0} says, "As one of Bogdar's favored archers, you can {1} me to be more effective with my bow. I also have various {2} tactics at your disposal."
-GameObjects.CommanderPet.WR.XCommander:			The {0} says, "As one of Bogdar's commanders, I have mastered many of the fossil [weapons] within his bone army.  Which weapon shall I wield for you?  I also have various [combat] tactics at your disposal."
-GameObjects.CommanderPet.WR.DreadLich2:			The {0} says, "My arsenal consists of {1}, {2}, and pure {3} spells. I cast debilitating spells when first summoned but you can command me to cast a particular type of spells if you so desire."
-GameObjects.CommanderPet.WR.Combat:				The {0} says, "From the start I order the minions under my control to [assist] me with a target your choose for me to kill.  Issuing the command again will make them cease assisting.  I am also able to [taunt] your enemies so that they will focus on me instead of you."
-GameObjects.CommanderPet.WR.CommNoTaunt:		Your commander will no long taunt its enemies!
-GameObjects.CommanderPet.WR.CommStartTaunt:		Your commander will start to taunt its enemies!
-GameObjects.CommanderPet.WR.DiffCommander:		The {0} says, "I have mastered the [one handed sword], the [two handed sword], the [one handed hammer], the [two handed hammer], the [one handed axe] and the [two handed axe]."
-GameObjects.CommanderPet.WR.DreadGuardian:		The {0} says, "Bogdar has granted me with the ability to {1} the life of our enemies or to {2} and hurt their spirit. I cast spirit damaging spells when first summoned but you can command me to cast a particular type of spell if you so desire."
-
+GameObjects.CommanderPet.WR.Const.Snares:		pièges
+GameObjects.CommanderPet.WR.Const.Debilitating:	débilitant
+GameObjects.CommanderPet.WR.Const.Damage:		dégats
+GameObjects.CommanderPet.WR.Const.Assist:		assiste
+GameObjects.CommanderPet.WR.Const.Taunt:		narguer
+GameObjects.CommanderPet.WR.Const.Weapons:		armes
+GameObjects.CommanderPet.WR.Const.One:			un
+GameObjects.CommanderPet.WR.Const.Two:			deux
+GameObjects.CommanderPet.WR.Const.Harm:			endommager
+GameObjects.CommanderPet.WR.Const.Drain:		aspire
+GameObjects.CommanderPet.WR.Const.Suppress:		retire
+GameObjects.CommanderPet.WR.Const.1HandedSword:	épé à une main
+GameObjects.CommanderPet.WR.Const.2HandedSword:	épé à deux mains
+GameObjects.CommanderPet.WR.Const.1HandedHammer:	marteau à une main
+GameObjects.CommanderPet.WR.Const.2HandedHammer:	marteau à deux mains
+GameObjects.CommanderPet.WR.Const.1HandedAxe:	hache à une main
+GameObjects.CommanderPet.WR.Const.2HandedAxe:	hache à deux mains
+GameObjects.CommanderPet.WR.DreadGuardian:		Le {0} dit, "En tant que l'un des gardiens choisis par Bogdar, j'ai maîtrisé la capacité de {1} ses ennemis et {2} moi-même avec des défenses supplémentaires. J'ai également différentes tactiques {3} à votre disposition."
+GameObjects.CommanderPet.WR.DreadLich:			Le {0} dit, "En tant que mystique de Bogdar, j'ai maîtrisé les ténèbres {1}. J'ai aussi les moyens de {2} mes sorts pour être plus efficace. J'ai également différentes tactiques {3} à votre disposition."
+GameObjects.CommanderPet.WR.DreadArcher:		Le {0} dit, "En tant qu’un des archers préférés de Bogdar, vous pouvez me {1} pour être plus efficace avec mon arc. J'ai également différentes tactiques {2} à votre disposition."
+GameObjects.CommanderPet.WR.XCommander:			Le {0} dit, "En tant que commandant de Bogdar, j'ai maîtrisé bon nombre des [armes] fossiles au sein de son armée d'os. Quelle arme dois-je utiliser pour vous ? J'ai également diverses tactiques de combat à votre disposition."
+GameObjects.CommanderPet.WR.DreadLich2:			Le {0} dit, "Mon arsenal est constitué de {1}, {2} et de {3} sorts purs. Je lance des sorts débilitants lors de ma première invocation, mais vous pouvez m'ordonner de lancer un type particulier de sorts. Si vous le souhaitez."
+GameObjects.CommanderPet.WR.Combat:				Le {0} dit, "Dès le début, j'ordonne aux minions sous mon contrôle de [m'assister] avec une cible que vous avez choisie pour moi. Si vous relancez la commande, ils cesseront d’assister. Je peux aussi [narguer] vos ennemis pour qu'ils se concentrent sur moi plutôt que sur vous."
+GameObjects.CommanderPet.WR.CommNoTaunt:		Votre commandant ne va plus narguer ses ennemis!
+GameObjects.CommanderPet.WR.CommStartTaunt:		Votre commandant va commencer à narguer ses ennemis!
+GameObjects.CommanderPet.WR.DiffCommander:		Le {0} dit, "J'ai maîtrisé l'[épé à une main], l'[épé à deux mains], le [marteau à une main], le [marteau à deux mains], la [hache à une main] et la [hache à deux mains]."
+GameObjects.CommanderPet.WR.DreadGuardian:		Le {0} dit, "Bogdar m'a donné la possibilité de {1} donner la vie à nos ennemis ou de {2} blesser leur esprit. Je lance des sorts de dégâts d'esprit lors de ma première convocation, mais vous pouvez m'ordonner de lancer un type de sort particulier si vous le souhaitez."

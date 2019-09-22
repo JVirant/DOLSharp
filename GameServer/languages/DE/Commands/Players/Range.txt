@@ -1,0 +1,5 @@
+# /Range
+Commands.Players.Range.InvalidObject:			Dieser Befehl ist nur bei Gegenständen gültig.
+Commands.Players.Range.NeedTarget:			Distanz zum Ziel: Ihr habt kein Ziel ausgewählt.
+Commands.Players.Range.NotVisible:			(Ziel nicht sichtbar)
+Commands.Players.Range.Result:				Distanz zum Ziel: {0} Einheiten. {1}

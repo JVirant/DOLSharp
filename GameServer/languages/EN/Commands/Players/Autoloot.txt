@@ -1,0 +1,3 @@
+# /Autoloot
+Commands.Players.Autoloot.Off:	Your autoloot is off. You will no longer attempt to automatically loot anything that drops in your area.
+Commands.Players.Autoloot.On:	Your autoloot is on. You will now attempt to automatically loot anything that drops in your area.

@@ -1,0 +1,12 @@
+# /Assist
+#Commands.Players.Assist.CantAssistYourself:		You can't assist yourself.
+#Commands.Players.Assist.DoesntHaveTarget:	 	doesn't currently have a target.
+#Commands.Players.Assist.DontSee:				You don't see {0} around here!
+#Commands.Players.Assist.NoTarget:				You have no target.
+#Commands.Players.Assist.NotValid:				Target is not valid.
+Commands.Players.Assist.DoesntHaveTarget:		{0} doesn't currently have a target.
+Commands.Players.Assist.MemberNotFound:			There is no one by that name around here.
+Commands.Players.Assist.NoRealmMember:			{0} is not a member of your realm!
+Commands.Players.Assist.NotValid:				{0} is not a valid assist target!
+Commands.Players.Assist.SelectMember:			You must select the member of your realm you wish to assist.
+Commands.Players.Assist.YouAssist:				You assist {0}.

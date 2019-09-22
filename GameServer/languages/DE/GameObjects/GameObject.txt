@@ -13,4 +13,3 @@ GameObject.GetPronoun.Pronoun4:				man ist
 GameObject.GetPronoun.Pronoun5:				Man
 GameObject.GetPronoun.Pronoun6:				man
 GameObject.Interact.TooFarAway:				{0} ist zu weit entfernt.
-

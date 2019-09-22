@@ -1,0 +1,22 @@
+# /account Command
+Commands.Admin.Account.Description:					Account modification command
+Commands.Admin.Account.Usage.Create:					/account create <AccountName> <Password>
+Commands.Admin.Account.Usage.ChangePassword:			/account changepassword <AccountName> <NewPassword>
+Commands.Admin.Account.Usage.Delete:					/account delete <AccountName>
+Commands.Admin.Account.Usage.DeleteChar:				/account deletecharacter <CharacterName>
+Commands.Admin.Account.Usage.MoveChar:				/account movecharacter <CharacterName> <NewAccountName>
+Commands.Admin.Account.Usage.Status:					/account status <AccountName> <Level>
+Commands.Admin.Account.Usage.UnBan:					/account unban <AccountName>
+Commands.Admin.Account.Usage.AccountName:			/account accountname <CharacterName>
+Commands.Admin.Account.AccountNotFound:				Account {0} not found!
+Commands.Admin.Account.AccountDeleted:				Account {0} deleted!
+Commands.Admin.Account.CharacterNotFound:			Character {0} not found!
+Commands.Admin.Account.CharacterDeleted:				Character {0} deleted!
+Commands.Admin.Account.CharNotFromValidRealm:		The character is not from a valid realm!
+Commands.Admin.Account.AccountHasNoFreeSlots:		Account {0} has no free character slots for this realm anymore!
+Commands.Admin.Account.CharacterMovedToAccount:		Character {0} moved to Account {1}!
+Commands.Admin.Account.InvalidAccountName:			Invalid account name.
+Commands.Admin.Account.InvalidAccountNameOrPassword:	Account name and password must be at least 4 letters.
+Commands.Admin.Account.AccountNameAlreadyRegistered:	This account name is already registered.
+Commands.Admin.Account.AccountCreated:				Account created!
+Commands.Admin.Account.AccNameForChar:				Account name for character {0} is: {1}

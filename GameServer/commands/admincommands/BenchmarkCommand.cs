@@ -28,8 +28,13 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&benchmark",
 		ePrivLevel.Admin,
-		"Benchmark some aspects of DOL Server.",
-		"/benchmark listskills|listspells|styles|respawns|deaths|tooltips")]
+		"Commands.Admin.Benchmark.Description",
+		"Commands.Admin.Benchmark.ListSpells",
+		"Commands.Admin.Benchmark.ListSkills",
+		"Commands.Admin.Benchmark.Styles",
+		"Commands.Admin.Benchmark.Respawns",
+		"Commands.Admin.Benchmark.Deaths",
+		"Commands.Admin.Benchmark.Tooltips")]
 	public class BenchmarkCommand : AbstractCommandHandler, ICommandHandler
 	{		
 		public void OnCommand(GameClient client, string[] args)
@@ -47,31 +52,24 @@ namespace DOL.GS.Commands
 				case "listskills":
 					start = GameTimer.GetTickCount();
 					Enumerable.Range(0, 1000).AsParallel().ForEach(i =>
-					{
-						var tmp = client.Player.GetAllUsableSkills(true);
-					}
-					                                              );
-					
+					  {
+					  	var tmp = client.Player.GetAllUsableSkills(true);
+					  }
+					);
 					spent = GameTimer.GetTickCount() - start;
-					
-					client.Player.Out.SendMessage(string.Format("Skills Benchmark took {0}ms for 1000 iterations...", spent), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Admin.Benchmark.Usage", "Skills", spent, "1000"));
 				break;
 				case "listspells":
 					start = GameTimer.GetTickCount();
 					Enumerable.Range(0, 1000).AsParallel().ForEach(i =>
-					{
+					  {
 						var tmp = client.Player.GetAllUsableListSpells(true);
-					}
-					                                              );
-					
+					  }
+				    );
 					spent = GameTimer.GetTickCount() - start;
-					
-					client.Player.Out.SendMessage(string.Format("Spells Benchmark took {0}ms for 1000 iterations...", spent), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.Admin.Benchmark.Usage", "Spells", spent, "1000"));
 				break;
-				
 			}
-	
 		}
-
 	}
 }

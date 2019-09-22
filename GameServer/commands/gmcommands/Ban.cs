@@ -31,11 +31,11 @@ namespace DOL.GS.Commands
 	[CmdAttribute(
 		"&ban",
 		ePrivLevel.GM,
-		"GMCommands.Ban.Description",
-		"GMCommands.Ban.Usage.IP",
-		"GMCommands.Ban.Usage.Account",
-		"GMCommands.Ban.Usage.Both",
-		"#<ClientID> can be used in place of player name.  Use /clientlist to see playing clients."
+		"Commands.GM.Ban.Description",
+		"Commands.GM.Ban.Usage.IP",
+		"Commands.GM.Ban.Usage.Account",
+		"Commands.GM.Ban.Usage.Both",
+		"Commands.GM.Ban.Usage.ClientID"
 	)]
 	public class BanCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
@@ -71,7 +71,7 @@ namespace DOL.GS.Commands
 			Account acc = gc != null ? gc.Account : GameServer.Database.SelectObjects<Account>("`Name` LIKE @Name", new QueryParameter("@Name", args[2])).FirstOrDefault();
 			if (acc == null)
 			{
-				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Ban.UnableToFindPlayer"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Ban.UnableToFindPlayer"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				return;
 			}
 
@@ -109,12 +109,12 @@ namespace DOL.GS.Commands
 						var acctBans = GameServer.Database.SelectObjects<DBBannedAccount>("(`Type` = @TypeA OR `Type` = @TypeB) AND `Account` = @Account", new[] { new QueryParameter("@TypeA", "A"), new QueryParameter("@TypeB", "B"), new QueryParameter("@Account", acc.Name) });
 						if (acctBans.Count > 0)
 						{
-							client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Ban.AAlreadyBanned"), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+							client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Ban.AAlreadyBanned"), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 							return;
 						}
 
 						b.Type = "A";
-						client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Ban.ABanned", acc.Name), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+						client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Ban.ABanned", acc.Name), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 						break;
 						#endregion Account
 						#region IP
@@ -122,12 +122,12 @@ namespace DOL.GS.Commands
 						var ipBans = GameServer.Database.SelectObjects<DBBannedAccount>("(`Type` = @TypeI OR `Type` = @TypeB) AND `Ip` = @Ip", new[] { new QueryParameter("@TypeI", "I"), new QueryParameter("@TypeB", "B"), new QueryParameter("@Ip", acc.LastLoginIP) });
 						if (ipBans.Count > 0)
 						{
-							client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Ban.IAlreadyBanned"), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+							client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Ban.IAlreadyBanned"), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 							return;
 						}
 
 						b.Type = "I";
-						client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Ban.IBanned", acc.LastLoginIP), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+						client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Ban.IBanned", acc.LastLoginIP), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 						break;
 						#endregion IP
 						#region Both
@@ -135,12 +135,12 @@ namespace DOL.GS.Commands
 						var acctIpBans = GameServer.Database.SelectObjects<DBBannedAccount>("`Type` = @Type AND `Account` = @Account AND `Ip` = @Ip", new[] { new QueryParameter("@Type", "B"), new QueryParameter("@Account", acc.Name), new QueryParameter("@Ip", acc.LastLoginIP) });
 						if (acctIpBans.Count > 0)
 						{
-							client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Ban.BAlreadyBanned"), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+							client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Ban.BAlreadyBanned"), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 							return;
 						}
 
 						b.Type = "B";
-						client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Ban.BBanned", acc.Name, acc.LastLoginIP), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+						client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Ban.BBanned", acc.Name, acc.LastLoginIP), eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 						break;
 						#endregion Both
 						#region Default

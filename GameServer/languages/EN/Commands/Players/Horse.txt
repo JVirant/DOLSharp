@@ -1,0 +1,36 @@
+
+# /Commands.Players.Horse
+Commands.Players.Commands.Players.HorseEmote.MustBeOnMount:					You can only do that while mounted.
+Commands.Players.Commands.Players.HorseEmote.You:							you
+Commands.Players.Commands.Players.HorseEmote.courbette.ToOthers:				-
+Commands.Players.Commands.Players.HorseEmote.courbette.ToSource:				-
+Commands.Players.Commands.Players.HorseEmote.courbette.NoTargetToOthers:			{0}'s mount performs a courbette.
+Commands.Players.Commands.Players.HorseEmote.courbette.NoTargetToSource:			Your mount performs a courbette.
+Commands.Players.Commands.Players.HorseEmote.graze.ToOthers:					-
+Commands.Players.Commands.Players.HorseEmote.graze.ToSource:					-
+Commands.Players.Commands.Players.HorseEmote.graze.NoTargetToOthers:				{0} lets {1} mount graze.
+Commands.Players.Commands.Players.HorseEmote.graze.NoTargetToSource:				You let your mount graze.
+Commands.Players.Commands.Players.HorseEmote.halt.ToOthers:					{0} orders {1} to halt.
+Commands.Players.Commands.Players.HorseEmote.halt.ToSource:					You order {0} to halt.
+Commands.Players.Commands.Players.HorseEmote.halt.NoTargetToOthers:				{0} orders everyone to halt.
+Commands.Players.Commands.Players.HorseEmote.halt.NoTargetToSource:				You order everyone to halt.
+Commands.Players.Commands.Players.HorseEmote.nod.ToOthers:						{0}'s mount nods at {1}.
+Commands.Players.Commands.Players.HorseEmote.nod.ToSource:						Your mount nods at {0}.
+Commands.Players.Commands.Players.HorseEmote.nod.NoTargetToOthers:				{0}'s mount nods.
+Commands.Players.Commands.Players.HorseEmote.nod.NoTargetToSource:				Your mount nods.
+Commands.Players.Commands.Players.HorseEmote.pet.ToOthers:						-
+Commands.Players.Commands.Players.HorseEmote.pet.ToSource:						-
+Commands.Players.Commands.Players.HorseEmote.pet.NoTargetToOthers:				{0} pets {1} mount.
+Commands.Players.Commands.Players.HorseEmote.pet.NoTargetToSource:				You pet your mount.
+Commands.Players.Commands.Players.HorseEmote.rear.ToOthers:					{0}'s mount rears at the sight of {1}.
+Commands.Players.Commands.Players.HorseEmote.rear.ToSource:					Your mount rears at the sight of {0}.
+Commands.Players.Commands.Players.HorseEmote.rear.NoTargetToOthers:				{0}'s mount rears.
+Commands.Players.Commands.Players.HorseEmote.rear.NoTargetToSource:				Your mount rears.
+Commands.Players.Commands.Players.HorseEmote.startle.ToOthers:					{0}'s mount is startled by {1}.
+Commands.Players.Commands.Players.HorseEmote.startle.ToSource:					Your mount is startled by {0}.
+Commands.Players.Commands.Players.HorseEmote.startle.NoTargetToOthers:			{0}'s mount is startled.
+Commands.Players.Commands.Players.HorseEmote.startle.NoTargetToSource:			Your mount is startled.
+Commands.Players.Commands.Players.HorseEmote.trick.ToOthers:					{0} stands on {2} mount to impress {1}.
+Commands.Players.Commands.Players.HorseEmote.trick.ToSource:					You stand on your mount to impress {0}.
+Commands.Players.Commands.Players.HorseEmote.trick.NoTargetToOthers:				{0} stands on {1} mount to impress everyone.
+Commands.Players.Commands.Players.HorseEmote.trick.NoTargetToSource:				You stand on your mount to impress everyone.

@@ -1,0 +1,5 @@
+# /code Command
+Commands.Admin.Code.Description:						Permet l'exécution de code à partir du jeu!
+Commands.Admin.Code.Usage:							/code <code>
+Commands.Admin.Code.ErrorCompiling:					Erreur de Compilation de l'Expression:
+Commands.Admin.Code.CodeExecuted:					Code exécuté...

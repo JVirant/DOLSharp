@@ -1,0 +1,3 @@
+# /Advisor
+Commands.Players.Advisor.Off:				Eure Ratgeberkennung wurde ausgeschaltet.
+Commands.Players.Advisor.On:				Ihr seid nun als Ratgeber in Eurem Reich aktiv. Das Ratgeber-System wird von Spielern betrieben und benutzt, die anderen Leuten bei Problemen mit dem Spiel helfen wollen. Bitte aktiviert diese Funktion nur dann, wenn Ihr anderen Spielern helfen wollt.\nWenn Ihr wieder Eure Ruhe haben und nicht mehr als Ratgeber tätig sein wollt, gebt einfach erneut '/advisor' ein.

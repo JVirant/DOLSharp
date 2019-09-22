@@ -8,7 +8,7 @@ SetGuardName.TowerCaptain:	Capitaine de la Tour
 #Albion
 SetGuardName.Armsman:			Maître d'Armes
 SetGuardName.Armswoman:			Maître d'Armes
-SetGuardName.BowmanCommander:	Commandant des Eclaireurs
+SetGuardName.BowmanCommander:	Commandant des Éclaireurs
 SetGuardName.CaptainCommander:	Commandant des Capitaines
 SetGuardName.Cleric:			Clerc
 SetGuardName.Infiltrator:		Sicaire
@@ -16,7 +16,7 @@ SetGuardName.KnightCommander:	Commandant des Chevaliers
 SetGuardName.Lady:				Dame {0}
 SetGuardName.Lord:				Seigneur {0}
 SetGuardName.MasterWizard:		Maître Thaumaturge
-SetGuardName.Scout:				Eclaireur
+SetGuardName.Scout:				Éclaireur
 SetGuardName.Wizard:			Thaumaturge
 
 #Midgard

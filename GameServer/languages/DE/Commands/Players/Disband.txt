@@ -1,0 +1,6 @@
+# /Disband
+Commands.Players.Disband.Disbanded:			{o} wurde aus der Gruppe entlassen.
+Commands.Players.Disband.NoPlayer:			In der Gruppe gibt es keinen Spieler mit diesem Namen.
+Commands.Players.Disband.NotInGroup:			Ihr seid zur Zeit in keiner Gruppe.
+Commands.Players.Disband.NotLeader:			Ihr seid nicht der Leiter Eurer Gruppe.
+Commands.Players.Disband.NoYourself:			Auf diesem Wege könnt Ihr die Gruppe nicht verlassen.

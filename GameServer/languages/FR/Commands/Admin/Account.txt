@@ -1,0 +1,22 @@
+# /account Command
+Commands.Admin.Account.Description:					Commande de modification de compte
+Commands.Admin.Account.Usage.Create:					/account create <NomDuCompte> <MotDePasse>
+Commands.Admin.Account.Usage.ChangePassword:			/account changepassword <NomDuCompte> <MotdePasse>
+Commands.Admin.Account.Usage.Delete:					/account delete <NomDuCompte>
+Commands.Admin.Account.Usage.DeleteChar:				/account deletecharacter <NomDuPersonnage>
+Commands.Admin.Account.Usage.MoveChar:				/account movecharacter <NomDuPersonnage> <NomDuCompteCible>
+Commands.Admin.Account.Usage.Status:					/account status <NomDuCompte> <Niveau>
+Commands.Admin.Account.Usage.UnBan:					/account unban <NomDuCompte>
+Commands.Admin.Account.Usage.AccountName:			/account accountname <NomDuJoueur>
+Commands.Admin.Account.AccountNotFound:				Le compte de jeu "{0}" est introuvable!
+Commands.Admin.Account.AccountDeleted:				Le compte de jeu "{0}" a été supprimé!
+Commands.Admin.Account.CharacterNotFound:			Le joueur "{0}" est introuvable!
+Commands.Admin.Account.CharacterDeleted:				Le joueur "{0}" a été supprimé!
+Commands.Admin.Account.CharNotFromValidRealm:		Le joueur n'est pas d'un royaume valide.
+Commands.Admin.Account.AccountHasNoFreeSlots:		Le compte de jeu "{0}" n'a plus d'emplacement de personnage dsiponible pour ce royaume!
+Commands.Admin.Account.CharacterMovedToAccount:		Le Personage "{0}" a été déplacé sur le compte de jeu "{1}".
+Commands.Admin.Account.InvalidAccountName:			Le nom de compte de jeu est invalide.
+Commands.Admin.Account.InvalidAccountNameOrPassword:	Le nom de compte de jeu et le mot de passe doivent avoir au moins 4 caractères.
+Commands.Admin.Account.AccountNameAlreadyRegistered:	Ce nom de compte de jeu est déjà utilisé.
+Commands.Admin.Account.AccountCreated:				Compte créé!
+Commands.Admin.Account.AccNameForChar:				Le nom de compte de jeu pour le joueur "{0}" est: {1}

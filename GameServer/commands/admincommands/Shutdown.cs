@@ -21,15 +21,16 @@ using System.Threading;
 using DOL.Events;
 using DOL.GS.PacketHandler;
 using DOL.GS.ServerProperties;
+using DOL.Language;
 
 namespace DOL.GS.Commands
 {
 	[CmdAttribute(
 		"&shutdown",
 		ePrivLevel.Admin,
-		"Shutdown the server in next minute",
-		"/shutdown on <hour>:<min>  - shutdown on this time",
-		"/shutdown <mins>  - shutdown in minutes")]
+		"Commands.Admin.ShutDown.Description",
+		"Commands.Admin.ShutDown.On",
+		"Commands.Admin.ShutDown")]
 	public class ShutdownCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -89,7 +90,8 @@ namespace DOL.GS.Commands
 
 				foreach (GameClient m_client in WorldMgr.GetAllPlayingClients())
 				{
-					m_client.Out.SendDialogBox(eDialogCode.SimpleWarning, 0, 0, 0, 0, eDialogType.Ok, true, "Automated server restart / backup triggered. Restart in " + m_counter / 60 + " mins! (Restart at " + date.ToString("HH:mm \"GMT\" zzz") + ")");
+					m_client.Out.SendDialogBox(eDialogCode.SimpleWarning, 0,0,0,0, eDialogType.Ok, true, LanguageMgr.GetTranslation(m_client.Account.Language, "Commands.Admin.ShutDown.Restart.Auto", m_counter / 60, date.ToString("HH:mm \"GMT\" zzz")));
+					//m_client.Out.SendDialogBox(eDialogCode.SimpleWarning, 0, 0, 0, 0, eDialogType.Ok, true, "Automated server restart / backup triggered. Restart in " + m_counter / 60 + " mins! (Restart at " + date.ToString("HH:mm \"GMT\" zzz") + ")");
 					//m_client.Out.SendMessage("Automated server restart / backup triggered. Restart in " + m_counter / 60 + " mins! (Restart on " + date.ToString("HH:mm \"GMT\" zzz") + ")", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 				}
 
@@ -129,87 +131,75 @@ namespace DOL.GS.Commands
 				long secs = m_counter;
 				long mins = secs / 60;
 				long hours = mins / 60;
+				string strType = "";
 
 				string sendMessage = "";
-
-				if (hours > 3) //hours...
-				{
-					if (mins % 60 < 15) //every hour..
-						sendMessage = "Server restart in " + hours + " hours!";
+			    
+				// Every hours
+				if (hours > 3) {
+					if (mins % 60 < 15)
+					  strType = "Hours";
 					//15 minutes between checks
 					m_currentCallbackTime = 15 * 60 * 1000;
 				}
-				else if (hours > 0) //hours...
-				{
-					if (mins % 30 < 5) //every 30 mins..
-						sendMessage = "Server restart in " + hours + " hours and " + (mins - (hours * 60)) + " minutes!";
+				else if (hours > 0) {
+					// every 30 mins..
+					if (mins % 30 < 5)
+					{
+					    mins = (mins - (hours * 60));
+					    strType = "Hours.Mins";
+					}
 					//5 minutes between checks
 					m_currentCallbackTime = 5 * 60 * 1000;
 				}
 				else if (mins >= 10)
 				{
-					if (mins % 15 < 1) //every 15 mins..
-					{
-						sendMessage = "Server restart in " + mins + " minutes!";
-
-						// You have an IRC Bot
-						//if (ServerIRC.IRCBot != null) ServerIRC.IRCBot.SendMessage(ServerIRC.CHANNEL, sendMessage);
-					}
-
-					//1 minute between checks
-					m_currentCallbackTime = 60 * 1000;
+					//every 15 mins..
+					if (mins % 15 < 1)
+						strType = "Mins";
+				    //1 minute between checks
+				    m_currentCallbackTime = 60 * 1000;
 				}
 				else if (mins >= 5)
 				{
-					if (secs % 60 < 15) //every min...
-					{
-						sendMessage = "Server restart in " + mins + " minutes!";
-
-						// You have an IRC Bot
-						//if (ServerIRC.IRCBot != null && mins % 2 == 0) ServerIRC.IRCBot.SendMessage(ServerIRC.CHANNEL, sendMessage);
-					}
-
+					//every min...
+					if (secs % 60 < 15)
+						strType = "Mins";
 					//15 secs between checks
 					m_currentCallbackTime = 15 * 1000;
 				}
-				else if (secs > 60)
+				else if (secs > 120)
 				{
-					sendMessage = "Server restart in " + mins + " minutes! (" + secs + " seconds)";
-
-					// You have an IRC Bot
-					//if (ServerIRC.IRCBot != null && secs % 60 == 0) ServerIRC.IRCBot.SendMessage(ServerIRC.CHANNEL, sendMessage);
-
+					strType = "Mins.Secs";
 					//15 secs between checks
 					m_currentCallbackTime = 15 * 1000;
 				}
 				else
 				{
-					sendMessage = "Server restart in " + secs + " seconds! Please logout!";
+					strType = "Secs";
 					//5 secs between checks
 					m_currentCallbackTime = 5 * 1000;
 				}
 
-				//log.Debug(string.Format("counter: {0} callback: {1}", m_counter, m_currentCallbackTime));
-				//log.Debug(sendMessage);
-
 				//Change the timer to the new callback time
 				m_timer.Change(m_currentCallbackTime, m_currentCallbackTime);
 
-				if (sendMessage != "")
+				if (strType != "")
 				{
 					foreach (GameClient client in WorldMgr.GetAllPlayingClients())
 					{
+						sendMessage = LanguageMgr.GetTranslation(client.Account.Language, "Commands.Admin.ShutDown.Restart." + strType, hours, mins, secs);
 						client.Out.SendMessage(sendMessage, eChatType.CT_Staff, eChatLoc.CL_ChatWindow);
 					}
+					// If you have an IRC Bot
+					//if (ServerIRC.IRC.Boot != null) ServerIRC.IRCBot.SendMessage(ServerIRC.CHANNEL, LanguageMgr.GetTranslation(ServerProperties.Properties.SERV_LANGUAGE, "Commands.Admin.ShutDown.Restart." + strType, hours, mins, secs));
 				}
 
 				if (mins <= 2 && GameServer.Instance.ServerStatus != eGameServerStatus.GSS_Closed) // 2 mins remaining
 				{
 					GameServer.Instance.Close();
-					string msg = "Server is now closed (restart in " + mins + " mins)";
-
 					// You have an IRC Bot
-					//if (ServerIRC.IRCBot != null) ServerIRC.IRCBot.SendMessage(ServerIRC.CHANNEL, msg);
+					//if (ServerIRC.IRCBot != null) ServerIRC.IRCBot.SendMessage(ServerIRC.CHANNEL, LanguageMgr.GetTranslation(ServerProperties.Properties.SERV_LANGUAGE, "Commands.Admin.ShutDown.Restart.Closed", mins));
 				}
 			}
 		}
@@ -308,21 +298,21 @@ namespace DOL.GS.Commands
 			date = DateTime.Now;
 			date = date.AddSeconds(m_counter);
 
-			string msg = "Server restart in " + m_counter / 60 + " mins!";
 			bool popup = ((m_counter / 60) < 60);
 
 
 			foreach (GameClient m_client in WorldMgr.GetAllPlayingClients())
 			{
+				long mins = m_counter / 60;
 				if (popup)
 				{
-					m_client.Out.SendDialogBox(eDialogCode.SimpleWarning, 0, 0, 0, 0, eDialogType.Ok, true, "Attention: Server restart in " + m_counter / 60 + " mins! (restart at " + date.ToString("HH:mm \"GMT\" zzz") + ")");
-					m_client.Out.SendMessage("Server restart in " + m_counter / 60 + " mins! (restart on " + date.ToString("HH:mm \"GMT\" zzz") + ")", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+					string datestr = date.ToString("HH:mm \"GMT\" zzz"); 
+					m_client.Out.SendDialogBox(eDialogCode.SimpleWarning, 0, 0, 0, 0, eDialogType.Ok, true, LanguageMgr.GetTranslation(m_client.Account.Language, "Commands.Admin.ShutDown.Restart.TZ", mins, datestr));
+					m_client.Out.SendMessage(LanguageMgr.GetTranslation(m_client.Account.Language, "Commands.Admin.ShutDown.Restart.TZ", mins, datestr), eChatType.CT_System, eChatLoc.CL_PopupWindow);
 				}
-
-				m_client.Out.SendMessage(msg, eChatType.CT_Staff, eChatLoc.CL_ChatWindow);
+				m_client.Out.SendMessage(LanguageMgr.GetTranslation(m_client.Account.Language, "Commands.Admin.ShutDown.Restart.Mins", "", mins), eChatType.CT_Staff, eChatLoc.CL_ChatWindow);
 			}
-
+			string msg = "Server restart in " + m_counter / 60 + " mins!";
 			log.Warn(msg);
 
 			// You have an IRC Bot

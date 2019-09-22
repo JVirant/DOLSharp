@@ -13,4 +13,3 @@ GameKeepGuard.GuardSpam.Killed: 	{0} a été tué(e) dans {1} avec {2} ennemis d
 
 #GuardCaster
 GuardCaster.SkinsHardens:	Un bouclier de cristal entoure soudainement le {0}.
-

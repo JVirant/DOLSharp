@@ -1,0 +1,5 @@
+# /Boot
+Commands.Players.Boot.InHouseError:			You have to be in your house to use this command!
+Commands.Players.Boot.NoHouseError:			You don't own a house!
+Commands.Players.Boot.NoOneOnline:			No one with that name is online to Kick!
+Commands.Players.Boot.YouRemoved:			You have been removed from the house by {0}!

@@ -1,7 +1,6 @@
-﻿
-# GAMELIVING
-GameLiving.ReceiveItem:							{0} ne veut pas de cet item !
-GameLiving.ReceiveMoney:						{0} ne veut pas de votre argent !
+﻿# GAMELIVING
+GameLiving.ReceiveItem:						{0} ne veut pas de cet objet !
+GameLiving.ReceiveMoney:					{0} ne veut pas de votre argent !
 GameLiving.Pronoun.Neutral.Objective:		il
 GameLiving.Pronoun.Neutral.Possessive:		son	
 GameLiving.Pronoun.Neutral.Subjective:		il

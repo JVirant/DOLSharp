@@ -1,0 +1,14 @@
+# /Autosplit
+Commands.Players.Autosplit.Coins:			The leader switched 
+Commands.Players.Autosplit.InGroup:			You must be in a group to use this command.
+Commands.Players.Autosplit.Leader:			You must be the leader of the group to use this command.
+Commands.Players.Autosplit.Loot:				The leader switched 
+Commands.Players.Autosplit.Off:				The leader switched off the autosplit.
+Commands.Players.Autosplit.On:				The leader switched on the autosplit.
+Commands.Players.Autosplit.Coins.On:         The leader switched ON the coin autosplit.
+Commands.Players.Autosplit.Coins.Off:        The leader switched OFF the coin autosplit.
+Commands.Players.Autosplit.Loot.On:          The leader switched ON the loot autosplit.
+Commands.Players.Autosplit.Loot.Off:         The leader switched OFF the loot autosplit.
+Commands.Players.Autosplit.Self:				{0} switched
+Commands.Players.Autosplit.Self.On:          {0} switched on their autosplit loot.
+Commands.Players.Autosplit.Self.Off:         {0} switched off their autosplit loot.

@@ -27,8 +27,8 @@ namespace DOL.GS.Commands
 	[Cmd(
 		"&code",
 		ePrivLevel.Admin,
-		"AdminCommands.Code.Description",
-		"AdminCommands.Code.Usage")]
+		"Commands.Admin.Code.Description",
+		"Commands.Admin.Code.Usage")]
 	public class DynCodeCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
 		private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -87,7 +87,7 @@ test;
 
 				if (client.Player != null)
 				{
-					client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "AdminCommands.Code.CodeExecuted"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+					client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "Commands.Admin.Code.CodeExecuted"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				}
 				else
 				{
