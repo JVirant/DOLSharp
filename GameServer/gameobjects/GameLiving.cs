@@ -5398,7 +5398,7 @@ namespace DOL.GS
 		/// </summary>
 		public virtual int MaxEndurance
 		{
-			get { return m_maxEndurance; }
+			get { return GetModified(eProperty.Fatigue); }
 			set
 			{
 				m_maxEndurance = value;
