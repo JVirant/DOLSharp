@@ -108,7 +108,10 @@ namespace DOL.GS.Commands
 					
 					info.Add(" + Speed(current/max): " + target.CurrentSpeed + "/" + target.MaxSpeedBase);
 					info.Add(" + Health: " + target.Health + "/" + target.MaxHealth);
-					
+					info.Add(" + Endu: " + target.Endurance + "/" + target.MaxEndurance);
+					info.Add(" + Mana: " + target.Mana + "/" + target.MaxMana);
+					info.Add(" + Conc: " + target.Concentration + "/" + target.MaxConcentration);
+
 					IOldAggressiveBrain aggroBrain = target.Brain as IOldAggressiveBrain;
 					if (aggroBrain != null)
 					{
