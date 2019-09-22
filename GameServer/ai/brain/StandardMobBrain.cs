@@ -1070,7 +1070,7 @@ namespace DOL.AI.Brain
 
 			if (Body != null && Body.Spells != null && Body.Spells.Count > 0)
 			{
-				ArrayList spell_rec = new ArrayList();
+				var spell_rec = new List<Spell>();
 				Spell spellToCast = null;
 				bool needpet = false;
 				bool needheal = false;
@@ -1094,9 +1094,9 @@ namespace DOL.AI.Brain
 						if (Body.ControlledBrain != null && Body.ControlledBrain.Body != null)
 						{
 							if (Util.Chance(30) && Body.ControlledBrain != null && spell.SpellType.ToLower() == "heal" &&
-							    Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range &&
-							    Body.ControlledBrain.Body.HealthPercent < DOL.GS.ServerProperties.Properties.NPC_HEAL_THRESHOLD
-							    && spell.Target != "self")
+								Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range &&
+								Body.ControlledBrain.Body.HealthPercent < DOL.GS.ServerProperties.Properties.NPC_HEAL_THRESHOLD
+								&& spell.Target != "self")
 							{
 								spell_rec.Add(spell);
 								needheal = true;
@@ -1111,11 +1111,10 @@ namespace DOL.AI.Brain
 						spellToCast = (Spell)spell_rec[Util.Random((spell_rec.Count - 1))];
 						if (!Body.IsReturningToSpawnPoint)
 						{
-							if (spellToCast.Uninterruptible && CheckDefensiveSpells(spellToCast))
+							if ((spellToCast.IsInstantCast || spellToCast.Uninterruptible) && CheckDefensiveSpells(spellToCast))
 								casted = true;
-							else
-								if (!Body.IsBeingInterrupted && CheckDefensiveSpells(spellToCast))
-									casted = true;
+							else if (!Body.IsBeingInterrupted && CheckDefensiveSpells(spellToCast))
+								casted = true;
 						}
 					}
 				}
@@ -1123,26 +1122,19 @@ namespace DOL.AI.Brain
 				{
 					foreach (Spell spell in Body.Spells)
 					{
-
-						if (Body.GetSkillDisabledDuration(spell) == 0)
-						{
-							if (spell.CastTime > 0)
-							{
-								if (spell.Target == "enemy" || spell.Target == "area" || spell.Target == "cone")
-									spell_rec.Add(spell);
-							}
-						}
+						if (Body.GetSkillDisabledDuration(spell) > 0) continue;
+						if (spell.Target != "enemy" && spell.Target != "area" && spell.Target != "cone") continue;
+						spell_rec.Add(spell);
 					}
 					if (spell_rec.Count > 0)
 					{
 						spellToCast = (Spell)spell_rec[Util.Random((spell_rec.Count - 1))];
 
 
-						if (spellToCast.Uninterruptible && CheckOffensiveSpells(spellToCast))
+						if ((spellToCast.IsInstantCast || spellToCast.Uninterruptible) && CheckOffensiveSpells(spellToCast))
 							casted = true;
-						else
-							if (!Body.IsBeingInterrupted && CheckOffensiveSpells(spellToCast))
-								casted = true;
+						else if (!Body.IsBeingInterrupted && CheckOffensiveSpells(spellToCast))
+							casted = true;
 					}
 				}
 
