@@ -129,7 +129,7 @@ Zone.ScreenDescription.CrystalCave:			Kristallh�hle
 Zone.Description.CursedForest:				im Verfluchten Wald
 Zone.ScreenDescription.CursedForest:			Verfluchter Wald
 Zone.Description.CursedTomb:				im Verfluchten Grabmal
-Zone.ScreenDescription.CursedTomb			Cursed Tomb:	Verfluchtes Grabmal
+Zone.ScreenDescription.CursedTomb:			Cursed Tomb:	Verfluchtes Grabmal
 Zone.Description.DalesofDevwy:				in den T�lern von Devwy
 Zone.ScreenDescription.DalesofDevwy:			T�ler von Devwy
 Zone.Description.Dalton:				in Dalton

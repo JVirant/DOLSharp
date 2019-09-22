@@ -7,19 +7,19 @@ DetailDisplayHandler.GetShortItemInfo.NoTrade:				Ne peut être échangé.
 DetailDisplayHandler.HandlePacket.Any:						Tous
 DetailDisplayHandler.HandlePacket.Back:						(Dos)
 DetailDisplayHandler.HandlePacket.BonusLevel:				Bonus Level : {0}
-DetailDisplayHandler.HandlePacket.CannotDestroyed			Ne peut être détruit.
-DetailDisplayHandler.HandlePacket.CannotDropped				Ne peut être jeté ou mis au coffre.
+DetailDisplayHandler.HandlePacket.CannotDestroyed:			Ne peut être détruit.
+DetailDisplayHandler.HandlePacket.CannotDropped:				Ne peut être jeté ou mis au coffre.
 DetailDisplayHandler.HandlePacket.CannotSold:				Ne peut être vendu.
 DetailDisplayHandler.HandlePacket.CannotTraded:				Ne peut être échangé.
-DetailDisplayHandler.HandlePacket.ChampionLevel				- Requis: Niveau de Champion {0}
+DetailDisplayHandler.HandlePacket.ChampionLevel:				- Requis: Niveau de Champion {0}
 DetailDisplayHandler.HandlePacket.ChatItem:					[Chat] {0}/Objet : "{1}"
 DetailDisplayHandler.HandlePacket.CrafterName:				Artisan : {0}
 DetailDisplayHandler.HandlePacket.Damage:					Dégats : 
 DetailDisplayHandler.HandlePacket.Defense:					Défense : 
 DetailDisplayHandler.HandlePacket.Devastating:				Dévastateur
-DetailDisplayHandler.HandlePacket.DontBelongGuild			Vous n'appartenez pas à une guilde.
+DetailDisplayHandler.HandlePacket.DontBelongGuild:			Vous n'appartenez pas à une guilde.
 DetailDisplayHandler.HandlePacket.FatigueCost:				Coût en endurance : 
-DetailDisplayHandler.HandlePacket.FollowupStyle				Style à suivre : {0}
+DetailDisplayHandler.HandlePacket.FollowupStyle:				Style à suivre : {0}
 DetailDisplayHandler.HandlePacket.Front:					(Face)	
 DetailDisplayHandler.HandlePacket.GuildItem:				[Guilde] {0}/Objet : "{1}"
 DetailDisplayHandler.HandlePacket.High:						Élevé
@@ -32,7 +32,7 @@ DetailDisplayHandler.HandlePacket.LowBonus:					Bonus faible
 DetailDisplayHandler.HandlePacket.LowPenalty:				Pénalité basse
 DetailDisplayHandler.HandlePacket.Medium:					Moyen
 DetailDisplayHandler.HandlePacket.MediumBonus:				Bonus moyen
-DetailDisplayHandler.HandlePacket.MediumPenalty				Pénalité moyenne
+DetailDisplayHandler.HandlePacket.MediumPenalty:				Pénalité moyenne
 DetailDisplayHandler.HandlePacket.MustBeInChatGroup:		Vous devez être dans un groupe de discussion.
 DetailDisplayHandler.HandlePacket.MustBeInBattleGroup:		Vous devez être dans un groupe de combat.
 DetailDisplayHandler.HandlePacket.NoBonus:					Aucun
@@ -40,7 +40,7 @@ DetailDisplayHandler.HandlePacket.NoGroup:					Vous ne faites pas partie d'un gr
 DetailDisplayHandler.HandlePacket.NoInformation:			Aucune information spéciale !
 DetailDisplayHandler.HandlePacket.None:						Aucun
 DetailDisplayHandler.HandlePacket.NoPermissionToSpeak:		Vous n'avez pas la permission de parler sur le canal de guilde.	
-DetailDisplayHandler.HandlePacket.OnlyModerator				Seuls les modérateurs peuvent parler sur ce canal.
+DetailDisplayHandler.HandlePacket.OnlyModerator:				Seuls les modérateurs peuvent parler sur ce canal.
 DetailDisplayHandler.HandlePacket.Opening:					Ouverture : 
 DetailDisplayHandler.HandlePacket.OpeningStyle:				Style d'ouverture : 
 DetailDisplayHandler.HandlePacket.Or:						ou {0}
@@ -49,18 +49,18 @@ DetailDisplayHandler.HandlePacket.Side:						(côté)
 DetailDisplayHandler.HandlePacket.TargetBlocks:				La cible bloque
 DetailDisplayHandler.HandlePacket.TargetEffect:				Effet sur la cible : 
 DetailDisplayHandler.HandlePacket.TargetEvades:				La cible esquive
-DetailDisplayHandler.HandlePacket.TargetFumbles				La cible rate lamentablement
+DetailDisplayHandler.HandlePacket.TargetFumbles:				La cible rate lamentablement
 DetailDisplayHandler.HandlePacket.TargetHits:				La cible touche
 DetailDisplayHandler.HandlePacket.TargetMisses:				La cible loupe
 DetailDisplayHandler.HandlePacket.TargetParrys:				La cible pare
 DetailDisplayHandler.HandlePacket.TargetStyle:				La cible exécute un style
 DetailDisplayHandler.HandlePacket.ToHit:					Toucher : 
 DetailDisplayHandler.HandlePacket.VeryHigh:					Très élevé
-DetailDisplayHandler.HandlePacket.VeryHighBonus				Bonus très élevé
-DetailDisplayHandler.HandlePacket.VeryHighPenalty			Pénalité très élevé
+DetailDisplayHandler.HandlePacket.VeryHighBonus:				Bonus très élevé
+DetailDisplayHandler.HandlePacket.VeryHighPenalty:			Pénalité très élevé
 DetailDisplayHandler.HandlePacket.VeryLow:					Très faible
 DetailDisplayHandler.HandlePacket.VeryLowBonus:				Bonus très faible
-DetailDisplayHandler.HandlePacket.VeryLowPenalty			Pénalité très basse
+DetailDisplayHandler.HandlePacket.VeryLowPenalty:			Pénalité très basse
 DetailDisplayHandler.HandlePacket.VeryStrange:				C'est très étrange, je ne reconnais pas ce type d'objets.
 DetailDisplayHandler.HandlePacket.WeaponType:				Type d'armes : {0}
 DetailDisplayHandler.HandlePacket.YouBlock:					Vous bloquez
@@ -71,27 +71,27 @@ DetailDisplayHandler.HandlePacket.YouMiss:					Vous ratez
 DetailDisplayHandler.HandlePacket.YouParry:					Vous parez
 DetailDisplayHandler.WriteBonusLine.Points:					pts
 DetailDisplayHandler.WriteBonusLine.PowerPool:				% de réservoir magique.
-DetailDisplayHandler.WriteClassicArmorInfos.Absorption		- {0}% Absorption
-DetailDisplayHandler.WriteClassicArmorInfos.ArmorMod		Modificateur d'armure :
-DetailDisplayHandler.WriteClassicArmorInfos.BaseFactor		- {0} Armure de base
-DetailDisplayHandler.WriteClassicArmorInfos.ClampFact		- {0} Armure réelle
-DetailDisplayHandler.WriteClassicArmorInfos.Condition		- {0}% Condition
-DetailDisplayHandler.WriteClassicArmorInfos.EffArmor		Armure:
+DetailDisplayHandler.WriteClassicArmorInfos.Absorption:		- {0}% Absorption
+DetailDisplayHandler.WriteClassicArmorInfos.ArmorMod:		Modificateur d'armure :
+DetailDisplayHandler.WriteClassicArmorInfos.BaseFactor:		- {0} Armure de base
+DetailDisplayHandler.WriteClassicArmorInfos.ClampFact:		- {0} Armure réelle
+DetailDisplayHandler.WriteClassicArmorInfos.Condition:		- {0}% Condition
+DetailDisplayHandler.WriteClassicArmorInfos.EffArmor:		Armure:
 DetailDisplayHandler.WriteClassicArmorInfos.Factor:			- {0} Armure
-DetailDisplayHandler.WriteClassicArmorInfos.Quality			- {0}% Qualité
-DetailDisplayHandler.WriteClassicShieldInfos.BaseDPS		- {0} DPS de base
-DetailDisplayHandler.WriteClassicShieldInfos.ClampDPS		- {0} DPS Réel
-DetailDisplayHandler.WriteClassicShieldInfos.DamageMod		Modificateur de dégats (quand utilisé avec les styles Bouclier) :
+DetailDisplayHandler.WriteClassicArmorInfos.Quality:		- {0}% Qualité
+DetailDisplayHandler.WriteClassicShieldInfos.BaseDPS:		- {0} DPS de base
+DetailDisplayHandler.WriteClassicShieldInfos.ClampDPS:		- {0} DPS Réel
+DetailDisplayHandler.WriteClassicShieldInfos.DamageMod:		Modificateur de dégats (quand utilisé avec les styles Bouclier) :
 DetailDisplayHandler.WriteClassicShieldInfos.Large:			- Taille du Bouclier : Grand
-DetailDisplayHandler.WriteClassicShieldInfos.Medium			- Taille du Bouclier : Moyen
+DetailDisplayHandler.WriteClassicShieldInfos.Medium:		- Taille du Bouclier : Moyen
 DetailDisplayHandler.WriteClassicShieldInfos.Small:			- Taille du Bouclier : Petit
 DetailDisplayHandler.WriteClassicShieldInfos.SPD:			- {0} Vitesse du bouclier
-DetailDisplayHandler.WriteClassicWeaponInfos.BaseDPS		- {0} DPS de base
-DetailDisplayHandler.WriteClassicWeaponInfos.ClampDPS		- {0} DPS Réel
+DetailDisplayHandler.WriteClassicWeaponInfos.BaseDPS:		- {0} DPS de base
+DetailDisplayHandler.WriteClassicWeaponInfos.ClampDPS:		- {0} DPS Réel
 DetailDisplayHandler.WriteClassicWeaponInfos.Condition:		- {0}% Condition
 DetailDisplayHandler.WriteClassicWeaponInfos.DamageMod:		Modificateur de dégats :
 DetailDisplayHandler.WriteClassicWeaponInfos.DamageType:	Type de dégats : {0}
-DetailDisplayHandler.WriteClassicWeaponInfos.EffDamage		Dégats effectifs :
+DetailDisplayHandler.WriteClassicWeaponInfos.EffDamage:		Dégats effectifs :
 DetailDisplayHandler.WriteClassicWeaponInfos.Quality:		- {0}% Qualité
 DetailDisplayHandler.WriteClassicWeaponInfos.SPD:			- {0} Vitesse de l'arme
 DetailDisplayHandler.WriteHorseInfo.AdvancedHorse:			C'est une monture avancée.
@@ -107,7 +107,7 @@ DetailDisplayHandler.WriteHorseInfo.RvRZzones:				Ne peut être invoqué en zone
 DetailDisplayHandler.WriteHorseInfo.Speed1:					(+35% vitesse)
 DetailDisplayHandler.WriteHorseInfo.Speed2:					(+45% vitesse)
 DetailDisplayHandler.WriteHorseInfo.Summon:					Cliquez sur cette icône dans votre barre de lancement pour invoquer (ou renvoyer) votre monture.
-DetailDisplayHandler.WriteMagicalBonuses.ChargedMagic		Charged Magic Ability :
+DetailDisplayHandler.WriteMagicalBonuses.ChargedMagic:		Charged Magic Ability :
 DetailDisplayHandler.WriteMagicalBonuses.Charges:			- {0} Charges
 DetailDisplayHandler.WriteMagicalBonuses.FocusBonus:		Bonus au focus :
 DetailDisplayHandler.WriteMagicalBonuses.Level:				- {0} Niveau
@@ -125,14 +125,14 @@ DetailDisplayHandler.WriteMagicalBonuses.UseItem.in:		Peut être réutilisé dan
 DetailDisplayHandler.WritePoisonInfo.Charges:				- {0} Charges
 DetailDisplayHandler.WritePoisonInfo.Level:					- {0} Niveau
 DetailDisplayHandler.WritePoisonInfo.LevelRequired:			Niveau requis :
-DetailDisplayHandler.WritePoisonInfo.MaxCharges				- {0} Max
-DetailDisplayHandler.WritePoisonInfo.ProcAbility			Effet offensif :
-DetailDisplayHandler.WritePotionInfo.ChargedMagic			Capacité de charge magique :
+DetailDisplayHandler.WritePoisonInfo.MaxCharges:				- {0} Max
+DetailDisplayHandler.WritePoisonInfo.ProcAbility:			Effet offensif :
+DetailDisplayHandler.WritePotionInfo.ChargedMagic:			Capacité de charge magique :
 DetailDisplayHandler.WritePotionInfo.Charges:				- {0} Charges
 DetailDisplayHandler.WritePotionInfo.Level:					- {0} Niveau
-DetailDisplayHandler.WritePotionInfo.LevelRequired			Condition de Niveau
-DetailDisplayHandler.WritePotionInfo.MaxCharges				- {0} Max
-DetailDisplayHandler.WritePotionInfo.NoUseInCombat			Ne peut être utilisé en combat.
+DetailDisplayHandler.WritePotionInfo.LevelRequired:			Condition de Niveau
+DetailDisplayHandler.WritePotionInfo.MaxCharges:				- {0} Max
+DetailDisplayHandler.WritePotionInfo.NoUseInCombat:			Ne peut être utilisé en combat.
 DetailDisplayHandler.WritePotionInfo.UseItem2:				Pout être utilisé toutes les : 1:00 min
 DetailDisplayHandler.WritePotionInfo.UseItem3:				Peut être réutilisée dans : {0}
 DetailDisplayHandler.WritePotionInfo.Type:					Fonction : {0}
@@ -166,7 +166,7 @@ PlayerBonusesListRequestHandler.HandlePacket.Melee:		Bonus de mêlée : {0}%
 PlayerBonusesListRequestHandler.HandlePacket.Outpost:	Bonus de Forteresse
 PlayerBonusesListRequestHandler.HandlePacket.Realm:		Primes de Royaume :
 PlayerBonusesListRequestHandler.HandlePacket.Relic:		Bonus de Relique :
-PlayerBonusesListRequestHandler.HandlePacket.Resist		Résistances
+PlayerBonusesListRequestHandler.HandlePacket.Resist:		Résistances
 PlayerBonusesListRequestHandler.HandlePacket.Special:	Bonus d'objets spéciaux
 PlayerBonusesListRequestHandler.HandlePacket.Specs:		+{0} toutes compétences
 

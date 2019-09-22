@@ -213,7 +213,7 @@ Zone.ScreenDescription.VendoCaverns:				Vendo Caverns
 Zone.Description.Varulvhamn:						Varulvhamn
 Zone.ScreenDescription.Varulvhamn:					Varulvhamn
 Zone.Description.CursedTomb:						Cursed Tomb
-Zone.ScreenDescription.CursedTomb					Cursed Tomb
+Zone.ScreenDescription.CursedTomb:					Cursed Tomb
 Zone.Description.Nisse'sLair:						Nisse's Lair
 Zone.ScreenDescription.Nisse'sLair:					Nisse's Lair
 Zone.Description.TheFrontlines:						the Frontlines

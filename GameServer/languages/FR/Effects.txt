@@ -59,7 +59,7 @@ Effects.BannerOfWardingEffect.Description:      Accorde un bonus de 10% dans tou
 Effects.BannerOfShieldingEffect.Name            Bannière de protection
 Effects.BannerOfShieldingEffect.Description:    Accorde un bonus de 6% dans toutes les résistances physiques.
 
-Effects.BannerOfFreedomEffect.Name            	Bannière de la liberté
+Effects.BannerOfFreedomEffect.Name:            	Bannière de la liberté
 Effects.BannerOfFreedomEffect.Description:      Reduces all Crowd Controls by 6%.
 
 Effects.BannerOfBesiegingEffect.Name:           Bannière de siège

@@ -105,8 +105,8 @@ Commands.Players.Battlegroup.Leader:						<Chef>
 Commands.Players.Battlegroup.ListenMode:					Le mode d'écoute du groupe de combat à changé.
 Commands.Players.Battlegroup.Moderator:						{0} est maintenant modérateur du groupe de combat.
 Commands.Players.Battlegroup.NoPlayer:						Il n'y a pas de joueur à ce nom.
-Commands.Players.Battlegroup.NotBattleGroupLeader			Ce joueur n'est pas modérateur d'un groupe de combat.
-Commands.Players.Battlegroup.NotBattleGroupMember			Ce joueur n'est pas membre d'un groupe de combat.
+Commands.Players.Battlegroup.NotBattleGroupLeader:			Ce joueur n'est pas modérateur d'un groupe de combat.
+Commands.Players.Battlegroup.NotBattleGroupMember:			Ce joueur n'est pas membre d'un groupe de combat.
 Commands.Players.Battlegroup.NotPublic:						Ce groupe de combat n'est pas publique.
 Commands.Players.Battlegroup.OnlyModerator:					Seul le modérateur peut parler dans ce groupe de combat.
 Commands.Players.Battlegroup.OwnBattleGroup:				Vous ne pouvez pas rejoindre votre propre groupe de combat.

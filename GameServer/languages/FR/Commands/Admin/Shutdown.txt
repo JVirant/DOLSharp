@@ -1,5 +1,5 @@
 Commands.Admin.ShutDown.Closed:				Le serveur est fermé. Redémarrage dans {0} minutes.
-Commands.Admin.ShutDown.Description			Éteint le serveur dans les prochaines minutes.
+Commands.Admin.ShutDown.Description:		Éteint le serveur dans les prochaines minutes.
 Commands.Admin.ShutDown.On:					'/shutdown on <HEURE>:<MINUTE>' # Éteint le serveur dans tant de temps.
 Commands.Admin.ShutDown.Restart.Auto:		Redémarrage du serveur automatique enclenché. Redémarrage dans {0} minutes! (Prévus à {1})
 Commands.Admin.ShutDown.Restart.Hours:		Le serveur redémarrera dans {0} heures !

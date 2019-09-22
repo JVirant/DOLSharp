@@ -2,7 +2,7 @@ Commands.Players.Respec.Description:			Respecs the char
 Commands.Players.Respec.Usage:					Usage:	'/respec'
 Commands.Players.Respec.Help.Trainer:			Target any trainer and use:
 Commands.Players.Respec.Help.All:				'/respec <ALL|DOL>' # To respec all skills
-Commands.Players.Respec.Help.Line				'/respec <lineName>' # To respec a single skill line
+Commands.Players.Respec.Help.Line:				'/respec <lineName>' # To respec a single skill line
 Commands.Players.Respec.Help.Realm:				'/respec REALM' # To respec realm abilities
 Commands.Players.Respec.Help.Champion:			'/respec CHAMPION' # To respec champion abilities
 Commands.Players.Respec.NotAvailable:			You don't seem to have any respecs available.

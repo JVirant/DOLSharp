@@ -158,7 +158,7 @@ Commands.Players.Guild.Info.AMotd:					AllianceMessage: {0}
 Commands.Players.Guild.Info.Email:					Contact Email: {0}	
 Commands.Players.Guild.Info.GDuesBank:				Dues: {0} Guild Bank: {1} copper pieces
 Commands.Players.Guild.Info.Merit:					Current Merit Bonus: {0}
-Commands.Players.Guild.Info.Banner					Banner: {0}
+Commands.Players.Guild.Info.Banner:					Banner: {0}
 Commands.Players.Guild.Info.Banner.Lost:				Banner lost to the enemy
 Commands.Players.Guild.Info.Banner.Purchase.Available:	Banner available for purchase
 Commands.Players.Guild.Info.Guild:					Guild Info for {0}:	

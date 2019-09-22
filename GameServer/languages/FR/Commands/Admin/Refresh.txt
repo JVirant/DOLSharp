@@ -5,5 +5,5 @@ Commands.Admin.Refresh.List:			'/refresh list' # Liste les modules disponibles.
 Commands.Admin.Refresh.ModuleDone:		-.- Le rafraîchissement du module « {0} » est terminé
 Commands.Admin.Refresh.ModuleError:		-!- Erreur lors du rafraichissement du module : {0} - {1}
 Commands.Admin.Refresh.Module:			--- Rafraîchi le cache static du module « {0} »
-Commands.Admin.Refresh.ModuleRetval		--- Le module a retourné : {0}
+Commands.Admin.Refresh.ModuleRetval:	--- Le module a retourné : {0}
 Commands.Admin.Refresh.ModuleWrong:		Mauvais module... Vérifier '/refresh list' !

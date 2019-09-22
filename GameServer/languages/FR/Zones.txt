@@ -206,7 +206,7 @@ Zone.ScreenDescription.VendoCaverns:				Cavernes Vendo
 Zone.Description.Varulvhamn:						Varulvhamn
 Zone.ScreenDescription.Varulvhamn:					Varulvhamn
 Zone.Description.CursedTomb:						Tombe Maudite
-Zone.ScreenDescription.CursedTomb					Tombe Maudite
+Zone.ScreenDescription.CursedTomb:					Tombe Maudite
 Zone.Description.Nisse'sLair:						Antre de Nisse
 Zone.ScreenDescription.Nisse'sLair:					Antre deNisse
 Zone.Description.TheFrontlines:						Les Retranchements Kobolds

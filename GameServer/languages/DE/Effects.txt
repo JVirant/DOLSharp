@@ -1,10 +1,10 @@
 ﻿Effects.BannerOfBesiegingEffect.Name:		Banner der Belagerung
 Effects.BannerOfBesiegingEffect.Description:	Senkt die Feuerrate von Belagerungswaffen um 6%.
 
-Effects.BannerOfFreedomEffect.Name		Banner der Freiheit
+Effects.BannerOfFreedomEffect.Name:		Banner der Freiheit
 Effects.BannerOfFreedomEffect.Description:	Reduziert alle Crowd Controll-Effekte um 6%.
 
-Effects.BannerOfShieldingEffect.Name		Banner  der Abschirmung
+Effects.BannerOfShieldingEffect.Name:		Banner  der Abschirmung
 Effects.BannerOfShieldingEffect.Description:	Gewährt einen 6%-Bonus auf allen Nahkampf-Resistenzen.
 
 Effects.BannerOfWardingEffect.Name:		Banner der Abwehr

@@ -50,10 +50,10 @@ Effects.GuardEffect.XIsGuardingY:				{0} sta proteggendo {1}
 Effects.BannerOfWardingEffect.Name:				Banner of Warding
 Effects.BannerOfWardingEffect.Description:		Aggiunge il 10% di bonus a tutte le resistenze magiche.
 
-Effects.BannerOfShieldingEffect.Name			Banner of Shielding
+Effects.BannerOfShieldingEffect.Name:			Banner of Shielding
 Effects.BannerOfShieldingEffect.Description:	Aggiunge un 6% di bonus a tutte le resistenze di attacco.
 
-Effects.BannerOfFreedomEffect.Name				Banner of Freedom
+Effects.BannerOfFreedomEffect.Name:				Banner of Freedom
 Effects.BannerOfFreedomEffect.Description:		Riduce tutti i controlli al 6%
 
 Effects.BannerOfBesiegingEffect.Name:			Banner of Besieging

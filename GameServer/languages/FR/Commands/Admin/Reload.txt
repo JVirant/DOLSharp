@@ -14,9 +14,9 @@ Commands.Admin.Reload.Usage.Mob:				'/reload mob' # Recharge tous les PNJ de la 
 Commands.Admin.Reload.Usage.Model:				'/reload <object|mob> model <MODÈLE#>' # Recharger tous les éléments ou PNJ de la région correspondant au modèle <MODÈLE#>.
 Commands.Admin.Reload.Usage.Name:				'/reload <object|mob> name <NOM> # Recharge tous les éléments de la région correspondant au nom <NOM>.
 Commands.Admin.Reload.Usage.ObjectMob.Realm:	'/reload <object|mob> realm <ROYAUME>' # Recharge tous les éléments de la région correspondant à un royaume(0|1|2|3 OU n|a|m|h OU no|alb|mid|hib).
-Commands.Admin.Reload.Usage.Object.Model		'/reload object model <MODÈLE#>' # Recharge les objets de la région correspondant au modèle <MODÈLE#>
+Commands.Admin.Reload.Usage.Object.Model:		'/reload object model <MODÈLE#>' # Recharge les objets de la région correspondant au modèle <MODÈLE#>
 Commands.Admin.Reload.Usage.Object.Name:		'/reload object name <NOM>' # Recharge les objets de la région ayant poru nom <NOM>.
-Commands.Admin.Reload.Usage.Object.Realm		'/reload object realm <ROYAUME>' # Recharge les objets statiques de la région ayant pour Royaume <ROYAUME>.
+Commands.Admin.Reload.Usage.Object.Realm:		'/reload object realm <ROYAUME>' # Recharge les objets statiques de la région ayant pour Royaume <ROYAUME>.
 Commands.Admin.Reload.Usage.Object:				'/reload object # Recharge tous les objets statiques de la région.
 Commands.Admin.Reload.Usage.Realm:				Il est possible de spécifier le royaume par son numéro (0|1|2|3), sa première lettre (n|a|m|h) ou nom complet (none|albion|midgard|hibernia)
 Commands.Admin.Reload.Usage.Specs:				'/reload specs' # Recharge toutes les compétences.

@@ -1,6 +1,6 @@
 Commands.GM.Door.Add:			'/door add'    # Ajoute une porte
 Commands.GM.Door.Delete:		'/door delete' # Supprime la porte ciblée.
-Commands.GM.Door.Description	Modfication des portes
+Commands.GM.Door.Description:	Modfication des portes
 Commands.GM.Door.Guild:			'/door guild <texte>' # Change la guilde de la porte.
 Commands.GM.Door.Heal:			'/door heal'   # Redonne le maximum de vie a la porte.
 Commands.GM.Door.Info:			'/door info'   # Donne les info de la porte.
