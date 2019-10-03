@@ -92,8 +92,9 @@ namespace DOL.GS.RealmAbilities
         			case 2: return 35;
         			case 3: return 50;
         			case 4: return 60;
-        			case 5: return 75;
-        		}
+        			case 5:
+					default: return 75;
+				}
         	}
         	else
         	{
@@ -101,10 +102,11 @@ namespace DOL.GS.RealmAbilities
         		{
         			case 1: return 25;
         			case 2: return 50;
-        			case 3: return 75;
-        		}       		
+        			case 3:
+					default: return 75;
+        		}
         	}
-        	return 25;
+        	return 0;
 		}
 	}
 }

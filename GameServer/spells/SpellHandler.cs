@@ -2619,11 +2619,7 @@ namespace DOL.GS.Spells
 			}
 
 			duration *= effectiveness;
-			if (duration < 1)
-				duration = 1;
-			else if (duration > (Spell.Duration * 4))
-				duration = (Spell.Duration * 4);
-			return (int)duration;
+			return (int)duration.Clamp(1, Spell.Duration * 4);
 		}
 
 		/// <summary>

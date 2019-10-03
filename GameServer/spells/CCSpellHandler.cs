@@ -126,10 +126,9 @@ namespace DOL.GS.Spells
 			{
 				MasteryofConcentrationAbility ra = Caster.GetAbility<MasteryofConcentrationAbility>();
 				if (ra != null)
-					mocFactor = ra.GetAmountForLevel(ra.Level) * 25 / 100;
+					mocFactor += ra.GetAmountForLevel(ra.Level) / 100.0;
 				duration = Math.Round(duration * mocFactor);
 			}
-
 
 			if (Spell.SpellType.ToLower() != "stylestun")
 			{
@@ -399,11 +398,7 @@ namespace DOL.GS.Spells
 		{
 			double duration = base.CalculateEffectDuration(target, effectiveness);
 			duration *= target.GetModified(eProperty.MesmerizeDurationReduction) * 0.01;
-			if (duration < 1)
-				duration = 1;
-			else if (duration > (Spell.Duration * 4))
-				duration = (Spell.Duration * 4);
-			return (int)duration;
+			return (int)duration.Clamp(1, Spell.Duration * 4);
 		}
 
 		protected virtual void OnAttacked(DOLEvent e, object sender, EventArgs arguments)
