@@ -212,7 +212,7 @@ namespace DOL.GS.Spells
 					{
 						if (target.IsObjectInFront(caster, 180) && lefthand.Object_Type == (int)eObjectType.Shield) 
 						{
-							double shield = 0.5 * player.GetModifiedSpecLevel(Specs.Shields);
+							double shield = 0.5 * player.GetModifiedSpecLevel(Specs.Shield);
 							double blockchance = ((player.Dexterity*2)-100)/40.0 + shield + 5;
 							// Removed 30% increased chance to block, can find no clear evidence this is correct - tolakram
 							blockchance -= target.GetConLevel(caster) * 5;

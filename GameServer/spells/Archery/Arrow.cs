@@ -209,7 +209,7 @@ namespace DOL.GS.Spells
 						if (target.IsObjectInFront(caster, 180) && lefthand.Object_Type == (int)eObjectType.Shield)
 						{
 							// TODO: shield size vs number of attackers not calculated
-							double shield = 0.5 * player.GetModifiedSpecLevel(Specs.Shields);
+							double shield = 0.5 * player.GetModifiedSpecLevel(Specs.Shield);
 							double blockchance = ((player.Dexterity * 2) - 100) / 40.0 + shield + (0 * 3) + 5;
 							blockchance += 30;
 							blockchance -= target.GetConLevel(caster) * 5;

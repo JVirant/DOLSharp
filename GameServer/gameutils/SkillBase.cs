@@ -1079,7 +1079,7 @@ namespace DOL.GS
 			m_objectTypeToSpec.Add(eObjectType.LargeWeapons, Specs.Large_Weapons);
 			m_objectTypeToSpec.Add(eObjectType.CelticSpear, Specs.Celtic_Spear);
 			m_objectTypeToSpec.Add(eObjectType.Scythe, Specs.Scythe);
-			m_objectTypeToSpec.Add(eObjectType.Shield, Specs.Shields);
+			m_objectTypeToSpec.Add(eObjectType.Shield, Specs.Shield);
 			m_objectTypeToSpec.Add(eObjectType.Poison, Specs.Envenom);
 			
 			// RDSandersJR: Check to see if we are using old archery if so, use RangedDamge
@@ -1205,7 +1205,7 @@ namespace DOL.GS
 			//Other
 			m_specToSkill.Add(Specs.Critical_Strike, eProperty.Skill_Critical_Strike);
 			m_specToSkill.Add(Specs.Stealth, eProperty.Skill_Stealth);
-			m_specToSkill.Add(Specs.Shields, eProperty.Skill_Shields);
+			m_specToSkill.Add(Specs.Shield, eProperty.Skill_Shields);
 			m_specToSkill.Add(Specs.Envenom, eProperty.Skill_Envenom);
 			m_specToSkill.Add(Specs.Parry, eProperty.Skill_Parry);
 			m_specToSkill.Add(Specs.ShortBow, eProperty.Skill_ShortBow);
@@ -1614,7 +1614,7 @@ namespace DOL.GS
 			m_propertyNames.Add(eProperty.Skill_Rejuvenation, LanguageMgr.GetTranslation(ServerProperties.Properties.DB_LANGUAGE,
 			                                                                             "SkillBase.RegisterPropertyNames.Rejuvenation"));
 			m_propertyNames.Add(eProperty.Skill_Shields, LanguageMgr.GetTranslation(ServerProperties.Properties.DB_LANGUAGE,
-			                                                                        "SkillBase.RegisterPropertyNames.Shields"));
+			                                                                        "SkillBase.RegisterPropertyNames.Shield"));
 			m_propertyNames.Add(eProperty.Skill_Slashing, LanguageMgr.GetTranslation(ServerProperties.Properties.DB_LANGUAGE,
 			                                                                         "SkillBase.RegisterPropertyNames.Slashing"));
 			m_propertyNames.Add(eProperty.Skill_Smiting, LanguageMgr.GetTranslation(ServerProperties.Properties.DB_LANGUAGE,

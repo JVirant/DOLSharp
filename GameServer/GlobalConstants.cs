@@ -1752,7 +1752,7 @@ namespace DOL.GS
 					case Specs.Darkness: return 0x26;
 					case Specs.Suppression: return 0x27;
 					case Specs.Runecarving: return 0x2A;
-					case Specs.Shields: return 0x2B;
+					case Specs.Shield: return 0x2B;
 					case Specs.Flexible: return 0x2E;
 					case Specs.Staff: return 0x2F;
 					case Specs.Summoning: return 0x30;

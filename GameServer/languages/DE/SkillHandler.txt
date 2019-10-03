@@ -159,7 +159,7 @@ SkillBase.RegisterPropertyNames.RunecarvingFocus:	Runenschnitzen
 SkillBase.RegisterPropertyNames.Savagery:		Wildheit
 SkillBase.RegisterPropertyNames.Scythe:			Sensen
 SkillBase.RegisterPropertyNames.ShadowMastery:		Schattenmeister
-SkillBase.RegisterPropertyNames.Shields:		Schild
+SkillBase.RegisterPropertyNames.Shield:				Schild
 SkillBase.RegisterPropertyNames.ShortBow:		Kurzbogen
 SkillBase.RegisterPropertyNames.Slash:			Schnitt
 SkillBase.RegisterPropertyNames.Slashing:		Slashing

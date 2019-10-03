@@ -167,7 +167,7 @@ SkillBase.RegisterPropertyNames.RunecarvingFocus:		Runecarving Focus
 SkillBase.RegisterPropertyNames.Savagery:				Savagery
 SkillBase.RegisterPropertyNames.Scythe:					Scythe
 SkillBase.RegisterPropertyNames.ShadowMastery:			Shadow Mastery
-SkillBase.RegisterPropertyNames.Shields:				Shields
+SkillBase.RegisterPropertyNames.Shield:					Shield
 SkillBase.RegisterPropertyNames.ShortBow:				Short Bow
 SkillBase.RegisterPropertyNames.Slash:					Slash
 SkillBase.RegisterPropertyNames.Slashing:				Slashing

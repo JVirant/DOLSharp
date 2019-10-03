@@ -63,6 +63,9 @@ namespace DOL.GS
 			}
 		}
 
+		public override int Mana { get => 5000; set => base.Mana = value; }
+		public override int MaxMana => 5000;
+
 
 		#region Inventory
 
@@ -132,7 +135,7 @@ namespace DOL.GS
 				case Specs.Slash:
 				case Specs.Crush:
 				case Specs.Two_Handed:
-				case Specs.Shields:
+				case Specs.Shield:
 				case Specs.Critical_Strike:
 				case Specs.Large_Weapons:
 					return Level;

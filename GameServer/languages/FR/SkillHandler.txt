@@ -158,7 +158,7 @@ SkillBase.RegisterPropertyNames.RunecarvingFocus:      Focus : Runes d'Odin
 SkillBase.RegisterPropertyNames.Savagery:           Sauvagerie
 SkillBase.RegisterPropertyNames.Scythe:              Faux
 SkillBase.RegisterPropertyNames.ShadowMastery:         Maîtrise des Ombres
-SkillBase.RegisterPropertyNames.Shields:            Bouclier
+SkillBase.RegisterPropertyNames.Shield:            Bouclier
 SkillBase.RegisterPropertyNames.ShortBow:            Arc Court
 SkillBase.RegisterPropertyNames.Slash:               Tranchant
 SkillBase.RegisterPropertyNames.Slashing:            Tranchant

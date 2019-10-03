@@ -5368,7 +5368,7 @@ namespace DOL.GS
 			}
 		}
 
-		public virtual byte ManaPercent
+		public byte ManaPercent
 		{
 			get
 			{
@@ -5409,7 +5409,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Gets the endurance in percent of maximum
 		/// </summary>
-		public virtual byte EndurancePercent
+		public byte EndurancePercent
 		{
 			get
 			{
@@ -5436,7 +5436,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Gets the concentration in percent of maximum
 		/// </summary>
-		public virtual byte ConcentrationPercent
+		public byte ConcentrationPercent
 		{
 			get
 			{

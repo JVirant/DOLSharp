@@ -514,9 +514,9 @@ namespace DOL.GS
 		/// </summary>
 		public const string Hammer = "Hammer";
 		/// <summary>
-		/// Shields Spec
+		/// Shield Spec
 		/// </summary>
-		public const string Shields = "Shields";
+		public const string Shield = "Shield";
 		/// <summary>
 		/// Left Axe Weapon Spec
 		/// </summary>
