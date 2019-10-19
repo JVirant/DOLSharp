@@ -202,7 +202,7 @@ namespace DOL.AI.Brain
 
 					for (int i = 0; i < PlayersSeen.Count; i++)
 					{
-						while (!currentPlayersSeen.Contains(PlayersSeen[i]))
+						while (i < PlayersSeen.Count && !currentPlayersSeen.Contains(PlayersSeen[i]))
 							PlayersSeen.RemoveAt(i);
 					}
 					

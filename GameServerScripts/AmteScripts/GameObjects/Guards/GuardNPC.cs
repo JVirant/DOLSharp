@@ -81,7 +81,7 @@ namespace DOL.GS.Scripts
 
 		public override void WalkToSpawn(short speed)
 		{
-			WalkToSpawn(MaxSpeed);
+			base.WalkToSpawn(MaxSpeed);
 		}
 	}
 
