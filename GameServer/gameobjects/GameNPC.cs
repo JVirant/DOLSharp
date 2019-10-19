@@ -3454,25 +3454,25 @@ namespace DOL.GS
 				{
 					case Style.eOpening.Defensive:
 						if (m_stylesDefensive == null)
-							m_stylesDefensive = new ArrayList(1);
+							m_stylesDefensive = new List<Style>(1);
 						m_stylesDefensive.Add(s);
 						break;
 					case Style.eOpening.Positional:
 						if (m_stylesAnyPos == null)
-							m_stylesAnyPos = new ArrayList(1);
+							m_stylesAnyPos = new List<Style>(1);
 						m_stylesAnyPos.Add(s);
 						break;
 					default:
 						if (s.OpeningRequirementValue > 0)
 						{
 							if (m_stylesChain == null)
-								m_stylesChain = new ArrayList(1);
+								m_stylesChain = new List<Style>(1);
 							m_stylesChain.Add(s);
 						}
 						else
 						{
 							if (m_stylesAnyPos == null)
-								m_stylesAnyPos = new ArrayList(1);
+								m_stylesAnyPos = new List<Style>(1);
 							m_stylesAnyPos.Add(s);
 						}
 						break;
@@ -5646,7 +5646,7 @@ namespace DOL.GS
 				copyTarget.Spells = new List<Spell>(Spells.Cast<Spell>());
 
 			if (Styles != null && Styles.Count > 0)
-				copyTarget.Styles = new ArrayList(Styles);
+				copyTarget.Styles = new List<Style>(Styles);
 
 			if (copyTarget.Inventory != null)
 				copyTarget.SwitchWeapon(ActiveWeaponSlot);

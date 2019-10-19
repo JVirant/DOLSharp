@@ -16,7 +16,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  */
+using DOL.GS.Styles;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace DOL.GS
 {
@@ -81,10 +83,10 @@ namespace DOL.GS
 		/// <summary>
 		/// Gets the template npc abilities
 		/// </summary>
-		IList Spells { get; }
-		IList Styles { get; }
-		IList SpellLines { get; }
-		IList Abilities { get; }
+		List<Spell> Spells { get; }
+		List<Style> Styles { get; }
+		List<SpellLine> SpellLines { get; }
+		List<Ability> Abilities { get; }
 
 		/// <summary>
 		/// Gets the template npc stats

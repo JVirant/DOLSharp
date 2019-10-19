@@ -79,7 +79,7 @@ namespace DOL.GS.Scripts
 			return true;
 		}
 
-		public override void WalkToSpawn()
+		public override void WalkToSpawn(short speed)
 		{
 			WalkToSpawn(MaxSpeed);
 		}
