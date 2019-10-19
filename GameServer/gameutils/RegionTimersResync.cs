@@ -68,7 +68,7 @@ namespace DOL.GS.GameEvents
 			foreach (GameTimer.TimeManager mgr in WorldMgr.GetRegionTimeManagers())
 				old_time.Add(mgr, 0);
 
-			m_timer = new Timer(new TimerCallback(Resynch), null, 0, UPDATE_INTERVAL);
+			// m_timer = new Timer(new TimerCallback(Resynch), null, 0, UPDATE_INTERVAL);
 		}
 
 		public static void Stop()

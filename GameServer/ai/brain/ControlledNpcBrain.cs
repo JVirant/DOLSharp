@@ -487,9 +487,10 @@ namespace DOL.AI.Brain
 		
 		public override bool TryCastASpell(eCheckSpellType type)
 		{
-			if (Body == null || Body.Spells == null || Body.Spells.Count < 1) return false;
-			
-			if (Body.IsCasting) return true;
+			if (Body == null || Body.Spells == null || Body.Spells.Count < 1)
+				return false;
+			if (Body.IsCasting)
+				return false;
 			
 			bool casted = false;
 			if (type == eCheckSpellType.Defensive)

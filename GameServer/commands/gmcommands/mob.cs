@@ -1202,7 +1202,10 @@ namespace DOL.GS.Commands
 			{
 				if (player.Name == args[2])
 				{
-					targetMob.StartAttack(player);
+					if (targetMob.Brain is StandardMobBrain brain)
+						brain.AddToAggroList(player, brain.AggroLevel + 1);
+					else
+						targetMob.StartAttack(player);
 					break;
 				}
 			}

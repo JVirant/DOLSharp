@@ -108,7 +108,8 @@ namespace DOL.AI.Brain
 				return;
 			}
 			// If the NPC is Moving on path, it can detect closed doors and open them
-			if(Body.IsMovingOnPath) DetectDoor();
+			if(Body.IsMovingOnPath)
+				DetectDoor();
 			//Instead - lets just let CheckSpells() make all the checks for us
 			//Check for just positive spells
 			if (TryCastASpell(eCheckSpellType.Defensive) && Body.IsCasting)
@@ -119,7 +120,7 @@ namespace DOL.AI.Brain
 			// check for returning to home if to far away
 			if (Body.MaxDistance != 0 && !Body.IsReturningHome)
 			{
-				int distance = Body.GetDistanceTo( Body.SpawnPoint );
+				int distance = Body.GetDistanceTo(Body.SpawnPoint);
 				int maxdistance = Body.MaxDistance > 0 ? Body.MaxDistance : -Body.MaxDistance * AggroRange / 100;
 				if (maxdistance > 0 && distance > maxdistance)
 				{
@@ -459,7 +460,7 @@ namespace DOL.AI.Brain
 			
 			// Check LOS (walls, pits, etc...) before  attacking, player + pet
 			// Be sure the aggrocheck is triggered by the brain on Think() method
-			if (DOL.GS.ServerProperties.Properties.ALWAYS_CHECK_LOS && CheckLOS)
+			if (Properties.ALWAYS_CHECK_LOS && CheckLOS)
 			{
 				GamePlayer thisLiving = null;
 				if (living is GamePlayer)
@@ -1064,7 +1065,7 @@ namespace DOL.AI.Brain
 		public virtual bool TryCastASpell(eCheckSpellType type)
 		{
 			if (Body.IsCasting)
-				return true;
+				return false;
 			if (Body == null || Body.Spells == null || Body.Spells.Count <= 0)
 				return false;
 
@@ -1101,7 +1102,7 @@ namespace DOL.AI.Brain
 				if (spell_rec.Count > 0)
 				{
 					var spellToCast = spell_rec[Util.Random(spell_rec.Count - 1)];
-					return TryCastOffensiveSpell(spellToCast);
+					return TryCastOffensiveSpell(spellToCast) || TryCastInstantSpell(spellToCast);
 				}
 			}
 			return false;
@@ -1202,7 +1203,7 @@ namespace DOL.AI.Brain
 					}
 				#endregion Buffs
 
-				#region Disease Cure/Poison Cure/Summon
+				#region Disease Cure/Poison Cure
 				case "CUREDISEASE":
 					if (Body.IsDiseased)
 					{
@@ -1245,30 +1246,7 @@ namespace DOL.AI.Brain
 							}
 					}
 					break;
-				case "SUMMON":
-					newTarget = Body;
-					break;
-				case "SUMMONMINION":
-					//If the list is null, lets make sure it gets initialized!
-					if (Body.ControlledNpcList == null)
-						Body.InitControlledBrainArray(2);
-					else
-					{
-						//Let's check to see if the list is full - if it is, we can't cast another minion.
-						//If it isn't, let them cast.
-						IControlledBrain[] icb = Body.ControlledNpcList;
-						int numberofpets = 0;
-						for (int i = 0; i < icb.Length; i++)
-						{
-							if (icb[i] != null)
-								numberofpets++;
-						}
-						if (numberofpets >= icb.Length)
-							break;
-					}
-					newTarget = Body;
-					break;
-				#endregion Disease Cure/Poison Cure/Summon
+				#endregion Disease Cure/Poison Cure
 
 				#region Heals
 				case "COMBATHEAL":
@@ -1328,6 +1306,27 @@ namespace DOL.AI.Brain
 						break;
 					newTarget = Body;
 					break;
+
+				case "SUMMON":
+					newTarget = Body;
+					break;
+				case "SUMMONMINION":
+					//If the list is null, lets make sure it gets initialized!
+					if (Body.ControlledNpcList == null)
+						Body.InitControlledBrainArray(2);
+					//Let's check to see if the list is full - if it is, we can't cast another minion.
+					//If it isn't, let them cast.
+					IControlledBrain[] icb = Body.ControlledNpcList;
+					int numberofpets = 0;
+					for (int i = 0; i < icb.Length; i++)
+					{
+						if (icb[i] != null)
+							numberofpets++;
+					}
+					if (numberofpets >= icb.Length)
+						break;
+					newTarget = Body;
+					break;
 			}
 
 			if (newTarget != null && (spell.Duration == 0 || (newTarget is GameLiving living && LivingHasEffect(living, spell) == false)))
@@ -1366,7 +1365,7 @@ namespace DOL.AI.Brain
 				if (dist > spell.Range && dist > spell.Radius)
 					return false;
 
-				if (Body.GetSkillDisabledDuration(spell) == 0)
+				if (Body.GetSkillDisabledDuration(spell) > 0)
 					return false;
 				if (spell.Duration > 0 && LivingHasEffect(living, spell))
 					return false;
@@ -1390,7 +1389,7 @@ namespace DOL.AI.Brain
 		/// </summary>
 		protected virtual bool TryCastInstantSpell(Spell spell)
 		{
-			if (Body.GetSkillDisabledDuration(spell) == 0)
+			if (Body.GetSkillDisabledDuration(spell) > 0 || spell.CastTime > 0)
 				return false;
 
 			GameObject lastTarget = Body.TargetObject;
@@ -1431,7 +1430,7 @@ namespace DOL.AI.Brain
 					if (!LivingHasEffect(Body, spell))
 						Body.TargetObject = Body;
 					break;
-					#endregion
+				#endregion
 			}
 
 			if (Body.TargetObject != null && (spell.Duration == 0 || (Body.TargetObject is GameLiving living && LivingHasEffect(living, spell) == false)))
@@ -1485,7 +1484,7 @@ namespace DOL.AI.Brain
 					GameSpellEffect speffect = effect as GameSpellEffect;
 
 					//if the effect effectgroup is the same as the checking spells effectgroup then these are considered the same
-					if (speffect.Spell.EffectGroup == spell.EffectGroup)
+					if (speffect.Spell.SpellType == spell.SpellType || (speffect.Spell.EffectGroup != 0 && speffect.Spell.EffectGroup == spell.EffectGroup))
 						return true;
 				}
 			}

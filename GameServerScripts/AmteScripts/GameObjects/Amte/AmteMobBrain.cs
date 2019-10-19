@@ -13,7 +13,7 @@ namespace DOL.AI.Brain
 
         public AmteMobBrain()
         {
-        	AggroLink = 0;
+        	AggroLink = -1;
         }
 
         public AmteMobBrain(ABrain brain)
@@ -83,8 +83,10 @@ namespace DOL.AI.Brain
 			int attackerCount;
 			lock (attacker.Attackers)
 				attackerCount = attacker.Attackers.Where(o => o is GameNPC npc ? npc.IsFriend(Body) : o.Name == Body.Name || o.GuildName == Body.GuildName).Count();
-			if (AggroLink == -1)
+			if (AggroLink <= 0)
 			{
+				if (Body.Level <= 5)
+					return;
 				var attackerGroup = attacker.Group;
 				var numAttackers = ((attackerGroup == null) ? 1 : attackerGroup.MemberCount) + Util.Random(-3, 2).Clamp(0, 2);
 				if (attackerGroup != null)
