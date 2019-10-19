@@ -4811,7 +4811,7 @@ namespace DOL.GS
 		/// <summary>
 		/// property of spell array of NPC
 		/// </summary>
-		public virtual IList Spells
+		public virtual IList<Spell> Spells
 		{
 			get { return m_spells; }
 			set
@@ -5036,31 +5036,31 @@ namespace DOL.GS
 		/// <summary>
 		/// Styles for this NPC
 		/// </summary>
-		private IList m_styles = new ArrayList(0);
-		public IList Styles
+		private List<Style> m_styles = new List<Style>(0);
+		public List<Style> Styles
 		{
 			get { return m_styles; }
 			set
 			{
 				m_styles = value;
-				this.SortStyles();
+				SortStyles();
 			}
 		}
 
 		/// <summary>
 		/// Defensive styles for this NPC
 		/// </summary>
-		private IList m_stylesDefensive = null;
+		private List<Style> m_stylesDefensive = null;
 
 		/// <summary>
 		/// Chain styles for this NPC
 		/// </summary>
-		private IList m_stylesChain = null;
+		private List<Style> m_stylesChain = null;
 
 		/// <summary>
 		/// Anytime and positional styles for this NPC
 		/// </summary>
-		private IList m_stylesAnyPos = null;
+		private List<Style> m_stylesAnyPos = null;
 
 		/// <summary>
 		/// The Abilities for this NPC

@@ -1218,9 +1218,14 @@ namespace DOL.GS.Commands
 				info.Add(" + Loaded: from Database");
 
 			info.Add(" + Class: " + targetMob.GetType().ToString());
+			info.Add(" + Brain: " + (targetMob.Brain == null ? "(null)" : targetMob.Brain.GetType().ToString()));
+			info.Add(" ");
 			info.Add(" + Realm: " + GlobalConstants.RealmToName(targetMob.Realm));
 			info.Add(" + Level: " + targetMob.Level);
-			info.Add(" + Brain: " + (targetMob.Brain == null ? "(null)" : targetMob.Brain.GetType().ToString()));
+			info.Add(" + Speed(current/max): " + targetMob.CurrentSpeed + "/" + targetMob.MaxSpeedBase);
+			info.Add(" + Health: " + targetMob.Health + "/" + targetMob.MaxHealth);
+			info.Add(" + Endurance: " + targetMob.Endurance + "/" + targetMob.MaxEndurance);
+			info.Add(" + Mana: " + targetMob.Mana + "/" + targetMob.MaxMana);
 
 			if (targetMob.DamageRvRMemory > 0)
 				info.Add("  - Damage RvR Memory: " + targetMob.DamageRvRMemory);
@@ -1293,29 +1298,33 @@ namespace DOL.GS.Commands
 					hours = respawn.Hours + " hours ";
 
 				info.Add(" + Respawn: " + days + hours + respawn.Minutes + " minutes " + respawn.Seconds + " seconds");
-				info.Add(" + SpawnPoint:  " + targetMob.SpawnPoint.X + ", " + targetMob.SpawnPoint.Y + ", " + targetMob.SpawnPoint.Z);
+				info.Add(" + SpawnPoint:  " + targetMob.SpawnPoint.X + " " + targetMob.SpawnPoint.Y + " " + targetMob.SpawnPoint.Z);
 			}
 
 			info.Add(" ");
-			info.Add(" + STR  /  CON  /  DEX  /  QUI");
-			info.Add(" + " + targetMob.Strength + "  /  " + targetMob.Constitution + "  /  " + targetMob.Dexterity + "  /  " + targetMob.Quickness);
-			info.Add(" + INT  /  EMP  /  PIE  /  CHR");
-			info.Add(" + " + targetMob.Intelligence + "  /  " + targetMob.Empathy + "  /  " + targetMob.Piety + "  /  " + targetMob.Charisma);
-			info.Add(" + Block / Parry / Evade %:  " + targetMob.BlockChance + " / " + targetMob.ParryChance + " / " + targetMob.EvadeChance);
-			info.Add(" + Attack Speed (Melee Speed Increase %):  " + targetMob.AttackSpeed(targetMob.AttackWeapon) + " (" + (100 - targetMob.GetModified(eProperty.MeleeSpeed)) + ")");
-			info.Add(" + Casting Speed Increase %:  " + targetMob.GetModified(eProperty.CastingSpeed));
+			info.Add(" + STR/CON/DEX/QUI: " + targetMob.Strength + " / " + targetMob.Constitution + " / " + targetMob.Dexterity + " / " + targetMob.Quickness);
+			info.Add(" + INT/EMP/PIE/CHR: "+ targetMob.Intelligence + " / " + targetMob.Empathy + " / " + targetMob.Piety + " / " + targetMob.Charisma);
+			info.Add(" + Block/Parry/Evade %: " + targetMob.BlockChance + " / " + targetMob.ParryChance + " / " + targetMob.EvadeChance);
+			info.Add(" + Attack Speed (Melee Speed Increase %): " + targetMob.AttackSpeed(targetMob.AttackWeapon) + " (" + (100 - targetMob.GetModified(eProperty.MeleeSpeed)) + ")");
+			info.Add(" + Casting Speed Increase %: " + targetMob.GetModified(eProperty.CastingSpeed));
 
 			if (targetMob.LeftHandSwingChance > 0)
 				info.Add(" + Left Swing %: " + targetMob.LeftHandSwingChance);
 
 			if (targetMob.Abilities != null && targetMob.Abilities.Count > 0)
 				info.Add(" + Abilities: " + targetMob.Abilities.Count);
+			foreach (var ab in targetMob.Abilities)
+				info.Add($" - {ab.Value.Name} {ab.Value.Level}");
 
 			if (targetMob.Spells != null && targetMob.Spells.Count > 0)
 				info.Add(" + Spells: " + targetMob.Spells.Count);
+			foreach (var spell in targetMob.Spells)
+				info.Add($" - {spell.ID}. {spell.Name}");
 
 			if (targetMob.Styles != null && targetMob.Styles.Count > 0)
 				info.Add(" + Styles: " + targetMob.Styles.Count);
+			foreach (var style in targetMob.Styles)
+				info.Add($" - {style.ID}. {style.Name}");
 
 			info.Add(" ");
 
@@ -1331,34 +1340,34 @@ namespace DOL.GS.Commands
 			info.Add(" ");
 
 			info.Add("Race Resists:");
-			info.Add(" +  -- Crush/Slash/Thrust:  " + targetMob.GetDamageResist(eProperty.Resist_Crush)
+			info.Add(" - Crush/Slash/Thrust: " + targetMob.GetDamageResist(eProperty.Resist_Crush)
 			         + " / " + targetMob.GetDamageResist(eProperty.Resist_Slash)
 			         + " / " + targetMob.GetDamageResist(eProperty.Resist_Thrust));
-			info.Add(" +  -- Heat/Cold/Matter:  " + targetMob.GetDamageResist(eProperty.Resist_Heat)
+			info.Add(" - Heat/Cold/Matter: " + targetMob.GetDamageResist(eProperty.Resist_Heat)
 			         + " / " + targetMob.GetDamageResist(eProperty.Resist_Cold)
 			         + " / " + targetMob.GetDamageResist(eProperty.Resist_Matter));
-			info.Add(" +  -- Body/Spirit/Energy:  " + targetMob.GetDamageResist(eProperty.Resist_Body)
+			info.Add(" - Body/Spirit/Energy: " + targetMob.GetDamageResist(eProperty.Resist_Body)
 			         + " / " + targetMob.GetDamageResist(eProperty.Resist_Spirit)
 			         + " / " + targetMob.GetDamageResist(eProperty.Resist_Energy));
-			info.Add(" +  -- Natural:  " + targetMob.GetDamageResist(eProperty.Resist_Natural));
+			info.Add(" - Natural: " + targetMob.GetDamageResist(eProperty.Resist_Natural));
 
 			info.Add(" ");
 
 			info.Add("Current Resists:");
-			info.Add(" +  -- Crush/Slash/Thrust:  " + targetMob.GetModified(eProperty.Resist_Crush)
+			info.Add(" - Crush/Slash/Thrust: " + targetMob.GetModified(eProperty.Resist_Crush)
 			         + " / " + targetMob.GetModified(eProperty.Resist_Slash)
 			         + " / " + targetMob.GetModified(eProperty.Resist_Thrust));
-			info.Add(" +  -- Heat/Cold/Matter:  " + targetMob.GetModified(eProperty.Resist_Heat)
+			info.Add(" - Heat/Cold/Matter: " + targetMob.GetModified(eProperty.Resist_Heat)
 			         + " / " + targetMob.GetModified(eProperty.Resist_Cold)
 			         + " / " + targetMob.GetModified(eProperty.Resist_Matter));
-			info.Add(" +  -- Body/Spirit/Energy:  " + targetMob.GetModified(eProperty.Resist_Body)
+			info.Add(" - Body/Spirit/Energy: " + targetMob.GetModified(eProperty.Resist_Body)
 			         + " / " + targetMob.GetModified(eProperty.Resist_Spirit)
 			         + " / " + targetMob.GetModified(eProperty.Resist_Energy));
-			info.Add(" +  -- Natural:  " + targetMob.GetModified(eProperty.Resist_Natural));
+			info.Add(" - Natural: " + targetMob.GetModified(eProperty.Resist_Natural));
 
 			info.Add(" ");
 
-			info.Add(" + Position (X, Y, Z, H):  " + targetMob.X + ", " + targetMob.Y + ", " + targetMob.Z + ", " + targetMob.Heading);
+			info.Add(" + Position (X, Y, Z, H): " + targetMob.X + " " + targetMob.Y + " " + targetMob.Z + " " + targetMob.Heading);
 
 			if (targetMob.GuildName != null && targetMob.GuildName.Length > 0)
 				info.Add(" + Guild: " + targetMob.GuildName);
@@ -1370,12 +1379,10 @@ namespace DOL.GS.Commands
 				info.Add(" ");
 			}
 
-			info.Add(string.Format(" + Flags: {0} (0x{1})", ((GameNPC.eFlags)targetMob.Flags).ToString("G"), targetMob.Flags.ToString("X")));
+			info.Add(string.Format(" + Flags: {0} (0x{1})", targetMob.Flags.ToString("G"), targetMob.Flags.ToString("X")));
 			info.Add(" + OID: " + targetMob.ObjectID);
 			info.Add(" + Active weapon slot: " + targetMob.ActiveWeaponSlot);
 			info.Add(" + Visible weapon slot: " + targetMob.VisibleActiveWeaponSlots);
-			info.Add(" + Speed(current/max): " + targetMob.CurrentSpeed + "/" + targetMob.MaxSpeedBase);
-			info.Add(" + Health: " + targetMob.Health + "/" + targetMob.MaxHealth);
 
 			if (targetMob.EquipmentTemplateID != null && targetMob.EquipmentTemplateID.Length > 0)
 				info.Add(" + Equipment Template ID: " + targetMob.EquipmentTemplateID);
