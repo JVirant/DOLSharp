@@ -30,6 +30,7 @@ using DOL.GS.SkillHandler;
 using DOL.GS.Keeps;
 using DOL.Language;
 using log4net;
+using DOL.GS.ServerProperties;
 
 namespace DOL.AI.Brain
 {
@@ -52,8 +53,7 @@ namespace DOL.AI.Brain
 		/// <summary>
 		/// Constructs a new StandardMobBrain
 		/// </summary>
-		public StandardMobBrain()
-			: base()
+		public StandardMobBrain() : base()
 		{
 			m_aggroLevel = 0;
 			m_aggroMaxRange = 0;
@@ -111,7 +111,8 @@ namespace DOL.AI.Brain
 			if(Body.IsMovingOnPath) DetectDoor();
 			//Instead - lets just let CheckSpells() make all the checks for us
 			//Check for just positive spells
-			CheckSpells(eCheckSpellType.Defensive);
+			if (TryCastASpell(eCheckSpellType.Defensive) && Body.IsCasting)
+				return;
 
 			// Note: Offensive spells are checked in GameNPC:SpellAction timer
 
@@ -128,7 +129,7 @@ namespace DOL.AI.Brain
 			}
 
 			//If this NPC can randomly walk around, we allow it to walk around
-			if (!Body.AttackState && CanRandomWalk && Util.Chance(DOL.GS.ServerProperties.Properties.GAMENPC_RANDOMWALK_CHANCE))
+			if (!Body.AttackState && CanRandomWalk && Util.Chance(Properties.GAMENPC_RANDOMWALK_CHANCE))
 			{
 				IPoint3D target = CalcRandomWalkTarget();
 				if (target != null)
@@ -153,7 +154,7 @@ namespace DOL.AI.Brain
 				//Tolerance to check if we need to go home AGAIN, otherwise we might be told to go home
 				//for a few units only and this may end before the next Arrive-At-Target Event is fired and in this case
 				//We would never lose the state "IsReturningHome", which is then followed by other erros related to agro again to players
-				if ( !Util.IsNearDistance( Body.X, Body.Y, Body.Z, Body.SpawnPoint.X, Body.SpawnPoint.Y, Body.SpawnPoint.Z, GameNPC.CONST_WALKTOTOLERANCE ) )
+				if (!Util.IsNearDistance(Body.X, Body.Y, Body.Z, Body.SpawnPoint.X, Body.SpawnPoint.Y, Body.SpawnPoint.Z, GameNPC.CONST_WALKTOTOLERANCE))
 					Body.WalkToSpawn();
 				else if (Body.Heading != Body.SpawnHeading)
 					Body.Heading = Body.SpawnHeading;
@@ -161,14 +162,15 @@ namespace DOL.AI.Brain
 
 			//Mob will now always walk on their path
 			if (Body.MaxSpeedBase > 0 && Body.CurrentSpellHandler == null && !Body.IsMoving
-			    && !Body.AttackState && !Body.InCombat && !Body.IsMovingOnPath
-			    && Body.PathID != null && Body.PathID != "" && Body.PathID != "NULL")
+				&& !Body.AttackState && !Body.InCombat && !Body.IsMovingOnPath
+				&& Body.PathID != null && Body.PathID != "" && Body.PathID != "NULL")
 			{
 				PathPoint path = MovementMgr.LoadPath(Body.PathID);
 				if (path != null)
 				{
-					Body.CurrentWayPoint = path;
-					Body.MoveOnPath((short)path.MaxSpeed);
+					var p = path.GetNearestNextPoint(Body);
+					Body.CurrentWayPoint = p;
+					Body.MoveOnPath((short)p.MaxSpeed);
 				}
 				else
 				{
@@ -177,7 +179,7 @@ namespace DOL.AI.Brain
 			}
 
 			//If we are not attacking, and not casting, and not moving, and we aren't facing our spawn heading, we turn to the spawn heading
-			if( !Body.IsMovingOnPath && !Body.InCombat && !Body.AttackState && !Body.IsCasting && !Body.IsMoving && Body.IsWithinRadius( Body.SpawnPoint, 500 ) == false )
+			if (!Body.IsMovingOnPath && !Body.InCombat && !Body.AttackState && !Body.IsCasting && !Body.IsMoving && Body.IsWithinRadius(Body.SpawnPoint, 500) == false)
 			{
 				Body.WalkToSpawn(); // Mobs do not walk back at 2x their speed..
 				Body.IsReturningHome = false; // We are returning to spawn but not the long walk home, so aggro still possible
@@ -197,10 +199,11 @@ namespace DOL.AI.Brain
 						}
 						currentPlayersSeen.Add(player);
 					}
-					
-					for (int i=0; i<PlayersSeen.Count; i++)
+
+					for (int i = 0; i < PlayersSeen.Count; i++)
 					{
-						if (!currentPlayersSeen.Contains(PlayersSeen[i])) PlayersSeen.RemoveAt(i);
+						while (!currentPlayersSeen.Contains(PlayersSeen[i]))
+							PlayersSeen.RemoveAt(i);
 					}
 					
 				}
@@ -429,7 +432,7 @@ namespace DOL.AI.Brain
 		/// </summary>
 		/// <param name="living"></param>
 		/// <param name="aggroamount"></param>
-		public virtual void AddToAggroList(GameLiving living, int aggroamount)
+		public void AddToAggroList(GameLiving living, int aggroamount)
 		{
 			AddToAggroList(living, aggroamount, false);
 		}
@@ -623,12 +626,9 @@ namespace DOL.AI.Brain
 
 			Body.TargetObject = CalculateNextAttackTarget();
 
-			if (Body.TargetObject != null)
+			if (Body.TargetObject != null && !TryCastASpell(eCheckSpellType.Offensive))
 			{
-				if (!CheckSpells(eCheckSpellType.Offensive))
-				{
-					Body.StartAttack(Body.TargetObject);
-				}
+				Body.StartAttack(Body.TargetObject);
 			}
 		}
 
@@ -888,13 +888,13 @@ namespace DOL.AI.Brain
 		/// Mobs within this range will be called upon to add on a group
 		/// of players inside of a dungeon.
 		/// </summary>
-		protected static ushort m_BAFReinforcementsRange = 1000; //2000
+		protected static ushort m_BAFReinforcementsRange = 2000;
 
 		/// <summary>
 		/// Players within this range around the puller will be subject
 		/// to attacks from adds.
 		/// </summary>
-		protected static ushort m_BAFTargetPlayerRange = 1500; //3000
+		protected static ushort m_BAFTargetPlayerRange = 3000;
 
 		/// <summary>
 		/// BAF range for adds close to the pulled mob.
@@ -1061,201 +1061,192 @@ namespace DOL.AI.Brain
 		/// </summary>
 		/// <param name="type">Which type should we go through and check for?</param>
 		/// <returns></returns>
-		public virtual bool CheckSpells(eCheckSpellType type)
+		public virtual bool TryCastASpell(eCheckSpellType type)
 		{
 			if (Body.IsCasting)
 				return true;
+			if (Body == null || Body.Spells == null || Body.Spells.Count <= 0)
+				return false;
 
-			bool casted = false;
-
-			if (Body != null && Body.Spells != null && Body.Spells.Count > 0)
+			var spell_rec = new List<Spell>();
+			if (type == eCheckSpellType.Defensive)
 			{
-				var spell_rec = new List<Spell>();
-				Spell spellToCast = null;
-				bool needpet = false;
-				bool needheal = false;
-
-				if (type == eCheckSpellType.Defensive)
+				foreach (Spell spell in Body.Spells)
 				{
-					foreach (Spell spell in Body.Spells)
-					{
-						if (Body.GetSkillDisabledDuration(spell) > 0) continue;
-						if (spell.Target == "enemy" || spell.Target == "area" || spell.Target == "cone") continue;
-						// If we have no pets
-						if (Body.ControlledBrain == null)
-						{
-							if (spell.SpellType.ToLower() == "pet") continue;
-							if (spell.SpellType.ToLower().Contains("summon"))
-							{
-								spell_rec.Add(spell);
-								needpet = true;
-							}
-						}
-						if (Body.ControlledBrain != null && Body.ControlledBrain.Body != null)
-						{
-							if (Util.Chance(30) && Body.ControlledBrain != null && spell.SpellType.ToLower() == "heal" &&
-								Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range &&
-								Body.ControlledBrain.Body.HealthPercent < DOL.GS.ServerProperties.Properties.NPC_HEAL_THRESHOLD
-								&& spell.Target != "self")
-							{
-								spell_rec.Add(spell);
-								needheal = true;
-							}
-							if (LivingHasEffect(Body.ControlledBrain.Body, spell) && (spell.Target != "self")) continue;
-						}
-						if (!needpet && !needheal)
-							spell_rec.Add(spell);
-					}
-					if (spell_rec.Count > 0)
-					{
-						spellToCast = (Spell)spell_rec[Util.Random((spell_rec.Count - 1))];
-						if (!Body.IsReturningToSpawnPoint)
-						{
-							if ((spellToCast.IsInstantCast || spellToCast.Uninterruptible) && CheckDefensiveSpells(spellToCast))
-								casted = true;
-							else if (!Body.IsBeingInterrupted && CheckDefensiveSpells(spellToCast))
-								casted = true;
-						}
-					}
+					if (Body.GetSkillDisabledDuration(spell) > 0)
+						continue;
+					if (spell.Target == "enemy" || spell.Target == "area" || spell.Target == "cone")
+						continue;
+					// If we have no pets
+					if ((Body.ControlledBrain == null || Body.ControlledBrain.Body == null) && spell.Target == "pet")
+						continue;
+					spell_rec.Add(spell);
 				}
-				else if (type == eCheckSpellType.Offensive)
+				if (spell_rec.Count > 0)
 				{
-					foreach (Spell spell in Body.Spells)
-					{
-						if (Body.GetSkillDisabledDuration(spell) > 0) continue;
-						if (spell.Target != "enemy" && spell.Target != "area" && spell.Target != "cone") continue;
-						spell_rec.Add(spell);
-					}
-					if (spell_rec.Count > 0)
-					{
-						spellToCast = (Spell)spell_rec[Util.Random((spell_rec.Count - 1))];
-
-
-						if ((spellToCast.IsInstantCast || spellToCast.Uninterruptible) && CheckOffensiveSpells(spellToCast))
-							casted = true;
-						else if (!Body.IsBeingInterrupted && CheckOffensiveSpells(spellToCast))
-							casted = true;
-					}
+					var spellToCast = spell_rec[Util.Random(spell_rec.Count - 1)];
+					return TryCastDefensiveSpell(spellToCast);
 				}
-
-				return casted;
 			}
-			return casted;
+			else if (type == eCheckSpellType.Offensive)
+			{
+				foreach (Spell spell in Body.Spells)
+				{
+					if (Body.GetSkillDisabledDuration(spell) > 0)
+						continue;
+					if (spell.Target != "enemy" && spell.Target != "area" && spell.Target != "cone")
+						continue;
+					spell_rec.Add(spell);
+				}
+				if (spell_rec.Count > 0)
+				{
+					var spellToCast = spell_rec[Util.Random(spell_rec.Count - 1)];
+					return TryCastOffensiveSpell(spellToCast);
+				}
+			}
+			return false;
 		}
 
 		/// <summary>
 		/// Checks defensive spells.  Handles buffs, heals, etc.
 		/// </summary>
-		protected virtual bool CheckDefensiveSpells(Spell spell)
+		protected virtual bool TryCastDefensiveSpell(Spell spell)
 		{
-			if (spell == null) return false;
-			if (Body.GetSkillDisabledDuration(spell) > 0) return false;
+			if (spell == null)
+				return false;
+			if (Body.GetSkillDisabledDuration(spell) > 0)
+				return false;
 			GameObject lastTarget = Body.TargetObject;
 
 			// clear current target, set target based on spell type, cast spell, return target to original target
 
-			Body.TargetObject = null;
+			GameObject newTarget = null;
 			switch (spell.SpellType.ToUpper())
 			{
-                #region Buffs
-                case "ACUITYBUFF":
-                case "AFHITSBUFF":
-                case "ALLMAGICRESISTSBUFF":
-                case "ARMORABSORPTIONBUFF":
-                case "ARMORFACTORBUFF":
-                case "BODYRESISTBUFF":
-                case "BODYSPIRITENERGYBUFF":
-                case "BUFF":
-                case "CELERITYBUFF":
-                case "COLDRESISTBUFF":
-                case "COMBATSPEEDBUFF":
-                case "CONSTITUTIONBUFF":
-                case "COURAGEBUFF":
-                case "CRUSHSLASHTHRUSTBUFF":
-                case "DEXTERITYBUFF":
-                case "DEXTERITYQUICKNESSBUFF":
-                case "EFFECTIVENESSBUFF":
-                case "ENDURANCEREGENBUFF":
-                case "ENERGYRESISTBUFF":
-                case "FATIGUECONSUMPTIONBUFF":
-                case "FELXIBLESKILLBUFF":
-                case "HASTEBUFF":
-                case "HEALTHREGENBUFF":
-                case "HEATCOLDMATTERBUFF":
-                case "HEATRESISTBUFF":
-                case "HEROISMBUFF":
-                case "KEEPDAMAGEBUFF":
-                case "MAGICRESISTSBUFF":
-                case "MATTERRESISTBUFF":
-                case "MELEEDAMAGEBUFF":
-                case "MESMERIZEDURATIONBUFF":
-                case "MLABSBUFF":
-                case "PALADINARMORFACTORBUFF":
-                case "PARRYBUFF":
-                case "POWERHEALTHENDURANCEREGENBUFF":
-                case "POWERREGENBUFF":
-                case "SAVAGECOMBATSPEEDBUFF":
-                case "SAVAGECRUSHRESISTANCEBUFF":
-                case "SAVAGEDPSBUFF":
-                case "SAVAGEPARRYBUFF":
-                case "SAVAGESLASHRESISTANCEBUFF":
-                case "SAVAGETHRUSTRESISTANCEBUFF":
-                case "SPIRITRESISTBUFF":
-                case "STRENGTHBUFF":
-                case "STRENGTHCONSTITUTIONBUFF":
-                case "SUPERIORCOURAGEBUFF":
-                case "TOHITBUFF":
-                case "WEAPONSKILLBUFF":
-                case "DAMAGEADD":
-                case "OFFENSIVEPROC":
-                case "DEFENSIVEPROC":
-                case "DAMAGESHIELD":
-                    {
+				#region Buffs
+				case "ACUITYBUFF":
+				case "AFHITSBUFF":
+				case "ALLMAGICRESISTSBUFF":
+				case "ARMORABSORPTIONBUFF":
+				case "ARMORFACTORBUFF":
+				case "BODYRESISTBUFF":
+				case "BODYSPIRITENERGYBUFF":
+				case "BUFF":
+				case "CELERITYBUFF":
+				case "COLDRESISTBUFF":
+				case "COMBATSPEEDBUFF":
+				case "CONSTITUTIONBUFF":
+				case "COURAGEBUFF":
+				case "CRUSHSLASHTHRUSTBUFF":
+				case "DEXTERITYBUFF":
+				case "DEXTERITYQUICKNESSBUFF":
+				case "EFFECTIVENESSBUFF":
+				case "ENDURANCEREGENBUFF":
+				case "ENERGYRESISTBUFF":
+				case "FATIGUECONSUMPTIONBUFF":
+				case "FELXIBLESKILLBUFF":
+				case "HASTEBUFF":
+				case "HEALTHREGENBUFF":
+				case "HEATCOLDMATTERBUFF":
+				case "HEATRESISTBUFF":
+				case "HEROISMBUFF":
+				case "KEEPDAMAGEBUFF":
+				case "MAGICRESISTSBUFF":
+				case "MATTERRESISTBUFF":
+				case "MELEEDAMAGEBUFF":
+				case "MESMERIZEDURATIONBUFF":
+				case "MLABSBUFF":
+				case "PALADINARMORFACTORBUFF":
+				case "PARRYBUFF":
+				case "POWERHEALTHENDURANCEREGENBUFF":
+				case "POWERREGENBUFF":
+				case "SAVAGECOMBATSPEEDBUFF":
+				case "SAVAGECRUSHRESISTANCEBUFF":
+				case "SAVAGEDPSBUFF":
+				case "SAVAGEPARRYBUFF":
+				case "SAVAGESLASHRESISTANCEBUFF":
+				case "SAVAGETHRUSTRESISTANCEBUFF":
+				case "SPIRITRESISTBUFF":
+				case "STRENGTHBUFF":
+				case "STRENGTHCONSTITUTIONBUFF":
+				case "SUPERIORCOURAGEBUFF":
+				case "TOHITBUFF":
+				case "WEAPONSKILLBUFF":
+				case "DAMAGEADD":
+				case "OFFENSIVEPROC":
+				case "DEFENSIVEPROC":
+				case "DAMAGESHIELD":
+					{
 						// Buff self, if not in melee, but not each and every mob
 						// at the same time, because it looks silly.
-						if (!LivingHasEffect(Body, spell) && !Body.AttackState && spell.Target != "pet")
+						if (spell.Target != "pet" && !LivingHasEffect(Body, spell) && !Body.AttackState)
 						{
-							Body.TargetObject = Body;
+							newTarget = Body;
 							break;
 						}
-						if (Body.ControlledBrain != null && Body.ControlledBrain.Body != null && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range && !LivingHasEffect(Body.ControlledBrain.Body, spell) && spell.Target != "self")
+						if (spell.Target != "self" && Body.ControlledBrain != null && Body.ControlledBrain.Body != null && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range && !LivingHasEffect(Body.ControlledBrain.Body, spell))
 						{
-                            Body.TargetObject = Body.ControlledBrain.Body;
+							newTarget = Body.ControlledBrain.Body;
 							break;
+						}
+						if (spell.Target == "realm")
+						{
+							foreach (GameNPC npc in Body.GetNPCsInRadius((ushort)Math.Max(spell.Radius, spell.Range)))
+								if (Body.IsFriend(npc) && Util.Chance(60) && !LivingHasEffect(npc, spell))
+								{
+									newTarget = npc;
+									break;
+								}
 						}
 						break;
 					}
-					#endregion Buffs
+				#endregion Buffs
 
-					#region Disease Cure/Poison Cure/Summon
+				#region Disease Cure/Poison Cure/Summon
 				case "CUREDISEASE":
 					if (Body.IsDiseased)
 					{
-						Body.TargetObject = Body;
+						newTarget = Body;
 						break;
 					}
-					if (Body.ControlledBrain != null && Body.ControlledBrain.Body != null && Body.ControlledBrain.Body.IsDiseased
-					    && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range && spell.Target != "self")
+					if (spell.Target != "self" && Body.ControlledBrain != null && Body.ControlledBrain.Body != null && Body.ControlledBrain.Body.IsDiseased && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range)
 					{
-						Body.TargetObject = Body.ControlledBrain.Body;
+						newTarget = Body.ControlledBrain.Body;
 						break;
+					}
+					if (spell.Target == "realm")
+					{
+						foreach (GameNPC npc in Body.GetNPCsInRadius((ushort)Math.Max(spell.Radius, spell.Range)))
+							if (Body.IsFriend(npc) && Util.Chance(60) && npc.IsDiseased)
+							{
+								newTarget = npc;
+								break;
+							}
 					}
 					break;
 				case "CUREPOISON":
 					if (LivingIsPoisoned(Body))
 					{
-						Body.TargetObject = Body;
+						newTarget = Body;
 						break;
 					}
-					if (Body.ControlledBrain != null && Body.ControlledBrain.Body != null && LivingIsPoisoned(Body.ControlledBrain.Body)
-					    && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range && spell.Target != "self")
+					if (spell.Target != "self" && Body.ControlledBrain != null && Body.ControlledBrain.Body != null && LivingIsPoisoned(Body.ControlledBrain.Body) && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range)
 					{
-						Body.TargetObject = Body.ControlledBrain.Body;
+						newTarget = Body.ControlledBrain.Body;
 						break;
+					}
+					if (spell.Target == "realm")
+					{
+						foreach (GameNPC npc in Body.GetNPCsInRadius((ushort)Math.Max(spell.Radius, spell.Range)))
+							if (Body.IsFriend(npc) && Util.Chance(60) && LivingIsPoisoned(npc))
+							{
+								newTarget = npc;
+								break;
+							}
 					}
 					break;
 				case "SUMMON":
-					Body.TargetObject = Body;
+					newTarget = Body;
 					break;
 				case "SUMMONMINION":
 					//If the list is null, lets make sure it gets initialized!
@@ -1275,49 +1266,56 @@ namespace DOL.AI.Brain
 						if (numberofpets >= icb.Length)
 							break;
 					}
-					Body.TargetObject = Body;
+					newTarget = Body;
 					break;
-                #endregion Disease Cure/Poison Cure/Summon
+				#endregion Disease Cure/Poison Cure/Summon
 
-                #region Heals
-                case "COMBATHEAL":
-                case "HEAL":
-                case "HEALOVERTIME":
-                case "MERCHEAL":
-                case "OMNIHEAL":
-                case "PBAEHEAL":
-                case "SPREADHEAL":
-                    if (spell.Target == "self")
+				#region Heals
+				case "COMBATHEAL":
+				case "HEAL":
+				case "HEALOVERTIME":
+				case "MERCHEAL":
+				case "OMNIHEAL":
+				case "PBAEHEAL":
+				case "SPREADHEAL":
+					if (spell.Target == "self")
 					{
 						// if we have a self heal and health is less than 75% then heal, otherwise return false to try another spell or do nothing
-						if (Body.HealthPercent < DOL.GS.ServerProperties.Properties.NPC_HEAL_THRESHOLD)
-						{
-							Body.TargetObject = Body;
-						}
+						if (Body.HealthPercent < Properties.NPC_HEAL_THRESHOLD)
+							newTarget = Body;
 						break;
 					}
 
 					// Chance to heal self when dropping below 30%, do NOT spam it.
-					if (Body.HealthPercent < (DOL.GS.ServerProperties.Properties.NPC_HEAL_THRESHOLD / 2.0)
-						&& Util.Chance(10) && spell.Target != "pet")
+					if (Body.HealthPercent < (Properties.NPC_HEAL_THRESHOLD / 2.0) && Util.Chance(10) && spell.Target != "pet")
 					{
-						Body.TargetObject = Body;
+						newTarget = Body;
 						break;
 					}
 
-					if (Body.ControlledBrain != null && Body.ControlledBrain.Body != null
-					    && Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range 
-					    && Body.ControlledBrain.Body.HealthPercent < DOL.GS.ServerProperties.Properties.NPC_HEAL_THRESHOLD 
-					    && spell.Target != "self")
+					if (spell.Target != "self"
+						&& Body.ControlledBrain != null && Body.ControlledBrain.Body != null
+						&& Body.GetDistanceTo(Body.ControlledBrain.Body) <= spell.Range
+						&& Body.ControlledBrain.Body.HealthPercent < Properties.NPC_HEAL_THRESHOLD)
 					{
-						Body.TargetObject = Body.ControlledBrain.Body;
+						newTarget = Body.ControlledBrain.Body;
 						break;
+					}
+
+					if (spell.Target == "realm")
+					{
+						foreach (GameNPC npc in Body.GetNPCsInRadius((ushort)Math.Max(spell.Radius, spell.Range)))
+							if (Body.IsFriend(npc) && Util.Chance(60) && npc.HealthPercent < Properties.NPC_HEAL_THRESHOLD)
+							{
+								newTarget = npc;
+								break;
+							}
 					}
 					break;
-					#endregion
+				#endregion
 
-					//case "SummonAnimistFnF":
-					//case "SummonAnimistPet":
+				//case "SummonAnimistFnF":
+				//case "SummonAnimistPet":
 				case "SUMMONCOMMANDER":
 				case "SUMMONDRUIDPET":
 				case "SUMMONHUNTERPET":
@@ -1328,18 +1326,19 @@ namespace DOL.AI.Brain
 					//case "SummonTheurgistPet":
 					if (Body.ControlledBrain != null)
 						break;
-					Body.TargetObject = Body;
+					newTarget = Body;
 					break;
 			}
 
-			if (Body.TargetObject != null && (spell.Duration == 0 || (Body.TargetObject is GameLiving living && LivingHasEffect(living, spell) == false)))
-            {
-				if (Body.IsMoving && spell.CastTime > 0)
+			if (newTarget != null && (spell.Duration == 0 || (newTarget is GameLiving living && LivingHasEffect(living, spell) == false)))
+			{
+				Body.TargetObject = newTarget;
+
+				if (spell.CastTime > 0)
+				{
 					Body.StopFollowing();
-
-				if (Body.TargetObject != Body && spell.CastTime > 0)
 					Body.TurnTo(Body.TargetObject);
-
+				}
 				Body.CastSpell(spell, m_mobSpellLine);
 
 				Body.TargetObject = lastTarget;
@@ -1347,25 +1346,38 @@ namespace DOL.AI.Brain
 			}
 
 			Body.TargetObject = lastTarget;
-
 			return false;
 		}
 
 		/// <summary>
 		/// Checks offensive spells.  Handles dds, debuffs, etc.
 		/// </summary>
-		protected virtual bool CheckOffensiveSpells(Spell spell)
+		protected virtual bool TryCastOffensiveSpell(Spell spell)
 		{
 			if (spell.Target != "enemy" && spell.Target != "area" && spell.Target != "cone")
 				return false;
 
-			if (Body.TargetObject != null && (spell.Duration == 0 || (Body.TargetObject is GameLiving living && LivingHasEffect(living, spell) == false)))
-            {
-				if (Body.IsMoving && spell.CastTime > 0)
-					Body.StopFollowing();
+			if (Body.TargetObject != null && Body.TargetObject is GameLiving living)
+			{
+				if (!living.IsAlive)
+					return false;
 
-				if (Body.TargetObject != Body && spell.CastTime > 0)
+				var dist = Body.GetDistanceTo(living);
+				if (dist > spell.Range && dist > spell.Radius)
+					return false;
+
+				if (Body.GetSkillDisabledDuration(spell) == 0)
+					return false;
+				if (spell.Duration > 0 && LivingHasEffect(living, spell))
+					return false;
+
+				if (spell.CastTime > 0)
+				{
+					if (Body.IsBeingInterrupted)
+						return false;
+					Body.StopFollowing();
 					Body.TurnTo(Body.TargetObject);
+				}
 
 				Body.CastSpell(spell, m_mobSpellLine);
 				return true;
@@ -1376,14 +1388,17 @@ namespace DOL.AI.Brain
 		/// <summary>
 		/// Checks Instant Spells.  Handles Taunts, shouts, stuns, etc.
 		/// </summary>
-		protected virtual bool CheckInstantSpells(Spell spell)
+		protected virtual bool TryCastInstantSpell(Spell spell)
 		{
+			if (Body.GetSkillDisabledDuration(spell) == 0)
+				return false;
+
 			GameObject lastTarget = Body.TargetObject;
 			Body.TargetObject = null;
 
 			switch (spell.SpellType)
 			{
-					#region Enemy Spells
+				#region Enemy Spells
 				case "DirectDamage":
 				case "Lifedrain":
 				case "DexterityDebuff":
@@ -1399,13 +1414,11 @@ namespace DOL.AI.Brain
 				case "Mez":
 				case "Taunt":
 					if (!LivingHasEffect(lastTarget as GameLiving, spell))
-					{
 						Body.TargetObject = lastTarget;
-					}
 					break;
-					#endregion
+				#endregion
 
-					#region Combat Spells
+				#region Combat Spells
 				case "CombatHeal":
 				case "DamageAdd":
 				case "ArmorFactorBuff":
@@ -1416,15 +1429,13 @@ namespace DOL.AI.Brain
 				case "Bladeturn":
 				case "OffensiveProc":
 					if (!LivingHasEffect(Body, spell))
-					{
 						Body.TargetObject = Body;
-					}
 					break;
 					#endregion
 			}
 
 			if (Body.TargetObject != null && (spell.Duration == 0 || (Body.TargetObject is GameLiving living && LivingHasEffect(living, spell) == false)))
-            {
+			{
 				Body.CastSpell(spell, m_mobSpellLine);
 				Body.TargetObject = lastTarget;
 				return true;

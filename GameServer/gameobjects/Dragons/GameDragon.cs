@@ -257,10 +257,10 @@ namespace DOL.GS
 		/// Return to spawn point, dragon can't be attacked while it's
 		/// on it's way.
 		/// </summary>
-		public override void WalkToSpawn()
+		public override void WalkToSpawn(short speed)
 		{
 			EvadeChance = 100;
-			WalkToSpawn(MaxSpeed);
+			base.WalkToSpawn(MaxSpeed);
 		}
 
 		public override void OnAttackedByEnemy(AttackData ad)

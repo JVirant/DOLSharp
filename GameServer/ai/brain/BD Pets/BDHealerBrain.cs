@@ -80,7 +80,7 @@ namespace DOL.AI.Brain
 		/// <summary>
 		/// Checks the Positive Spells.  Handles buffs, heals, etc.
 		/// </summary>
-		protected override bool CheckDefensiveSpells(Spell spell)
+		protected override bool TryCastDefensiveSpell(Spell spell)
 		{
 			GameObject lastTarget = Body.TargetObject;
 			Body.TargetObject = null;
@@ -199,14 +199,14 @@ namespace DOL.AI.Brain
 		/// </summary>
 		/// <param name="spell"></param>
 		/// <returns></returns>
-		protected override bool CheckOffensiveSpells(Spell spell) { return false; }
+		protected override bool TryCastOffensiveSpell(Spell spell) { return false; }
 
 		/// <summary>
 		/// Don't
 		/// </summary>
 		/// <param name="spell"></param>
 		/// <returns></returns>
-		protected override bool CheckInstantSpells(Spell spell) { return false; }
+		protected override bool TryCastInstantSpell(Spell spell) { return false; }
 
 		/// <summary>
 		/// Add living to the aggrolist

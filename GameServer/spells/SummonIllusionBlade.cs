@@ -64,7 +64,7 @@ namespace DOL.GS.Spells
             m_pet.AddToWorld();
             //Check for buffs
             if (brain is ControlledNpcBrain)
-                (brain as ControlledNpcBrain).CheckSpells(StandardMobBrain.eCheckSpellType.Defensive);
+                (brain as ControlledNpcBrain).TryCastASpell(StandardMobBrain.eCheckSpellType.Defensive);
 
             AddHandlers();
             SetBrainToOwner(brain);

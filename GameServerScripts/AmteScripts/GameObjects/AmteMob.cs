@@ -19,7 +19,7 @@ public class AmteMob : GameNPC, IAmteNPC
 			"link",
 			() => ((AmteMobBrain) Brain).AggroLink.ToString(),
 			v => ((AmteMobBrain) Brain).AggroLink = int.Parse(v),
-			"0");
+			"-1");
 	}
 
 	public AmteMob(INpcTemplate npc)
@@ -30,7 +30,7 @@ public class AmteMob : GameNPC, IAmteNPC
 			"link",
 			() => ((AmteMobBrain) Brain).AggroLink.ToString(),
 			v => ((AmteMobBrain) Brain).AggroLink = int.Parse(v),
-			"0");
+			"-1");
 	}
 
 	public override bool IsFriend(GameNPC npc)

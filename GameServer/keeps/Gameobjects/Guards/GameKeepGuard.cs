@@ -933,7 +933,7 @@ namespace DOL.GS.Keeps
 		/// <summary>
 		/// Walk to the spawn point, always max speed for keep guards, or continue patrol.
 		/// </summary>
-		public override void WalkToSpawn()
+		public override void WalkToSpawn(short speed)
 		{
 			if (PatrolGroup != null)
 			{
@@ -950,7 +950,7 @@ namespace DOL.GS.Keeps
 			}
 			else
 			{
-				WalkToSpawn(MaxSpeed);
+				base.WalkToSpawn(MaxSpeed);
 			}
 		}
 

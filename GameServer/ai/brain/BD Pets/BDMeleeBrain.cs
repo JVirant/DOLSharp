@@ -76,13 +76,13 @@ namespace DOL.AI.Brain
 			}
 		}
 
-		protected override bool CheckDefensiveSpells(Spell spell) { return false; }
-		protected override bool CheckOffensiveSpells(Spell spell) { return false; }
+		protected override bool TryCastDefensiveSpell(Spell spell) { return false; }
+		protected override bool TryCastOffensiveSpell(Spell spell) { return false; }
 
 		/// <summary>
 		/// Checks Instant Spells.  Handles Taunts, shouts, stuns, etc.
 		/// </summary>
-		protected override bool CheckInstantSpells(Spell spell)
+		protected override bool TryCastInstantSpell(Spell spell)
 		{
 			GameObject lastTarget = Body.TargetObject;
 			Body.TargetObject = null;

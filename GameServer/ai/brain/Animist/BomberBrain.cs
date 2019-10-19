@@ -31,12 +31,12 @@ namespace DOL.AI.Brain
 			get { return 700; }
 		}
 
-		protected override bool CheckDefensiveSpells(Spell spell)
+		protected override bool TryCastDefensiveSpell(Spell spell)
 		{
 			return true;
 		}
 
-		protected override bool CheckOffensiveSpells(Spell spell)
+		protected override bool TryCastOffensiveSpell(Spell spell)
 		{
 			return true;
 		}

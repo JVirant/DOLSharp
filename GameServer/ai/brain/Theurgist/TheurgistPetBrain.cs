@@ -107,12 +107,12 @@ namespace DOL.AI.Brain
 				GameLiving target = m_target;
 				Body.TargetObject = target;
 
-				if (!CheckSpells(eCheckSpellType.Offensive))
+				if (!TryCastASpell(eCheckSpellType.Offensive))
 					Body.StartAttack(target);
 			}
 		}
 
-		public override bool CheckSpells(eCheckSpellType type)
+		public override bool TryCastASpell(eCheckSpellType type)
 		{
 			if (Body == null || Body.Spells == null || Body.Spells.Count < 1 || m_melee)
 				return false;
@@ -125,7 +125,7 @@ namespace DOL.AI.Brain
 			{
 				foreach (Spell spell in Body.Spells)
 				{
-					if (!Body.IsBeingInterrupted && Body.GetSkillDisabledDuration(spell) == 0 && CheckDefensiveSpells(spell))
+					if (!Body.IsBeingInterrupted && Body.GetSkillDisabledDuration(spell) == 0 && TryCastDefensiveSpell(spell))
 					{
 						casted = true;
 						break;
@@ -140,7 +140,7 @@ namespace DOL.AI.Brain
 					{
 						if (spell.CastTime > 0)
 						{
-							if (!Body.IsBeingInterrupted && CheckOffensiveSpells(spell))
+							if (!Body.IsBeingInterrupted && TryCastOffensiveSpell(spell))
 							{
 								casted = true;
 								break;
@@ -148,7 +148,7 @@ namespace DOL.AI.Brain
 						}
 						else
 						{
-							CheckInstantSpells(spell);
+							TryCastInstantSpell(spell);
 						}
 					}
 				}

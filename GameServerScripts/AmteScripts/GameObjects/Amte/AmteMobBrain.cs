@@ -80,13 +80,24 @@ namespace DOL.AI.Brain
         /// </summary>
         protected virtual void BringReinforcements(GamePlayer attacker)
         {
+			int attackerCount;
+			lock (attacker.Attackers)
+				attackerCount = attacker.Attackers.Where(o => o is GameNPC npc ? npc.IsFriend(Body) : o.Name == Body.Name || o.GuildName == Body.GuildName).Count();
 			if (AggroLink == -1)
 			{
 				var attackerGroup = attacker.Group;
-				var numAttackers = (attackerGroup == null) ? 1 : attackerGroup.MemberCount;
+				var numAttackers = ((attackerGroup == null) ? 1 : attackerGroup.MemberCount) + Util.Random(-3, 2).Clamp(0, 2);
+				if (attackerGroup != null)
+				{
+					var members = attackerGroup.GetMembersInTheGroup();
+					foreach (var member in members)
+						if (member.ControlledBrain != null && member.ControlledBrain.Body != null)
+							numAttackers += 1;
+				}
+
 				var maxAdds = Math.Max(1, (numAttackers + 1) / 2 - 1);
 
-				var numAdds = 0;
+				var numAdds = attackerCount * 8 / 10;
 				ushort range = 256;
 
 				while (numAdds < maxAdds && range <= BAFReinforcementsRange)
@@ -95,31 +106,30 @@ namespace DOL.AI.Brain
 					{
 						if (!npc.IsFriend(Body) || !npc.IsAggressive || !npc.IsAvailable)
 							continue;
-
-						var brain = npc.Brain as AmteMobBrain;
-						if (brain != null)
+						if (npc.Brain is StandardMobBrain brain)
 						{
 							brain.AddToAggroList(PickTarget(attacker), 1);
-							brain.AttackMostWanted();
+							if (brain is AmteMobBrain amteMobBrain)
+								amteMobBrain.AttackMostWanted();
 							if (++numAdds >= maxAdds)
 								break;
 						}
 					}
 
+					// we remove one add everytime we increase the range
+					++numAdds;
 					// Increase the range for finding friends to join the fight.
 					range *= 2;
 				}
 			}
 			else
 			{
-				int need;
-				lock (attacker.Attackers)
-					need = AggroLink - attacker.Attackers.Where(o => o.Name == Body.Name || o.GuildName == Body.GuildName).Count();
 				var data = Body.GetNPCsInRadius(false, BAFReinforcementsRange, true, false)
 					.OfType<NPCDistEntry>()
 					.Where(n => n.NPC.IsAggressive && n.NPC.IsAvailable && n.NPC.IsFriend(Body))
 					.OrderBy(o => o.Distance)
 					.ToList();
+				int need = AggroLink - attackerCount;
 				for (; need > 0 && data.Count > 0; --need)
 				{
 					var brain = data[0].NPC.Brain as AmteMobBrain;
@@ -144,185 +154,6 @@ namespace DOL.AI.Brain
             var targetY = Body.SpawnPoint.Y + Math.Sin(angle) * roamingRadius;
             return new Point3D((int)targetX, (int)targetY, Body.SpawnPoint.Z);
         }
-		#endregion
-
-		#region Defensive Spells
-		/// <summary>
-		/// Checks defensive spells.  Handles buffs, heals, etc.
-		/// </summary>
-		protected override bool CheckDefensiveSpells(Spell spell)
-		{
-			if (spell == null) return false;
-			if (Body.GetSkillDisabledDuration(spell) > 0) return false;
-			GameObject lastTarget = Body.TargetObject;
-			Body.TargetObject = null;
-			switch (spell.SpellType)
-			{
-				#region Buffs
-				case "StrengthConstitutionBuff":
-				case "DexterityQuicknessBuff":
-				case "StrengthBuff":
-				case "DexterityBuff":
-				case "ConstitutionBuff":
-				case "ArmorFactorBuff":
-				case "ArmorAbsorptionBuff":
-				case "CombatSpeedBuff":
-				case "MeleeDamageBuff":
-				case "AcuityBuff":
-				case "HealthRegenBuff":
-				case "DamageAdd":
-				case "DamageShield":
-				case "BodyResistBuff":
-				case "ColdResistBuff":
-				case "EnergyResistBuff":
-				case "HeatResistBuff":
-				case "MatterResistBuff":
-				case "SpiritResistBuff":
-				case "BodySpiritEnergyBuff":
-				case "HeatColdMatterBuff":
-				case "CrushSlashThrustBuff":
-				case "AllMagicResistsBuff":
-				case "AllMeleeResistsBuff":
-				case "AllResistsBuff":
-				case "OffensiveProc":
-				case "DefensiveProc":
-				case "Bladeturn":
-				case "ToHitBuff":
-					{
-						// Buff self, if not in melee, but not each and every mob
-						// at the same time, because it looks silly.
-						if (!LivingHasEffect(Body, spell) && !Body.AttackState && Util.Chance(80))
-						{
-							Body.TargetObject = Body;
-							break;
-						}
-						if (!Body.InCombat && spell.Target == "realm")
-						{
-							foreach (GameNPC npc in Body.GetNPCsInRadius((ushort)Math.Max(spell.Radius, spell.Range)))
-								if (Body.IsFriend(npc) && !LivingHasEffect(npc, spell))
-								{
-									Body.TargetObject = npc;
-									break;
-								}
-						}
-						break;
-					}
-				#endregion Buffs
-
-				#region Disease Cure/Poison Cure/Summon
-				case "CureDisease":
-					if (Body.IsDiseased)
-					{
-						Body.TargetObject = Body;
-						break;
-					}
-					if (!Body.InCombat && spell.Target == "realm")
-					{
-						foreach (GameNPC npc in Body.GetNPCsInRadius((ushort)Math.Max(spell.Radius, spell.Range)))
-							if (Body.IsFriend(npc) && npc.IsDiseased && Util.Chance(60))
-							{
-								Body.TargetObject = npc;
-								break;
-							}
-					}
-					break;
-				case "CurePoison":
-					if (LivingIsPoisoned(Body))
-					{
-						Body.TargetObject = Body;
-						break;
-					}
-					if (!Body.InCombat && spell.Target == "realm")
-					{
-						foreach (GameNPC npc in Body.GetNPCsInRadius((ushort)Math.Max(spell.Radius, spell.Range)))
-							if (Body.IsFriend(npc) && LivingIsPoisoned(npc) && Util.Chance(60))
-							{
-								Body.TargetObject = npc;
-								break;
-							}
-					}
-					break;
-				case "SummonAnimistFnF":
-				case "SummonAnimistPet":
-				case "SummonTheurgistPet":
-					break;
-				case "Summon":
-				case "SummonCommander":
-				case "SummonDruidPet":
-				case "SummonHunterPet":
-				case "SummonMastery":
-				case "SummonMercenary":
-				case "SummonMonster":
-				case "SummonNoveltyPet":
-				case "SummonSalamander":
-				case "SummonSiegeWeapon":
-				case "SummonSimulacrum":
-				case "SummonSpiritFighter":
-				case "SummonTitan":
-				case "SummonUnderhill":
-				case "SummonWarcrystal":
-				case "SummonWood":
-					//Body.TargetObject = Body;
-					break;
-				case "SummonMinion":
-					//If the list is null, lets make sure it gets initialized!
-					if (Body.ControlledNpcList == null)
-						Body.InitControlledBrainArray(2);
-					else
-					{
-						//Let's check to see if the list is full - if it is, we can't cast another minion.
-						//If it isn't, let them cast.
-						IControlledBrain[] icb = Body.ControlledNpcList;
-						int numberofpets = icb.Count(t => t != null);
-						if (numberofpets >= icb.Length)
-							break;
-					}
-					Body.TargetObject = Body;
-					break;
-				#endregion
-
-				#region Heals
-				case "Heal":
-					// Chance to heal self when dropping below 30%, do NOT spam it.
-
-					if (Body.HealthPercent < 70 && Util.Chance(80))
-					{
-						Body.TargetObject = Body;
-						break;
-					}
-
-					if (!Body.InCombat && spell.Target == "realm")
-					{
-						foreach (GameNPC npc in Body.GetNPCsInRadius((ushort)Math.Max(spell.Radius, spell.Range)))
-							if (Body.IsFriend(npc) && npc.HealthPercent < 70)
-							{
-								Body.TargetObject = npc;
-								break;
-							}
-					}
-
-					break;
-				#endregion
-			}
-
-			if (Body.TargetObject != null)
-			{
-				if (Body.IsMoving && spell.CastTime > 0)
-					Body.StopFollowing();
-
-				if (Body.TargetObject != Body && spell.CastTime > 0)
-					Body.TurnTo(Body.TargetObject);
-
-				Body.CastSpell(spell, m_mobSpellLine);
-
-				Body.TargetObject = lastTarget;
-				return true;
-			}
-
-			Body.TargetObject = lastTarget;
-
-			return false;
-		}
 		#endregion
 
 		public override int CalculateAggroLevelToTarget(GameLiving target)

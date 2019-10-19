@@ -189,7 +189,7 @@ namespace DOL.AI.Brain
 			}
 
 			//Check for buffs, heals, etc
-			CheckSpells(eCheckSpellType.Defensive);
+			TryCastASpell(eCheckSpellType.Defensive);
 
 			if (AggressionState == eAggressionState.Aggressive)
 			{

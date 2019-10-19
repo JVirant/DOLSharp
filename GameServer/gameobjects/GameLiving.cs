@@ -6611,7 +6611,7 @@ namespace DOL.GS
 				return;
 			}
 
-			if ((m_runningSpellHandler != null && spell.CastTime > 0))
+			if (m_runningSpellHandler != null && spell.CastTime > 0)
 			{
 				Notify(GameLivingEvent.CastFailed, this, new CastFailedEventArgs(null, CastFailedEventArgs.Reasons.AlreadyCasting));
 				return;

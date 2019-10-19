@@ -69,7 +69,7 @@ namespace DOL.AI.Brain
 		{
 			return;
 		}
-		CheckSpells(eCheckSpellType.Offensive);
+		TryCastASpell(eCheckSpellType.Offensive);
 	}
 
   	protected override void OnAttackedByEnemy(AttackData ad)

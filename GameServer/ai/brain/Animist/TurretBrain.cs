@@ -55,14 +55,14 @@ namespace DOL.AI.Brain
 				playerowner.Out.SendObjectUpdate(Body);
 			}
 
-			if (!CheckSpells(eCheckSpellType.Defensive))
+			if (!TryCastASpell(eCheckSpellType.Defensive))
 			{
 				AttackMostWanted();
 			}
 		}
 
 
-		public override bool CheckSpells(eCheckSpellType type)
+		public override bool TryCastASpell(eCheckSpellType type)
 		{
 			if(Body == null || ((TurretPet) Body).TurretSpell == null)
 			{
@@ -78,14 +78,14 @@ namespace DOL.AI.Brain
 			switch (type)
 			{
 				case eCheckSpellType.Defensive:
-					return CheckDefensiveSpells(spell);
+					return TryCastDefensiveSpell(spell);
 				case eCheckSpellType.Offensive:
-					return CheckOffensiveSpells(spell);
+					return TryCastOffensiveSpell(spell);
 			}
 			return false;
 		}
 
-		protected override bool CheckDefensiveSpells(Spell spell)
+		protected override bool TryCastDefensiveSpell(Spell spell)
 		{
 			switch(spell.SpellType)
 			{
@@ -99,7 +99,7 @@ namespace DOL.AI.Brain
 			return false;
 		}
 
-		protected override bool CheckOffensiveSpells(Spell spell)
+		protected override bool TryCastOffensiveSpell(Spell spell)
 		{
 			switch(spell.SpellType)
 			{
@@ -116,7 +116,7 @@ namespace DOL.AI.Brain
 
 		protected override void AttackMostWanted()
 		{
-			CheckSpells(eCheckSpellType.Offensive);
+			TryCastASpell(eCheckSpellType.Offensive);
 		}
 
 		public bool TrustCast(Spell spell, eCheckSpellType type)

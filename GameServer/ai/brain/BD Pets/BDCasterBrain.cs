@@ -57,7 +57,7 @@ namespace DOL.AI.Brain
 		/// <summary>
 		/// Checks the Positive Spells.  Handles buffs, heals, etc.
 		/// </summary>
-		protected override bool CheckDefensiveSpells(Spell spell) { return false; }
+		protected override bool TryCastDefensiveSpell(Spell spell) { return false; }
 
 		#endregion
 	}

@@ -1379,7 +1379,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Walk to the spawn point
 		/// </summary>
-		public virtual void WalkToSpawn()
+		public void WalkToSpawn()
 		{
 			WalkToSpawn(50);
 		}
@@ -1533,15 +1533,14 @@ namespace DOL.GS
 				if (TargetObject.Realm == 0 || Realm == 0)
 					m_lastAttackTickPvE = m_CurrentRegion.Time;
 				else m_lastAttackTickPvP = m_CurrentRegion.Time;
-				if (this.CurrentRegion.Time - LastAttackedByEnemyTick > 10 * 1000)
+				if (this.CurrentRegion.Time - LastAttackedByEnemyTick > 5 * 1000)
 				{
 					// Aredhel: Erm, checking for spells in a follow method, what did we create
 					// brain classes for again?
 
 					//Check for negatively casting spells
-					StandardMobBrain stanBrain = (StandardMobBrain)Brain;
-					if (stanBrain != null)
-						((StandardMobBrain)stanBrain).CheckSpells(StandardMobBrain.eCheckSpellType.Offensive);
+					if (Brain is StandardMobBrain stanBrain)
+						stanBrain.TryCastASpell(StandardMobBrain.eCheckSpellType.Offensive);
 				}
 			}
 		}
@@ -2947,8 +2946,9 @@ namespace DOL.GS
 				PathPoint path = MovementMgr.LoadPath(PathID);
 				if (path != null)
 				{
-					CurrentWayPoint = path;
-					MoveOnPath((short)path.MaxSpeed);
+					var p = path.GetNearestNextPoint(this);
+					CurrentWayPoint = p;
+					MoveOnPath((short)p.MaxSpeed);
 				}
 			}
 
@@ -5160,7 +5160,7 @@ namespace DOL.GS
 
 				//If we started casting a spell, stop the timer and wait for
 				//GameNPC.OnAfterSpellSequenceCast to start again
-				if (owner.Brain is StandardMobBrain && ((StandardMobBrain)owner.Brain).CheckSpells(StandardMobBrain.eCheckSpellType.Offensive))
+				if (owner.Brain is StandardMobBrain && ((StandardMobBrain)owner.Brain).TryCastASpell(StandardMobBrain.eCheckSpellType.Offensive))
 				{
 					Stop();
 					return;
@@ -5169,7 +5169,7 @@ namespace DOL.GS
 				{
 					//If we aren't a distance NPC, lets make sure we are in range to attack the target!
 					if (owner.ActiveWeaponSlot != eActiveWeaponSlot.Distance && !owner.IsWithinRadius(owner.TargetObject, STICKMINIMUMRANGE))
-						((GameNPC)owner).Follow(owner.TargetObject, STICKMINIMUMRANGE, STICKMAXIMUMRANGE);
+						owner.Follow(owner.TargetObject, STICKMINIMUMRANGE, STICKMAXIMUMRANGE);
 				}
 
 				if (owner.Brain != null)

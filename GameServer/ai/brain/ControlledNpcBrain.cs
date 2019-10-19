@@ -422,7 +422,7 @@ namespace DOL.AI.Brain
 				// Only prevent casting if we are ordering pet to come to us or go to target
 				if (Owner is GameNPC || (Owner is GamePlayer && WalkState != eWalkState.ComeHere && WalkState != eWalkState.GoTarget))
 				{
-					CheckSpells(eCheckSpellType.Defensive);
+					TryCastASpell(eCheckSpellType.Defensive);
 				}
 			}
 
@@ -485,7 +485,7 @@ namespace DOL.AI.Brain
 			}
 		}
 		
-		public override bool CheckSpells(eCheckSpellType type)
+		public override bool TryCastASpell(eCheckSpellType type)
 		{
 			if (Body == null || Body.Spells == null || Body.Spells.Count < 1) return false;
 			
@@ -496,7 +496,7 @@ namespace DOL.AI.Brain
 			{
 				foreach (Spell spell in Body.Spells)
 				{
-					if (!Body.IsBeingInterrupted && Body.GetSkillDisabledDuration(spell) == 0 && CheckDefensiveSpells(spell))
+					if (TryCastDefensiveSpell(spell))
 					{
 						casted = true;
 						break;
@@ -509,16 +509,9 @@ namespace DOL.AI.Brain
 				{
 					if (Body.GetSkillDisabledDuration(spell) == 0)
 					{
-						if (spell.CastTime > 0)
-						{
-							if (!Body.IsBeingInterrupted && CheckOffensiveSpells(spell))
-							{
-								casted = true;
-								break;
-							}
-						}
-						else
-							CheckInstantSpells(spell);
+						casted = TryCastOffensiveSpell(spell) || TryCastInstantSpell(spell);
+						if (casted)
+							break;
 					}
 				}
 			}
@@ -534,8 +527,13 @@ namespace DOL.AI.Brain
 		/// <summary>
 		/// Checks the Positive Spells.  Handles buffs, heals, etc.
 		/// </summary>
-		protected override bool CheckDefensiveSpells(Spell spell)
+		protected override bool TryCastDefensiveSpell(Spell spell)
 		{
+			if (spell.CastTime > 0 && Body.IsBeingInterrupted)
+				return false;
+			if (Body.GetSkillDisabledDuration(spell) == 0)
+				return false;
+
 			GameObject lastTarget = Body.TargetObject;
 			Body.TargetObject = null;
 			GamePlayer player = null;
@@ -545,64 +543,64 @@ namespace DOL.AI.Brain
 
 			switch (spell.SpellType.ToUpper())
 			{
-                #region Buffs
-                case "AcuityBuff":
-                case "AFHITSBUFF":
-                case "ALLMAGICRESISTSBUFF":
-                case "ARMORABSORPTIONBUFF":
-                case "ARMORFACTORBUFF":
-                case "BODYRESISTBUFF":
-                case "BODYSPIRITENERGYBUFF":
-                case "BUFF":
-                case "CELERITYBUFF":
-                case "COLDRESISTBUFF":
-                case "COMBATSPEEDBUFF":
-                case "CONSTITUTIONBUFF":
-                case "COURAGEBUFF":
-                case "CRUSHSLASHTHRUSTBUFF":
-                case "DEXTERITYBUFF":
-                case "DEXTERITYQUICKNESSBUFF":
-                case "EFFECTIVENESSBUFF":
-                case "ENDURANCEREGENBUFF":
-                case "ENERGYRESISTBUFF":
-                case "FATIGUECONSUMPTIONBUFF":
-                case "FELXIBLESKILLBUFF":
-                case "HASTEBUFF":
-                case "HEALTHREGENBUFF":
-                case "HEATCOLDMATTERBUFF":
-                case "HEATRESISTBUFF":
-                case "HEROISMBUFF":
-                case "KEEPDAMAGEBUFF":
-                case "MAGICRESISTSBUFF":
-                case "MATTERRESISTBUFF":
-                case "MELEEDAMAGEBUFF":
-                case "MESMERIZEDURATIONBUFF":
-                case "MLABSBUFF":
-                case "PALADINARMORFACTORBUFF":
-                case "PARRYBUFF":
-                case "POWERHEALTHENDURANCEREGENBUFF":
-                case "POWERREGENBUFF":
-                case "SAVAGECOMBATSPEEDBUFF":
-                case "SAVAGECRUSHRESISTANCEBUFF":
-                case "SAVAGEDPSBUFF":
-                case "SAVAGEPARRYBUFF":
-                case "SAVAGESLASHRESISTANCEBUFF":
-                case "SAVAGETHRUSTRESISTANCEBUFF":
-                case "SPIRITRESISTBUFF":
-                case "STRENGTHBUFF":
-                case "STRENGTHCONSTITUTIONBUFF":
-                case "SUPERIORCOURAGEBUFF":
-                case "TOHITBUFF":
-                case "WEAPONSKILLBUFF":
-                case "DAMAGEADD":
-                case "OFFENSIVEPROC":
-                case "DEFENSIVEPROC":
-                case "DAMAGESHIELD":
-                    {
+				#region Buffs
+				case "ACUITYBUFF":
+				case "AFHITSBUFF":
+				case "ALLMAGICRESISTSBUFF":
+				case "ARMORABSORPTIONBUFF":
+				case "ARMORFACTORBUFF":
+				case "BODYRESISTBUFF":
+				case "BODYSPIRITENERGYBUFF":
+				case "BUFF":
+				case "CELERITYBUFF":
+				case "COLDRESISTBUFF":
+				case "COMBATSPEEDBUFF":
+				case "CONSTITUTIONBUFF":
+				case "COURAGEBUFF":
+				case "CRUSHSLASHTHRUSTBUFF":
+				case "DEXTERITYBUFF":
+				case "DEXTERITYQUICKNESSBUFF":
+				case "EFFECTIVENESSBUFF":
+				case "ENDURANCEREGENBUFF":
+				case "ENERGYRESISTBUFF":
+				case "FATIGUECONSUMPTIONBUFF":
+				case "FELXIBLESKILLBUFF":
+				case "HASTEBUFF":
+				case "HEALTHREGENBUFF":
+				case "HEATCOLDMATTERBUFF":
+				case "HEATRESISTBUFF":
+				case "HEROISMBUFF":
+				case "KEEPDAMAGEBUFF":
+				case "MAGICRESISTSBUFF":
+				case "MATTERRESISTBUFF":
+				case "MELEEDAMAGEBUFF":
+				case "MESMERIZEDURATIONBUFF":
+				case "MLABSBUFF":
+				case "PALADINARMORFACTORBUFF":
+				case "PARRYBUFF":
+				case "POWERHEALTHENDURANCEREGENBUFF":
+				case "POWERREGENBUFF":
+				case "SAVAGECOMBATSPEEDBUFF":
+				case "SAVAGECRUSHRESISTANCEBUFF":
+				case "SAVAGEDPSBUFF":
+				case "SAVAGEPARRYBUFF":
+				case "SAVAGESLASHRESISTANCEBUFF":
+				case "SAVAGETHRUSTRESISTANCEBUFF":
+				case "SPIRITRESISTBUFF":
+				case "STRENGTHBUFF":
+				case "STRENGTHCONSTITUTIONBUFF":
+				case "SUPERIORCOURAGEBUFF":
+				case "TOHITBUFF":
+				case "WEAPONSKILLBUFF":
+				case "DAMAGEADD":
+				case "OFFENSIVEPROC":
+				case "DEFENSIVEPROC":
+				case "DAMAGESHIELD":
+					{
 						//Buff self
 						if (!LivingHasEffect(Body, spell))
 						{
-                            Body.TargetObject = Body;
+							Body.TargetObject = Body;
 							break;
 						}
 
@@ -613,7 +611,7 @@ namespace DOL.AI.Brain
 							//Buff owner
 							if (!LivingHasEffect(owner, spell))
 							{
-                                Body.TargetObject = owner;
+								Body.TargetObject = owner;
 								break;
 							}
 
@@ -626,7 +624,7 @@ namespace DOL.AI.Brain
 										continue;
 									if (!LivingHasEffect(icb.Body, spell))
 									{
-                                        Body.TargetObject = icb.Body;
+										Body.TargetObject = icb.Body;
 										break;
 									}
 								}
@@ -639,7 +637,7 @@ namespace DOL.AI.Brain
 							{
 								if (!LivingHasEffect(player, spell))
 								{
-                                    Body.TargetObject = player;
+									Body.TargetObject = player;
 									break;
 								}
 
@@ -647,9 +645,9 @@ namespace DOL.AI.Brain
 								{
 									foreach (GamePlayer p in player.Group.GetPlayersInTheGroup())
 									{
-										if (!LivingHasEffect(p, spell) && Body.GetDistanceTo(p) <= spell.Range)
+										if (player.IsAlive && !LivingHasEffect(p, spell) && Body.GetDistanceTo(p) <= spell.Range)
 										{
-                                            Body.TargetObject = p;
+											Body.TargetObject = p;
 											break;
 										}
 									}
@@ -658,9 +656,9 @@ namespace DOL.AI.Brain
 						}
 					}
 					break;
-					#endregion Buffs
+				#endregion Buffs
 
-					#region Disease Cure/Poison Cure/Summon
+				#region Disease Cure/Poison Cure/Summon
 				case "CUREDISEASE":
 					//Cure self
 					if (Body.IsDiseased)
@@ -685,7 +683,7 @@ namespace DOL.AI.Brain
 					{
 						foreach (GamePlayer p in player.Group.GetPlayersInTheGroup())
 						{
-							if (p.IsDiseased && Body.GetDistanceTo(p) <= spell.Range)
+							if (p.IsAlive && p.IsDiseased && Body.GetDistanceTo(p) <= spell.Range)
 							{
 								Body.TargetObject = p;
 								break;
@@ -717,7 +715,7 @@ namespace DOL.AI.Brain
 					{
 						foreach (GamePlayer p in player.Group.GetPlayersInTheGroup())
 						{
-							if (LivingIsPoisoned(p) && Body.GetDistanceTo(p) <= spell.Range)
+							if (p.IsAlive && LivingIsPoisoned(p) && Body.GetDistanceTo(p) <= spell.Range)
 							{
 								Body.TargetObject = p;
 								break;
@@ -728,17 +726,17 @@ namespace DOL.AI.Brain
 				case "SUMMON":
 					Body.TargetObject = Body;
 					break;
-                #endregion
+				#endregion
 
-                #region Heals
-                case "COMBATHEAL":
-                case "HEAL":
-                case "HEALOVERTIME":
-                case "MERCHEAL":
-                case "OMNIHEAL":
-                case "PBAEHEAL":
-                case "SPREADHEAL":
-                    if (spell.Target == "self")
+				#region Heals
+				case "COMBATHEAL":
+				case "HEAL":
+				case "HEALOVERTIME":
+				case "MERCHEAL":
+				case "OMNIHEAL":
+				case "PBAEHEAL":
+				case "SPREADHEAL":
+					if (spell.Target == "self")
 					{
 						// if we have a self heal and health is less than 75% then heal, otherwise return false to try another spell or do nothing
 						if (Body.HealthPercent < DOL.GS.ServerProperties.Properties.NPC_HEAL_THRESHOLD)
@@ -769,7 +767,8 @@ namespace DOL.AI.Brain
 					{
 						foreach (GamePlayer p in player.Group.GetPlayersInTheGroup())
 						{
-							if (p.HealthPercent < DOL.GS.ServerProperties.Properties.NPC_HEAL_THRESHOLD
+							if (p.IsAlive
+								&& p.HealthPercent < DOL.GS.ServerProperties.Properties.NPC_HEAL_THRESHOLD
 								&& Body.GetDistanceTo(p) <= spell.Range)
 							{
 								Body.TargetObject = p;
@@ -820,14 +819,14 @@ namespace DOL.AI.Brain
 		/// </summary>
 		/// <param name="living"></param>
 		/// <param name="aggroamount"></param>
-		public override void AddToAggroList(GameLiving living, int aggroamount)
+		public override void AddToAggroList(GameLiving living, int aggroamount, bool checkLOS)
 		{
             GameNPC npc_owner = GetNPCOwner();
             if (npc_owner == null || !(npc_owner.Brain is StandardMobBrain))
-                base.AddToAggroList(living, aggroamount);
+                base.AddToAggroList(living, aggroamount, checkLOS);
             else
             {
-                (npc_owner.Brain as StandardMobBrain).AddToAggroList(living, aggroamount);
+                (npc_owner.Brain as StandardMobBrain).AddToAggroList(living, aggroamount, checkLOS);
             }
 		}
 
@@ -913,7 +912,7 @@ namespace DOL.AI.Brain
                     GameServer.ServerRules.IsAllowedToAttack(owner_npc, owner_npc.TargetObject as GameLiving, false))
                 {
 
-                    if (!CheckSpells(eCheckSpellType.Offensive))
+                    if (!TryCastASpell(eCheckSpellType.Offensive))
                     {
                         Body.StartAttack(owner_npc.TargetObject);
                     }
@@ -969,7 +968,7 @@ namespace DOL.AI.Brain
 						effect.Cancel(false);
 					}
 
-					if (!CheckSpells(eCheckSpellType.Offensive))
+					if (!TryCastASpell(eCheckSpellType.Offensive))
 					{
 						Body.StartAttack(target);
 					}

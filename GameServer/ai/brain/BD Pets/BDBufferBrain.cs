@@ -57,7 +57,7 @@ namespace DOL.AI.Brain
 		/// <summary>
 		/// Checks the Positive Spells.  Handles buffs, heals, etc.
 		/// </summary>
-		protected override bool CheckDefensiveSpells(Spell spell)
+		protected override bool TryCastDefensiveSpell(Spell spell)
 		{
 			GameObject lastTarget = Body.TargetObject;
 			Body.TargetObject = null;
@@ -134,13 +134,13 @@ namespace DOL.AI.Brain
 				return true;
 			}
 			Body.TargetObject = lastTarget;
-			return base.CheckDefensiveSpells(spell); ;
+			return base.TryCastDefensiveSpell(spell); ;
 		}
 
 		/// <summary>
 		/// Checks Instant Spells.  Handles Taunts, shouts, stuns, etc.
 		/// </summary>
-		protected override bool CheckInstantSpells(Spell spell) { return false; }
+		protected override bool TryCastInstantSpell(Spell spell) { return false; }
 
 		#endregion
 	}
