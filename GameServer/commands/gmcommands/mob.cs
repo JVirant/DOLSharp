@@ -1315,19 +1315,25 @@ namespace DOL.GS.Commands
 				info.Add(" + Left Swing %: " + targetMob.LeftHandSwingChance);
 
 			if (targetMob.Abilities != null && targetMob.Abilities.Count > 0)
+			{
 				info.Add(" + Abilities: " + targetMob.Abilities.Count);
-			foreach (var ab in targetMob.Abilities)
-				info.Add($" - {ab.Value.Name} {ab.Value.Level}");
+				foreach (var ab in targetMob.Abilities)
+					info.Add($" - {ab.Value.Name} {ab.Value.Level}");
+			}
 
 			if (targetMob.Spells != null && targetMob.Spells.Count > 0)
+			{
 				info.Add(" + Spells: " + targetMob.Spells.Count);
-			foreach (var spell in targetMob.Spells)
-				info.Add($" - {spell.ID}. {spell.Name}");
+				foreach (var spell in targetMob.Spells)
+					info.Add($" - {spell.ID}. {spell.Name}");
+			}
 
 			if (targetMob.Styles != null && targetMob.Styles.Count > 0)
+			{
 				info.Add(" + Styles: " + targetMob.Styles.Count);
-			foreach (var style in targetMob.Styles)
-				info.Add($" - {style.ID}. {style.Name}");
+				foreach (var style in targetMob.Styles)
+					info.Add($" - {style.ID}. {style.Name}");
+			}
 
 			info.Add(" ");
 

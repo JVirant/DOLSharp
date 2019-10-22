@@ -43,7 +43,7 @@ namespace DOL.GS.GameEvents
 		/// <summary>
 		/// Interval between server updates in miliseconds
 		/// </summary>
-		protected const int UPDATE_INTERVAL = 10 * 60 * 1000;
+		protected const int UPDATE_INTERVAL = 5 * 60 * 1000;
 
 		/// <summary>
 		/// Sets up our logger instance

@@ -1721,6 +1721,7 @@ namespace DOL.GS
 			if (ad.AttackResult == eAttackResult.HitUnstyled || ad.AttackResult == eAttackResult.HitStyle)
 			{
 				double damage = AttackDamage(weapon) * effectiveness;
+				ad.weaponDamage = damage;
 
 				if (Level > ServerProperties.Properties.MOB_DAMAGE_INCREASE_STARTLEVEL &&
 				    ServerProperties.Properties.MOB_DAMAGE_INCREASE_PERLEVEL > 0 &&
@@ -1760,16 +1761,20 @@ namespace DOL.GS
 				}
 
 				int lowerboundary = (WeaponSpecLevel(weaponTypeToUse) - 1) * 50 / (ad.Target.EffectiveLevel + 1) + 75;
+				ad.lowerBoundaryDamage = lowerboundary;
 				lowerboundary = lowerboundary.Clamp(75, 125);
-				damage *= (GetWeaponSkill(weapon) + 90.68) / (ad.Target.GetArmorAF(ad.ArmorHitLocation) + 20 * 4.67);
+				ad.weaponSkillAFRatio = (GetWeaponSkill(weapon) + 90.68) / (ad.Target.GetArmorAF(ad.ArmorHitLocation) + 20 * 4.67);
+				damage *= ad.weaponSkillAFRatio;
 
 				// Badge Of Valor Calculation 1+ absorb or 1- absorb
+				ad.absorbRatio = ad.Target.GetArmorAbsorb(ad.ArmorHitLocation);
 				if (ad.Attacker.EffectList.GetOfType<BadgeOfValorEffect>() != null)
-					damage *= 1.0 + Math.Min(0.85, ad.Target.GetArmorAbsorb(ad.ArmorHitLocation));
+					damage *= 1.0 + Math.Min(0.85, ad.absorbRatio);
 				else
-					damage *= 1.0 - Math.Min(0.85, ad.Target.GetArmorAbsorb(ad.ArmorHitLocation));
+					damage *= 1.0 - Math.Min(0.85, ad.absorbRatio);
 				damage *= (lowerboundary + Util.Random(50)) * 0.01;
-				ad.Modifier = (int)(damage * (ad.Target.GetResist(ad.DamageType) + SkillBase.GetArmorResist(armor, ad.DamageType)) * -0.01);
+				ad.resistArmorRatio = (ad.Target.GetResist(ad.DamageType) + SkillBase.GetArmorResist(armor, ad.DamageType)) * -0.01;
+				ad.Modifier = (int)(damage * ad.resistArmorRatio);
 				damage += ad.Modifier;
 				// RA resist check
 				int resist = (int)(damage * ad.Target.GetDamageResist(GetResistTypeForDamage(ad.DamageType)) * -0.01);

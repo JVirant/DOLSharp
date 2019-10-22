@@ -6112,7 +6112,20 @@ namespace DOL.GS
 			base.SendAttackingCombatMessages(ad);
 			GameObject target = ad.Target;
 			InventoryItem weapon = ad.Weapon;
-            if (ad.Target is GameNPC npc)
+			var debugmsg = string.Format(
+				"[DEBUG] AD Dmg: {0} Crit: {1} Mod: {2} Uncap: {3} Style: {4} // WD: {5} WS_AF: {6} Low: {7} ResArmor: {8} Abs: {9}",
+				ad.Damage,
+				ad.CriticalDamage,
+				ad.Modifier,
+				ad.UncappedDamage,
+				ad.StyleDamage,
+				ad.weaponDamage,
+				ad.weaponSkillAFRatio,
+				ad.lowerBoundaryDamage,
+				ad.resistArmorRatio,
+				ad.absorbRatio
+			);
+			if (ad.Target is GameNPC npc)
             {
                 switch (ad.AttackResult)
                 {
@@ -6134,7 +6147,7 @@ namespace DOL.GS
                     case eAttackResult.Fumbled: Out.SendMessage(LanguageMgr.GetTranslation(Client.Account.Language, "GameObjects.GamePlayer.Attack.Fumble"), eChatType.CT_YouHit, eChatLoc.CL_SystemWindow); break;
                     case eAttackResult.HitStyle:
                     case eAttackResult.HitUnstyled:
-						Out.SendMessage(string.Format("[DEBUG] AD Dmg: {0} Crit: {1} Mod: {2} Uncap: {3} Style: {4}", ad.Damage, ad.CriticalDamage, ad.Modifier, ad.UncappedDamage, ad.StyleDamage), eChatType.CT_YouHit, eChatLoc.CL_SystemWindow);
+						Out.SendMessage(debugmsg, eChatType.CT_YouHit, eChatLoc.CL_SystemWindow);
 						string modmessage = "";
                         if (ad.Modifier > 0) modmessage = " (+" + ad.Modifier + ")";
                         if (ad.Modifier < 0) modmessage = " (" + ad.Modifier + ")";
@@ -6194,7 +6207,7 @@ namespace DOL.GS
                     case eAttackResult.Fumbled: Out.SendMessage(LanguageMgr.GetTranslation(Client.Account.Language, "GameObjects.GamePlayer.Attack.Fumble"), eChatType.CT_YouHit, eChatLoc.CL_SystemWindow); break;
                     case eAttackResult.HitStyle:
                     case eAttackResult.HitUnstyled:
-						Out.SendMessage(string.Format("[DEBUG] AD Dmg: {0} Crit: {1} Mod: {2} Uncap: {3} Style: {4}", ad.Damage, ad.CriticalDamage, ad.Modifier, ad.UncappedDamage, ad.StyleDamage), eChatType.CT_YouHit, eChatLoc.CL_SystemWindow);
+						Out.SendMessage(debugmsg, eChatType.CT_YouHit, eChatLoc.CL_SystemWindow);
 						string modmessage = "";
                         if (ad.Modifier > 0) modmessage = " (+" + ad.Modifier + ")";
                         if (ad.Modifier < 0) modmessage = " (" + ad.Modifier + ")";

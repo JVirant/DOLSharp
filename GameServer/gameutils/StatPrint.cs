@@ -59,13 +59,22 @@ namespace DOL.GS.GameEvents
 			{
 				m_timerStatsByMgr = new Hashtable();
 				m_timer = new Timer(new TimerCallback(PrintStats), null, 10000, 0);
-
-				// Create performance counters
-                if (m_systemCpuUsedCounter == null) m_systemCpuUsedCounter	= CreatePerformanceCounter("Processor",				"% processor time",		"_total");
-                if (m_processCpuUsedCounter == null) m_processCpuUsedCounter = CreatePerformanceCounter("Process", "% processor time", GetProcessCounterName());
-                if (m_memoryPages == null) m_memoryPages = CreatePerformanceCounter("Memory", "Pages/sec", null);
-                if (m_physycalDisk == null) m_physycalDisk = CreatePerformanceCounter("PhysicalDisk", "Disk Transfers/sec", "_Total");
+				_InitCounters();
 			}
+		}
+
+		private static void _InitCounters()
+		{
+			ReleasePerformanceCounter(ref m_systemCpuUsedCounter);
+			ReleasePerformanceCounter(ref m_processCpuUsedCounter);
+			ReleasePerformanceCounter(ref m_memoryPages);
+			ReleasePerformanceCounter(ref m_physycalDisk);
+
+			// Create performance counters
+			m_systemCpuUsedCounter = CreatePerformanceCounter("Processor", "% processor time", "_total");
+			m_processCpuUsedCounter = CreatePerformanceCounter("Process", "% processor time", GetProcessCounterName());
+			m_memoryPages = CreatePerformanceCounter("Memory", "Pages/sec", null);
+			m_physycalDisk = CreatePerformanceCounter("PhysicalDisk", "Disk Transfers/sec", "_Total");
 		}
 		
 		/// <summary>
@@ -177,14 +186,21 @@ namespace DOL.GS.GameEvents
 						}
 					}
 
-					if (m_systemCpuUsedCounter != null)
-						stats.Append("  CPU=").Append(m_systemCpuUsedCounter.NextValue().ToString("0.0")).Append('%');
-					if (m_processCpuUsedCounter != null)
-						stats.Append("  DOL=").Append(m_processCpuUsedCounter.NextValue().ToString("0.0")).Append('%');
-					if (m_memoryPages != null)
-						stats.Append("  pg/s=").Append(m_memoryPages.NextValue().ToString("0.0"));
-					if (m_physycalDisk != null)
-						stats.Append("  dsk/s=").Append(m_physycalDisk.NextValue().ToString("0.0"));
+					try
+					{
+						if (m_systemCpuUsedCounter != null)
+							stats.Append("  CPU=").Append(m_systemCpuUsedCounter.NextValue().ToString("0.0")).Append('%');
+						if (m_processCpuUsedCounter != null)
+							stats.Append("  DOL=").Append(m_processCpuUsedCounter.NextValue().ToString("0.0")).Append('%');
+						if (m_memoryPages != null)
+							stats.Append("  pg/s=").Append(m_memoryPages.NextValue().ToString("0.0"));
+						if (m_physycalDisk != null)
+							stats.Append("  dsk/s=").Append(m_physycalDisk.NextValue().ToString("0.0"));
+					}
+					catch
+					{
+						_InitCounters();
+					}
 
 					log.Info(stats);
 				}

@@ -178,10 +178,10 @@ namespace DOL.GS.Spells
 
 			GameLiving player = null;
 
-			if (Caster is GameNPC && (Caster as GameNPC).Brain is IControlledBrain)
-				player = ((Caster as GameNPC).Brain as IControlledBrain).Owner;
-			else if (effect.Owner is GameNPC && (effect.Owner as GameNPC).Brain is IControlledBrain)
-				player = ((effect.Owner as GameNPC).Brain as IControlledBrain).Owner;
+			if (Caster is GameNPC npc && npc.Brain is IControlledBrain npcbrain)
+				player = npcbrain.GetPlayerOwner();
+			else if (effect.Owner is GameNPC npc2 && npc2.Brain is IControlledBrain npc2brain)
+				player = npc2brain.GetPlayerOwner();
 
 			if (player != null)
 			{

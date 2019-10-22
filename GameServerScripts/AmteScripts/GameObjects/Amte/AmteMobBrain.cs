@@ -88,16 +88,24 @@ namespace DOL.AI.Brain
 				if (Body.Level <= 5)
 					return;
 				var attackerGroup = attacker.Group;
-				var numAttackers = ((attackerGroup == null) ? 1 : attackerGroup.MemberCount) + Util.Random(-3, 2).Clamp(0, 2);
+				var memberCount = 1.0;
 				if (attackerGroup != null)
 				{
 					var members = attackerGroup.GetMembersInTheGroup();
 					foreach (var member in members)
+					{
+						if (member is GamePlayer pl && pl.Client.IsDoubleAccount)
+							memberCount += 1.0;
+						if (member.IsWithinRadius(Body, AggroRange * 3))
+							continue;
+						memberCount += 1.0;
 						if (member.ControlledBrain != null && member.ControlledBrain.Body != null)
-							numAttackers += 1;
+							memberCount += 0.5;
+					}
 				}
+				memberCount = Util.Random((int)(memberCount / 2), (int)memberCount).Clamp(1, 16);
 
-				var maxAdds = Math.Max(1, (numAttackers + 1) / 2 - 1);
+				var maxAdds = (int)Math.Max(1, (memberCount + 1) / 2 - 1);
 
 				var numAdds = attackerCount * 8 / 10;
 				ushort range = 256;
@@ -131,7 +139,10 @@ namespace DOL.AI.Brain
 					.Where(n => n.NPC.IsAggressive && n.NPC.IsAvailable && n.NPC.IsFriend(Body))
 					.OrderBy(o => o.Distance)
 					.ToList();
+				var attackerGroup = attacker.Group;
 				int need = AggroLink - attackerCount;
+				if (attackerGroup != null)
+					need += attackerGroup.GetPlayersInTheGroup().Where(pl => pl.Client.IsDoubleAccount).Count() / 2;
 				for (; need > 0 && data.Count > 0; --need)
 				{
 					var brain = data[0].NPC.Brain as AmteMobBrain;
@@ -172,21 +183,24 @@ namespace DOL.AI.Brain
 			}
 
 			if (target.IsObjectGreyCon(Body))
-				return 0;	// only attack if green+ to target
+				return 0;   // only attack if green+ to target
 
-			if (Body.Faction != null && target is GamePlayer)
+			int aggro = AggroLevel;
+			if (target is GamePlayer player)
 			{
-				GamePlayer player = (GamePlayer)target;
-				AggroLevel = Body.Faction.GetAggroToFaction(player);
+				if (Body.Faction != null)
+					aggro = Body.Faction.GetAggroToFaction(player);
+				if (aggro > 1 && player.Client.IsDoubleAccount)
+					aggro += 20;
 			}
-			if (AggroLevel >= 100)
+			if (aggro >= 100)
 				return 100;
-			return AggroLevel;
+			return aggro;
 		}
 
 		public override void CheckAbilities()
 		{
-			////load up abilities
+			/// load up abilities
 			if (Body.Abilities != null && Body.Abilities.Count > 0)
 			{
 				foreach (Ability ab in Body.Abilities.Values)
