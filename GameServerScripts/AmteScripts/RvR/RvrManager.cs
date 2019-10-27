@@ -108,26 +108,26 @@ namespace AmteScripts.Managers
             return (from m in _maps select m.Key);
         }
 
-        private int _CheckRvr(RegionTimer callingtimer)
-        {
-            Console.WriteLine("Check RVR");
-            if (!_isOpen)
-            {
-            	_maps.Keys.ForEach(r => WorldMgr.GetClientsOfRegion(r).Foreach(RemovePlayer));
-            	if (DateTime.Now.TimeOfDay >= _startTime && DateTime.Now.TimeOfDay < _endTime)
-            		Open(0, false);
-            }
-            else
-            {
+		private int _CheckRvr(RegionTimer callingtimer)
+		{
+			Console.WriteLine("Check RVR");
+			if (!_isOpen)
+			{
+				_maps.Keys.ForEach(r => WorldMgr.GetClientsOfRegion(r).Foreach(RemovePlayer));
+				if (DateTime.Now.TimeOfDay >= _startTime && DateTime.Now.TimeOfDay < _endTime)
+					Open(0, false);
+			}
+			else
+			{
 				WorldMgr.GetClientsOfRegion(_region).Where(cl => cl.Player.Guild == null).Foreach(cl => RemovePlayer(cl.Player));
-                if (!_isForcedOpen)
-                {
-                    if ((DateTime.Now.TimeOfDay < _startTime || DateTime.Now.TimeOfDay > _endTime) && !Close())
-                        WorldMgr.GetClientsOfRegion(_region).Foreach(RemovePlayer);
-                }
-            }
-            return _checkInterval;
-        }
+				if (!_isForcedOpen && WorldMgr.GetClientsOfRegion(_region).Count < 3)
+				{
+					if ((DateTime.Now.TimeOfDay < _startTime || DateTime.Now.TimeOfDay > _endTime) && !Close())
+						WorldMgr.GetClientsOfRegion(_region).Foreach(RemovePlayer);
+				}
+			}
+			return _checkInterval;
+		}
 
         public bool Open(ushort region, bool force)
         {
