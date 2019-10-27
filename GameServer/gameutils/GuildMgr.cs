@@ -43,12 +43,12 @@ namespace DOL.GS
 		/// <summary>
 		/// ArrayList of all guilds in the game
 		/// </summary>
-		static private readonly HybridDictionary m_guilds = new HybridDictionary();
+		static private readonly Dictionary<string, Guild> m_guilds = new Dictionary<string, Guild>();
 		
 		/// <summary>
-		/// ArrayList of all GuildIDs to GuildNames
+		/// ArrayList of all GuildIDs to Guild
 		/// </summary>
-		static private readonly HybridDictionary m_guildids = new HybridDictionary();
+		static private readonly Dictionary<string, Guild> m_guildids = new Dictionary<string, Guild>();
 
 		/// <summary>
 		/// Holds all the players combined with their guilds for the social window.
@@ -127,17 +127,13 @@ namespace DOL.GS
 			if (guild == null)
 				return false;
 
-			lock (m_guilds.SyncRoot)
+			if (!m_guilds.ContainsKey(guild.Name))
 			{
-				if (!m_guilds.Contains(guild.Name))
-				{
-					m_guilds.Add(guild.Name, guild);
-					m_guildids.Add(guild.GuildID, guild.Name);
-					guild.ID = ++m_lastID;
-					return true;
-				}
+				m_guilds.Add(guild.Name, guild);
+				m_guildids.Add(guild.GuildID, guild);
+				guild.ID = ++m_lastID;
+				return true;
 			}
-
 			return false;
 		}
 
@@ -152,11 +148,8 @@ namespace DOL.GS
 				return false;
 
 			guild.ClearOnlineMemberList();
-			lock (m_guilds.SyncRoot)
-			{
-				m_guilds.Remove(guild.Name);
-				m_guildids.Remove(guild.GuildID);
-			}
+			m_guilds.Remove(guild.Name);
+			m_guildids.Remove(guild.GuildID);
 			return true;
 		}
 
@@ -167,10 +160,7 @@ namespace DOL.GS
 		/// <returns>true or false</returns>
 		public static bool DoesGuildExist(string guildName)
 		{
-			lock (m_guilds.SyncRoot)
-			{
-                return m_guilds.Contains(guildName);
-			}
+			return m_guilds.ContainsKey(guildName);
 		}
 
 		
@@ -363,15 +353,12 @@ namespace DOL.GS
 				var ranks = GameServer.Database.SelectObjects<DBRank>("`GuildID` = @GuildID", new QueryParameter("@GuildID", removeGuild.GuildID));
 				GameServer.Database.DeleteObject(ranks);
 
-				lock (removeGuild.GetListOfOnlineMembers())
+				foreach (GamePlayer ply in removeGuild.GetListOfOnlineMembers())
 				{
-					foreach (GamePlayer ply in removeGuild.GetListOfOnlineMembers())
-					{
-						ply.Guild = null;
-						ply.GuildID = "";
-						ply.GuildName = "";
-						ply.GuildRank = null;
-					}
+					ply.Guild = null;
+					ply.GuildID = "";
+					ply.GuildName = "";
+					ply.GuildRank = null;
 				}
 
 				RemoveGuild(removeGuild);
@@ -392,11 +379,9 @@ namespace DOL.GS
 		/// <returns>Guild</returns>
 		public static Guild GetGuildByName(string guildName)
 		{
-			if (guildName == null) return null;
-			lock (m_guilds.SyncRoot)
-			{
-				return (Guild)m_guilds[guildName];
-			}
+			Guild guild = null;
+			m_guilds.TryGetValue(guildName, out guild);
+			return guild;
 		}
 
 		/// <summary>
@@ -405,17 +390,9 @@ namespace DOL.GS
 		/// <returns>Guild</returns>
 		public static Guild GetGuildByGuildID(string guildid)
 		{
-			if(guildid == null) return null;
-			
-			lock (m_guildids.SyncRoot)
-			{
-				if(m_guildids[guildid] == null) return null;
-				
-				lock(m_guilds.SyncRoot)
-				{
-					return (Guild)m_guilds[m_guildids[guildid]];
-				}
-			}
+			Guild guild = null;
+			m_guilds.TryGetValue(guildid, out guild);
+			return guild;
 		}
 
 		/// <summary>
@@ -435,10 +412,7 @@ namespace DOL.GS
 		/// </summary>
 		public static bool LoadAllGuilds()
 		{
-			lock (m_guilds.SyncRoot)
-			{
-				m_guilds.Clear(); //clear guild list before loading!
-			}
+			m_guilds.Clear(); //clear guild list before loading!
 			m_lastID = 0;
 
 			//load guilds
@@ -519,13 +493,8 @@ namespace DOL.GS
 				log.Debug("Saving all guilds...");
 			try
 			{
-				lock (m_guilds.SyncRoot)
-				{
-					foreach (Guild g in m_guilds.Values)
-					{
-						g.SaveIntoDatabase();
-					}
-				}
+				foreach (Guild g in m_guilds.Values)
+					g.SaveIntoDatabase();
 			}
 			catch (Exception e)
 			{
@@ -541,13 +510,10 @@ namespace DOL.GS
 		/// <returns></returns>
 		public static bool IsEmblemUsed(int emblem)
 		{
-			lock (m_guilds.SyncRoot)
+			foreach (Guild guild in m_guilds.Values)
 			{
-				foreach (Guild guild in m_guilds.Values)
-				{
-					if (guild.Emblem == emblem)
-						return true;
-				}
+				if (guild.Emblem == emblem)
+					return true;
 			}
 			return false;
 		}
@@ -595,17 +561,7 @@ namespace DOL.GS
 		/// <returns></returns>
 		public static List<Guild> GetAllGuilds()
 		{
-			var guilds = new List<Guild>(m_guilds.Count);
-
-			lock (m_guilds.SyncRoot)
-			{
-				foreach (Guild guild in m_guilds.Values)
-				{
-					guilds.Add(guild);
-				}
-			}
-
-			return guilds;
+			return m_guilds.Values.ToList();
 		}
 
 		/// <summary>

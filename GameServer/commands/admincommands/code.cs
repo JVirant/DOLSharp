@@ -17,10 +17,13 @@
  *
  */
 using System;
+using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 using DOL.GS.PacketHandler;
 using DOL.Language;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
 
 namespace DOL.GS.Commands
 {
@@ -72,10 +75,11 @@ Action<GameObject, GamePlayer> test = (target, player) =>
 			text.Append(code);
 			text.Append(@";
 	};
-test;
+test();
 ");
 
-			var resultObj = await CSharpScript.EvaluateAsync(text.ToString());
+			ScriptOptions options = ScriptOptions.Default.AddReferences(AppDomain.CurrentDomain.GetAssemblies());
+			var resultObj = await CSharpScript.EvaluateAsync(text.ToString(), options);
 			var result = resultObj as Action<GameObject, GamePlayer>;
 
 			try

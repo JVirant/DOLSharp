@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using DOL.AI.Brain;
 using DOL.GS;
+using DOL.GS.Scripts;
 
 namespace DOL.GS.Scripts
 {
@@ -20,6 +22,18 @@ namespace DOL.AI.Brain
 {
 	public class SimpleGvGGuardBrain : AmteMobBrain
 	{
+		private long _lastCaptainUpdate = 0;
+		private GuildCaptainGuard _captain;
+
+		private GuildCaptainGuard _GetCaptain()
+		{
+			if (_lastCaptainUpdate > DateTime.Now.Ticks)
+				return _captain;
+			_captain = GuildCaptainGuard.allCaptains.OrderBy(c => Body.GetDistanceTo(c)).FirstOrDefault();
+			_lastCaptainUpdate = DateTime.Now.Ticks + 60 * 1000 * 10000;
+			return _captain;
+		}
+
 		public override int AggroLevel
 		{
 			get { return 100; }
@@ -83,8 +97,18 @@ namespace DOL.AI.Brain
 
 		public override int CalculateAggroLevelToTarget(GameLiving target)
 		{
-			if (target is AmtePlayer)
+			if (target is AmtePlayer player)
+			{
+				var captain = _GetCaptain();
+				if (captain != null)
+				{
+					var plGuildId = player.Guild != null ? player.GuildID : "NOGUILD";
+					if (target.GuildName == Body.GuildName || captain.safeGuildIds.Contains(plGuildId))
+						return 0;
+					return 100;
+				}
 				return target.GuildName == Body.GuildName ? 0 : 100;
+			}
 			if (target.Realm == 0)
 				return 0;
 			return base.CalculateAggroLevelToTarget(target);
