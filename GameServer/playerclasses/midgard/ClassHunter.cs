@@ -41,6 +41,11 @@ namespace DOL.GS.PlayerClass
 			m_manaStat = eStat.EMP;
 		}
 
+		public override int WeaponSkillFactor(eObjectType type)
+		{
+			return 19;
+		}
+
 		public override IList<string> GetAutotrainableSkills()
 		{
 			return AutotrainableSkills;

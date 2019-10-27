@@ -332,7 +332,7 @@ namespace DOL.GS.Spells
 				return;
 			
 			AttackData ad = args.AttackData;
-			if (ad.AttackResult != GameLiving.eAttackResult.HitUnstyled && ad.AttackResult != GameLiving.eAttackResult.HitStyle)
+			if (ad == null || (ad.AttackResult != GameLiving.eAttackResult.HitUnstyled && ad.AttackResult != GameLiving.eAttackResult.HitStyle))
 				return;
 
 			int baseChance = Spell.Frequency / 100;
@@ -343,11 +343,10 @@ namespace DOL.GS.Spells
 			if (baseChance < 1)
 				baseChance = 1;
 			
-			if (ad.Attacker is GameNPC) // Add support for multiple procs - Unty
+			if (ad.Attacker is GameNPC pet) // Add support for multiple procs - Unty
 			{
 				Spell baseSpell = null;
 
-				GameNPC pet = ad.Attacker as GameNPC;
 				var procSpells = new List<Spell>();
 				foreach (Spell spell in pet.Spells)
 				{

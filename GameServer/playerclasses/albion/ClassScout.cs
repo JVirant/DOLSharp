@@ -41,7 +41,12 @@ namespace DOL.GS.PlayerClass
             m_manaStat = eStat.INT;
 		}
 
-        public override eClassType ClassType
+		public override int WeaponSkillFactor(eObjectType type)
+		{
+			return 19;
+		}
+
+		public override eClassType ClassType
         {
             get { return eClassType.Hybrid; }
         }

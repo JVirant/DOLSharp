@@ -40,6 +40,11 @@ namespace DOL.GS.PlayerClass
 			m_baseHP = 880;
 		}
 
+		public override int WeaponSkillFactor(eObjectType type)
+		{
+			return 22;
+		}
+
 		public override IList<string> GetAutotrainableSkills()
 		{
 			return AutotrainableSkills;

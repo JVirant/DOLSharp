@@ -6907,6 +6907,21 @@ namespace DOL.GS
 			return SkillBase.ObjectTypeToSpec((eObjectType)weapon.Object_Type);
 		}
 
+		public virtual eProperty GetWeaponSpecProperty(InventoryItem weapon)
+		{
+			if (weapon == null)
+				return eProperty.Undefined;
+
+			foreach (eObjectType obj in GameServer.ServerRules.GetCompatibleObjectTypes((eObjectType)weapon.Object_Type))
+			{
+				var specName = SkillBase.ObjectTypeToSpec(obj);
+				if (specName == null)
+					continue;
+				return SkillBase.SpecToSkill(specName);
+			}
+			return eProperty.Undefined;
+		}
+
 		/// <summary>
 		/// determines current weaponspeclevel
 		/// </summary>
@@ -6933,19 +6948,17 @@ namespace DOL.GS
 		public override double GetWeaponSkill(InventoryItem weapon)
 		{
 			if (weapon == null)
-			{
 				return 0;
-			}
-			double classbase =
-				(weapon.SlotPosition == (int)eInventorySlot.DistanceWeapon
-				 ? CharacterClass.WeaponSkillRangedBase
-				 : CharacterClass.WeaponSkillBase);
 
-			//added for WS Poisons
-			double preBuff = ((Level * classbase * 0.02 * (1 + (GetWeaponStat(weapon) - 50) * 0.005)) * Effectiveness);
+			var prop = GetWeaponSpecProperty(weapon);
+			var stat = GetWeaponStat(weapon);
+			var spec = WeaponSpecLevel(weapon);
+			var wsbonus = GetModified(eProperty.WeaponSkill) * 0.01;
+			var factor = CharacterClass.WeaponSkillFactor((eObjectType)weapon.Object_Type);
+			var itembonus = GetModifiedFromItems(prop);
 
-			//return ((Level * classbase * 0.02 * (1 + (GetWeaponStat(weapon) - 50) * 0.005)) * PlayerEffectiveness);
-			return Math.Max(0, preBuff * GetModified(eProperty.WeaponSkill) * 0.01);
+			var ws = (Level * factor * (200 + itembonus) / 500) * ((100 + stat) / 100.0) * ((100 + spec) / 100.0) * wsbonus;
+			return Math.Max(1, ws * Effectiveness);
 		}
 
 		/// <summary>
@@ -6955,11 +6968,24 @@ namespace DOL.GS
 		/// <returns></returns>
 		public override int GetWeaponStat(InventoryItem weapon)
 		{
+			var stat = 0.0;
 			if (weapon != null)
 			{
 				switch ((eObjectType)weapon.Object_Type)
 				{
-						// DEX modifier
+					// STR+DEX modifier
+					case eObjectType.ThrustWeapon:
+					case eObjectType.Piercing:
+					case eObjectType.Spear:
+					case eObjectType.Flexible:
+					case eObjectType.HandToHand:
+						var str = GetModified(eProperty.Strength);
+						var dex = GetModified(eProperty.Dexterity);
+						stat += str < 50 ? str - 25 : str / 2;
+						stat += dex < 50 ? dex - 25 : dex / 2;
+						break;
+
+					// DEX modifier
 					case eObjectType.Staff:
 					case eObjectType.Fired:
 					case eObjectType.Longbow:
@@ -6968,19 +6994,20 @@ namespace DOL.GS
 					case eObjectType.RecurvedBow:
 					case eObjectType.Thrown:
 					case eObjectType.Shield:
-						return GetModified(eProperty.Dexterity);
+						stat = GetModified(eProperty.Dexterity);
+						break;
 
-						// STR+DEX modifier
-					case eObjectType.ThrustWeapon:
-					case eObjectType.Piercing:
-					case eObjectType.Spear:
-					case eObjectType.Flexible:
-					case eObjectType.HandToHand:
-						return (GetModified(eProperty.Strength) + GetModified(eProperty.Dexterity)) >> 1;
+						// STR modifier for others
+					default:
+						stat = GetModified(eProperty.Strength);
+						break;
 				}
 			}
-			// STR modifier for others
-			return GetModified(eProperty.Strength);
+			if (stat < 50)
+				stat -= 50;
+			else
+				stat = (stat - 50) / 2;
+			return (int)stat;
 		}
 
 		/// <summary>
@@ -7035,10 +7062,7 @@ namespace DOL.GS
 		{
 			get
 			{
-				int itemBonus = WeaponSpecLevel(AttackWeapon) - WeaponBaseSpecLevel(AttackWeapon) - RealmLevel / 10;
-				double m = 0.56 + itemBonus / 70.0;
-				double weaponSpec = WeaponSpecLevel(AttackWeapon) + itemBonus * m;
-				return (int)(GetWeaponSkill(AttackWeapon) * (1.00 + weaponSpec * 0.01));
+				return (int)GetWeaponSkill(AttackWeapon);
 			}
 		}
 

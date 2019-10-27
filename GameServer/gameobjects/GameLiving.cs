@@ -4807,6 +4807,9 @@ namespace DOL.GS
 		/// <returns></returns>
 		public virtual int GetModifiedFromItems(eProperty property)
 		{
+			if (property == eProperty.Undefined)
+				return 0;
+
 			if (m_propertyCalc != null && m_propertyCalc[(int)property] != null)
 			{
 				return m_propertyCalc[(int)property].CalcValueFromItems(this, property);

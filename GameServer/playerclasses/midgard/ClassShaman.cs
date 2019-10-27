@@ -37,6 +37,11 @@ namespace DOL.GS.PlayerClass
 			m_manaStat = eStat.PIE;
 		}
 
+		public override int WeaponSkillFactor(eObjectType type)
+		{
+			return 18;
+		}
+
 		public override bool HasAdvancedFromBaseClass()
 		{
 			return true;

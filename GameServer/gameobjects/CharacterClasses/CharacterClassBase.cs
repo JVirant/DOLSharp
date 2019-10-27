@@ -221,6 +221,11 @@ namespace DOL.GS
 			get { return m_wsbaseRanged; }
 		}
 
+		public virtual int WeaponSkillFactor(eObjectType type)
+		{
+			return 14;
+		}
+
 		/// <summary>
 		/// Maximum number of pulsing spells that can be active simultaneously
 		/// </summary>
