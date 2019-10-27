@@ -1763,7 +1763,7 @@ namespace DOL.GS
 				int lowerboundary = (WeaponSpecLevel(weaponTypeToUse) - 1) * 50 / (ad.Target.EffectiveLevel + 1) + 75;
 				ad.lowerBoundaryDamage = lowerboundary;
 				lowerboundary = lowerboundary.Clamp(75, 125);
-				ad.weaponSkillAFRatio = (GetWeaponSkill(weapon) + 90.68) / (ad.Target.GetArmorAF(ad.ArmorHitLocation) + 20 * 4.67);
+				ad.weaponSkillAFRatio = GetWeaponSkill(weapon) * 0.75 / (ad.Target.GetArmorAF(ad.ArmorHitLocation) + 20 * 4.67);
 				damage *= ad.weaponSkillAFRatio;
 
 				// Badge Of Valor Calculation 1+ absorb or 1- absorb

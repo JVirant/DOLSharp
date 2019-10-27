@@ -391,7 +391,7 @@ namespace DOL.GS
 		public static Guild GetGuildByGuildID(string guildid)
 		{
 			Guild guild = null;
-			m_guilds.TryGetValue(guildid, out guild);
+			m_guildids.TryGetValue(guildid, out guild);
 			return guild;
 		}
 
@@ -413,6 +413,7 @@ namespace DOL.GS
 		public static bool LoadAllGuilds()
 		{
 			m_guilds.Clear(); //clear guild list before loading!
+			m_guildids.Clear();
 			m_lastID = 0;
 
 			//load guilds
