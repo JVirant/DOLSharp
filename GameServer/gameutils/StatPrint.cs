@@ -86,12 +86,16 @@ namespace DOL.GS.GameEvents
 			Process process = Process.GetCurrentProcess();
 			int id = process.Id;
 			PerformanceCounterCategory perfCounterCat = new PerformanceCounterCategory("Process");
-			foreach(DictionaryEntry entry in perfCounterCat.ReadCategory()["id process"])
+			try
 			{
-				string processCounterName = (string)entry.Key;
-				if (((InstanceData)entry.Value).RawValue == id)
-					return processCounterName;
+				foreach (DictionaryEntry entry in perfCounterCat.ReadCategory()["id process"])
+				{
+					string processCounterName = (string)entry.Key;
+					if (((InstanceData)entry.Value).RawValue == id)
+						return processCounterName;
+				}
 			}
+			catch { }
 			return "";
 		}
 

@@ -41,11 +41,8 @@ namespace DOL.GS.PropertyCalc
 
 			if (living is GameNPC)
 			{
-				if (living.Level >= 30) abs += 27;
-				else if (living.Level >= 20) abs += 19;
-				else if (living.Level >= 10) abs += 10;
-
-				abs += (living.GetModified(eProperty.Constitution) + living.GetModified(eProperty.Dexterity) - 120) / 12;
+				abs += living.Level / 10;
+				abs += (living.GetModified(eProperty.Constitution) + living.GetModified(eProperty.Dexterity) - 120).Clamp(0, living.Level * 10) / 10;
 			}
 
 			return abs;

@@ -6966,7 +6966,7 @@ namespace DOL.GS
 		/// </summary>
 		/// <param name="weapon"></param>
 		/// <returns></returns>
-		public override int GetWeaponStat(InventoryItem weapon)
+		public int GetWeaponStatForWS(InventoryItem weapon)
 		{
 			var stat = 0.0;
 			if (weapon != null)
@@ -6997,7 +6997,7 @@ namespace DOL.GS
 						stat = GetModified(eProperty.Dexterity);
 						break;
 
-						// STR modifier for others
+					// STR modifier for others
 					default:
 						stat = GetModified(eProperty.Strength);
 						break;
@@ -7011,6 +7011,44 @@ namespace DOL.GS
 		}
 
 		/// <summary>
+		/// calculates weapon stat
+		/// </summary>
+		/// <param name="weapon"></param>
+		/// <returns></returns>
+		public override int GetWeaponStat(InventoryItem weapon)
+		{
+			if (weapon != null)
+			{
+				switch ((eObjectType)weapon.Object_Type)
+				{
+					// STR+DEX modifier
+					case eObjectType.ThrustWeapon:
+					case eObjectType.Piercing:
+					case eObjectType.Spear:
+					case eObjectType.Flexible:
+					case eObjectType.HandToHand:
+						var str = GetModified(eProperty.Strength);
+						var dex = GetModified(eProperty.Dexterity);
+						return (str / 2 + dex / 2) / 2;
+
+					// DEX modifier
+					case eObjectType.Staff:
+					case eObjectType.Fired:
+					case eObjectType.Longbow:
+					case eObjectType.Crossbow:
+					case eObjectType.CompositeBow:
+					case eObjectType.RecurvedBow:
+					case eObjectType.Thrown:
+					case eObjectType.Shield:
+						return GetModified(eProperty.Dexterity) / 2;
+				}
+				// STR modifier for others
+				return GetModified(eProperty.Strength) / 2;
+			}
+			return 0;
+		}
+
+		/// <summary>
 		/// calculate item armor factor influenced by quality, con and duration
 		/// </summary>
 		/// <param name="slot"></param>
@@ -7018,26 +7056,27 @@ namespace DOL.GS
 		public override double GetArmorAF(eArmorSlot slot)
 		{
 			if (slot == eArmorSlot.NOTSET)
-				return 0;
-			InventoryItem item = Inventory.GetItem((eInventorySlot)slot);
+				return 20;
+			var item = Inventory.GetItem((eInventorySlot)slot);
 			if (item == null)
-				return 0;
-			double eaf = item.DPS_AF + BaseBuffBonusCategory[(int)eProperty.ArmorFactor]; // base AF buff
+				return 20;
+			double eaf = item.DPS_AF; // base AF buff
+
+			eaf += BaseBuffBonusCategory[(int)eProperty.ArmorFactor];
 
 			int itemAFcap = Level;
 			if (RealmLevel > 39)
 				itemAFcap++;
 			if (item.Object_Type != (int)eObjectType.Cloth)
-				itemAFcap <<= 1;
+				itemAFcap *= 2;
 
-			eaf = Math.Min(eaf, itemAFcap);
-			eaf *= 4.67; // compensate *4.67 in damage formula
+			eaf = eaf.Clamp(0, itemAFcap);
 
 			// my test shows that qual is added after AF buff
-			eaf *= item.Quality * 0.01 * item.Condition / item.MaxCondition;
+			eaf *= item.Quality * 0.01 * item.ConditionPercent * 0.01;
 
 			eaf += GetModified(eProperty.ArmorFactor);
-			return eaf;
+			return 20 + eaf;
 		}
 
 		/// <summary>
@@ -7074,27 +7113,28 @@ namespace DOL.GS
 		public override double WeaponDamage(InventoryItem weapon)
 		{
 			if (weapon == null)
-				return 0;
+				return 1.0;
 
-			// TODO if attackweapon is ranged -> attackdamage is arrow damage
-			double DPS = weapon.DPS_AF * 0.1;
-
-			// apply relic bonus prior to cap
-			DPS *= 1.0 + RelicMgr.GetRelicBonusModifier(Realm, eRelicType.Strength);
-
-			// apply damage cap before quality
-			// http://www.classesofcamelot.com/faq.asp?mode=view&cat=10
-			double cap = 1.2 + 0.3 * Level;
+			var dps = weapon.DPS_AF * 0.1;
+			var cap = 1.2 + 0.3 * Level;
 			if (RealmLevel > 39)
 				cap += 0.3;
-
-			DPS = Math.Min(cap, DPS);
-
-
-			DPS *= 1.0 + (GetModified(eProperty.DPS) * 0.01);
+			dps = dps.Clamp(0.1, cap);
+			dps *= 1.0 + (GetModified(eProperty.DPS) * 0.01);
 			// beware to use always ConditionPercent, because Condition is abolute value
-			DPS *= weapon.Quality * 0.01 * weapon.Condition / weapon.MaxCondition;
-			return DPS;
+			dps *= weapon.Quality * 0.01 * weapon.ConditionPercent * 0.01;
+
+			var twohand_bonus = 1.0;
+			if (weapon.Item_Type == Slot.TWOHAND) {
+				var wp_spec = GetModifiedSpecLevel(GetWeaponSpec(weapon));
+				twohand_bonus = 1.1 + 0.005 * wp_spec;
+			}
+			var weapon_dps = dps * weapon.SPD_ABS * 0.1 * 10
+				* (0.94 + weapon.SPD_ABS * 0.1 * 0.03)
+				* twohand_bonus
+				* (1 + 0.01 * GetModified(eProperty.MeleeDamage)) / 10;
+
+			return weapon_dps;
 		}
 
 		/// <summary>

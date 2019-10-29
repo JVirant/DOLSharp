@@ -4803,6 +4803,46 @@ namespace DOL.GS
 			//DealDamage needs to be called after addxpgainer!
 		}
 
+		public override double WeaponDamage(InventoryItem weapon)
+		{
+			double dps;
+			var spd = 3.0;
+			var twohand_bonus = 1.0;
+
+			if (weapon == null || weapon.DPS_AF <= 1)
+			{
+				dps = 1.4 + 0.3 * Level;
+				dps *= 1.0 + (GetModified(eProperty.DPS) * 0.01);
+				dps *= 0.98;
+
+				if (ActiveWeaponSlot == eActiveWeaponSlot.TwoHanded)
+				{
+					var wp_spec = GetModifiedSpecLevel("Staff");
+					twohand_bonus = 1.1 + 0.005 * wp_spec;
+				}
+			}
+			else
+			{
+				dps = weapon.DPS_AF * 0.1;
+				spd = weapon.SPD_ABS * 0.1;
+				var cap = 1.4 + 0.3 * Level;
+				dps = dps.Clamp(0.1, cap);
+				dps *= 1.0 + (GetModified(eProperty.DPS) * 0.01);
+				// beware to use always ConditionPercent, because Condition is abolute value
+				dps *= weapon.Quality * 0.01 * weapon.ConditionPercent;
+
+				if (weapon.Item_Type == Slot.TWOHAND)
+				{
+					var wp_spec = GetModifiedSpecLevel("Staff");
+					twohand_bonus = 1.1 + 0.005 * wp_spec;
+				}
+			}
+			var weapon_dps = dps * spd * 10
+				* (0.94 + spd * 0.03)
+				* twohand_bonus
+				* (1 + 0.01 * GetModified(eProperty.MeleeDamage)) / 10;
+			return 2.0 + weapon_dps;
+		}
 		#endregion
 
 		#region Spell

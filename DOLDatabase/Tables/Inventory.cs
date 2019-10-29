@@ -776,7 +776,7 @@ namespace DOL.Database
 		public virtual byte ConditionPercent
 		{
 			get	{
-				return (byte)Math.Round((Template.MaxCondition > 0) ? (double)Condition / Template.MaxCondition * 100 : 0);
+				return (byte)Math.Round((Template.MaxCondition > 0) ? Condition * 100.0 / Template.MaxCondition : 0);
 			}
 		}
 		public virtual bool IsMagical

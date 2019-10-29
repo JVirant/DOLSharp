@@ -1021,7 +1021,8 @@ namespace DOL.GS
 		/// <returns></returns>
 		public virtual double GetArmorAF(eArmorSlot slot)
 		{
-			return GetModified(eProperty.ArmorFactor);
+			var af = (1.0 + (Level / 170.0)) * Level * 4.67;
+			return 20 + af + GetModified(eProperty.ArmorFactor);
 		}
 
 		/// <summary>
@@ -1039,8 +1040,7 @@ namespace DOL.GS
 		/// </summary>
 		public virtual double GetWeaponSkill(InventoryItem weapon)
 		{
-			const double bs = 128.0 / 50.0;	// base factor (not 400)
-			return (int)((Level + 1) * bs * (1 + (GetWeaponStat(weapon) - 50) * 0.005) * Level * 2 / 50);
+			return (Level + 1) * 22 * 200 / 500 * (100 + GetWeaponStat(weapon) / 100.0) * ((100 + Level / 5) / 100.0);
 		}
 
 		/// <summary>
@@ -1139,7 +1139,7 @@ namespace DOL.GS
 		/// <param name="weapon">the weapon used for attack</param>
 		public virtual double WeaponDamage(InventoryItem weapon)
 		{
-			return 0;
+			return 2.0;
 		}
 
 		/// <summary>
@@ -1720,25 +1720,11 @@ namespace DOL.GS
 			// calculate damage only if we hit the target
 			if (ad.AttackResult == eAttackResult.HitUnstyled || ad.AttackResult == eAttackResult.HitStyle)
 			{
-				double damage = AttackDamage(weapon) * effectiveness;
-				ad.weaponDamage = damage;
-
-				if (Level > ServerProperties.Properties.MOB_DAMAGE_INCREASE_STARTLEVEL &&
-				    ServerProperties.Properties.MOB_DAMAGE_INCREASE_PERLEVEL > 0 &&
-				    damage > 0 &&
-				    this is GameNPC && (this as GameNPC).Brain is IControlledBrain == false)
-				{
-					double modifiedDamage = ServerProperties.Properties.MOB_DAMAGE_INCREASE_PERLEVEL * (Level - ServerProperties.Properties.MOB_DAMAGE_INCREASE_STARTLEVEL);
-					damage += (modifiedDamage * effectiveness);
-				}
-
+				var player = this as GamePlayer;
 				InventoryItem armor = null;
-
 				if (ad.Target.Inventory != null)
 					armor = ad.Target.Inventory.GetItem((eInventorySlot)ad.ArmorHitLocation);
-
 				InventoryItem weaponTypeToUse = null;
-
 				if (weapon != null)
 				{
 					weaponTypeToUse = new InventoryItem();
@@ -1746,7 +1732,7 @@ namespace DOL.GS
 					weaponTypeToUse.SlotPosition = weapon.SlotPosition;
 
 					if ((this is GamePlayer) && Realm == eRealm.Albion
-						&& (GameServer.ServerRules.IsObjectTypesEqual((eObjectType)weapon.Object_Type, eObjectType.TwoHandedWeapon) 
+						&& (GameServer.ServerRules.IsObjectTypesEqual((eObjectType)weapon.Object_Type, eObjectType.TwoHandedWeapon)
 						|| GameServer.ServerRules.IsObjectTypesEqual((eObjectType)weapon.Object_Type, eObjectType.PolearmWeapon))
 						&& ServerProperties.Properties.ENABLE_ALBION_ADVANCED_WEAPON_SPEC)
 					{
@@ -1760,25 +1746,50 @@ namespace DOL.GS
 					}
 				}
 
+				var factor = player != null ? player.CharacterClass.WeaponSkillFactor((eObjectType)weapon.Object_Type) : 20;
+				var dmg_stat = GetWeaponStat(weapon);
+				var wp_spec = player != null ? GetModifiedSpecLevel(player.GetWeaponSpec(weapon)) : Level * 1.2;
+				var enemy_armor = ad.Target.GetArmorAF(ad.ArmorHitLocation);
+				if (ad.Attacker.EffectList.GetOfType<BadgeOfValorEffect>() != null)
+					enemy_armor = enemy_armor / (1 + ad.Target.GetArmorAbsorb(ad.ArmorHitLocation));
+				else
+					enemy_armor = enemy_armor / (1 - ad.Target.GetArmorAbsorb(ad.ArmorHitLocation));
+				var enemy_resist = (ad.Target.GetResist(ad.DamageType) + SkillBase.GetArmorResist(armor, ad.DamageType)) * 0.01;
+
+				var weapon_dps = WeaponDamage(weapon);
+
+				var dmg_mod = Level
+					* factor / 10.0 * (1 + 0.01 * dmg_stat)
+					* (0.75 + 0.5 * Math.Min(ad.Target.Level + 1.0, wp_spec) / (ad.Target.Level + 1.0) + 0.01 * Util.Random(0, 49))
+					/ enemy_armor
+					* (1.0 - enemy_resist);
+				dmg_mod = dmg_mod.Clamp(0.1, 3);
+
+				var base_dmg = dmg_mod * weapon_dps;
+
+				double damage = base_dmg * effectiveness;
+				ad.weaponDamage = damage;
+
+				if (Level > ServerProperties.Properties.MOB_DAMAGE_INCREASE_STARTLEVEL &&
+				    ServerProperties.Properties.MOB_DAMAGE_INCREASE_PERLEVEL > 0 &&
+				    damage > 0 &&
+				    this is GameNPC && (this as GameNPC).Brain is IControlledBrain == false)
+				{
+					double modifiedDamage = ServerProperties.Properties.MOB_DAMAGE_INCREASE_PERLEVEL * (Level - ServerProperties.Properties.MOB_DAMAGE_INCREASE_STARTLEVEL);
+					damage += (modifiedDamage * effectiveness);
+				}
+
 				int lowerboundary = (WeaponSpecLevel(weaponTypeToUse) - 1) * 50 / (ad.Target.EffectiveLevel + 1) + 75;
 				ad.lowerBoundaryDamage = lowerboundary;
 				lowerboundary = lowerboundary.Clamp(75, 125);
-				ad.weaponSkillAFRatio = GetWeaponSkill(weapon) * 0.75 / (ad.Target.GetArmorAF(ad.ArmorHitLocation) + 20 * 4.67);
-				damage *= ad.weaponSkillAFRatio;
-
-				// Badge Of Valor Calculation 1+ absorb or 1- absorb
-				ad.absorbRatio = ad.Target.GetArmorAbsorb(ad.ArmorHitLocation);
-				if (ad.Attacker.EffectList.GetOfType<BadgeOfValorEffect>() != null)
-					damage *= 1.0 + Math.Min(0.85, ad.absorbRatio);
-				else
-					damage *= 1.0 - Math.Min(0.85, ad.absorbRatio);
 				damage *= (lowerboundary + Util.Random(50)) * 0.01;
+
 				ad.resistArmorRatio = (ad.Target.GetResist(ad.DamageType) + SkillBase.GetArmorResist(armor, ad.DamageType)) * -0.01;
 				ad.Modifier = (int)(damage * ad.resistArmorRatio);
 				damage += ad.Modifier;
+
 				// RA resist check
 				int resist = (int)(damage * ad.Target.GetDamageResist(GetResistTypeForDamage(ad.DamageType)) * -0.01);
-
 				var property = ad.Target.GetResistTypeForDamage(ad.DamageType);
 				var secondaryResistModifier = ad.Target.SpecBuffBonusCategory[(int)property];
 				var resistModifier = ad.Damage * secondaryResistModifier / -100;
@@ -4988,7 +4999,11 @@ namespace DOL.GS
 		/// <returns></returns>
 		public virtual int GetModifiedSpecLevel(string keyName)
 		{
-			return Level;
+			int level = Level;
+			eProperty skillProp = SkillBase.SpecToSkill(keyName);
+			if (skillProp != eProperty.Undefined)
+				level += GetModified(skillProp);
+			return level;
 		}
 
 		#endregion

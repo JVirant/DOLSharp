@@ -36,16 +36,13 @@ namespace DOL.GS.PropertyCalc
 
 		public override int CalcValue(GameLiving living, eProperty property)
 		{
-			//			DOLConsole.WriteSystem("calc skill prop "+property+":");
+			int buffs = living.BaseBuffBonusCategory[(int)property]; // one buff category just in case..
 			if (living is GamePlayer player)
 			{
-				int itemBonus = this.CalcValueFromItems(living, property);
-				int buffs = player.BaseBuffBonusCategory[(int)property]; // one buff category just in case..
-
+				int itemBonus = CalcValueFromItems(living, property);
 				return itemBonus + buffs + player.RealmLevel / 10;
 			}
-
-			return living.EffectiveLevel;
+			return (living.EffectiveLevel / 5) + buffs;
 		}
 
 		public override int CalcValueFromItems(GameLiving living, eProperty property)

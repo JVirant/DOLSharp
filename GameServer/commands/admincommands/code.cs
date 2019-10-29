@@ -75,7 +75,7 @@ Action<GameObject, GamePlayer> test = (target, player) =>
 			text.Append(code);
 			text.Append(@";
 	};
-test();
+return test;
 ");
 
 			ScriptOptions options = ScriptOptions.Default.AddReferences(AppDomain.CurrentDomain.GetAssemblies());
