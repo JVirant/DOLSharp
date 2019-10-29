@@ -6113,17 +6113,13 @@ namespace DOL.GS
 			GameObject target = ad.Target;
 			InventoryItem weapon = ad.Weapon;
 			var debugmsg = string.Format(
-				"[DEBUG] AD Dmg: {0} Crit: {1} Mod: {2} Uncap: {3} Style: {4} // WD: {5} WS_AF: {6} Low: {7} ResArmor: {8} Abs: {9}",
-				ad.Damage,
-				ad.CriticalDamage,
-				ad.Modifier,
-				ad.UncappedDamage,
-				ad.StyleDamage,
+				"[DEBUG] AD WD:{0} MOD:{1} AF:{2} ABS:{3} RES:{4} STAT:{5}",
 				ad.weaponDamage,
-				ad.weaponSkillAFRatio,
-				ad.lowerBoundaryDamage,
-				ad.resistArmorRatio,
-				ad.absorbRatio
+				ad.dmgMod,
+				ad.enemyAF,
+				ad.enemyABS,
+				ad.enemyResist,
+				ad.weaponStat
 			);
 			if (ad.Target is GameNPC npc)
             {

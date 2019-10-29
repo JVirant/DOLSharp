@@ -1746,19 +1746,17 @@ namespace DOL.GS
 					}
 				}
 
-				var factor = player != null ? player.CharacterClass.WeaponSkillFactor((eObjectType)weapon.Object_Type) : 20;
-				var dmg_stat = GetWeaponStat(weapon);
-				var wp_spec = player != null ? GetModifiedSpecLevel(player.GetWeaponSpec(weapon)) : Level * 1.2;
-				var enemy_armor = ad.Target.GetArmorAF(ad.ArmorHitLocation);
+				double factor = player != null ? player.CharacterClass.WeaponSkillFactor((eObjectType)weapon.Object_Type) : 20;
+				double dmg_stat = GetWeaponStat(weapon);
+				double wp_spec = player != null ? GetModifiedSpecLevel(player.GetWeaponSpec(weapon)) : Level * 1.2;
+				double enemy_armor = ad.Target.GetArmorAF(ad.ArmorHitLocation);
 				if (ad.Attacker.EffectList.GetOfType<BadgeOfValorEffect>() != null)
 					enemy_armor = enemy_armor / (1 + ad.Target.GetArmorAbsorb(ad.ArmorHitLocation));
 				else
 					enemy_armor = enemy_armor / (1 - ad.Target.GetArmorAbsorb(ad.ArmorHitLocation));
-				var enemy_resist = (ad.Target.GetResist(ad.DamageType) + SkillBase.GetArmorResist(armor, ad.DamageType)) * 0.01;
+				double enemy_resist = (ad.Target.GetResist(ad.DamageType) + SkillBase.GetArmorResist(armor, ad.DamageType)) * 0.01;
 
-				var weapon_dps = WeaponDamage(weapon);
-
-				var dmg_mod = Level
+				double dmg_mod = Level
 					* factor / 10.0
 					* (1 + 0.01 * dmg_stat)
 					* (0.75 + 0.5 * Math.Min(ad.Target.Level + 1.0, wp_spec) / (ad.Target.Level + 1.0) + 0.01 * Util.Random(0, 49))
@@ -1766,32 +1764,36 @@ namespace DOL.GS
 					* (1.0 - enemy_resist);
 				dmg_mod = dmg_mod.Clamp(0.01, 3);
 
-				var base_dmg = dmg_mod * weapon_dps;
+				double weapon_dps = WeaponDamage(weapon);
+				double base_dmg = dmg_mod * weapon_dps;
 
 				double damage = base_dmg * effectiveness;
 				ad.weaponDamage = weapon_dps;
 
+				// DEBUG
+				ad.dmgMod = Math.Round(wp_spec * 100.0, 3);
+				ad.enemyAF = Math.Round(enemy_armor * 100.0, 3);
+				ad.enemyABS = Math.Round(ad.Target.GetArmorAbsorb(ad.ArmorHitLocation), 3);
+				ad.enemyResist = Math.Round(enemy_resist, 3);
+				ad.weaponStat = Math.Round(dmg_stat, 3);
+
 				if (Level > ServerProperties.Properties.MOB_DAMAGE_INCREASE_STARTLEVEL &&
-				    ServerProperties.Properties.MOB_DAMAGE_INCREASE_PERLEVEL > 0 &&
-				    damage > 0 &&
-				    this is GameNPC && (this as GameNPC).Brain is IControlledBrain == false)
+					ServerProperties.Properties.MOB_DAMAGE_INCREASE_PERLEVEL > 0 &&
+					damage > 0 &&
+					this is GameNPC && (this as GameNPC).Brain is IControlledBrain == false)
 				{
 					double modifiedDamage = ServerProperties.Properties.MOB_DAMAGE_INCREASE_PERLEVEL * (Level - ServerProperties.Properties.MOB_DAMAGE_INCREASE_STARTLEVEL);
 					damage += (modifiedDamage * effectiveness);
 				}
 
-				ad.resistArmorRatio = -enemy_resist;
-				ad.Modifier = (int)(damage * ad.resistArmorRatio);
+				ad.Modifier = (int)(damage * -enemy_resist);
 
 				// RA resist check
-				int resist = (int)(damage * ad.Target.GetDamageResist(GetResistTypeForDamage(ad.DamageType)) * -0.01);
 				var property = ad.Target.GetResistTypeForDamage(ad.DamageType);
 				var secondaryResistModifier = ad.Target.SpecBuffBonusCategory[(int)property];
 				var resistModifier = ad.Damage * secondaryResistModifier / -100;
 
-				damage += resist;
 				damage += resistModifier;
-				ad.Modifier += resist;
 				ad.Damage = (int)damage;
 
 				// apply total damage cap
