@@ -3616,7 +3616,7 @@ namespace DOL.GS
 		/// <returns></returns>
 		public override int GetModifiedSpecLevel(string keyName)
 		{
-			if (keyName != null && keyName.StartsWith(GlobalSpellsLines.Champion_Lines_StartWith))
+			if (keyName == null || keyName.StartsWith(GlobalSpellsLines.Champion_Lines_StartWith))
 				return Level;
 
 			Specialization spec = null;

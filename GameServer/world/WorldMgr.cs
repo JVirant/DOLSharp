@@ -95,7 +95,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Is the square distance a player can see
 		/// </summary>
-		public const int VISIBILITY_SQUARE_DISTANCE = 12960000;
+		public const int VISIBILITY_SQUARE_DISTANCE = REFRESH_DISTANCE * REFRESH_DISTANCE;
 		/// <summary>
 		/// Holds the distance at which objects are updated
 		/// </summary>
