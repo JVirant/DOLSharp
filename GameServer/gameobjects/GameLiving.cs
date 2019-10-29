@@ -1759,16 +1759,17 @@ namespace DOL.GS
 				var weapon_dps = WeaponDamage(weapon);
 
 				var dmg_mod = Level
-					* factor / 10.0 * (1 + 0.01 * dmg_stat)
+					* factor / 10.0
+					* (1 + 0.01 * dmg_stat)
 					* (0.75 + 0.5 * Math.Min(ad.Target.Level + 1.0, wp_spec) / (ad.Target.Level + 1.0) + 0.01 * Util.Random(0, 49))
 					/ enemy_armor
 					* (1.0 - enemy_resist);
-				dmg_mod = dmg_mod.Clamp(0.1, 3);
+				dmg_mod = dmg_mod.Clamp(0.01, 3);
 
 				var base_dmg = dmg_mod * weapon_dps;
 
 				double damage = base_dmg * effectiveness;
-				ad.weaponDamage = damage;
+				ad.weaponDamage = weapon_dps;
 
 				if (Level > ServerProperties.Properties.MOB_DAMAGE_INCREASE_STARTLEVEL &&
 				    ServerProperties.Properties.MOB_DAMAGE_INCREASE_PERLEVEL > 0 &&
@@ -1779,14 +1780,8 @@ namespace DOL.GS
 					damage += (modifiedDamage * effectiveness);
 				}
 
-				int lowerboundary = (WeaponSpecLevel(weaponTypeToUse) - 1) * 50 / (ad.Target.EffectiveLevel + 1) + 75;
-				ad.lowerBoundaryDamage = lowerboundary;
-				lowerboundary = lowerboundary.Clamp(75, 125);
-				damage *= (lowerboundary + Util.Random(50)) * 0.01;
-
-				ad.resistArmorRatio = (ad.Target.GetResist(ad.DamageType) + SkillBase.GetArmorResist(armor, ad.DamageType)) * -0.01;
+				ad.resistArmorRatio = -enemy_resist;
 				ad.Modifier = (int)(damage * ad.resistArmorRatio);
-				damage += ad.Modifier;
 
 				// RA resist check
 				int resist = (int)(damage * ad.Target.GetDamageResist(GetResistTypeForDamage(ad.DamageType)) * -0.01);
