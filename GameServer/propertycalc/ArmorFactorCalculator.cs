@@ -42,11 +42,11 @@ namespace DOL.GS.PropertyCalc
 				double af;
 
 				// 1.5*1.25 spec line buff cap
-				af = Math.Min((int)(living.Level * 1.875), living.SpecBuffBonusCategory[(int)property]) / 5.0;
+				af = Math.Min((int)(living.Level * 1.875), living.SpecBuffBonusCategory[(int)property]);
 				// debuff
 				af -= living.DebuffCategory[(int)property];
 				// TrialsOfAtlantis af bonus
-				af += Math.Min(living.Level, living.ItemBonus[(int)property]) / 5.0;
+				af += Math.Min(living.Level, living.ItemBonus[(int)property]);
 				// uncapped category
 				af += living.BuffBonusCategory4[(int)property];
 

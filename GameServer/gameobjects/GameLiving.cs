@@ -1022,7 +1022,7 @@ namespace DOL.GS
 		public virtual double GetArmorAF(eArmorSlot slot)
 		{
 			var af = (1.0 + (Level / 170.0)) * Level * 4.67;
-			return 20 + af + GetModified(eProperty.ArmorFactor);
+			return 20 + af + GetModified(eProperty.ArmorFactor) / 6;
 		}
 
 		/// <summary>
@@ -1771,8 +1771,8 @@ namespace DOL.GS
 				ad.weaponDamage = weapon_dps;
 
 				// DEBUG
-				ad.dmgMod = Math.Round(wp_spec * 100.0, 3);
-				ad.enemyAF = Math.Round(enemy_armor * 100.0, 3);
+				ad.dmgMod = Math.Round(dmg_mod, 3);
+				ad.enemyAF = Math.Round(enemy_armor, 3);
 				ad.enemyABS = Math.Round(ad.Target.GetArmorAbsorb(ad.ArmorHitLocation), 3);
 				ad.enemyResist = Math.Round(enemy_resist, 3);
 				ad.weaponStat = Math.Round(dmg_stat, 3);
@@ -1808,8 +1808,6 @@ namespace DOL.GS
 				{
 					ad.Damage = (int)(ad.Damage * ServerProperties.Properties.PVE_MELEE_DAMAGE);
 				}
-
-				ad.UncappedDamage = ad.Damage;
 
 				//Eden - Conversion Bonus (Crocodile Ring)  - tolakram - critical damage is always 0 here, needs to be moved
 				if (ad.Target is GamePlayer && ad.Target.GetModified(eProperty.Conversion) > 0)

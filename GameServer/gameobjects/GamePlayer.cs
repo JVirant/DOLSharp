@@ -7071,7 +7071,7 @@ namespace DOL.GS
 			// my test shows that qual is added after AF buff
 			eaf *= item.Quality * 0.01 * item.ConditionPercent * 0.01;
 
-			eaf += GetModified(eProperty.ArmorFactor);
+			eaf += GetModified(eProperty.ArmorFactor) / 6;
 			return 20 + eaf;
 		}
 
