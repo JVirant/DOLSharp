@@ -51,14 +51,17 @@ namespace DOL.GS.Commands
 			
 			if (client.Player.TargetObject != null)
 			{
+				if (!string.IsNullOrEmpty(client.Player.TargetObject.Name))
+					name = client.Player.TargetObject.Name;
+
 				#region Mob
 				/********************* MOB ************************/
 				if (client.Player.TargetObject is GameNPC)
 				{
 					var target = client.Player.TargetObject as GameNPC;
-					name = target.Name;
-					
-					
+
+					if (target.NPCTemplate != null)
+						info.Add(" + NPCTemplate: " + "[" + target.NPCTemplate.TemplateId + "] " + target.NPCTemplate.Name);
 					info.Add(" + Class: " + target.GetType().ToString());
 					info.Add(" + Brain: " + (target.Brain == null ? "(null)" : target.Brain.GetType().ToString()));
 					if (target.LoadedFromScript)
@@ -125,9 +128,6 @@ namespace DOL.GS.Commands
 					}
 					else
 						info.Add(" + Not aggressive brain");
-						
-					if (target.NPCTemplate != null)
-						info.Add(" + NPCTemplate: " + "[" + target.NPCTemplate.TemplateId + "] " + target.NPCTemplate.Name);
 
 					info.Add(" + Roaming Range: " + target.RoamingRange);
 
@@ -156,29 +156,11 @@ namespace DOL.GS.Commands
 						info.Add(" + OwnerID: " + target.OwnerID);
 						
 					info.Add(" ");
-					if (target.Strength > 0)
-						info.Add(" + STR: "+ target.Strength);
-					if (target.Constitution > 0)
-						info.Add(" + CON: "+ target.Constitution);
-					if (target.Dexterity > 0)
-						info.Add(" + DEX: "+ target.Dexterity);
-					if (target.Quickness > 0)
-						info.Add(" + QUI: "+ target.Quickness);
-					if (target.Intelligence > 0)
-						info.Add(" + INT: "+ target.Intelligence);
-					if (target.Empathy > 0)
-						info.Add(" + EMP: "+ target.Empathy);
-					if (target.Piety > 0)
-						info.Add(" + PIE: "+ target.Piety);
-					if (target.Charisma > 0)
-						info.Add(" + CHR: "+ target.Charisma);
-					if (target.BlockChance > 0)
-						info.Add(" + Block: "+ target.BlockChance);
-					if (target.ParryChance > 0)
-						info.Add(" + Parry: "+ target.ParryChance);
-					if (target.EvadeChance > 0)
-						info.Add(" + Evade %:  "+ target.EvadeChance);
-					
+					info.Add($" + {target.Strength} STR / {target.Constitution} CON / {target.Dexterity} DEX / {target.Quickness} QUI");
+					info.Add($" + {target.Intelligence} INT / {target.Empathy} EMP / {target.Piety} PIE / {target.Charisma} CHR");
+					info.Add($" + {target.WeaponDps} DPS / {target.WeaponSpd} SPD / {target.ArmorFactor} AF / {target.ArmorAbsorb} ABS");
+					info.Add($" + {target.BlockChance}% Block / {target.ParryChance}% Parry / {target.EvadeChance}% Evade");
+
 					info.Add(" + Damage type: " + target.MeleeDamageType);
 					if (target.LeftHandSwingChance > 0)
 						info.Add(" + Left Swing %: " + target.LeftHandSwingChance);
@@ -428,9 +410,7 @@ namespace DOL.GS.Commands
 				if (client.Player.TargetObject is GameStaticItem)
 				{
 					var target = client.Player.TargetObject as GameStaticItem;
-					
-					if (!string.IsNullOrEmpty(target.Name))
-						name = target.Name;
+
 					info.Add("  ------- OBJECT ------\n");
 					info.Add(" Name: " + name);
 					info.Add(" Model: " + target.Model);
