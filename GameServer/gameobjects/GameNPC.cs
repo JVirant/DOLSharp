@@ -223,7 +223,7 @@ namespace DOL.GS
 			// Values changed by Argo, based on Tolakrams Advice for how to change the Multiplier for Auto
 			// Modified to only change stats that aren't set in the DB
 			if (NPCTemplate == null || NPCTemplate.Strength < 1)
-				Strength = (short)Math.Max(1, Properties.MOB_AUTOSET_STR_BASE + (Level - 1) * 10 * Properties.MOB_AUTOSET_STR_MULTIPLIER);
+				Strength = (short)Math.Max(1, Properties.MOB_AUTOSET_STR_BASE + (Level - 1) * Properties.MOB_AUTOSET_STR_MULTIPLIER);
 			else
 				Strength = (short)NPCTemplate.Strength;
 
@@ -261,6 +261,22 @@ namespace DOL.GS
 				Charisma = (short)(29 + Level);
 			else
 				Charisma = (short)NPCTemplate.Charisma;
+
+			if (NPCTemplate == null || NPCTemplate.WeaponDps < 1)
+				WeaponDps = (int)((1.4 + 0.3 * Level + Level * Level * 0.002) * 10);
+			else
+				WeaponDps = NPCTemplate.WeaponDps;
+			if (NPCTemplate == null || NPCTemplate.WeaponSpd < 1)
+				WeaponSpd = 30;
+			else
+				WeaponSpd = NPCTemplate.WeaponSpd;
+
+			if (NPCTemplate == null || NPCTemplate.ArmorFactor < 1)
+				ArmorFactor = (int)((1.0 + (Level / 110.0)) * Level * 1.67);
+			else
+				ArmorFactor = NPCTemplate.ArmorFactor;
+			if (NPCTemplate != null)
+				ArmorAbsorb = NPCTemplate.ArmorAbsorb;
 		}
 
 		/// <summary>
@@ -577,6 +593,11 @@ namespace DOL.GS
 			get { return m_charStat[eStat.CHR - eStat._First]; }
 			set { m_charStat[eStat.CHR - eStat._First] = value; }
 		}
+
+		public virtual int WeaponDps { get; set; }
+		public virtual int WeaponSpd { get; set; }
+		public virtual int ArmorFactor { get; set; }
+		public virtual int ArmorAbsorb { get; set; }
 		#endregion
 
 		#region Flags/Position/SpawnPosition/UpdateTick/Tether
@@ -4806,12 +4827,12 @@ namespace DOL.GS
 		public override double WeaponDamage(InventoryItem weapon)
 		{
 			double dps;
-			var spd = 3.0;
+			var spd = WeaponSpd * 0.1;
 			var twohand_bonus = 1.0;
 
 			if (weapon == null || weapon.DPS_AF <= 1)
 			{
-				dps = 1.4 + 0.3 * Level;
+				dps = WeaponDps * 0.1;
 				dps *= 1.0 + (GetModified(eProperty.DPS) * 0.01);
 				dps *= 0.98;
 
@@ -4825,7 +4846,7 @@ namespace DOL.GS
 			{
 				dps = weapon.DPS_AF * 0.1;
 				spd = weapon.SPD_ABS * 0.1;
-				var cap = 1.4 + 0.3 * Level;
+				var cap = 1.5 + 0.3 * Level;
 				dps = dps.Clamp(0.1, cap);
 				dps *= 1.0 + (GetModified(eProperty.DPS) * 0.01);
 				// beware to use always ConditionPercent, because Condition is abolute value
@@ -4837,11 +4858,20 @@ namespace DOL.GS
 					twohand_bonus = 1.1 + 0.005 * wp_spec;
 				}
 			}
-			var weapon_dps = dps * spd * 10
+			var weapon_dps = dps * spd
 				* (0.94 + spd * 0.03)
 				* twohand_bonus
-				* (1 + 0.01 * GetModified(eProperty.MeleeDamage)) / 10;
+				* (1 + 0.01 * GetModified(eProperty.MeleeDamage));
 			return 2.0 + weapon_dps;
+		}
+
+		public override double GetArmorAF(eArmorSlot slot)
+		{
+			return 5 + ArmorFactor + GetModified(eProperty.ArmorFactor) / 5;
+		}
+		public override double GetArmorAbsorb(eArmorSlot slot)
+		{
+			return ArmorAbsorb / 100.0 + GetModified(eProperty.ArmorAbsorption) * 0.01;
 		}
 		#endregion
 

@@ -396,7 +396,8 @@ namespace DOL.GS.Styles
 					bool staticGrowth = attackData.Style.StealthRequirement;  //static growth is not a function of (effective) weapon speed
 					double absorbRatio = attackData.Damage / living.UnstyledDamageCap(weapon); //scaling factor for style damage
 					double effectiveWeaponSpeed = living.AttackSpeed(weapon) * 0.001;
-					double styleGrowth = Math.Max(0, attackData.Style.GrowthOffset + attackData.Style.GrowthRate * living.GetModifiedSpecLevel(attackData.Style.Spec));
+					double offset = attackData.Style.GrowthRate > 0 && attackData.Style.GrowthOffset == 0 ? 1.0 : attackData.Style.GrowthOffset;
+					double styleGrowth = Math.Max(0, offset + attackData.Style.GrowthRate * living.GetModifiedSpecLevel(attackData.Style.Spec));
 					double styleDamageBonus = living.GetModified(eProperty.StyleDamage) * 0.01 - 1;
 
 					if (staticGrowth)

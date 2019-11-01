@@ -154,12 +154,12 @@ namespace DOL.GS.Spells
 		/// <param name="effect"></param>
 		public override void OnEffectStart(GameSpellEffect effect)
 		{
-			ApplyBonus(effect.Owner , BonusCategory1, Property1, (int) (Spell.Value*effect.Effectiveness), false);
-			ApplyBonus(effect.Owner , BonusCategory2, Property2, (int) (Spell.Value*effect.Effectiveness), false);
-			ApplyBonus(effect.Owner , BonusCategory3, Property3, (int) (Spell.Value*effect.Effectiveness), false);
-			ApplyBonus(effect.Owner , BonusCategory4, Property4, (int) (Spell.Value*effect.Effectiveness), false);
-			ApplyBonus(effect.Owner , BonusCategory5, Property5, (int) (Spell.Value*effect.Effectiveness), false);
-			ApplyBonus(effect.Owner , BonusCategory6, Property6, (int) (Spell.Value*effect.Effectiveness), false);
+			ApplyBonus(effect.Owner, BonusCategory1, Property1, (int)(Spell.Value * effect.Effectiveness), false);
+			ApplyBonus(effect.Owner, BonusCategory2, Property2, (int)(Spell.Value * effect.Effectiveness), false);
+			ApplyBonus(effect.Owner, BonusCategory3, Property3, (int)(Spell.Value * effect.Effectiveness), false);
+			ApplyBonus(effect.Owner, BonusCategory4, Property4, (int)(Spell.Value * effect.Effectiveness), false);
+			ApplyBonus(effect.Owner, BonusCategory5, Property5, (int)(Spell.Value * effect.Effectiveness), false);
+			ApplyBonus(effect.Owner, BonusCategory6, Property6, (int)(Spell.Value * effect.Effectiveness), false);
 			ApplyBonus(effect.Owner, BonusCategory7, Property7, (int)(Spell.Value * effect.Effectiveness), false);
 			ApplyBonus(effect.Owner, BonusCategory8, Property8, (int)(Spell.Value * effect.Effectiveness), false);
 			ApplyBonus(effect.Owner, BonusCategory9, Property9, (int)(Spell.Value * effect.Effectiveness), false);

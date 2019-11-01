@@ -6777,14 +6777,14 @@ namespace DOL.GS
 							break;
 					}
 
-					int itemAFCap = Level << 1;
+					int itemAFCap = Level * 2;
 					if (RealmLevel > 39)
 						itemAFCap += 2;
 					switch ((eObjectType)item.Object_Type)
 					{
 						case eObjectType.Cloth:
 							abs = 0;
-							itemAFCap >>= 1;
+							itemAFCap /= 2;
 							break;
 						case eObjectType.Leather:
 							abs = 10;
@@ -7125,10 +7125,10 @@ namespace DOL.GS
 				var wp_spec = GetModifiedSpecLevel(GetWeaponSpec(weapon));
 				twohand_bonus = 1.1 + 0.005 * wp_spec;
 			}
-			var weapon_dps = dps * weapon.SPD_ABS * 0.1 * 10
+			var weapon_dps = dps * weapon.SPD_ABS * 0.1
 				* (0.94 + weapon.SPD_ABS * 0.1 * 0.03)
 				* twohand_bonus
-				* (1 + 0.01 * GetModified(eProperty.MeleeDamage)) / 10;
+				* (1 + 0.01 * GetModified(eProperty.MeleeDamage));
 
 			return weapon_dps;
 		}

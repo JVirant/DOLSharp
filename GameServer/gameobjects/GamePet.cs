@@ -164,47 +164,61 @@ namespace DOL.GS
 		/// </summary>
 		public override void AutoSetStats()
 		{
-			// Assign values from Autoset
-			Strength = (short)Math.Max(1, Properties.PET_AUTOSET_STR_BASE);
-			Constitution = (short)Math.Max(1, Properties.PET_AUTOSET_CON_BASE);
-			Quickness = (short)Math.Max(1, Properties.PET_AUTOSET_QUI_BASE);
-			Dexterity = (short)Math.Max(1, Properties.PET_AUTOSET_DEX_BASE);
-			Intelligence = (short)Math.Max(1,Properties.PET_AUTOSET_INT_BASE);
-			Empathy = (short)30;
-			Piety = (short)30;
-			Charisma = (short)30;
-			
-			// Now add stats for levelling
-			Strength += (short)Math.Round(10.0 * (Level - 1) * Properties.PET_AUTOSET_STR_MULTIPLIER);
-			Constitution += (short)Math.Round((Level - 1) * Properties.PET_AUTOSET_CON_MULTIPLIER);
-			Quickness += (short)Math.Round((Level - 1) * Properties.PET_AUTOSET_QUI_MULTIPLIER);
-			Dexterity += (short)Math.Round((Level - 1) * Properties.PET_AUTOSET_DEX_MULTIPLIER);
-			Intelligence += (short)Math.Round((Level - 1) * Properties.PET_AUTOSET_INT_MULTIPLIER);
-			Empathy += (short)(Level - 1);
-			Piety += (short)(Level - 1);
-			Charisma += (short)(Level - 1);
+			if (NPCTemplate == null || NPCTemplate.Strength < 1)
+				Strength = (short)Math.Max(1, Properties.PET_AUTOSET_STR_BASE + (Level - 1) * Properties.PET_AUTOSET_STR_MULTIPLIER);
+			else
+				Strength = (short)NPCTemplate.Strength;
 
-			// Now scale them according to NPCTemplate values
+			if (NPCTemplate == null || NPCTemplate.Constitution < 1)
+				Constitution = (short)Math.Max(1, Properties.PET_AUTOSET_CON_BASE + (Level - 1) * Properties.PET_AUTOSET_CON_MULTIPLIER);
+			else
+				Constitution = (short)NPCTemplate.Constitution;
+
+			if (NPCTemplate == null || NPCTemplate.Quickness < 1)
+				Quickness = (short)Math.Max(1, Properties.PET_AUTOSET_QUI_BASE + (Level - 1) * Properties.PET_AUTOSET_QUI_MULTIPLIER);
+			else
+				Quickness = (short)NPCTemplate.Quickness;
+
+			if (NPCTemplate == null || NPCTemplate.Dexterity < 1)
+				Dexterity = (short)Math.Max(1, Properties.PET_AUTOSET_DEX_BASE + (Level - 1) * Properties.PET_AUTOSET_DEX_MULTIPLIER);
+			else
+				Dexterity = (short)NPCTemplate.Dexterity;
+
+			if (NPCTemplate == null || NPCTemplate.Intelligence < 1)
+				Intelligence = (short)Math.Max(1, Properties.PET_AUTOSET_INT_BASE + (Level - 1) * Properties.PET_AUTOSET_INT_MULTIPLIER);
+			else
+				Intelligence = (short)NPCTemplate.Intelligence;
+
+			if (NPCTemplate == null || NPCTemplate.Empathy < 1)
+				Empathy = (short)(29 + Level);
+			else
+				Empathy = (short)NPCTemplate.Empathy;
+
+			if (NPCTemplate == null || NPCTemplate.Piety < 1)
+				Piety = (short)(29 + Level);
+			else
+				Piety = (short)NPCTemplate.Piety;
+
+			if (NPCTemplate == null || NPCTemplate.Charisma < 1)
+				Charisma = (short)(29 + Level);
+			else
+				Charisma = (short)NPCTemplate.Charisma;
+
+			if (NPCTemplate == null || NPCTemplate.WeaponDps < 1)
+				WeaponDps = (int)((1.2 + 0.3 * Level + Level * Level * 0.002) * 10);
+			else
+				WeaponDps = NPCTemplate.WeaponDps;
+			if (NPCTemplate == null || NPCTemplate.WeaponSpd < 1)
+				WeaponSpd = 30;
+			else
+				WeaponSpd = NPCTemplate.WeaponSpd;
+
+			if (NPCTemplate == null || NPCTemplate.ArmorFactor < 1)
+				ArmorFactor = (int)((1.0 + (Level / 110.0)) * Level * 1.67);
+			else
+				ArmorFactor = NPCTemplate.ArmorFactor;
 			if (NPCTemplate != null)
-			{
-				if (NPCTemplate.Strength > 0)
-					Strength = (short)Math.Round(Strength * (NPCTemplate.Strength / 100.0));
-				if (NPCTemplate.Constitution > 0)
-					Constitution = (short)Math.Round(Constitution * (NPCTemplate.Constitution / 100.0));
-				if (NPCTemplate.Quickness > 0)
-					Quickness = (short)Math.Round(Quickness * (NPCTemplate.Quickness / 100.0));
-				if (NPCTemplate.Dexterity > 0)
-					Dexterity = (short)Math.Round(Dexterity * (NPCTemplate.Dexterity / 100.0));
-				if (NPCTemplate.Intelligence > 0)
-					Intelligence = (short)Math.Round(Intelligence * (NPCTemplate.Intelligence / 100.0));
-				// Except for CHA, EMP, AND PIE as those don't have autoset values.
-				if (NPCTemplate.Empathy > 0)
-					Empathy = (short)NPCTemplate.Empathy;
-				if (NPCTemplate.Piety > 0)
-					Piety = (short)NPCTemplate.Piety;
-				if (NPCTemplate.Charisma > 0)
-					Charisma = (short)NPCTemplate.Charisma;
-			}
+				ArmorAbsorb = NPCTemplate.ArmorAbsorb;
 		}
 		#endregion
 

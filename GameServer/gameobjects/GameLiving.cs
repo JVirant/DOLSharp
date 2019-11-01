@@ -1736,7 +1736,6 @@ namespace DOL.GS
 						|| GameServer.ServerRules.IsObjectTypesEqual((eObjectType)weapon.Object_Type, eObjectType.PolearmWeapon))
 						&& ServerProperties.Properties.ENABLE_ALBION_ADVANCED_WEAPON_SPEC)
 					{
-						// Albion dual spec penalty, which sets minimum damage to the base damage spec
 						if (weapon.Type_Damage == (int)eDamageType.Crush)
 							weaponTypeToUse.Object_Type = (int)eObjectType.CrushingWeapon;
 						else if (weapon.Type_Damage == (int)eDamageType.Slash)
@@ -1756,11 +1755,15 @@ namespace DOL.GS
 					enemy_armor = enemy_armor / (1 - ad.Target.GetArmorAbsorb(ad.ArmorHitLocation));
 				double enemy_resist = (ad.Target.GetResist(ad.DamageType) + SkillBase.GetArmorResist(armor, ad.DamageType)) * 0.01;
 
+				// calculate variance we start with 0 to 49 and tend to 19 to 29 (with 65 in spec)
+				int minVariance = WeaponSpecLevel(weaponTypeToUse).Clamp(0, 70) * 49 / 166; // x*0.6*49/100 => x * 49 / 166
+				int maxVariance = 49 - minVariance;
+
 				double dmg_mod = Level
 					* factor / 10.0
 					* (1 + 0.01 * dmg_stat)
-					* (0.75 + 0.5 * Math.Min(ad.Target.Level + 1.0, wp_spec) / (ad.Target.Level + 1.0) + 0.01 * Util.Random(0, 49))
-					/ enemy_armor
+					* (0.75 + 0.5 * Math.Min(ad.Target.Level + 1.0, wp_spec) / (ad.Target.Level + 1.0) + 0.01 * Util.Random(minVariance, maxVariance))
+					/ Math.Max(1, enemy_armor)
 					* (1.0 - enemy_resist);
 				dmg_mod = dmg_mod.Clamp(0.01, 3);
 
