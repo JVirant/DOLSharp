@@ -147,8 +147,21 @@ namespace DOL.GS.Scripts
 			return false;
 		}
 
+		private static DateTime _lastCleanup = DateTime.Now;
+		private static Dictionary<string, int> _attemptIps = new Dictionary<string, int>();
+
 		private static Account _findOrCreateAccount(TcpClient client, string name, string password)
 		{
+			var ip = client.Client.RemoteEndPoint.ToString();
+			int count;
+			if (_attemptIps.TryGetValue(ip, out count) && count > 20)
+				return null;
+			if (_lastCleanup.Ticks + 60*1000*10000 < DateTime.Now.Ticks)
+			{
+				_attemptIps.Clear();
+				_lastCleanup = DateTime.Now;
+			}
+
 			var hashedPassword = LoginRequestHandler.CryptPassword(password);
 			var account = GameServer.Database.FindObjectByKey<Account>(name.ToLower());
 
@@ -162,7 +175,11 @@ namespace DOL.GS.Scripts
 
 				if (!hashedPassword.Equals(account.Password))
 				{
-					log.Info("(" + client.Client.RemoteEndPoint + ") Wrong password!");
+					log.Info($"({client.Client.RemoteEndPoint}) {account.Name}: Wrong password!");
+					if (!_attemptIps.ContainsKey(ip))
+						_attemptIps.Add(ip, 1);
+					else
+						_attemptIps[ip] = _attemptIps[ip] + 1;
 					// Log failure
 					AuditMgr.AddAuditEntry(AuditType.Account, AuditSubtype.AccountFailedLogin, "", name);
 					return null;
