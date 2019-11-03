@@ -272,10 +272,12 @@ namespace DOL.GS
 				WeaponSpd = NPCTemplate.WeaponSpd;
 
 			if (NPCTemplate == null || NPCTemplate.ArmorFactor < 1)
-				ArmorFactor = (int)((1.0 + (Level / 110.0)) * Level * 1.67);
+				ArmorFactor = (int)((1.0 + (Level / 100.0)) * Level * 1.8);
 			else
 				ArmorFactor = NPCTemplate.ArmorFactor;
-			if (NPCTemplate != null)
+			if (NPCTemplate == null || NPCTemplate.ArmorAbsorb < 1)
+				ArmorAbsorb = (int)((Level - 10) * 0.5 - (Level - 60) * Level * 0.0015).Clamp(0, 75);
+			else
 				ArmorAbsorb = NPCTemplate.ArmorAbsorb;
 		}
 
