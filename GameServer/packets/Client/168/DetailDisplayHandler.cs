@@ -1071,7 +1071,10 @@ namespace DOL.GS.PacketHandler.Client.v168
 					output.Add(" ");
 
 					ISpellHandler sh = ScriptMgr.CreateSpellHandler(client.Player, s, SkillBase.GetSpellLine(GlobalSpellsLines.Reserved_Spells));
-					output.AddRange(sh.DelveInfo);
+					if (sh != null)
+						output.AddRange(sh.DelveInfo);
+					else
+						output.Add($"Subspell {s.Name} ({s.ID}) is not implemented");
 				}
 			}
 			if (client.Account.PrivLevel > 1)
