@@ -125,7 +125,7 @@ namespace DOL.GS.PacketHandler
 				return;
 			}
 
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 			{
 				if (log.IsErrorEnabled)
 					log.Error("SendPlayerCreate: m_gameClient.Player == null");
@@ -148,7 +148,7 @@ namespace DOL.GS.PacketHandler
 				return;
 			}
 
-			if (playerToCreate.IsVisibleTo(m_gameClient.Player) == false)
+			if (playerToCreate.IsVisibleTo(_gameClient.Player) == false)
 				return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.PlayerCreate172)))
@@ -168,12 +168,12 @@ namespace DOL.GS.PacketHandler
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.LipSize)); //1-4 = Ear size / 5-8 = Kin size
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.MoodType)); //1-4 = Ear size / 5-8 = Kin size
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.EyeColor)); //1-4 = Skin Color / 5-8 = Eye Color
-				pak.WriteByte(playerToCreate.GetDisplayLevel(m_gameClient.Player));
+				pak.WriteByte(playerToCreate.GetDisplayLevel(_gameClient.Player));
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.HairColor)); //Hair: 1-4 = Color / 5-8 = unknown
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.FaceType)); //1-4 = Unknown / 5-8 = Face type
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.HairStyle)); //1-4 = Unknown / 5-8 = Hair Style
 	
-				int flags = (GameServer.ServerRules.GetLivingRealm(m_gameClient.Player, playerToCreate) & 0x03) << 2;
+				int flags = (GameServer.ServerRules.GetLivingRealm(_gameClient.Player, playerToCreate) & 0x03) << 2;
 				if (playerToCreate.IsAlive == false) flags |= 0x01;
 				if (playerToCreate.IsUnderwater) flags |= 0x02; //swimming
 				if (playerToCreate.IsStealthed) flags |= 0x10;
@@ -182,12 +182,12 @@ namespace DOL.GS.PacketHandler
 				pak.WriteByte((byte)flags);
 				pak.WriteByte(0x00); // new in 1.74
 	
-				pak.WritePascalString(GameServer.ServerRules.GetPlayerName(m_gameClient.Player, playerToCreate));
-				pak.WritePascalString(GameServer.ServerRules.GetPlayerGuildName(m_gameClient.Player, playerToCreate));
-				pak.WritePascalString(GameServer.ServerRules.GetPlayerLastName(m_gameClient.Player, playerToCreate));
+				pak.WritePascalString(GameServer.ServerRules.GetPlayerName(_gameClient.Player, playerToCreate));
+				pak.WritePascalString(GameServer.ServerRules.GetPlayerGuildName(_gameClient.Player, playerToCreate));
+				pak.WritePascalString(GameServer.ServerRules.GetPlayerLastName(_gameClient.Player, playerToCreate));
 				//RR 12 / 13
-				pak.WritePascalString(GameServer.ServerRules.GetPlayerPrefixName(m_gameClient.Player, playerToCreate));
-				pak.WritePascalString(GameServer.ServerRules.GetPlayerTitle(m_gameClient.Player, playerToCreate)); // new in 1.74, NewTitle
+				pak.WritePascalString(GameServer.ServerRules.GetPlayerPrefixName(_gameClient.Player, playerToCreate));
+				pak.WritePascalString(GameServer.ServerRules.GetPlayerTitle(_gameClient.Player, playerToCreate)); // new in 1.74, NewTitle
 				if (playerToCreate.IsOnHorse)
 				{
 					pak.WriteByte(playerToCreate.ActiveHorse.ID);
@@ -214,7 +214,7 @@ namespace DOL.GS.PacketHandler
 			}
 
 			// Update Cache
-			m_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(playerToCreate.CurrentRegionID, (ushort)playerToCreate.ObjectID)] = GameTimer.GetTickCount();
+			_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(playerToCreate.CurrentRegionID, (ushort)playerToCreate.ObjectID)] = GameTimer.GetTickCount();
 			
 			SendObjectGuildID(playerToCreate, playerToCreate.Guild); //used for nearest friendly/enemy object buttons and name colors on PvP server
 
@@ -246,11 +246,11 @@ namespace DOL.GS.PacketHandler
 		
 		public override void SendUpdatePlayerSkills()
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 				return;
 			
 			// Get Skills as "Usable Skills" which are in network order ! (with forced update)
-			List<Tuple<Skill, Skill>> usableSkills = m_gameClient.Player.GetAllUsableSkills(true);
+			List<Tuple<Skill, Skill>> usableSkills = _gameClient.Player.GetAllUsableSkills(true);
 						
 			bool sent = false; // set to true once we can't send packet anymore !
 			int index = 0; // index of our position in the list !
@@ -287,7 +287,7 @@ namespace DOL.GS.PacketHandler
 							pak.WriteByte((byte)Math.Max(1, spec.Level));
 							pak.WriteByte((byte)spec.SkillType);
 							pak.WriteShort(0);
-							pak.WriteByte((byte)(m_gameClient.Player.GetModifiedSpecLevel(spec.KeyName) - spec.Level)); // bonus
+							pak.WriteByte((byte)(_gameClient.Player.GetModifiedSpecLevel(spec.KeyName) - spec.Level)); // bonus
 							pak.WriteShort((ushort)spec.Icon);
 							pak.WritePascalString(spec.Name);
 						}
@@ -399,7 +399,7 @@ namespace DOL.GS.PacketHandler
 			// Send List Cast Spells...
 			SendNonHybridSpellLines();
 			// reset trainer cache
-			m_gameClient.TrainerSkillCache = null;
+			_gameClient.TrainerSkillCache = null;
 		}
 	}
 }

@@ -48,11 +48,12 @@ namespace DOL.GS.PacketHandler.Client.v168
 
 			ushort head = packet.ReadShort();
 			client.Player.Heading = (ushort)(head & 0xFFF);
-			packet.Skip(1); // unknown
+			var steedSlot = (byte) packet.ReadByte();
 			int flags = packet.ReadByte();
 //			client.Player.PetInView = ((flags & 0x04) != 0); // TODO
 			client.Player.GroundTargetInView = ((flags & 0x08) != 0);
 			client.Player.TargetInView = ((flags & 0x10) != 0);
+			var ridingFlag = (byte)packet.ReadByte();
 
 			byte[] con = packet.ToArray();
             con[0] = (byte)(client.SessionID >> 8);
@@ -82,36 +83,31 @@ namespace DOL.GS.PacketHandler.Client.v168
 			}
 			con[8] = (byte)((con[8] & 0x80) | client.Player.HealthPercent);
 
+			GSUDPPacketOut outpak190 = new GSUDPPacketOut(client.Out.GetPacketCode(eServerPackets.PlayerHeading));
+			outpak190.WriteShort((ushort) client.SessionID);
+			outpak190.WriteShort(client.Player.Heading);
+			outpak190.WriteByte(steedSlot);
+			outpak190.WriteByte((byte) flags);
+			outpak190.WriteByte(0);
+			outpak190.WriteByte(ridingFlag);
+			outpak190.WriteByte(client.Player.HealthPercent);
+			outpak190.WriteByte(client.Player.ManaPercent);
+			outpak190.WriteByte(client.Player.EndurancePercent);
+
 			GSUDPPacketOut outpak = new GSUDPPacketOut(client.Out.GetPacketCode(eServerPackets.PlayerHeading));
 			//Now copy the whole content of the packet
-			outpak.Write(con, 0, /*con.Length*/10);
+			outpak.Write(outpak190.ToArray(), 0, (int)outpak190.Length);
+			outpak.WriteByte(0); // unknown
+
+			outpak190.WritePacketLength();
 			outpak.WritePacketLength();
 
-			GSUDPPacketOut outpak190 = null;
-
-//			byte[] outp = outpak.GetBuffer();
-//			outpak = null;
-
-			foreach(GamePlayer player in client.Player.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
+			foreach (GamePlayer player in client.Player.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
 			{
 				if(player != null && player != client.Player)
 				{
-					if (player.Client.Version >= GameClient.eClientVersion.Version190)
-					{
-						if (outpak190 == null)
-						{
-	 						outpak190 = new GSUDPPacketOut(client.Out.GetPacketCode(eServerPackets.PlayerHeading));
-	 						byte[] con190 = (byte[]) con.Clone();
-							//Now copy the whole content of the packet
-							outpak190.Write(con190, 0, /*con190.Lenght*/10);
-							outpak190.WriteByte(client.Player.ManaPercent);
-							outpak190.WriteByte(client.Player.EndurancePercent);
-							outpak190.WritePacketLength();
-//							byte[] outp190 = outpak190.GetBuffer();
-//							outpak190 = null;// ?
-						}
+					if (player.Client.Version < GameClient.eClientVersion.Version1124)
 						player.Out.SendUDPRaw(outpak190);
-					}
 					else
 						player.Out.SendUDPRaw(outpak);
 				}

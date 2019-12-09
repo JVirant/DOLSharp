@@ -44,7 +44,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendPlayerTitles()
 		{
-			var titles = m_gameClient.Player.Titles;
+			var titles = _gameClient.Player.Titles;
 			
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.DetailWindow)))
 			{
@@ -54,7 +54,7 @@ namespace DOL.GS.PacketHandler
 				pak.WritePascalString("Player Statistics"); //window caption
 	
 				byte line = 1;
-				foreach (string str in m_gameClient.Player.FormatStatistics())
+				foreach (string str in _gameClient.Player.FormatStatistics())
 				{
 					pak.WriteByte(line++);
 					pak.WritePascalString(str);
@@ -68,12 +68,12 @@ namespace DOL.GS.PacketHandler
 				foreach (IPlayerTitle title in titles)
 				{
 					pak.WriteByte(line++);
-					pak.WritePascalString(title.GetDescription(m_gameClient.Player));
+					pak.WritePascalString(title.GetDescription(_gameClient.Player));
 				}
 				
 				long titlesLen = (pak.Position - titlesCountPos - 1); // include titles count
 				if (titlesLen > byte.MaxValue)
-					log.WarnFormat("Titles block is too long! {0} (player: {1})", titlesLen, m_gameClient.Player);
+					log.WarnFormat("Titles block is too long! {0} (player: {1})", titlesLen, _gameClient.Player);
 				
 				//Trailing Zero!
 				pak.WriteByte(0);

@@ -32,7 +32,7 @@ namespace DOL.GS.PacketHandler
 		/// <summary>
 		/// The GameClient of this PacketLib
 		/// </summary>
-		protected readonly GameClient m_gameClient;
+		protected readonly GameClient _gameClient;
 
 		/// <summary>
 		/// Constructs a new PacketLib
@@ -40,7 +40,7 @@ namespace DOL.GS.PacketHandler
 		/// <param name="client">the gameclient this lib is associated with</param>
 		public AbstractPacketLib(GameClient client)
 		{
-			m_gameClient = client;
+			_gameClient = client;
 		}
 
 		/// <summary>
@@ -59,7 +59,7 @@ namespace DOL.GS.PacketHandler
 		/// <param name="packet">The packet to be sent</param>
 		public void SendTCP(GSTCPPacketOut packet)
 		{
-			m_gameClient.PacketProcessor.SendTCP(packet);
+			_gameClient.PacketProcessor.SendTCP(packet);
 		}
 
 		/// <summary>
@@ -68,7 +68,7 @@ namespace DOL.GS.PacketHandler
 		/// <param name="buf">Buffer containing the data to be sent</param>
 		public void SendTCP(byte[] buf)
 		{
-			m_gameClient.PacketProcessor.SendTCP(buf);
+			_gameClient.PacketProcessor.SendTCP(buf);
 		}
 
 		/// <summary>
@@ -77,7 +77,7 @@ namespace DOL.GS.PacketHandler
 		/// <param name="packet">Packet to send</param>
 		public void SendTCPRaw(GSTCPPacketOut packet)
 		{
-			m_gameClient.PacketProcessor.SendTCPRaw(packet);
+			_gameClient.PacketProcessor.SendTCPRaw(packet);
 		}
 
 		/// <summary>
@@ -96,7 +96,7 @@ namespace DOL.GS.PacketHandler
 		/// <param name="isForced">Force UDP packet if <code>true</code>, else packet can be sent over TCP</param>
 		public virtual void SendUDP(GSUDPPacketOut packet, bool isForced)
 		{
-			m_gameClient.PacketProcessor.SendUDP(packet, isForced);
+			_gameClient.PacketProcessor.SendUDP(packet, isForced);
 		}
 
 		/// <summary>
@@ -105,7 +105,7 @@ namespace DOL.GS.PacketHandler
 		/// <param name="buf">Packet to be sent</param>
 		public void SendUDP(byte[] buf)
 		{
-			m_gameClient.PacketProcessor.SendUDP(buf, false);
+			_gameClient.PacketProcessor.SendUDP(buf, false);
 		}
 
 		/// <summary>
@@ -114,7 +114,7 @@ namespace DOL.GS.PacketHandler
 		/// <param name="packet">Packet to be sent</param>
 		public void SendUDPRaw(GSUDPPacketOut packet)
 		{
-			m_gameClient.PacketProcessor.SendUDPRaw(packet);
+			_gameClient.PacketProcessor.SendUDPRaw(packet);
 		}
 		
 		/// <summary>

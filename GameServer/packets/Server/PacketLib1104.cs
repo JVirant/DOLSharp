@@ -53,16 +53,16 @@ namespace DOL.GS.PacketHandler
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.CharacterOverview)))
 			{
-				pak.FillString(m_gameClient.Account.Name, 24);
+				pak.FillString(_gameClient.Account.Name, 24);
 	
-				if (m_gameClient.Account.Characters == null)
+				if (_gameClient.Account.Characters == null)
 				{
 					pak.Fill(0x0, 1880);
 				}
 				else
 				{
 					Dictionary<int, DOLCharacters> charsBySlot = new Dictionary<int, DOLCharacters>();
-					foreach (DOLCharacters c in m_gameClient.Account.Characters)
+					foreach (DOLCharacters c in _gameClient.Account.Characters)
 					{
 						try
 						{
@@ -92,7 +92,7 @@ namespace DOL.GS.PacketHandler
 							}
 							catch (Exception ex)
 							{
-								log.Error("SendCharacterOverview - Duplicate item on character? OwnerID: " + item.OwnerID + ", SlotPosition: " + item.SlotPosition + ", Account: " + m_gameClient.Account.Name, ex);
+								log.Error("SendCharacterOverview - Duplicate item on character? OwnerID: " + item.OwnerID + ", SlotPosition: " + item.SlotPosition + ", Account: " + _gameClient.Account.Name, ex);
 							}
 						}
 					}
@@ -145,7 +145,7 @@ namespace DOL.GS.PacketHandler
 							Region region = WorldMgr.GetRegion((ushort)c.Region);
 							if (region != null)
 							{
-								locationDescription = m_gameClient.GetTranslatedSpotDescription(region, c.Xpos, c.Ypos, c.Zpos);
+								locationDescription = _gameClient.GetTranslatedSpotDescription(region, c.Xpos, c.Ypos, c.Zpos);
 							}
 							pak.FillString(locationDescription, 24);
 	
@@ -154,7 +154,7 @@ namespace DOL.GS.PacketHandler
 								classname = ((eCharacterClass)c.Class).ToString();
 							pak.FillString(classname, 24);
 	
-							string racename = m_gameClient.RaceToTranslatedName(c.Race, c.Gender);
+							string racename = _gameClient.RaceToTranslatedName(c.Race, c.Gender);
 							pak.FillString(racename, 24);
 	
 							pak.WriteByte((byte)c.Level);
@@ -163,7 +163,7 @@ namespace DOL.GS.PacketHandler
 							pak.WriteByte((byte)((((c.Race & 0x10) << 2) + (c.Race & 0x0F)) | (c.Gender << 4))); // race max value can be 0x1F
 							pak.WriteShortLowEndian((ushort)c.CurrentModel);
 							pak.WriteByte((byte)c.Region);
-							if (region == null || (int)m_gameClient.ClientType > region.Expansion)
+							if (region == null || (int)_gameClient.ClientType > region.Expansion)
 								pak.WriteByte(0x00);
 							else
 								pak.WriteByte((byte)(region.Expansion + 1)); //0x04-Cata zone, 0x05 - DR zone
@@ -321,9 +321,9 @@ namespace DOL.GS.PacketHandler
 			}
 		}
 		
-		public override void SendDupNameCheckReply(string name, bool nameExists)
+		public override void SendDupNameCheckReply(string name, byte nameExists)
 		{
-			if (m_gameClient == null || m_gameClient.Account == null)
+			if (_gameClient == null || _gameClient.Account == null)
 				return;
 
 			// This presents the user with Name Not Allowed which may not be correct but at least it prevents duplicate char creation
@@ -331,8 +331,8 @@ namespace DOL.GS.PacketHandler
 			using (var pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.DupNameCheckReply)))
 			{
 				pak.FillString(name, 30);
-				pak.FillString(m_gameClient.Account.Name, 24);
-				pak.WriteByte((byte)(nameExists ? 0x1 : 0x0));
+				pak.FillString(_gameClient.Account.Name, 24);
+				pak.WriteByte(nameExists);
 				pak.Fill(0x0, 3);
 				SendTCP(pak);
 			}

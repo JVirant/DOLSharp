@@ -42,7 +42,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendUpdatePlayer()
 		{
-			GamePlayer player = m_gameClient.Player;
+			GamePlayer player = _gameClient.Player;
 			if (player == null)
 				return;
 			
@@ -54,7 +54,7 @@ namespace DOL.GS.PacketHandler
 				pak.WriteByte(0x00); //unk
 				//entry :
 	
-				pak.WriteByte(player.GetDisplayLevel(m_gameClient.Player)); //level
+				pak.WriteByte(player.GetDisplayLevel(_gameClient.Player)); //level
 				pak.WritePascalString(player.Name); // player name
 				pak.WriteByte((byte) (player.MaxHealth >> 8)); // maxhealth high byte ?
 				pak.WritePascalString(player.CharacterClass.Name); // class name
@@ -113,16 +113,16 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendUpdatePoints()
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 				return;
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.CharacterPointsUpdate)))
 			{
-				pak.WriteInt((uint)m_gameClient.Player.RealmPoints);
-				pak.WriteShort(m_gameClient.Player.LevelPermill);
-				pak.WriteShort((ushort) m_gameClient.Player.SkillSpecialtyPoints);
-				pak.WriteInt((uint)m_gameClient.Player.BountyPoints);
-				pak.WriteShort((ushort) m_gameClient.Player.RealmSpecialtyPoints);
-				pak.WriteShort(m_gameClient.Player.ChampionLevelPermill);
+				pak.WriteInt((uint)_gameClient.Player.RealmPoints);
+				pak.WriteShort(_gameClient.Player.LevelPermill);
+				pak.WriteShort((ushort) _gameClient.Player.SkillSpecialtyPoints);
+				pak.WriteInt((uint)_gameClient.Player.BountyPoints);
+				pak.WriteShort((ushort) _gameClient.Player.RealmSpecialtyPoints);
+				pak.WriteShort(_gameClient.Player.ChampionLevelPermill);
 				SendTCP(pak);
 			}
 		}

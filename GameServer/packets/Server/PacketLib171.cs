@@ -48,28 +48,28 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendPlayerPositionAndObjectID()
 		{
-			if (m_gameClient.Player == null) return;
+			if (_gameClient.Player == null) return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.PositionAndObjectID)))
 			{
-				pak.WriteShort((ushort)m_gameClient.Player.ObjectID); //This is the player's objectid not Sessionid!!!
-				pak.WriteShort((ushort)m_gameClient.Player.Z);
-				pak.WriteInt((uint)m_gameClient.Player.X);
-				pak.WriteInt((uint)m_gameClient.Player.Y);
-				pak.WriteShort(m_gameClient.Player.Heading);
+				pak.WriteShort((ushort)_gameClient.Player.ObjectID); //This is the player's objectid not Sessionid!!!
+				pak.WriteShort((ushort)_gameClient.Player.Z);
+				pak.WriteInt((uint)_gameClient.Player.X);
+				pak.WriteInt((uint)_gameClient.Player.Y);
+				pak.WriteShort(_gameClient.Player.Heading);
 	
 				int flags = 0;
-				if (m_gameClient.Player.CurrentZone.IsDivingEnabled)
-					flags = 0x80 | (m_gameClient.Player.IsUnderwater ? 0x01 : 0x00);
+				if (_gameClient.Player.CurrentZone.IsDivingEnabled)
+					flags = 0x80 | (_gameClient.Player.IsUnderwater ? 0x01 : 0x00);
 				pak.WriteByte((byte)(flags));
 	
 				pak.WriteByte(0x00);	//TODO Unknown
-				Zone zone = m_gameClient.Player.CurrentZone;
+				Zone zone = _gameClient.Player.CurrentZone;
 				if (zone == null) return;
 				pak.WriteShort((ushort)(zone.XOffset / 0x2000));
 				pak.WriteShort((ushort)(zone.YOffset / 0x2000));
 				//Dinberg - Changing to allow instances...
-				pak.WriteShort(m_gameClient.Player.CurrentRegion.Skin);
+				pak.WriteShort(_gameClient.Player.CurrentRegion.Skin);
 				pak.WriteShort(0x00); //TODO: unknown, new in 1.71
 				SendTCP(pak);
 			}
@@ -77,10 +77,10 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendObjectCreate(GameObject obj)
 		{
-			if (obj == null || m_gameClient.Player == null)
+			if (obj == null || _gameClient.Player == null)
 				return;
 
-			if (obj.IsVisibleTo(m_gameClient.Player) == false)
+			if (obj.IsVisibleTo(_gameClient.Player) == false)
 				return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.ObjectCreate)))
@@ -105,7 +105,7 @@ namespace DOL.GS.PacketHandler
 				pak.WriteShort(model);
 				if (obj is GameKeepBanner)
 					flag |= 0x08;
-				if (obj is GameStaticItemTimed && m_gameClient.Player != null && ((GameStaticItemTimed)obj).IsOwner(m_gameClient.Player))
+				if (obj is GameStaticItemTimed && _gameClient.Player != null && ((GameStaticItemTimed)obj).IsOwner(_gameClient.Player))
 					flag |= 0x04;
 				pak.WriteShort((ushort)flag);
 				pak.WriteInt(0x0); //TODO: unknown, new in 1.71
@@ -114,7 +114,7 @@ namespace DOL.GS.PacketHandler
 				LanguageDataObject translation = null;
 				if (obj is GameStaticItem)
 				{
-					translation = LanguageMgr.GetTranslation(m_gameClient, (GameStaticItem)obj);
+					translation = LanguageMgr.GetTranslation(_gameClient, (GameStaticItem)obj);
 					if (translation != null)
 					{
 						if (obj is WorldInventoryItem)
@@ -141,19 +141,19 @@ namespace DOL.GS.PacketHandler
 			}
 
 			// Update Object Cache
-			m_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(obj.CurrentRegionID, (ushort)obj.ObjectID)] = GameTimer.GetTickCount();
+			_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(obj.CurrentRegionID, (ushort)obj.ObjectID)] = GameTimer.GetTickCount();
 		}
 
 		public override void SendNPCCreate(GameNPC npc)
 		{
 
-			if (m_gameClient.Player == null || npc.IsVisibleTo(m_gameClient.Player) == false)
+			if (_gameClient.Player == null || npc.IsVisibleTo(_gameClient.Player) == false)
 				return;
 
 			//Added by Suncheck - Mines are not shown to enemy players
 			if (npc is GameMine)
 			{
-				if (GameServer.ServerRules.IsAllowedToAttack((npc as GameMine).Owner, m_gameClient.Player, true))
+				if (GameServer.ServerRules.IsAllowedToAttack((npc as GameMine).Owner, _gameClient.Player, true))
 				{
 					return;
 				}
@@ -185,14 +185,14 @@ namespace DOL.GS.PacketHandler
 				pak.WriteShort(speedZ);
 				pak.WriteShort(npc.Model);
 				pak.WriteByte(npc.Size);
-				byte level = npc.GetDisplayLevel(m_gameClient.Player);
+				byte level = npc.GetDisplayLevel(_gameClient.Player);
 				if((npc.Flags&GameNPC.eFlags.STATUE)!=0)
 				{
 					level |= 0x80;
 				}
 				pak.WriteByte(level);
 	
-				byte flags = (byte)(GameServer.ServerRules.GetLivingRealm(m_gameClient.Player, npc) << 6);
+				byte flags = (byte)(GameServer.ServerRules.GetLivingRealm(_gameClient.Player, npc) << 6);
 				if ((npc.Flags & GameNPC.eFlags.GHOST) != 0) flags |= 0x01;
 				if (npc.Inventory != null) flags |= 0x02; //If mob has equipment, then only show it after the client gets the 0xBD packet
 				if ((npc.Flags & GameNPC.eFlags.PEACE) != 0) flags |= 0x10;
@@ -205,7 +205,7 @@ namespace DOL.GS.PacketHandler
 				string add = "";
 				byte flags2 = 0x00;
 				IControlledBrain brain = npc.Brain as IControlledBrain;
-				if (m_gameClient.Version >= GameClient.eClientVersion.Version187)
+				if (_gameClient.Version >= GameClient.eClientVersion.Version187)
 				{
 					if (brain != null)
 					{
@@ -213,16 +213,16 @@ namespace DOL.GS.PacketHandler
 					}
 				}
 				if ((npc.Flags & GameNPC.eFlags.CANTTARGET) != 0)
-					if (m_gameClient.Account.PrivLevel > 1) add += "-DOR"; // indicates DOR flag for GMs
+					if (_gameClient.Account.PrivLevel > 1) add += "-DOR"; // indicates DOR flag for GMs
 				else flags2 |= 0x01;
 				if ((npc.Flags & GameNPC.eFlags.DONTSHOWNAME) != 0)
-					if (m_gameClient.Account.PrivLevel > 1) add += "-NON"; // indicates NON flag for GMs
+					if (_gameClient.Account.PrivLevel > 1) add += "-NON"; // indicates NON flag for GMs
 				else flags2 |= 0x02;
 	
 				if( ( npc.Flags & GameNPC.eFlags.STEALTH ) > 0 )
 					flags2 |= 0x04;
 	
-				eQuestIndicator questIndicator = npc.GetQuestIndicator(m_gameClient.Player);
+				eQuestIndicator questIndicator = npc.GetQuestIndicator(_gameClient.Player);
 	
 				if (questIndicator == eQuestIndicator.Available)
 					flags2 |= 0x08;//hex 8 - quest available
@@ -246,7 +246,7 @@ namespace DOL.GS.PacketHandler
 				string name = npc.Name;
 				string guildName = npc.GuildName;
 	
-				LanguageDataObject translation = LanguageMgr.GetTranslation(m_gameClient, npc);
+				LanguageDataObject translation = LanguageMgr.GetTranslation(_gameClient, npc);
 				if (translation != null)
 				{
 					if (!Util.IsEmpty(((DBLanguageNPC)translation).Name))
@@ -272,12 +272,12 @@ namespace DOL.GS.PacketHandler
 			}
 			
 			// Update Cache
-			m_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(npc.CurrentRegionID, (ushort)npc.ObjectID)] = 0;
+			_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(npc.CurrentRegionID, (ushort)npc.ObjectID)] = 0;
 		}
 
 		public override void SendFindGroupWindowUpdate(GamePlayer[] list)
 		{
-			if (m_gameClient.Player == null) return;
+			if (_gameClient.Player == null) return;
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.FindGroupUpdate)))
 			{
 				if (list != null)
@@ -371,8 +371,8 @@ namespace DOL.GS.PacketHandler
 				GamePlayer player = living as GamePlayer;
 				if (player != null)
 				{
-					pak.WritePascalString(GameServer.ServerRules.GetPlayerGuildName(m_gameClient.Player, player));
-					pak.WritePascalString(GameServer.ServerRules.GetPlayerLastName(m_gameClient.Player, player));
+					pak.WritePascalString(GameServer.ServerRules.GetPlayerGuildName(_gameClient.Player, player));
+					pak.WritePascalString(GameServer.ServerRules.GetPlayerLastName(_gameClient.Player, player));
 				}
 				else if (!updateStrings)
 				{
@@ -389,7 +389,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendPlayerFreeLevelUpdate()
 		{
-			GamePlayer player = m_gameClient.Player;
+			GamePlayer player = _gameClient.Player;
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.VisualEffect)))
 			{
 				pak.WriteShort((ushort)player.ObjectID);

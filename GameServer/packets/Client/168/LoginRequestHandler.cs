@@ -77,8 +77,6 @@ namespace DOL.GS.PacketHandler.Client.v168
 		public static readonly object Token2AccountSync = new object();
 		public static readonly Dictionary<string, (string, string)> Token2Account = new Dictionary<string, (string, string)>();
 
-		#region IPacketHandler Members
-
 		public void HandlePacket(GameClient client, GSPacketIn packet)
 		{
 			if (client == null)
@@ -148,30 +146,37 @@ namespace DOL.GS.PacketHandler.Client.v168
 	
 				userName = packet.ReadString(20);
 			}
-			else
+			else if (client.Version < GameClient.eClientVersion.Version1126) // 1.125+ only // we support 1.109 and 1.125+ only
 			{
-				// 1.115c+
-				
 				// client type
 				packet.Skip(1);
-				
+
 				//version
 				major = (byte)packet.ReadByte();
 				minor = (byte)packet.ReadByte();
 				build = (byte)packet.ReadByte();
-				
+
 				// revision
 				packet.Skip(1);
 				// build
 				packet.Skip(2);
-				
-				// Read Login
-				userName = packet.ReadLowEndianShortPascalString();
 
-				// Read Password
-				password = packet.ReadLowEndianShortPascalString();
+				if (client.Version <= GameClient.eClientVersion.Version1124)
+				{
+					userName = packet.ReadShortPascalStringLowEndian();
+					password = packet.ReadShortPascalStringLowEndian();
+				}
+				else
+				{
+					userName = packet.ReadIntPascalStringLowEndian();
+					password = packet.ReadIntPascalStringLowEndian();
+				}
 			}
-
+			else
+			{
+				userName = packet.ReadIntPascalStringLowEndian();
+				password = packet.ReadIntPascalStringLowEndian();
+			}
 
 			
 			/*
@@ -482,8 +487,6 @@ namespace DOL.GS.PacketHandler.Client.v168
 				ExitLock(userName);
 			}
 		}
-
-		#endregion
 
 		public static string CryptPassword(string password)
 		{

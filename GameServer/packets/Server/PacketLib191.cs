@@ -35,7 +35,7 @@ namespace DOL.GS.PacketHandler
 		protected override void WriteGroupMemberUpdate(GSTCPPacketOut pak, bool updateIcons, GameLiving living)
 		{
 			pak.WriteByte((byte)(living.GroupIndex + 1)); // From 1 to 8
-			bool sameRegion = living.CurrentRegion == m_gameClient.Player.CurrentRegion;
+			bool sameRegion = living.CurrentRegion == _gameClient.Player.CurrentRegion;
             GamePlayer player = null;
 
 			if (sameRegion)
@@ -107,21 +107,21 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendConcentrationList()
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 				return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.ConcentrationList)))
 			{
-				lock (m_gameClient.Player.ConcentrationEffects)
+				lock (_gameClient.Player.ConcentrationEffects)
 				{
-					pak.WriteByte((byte)(m_gameClient.Player.ConcentrationEffects.Count));
+					pak.WriteByte((byte)(_gameClient.Player.ConcentrationEffects.Count));
 					pak.WriteByte(0); // unknown
 					pak.WriteByte(0); // unknown
 					pak.WriteByte(0); // unknown
 	
-					for (int i = 0; i < m_gameClient.Player.ConcentrationEffects.Count; i++)
+					for (int i = 0; i < _gameClient.Player.ConcentrationEffects.Count; i++)
 					{
-						IConcentrationEffect effect = m_gameClient.Player.ConcentrationEffects[i];
+						IConcentrationEffect effect = _gameClient.Player.ConcentrationEffects[i];
 						pak.WriteByte((byte)i);
 						pak.WriteByte(0); // unknown
 						pak.WriteByte(effect.Concentration);

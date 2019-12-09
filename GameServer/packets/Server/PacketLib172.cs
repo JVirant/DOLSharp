@@ -61,7 +61,7 @@ namespace DOL.GS.PacketHandler
 				return;
 			}
 
-			if (m_gameClient.Player == null || playerToCreate.IsVisibleTo(m_gameClient.Player) == false)
+			if (_gameClient.Player == null || playerToCreate.IsVisibleTo(_gameClient.Player) == false)
 				return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.PlayerCreate172)))
@@ -79,12 +79,12 @@ namespace DOL.GS.PacketHandler
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.EyeSize)); //1-4 = Eye Size / 5-8 = Nose Size
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.LipSize)); //1-4 = Ear size / 5-8 = Kin size
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.EyeColor)); //1-4 = Skin Color / 5-8 = Eye Color
-				pak.WriteByte(playerToCreate.GetDisplayLevel(m_gameClient.Player));
+				pak.WriteByte(playerToCreate.GetDisplayLevel(_gameClient.Player));
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.HairColor)); //Hair: 1-4 = Color / 5-8 = unknown
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.FaceType)); //1-4 = Unknown / 5-8 = Face type
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.HairStyle)); //1-4 = Unknown / 5-8 = Hair Style
 	
-				int flags = (GameServer.ServerRules.GetLivingRealm(m_gameClient.Player, playerToCreate) & 0x03) << 2;
+				int flags = (GameServer.ServerRules.GetLivingRealm(_gameClient.Player, playerToCreate) & 0x03) << 2;
 				if (playerToCreate.IsAlive == false)
 					flags |= 0x01;
 				if (playerToCreate.IsUnderwater)
@@ -95,15 +95,15 @@ namespace DOL.GS.PacketHandler
 					flags |= 0x20;
 				pak.WriteByte((byte)flags);
 	
-				pak.WritePascalString(GameServer.ServerRules.GetPlayerName(m_gameClient.Player, playerToCreate));
-				pak.WritePascalString(GameServer.ServerRules.GetPlayerGuildName(m_gameClient.Player, playerToCreate));
-				pak.WritePascalString(GameServer.ServerRules.GetPlayerLastName(m_gameClient.Player, playerToCreate));
+				pak.WritePascalString(GameServer.ServerRules.GetPlayerName(_gameClient.Player, playerToCreate));
+				pak.WritePascalString(GameServer.ServerRules.GetPlayerGuildName(_gameClient.Player, playerToCreate));
+				pak.WritePascalString(GameServer.ServerRules.GetPlayerLastName(_gameClient.Player, playerToCreate));
 				pak.WriteByte(0x00); //Trialing 0 ... needed!
 				SendTCP(pak);
 			}
 			
 			// Update Cache
-			m_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(playerToCreate.CurrentRegionID, (ushort)playerToCreate.ObjectID)] = GameTimer.GetTickCount();
+			_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(playerToCreate.CurrentRegionID, (ushort)playerToCreate.ObjectID)] = GameTimer.GetTickCount();
 						
 			SendObjectGuildID(playerToCreate, playerToCreate.Guild); //used for nearest friendly/enemy object buttons and name colors on PvP server
 		}
@@ -228,7 +228,7 @@ namespace DOL.GS.PacketHandler
 			}
 			
 			// Update Cache
-			m_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(player.CurrentRegionID, (ushort)player.ObjectID)] = GameTimer.GetTickCount();
+			_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(player.CurrentRegionID, (ushort)player.ObjectID)] = GameTimer.GetTickCount();
 		}
 
 		
@@ -237,8 +237,8 @@ namespace DOL.GS.PacketHandler
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.InventoryUpdate)))
 			{
 				pak.WriteByte((byte)(slots == null ? 0 : slots.Count));
-				pak.WriteByte((byte)((m_gameClient.Player.IsCloakHoodUp ? 0x01 : 0x00) | (int)m_gameClient.Player.ActiveQuiverSlot)); //bit0 is hood up bit4 to 7 is active quiver
-				pak.WriteByte((byte)m_gameClient.Player.VisibleActiveWeaponSlots);
+				pak.WriteByte((byte)((_gameClient.Player.IsCloakHoodUp ? 0x01 : 0x00) | (int)_gameClient.Player.ActiveQuiverSlot)); //bit0 is hood up bit4 to 7 is active quiver
+				pak.WriteByte((byte)_gameClient.Player.VisibleActiveWeaponSlots);
 				pak.WriteByte((byte)windowType);
 				if (slots != null)
 				{
@@ -249,7 +249,7 @@ namespace DOL.GS.PacketHandler
 						else
 							pak.WriteByte((byte)(updatedSlot));
 						InventoryItem item = null;
-						item = m_gameClient.Player.Inventory.GetItem((eInventorySlot)updatedSlot);
+						item = _gameClient.Player.Inventory.GetItem((eInventorySlot)updatedSlot);
 	
 						if (item == null)
 						{
@@ -345,7 +345,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendLivingEquipmentUpdate(GameLiving living)
 		{
-			if (m_gameClient.Player == null || living.IsVisibleTo(m_gameClient.Player) == false)
+			if (_gameClient.Player == null || living.IsVisibleTo(_gameClient.Player) == false)
 				return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.EquipmentUpdate)))
@@ -402,36 +402,36 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendTradeWindow()
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 				return;
-			if (m_gameClient.Player.TradeWindow == null)
+			if (_gameClient.Player.TradeWindow == null)
 				return;
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.TradeWindow)))
 			{
-				lock (m_gameClient.Player.TradeWindow.Sync)
+				lock (_gameClient.Player.TradeWindow.Sync)
 				{
-					foreach (InventoryItem item in m_gameClient.Player.TradeWindow.TradeItems)
+					foreach (InventoryItem item in _gameClient.Player.TradeWindow.TradeItems)
 					{
 						pak.WriteByte((byte)item.SlotPosition);
 					}
-					pak.Fill(0x00, 10 - m_gameClient.Player.TradeWindow.TradeItems.Count);
+					pak.Fill(0x00, 10 - _gameClient.Player.TradeWindow.TradeItems.Count);
 	
 					pak.WriteShort(0x0000);
-					pak.WriteShort((ushort)Money.GetMithril(m_gameClient.Player.TradeWindow.TradeMoney));
-					pak.WriteShort((ushort)Money.GetPlatinum(m_gameClient.Player.TradeWindow.TradeMoney));
-					pak.WriteShort((ushort)Money.GetGold(m_gameClient.Player.TradeWindow.TradeMoney));
-					pak.WriteShort((ushort)Money.GetSilver(m_gameClient.Player.TradeWindow.TradeMoney));
-					pak.WriteShort((ushort)Money.GetCopper(m_gameClient.Player.TradeWindow.TradeMoney));
+					pak.WriteShort((ushort)Money.GetMithril(_gameClient.Player.TradeWindow.TradeMoney));
+					pak.WriteShort((ushort)Money.GetPlatinum(_gameClient.Player.TradeWindow.TradeMoney));
+					pak.WriteShort((ushort)Money.GetGold(_gameClient.Player.TradeWindow.TradeMoney));
+					pak.WriteShort((ushort)Money.GetSilver(_gameClient.Player.TradeWindow.TradeMoney));
+					pak.WriteShort((ushort)Money.GetCopper(_gameClient.Player.TradeWindow.TradeMoney));
 	
 					pak.WriteShort(0x0000);
-					pak.WriteShort((ushort)Money.GetMithril(m_gameClient.Player.TradeWindow.PartnerTradeMoney));
-					pak.WriteShort((ushort)Money.GetPlatinum(m_gameClient.Player.TradeWindow.PartnerTradeMoney));
-					pak.WriteShort((ushort)Money.GetGold(m_gameClient.Player.TradeWindow.PartnerTradeMoney));
-					pak.WriteShort((ushort)Money.GetSilver(m_gameClient.Player.TradeWindow.PartnerTradeMoney));
-					pak.WriteShort((ushort)Money.GetCopper(m_gameClient.Player.TradeWindow.PartnerTradeMoney));
+					pak.WriteShort((ushort)Money.GetMithril(_gameClient.Player.TradeWindow.PartnerTradeMoney));
+					pak.WriteShort((ushort)Money.GetPlatinum(_gameClient.Player.TradeWindow.PartnerTradeMoney));
+					pak.WriteShort((ushort)Money.GetGold(_gameClient.Player.TradeWindow.PartnerTradeMoney));
+					pak.WriteShort((ushort)Money.GetSilver(_gameClient.Player.TradeWindow.PartnerTradeMoney));
+					pak.WriteShort((ushort)Money.GetCopper(_gameClient.Player.TradeWindow.PartnerTradeMoney));
 	
 					pak.WriteShort(0x0000);
-					ArrayList items = m_gameClient.Player.TradeWindow.PartnerTradeItems;
+					ArrayList items = _gameClient.Player.TradeWindow.PartnerTradeItems;
 					if (items != null)
 					{
 						pak.WriteByte((byte)items.Count);
@@ -441,8 +441,8 @@ namespace DOL.GS.PacketHandler
 					{
 						pak.WriteShort(0x0000);
 					}
-					pak.WriteByte((byte)(m_gameClient.Player.TradeWindow.Repairing ? 0x01 : 0x00));
-					pak.WriteByte((byte)(m_gameClient.Player.TradeWindow.Combine ? 0x01 : 0x00));
+					pak.WriteByte((byte)(_gameClient.Player.TradeWindow.Repairing ? 0x01 : 0x00));
+					pak.WriteByte((byte)(_gameClient.Player.TradeWindow.Combine ? 0x01 : 0x00));
 					if (items != null)
 					{
 						foreach (InventoryItem item in items)
@@ -471,8 +471,8 @@ namespace DOL.GS.PacketHandler
 								pak.WritePascalString(item.Name); //size and name item
 						}
 					}
-					if (m_gameClient.Player.TradeWindow.Partner != null)
-						pak.WritePascalString("Trading with " + m_gameClient.Player.GetName(m_gameClient.Player.TradeWindow.Partner)); // transaction with ...
+					if (_gameClient.Player.TradeWindow.Partner != null)
+						pak.WritePascalString("Trading with " + _gameClient.Player.GetName(_gameClient.Player.TradeWindow.Partner)); // transaction with ...
 					else
 						pak.WritePascalString("Selfcrafting"); // transaction with ...
 					SendTCP(pak);

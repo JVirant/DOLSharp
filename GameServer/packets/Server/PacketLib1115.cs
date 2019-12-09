@@ -54,13 +54,13 @@ namespace DOL.GS.PacketHandler
 			//Construct the new packet
 			using (var pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.CryptKey)))
 			{
-				pak.WriteByte((byte)m_gameClient.ClientType);
+				pak.WriteByte((byte)_gameClient.ClientType);
 				
 				//Disable encryption (1110+ always encrypt)
 				pak.WriteByte(0x00);
 
 				// Reply with current version
-				pak.WriteString((((int)m_gameClient.Version) / 1000) + "." + (((int)m_gameClient.Version) - 1000), 5);
+				pak.WriteString((((int)_gameClient.Version) / 1000) + "." + (((int)_gameClient.Version) - 1000), 5);
 				
 				// revision, last seen (c) 0x63
 				pak.WriteByte(0x00);
@@ -76,7 +76,7 @@ namespace DOL.GS.PacketHandler
 		{
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.LoginGranted)))
 			{
-				pak.WritePascalString(m_gameClient.Account.Name);
+				pak.WritePascalString(_gameClient.Account.Name);
 				pak.WritePascalString(GameServer.Instance.Configuration.ServerNameShort); //server name
 				pak.WriteByte(0x29); //Server ID
 				pak.WriteByte(0x07); // test value...
@@ -130,7 +130,7 @@ namespace DOL.GS.PacketHandler
 		/// <param name="keep"></param>
 		public override void SendKeepInfo(IGameKeep keep)
 		{
-			if (m_gameClient.Player == null) 
+			if (_gameClient.Player == null) 
 				return;
 			
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.KeepInfo)))
@@ -152,7 +152,7 @@ namespace DOL.GS.PacketHandler
         
         public override void SendWarmapUpdate(ICollection<IGameKeep> list)
 		{
-			if (m_gameClient.Player == null) return;
+			if (_gameClient.Player == null) return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.WarMapClaimedKeeps)))
 			{
@@ -251,13 +251,13 @@ namespace DOL.GS.PacketHandler
 					}
 	
 					//Teleport
-					if (m_gameClient.Account.PrivLevel > (int)ePrivLevel.Player)
+					if (_gameClient.Account.PrivLevel > (int)ePrivLevel.Player)
 					{
 						flag |= (byte)eRealmWarmapKeepFlags.Teleportable;
 					}
 					else
 					{
-						if (GameServer.KeepManager.FrontierRegionsList.Contains(m_gameClient.Player.CurrentRegionID) && m_gameClient.Player.Realm == keep.Realm)
+						if (GameServer.KeepManager.FrontierRegionsList.Contains(_gameClient.Player.CurrentRegionID) && _gameClient.Player.Realm == keep.Realm)
 						{
 							GameKeep theKeep = keep as GameKeep;
 							if (theKeep != null)

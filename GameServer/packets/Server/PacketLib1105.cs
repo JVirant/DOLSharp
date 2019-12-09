@@ -52,12 +52,12 @@ namespace DOL.GS.PacketHandler
 		/// </summary>
 		public override void SendTrainerWindow()
 		{
-			if (m_gameClient == null || m_gameClient.Player == null)
+			if (_gameClient == null || _gameClient.Player == null)
 				return;
 			
-			GamePlayer player = m_gameClient.Player;
+			GamePlayer player = _gameClient.Player;
 
-			List<Specialization> specs = m_gameClient.Player.GetSpecList().Where(it => it.Trainable).ToList();
+			List<Specialization> specs = _gameClient.Player.GetSpecList().Where(it => it.Trainable).ToList();
 			IList<string> autotrains = player.CharacterClass.GetAutotrainableSkills();
 			
 			// Send Trainer Window with Trainable Specs
@@ -80,7 +80,7 @@ namespace DOL.GS.PacketHandler
 			}
 
 			// send RA usable by this class
-			var raList = SkillBase.GetClassRealmAbilities(m_gameClient.Player.CharacterClass.ID).Where(ra => !(ra is RR5RealmAbility));
+			var raList = SkillBase.GetClassRealmAbilities(_gameClient.Player.CharacterClass.ID).Where(ra => !(ra is RR5RealmAbility));
 			using (var pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.TrainerWindow)))
 			{
 				pak.WriteByte((byte)raList.Count());
@@ -106,7 +106,7 @@ namespace DOL.GS.PacketHandler
 			List<Tuple<Specialization, List<Tuple<int, int, Skill>>>> skillDictCache = null;
 			
 			// get from cache
-			if (m_gameClient.TrainerSkillCache == null)
+			if (_gameClient.TrainerSkillCache == null)
 			{
 				skillDictCache = new List<Tuple<Specialization, List<Tuple<int, int, Skill>>>>();
 				
@@ -138,10 +138,10 @@ namespace DOL.GS.PacketHandler
 				
 				
 				// save to cache
-				m_gameClient.TrainerSkillCache = skillDictCache;
+				_gameClient.TrainerSkillCache = skillDictCache;
 			}
 			
-			skillDictCache = m_gameClient.TrainerSkillCache;
+			skillDictCache = _gameClient.TrainerSkillCache;
 			
 			// Send Names first
 			int index = 0;			
@@ -209,7 +209,7 @@ namespace DOL.GS.PacketHandler
 					byte autotrain = 0; 
 					if(autotrains.Contains(specs[skindex].KeyName))
 					{
-						autotrain = (byte)Math.Floor((double)m_gameClient.Player.BaseLevel / 4);
+						autotrain = (byte)Math.Floor((double)_gameClient.Player.BaseLevel / 4);
 					}
 
 					if (pakskill.Length >= 2045)
@@ -295,7 +295,7 @@ namespace DOL.GS.PacketHandler
 					for (int i = 0; i < ra.MaxLevel; i++)
 						pak.WriteByte((byte)ra.CostForUpgrade(i));
 
-					if (ra.CheckRequirement(m_gameClient.Player))
+					if (ra.CheckRequirement(_gameClient.Player))
 						pak.WritePascalString(ra.KeyName);
 					else
 						pak.WritePascalString(string.Format("[{0}]", ra.Name));

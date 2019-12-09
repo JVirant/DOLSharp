@@ -70,7 +70,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendUpdateIcons(IList changedEffects, ref int lastUpdateEffectsCount)
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 			{
 				return;
 			}
@@ -89,7 +89,7 @@ namespace DOL.GS.PacketHandler
 				pak.WriteByte(Icons); // unknown
 				pak.WriteByte(0); // unknown
 	
-				foreach (IGameEffect effect in m_gameClient.Player.EffectList)
+				foreach (IGameEffect effect in _gameClient.Player.EffectList)
 				{
 					if (effect.Icon != 0)
 					{
@@ -178,8 +178,8 @@ namespace DOL.GS.PacketHandler
 			// force tooltips update
 			foreach (int entry in tooltipids)
 			{
-				if (m_gameClient.CanSendTooltip(24, entry))
-					SendDelveInfo(DOL.GS.PacketHandler.Client.v168.DetailDisplayHandler.DelveSpell(m_gameClient, entry));
+				if (_gameClient.CanSendTooltip(24, entry))
+					SendDelveInfo(DOL.GS.PacketHandler.Client.v168.DetailDisplayHandler.DelveSpell(_gameClient, entry));
 			}
 		}
 		
@@ -191,8 +191,8 @@ namespace DOL.GS.PacketHandler
 			base.SendTrainerWindow();
 			
 			// Send tooltips
-			if (ForceTooltipUpdate && m_gameClient.TrainerSkillCache != null)
-				SendForceTooltipUpdate(m_gameClient.TrainerSkillCache.SelectMany(e => e.Item2).Select(e => e.Item3));
+			if (ForceTooltipUpdate && _gameClient.TrainerSkillCache != null)
+				SendForceTooltipUpdate(_gameClient.TrainerSkillCache.SelectMany(e => e.Item2).Select(e => e.Item3));
 		}
 		
 		/// <summary>
@@ -208,29 +208,29 @@ namespace DOL.GS.PacketHandler
 				
 				if (t is RealmAbility)
 				{
-					if (m_gameClient.CanSendTooltip(27, t.InternalID))
-						SendDelveInfo(DOL.GS.PacketHandler.Client.v168.DetailDisplayHandler.DelveRealmAbility(m_gameClient, t.InternalID));
+					if (_gameClient.CanSendTooltip(27, t.InternalID))
+						SendDelveInfo(DOL.GS.PacketHandler.Client.v168.DetailDisplayHandler.DelveRealmAbility(_gameClient, t.InternalID));
 				}
 				else if (t is Ability)
 				{
-					if (m_gameClient.CanSendTooltip(28, t.InternalID))
-						SendDelveInfo(DOL.GS.PacketHandler.Client.v168.DetailDisplayHandler.DelveAbility(m_gameClient, t.InternalID));
+					if (_gameClient.CanSendTooltip(28, t.InternalID))
+						SendDelveInfo(DOL.GS.PacketHandler.Client.v168.DetailDisplayHandler.DelveAbility(_gameClient, t.InternalID));
 				}
 				else if (t is Style)
 				{
-					if (m_gameClient.CanSendTooltip(25, t.InternalID))
-						SendDelveInfo(DOL.GS.PacketHandler.Client.v168.DetailDisplayHandler.DelveStyle(m_gameClient, t.InternalID));
+					if (_gameClient.CanSendTooltip(25, t.InternalID))
+						SendDelveInfo(DOL.GS.PacketHandler.Client.v168.DetailDisplayHandler.DelveStyle(_gameClient, t.InternalID));
 				}
 				else if (t is Spell)
 				{
 					if (t is Song || (t is Spell && ((Spell)t).NeedInstrument))
 					{
-						if (m_gameClient.CanSendTooltip(26, ((Spell)t).InternalID))
-							SendDelveInfo(DOL.GS.PacketHandler.Client.v168.DetailDisplayHandler.DelveSong(m_gameClient, ((Spell)t).InternalID));
+						if (_gameClient.CanSendTooltip(26, ((Spell)t).InternalID))
+							SendDelveInfo(DOL.GS.PacketHandler.Client.v168.DetailDisplayHandler.DelveSong(_gameClient, ((Spell)t).InternalID));
 					}
 					
-					if (m_gameClient.CanSendTooltip(24, ((Spell)t).InternalID))
-						SendDelveInfo(DOL.GS.PacketHandler.Client.v168.DetailDisplayHandler.DelveSpell(m_gameClient, ((Spell)t).InternalID));
+					if (_gameClient.CanSendTooltip(24, ((Spell)t).InternalID))
+						SendDelveInfo(DOL.GS.PacketHandler.Client.v168.DetailDisplayHandler.DelveSpell(_gameClient, ((Spell)t).InternalID));
 				}
 			}
 		}

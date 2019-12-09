@@ -43,37 +43,37 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendTradeWindow()
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 				return;
-			if (m_gameClient.Player.TradeWindow == null)
+			if (_gameClient.Player.TradeWindow == null)
 				return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.TradeWindow)))
 			{
-				lock (m_gameClient.Player.TradeWindow.Sync)
+				lock (_gameClient.Player.TradeWindow.Sync)
 				{
-					foreach (InventoryItem item in m_gameClient.Player.TradeWindow.TradeItems)
+					foreach (InventoryItem item in _gameClient.Player.TradeWindow.TradeItems)
 					{
 						pak.WriteByte((byte)item.SlotPosition);
 					}
-					pak.Fill(0x00, 10 - m_gameClient.Player.TradeWindow.TradeItems.Count);
+					pak.Fill(0x00, 10 - _gameClient.Player.TradeWindow.TradeItems.Count);
 	
 					pak.WriteShort(0x0000);
-					pak.WriteShort((ushort)Money.GetMithril(m_gameClient.Player.TradeWindow.TradeMoney));
-					pak.WriteShort((ushort)Money.GetPlatinum(m_gameClient.Player.TradeWindow.TradeMoney));
-					pak.WriteShort((ushort)Money.GetGold(m_gameClient.Player.TradeWindow.TradeMoney));
-					pak.WriteShort((ushort)Money.GetSilver(m_gameClient.Player.TradeWindow.TradeMoney));
-					pak.WriteShort((ushort)Money.GetCopper(m_gameClient.Player.TradeWindow.TradeMoney));
+					pak.WriteShort((ushort)Money.GetMithril(_gameClient.Player.TradeWindow.TradeMoney));
+					pak.WriteShort((ushort)Money.GetPlatinum(_gameClient.Player.TradeWindow.TradeMoney));
+					pak.WriteShort((ushort)Money.GetGold(_gameClient.Player.TradeWindow.TradeMoney));
+					pak.WriteShort((ushort)Money.GetSilver(_gameClient.Player.TradeWindow.TradeMoney));
+					pak.WriteShort((ushort)Money.GetCopper(_gameClient.Player.TradeWindow.TradeMoney));
 	
 					pak.WriteShort(0x0000);
-					pak.WriteShort((ushort)Money.GetMithril(m_gameClient.Player.TradeWindow.PartnerTradeMoney));
-					pak.WriteShort((ushort)Money.GetPlatinum(m_gameClient.Player.TradeWindow.PartnerTradeMoney));
-					pak.WriteShort((ushort)Money.GetGold(m_gameClient.Player.TradeWindow.PartnerTradeMoney));
-					pak.WriteShort((ushort)Money.GetSilver(m_gameClient.Player.TradeWindow.PartnerTradeMoney));
-					pak.WriteShort((ushort)Money.GetCopper(m_gameClient.Player.TradeWindow.PartnerTradeMoney));
+					pak.WriteShort((ushort)Money.GetMithril(_gameClient.Player.TradeWindow.PartnerTradeMoney));
+					pak.WriteShort((ushort)Money.GetPlatinum(_gameClient.Player.TradeWindow.PartnerTradeMoney));
+					pak.WriteShort((ushort)Money.GetGold(_gameClient.Player.TradeWindow.PartnerTradeMoney));
+					pak.WriteShort((ushort)Money.GetSilver(_gameClient.Player.TradeWindow.PartnerTradeMoney));
+					pak.WriteShort((ushort)Money.GetCopper(_gameClient.Player.TradeWindow.PartnerTradeMoney));
 	
 					pak.WriteShort(0x0000);
-					ArrayList items = m_gameClient.Player.TradeWindow.PartnerTradeItems;
+					ArrayList items = _gameClient.Player.TradeWindow.PartnerTradeItems;
 					if (items != null)
 					{
 						pak.WriteByte((byte)items.Count);
@@ -83,8 +83,8 @@ namespace DOL.GS.PacketHandler
 					{
 						pak.WriteShort(0x0000);
 					}
-					pak.WriteByte((byte)(m_gameClient.Player.TradeWindow.Repairing ? 0x01 : 0x00));
-					pak.WriteByte((byte)(m_gameClient.Player.TradeWindow.Combine ? 0x01 : 0x00));
+					pak.WriteByte((byte)(_gameClient.Player.TradeWindow.Repairing ? 0x01 : 0x00));
+					pak.WriteByte((byte)(_gameClient.Player.TradeWindow.Combine ? 0x01 : 0x00));
 					if (items != null)
 					{
 						foreach (InventoryItem item in items)
@@ -93,8 +93,8 @@ namespace DOL.GS.PacketHandler
 							WriteItemData(pak, item);
 						}
 					}
-					if (m_gameClient.Player.TradeWindow.Partner != null)
-						pak.WritePascalString("Trading with " + m_gameClient.Player.GetName(m_gameClient.Player.TradeWindow.Partner)); // transaction with ...
+					if (_gameClient.Player.TradeWindow.Partner != null)
+						pak.WritePascalString("Trading with " + _gameClient.Player.GetName(_gameClient.Player.TradeWindow.Partner)); // transaction with ...
 					else
 						pak.WritePascalString("Selfcrafting"); // transaction with ...
 					SendTCP(pak);
@@ -200,7 +200,7 @@ namespace DOL.GS.PacketHandler
 				pak.WriteShort((ushort)item.Color);
 			//						flag |= 0x01; // newGuildEmblem
 			flag |= 0x02; // enable salvage button
-			AbstractCraftingSkill skill = CraftingMgr.getSkillbyEnum(m_gameClient.Player.CraftingPrimarySkill);
+			AbstractCraftingSkill skill = CraftingMgr.getSkillbyEnum(_gameClient.Player.CraftingPrimarySkill);
 			if (skill != null && skill is AdvancedCraftingSkill/* && ((AdvancedCraftingSkill)skill).IsAllowedToCombine(m_gameClient.Player, item)*/)
 				flag |= 0x04; // enable craft button
 			ushort icon1 = 0;

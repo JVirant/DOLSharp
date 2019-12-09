@@ -47,7 +47,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendFindGroupWindowUpdate(GamePlayer[] list)
 		{
-			if (m_gameClient.Player==null)
+			if (_gameClient.Player==null)
 				return;
 			
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.FindGroupUpdate)))
@@ -97,7 +97,7 @@ namespace DOL.GS.PacketHandler
 			if (obj == null)
 				return;
 
-			if (obj.IsVisibleTo(m_gameClient.Player) == false)
+			if (obj.IsVisibleTo(_gameClient.Player) == false)
 				return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.ObjectCreate)))
@@ -125,7 +125,7 @@ namespace DOL.GS.PacketHandler
 				pak.WriteShort(model);
 				if (obj is Keeps.GameKeepBanner)
 					flag |= 0x08;
-				if (obj is GameStaticItemTimed && m_gameClient.Player != null && ((GameStaticItemTimed)obj).IsOwner(m_gameClient.Player))
+				if (obj is GameStaticItemTimed && _gameClient.Player != null && ((GameStaticItemTimed)obj).IsOwner(_gameClient.Player))
 					flag |= 0x04;
 				pak.WriteShort((ushort)flag);
 				if (obj is GameStaticItem)
@@ -139,7 +139,7 @@ namespace DOL.GS.PacketHandler
 	            LanguageDataObject translation = null;
 	            if (obj is GameStaticItem)
 	            {
-	                translation = LanguageMgr.GetTranslation(m_gameClient, (GameStaticItem)obj);
+	                translation = LanguageMgr.GetTranslation(_gameClient, (GameStaticItem)obj);
 	                if (translation != null)
 	                {
 	                    if (obj is WorldInventoryItem)
@@ -166,7 +166,7 @@ namespace DOL.GS.PacketHandler
 			}
 			
 			// Update Object Cache
-			m_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(obj.CurrentRegionID, (ushort)obj.ObjectID)] = GameTimer.GetTickCount();
+			_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(obj.CurrentRegionID, (ushort)obj.ObjectID)] = GameTimer.GetTickCount();
 		}
 
 		protected override void SendInventorySlotsUpdateRange(ICollection<int> slots, eInventoryWindowType windowType)
@@ -174,8 +174,8 @@ namespace DOL.GS.PacketHandler
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.InventoryUpdate)))
 			{
 				pak.WriteByte((byte)(slots == null ? 0 : slots.Count));
-				pak.WriteByte((byte)((m_gameClient.Player.IsCloakHoodUp ? 0x01 : 0x00) | (int)m_gameClient.Player.ActiveQuiverSlot)); //bit0 is hood up bit4 to 7 is active quiver
-				pak.WriteByte((byte)m_gameClient.Player.VisibleActiveWeaponSlots);
+				pak.WriteByte((byte)((_gameClient.Player.IsCloakHoodUp ? 0x01 : 0x00) | (int)_gameClient.Player.ActiveQuiverSlot)); //bit0 is hood up bit4 to 7 is active quiver
+				pak.WriteByte((byte)_gameClient.Player.VisibleActiveWeaponSlots);
 				pak.WriteByte((byte)windowType); //preAction (0x00 - Do nothing)
 				if (slots != null)
 				{
@@ -186,7 +186,7 @@ namespace DOL.GS.PacketHandler
 						else
 							pak.WriteByte((byte)(updatedSlot));
 						InventoryItem item = null;
-						item = m_gameClient.Player.Inventory.GetItem((eInventorySlot)updatedSlot);
+						item = _gameClient.Player.Inventory.GetItem((eInventorySlot)updatedSlot);
 	
 						if (item == null)
 						{
@@ -291,7 +291,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendLivingEquipmentUpdate(GameLiving living)
 		{
-			if (m_gameClient.Player == null || living.IsVisibleTo(m_gameClient.Player) == false)
+			if (_gameClient.Player == null || living.IsVisibleTo(_gameClient.Player) == false)
 				return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.EquipmentUpdate)))
@@ -391,7 +391,7 @@ namespace DOL.GS.PacketHandler
 			}
 			
 			// Update cache
-			m_gameClient.HouseUpdateArray[new Tuple<ushort, ushort>(house.RegionID, (ushort)house.HouseNumber)] = GameTimer.GetTickCount();
+			_gameClient.HouseUpdateArray[new Tuple<ushort, ushort>(house.RegionID, (ushort)house.HouseNumber)] = GameTimer.GetTickCount();
 		}
 
 		public override void SendEnterHouse(House house)

@@ -38,13 +38,13 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendGroupWindowUpdate()
 		{
-			if (m_gameClient.Player == null) return;
+			if (_gameClient.Player == null) return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.VariousUpdate)))
 			{
 				pak.WriteByte(0x06);
 	
-				Group group = m_gameClient.Player.Group;
+				Group group = _gameClient.Player.Group;
 				if (group == null)
 				{
 					pak.WriteByte(0x00);
@@ -61,7 +61,7 @@ namespace DOL.GS.PacketHandler
 				{
 					foreach (GameLiving living in group.GetMembersInTheGroup())
 					{
-						bool sameRegion = living.CurrentRegion == m_gameClient.Player.CurrentRegion;
+						bool sameRegion = living.CurrentRegion == _gameClient.Player.CurrentRegion;
 	
 						pak.WriteByte(living.Level);
 						if (sameRegion)
@@ -81,7 +81,7 @@ namespace DOL.GS.PacketHandler
 								playerStatus |= 0x08;
 							if (living is GamePlayer && ((GamePlayer)living).Client.ClientState == GameClient.eClientState.Linkdead)
 								playerStatus |= 0x10;
-							if (living.CurrentRegion != m_gameClient.Player.CurrentRegion)
+							if (living.CurrentRegion != _gameClient.Player.CurrentRegion)
 								playerStatus |= 0x20;
 	
 							pak.WriteByte(playerStatus);
@@ -106,7 +106,7 @@ namespace DOL.GS.PacketHandler
 		protected override void WriteGroupMemberUpdate(GSTCPPacketOut pak, bool updateIcons, GameLiving living)
 		{
 			pak.WriteByte((byte)(living.GroupIndex+1)); // From 1 to 8
-			bool sameRegion = living.CurrentRegion == m_gameClient.Player.CurrentRegion;
+			bool sameRegion = living.CurrentRegion == _gameClient.Player.CurrentRegion;
             GamePlayer player = null;
             if (sameRegion)
             {

@@ -63,9 +63,9 @@ namespace DOL.GS.PacketHandler
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.CharacterOverview)))
 			{
-				pak.FillString(m_gameClient.Account.Name, 24);
+				pak.FillString(_gameClient.Account.Name, 24);
 				IList<InventoryItem> items;
-				DOLCharacters[] characters = m_gameClient.Account.Characters;
+				DOLCharacters[] characters = _gameClient.Account.Characters;
 				if (characters == null)
 				{
 					pak.Fill(0x0, 1880);
@@ -117,7 +117,7 @@ namespace DOL.GS.PacketHandler
 								Region reg = WorldMgr.GetRegion((ushort)characters[j].Region);
 								if (reg != null)
 								{
-									var description = m_gameClient.GetTranslatedSpotDescription(reg, characters[j].Xpos, characters[j].Ypos, characters[j].Zpos);									
+									var description = _gameClient.GetTranslatedSpotDescription(reg, characters[j].Xpos, characters[j].Ypos, characters[j].Zpos);									
 									pak.FillString(description, 24);
 								}
 								else
@@ -133,14 +133,14 @@ namespace DOL.GS.PacketHandler
 									pak.FillString(((eCharacterClass)characters[j].Class).ToString(), 24); //Class name
 								}
 								//pak.FillString(GamePlayer.RACENAMES[characters[j].Race], 24);
-	                            pak.FillString(m_gameClient.RaceToTranslatedName(characters[j].Race, characters[j].Gender), 24);
+	                            pak.FillString(_gameClient.RaceToTranslatedName(characters[j].Race, characters[j].Gender), 24);
 								pak.WriteByte((byte)characters[j].Level);
 								pak.WriteByte((byte)characters[j].Class);
 								pak.WriteByte((byte)characters[j].Realm);
 								pak.WriteByte((byte)((((characters[j].Race & 0x10) << 2) + (characters[j].Race & 0x0F)) | (characters[j].Gender << 4))); // race max value can be 0x1F
 								pak.WriteShortLowEndian((ushort)characters[j].CurrentModel);
 								pak.WriteByte((byte)characters[j].Region);
-								if (reg == null || (int)m_gameClient.ClientType > reg.Expansion)
+								if (reg == null || (int)_gameClient.ClientType > reg.Expansion)
 									pak.WriteByte(0x00);
 								else
 									pak.WriteByte((byte)(reg.Expansion + 1)); //0x04-Cata zone, 0x05 - DR zone

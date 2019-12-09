@@ -364,7 +364,7 @@ namespace DOL.GS.PacketHandler
 					}
 				}
 
-				//buf = m_encoding.EncryptPacket(buf, false);
+				// m_encoding.EncryptPacket(buf.AsSpan(), false);
 
 				try
 				{
@@ -612,7 +612,7 @@ namespace DOL.GS.PacketHandler
 			//fill the udpCounter
 			buf[2] = (byte) (m_udpCounter >> 8);
 			buf[3] = (byte) m_udpCounter;
-			//buf = m_encoding.EncryptPacket(buf, true);
+			// m_encoding.EncryptPacket(buf, true);
 
 			Statistics.BytesOut += buf.Length;
 			Statistics.PacketsOut++;
@@ -760,7 +760,7 @@ namespace DOL.GS.PacketHandler
 					// **                                                               - tobz
 					//var curPacket = new byte[packetLength];
 					//Buffer.BlockCopy(buffer, curOffset, curPacket, 0, packetLength);
-					//curPacket = m_encoding.DecryptPacket(buffer, false);
+					// m_encoding.DecryptPacket(buffer.AsSpan(curOffset, packetLength), false);
 
 					int packetEnd = curOffset + packetLength;
 

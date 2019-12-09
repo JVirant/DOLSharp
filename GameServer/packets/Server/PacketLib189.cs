@@ -110,7 +110,7 @@ namespace DOL.GS.PacketHandler
 		/// <param name="windowType"></param>
 		public override void SendInventoryItemsUpdate(IDictionary<int, InventoryItem> updateItems, eInventoryWindowType windowType)
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 				return;
 			if (updateItems == null)
 				updateItems = new Dictionary<int, InventoryItem>();
@@ -149,16 +149,16 @@ namespace DOL.GS.PacketHandler
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.InventoryUpdate)))
 			{
-				GameVault houseVault = m_gameClient.Player.ActiveInventoryObject as GameVault;
+				GameVault houseVault = _gameClient.Player.ActiveInventoryObject as GameVault;
 				pak.WriteByte((byte)(items.Count));
 				pak.WriteByte(0x00); // new in 189b+, show shield in left hand
-				pak.WriteByte((byte)((m_gameClient.Player.IsCloakInvisible ? 0x01 : 0x00) | (m_gameClient.Player.IsHelmInvisible ? 0x02 : 0x00))); // new in 189b+, cloack/helm visibility
+				pak.WriteByte((byte)((_gameClient.Player.IsCloakInvisible ? 0x01 : 0x00) | (_gameClient.Player.IsHelmInvisible ? 0x02 : 0x00))); // new in 189b+, cloack/helm visibility
 				if (windowType == eInventoryWindowType.HouseVault && houseVault != null)
 					pak.WriteByte((byte)(houseVault.Index + 1));	// Add the vault number to the window caption
 				else
-					pak.WriteByte((byte)((m_gameClient.Player.IsCloakHoodUp ? 0x01 : 0x00) | (int)m_gameClient.Player.ActiveQuiverSlot)); //bit0 is hood up bit4 to 7 is active quiver
+					pak.WriteByte((byte)((_gameClient.Player.IsCloakHoodUp ? 0x01 : 0x00) | (int)_gameClient.Player.ActiveQuiverSlot)); //bit0 is hood up bit4 to 7 is active quiver
 				// ^ in 1.89b+, 0 bit - showing hooded cloack, if not hooded not show cloack at all ?
-				pak.WriteByte(m_gameClient.Player.VisibleActiveWeaponSlots);
+				pak.WriteByte(_gameClient.Player.VisibleActiveWeaponSlots);
 				pak.WriteByte((byte)windowType);
 				foreach (var entry in items)
 				{
@@ -179,11 +179,11 @@ namespace DOL.GS.PacketHandler
 		{
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.InventoryUpdate)))
 			{
-				GameVault houseVault = m_gameClient.Player.ActiveInventoryObject as GameVault;
+				GameVault houseVault = _gameClient.Player.ActiveInventoryObject as GameVault;
 	
 				pak.WriteByte((byte)(slots == null ? 0 : slots.Count));
 				pak.WriteByte(0); // CurrentSpeed & 0xFF (not used for player, only for NPC)
-				pak.WriteByte((byte)((m_gameClient.Player.IsCloakInvisible ? 0x01 : 0x00) | (m_gameClient.Player.IsHelmInvisible ? 0x02 : 0x00))); // new in 189b+, cloack/helm visibility
+				pak.WriteByte((byte)((_gameClient.Player.IsCloakInvisible ? 0x01 : 0x00) | (_gameClient.Player.IsHelmInvisible ? 0x02 : 0x00))); // new in 189b+, cloack/helm visibility
 	
 				if (windowType == eInventoryWindowType.HouseVault && houseVault != null)
 				{
@@ -191,10 +191,10 @@ namespace DOL.GS.PacketHandler
 				}
 				else
 				{
-					pak.WriteByte((byte)((m_gameClient.Player.IsCloakHoodUp ? 0x01 : 0x00) | (int)m_gameClient.Player.ActiveQuiverSlot)); //bit0 is hood up bit4 to 7 is active quiver
+					pak.WriteByte((byte)((_gameClient.Player.IsCloakHoodUp ? 0x01 : 0x00) | (int)_gameClient.Player.ActiveQuiverSlot)); //bit0 is hood up bit4 to 7 is active quiver
 				}
 	
-				pak.WriteByte((byte)m_gameClient.Player.VisibleActiveWeaponSlots);
+				pak.WriteByte((byte)_gameClient.Player.VisibleActiveWeaponSlots);
 				pak.WriteByte((byte)windowType);
 	
 				if (slots != null)
@@ -211,7 +211,7 @@ namespace DOL.GS.PacketHandler
 							pak.WriteByte((byte)(updatedSlot));
 						}
 	
-						WriteItemData(pak, m_gameClient.Player.Inventory.GetItem((eInventorySlot)(updatedSlot)));
+						WriteItemData(pak, _gameClient.Player.Inventory.GetItem((eInventorySlot)(updatedSlot)));
 					}
 				}
 	
@@ -324,7 +324,7 @@ namespace DOL.GS.PacketHandler
 
 			flag |= 0x02; // enable salvage button
 
-			AbstractCraftingSkill skill = CraftingMgr.getSkillbyEnum(m_gameClient.Player.CraftingPrimarySkill);
+			AbstractCraftingSkill skill = CraftingMgr.getSkillbyEnum(_gameClient.Player.CraftingPrimarySkill);
 			if (skill != null && skill is AdvancedCraftingSkill/* && ((AdvancedCraftingSkill)skill).IsAllowedToCombine(m_gameClient.Player, item)*/)
 			{
 				flag |= 0x04; // enable craft button
@@ -437,7 +437,7 @@ namespace DOL.GS.PacketHandler
 			}
 			
 			// Update cache
-			m_gameClient.HouseUpdateArray[new Tuple<ushort, ushort>(house.RegionID, (ushort)house.HouseNumber)] = GameTimer.GetTickCount();
+			_gameClient.HouseUpdateArray[new Tuple<ushort, ushort>(house.RegionID, (ushort)house.HouseNumber)] = GameTimer.GetTickCount();
 		}
 
 		public override void SendGarden(House house)
@@ -462,7 +462,7 @@ namespace DOL.GS.PacketHandler
 			}
 			
 			// Update cache
-			m_gameClient.HouseUpdateArray.UpdateIfExists(new Tuple<ushort, ushort>(house.RegionID, (ushort)house.HouseNumber), GameTimer.GetTickCount());
+			_gameClient.HouseUpdateArray.UpdateIfExists(new Tuple<ushort, ushort>(house.RegionID, (ushort)house.HouseNumber), GameTimer.GetTickCount());
 		}
 
 		public override void SendGarden(House house, int i)
@@ -482,7 +482,7 @@ namespace DOL.GS.PacketHandler
 			}
 			
 			// Update cache
-			m_gameClient.HouseUpdateArray.UpdateIfExists(new Tuple<ushort, ushort>(house.RegionID, (ushort)house.HouseNumber), GameTimer.GetTickCount());
+			_gameClient.HouseUpdateArray.UpdateIfExists(new Tuple<ushort, ushort>(house.RegionID, (ushort)house.HouseNumber), GameTimer.GetTickCount());
 		}
               
 
@@ -499,7 +499,7 @@ namespace DOL.GS.PacketHandler
 			}
 			
 			// Update cache
-			m_gameClient.HouseUpdateArray.UpdateIfExists(new Tuple<ushort, ushort>(house.RegionID, (ushort)house.HouseNumber), GameTimer.GetTickCount());
+			_gameClient.HouseUpdateArray.UpdateIfExists(new Tuple<ushort, ushort>(house.RegionID, (ushort)house.HouseNumber), GameTimer.GetTickCount());
 		}
 
 		public override void SendEnterHouse(House house)

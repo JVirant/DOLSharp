@@ -62,9 +62,9 @@ namespace DOL.GS.PacketHandler
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.CharacterOverview)))
 			{
-				pak.FillString(m_gameClient.Account.Name, 24);
+				pak.FillString(_gameClient.Account.Name, 24);
 				IList<InventoryItem> items;
-				DOLCharacters[] characters = m_gameClient.Account.Characters;
+				DOLCharacters[] characters = _gameClient.Account.Characters;
 				if (characters == null)
 				{
 					pak.Fill(0x0, 1840);
@@ -118,7 +118,7 @@ namespace DOL.GS.PacketHandler
 								Region reg = WorldMgr.GetRegion((ushort)characters[j].Region);
 								if (reg != null)
 								{
-									var description = m_gameClient.GetTranslatedSpotDescription(reg, characters[j].Xpos, characters[j].Ypos, characters[j].Zpos);
+									var description = _gameClient.GetTranslatedSpotDescription(reg, characters[j].Xpos, characters[j].Ypos, characters[j].Zpos);
 									pak.FillString(description, 24);
 								}
 								else
@@ -130,14 +130,14 @@ namespace DOL.GS.PacketHandler
 									pak.FillString(((eCharacterClass)characters[j].Class).ToString(), 24); //Class name
 	
 								//pak.FillString(GamePlayer.RACENAMES[characters[j].Race], 24);
-	                            pak.FillString(m_gameClient.RaceToTranslatedName(characters[j].Race, characters[j].Gender), 24);
+	                            pak.FillString(_gameClient.RaceToTranslatedName(characters[j].Race, characters[j].Gender), 24);
 								pak.WriteByte((byte)characters[j].Level);
 								pak.WriteByte((byte)characters[j].Class);
 								pak.WriteByte((byte)characters[j].Realm);
 								pak.WriteByte((byte)((((characters[j].Race & 0x10) << 2) + (characters[j].Race & 0x0F)) | (characters[j].Gender << 4))); // race max value can be 0x1F
 								pak.WriteShortLowEndian((ushort)characters[j].CurrentModel);
 								pak.WriteByte((byte)characters[j].Region);
-								if (reg == null || (int)m_gameClient.ClientType > reg.Expansion)
+								if (reg == null || (int)_gameClient.ClientType > reg.Expansion)
 									pak.WriteByte(0x00);
 								else
 									pak.WriteByte((byte)(reg.Expansion + 1)); //0x04-Cata zone, 0x05 - DR zone
@@ -276,7 +276,7 @@ namespace DOL.GS.PacketHandler
 				return;
 			}
 
-			if (m_gameClient.Player == null || playerToCreate.IsVisibleTo(m_gameClient.Player) == false)
+			if (_gameClient.Player == null || playerToCreate.IsVisibleTo(_gameClient.Player) == false)
 				return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.PlayerCreate172)))
@@ -295,12 +295,12 @@ namespace DOL.GS.PacketHandler
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.LipSize)); //1-4 = Ear size / 5-8 = Kin size
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.MoodType)); //1-4 = Ear size / 5-8 = Kin size
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.EyeColor)); //1-4 = Skin Color / 5-8 = Eye Color
-				pak.WriteByte(playerToCreate.GetDisplayLevel(m_gameClient.Player));
+				pak.WriteByte(playerToCreate.GetDisplayLevel(_gameClient.Player));
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.HairColor)); //Hair: 1-4 = Color / 5-8 = unknown
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.FaceType)); //1-4 = Unknown / 5-8 = Face type
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.HairStyle)); //1-4 = Unknown / 5-8 = Hair Style
 	
-				int flags = (GameServer.ServerRules.GetLivingRealm(m_gameClient.Player, playerToCreate) & 0x03) << 2;
+				int flags = (GameServer.ServerRules.GetLivingRealm(_gameClient.Player, playerToCreate) & 0x03) << 2;
 				if (playerToCreate.IsAlive == false) flags |= 0x01;
 				if (playerToCreate.IsUnderwater) flags |= 0x02; //swimming
 				if (playerToCreate.IsStealthed) flags |= 0x10;
@@ -308,39 +308,39 @@ namespace DOL.GS.PacketHandler
 				pak.WriteByte((byte)flags);
 				pak.WriteByte(0x00); // new in 1.74
 				if (playerToCreate.CharacterClass.ID == (int)eCharacterClass.Vampiir) flags |= 0x40; //Vamp fly
-				pak.WritePascalString(GameServer.ServerRules.GetPlayerName(m_gameClient.Player, playerToCreate));
-				pak.WritePascalString(GameServer.ServerRules.GetPlayerGuildName(m_gameClient.Player, playerToCreate));
-				pak.WritePascalString(GameServer.ServerRules.GetPlayerLastName(m_gameClient.Player, playerToCreate));
+				pak.WritePascalString(GameServer.ServerRules.GetPlayerName(_gameClient.Player, playerToCreate));
+				pak.WritePascalString(GameServer.ServerRules.GetPlayerGuildName(_gameClient.Player, playerToCreate));
+				pak.WritePascalString(GameServer.ServerRules.GetPlayerLastName(_gameClient.Player, playerToCreate));
 	            //RR 12 / 13
-	            pak.WritePascalString(GameServer.ServerRules.GetPlayerPrefixName(m_gameClient.Player, playerToCreate));
-	            pak.WritePascalString(GameServer.ServerRules.GetPlayerTitle(m_gameClient.Player, playerToCreate)); // new in 1.74, NewTitle
+	            pak.WritePascalString(GameServer.ServerRules.GetPlayerPrefixName(_gameClient.Player, playerToCreate));
+	            pak.WritePascalString(GameServer.ServerRules.GetPlayerTitle(_gameClient.Player, playerToCreate)); // new in 1.74, NewTitle
 				SendTCP(pak);
 			}
 			
 			// Update Cache
-			m_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(playerToCreate.CurrentRegionID, (ushort)playerToCreate.ObjectID)] = GameTimer.GetTickCount();
+			_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(playerToCreate.CurrentRegionID, (ushort)playerToCreate.ObjectID)] = GameTimer.GetTickCount();
 			
 			SendObjectGuildID(playerToCreate, playerToCreate.Guild); //used for nearest friendly/enemy object buttons and name colors on PvP server
 		}
 
 		public override void SendPlayerPositionAndObjectID()
 		{
-			if (m_gameClient.Player == null) return;
+			if (_gameClient.Player == null) return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.PositionAndObjectID)))
 			{
-				pak.WriteShort((ushort)m_gameClient.Player.ObjectID); //This is the player's objectid not Sessionid!!!
-				pak.WriteShort((ushort)m_gameClient.Player.Z);
-				pak.WriteInt((uint)m_gameClient.Player.X);
-				pak.WriteInt((uint)m_gameClient.Player.Y);
-				pak.WriteShort(m_gameClient.Player.Heading);
+				pak.WriteShort((ushort)_gameClient.Player.ObjectID); //This is the player's objectid not Sessionid!!!
+				pak.WriteShort((ushort)_gameClient.Player.Z);
+				pak.WriteInt((uint)_gameClient.Player.X);
+				pak.WriteInt((uint)_gameClient.Player.Y);
+				pak.WriteShort(_gameClient.Player.Heading);
 	
 				int flags = 0;
-				Zone zone = m_gameClient.Player.CurrentZone;
+				Zone zone = _gameClient.Player.CurrentZone;
 				if (zone == null) return;
 	
-				if (m_gameClient.Player.CurrentZone.IsDivingEnabled)
-					flags = 0x80 | (m_gameClient.Player.IsUnderwater ? 0x01 : 0x00);
+				if (_gameClient.Player.CurrentZone.IsDivingEnabled)
+					flags = 0x80 | (_gameClient.Player.IsUnderwater ? 0x01 : 0x00);
 	
 				pak.WriteByte((byte)(flags));
 	
@@ -357,7 +357,7 @@ namespace DOL.GS.PacketHandler
 					pak.WriteShort(0);
 				}
 	            //Dinberg - Changing to allow instances...
-	            pak.WriteShort(m_gameClient.Player.CurrentRegion.Skin);
+	            pak.WriteShort(_gameClient.Player.CurrentRegion.Skin);
 				pak.WritePascalString(GameServer.Instance.Configuration.ServerNameShort); // new in 1.74, same as in SendLoginGranted
 				pak.WriteByte(0x00); //TODO: unknown, new in 1.74
 				SendTCP(pak);
@@ -372,7 +372,7 @@ namespace DOL.GS.PacketHandler
 
 		protected virtual void WriteGroupMemberMapUpdate(GSTCPPacketOut pak, GameLiving living)
 		{
-			bool sameRegion = living.CurrentRegion == m_gameClient.Player.CurrentRegion;
+			bool sameRegion = living.CurrentRegion == _gameClient.Player.CurrentRegion;
 			if (sameRegion && living.CurrentSpeed != 0)//todo : find a better way to detect when player change coord
 			{
 				Zone zone = living.CurrentZone;
@@ -388,16 +388,16 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendRegionChanged()
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 				return;
 			SendRegions();
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.RegionChanged)))
 			{
 	            //Dinberg - Changing to allow instances...
-	            pak.WriteShort(m_gameClient.Player.CurrentRegion.Skin);
+	            pak.WriteShort(_gameClient.Player.CurrentRegion.Skin);
 	            //Dinberg:Instances - also need to continue the bluff here, with zoneSkinID, for 
 	            //clientside positions of objects.
-				pak.WriteShort(m_gameClient.Player.CurrentZone.ZoneSkinID); // Zone ID?
+				pak.WriteShort(_gameClient.Player.CurrentZone.ZoneSkinID); // Zone ID?
 				pak.WriteShort(0x00); // ?
 				pak.WriteShort(0x01); // cause region change ?
 				pak.WriteByte(0x0C); //Server ID
@@ -442,7 +442,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendWarmapBonuses()
 		{
-			if (m_gameClient.Player == null) return;
+			if (_gameClient.Player == null) return;
 			int AlbTowers = 0;
 			int MidTowers = 0;
 			int HibTowers = 0;
@@ -497,7 +497,7 @@ namespace DOL.GS.PacketHandler
 			{
 				int RealmKeeps = 0;
 				int RealmTowers = 0;
-				switch ((eRealm)m_gameClient.Player.Realm)
+				switch ((eRealm)_gameClient.Player.Realm)
 				{
 					case eRealm.Albion:
 						RealmKeeps = AlbKeeps;
@@ -515,7 +515,7 @@ namespace DOL.GS.PacketHandler
 						break;
 				}
 				pak.WriteByte((byte)RealmKeeps);
-				pak.WriteByte((byte)(((byte)RelicMgr.GetRelicCount(m_gameClient.Player.Realm, eRelicType.Magic)) << 4 | (byte)RelicMgr.GetRelicCount(m_gameClient.Player.Realm, eRelicType.Strength)));
+				pak.WriteByte((byte)(((byte)RelicMgr.GetRelicCount(_gameClient.Player.Realm, eRelicType.Magic)) << 4 | (byte)RelicMgr.GetRelicCount(_gameClient.Player.Realm, eRelicType.Strength)));
 				pak.WriteByte((byte)OwnerDF);
 				pak.WriteByte((byte)RealmTowers);
 				pak.WriteByte((byte)OwnerDFTowers);
@@ -524,7 +524,7 @@ namespace DOL.GS.PacketHandler
 		}
 		public override void SendLivingEquipmentUpdate(GameLiving living)
 		{
-			if (m_gameClient.Player == null || living.IsVisibleTo(m_gameClient.Player) == false)
+			if (_gameClient.Player == null || living.IsVisibleTo(_gameClient.Player) == false)
 				return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.EquipmentUpdate)))
@@ -578,7 +578,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendVampireEffect(GameLiving living, bool show)
 		{
-			if (m_gameClient.Player == null || living == null)
+			if (_gameClient.Player == null || living == null)
 				return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.VisualEffect)))

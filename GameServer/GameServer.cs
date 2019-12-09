@@ -428,6 +428,7 @@ namespace DOL.GS
 							receiving = true;
 
 							client = WorldMgr.GetClientFromID(pakin.SessionID);
+							log.Debug(Marshal.ToHexDump($"{client.Player.Name}: UDP buffer dump, received {read}bytes", server.UDPBuffer, 0, read));
 
 							if (client != null)
 							{

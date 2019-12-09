@@ -65,14 +65,14 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendPlayerTitles()
 		{
-			var titles = m_gameClient.Player.Titles;
+			var titles = _gameClient.Player.Titles;
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.DetailWindow)))
 			{
 				pak.WriteByte(1); // new in 1.75
 				pak.WritePascalString("Player Statistics"); //window caption
 	
 				byte line = 1;
-				foreach (string str in m_gameClient.Player.FormatStatistics())
+				foreach (string str in _gameClient.Player.FormatStatistics())
 				{
 					pak.WriteByte(line++);
 					pak.WritePascalString(str);
@@ -86,11 +86,11 @@ namespace DOL.GS.PacketHandler
 				foreach (IPlayerTitle title in titles)
 				{
 					pak.WriteByte(line++);
-					pak.WritePascalString(title.GetDescription(m_gameClient.Player));
+					pak.WritePascalString(title.GetDescription(_gameClient.Player));
 				}
 				long titlesLen = (pak.Position - titlesCountPos - 1); // include titles count
 				if (titlesLen > byte.MaxValue)
-					log.WarnFormat("Titles block is too long! {0} (player: {1})", titlesLen, m_gameClient.Player);
+					log.WarnFormat("Titles block is too long! {0} (player: {1})", titlesLen, _gameClient.Player);
 				//Trailing Zero!
 				pak.WriteByte(0);
 				//Set titles length
@@ -115,7 +115,7 @@ namespace DOL.GS.PacketHandler
 				else
 				{
 					pak.WriteByte(1); // flag
-					string val = GameServer.ServerRules.GetPlayerTitle(m_gameClient.Player, player);
+					string val = GameServer.ServerRules.GetPlayerTitle(_gameClient.Player, player);
 					pak.WriteShort((ushort) val.Length);
 					pak.WriteShort(0); // unk1
 					pak.WriteStringBytes(val);
@@ -126,7 +126,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendUpdatePlayer()
 		{
-			GamePlayer player = m_gameClient.Player;
+			GamePlayer player = _gameClient.Player;
 			if (player == null)
 				return;
 
@@ -138,7 +138,7 @@ namespace DOL.GS.PacketHandler
 				pak.WriteByte(0x00); //unk
 				//entry :
 	
-				pak.WriteByte(player.GetDisplayLevel(m_gameClient.Player)); //level
+				pak.WriteByte(player.GetDisplayLevel(_gameClient.Player)); //level
 				pak.WritePascalString(player.Name);
 	
 				pak.WriteByte((byte) (player.MaxHealth >> 8)); // maxhealth high byte ?
@@ -200,7 +200,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendCharStatsUpdate()
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 				return;
 
 			eStat[] updateStats =
@@ -219,42 +219,42 @@ namespace DOL.GS.PacketHandler
 			int[] modStats = new int[updateStats.Length];
 			int[] itemCaps = new int[updateStats.Length];
 
-			int itemCap = (int)(m_gameClient.Player.Level * 1.5);
-			int bonusCap = (int)(m_gameClient.Player.Level/2 + 1);
+			int itemCap = (int)(_gameClient.Player.Level * 1.5);
+			int bonusCap = (int)(_gameClient.Player.Level/2 + 1);
 			for (int i = 0; i < updateStats.Length; i++)
 			{
 				int cap = itemCap;
 				switch ((eProperty)updateStats[i])
 				{
 					case eProperty.Strength:
-						cap += m_gameClient.Player.ItemBonus[(int)eProperty.StrCapBonus];
+						cap += _gameClient.Player.ItemBonus[(int)eProperty.StrCapBonus];
 						break;
 					case eProperty.Dexterity:
-						cap += m_gameClient.Player.ItemBonus[(int)eProperty.DexCapBonus];
+						cap += _gameClient.Player.ItemBonus[(int)eProperty.DexCapBonus];
 						break;
 					case eProperty.Constitution:
-						cap += m_gameClient.Player.ItemBonus[(int)eProperty.ConCapBonus];
+						cap += _gameClient.Player.ItemBonus[(int)eProperty.ConCapBonus];
 						break;
 					case eProperty.Quickness:
-						cap += m_gameClient.Player.ItemBonus[(int)eProperty.QuiCapBonus];
+						cap += _gameClient.Player.ItemBonus[(int)eProperty.QuiCapBonus];
 						break;
 					case eProperty.Intelligence:
-						cap += m_gameClient.Player.ItemBonus[(int)eProperty.IntCapBonus];
+						cap += _gameClient.Player.ItemBonus[(int)eProperty.IntCapBonus];
 						break;
 					case eProperty.Piety:
-						cap += m_gameClient.Player.ItemBonus[(int)eProperty.PieCapBonus];
+						cap += _gameClient.Player.ItemBonus[(int)eProperty.PieCapBonus];
 						break;
 					case eProperty.Charisma:
-						cap += m_gameClient.Player.ItemBonus[(int)eProperty.ChaCapBonus];
+						cap += _gameClient.Player.ItemBonus[(int)eProperty.ChaCapBonus];
 						break;
 					case eProperty.Empathy:
-						cap += m_gameClient.Player.ItemBonus[(int)eProperty.EmpCapBonus];
+						cap += _gameClient.Player.ItemBonus[(int)eProperty.EmpCapBonus];
 						break;
 					default: break;
 				}
 
-				if( updateStats[i] == m_gameClient.Player.CharacterClass.ManaStat )
-					cap += m_gameClient.Player.ItemBonus[(int)eProperty.AcuCapBonus];
+				if( updateStats[i] == _gameClient.Player.CharacterClass.ManaStat )
+					cap += _gameClient.Player.ItemBonus[(int)eProperty.AcuCapBonus];
 
     			itemCaps[i] = Math.Min(cap, itemCap + bonusCap);
 			}
@@ -266,10 +266,10 @@ namespace DOL.GS.PacketHandler
 				// base
 				for (int i = 0; i < updateStats.Length; i++)
 				{
-					baseStats[i] = m_gameClient.Player.GetBaseStat(updateStats[i]);
+					baseStats[i] = _gameClient.Player.GetBaseStat(updateStats[i]);
 					
 					if (updateStats[i] == eStat.CON)
-						baseStats[i] -= m_gameClient.Player.TotalConstitutionLostAtDeath;
+						baseStats[i] -= _gameClient.Player.TotalConstitutionLostAtDeath;
 					
 					pak.WriteShort((ushort)baseStats[i]);
 				}
@@ -279,25 +279,25 @@ namespace DOL.GS.PacketHandler
 				// buffs/debuffs only; remove base, item bonus, RA bonus, class bonus
 				for (int i = 0; i < updateStats.Length; i++)
 				{
-					modStats[i] = m_gameClient.Player.GetModified((eProperty)updateStats[i]);
+					modStats[i] = _gameClient.Player.GetModified((eProperty)updateStats[i]);
 	
-					int abilityBonus = m_gameClient.Player.AbilityBonus[(int)updateStats[i]];
+					int abilityBonus = _gameClient.Player.AbilityBonus[(int)updateStats[i]];
 	
 					int acuityItemBonus = 0;
-					if ( updateStats[i] ==  m_gameClient.Player.CharacterClass.ManaStat )
+					if ( updateStats[i] ==  _gameClient.Player.CharacterClass.ManaStat )
 					{
-						if (m_gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Scout && m_gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Hunter && m_gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Ranger)
+						if (_gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Scout && _gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Hunter && _gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Ranger)
 						{
-							abilityBonus += m_gameClient.Player.AbilityBonus[(int)eProperty.Acuity];
+							abilityBonus += _gameClient.Player.AbilityBonus[(int)eProperty.Acuity];
 	
-							if (m_gameClient.Player.CharacterClass.ClassType != eClassType.PureTank)
-								acuityItemBonus = m_gameClient.Player.ItemBonus[(int)eProperty.Acuity];
+							if (_gameClient.Player.CharacterClass.ClassType != eClassType.PureTank)
+								acuityItemBonus = _gameClient.Player.ItemBonus[(int)eProperty.Acuity];
 						}
 					}
 	
 					int buff = modStats[i] - baseStats[i];
 					buff -= abilityBonus;
-					buff -= Math.Min( itemCaps[i], m_gameClient.Player.ItemBonus[(int)updateStats[i]] + acuityItemBonus );
+					buff -= Math.Min( itemCaps[i], _gameClient.Player.ItemBonus[(int)updateStats[i]] + acuityItemBonus );
 	
 					pak.WriteShort((ushort)buff);
 				}
@@ -309,17 +309,17 @@ namespace DOL.GS.PacketHandler
 				{
 					int acuityItemBonus = 0;
 	
-					if( updateStats[i] == m_gameClient.Player.CharacterClass.ManaStat )
+					if( updateStats[i] == _gameClient.Player.CharacterClass.ManaStat )
 					{
-						if (m_gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Scout && m_gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Hunter && m_gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Ranger)
+						if (_gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Scout && _gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Hunter && _gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Ranger)
 						{
 	
-							if (m_gameClient.Player.CharacterClass.ClassType != eClassType.PureTank)
-								acuityItemBonus = m_gameClient.Player.ItemBonus[(int)eProperty.Acuity];
+							if (_gameClient.Player.CharacterClass.ClassType != eClassType.PureTank)
+								acuityItemBonus = _gameClient.Player.ItemBonus[(int)eProperty.Acuity];
 						}
 					}
 	
-					pak.WriteShort( (ushort)(m_gameClient.Player.ItemBonus[(int)updateStats[i]] + acuityItemBonus) );
+					pak.WriteShort( (ushort)(_gameClient.Player.ItemBonus[(int)updateStats[i]] + acuityItemBonus) );
 				}
 	
 				pak.WriteShort(0);
@@ -336,14 +336,14 @@ namespace DOL.GS.PacketHandler
 				for (int i = 0; i < updateStats.Length; i++)
 				{
 					int acuityItemBonus = 0;
-					if (m_gameClient.Player.CharacterClass.ClassType != eClassType.PureTank && (int)updateStats[i] == (int)m_gameClient.Player.CharacterClass.ManaStat)
+					if (_gameClient.Player.CharacterClass.ClassType != eClassType.PureTank && (int)updateStats[i] == (int)_gameClient.Player.CharacterClass.ManaStat)
 					{
-						if (m_gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Scout && m_gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Hunter && m_gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Ranger)
+						if (_gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Scout && _gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Hunter && _gameClient.Player.CharacterClass.ID != (int)eCharacterClass.Ranger)
 						{
-							acuityItemBonus = m_gameClient.Player.AbilityBonus[(int)eProperty.Acuity];
+							acuityItemBonus = _gameClient.Player.AbilityBonus[(int)eProperty.Acuity];
 						}
 					}
-					pak.WriteByte((byte)(m_gameClient.Player.AbilityBonus[(int)updateStats[i]] + acuityItemBonus));
+					pak.WriteByte((byte)(_gameClient.Player.AbilityBonus[(int)updateStats[i]] + acuityItemBonus));
 				}
 	
 				pak.WriteByte(0);
@@ -354,8 +354,8 @@ namespace DOL.GS.PacketHandler
 				//	pak.WriteByte((byte)(m_gameClient.Player.Level - 5)); // Vampire bonuses
 				//else
 				pak.WriteByte(0x00); // FF if resists packet
-				pak.WriteByte((byte) m_gameClient.Player.TotalConstitutionLostAtDeath);
-				pak.WriteShort((ushort) m_gameClient.Player.MaxHealth);
+				pak.WriteByte((byte) _gameClient.Player.TotalConstitutionLostAtDeath);
+				pak.WriteShort((ushort) _gameClient.Player.MaxHealth);
 				pak.WriteShort(0);
 	
 				SendTCP(pak);
@@ -364,7 +364,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendCharResistsUpdate()
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 				return;
 
 			eResist[] updateResists =
@@ -383,7 +383,7 @@ namespace DOL.GS.PacketHandler
 			int[] racial = new int[updateResists.Length];
 			int[] caps = new int[updateResists.Length];
 
-			int cap = (m_gameClient.Player.Level>>1) + 1;
+			int cap = (_gameClient.Player.Level>>1) + 1;
 			for (int i = 0; i < updateResists.Length; i++)
 			{
 				caps[i] = cap;
@@ -396,22 +396,22 @@ namespace DOL.GS.PacketHandler
 				// racial resists
 				for (int i = 0; i < updateResists.Length; i++)
 				{
-					racial[i] = SkillBase.GetRaceResist(m_gameClient.Player.Race, updateResists[i]);
+					racial[i] = SkillBase.GetRaceResist(_gameClient.Player.Race, updateResists[i]);
 					pak.WriteShort((ushort)racial[i]);
 				}
 	
 				// buffs/debuffs only; remove base, item bonus, RA bonus, race bonus
 				for (int i = 0; i < updateResists.Length; i++)
 				{
-					int mod = m_gameClient.Player.GetModified((eProperty)updateResists[i]);
-					int buff = mod - racial[i] - m_gameClient.Player.AbilityBonus[(int)updateResists[i]] - Math.Min(caps[i], m_gameClient.Player.ItemBonus[(int)updateResists[i]]);
+					int mod = _gameClient.Player.GetModified((eProperty)updateResists[i]);
+					int buff = mod - racial[i] - _gameClient.Player.AbilityBonus[(int)updateResists[i]] - Math.Min(caps[i], _gameClient.Player.ItemBonus[(int)updateResists[i]]);
 					pak.WriteShort((ushort)buff);
 				}
 	
 				// item bonuses
 				for (int i = 0; i < updateResists.Length; i++)
 				{
-					pak.WriteShort((ushort)(m_gameClient.Player.ItemBonus[(int)updateResists[i]]));
+					pak.WriteShort((ushort)(_gameClient.Player.ItemBonus[(int)updateResists[i]]));
 				}
 	
 				// item caps
@@ -423,7 +423,7 @@ namespace DOL.GS.PacketHandler
 				// RA bonuses
 				for (int i = 0; i < updateResists.Length; i++)
 				{
-					pak.WriteByte((byte)(m_gameClient.Player.AbilityBonus[(int)updateResists[i]]));
+					pak.WriteByte((byte)(_gameClient.Player.AbilityBonus[(int)updateResists[i]]));
 				}
 	
 				pak.WriteByte(0xFF); // FF if resists packet
@@ -453,7 +453,7 @@ namespace DOL.GS.PacketHandler
 				return;
 			}
 
-			if (m_gameClient.Player == null || playerToCreate.IsVisibleTo(m_gameClient.Player) == false)
+			if (_gameClient.Player == null || playerToCreate.IsVisibleTo(_gameClient.Player) == false)
 				return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.PlayerCreate172)))
@@ -472,12 +472,12 @@ namespace DOL.GS.PacketHandler
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.LipSize)); //1-4 = Ear size / 5-8 = Kin size
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.MoodType)); //1-4 = Ear size / 5-8 = Kin size
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.EyeColor)); //1-4 = Skin Color / 5-8 = Eye Color
-				pak.WriteByte(playerToCreate.GetDisplayLevel(m_gameClient.Player));
+				pak.WriteByte(playerToCreate.GetDisplayLevel(_gameClient.Player));
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.HairColor)); //Hair: 1-4 = Color / 5-8 = unknown
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.FaceType)); //1-4 = Unknown / 5-8 = Face type
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.HairStyle)); //1-4 = Unknown / 5-8 = Hair Style
 	
-				int flags = (GameServer.ServerRules.GetLivingRealm(m_gameClient.Player, playerToCreate) & 0x03) << 2;
+				int flags = (GameServer.ServerRules.GetLivingRealm(_gameClient.Player, playerToCreate) & 0x03) << 2;
 				if (playerToCreate.IsAlive == false) flags |= 0x01;
 				if (playerToCreate.IsUnderwater) flags |= 0x02; //swimming
 				if (playerToCreate.IsStealthed)  flags |= 0x10;
@@ -486,18 +486,18 @@ namespace DOL.GS.PacketHandler
 				pak.WriteByte((byte)flags);
 				pak.WriteByte(0x00); // new in 1.74
 	
-				pak.WritePascalString(GameServer.ServerRules.GetPlayerName(m_gameClient.Player, playerToCreate));
-				pak.WritePascalString(GameServer.ServerRules.GetPlayerGuildName(m_gameClient.Player, playerToCreate));
-				pak.WritePascalString(GameServer.ServerRules.GetPlayerLastName(m_gameClient.Player, playerToCreate));
+				pak.WritePascalString(GameServer.ServerRules.GetPlayerName(_gameClient.Player, playerToCreate));
+				pak.WritePascalString(GameServer.ServerRules.GetPlayerGuildName(_gameClient.Player, playerToCreate));
+				pak.WritePascalString(GameServer.ServerRules.GetPlayerLastName(_gameClient.Player, playerToCreate));
 	            //RR 12 / 13
-	            pak.WritePascalString(GameServer.ServerRules.GetPlayerPrefixName(m_gameClient.Player, playerToCreate));
-	            pak.WritePascalString(GameServer.ServerRules.GetPlayerTitle(m_gameClient.Player, playerToCreate)); // new in 1.74, NewTitle
+	            pak.WritePascalString(GameServer.ServerRules.GetPlayerPrefixName(_gameClient.Player, playerToCreate));
+	            pak.WritePascalString(GameServer.ServerRules.GetPlayerTitle(_gameClient.Player, playerToCreate)); // new in 1.74, NewTitle
 				pak.WriteByte(0x00); // new in 1.75
 				SendTCP(pak);
 			}
 			
 			// Update Cache
-			m_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(playerToCreate.CurrentRegionID, (ushort)playerToCreate.ObjectID)] = GameTimer.GetTickCount();
+			_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(playerToCreate.CurrentRegionID, (ushort)playerToCreate.ObjectID)] = GameTimer.GetTickCount();
 			
 			SendObjectGuildID(playerToCreate, playerToCreate.Guild); //used for nearest friendly/enemy object buttons and name colors on PvP server
 		}
@@ -507,11 +507,11 @@ namespace DOL.GS.PacketHandler
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.LoginGranted)))
 			{
 				pak.WriteByte(0x01); //isSI
-				pak.WriteByte(ParseVersion((int)m_gameClient.Version, true));
-				pak.WriteByte(ParseVersion((int)m_gameClient.Version, false));
+				pak.WriteByte(ParseVersion((int)_gameClient.Version, true));
+				pak.WriteByte(ParseVersion((int)_gameClient.Version, false));
 				//pak.WriteByte(build);
 				pak.WriteByte(0x00);
-				pak.WritePascalString(m_gameClient.Account.Name);
+				pak.WritePascalString(_gameClient.Account.Name);
 				pak.WritePascalString(GameServer.Instance.Configuration.ServerNameShort); //server name
 				pak.WriteByte(0x0C); //Server ID
 				pak.WriteByte(color);
@@ -525,13 +525,13 @@ namespace DOL.GS.PacketHandler
         {
             //[Freya] Nidel: Can use realm button in character selection screen
 
-            if (ServerProperties.Properties.ALLOW_ALL_REALMS || m_gameClient.Account.PrivLevel > (int)ePrivLevel.Player)
+            if (ServerProperties.Properties.ALLOW_ALL_REALMS || _gameClient.Account.PrivLevel > (int)ePrivLevel.Player)
             {
                 SendLoginGranted(1);
             }
             else
             {
-                SendLoginGranted(GameServer.ServerRules.GetColorHandling(m_gameClient));
+                SendLoginGranted(GameServer.ServerRules.GetColorHandling(_gameClient));
             }
         }
     }

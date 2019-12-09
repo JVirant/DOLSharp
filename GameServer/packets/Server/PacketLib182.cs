@@ -47,8 +47,8 @@ namespace DOL.GS.PacketHandler
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.InventoryUpdate)))
 			{
 				pak.WriteByte((byte)(slots == null ? 0 : slots.Count));
-				pak.WriteByte((byte)((m_gameClient.Player.IsCloakHoodUp ? 0x01 : 0x00) | (int)m_gameClient.Player.ActiveQuiverSlot)); //bit0 is hood up bit4 to 7 is active quiver
-				pak.WriteByte((byte)m_gameClient.Player.VisibleActiveWeaponSlots);
+				pak.WriteByte((byte)((_gameClient.Player.IsCloakHoodUp ? 0x01 : 0x00) | (int)_gameClient.Player.ActiveQuiverSlot)); //bit0 is hood up bit4 to 7 is active quiver
+				pak.WriteByte((byte)_gameClient.Player.VisibleActiveWeaponSlots);
 				pak.WriteByte((byte)windowType);
 				if (slots != null)
 				{
@@ -60,7 +60,7 @@ namespace DOL.GS.PacketHandler
 							pak.WriteByte((byte)(updatedSlot));
 	
 						InventoryItem item = null;
-						item = m_gameClient.Player.Inventory.GetItem((eInventorySlot)updatedSlot);
+						item = _gameClient.Player.Inventory.GetItem((eInventorySlot)updatedSlot);
 	
 						if (item == null)
 						{
@@ -143,7 +143,7 @@ namespace DOL.GS.PacketHandler
 							pak.WriteShort((ushort)item.Color);
 	//						flag |= 0x01; // newGuildEmblem
 							flag |= 0x02; // enable salvage button
-						AbstractCraftingSkill skill = CraftingMgr.getSkillbyEnum(m_gameClient.Player.CraftingPrimarySkill);
+						AbstractCraftingSkill skill = CraftingMgr.getSkillbyEnum(_gameClient.Player.CraftingPrimarySkill);
 						if (skill != null && skill is AdvancedCraftingSkill/* && ((AdvancedCraftingSkill)skill).IsAllowedToCombine(m_gameClient.Player, item)*/)
 							flag |= 0x04; // enable craft button
 						ushort icon1 = 0;

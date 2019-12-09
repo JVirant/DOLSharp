@@ -47,11 +47,11 @@ namespace DOL.GS.PacketHandler
         
 		public override void SendUpdatePlayerSkills()
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 				return;
 			
 			// Get Skills as "Usable Skills" which are in network order ! (with forced update)
-			List<Tuple<Skill, Skill>> usableSkills = m_gameClient.Player.GetAllUsableSkills(true);
+			List<Tuple<Skill, Skill>> usableSkills = _gameClient.Player.GetAllUsableSkills(true);
 			
 			bool sent = false; // set to true once we can't send packet anymore !
 			int index = 0; // index of our position in the list !
@@ -89,7 +89,7 @@ namespace DOL.GS.PacketHandler
 							pak.WriteShort((ushort)spec.InternalID); //new 1.112
 							pak.WriteByte((byte)spec.SkillType);
 							pak.WriteShort(0);
-							pak.WriteByte((byte)(m_gameClient.Player.GetModifiedSpecLevel(spec.KeyName) - spec.Level)); // bonus
+							pak.WriteByte((byte)(_gameClient.Player.GetModifiedSpecLevel(spec.KeyName) - spec.Level)); // bonus
 							pak.WriteShort((ushort)spec.Icon);
 							pak.WritePascalString(spec.Name);
 						}
@@ -204,7 +204,7 @@ namespace DOL.GS.PacketHandler
 			// Send List Cast Spells...
 			SendNonHybridSpellLines();
 			// clear trainer cache
-			m_gameClient.TrainerSkillCache = null;
+			_gameClient.TrainerSkillCache = null;
 			
 			if (ForceTooltipUpdate)
 				SendForceTooltipUpdate(usableSkills.Select(t => t.Item1));
@@ -215,7 +215,7 @@ namespace DOL.GS.PacketHandler
 		/// </summary>
 		public override void SendNonHybridSpellLines()
 		{
-			GamePlayer player = m_gameClient.Player;
+			GamePlayer player = _gameClient.Player;
 			if (player == null)
 				return;
 
@@ -468,7 +468,7 @@ namespace DOL.GS.PacketHandler
 			}
 			//						flag |= 0x01; // newGuildEmblem
 			flag |= 0x02; // enable salvage button
-			AbstractCraftingSkill skill = CraftingMgr.getSkillbyEnum(m_gameClient.Player.CraftingPrimarySkill);
+			AbstractCraftingSkill skill = CraftingMgr.getSkillbyEnum(_gameClient.Player.CraftingPrimarySkill);
 			if (skill != null && skill is AdvancedCraftingSkill/* && ((AdvancedCraftingSkill)skill).IsAllowedToCombine(m_gameClient.Player, item)*/)
 				flag |= 0x04; // enable craft button
 			ushort icon1 = 0;
@@ -668,7 +668,7 @@ namespace DOL.GS.PacketHandler
 			}
 			
 			// Update Cache
-			m_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(player.CurrentRegionID, (ushort)player.ObjectID)] = GameTimer.GetTickCount();
+			_gameClient.GameObjectUpdateArray[new Tuple<ushort, ushort>(player.CurrentRegionID, (ushort)player.ObjectID)] = GameTimer.GetTickCount();
 		}
 
     }

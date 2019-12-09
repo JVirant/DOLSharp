@@ -131,7 +131,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendUpdateIcons(IList changedEffects, ref int lastUpdateEffectsCount)
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 				return;
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.UpdateIcons)))
 			{
@@ -139,13 +139,13 @@ namespace DOL.GS.PacketHandler
 	
 				int fxcount = 0;
 				int entriesCount = 0;
-				lock (m_gameClient.Player.EffectList)
+				lock (_gameClient.Player.EffectList)
 				{
 					pak.WriteByte(0);	// effects count set in the end
 					pak.WriteByte(0);	// unknown
 					pak.WriteByte(0);	// unknown
 					pak.WriteByte(0);	// unknown
-					foreach (IGameEffect effect in m_gameClient.Player.EffectList)
+					foreach (IGameEffect effect in _gameClient.Player.EffectList)
 					{
 						if (effect.Icon != 0)
 						{
@@ -200,11 +200,11 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendRegions()
 		{
-			if (m_gameClient.Player != null)
+			if (_gameClient.Player != null)
 			{
-				if (!m_gameClient.Socket.Connected)
+				if (!_gameClient.Socket.Connected)
 					return;
-				Region region = WorldMgr.GetRegion((ushort)m_gameClient.Player.CurrentRegionID);
+				Region region = WorldMgr.GetRegion((ushort)_gameClient.Player.CurrentRegionID);
 				if (region == null)
 					return;
 				using (GSTCPPacketOut pak = new GSTCPPacketOut(0xB1))
@@ -218,7 +218,7 @@ namespace DOL.GS.PacketHandler
 					pak.FillString(region.ServerPort.ToString(), 5);
 					string ip = region.ServerIP;
 					if (ip == "any" || ip == "0.0.0.0" || ip == "127.0.0.1" || ip.StartsWith("10.13.") || ip.StartsWith("192.168."))
-						ip = ((IPEndPoint)m_gameClient.Socket.LocalEndPoint).Address.ToString();
+						ip = ((IPEndPoint)_gameClient.Socket.LocalEndPoint).Address.ToString();
 					pak.FillString(ip, 20);
 					SendTCP(pak);
 				}
@@ -237,7 +237,7 @@ namespace DOL.GS.PacketHandler
 					{
 						for (int i = 0; i < 4; i++)
 						{
-							while (index < count && (int)m_gameClient.ClientType <= entries[index].expansion)
+							while (index < count && (int)_gameClient.ClientType <= entries[index].expansion)
 							{
 								index++;
 							}
@@ -256,7 +256,7 @@ namespace DOL.GS.PacketHandler
 								//Try to fix the region ip so UDP is enabled!
 								string ip = entries[index].ip;
 								if (ip == "any" || ip == "0.0.0.0" || ip == "127.0.0.1" || ip.StartsWith("10.13.") || ip.StartsWith("192.168."))
-									ip = ((IPEndPoint)m_gameClient.Socket.LocalEndPoint).Address.ToString();
+									ip = ((IPEndPoint)_gameClient.Socket.LocalEndPoint).Address.ToString();
 								pak.FillString(ip, 20);
 	
 								//							DOLConsole.WriteLine(string.Format(" ip={3}; fromPort={1}; toPort={2}; num={4}; id={0}; region name={5}", entries[index].id, entries[index].fromPort, entries[index].toPort, entries[index].ip, num, entries[index].name));
@@ -282,9 +282,9 @@ namespace DOL.GS.PacketHandler
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.CharacterOverview)))
 			{
-				pak.FillString(m_gameClient.Account.Name, 24);
+				pak.FillString(_gameClient.Account.Name, 24);
 				IList<InventoryItem> items;
-				DOLCharacters[] characters = m_gameClient.Account.Characters;
+				DOLCharacters[] characters = _gameClient.Account.Characters;
 				if (characters == null)
 				{
 					pak.Fill(0x0, 1840);
@@ -337,7 +337,7 @@ namespace DOL.GS.PacketHandler
 								Region reg = WorldMgr.GetRegion((ushort)characters[j].Region);
 								if (reg != null)
 								{
-									var description = m_gameClient.GetTranslatedSpotDescription(reg, characters[j].Xpos, characters[j].Ypos, characters[j].Zpos);
+									var description = _gameClient.GetTranslatedSpotDescription(reg, characters[j].Xpos, characters[j].Ypos, characters[j].Zpos);
 									pak.FillString(description, 24);
 								}
 								else
@@ -349,14 +349,14 @@ namespace DOL.GS.PacketHandler
 									pak.FillString(((eCharacterClass)characters[j].Class).ToString(), 24); //Class name
 	
 								//pak.FillString(GamePlayer.RACENAMES[characters[j].Race], 24);
-	                            pak.FillString(m_gameClient.RaceToTranslatedName(characters[j].Race, characters[j].Gender), 24);
+	                            pak.FillString(_gameClient.RaceToTranslatedName(characters[j].Race, characters[j].Gender), 24);
 								pak.WriteByte((byte)characters[j].Level);
 								pak.WriteByte((byte)characters[j].Class);
 								pak.WriteByte((byte)characters[j].Realm);
 								pak.WriteByte((byte)((((characters[j].Race & 0x10) << 2) + (characters[j].Race & 0x0F)) | (characters[j].Gender << 4))); // race max value can be 0x1F
 								pak.WriteShortLowEndian((ushort)characters[j].CurrentModel);
 								pak.WriteByte((byte)characters[j].Region);
-								if (reg == null || (int)m_gameClient.ClientType > reg.Expansion)
+								if (reg == null || (int)_gameClient.ClientType > reg.Expansion)
 									pak.WriteByte(0x00);
 								else
 									pak.WriteByte((byte)(reg.Expansion + 1)); //0x04-Cata zone, 0x05 - DR zone
@@ -479,7 +479,7 @@ namespace DOL.GS.PacketHandler
 		}
 		public override void SendKeepInfo(IGameKeep keep)
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 				return;
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.KeepInfo)))
 			{
@@ -519,7 +519,7 @@ namespace DOL.GS.PacketHandler
 
         public override void SendNPCsQuestEffect(GameNPC npc, eQuestIndicator indicator)
 		{
-			if (m_gameClient.Player == null || npc == null)
+			if (_gameClient.Player == null || npc == null)
 				return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.VisualEffect)))
@@ -536,13 +536,13 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendMessage(string msg, eChatType type, eChatLoc loc)
 		{
-			if (m_gameClient.ClientState == GameClient.eClientState.CharScreen)
+			if (_gameClient.ClientState == GameClient.eClientState.CharScreen)
 				return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.Message)))
 			{
 				pak.WriteShort(0xFFFF);
-				pak.WriteShort((ushort)m_gameClient.SessionID);
+				pak.WriteShort((ushort)_gameClient.SessionID);
 				pak.WriteByte((byte)type);
 				pak.Fill(0x0, 3);
 
@@ -563,11 +563,11 @@ namespace DOL.GS.PacketHandler
 		{
 			int questIndex = 1;
 			// add check for null due to LD
-			if (m_gameClient != null && m_gameClient.Player != null && m_gameClient.Player.QuestList != null)
+			if (_gameClient != null && _gameClient.Player != null && _gameClient.Player.QuestList != null)
 			{
-				lock (m_gameClient.Player.QuestList)
+				lock (_gameClient.Player.QuestList)
 				{
-					foreach (AbstractQuest q in m_gameClient.Player.QuestList)
+					foreach (AbstractQuest q in _gameClient.Player.QuestList)
 					{
 						if (q == quest)
 						{
@@ -584,14 +584,14 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendQuestListUpdate()
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 				return;
 			SendTaskInfo();
 
 			int questIndex = 1;
-			lock (m_gameClient.Player.QuestList)
+			lock (_gameClient.Player.QuestList)
 			{
-				foreach (AbstractQuest quest in m_gameClient.Player.QuestList)
+				foreach (AbstractQuest quest in _gameClient.Player.QuestList)
 				{
 					if (quest.Step != -1)
 					{
@@ -604,14 +604,14 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendRegionChanged()
 		{
-			if (m_gameClient.Player == null)
+			if (_gameClient.Player == null)
 				return;
 			SendRegions();
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.RegionChanged)))
 			{
 
 	            //Dinberg - Changing to allow instances...
-	            pak.WriteShort(m_gameClient.Player.CurrentRegion.Skin);
+	            pak.WriteShort(_gameClient.Player.CurrentRegion.Skin);
 				pak.WriteShort(0x00); // Zone ID?
 				pak.WriteShort(0x00); // ?
 				pak.WriteShort(0x01); // cause region change ?
@@ -694,7 +694,7 @@ namespace DOL.GS.PacketHandler
 	
 	            string name = siegeWeapon.Name;
 	
-	            LanguageDataObject translation = LanguageMgr.GetTranslation(m_gameClient, siegeWeapon);
+	            LanguageDataObject translation = LanguageMgr.GetTranslation(_gameClient, siegeWeapon);
 	            if (translation != null)
 	            {
 	                if (!Util.IsEmpty(((DBLanguageNPC)translation).Name))

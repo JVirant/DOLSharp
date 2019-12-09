@@ -43,7 +43,7 @@ namespace DOL.GS.PacketHandler
 		{
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.VisualEffect)))
 			{
-				GamePlayer player = base.m_gameClient.Player;
+				GamePlayer player = base._gameClient.Player;
 	
 				pak.WriteShort((ushort)player.ObjectID);
 				pak.WriteByte((byte)8);

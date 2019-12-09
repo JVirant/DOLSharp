@@ -45,7 +45,7 @@ namespace DOL.GS.PacketHandler
 		{
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.LoginGranted)))
 			{
-				pak.WritePascalString(m_gameClient.Account.Name);
+				pak.WritePascalString(_gameClient.Account.Name);
 				pak.WritePascalString(GameServer.Instance.Configuration.ServerNameShort); //server name
 				pak.WriteByte(0x0C); //Server ID
 				pak.WriteByte(color);

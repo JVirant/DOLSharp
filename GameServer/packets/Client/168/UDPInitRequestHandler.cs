@@ -32,6 +32,14 @@ namespace DOL.GS.PacketHandler.Client.v168
 
 		public void HandlePacket(GameClient client, GSPacketIn packet)
 		{
+			if (client.Version > GameClient.eClientVersion.Version1124)
+			{
+				string localIp = packet.ReadString(20);
+				packet.ReadShort();
+				client.LocalIP = localIp;
+				client.Out.SendUDPInitReply();
+				return;
+			}
 			string localIP = packet.ReadString(22);
 			ushort localPort = packet.ReadShort();
 			client.LocalIP = localIP;

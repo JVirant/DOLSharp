@@ -41,11 +41,11 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendXFireInfo(byte flag)
 		{
-			if (m_gameClient == null || m_gameClient.Player == null)
+			if (_gameClient == null || _gameClient.Player == null)
 				return;
 			using (GSTCPPacketOut pak = new GSTCPPacketOut((byte)eServerPackets.XFire))
 			{
-				pak.WriteShort((ushort)m_gameClient.Player.ObjectID);
+				pak.WriteShort((ushort)_gameClient.Player.ObjectID);
 				pak.WriteByte(flag);
 				pak.WriteByte(0x00);
 				SendTCP(pak);

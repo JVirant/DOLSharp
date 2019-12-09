@@ -172,7 +172,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendKeepClaim(IGameKeep keep, byte flag)
 		{
-			if (m_gameClient.Player == null || keep == null)
+			if (_gameClient.Player == null || keep == null)
 				return;
 			
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.KeepClaim)))
@@ -318,7 +318,7 @@ namespace DOL.GS.PacketHandler
 
 		public override void SendWarmapUpdate(ICollection<IGameKeep> list)
 		{
-			if (m_gameClient.Player == null) return;
+			if (_gameClient.Player == null) return;
 
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.WarMapClaimedKeeps)))
 			{
@@ -409,13 +409,13 @@ namespace DOL.GS.PacketHandler
 					}
 	
 					//Teleport
-					if (m_gameClient.Account.PrivLevel > (int)ePrivLevel.Player)
+					if (_gameClient.Account.PrivLevel > (int)ePrivLevel.Player)
 					{
 						flag |= (byte)eRealmWarmapKeepFlags.Teleportable;
 					}
 					else
 					{
-						if (GameServer.KeepManager.FrontierRegionsList.Contains(m_gameClient.Player.CurrentRegionID) && m_gameClient.Player.Realm == keep.Realm)
+						if (GameServer.KeepManager.FrontierRegionsList.Contains(_gameClient.Player.CurrentRegionID) && _gameClient.Player.Realm == keep.Realm)
 						{
 							GameKeep theKeep = keep as GameKeep;
 							if (theKeep != null)
@@ -442,7 +442,7 @@ namespace DOL.GS.PacketHandler
 		
 		public override void SendWarmapBonuses()
 		{
-			if (m_gameClient.Player == null) return;
+			if (_gameClient.Player == null) return;
 			int AlbTowers = 0;
 			int MidTowers = 0;
 			int HibTowers = 0;
@@ -494,7 +494,7 @@ namespace DOL.GS.PacketHandler
 			}
 			int RealmKeeps = 0;
 			int RealmTowers = 0;
-			switch ((eRealm)m_gameClient.Player.Realm)
+			switch ((eRealm)_gameClient.Player.Realm)
 			{
 				case eRealm.Albion:
 					RealmKeeps = AlbKeeps;
@@ -515,8 +515,8 @@ namespace DOL.GS.PacketHandler
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.WarmapBonuses)))
 			{
 				pak.WriteByte((byte)RealmKeeps);
-				int magic = RelicMgr.GetRelicCount(m_gameClient.Player.Realm, eRelicType.Magic);
-				int strength = RelicMgr.GetRelicCount(m_gameClient.Player.Realm, eRelicType.Strength);
+				int magic = RelicMgr.GetRelicCount(_gameClient.Player.Realm, eRelicType.Magic);
+				int strength = RelicMgr.GetRelicCount(_gameClient.Player.Realm, eRelicType.Strength);
 				byte relics = (byte)(magic << 4 | strength);
 				pak.WriteByte(relics);
 				pak.WriteByte((byte)OwnerDF);
