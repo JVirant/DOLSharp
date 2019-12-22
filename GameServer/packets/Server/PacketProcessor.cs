@@ -316,7 +316,7 @@ namespace DOL.GS.PacketHandler
 
 			SavePacket(packet);
 
-			log.Info($"GSTCPPacketOut {m_client.Account?.Name}:\n" + packet.ToHumanReadable());
+			// log.Info($"GSTCPPacketOut {m_client.Account?.Name}:\n" + packet.ToHumanReadable());
 
 			//Get the packet buffer
 			byte[] buf = packet.GetBuffer(); //packet.WritePacketLength sets the Capacity
@@ -568,7 +568,7 @@ namespace DOL.GS.PacketHandler
 
 			SavePacket(packet);
 
-			log.Info($"GSUDPPacketOut {m_client.Account.Name}:\n" + packet.ToHumanReadable());
+			// log.Info($"GSUDPPacketOut {m_client.Account.Name}:\n" + packet.ToHumanReadable());
 
 			SendUDP(packet.GetBuffer(), isForced);
 		}
@@ -1003,7 +1003,7 @@ namespace DOL.GS.PacketHandler
 				long start = Environment.TickCount;
 				try
 				{
-					log.Info($"GSPacketIn {m_client.Account?.Name}:\n" + packet.ToHumanReadable());
+					// log.Info($"GSPacketIn {m_client.Account?.Name}:\n" + packet.ToHumanReadable());
 					packetHandler.HandlePacket(m_client, packet);
 				}
 				catch (Exception e)
