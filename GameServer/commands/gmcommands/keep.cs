@@ -93,6 +93,7 @@ namespace DOL.GS.Commands
 
 			AbstractGameKeep myKeep = (AbstractGameKeep)client.Player.TempProperties.getProperty<object>(TEMP_KEEP_LAST, null);
 			if (myKeep == null) myKeep = GameServer.KeepManager.GetKeepCloseToSpot(client.Player.CurrentRegionID, client.Player, 10000);
+			if (myKeep == null) myKeep = (client.Player.TargetObject as GameKeepComponent)?.AbstractKeep;
 			
 			switch (args[1])
 			{
@@ -140,7 +141,6 @@ namespace DOL.GS.Commands
 						GameKeep keep = new GameKeep();
 						keep.DBKeep = new DBKeep(createInfo);
 						keep.Name = keepName;
-						keep.KeepID = (ushort)keepID;
 						keep.Level = (byte)ServerProperties.Properties.STARTING_KEEP_LEVEL;
 						keep.BaseLevel = 50;
 						keep.Realm = client.Player.Realm;
@@ -149,6 +149,7 @@ namespace DOL.GS.Commands
 						keep.Y = client.Player.Y;
 						keep.Z = client.Player.Z;
 						keep.Heading = client.Player.Heading;
+						keep.KeepID = (ushort)keepID;
 
 						if ((int)keepType < 8)
 						{
@@ -1987,6 +1988,11 @@ namespace DOL.GS.Commands
 
 						log.Debug("Keep creation: complete, saving");
 
+						keep.Area = new KeepArea(keep);
+						keep.Area.CanBroadcast = true;
+						keep.Area.CheckLOS = true;
+						keep.CurrentRegion.AddArea(keep.Area);
+
 						keep.SaveIntoDatabase();
 						break;
 					}
@@ -2193,24 +2199,7 @@ namespace DOL.GS.Commands
 				#region Remove
 				case "remove":
 					{
-						KeepArea karea = null;
-						foreach (AbstractArea area in client.Player.CurrentAreas)
-						{
-							if (area is KeepArea)
-							{
-								karea = area as KeepArea;
-								break;
-							}
-						}
-
-						if (karea == null)
-						{
-							DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Keep.Remove.YourNotInAKeepArea"));
-							return;
-						}
-
-						karea.Keep.Remove(karea);
-
+						myKeep.Remove();
 						DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Commands.GM.Keep.Remove.KeepUnloaded"));
 						break;
 					}

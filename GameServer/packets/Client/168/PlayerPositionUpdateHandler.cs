@@ -787,8 +787,6 @@ namespace DOL.GS.PacketHandler.Client.v168
 			byte playerHealth = (byte)packet.ReadByte();
 			// two trailing bytes, no data
 
-			log.Info($"Player {client.Player.Name} pos X:{newPlayerX} Y:{newPlayerY} Z:{newPlayerZ}");
-
 			//int speed = (newPlayerSpeed & 0x1FF);
 			//Flags1 = (eFlags1)playerState;
 			//Flags2 = (eFlags2)playerAction;                        
@@ -1011,8 +1009,6 @@ namespace DOL.GS.PacketHandler.Client.v168
 			// used to predict current position, should be before
 			// any calculation (like fall damage)
 			client.Player.MovementStartTick = Environment.TickCount; // experimental 0024
-
-			log.Info($"Player {client.Player.Name} Set pos X:{client.Player.X} Y:{client.Player.Y} Z:{client.Player.Z}");
 
 			// Begin ---------- New Area System -----------
 			if (client.Player.CurrentRegion.Time > client.Player.AreaUpdateTick) // check if update is needed

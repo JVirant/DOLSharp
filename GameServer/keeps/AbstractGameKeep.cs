@@ -594,8 +594,7 @@ namespace DOL.GS.Keeps
 		/// <summary>
 		/// Remove a keep from the database
 		/// </summary>
-		/// <param name="area"></param>
-		public virtual void Remove(KeepArea area)
+		public virtual void Remove()
 		{
 			Dictionary<string, GameKeepGuard> guards = new Dictionary<string, GameKeepGuard>(m_guards); // Use a shallow copy
 			foreach (GameKeepGuard guard in guards.Values)
@@ -633,10 +632,7 @@ namespace DOL.GS.Keeps
 
 			UnloadTimers();
 			GameEventMgr.RemoveHandler(CurrentRegion, RegionEvent.PlayerEnter, new DOLEventHandler(SendKeepInit));
-			if (area != null)
-			{
-				CurrentRegion.RemoveArea(area);
-			}
+			CurrentRegion.RemoveArea(Area);
 
 			RemoveFromDatabase();
 			GameServer.KeepManager.Keeps[KeepID] = null;
@@ -1320,6 +1316,8 @@ namespace DOL.GS.Keeps
 		/// </summary>
 		protected void SendRemoveKeep()
 		{
+			if (CurrentRegion == null)
+				return;
 			foreach (GameClient client in WorldMgr.GetClientsOfRegion(this.CurrentRegion.ID))
 			{
 				if (client.Player == null || client.ClientState != GameClient.eClientState.Playing || client.Player.ObjectState != GameObject.eObjectState.Active)
@@ -1328,10 +1326,8 @@ namespace DOL.GS.Keeps
 				GamePlayer player = client.Player;
 				
 				// Remove Keep
-				foreach(GameKeepComponent comp in this.KeepComponents)
-				{
+				foreach(GameKeepComponent comp in KeepComponents)
 					player.Out.SendKeepComponentRemove(comp);
-				}
 				player.Out.SendKeepRemove(this);
 			}
 		}
@@ -1341,6 +1337,8 @@ namespace DOL.GS.Keeps
 		/// </summary>
 		protected void SendKeepInfo()
 		{
+			if (CurrentRegion == null)
+				return;
 			foreach (GameClient client in WorldMgr.GetClientsOfRegion(this.CurrentRegion.ID))
 			{
 				

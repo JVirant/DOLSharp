@@ -36,7 +36,7 @@ namespace AmteScripts.Managers
 			{
 				Callback = _instance._CheckRvr
 			};
-			_timer.Start(1);
+			_timer.Start(10000);
 		}
 
 		[ScriptUnloadedEvent]

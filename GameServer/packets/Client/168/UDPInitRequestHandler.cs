@@ -45,7 +45,10 @@ namespace DOL.GS.PacketHandler.Client.v168
 				localIP = packet.ReadString(22);
 				localPort = packet.ReadShort();
 			}
-			client.LocalIP = localIP;
+			if (localIP != "")
+				client.LocalIP = localIP;
+			else
+				client.LocalIP = (client.Socket.RemoteEndPoint as IPEndPoint)?.Address?.ToString();
 			client.UdpEndPoint = new IPEndPoint(IPAddress.Parse(localIP), localPort);
 			client.Out.SendUDPInitReply();
 		}
