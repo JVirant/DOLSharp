@@ -612,8 +612,8 @@ namespace DOL.GS.PacketHandler.Client.v168
 					if (client.Player.IsSitting)
 						pState = 4;
 					if (client.Player.IsStrafing)
-						pState |= 1 << 3;
-					content += (ushort)(pState << 10);
+						pState |= 8;
+					content |= (ushort)(pState << 10);
 				}
 				outpak.WriteShort(content);
 			}
@@ -691,7 +691,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 			outpak1124.WriteShort((ushort)client.SessionID);
 			outpak1124.WriteShort(currentZoneID);
 			outpak1124.WriteShort(playerState);
-			outpak1124.WriteShort(0); // fall damage flag coming in, steed seat position going out
+			outpak1124.WriteShort((ushort)(client.Player.Steed?.RiderSlot(client.Player) ?? 0)); // fall damage flag coming in, steed seat position going out
 			outpak1124.WriteShort(client.Player.Heading);
 			outpak1124.WriteByte(playerAction);
 			outpak1124.WriteByte((byte)(client.Player.RPFlag ? 1 : 0));
@@ -734,11 +734,11 @@ namespace DOL.GS.PacketHandler.Client.v168
 
 					//forward the position packet like normal!
 					if (player.Client.Version >= GameClient.eClientVersion.Version1124)
-						player.Out.SendUDPRaw(outpak1124);
-					if (player.Client.Version >= GameClient.eClientVersion.Version1112)
-						player.Out.SendUDPRaw(outpak1112);
+						player.Out.SendUDP(outpak1124);
+					else if (player.Client.Version >= GameClient.eClientVersion.Version1112)
+						player.Out.SendUDP(outpak1112);
 					else if (player.Client.Version >= GameClient.eClientVersion.Version190)
-						player.Out.SendUDPRaw(outpak190);
+						player.Out.SendUDP(outpak190);
 				}
 				else
 					player.Out.SendObjectDelete(client.Player); //remove the stealthed player from view
@@ -1247,11 +1247,11 @@ namespace DOL.GS.PacketHandler.Client.v168
 					player.Client.GameObjectUpdateArray[new Tuple<ushort, ushort>(client.Player.CurrentRegionID, (ushort)client.Player.ObjectID)] = GameTimer.GetTickCount();
 
 					if (player.Client.Version >= GameClient.eClientVersion.Version1124)
-						player.Out.SendUDPRaw(outpak);
+						player.Out.SendUDP(outpak);
 					else if (player.Client.Version >= GameClient.eClientVersion.Version1112)
-						player.Out.SendUDPRaw(outpak1112);
+						player.Out.SendUDP(outpak1112);
 					else
-						player.Out.SendUDPRaw(outpak190);
+						player.Out.SendUDP(outpak190);
 				}
 				else
 					player.Out.SendObjectDelete(client.Player); //remove the stealthed player from view
