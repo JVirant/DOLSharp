@@ -4080,23 +4080,23 @@ namespace DOL.GS
 			{
 				if (CurrentRegion == null || CurrentRegion.Time - CHARMED_NOEXP_TIMEOUT < TempProperties.getProperty<long>(CHARMED_TICK_PROP))
 					return false;
-				if (this.Brain is IControlledBrain)
+				if (Brain is IControlledBrain)
 					return false;
-				lock (m_xpGainers.SyncRoot)
+				lock (m_xpGainers)
 				{
 					if (m_xpGainers.Keys.Count == 0) return false;
-					foreach (DictionaryEntry de in m_xpGainers)
+					foreach (var de in m_xpGainers)
 					{
-						GameObject obj = (GameObject)de.Key;
-						if (obj is GamePlayer)
+						GameObject obj = de.Key;
+						if (obj is GamePlayer player)
 						{
 							//If a gameplayer with privlevel > 1 attacked the
 							//mob, then the players won't gain xp ...
-							if (((GamePlayer)obj).Client.Account.PrivLevel > 1)
+							if (player.Client.Account.PrivLevel > 1)
 								return false;
 							//If a player to which we are gray killed up we
 							//aren't worth anything either
-							if (((GamePlayer)obj).IsObjectGreyCon(this))
+							if (player.IsObjectGreyCon(this))
 								return false;
 						}
 						else
@@ -4106,7 +4106,7 @@ namespace DOL.GS
 							//it is not worth any xp ...
 							//if(obj.Realm != (byte)eRealm.None)
 							//If grey to at least one living then no exp
-							if (obj is GameLiving && ((GameLiving)obj).IsObjectGreyCon(this))
+							if (obj is GameLiving living && living.IsObjectGreyCon(this))
 								return false;
 						}
 					}
@@ -4157,7 +4157,7 @@ namespace DOL.GS
 				if ((Faction != null) && (killer is GamePlayer))
 				{
 					// Get All Attackers. // TODO check if this shouldn't be set to Attackers instead of XPGainers ?
-					foreach (DictionaryEntry de in this.XPGainers)
+					foreach (var de in XPGainers)
 					{
 						GameLiving living = de.Key as GameLiving;
 						GamePlayer player = living as GamePlayer;
@@ -4614,9 +4614,9 @@ namespace DOL.GS
 			ArrayList autolootlist = new ArrayList();
 			ArrayList aplayer = new ArrayList();
 
-			lock (m_xpGainers.SyncRoot)
+			lock (m_xpGainers)
 			{
-				if (m_xpGainers.Keys.Count == 0) return;
+				if (m_xpGainers.Count == 0) return;
 
 				ItemTemplate[] lootTemplates = LootMgr.GetLoot(this, killer);
 

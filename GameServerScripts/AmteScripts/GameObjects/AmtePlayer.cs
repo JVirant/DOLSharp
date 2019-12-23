@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Amte;
 using AmteScripts.Managers;
 using DOL.Database;
 using DOL.GS.PacketHandler;
@@ -24,6 +26,24 @@ namespace DOL.GS
 				if (RvrManager.Instance.IsInRvr(this))
 					return (int)(1 + Level * 0.6);
 				return 0;
+			}
+		}
+
+		public override int RealmPointsValue
+		{
+			get
+			{
+				var pr = base.RealmPointsValue;
+				if (RvrManager.Instance.IsInRvr(this))
+				{
+					var bonus = 0;
+					foreach (var npc in GetNPCsInRadius(4000))
+						if (npc is LordRvR lord)
+							bonus += pr;
+					pr += bonus;
+					pr += pr / 10;
+				}
+				return pr;
 			}
 		}
 

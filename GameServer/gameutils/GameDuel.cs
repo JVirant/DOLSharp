@@ -104,7 +104,7 @@ namespace DOL.GS
 			GameEventMgr.RemoveHandler(Starter, GameLivingEvent.AttackedByEnemy, new DOLEventHandler(DuelOnAttack));
 			GameEventMgr.RemoveHandler(Starter, GameLivingEvent.AttackFinished, new DOLEventHandler(DuelOnAttack));
 			
-			lock (Starter.XPGainers.SyncRoot)
+			lock (Starter.XPGainers)
 			{
 				Starter.XPGainers.Clear();
 			}

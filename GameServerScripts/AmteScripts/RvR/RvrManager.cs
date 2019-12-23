@@ -131,6 +131,7 @@ namespace AmteScripts.Managers
 		}
 
 		private LordRvR[] _lords = new LordRvR[0];
+		public LordRvR[] Lords => _lords.ToArray();
 
 		public bool Open(ushort region, bool force)
 		{
@@ -313,7 +314,7 @@ namespace AmteScripts.Managers
 
 		public bool IsInRvr(GameLiving obj)
 		{
-			return obj != null && obj.CurrentRegionID == _region;
+			return IsOpen && obj != null && obj.CurrentRegionID == _region;
 		}
 
 		public bool IsAllowedToAttack(GameLiving attacker, GameLiving defender, bool quiet)

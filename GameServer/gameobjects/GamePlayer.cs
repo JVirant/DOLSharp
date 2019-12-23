@@ -2378,7 +2378,7 @@ namespace DOL.GS
 
 				//We clean all damagedealers if we are fully healed,
 				//no special XP calculations need to be done
-				lock (m_xpGainers.SyncRoot)
+				lock (m_xpGainers)
 				{
 					m_xpGainers.Clear();
 				}

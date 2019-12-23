@@ -1045,7 +1045,7 @@ namespace DOL.GS.ServerRules
 		/// <param name="killer">killer</param>
 		public virtual void OnNPCKilled(GameNPC killedNPC, GameObject killer)
 		{
-			lock (killedNPC.XPGainers.SyncRoot)
+			lock (killedNPC.XPGainers)
 			{
 				#region Worth no experience
 				//"This monster has been charmed recently and is worth no experience."
@@ -1057,7 +1057,7 @@ namespace DOL.GS.ServerRules
 
 				if (!killedNPC.IsWorthReward)
 				{
-					foreach (DictionaryEntry de in killedNPC.XPGainers)
+					foreach (var de in killedNPC.XPGainers)
 					{
 						GamePlayer player = de.Key as GamePlayer;
 						if (player != null)
@@ -1068,14 +1068,14 @@ namespace DOL.GS.ServerRules
 				#endregion
 
 				#region Group/Total Damage
-				float totalDamage = 0;
+				var totalDamage = 0.0;
 				Dictionary<Group, int> plrGrpExp = new Dictionary<Group, int>();
 				GamePlayer highestPlayer = null;
 				bool isGroupInRange = false;
 				//Collect the total damage
-				foreach (DictionaryEntry de in killedNPC.XPGainers)
+				foreach (var de in killedNPC.XPGainers)
 				{
-					totalDamage += (float)de.Value;
+					totalDamage += de.Value;
 					GamePlayer player = de.Key as GamePlayer;
 
 					//Check stipulations (this will ignore all pet damage)
@@ -1112,7 +1112,7 @@ namespace DOL.GS.ServerRules
 					highestConValue = highestPlayer.GetConLevel(killedNPC);
 
 				//Now deal the XP to all livings
-				foreach (DictionaryEntry de in killedNPC.XPGainers)
+				foreach (var de in killedNPC.XPGainers)
 				{
 					GameLiving living = de.Key as GameLiving;
 					GamePlayer player = living as GamePlayer;
@@ -1128,7 +1128,7 @@ namespace DOL.GS.ServerRules
 						continue;
 
 					//Changed: people were getting penalized for their pets doing damage
-					double damagePercent = (float)de.Value / totalDamage;
+					double damagePercent = de.Value / totalDamage;
 
 					#region Realm Points
 
@@ -1341,14 +1341,14 @@ namespace DOL.GS.ServerRules
 		/// <param name="killer">The killer object</param>
 		public virtual void OnLivingKilled(GameLiving killedLiving, GameObject killer)
 		{
-			lock (killedLiving.XPGainers.SyncRoot)
+			lock (killedLiving.XPGainers)
 			{
 				bool dealNoXP = false;
-				float totalDamage = 0;
+				var totalDamage = 0.0;
 				//Collect the total damage
-				foreach (DictionaryEntry de in killedLiving.XPGainers)
+				foreach (var de in killedLiving.XPGainers)
 				{
-					GameObject obj = (GameObject)de.Key;
+					GameObject obj = de.Key;
 					if (obj is GamePlayer)
 					{
 						//If a gameplayer with privlevel > 1 attacked the
@@ -1359,13 +1359,11 @@ namespace DOL.GS.ServerRules
 							break;
 						}
 					}
-					totalDamage += (float)de.Value;
+					totalDamage += de.Value;
 				}
 
 				if (dealNoXP || (killedLiving.ExperienceValue == 0 && killedLiving.RealmPointsValue == 0 && killedLiving.BountyPointsValue == 0))
-				{
 					return;
-				}
 
 
 				long ExpValue = killedLiving.ExperienceValue;
@@ -1373,18 +1371,15 @@ namespace DOL.GS.ServerRules
 				int BPValue = killedLiving.BountyPointsValue;
 
 				//Now deal the XP and RPs to all livings
-				foreach (DictionaryEntry de in killedLiving.XPGainers)
+				foreach (var de in killedLiving.XPGainers)
 				{
 					GameLiving living = de.Key as GameLiving;
 					GamePlayer expGainPlayer = living as GamePlayer;
 					if (living == null)
-					{
 						continue;
-					}
 					if (living.ObjectState != GameObject.eObjectState.Active)
-					{
 						continue;
-					}
+
 					/*
 					 * http://www.camelotherald.com/more/2289.shtml
 					 * Dead players will now continue to retain and receive their realm point credit
@@ -1394,12 +1389,10 @@ namespace DOL.GS.ServerRules
 					 */
 					//if (!living.Alive) continue;
 					if (!living.IsWithinRadius(killedLiving, WorldMgr.MAX_EXPFORKILL_DISTANCE))
-					{
 						continue;
-					}
 
 
-					double damagePercent = (float)de.Value / totalDamage;
+					double damagePercent = de.Value / totalDamage;
 					if (!living.IsAlive)//Dead living gets 25% exp only
 						damagePercent *= 0.25;
 
@@ -1409,19 +1402,16 @@ namespace DOL.GS.ServerRules
 					//rp bonuses from RR and Group
 					//20% if R1L0 char kills RR10,if RR10 char kills R1L0 he will get -20% bonus
 					//100% if full group,scales down according to player count in group and their range to target
-					if (living is GamePlayer)
+					if (living is GamePlayer killerPlayer)
 					{
-						GamePlayer killerPlayer = living as GamePlayer;
 						if (killerPlayer.Group != null && killerPlayer.Group.MemberCount > 1)
 						{
 							lock (killerPlayer.Group)
 							{
 								int count = 0;
 								foreach (GamePlayer player in killerPlayer.Group.GetPlayersInTheGroup())
-								{
-									if (!player.IsWithinRadius(killedLiving, WorldMgr.MAX_EXPFORKILL_DISTANCE)) continue;
-									count++;
-								}
+									if (player.IsWithinRadius(killedLiving, WorldMgr.MAX_EXPFORKILL_DISTANCE))
+										count++;
 								realmPoints = (int)(realmPoints * (1.0 + count * 0.125));
 							}
 						}
@@ -1429,9 +1419,7 @@ namespace DOL.GS.ServerRules
 					if (realmPoints > rpCap)
 						realmPoints = rpCap;
 					if (realmPoints != 0)
-					{
 						living.GainRealmPoints(realmPoints);
-					}
 
 					// bounty points
 					int bpCap = living.BountyPointsValue * 2;
@@ -1439,9 +1427,7 @@ namespace DOL.GS.ServerRules
 					if (bountyPoints > bpCap)
 						bountyPoints = bpCap;
 					if (bountyPoints != 0)
-					{
 						living.GainBountyPoints(bountyPoints);
-					}
 
 					// experience
 					// TODO: pets take 25% and owner gets 75%
@@ -1453,9 +1439,7 @@ namespace DOL.GS.ServerRules
 
 					GameLiving.eXPSource xpSource = GameLiving.eXPSource.NPC;
 					if (killedLiving is GamePlayer)
-					{
 						xpSource = GameLiving.eXPSource.Player;
-					}
 
 					if (xpReward > 0)
 						living.GainExperience(xpSource, xpReward);
@@ -1472,7 +1456,7 @@ namespace DOL.GS.ServerRules
 		/// <param name="killer">killer</param>
 		public virtual void OnPlayerKilled(GamePlayer killedPlayer, GameObject killer)
 		{
-			if (ServerProperties.Properties.ENABLE_WARMAPMGR && killer is GamePlayer && killer.CurrentRegion.ID == 163)
+			if (Properties.ENABLE_WARMAPMGR && killer is GamePlayer && killer.CurrentRegion.ID == 163)
 				WarMapMgr.AddFight((byte)killer.CurrentZone.ID, killer.X, killer.Y, (byte)killer.Realm, (byte)killedPlayer.Realm);
 
 			killedPlayer.LastDeathRealmPoints = 0;
@@ -1480,9 +1464,9 @@ namespace DOL.GS.ServerRules
 			long noExpSeconds = ServerProperties.Properties.RP_WORTH_SECONDS;
 			if (killedPlayer.DeathTime + noExpSeconds > killedPlayer.PlayedTime)
 			{
-				lock (killedPlayer.XPGainers.SyncRoot)
+				lock (killedPlayer.XPGainers)
 				{
-					foreach (DictionaryEntry de in killedPlayer.XPGainers)
+					foreach (var de in killedPlayer.XPGainers)
 					{
 						if (de.Key is GamePlayer)
 						{
@@ -1494,12 +1478,12 @@ namespace DOL.GS.ServerRules
 				return;
 			}
 
-			lock (killedPlayer.XPGainers.SyncRoot)
+			lock (killedPlayer.XPGainers)
 			{
 				bool dealNoXP = false;
-				float totalDamage = 0;
+				var totalDamage = 0.0;
 				//Collect the total damage
-				foreach (DictionaryEntry de in killedPlayer.XPGainers)
+				foreach (var de in killedPlayer.XPGainers)
 				{
 					GameObject obj = (GameObject)de.Key;
 					if (obj is GamePlayer)
@@ -1512,12 +1496,12 @@ namespace DOL.GS.ServerRules
 							break;
 						}
 					}
-					totalDamage += (float)de.Value;
+					totalDamage += de.Value;
 				}
 
 				if (dealNoXP)
 				{
-					foreach (DictionaryEntry de in killedPlayer.XPGainers)
+					foreach (var de in killedPlayer.XPGainers)
 					{
 						GamePlayer player = de.Key as GamePlayer;
 						if (player != null)
@@ -1551,7 +1535,7 @@ namespace DOL.GS.ServerRules
 				List<KeyValuePair<GamePlayer, int>> playerKillers = new List<KeyValuePair<GamePlayer, int>>();
 
 				//Now deal the XP and RPs to all livings
-				foreach (DictionaryEntry de in killedPlayer.XPGainers)
+				foreach (var de in killedPlayer.XPGainers)
 				{
 					GameLiving living = de.Key as GameLiving;
 					GamePlayer expGainPlayer = living as GamePlayer;
@@ -1568,7 +1552,7 @@ namespace DOL.GS.ServerRules
 					if (!living.IsWithinRadius(killedPlayer, WorldMgr.MAX_EXPFORKILL_DISTANCE)) continue;
 
 
-					double damagePercent = (float)de.Value / totalDamage;
+					double damagePercent = de.Value / totalDamage;
 					if (!living.IsAlive)//Dead living gets 25% exp only
 						damagePercent *= 0.25;
 
@@ -1694,7 +1678,7 @@ namespace DOL.GS.ServerRules
 								if (expGainPlayer == killer)
 								{
 									expGainPlayer.KillsAlbionDeathBlows++;
-									if ((float)de.Value == totalDamage)
+									if (de.Value == totalDamage)
 										expGainPlayer.KillsAlbionSolo++;
 								}
 								break;
@@ -1704,7 +1688,7 @@ namespace DOL.GS.ServerRules
 								if (expGainPlayer == killer)
 								{
 									expGainPlayer.KillsHiberniaDeathBlows++;
-									if ((float)de.Value == totalDamage)
+									if (de.Value == totalDamage)
 										expGainPlayer.KillsHiberniaSolo++;
 								}
 								break;
@@ -1714,7 +1698,7 @@ namespace DOL.GS.ServerRules
 								if (expGainPlayer == killer)
 								{
 									expGainPlayer.KillsMidgardDeathBlows++;
-									if ((float)de.Value == totalDamage)
+									if (de.Value == totalDamage)
 										expGainPlayer.KillsMidgardSolo++;
 								}
 								break;

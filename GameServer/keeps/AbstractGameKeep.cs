@@ -596,6 +596,8 @@ namespace DOL.GS.Keeps
 		/// </summary>
 		public virtual void Remove()
 		{
+			SendRemoveKeep();
+
 			Dictionary<string, GameKeepGuard> guards = new Dictionary<string, GameKeepGuard>(m_guards); // Use a shallow copy
 			foreach (GameKeepGuard guard in guards.Values)
 			{
@@ -635,7 +637,7 @@ namespace DOL.GS.Keeps
 			CurrentRegion.RemoveArea(Area);
 
 			RemoveFromDatabase();
-			GameServer.KeepManager.Keeps[KeepID] = null;
+			GameServer.KeepManager.Keeps.Remove(KeepID);
 		}
 
 		/// <summary>

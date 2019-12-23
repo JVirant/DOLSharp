@@ -184,9 +184,9 @@ namespace DOL.GS.Quests
 						return;
 
 					int lowestCon = int.MaxValue;
-					lock (target.XPGainers.SyncRoot)
+					lock (target.XPGainers)
 					{
-						if (target.XPGainers.Keys.Count == 0)
+						if (target.XPGainers.Count == 0)
 						{
 							return;
 						}
