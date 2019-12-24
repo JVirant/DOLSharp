@@ -321,7 +321,7 @@ namespace DOL.GS.Scripts
                 }
                 catch
                 {
-                    log.Error("TELEPORTNPC: Erreur lors du parse de \"" + SaveStr + "\".");
+                    log.Error("TELEPORTNPC: Erreur lors du parsing de \"" + SaveStr + "\".");
                 }
             }
 
@@ -350,7 +350,7 @@ namespace DOL.GS.Scripts
             {
                 if (player.Level < Conditions.LevelMin || player.Level > Conditions.LevelMax)
                     return false;
-                if (!String.IsNullOrEmpty(Conditions.Item) && player.Inventory.GetFirstItemByID(Conditions.Item, eInventorySlot.FirstBackpack, eInventorySlot.LastBackpack) == null)
+                if (!string.IsNullOrEmpty(Conditions.Item) && player.Inventory.GetFirstItemByID(Conditions.Item, eInventorySlot.FirstBackpack, eInventorySlot.LastBackpack) == null)
                     return false;
                 return true;
             }
@@ -359,7 +359,7 @@ namespace DOL.GS.Scripts
             {
                 if (player.Level < Conditions.LevelMin || player.Level > Conditions.LevelMax)
                     return;
-                if (!String.IsNullOrEmpty(Conditions.Item))
+                if (!string.IsNullOrEmpty(Conditions.Item))
                     if (!player.Inventory.RemoveTemplate(Conditions.Item, 1, eInventorySlot.FirstBackpack, eInventorySlot.LastBackpack))
                         return;
                     else
@@ -442,7 +442,7 @@ namespace DOL.GS.Scripts
 					sb.Append("Bind=");
 					sb.Append(Bind);
 				}
-            	if (!String.IsNullOrEmpty(Item))
+            	if (!string.IsNullOrEmpty(Item))
                 {
                     if (sb.Length > 0) sb.Append("/");
                     sb.Append("Item=");
@@ -470,7 +470,7 @@ namespace DOL.GS.Scripts
             	sb.Append(Bind ? "oui" : "non");
                 sb.Append("\nVisible dans la liste: ");
                 sb.Append(Visible ? "oui" : "non");
-                if (!String.IsNullOrEmpty(Item))
+                if (!string.IsNullOrEmpty(Item))
                 {
                     if (sb.Length > 0) sb.Append("\n");
                     sb.Append("Item: ");

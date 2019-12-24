@@ -18,6 +18,7 @@ namespace DOL.GS.ServerRules
 	public class AmtenaelRules : PvPServerRules
 	{
 		public static ushort HousingRegionID = 202;
+		public static ushort[] UnsafeRegions = new ushort[] { 181 };
 
 		public override string RulesDescription()
 		{
@@ -42,7 +43,7 @@ namespace DOL.GS.ServerRules
 					return false;
 				}
 
-				if (playerAttacker != null)
+				if (playerAttacker != null && !PvpManager.Instance.IsIn(playerAttacker) && !UnsafeRegions.Contains(playerAttacker.CurrentRegionID))
 				{
 					// Attacker immunity
 					if (playerAttacker.IsInvulnerableToAttack)

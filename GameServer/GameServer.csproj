@@ -29,9 +29,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="languages\EN\Commands\GM\Jump.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="config\invalidnames.txt" />
     <EmbeddedResource Include="config\logconfig.xml" />
     <EmbeddedResource Include="config\logconfig_unix.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="languages\EN\Commands\GM\Jump.txt" />
   </ItemGroup>
 
   <ItemGroup>
