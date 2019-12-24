@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using DOL.AI.Brain;
 using DOL.GS;
+using DOL.GS.PacketHandler;
 using DOL.GS.Scripts;
 
 namespace DOL.GS.Scripts
@@ -15,6 +16,24 @@ namespace DOL.GS.Scripts
 			SetOwnBrain(brain);
 		}
 
+		public override void Die(GameObject killer)
+		{
+			base.Die(killer);
+
+			var plKiller = killer as GamePlayer;
+			if (plKiller == null && killer is GameNPC npc)
+				plKiller = npc.ControlledBrain?.GetPlayerOwner();
+			if (plKiller != null && !string.IsNullOrEmpty(GuildName))
+			{
+				var guild = GuildMgr.GetGuildByName(GuildName);
+				if (guild == null)
+					return;
+				var name = "un inconnu";
+				if (!string.IsNullOrEmpty(plKiller.GuildName))
+					name = $"un membre de la guilde {plKiller.GuildName}";
+				guild.SendMessageToGuildMembers($"Un garde vient d'être tué par {name}.", eChatType.CT_Guild, eChatLoc.CL_ChatWindow);
+			}
+		}
 	}
 }
 

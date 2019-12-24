@@ -1,27 +1,30 @@
+# ]jump Command
 Commands.GM.DebugJump.Description:				Téléporte au coordonnées spécifiées.
 Commands.GM.DebugJump.InvalidZoneID:			Zone ID non valide : {0}
 Commands.GM.DebugJump.RegionNotSuppByClient:	La région ({0}) n'est pas supportée par votre client.
 Commands.GM.DebugJump.UnknownRegion:			Region inconnue : {0}
 Commands.GM.DebugJump.UnknownZoneID:			Zone ID inconnue : {0}
-Commands.GM.DebugJump.Usage:					Usage : ']jump <zoneID> <locX> <locY> <locZ> <heading>' # Utilisé pour *jump en mode débug.
+Commands.GM.DebugJump.Usage:					Usage : ']jump <zoneID> <locX> <locY> <locZ> <heading>' Utilisé pour *jump en mode débug.
+
+# /jump Command
 Commands.GM.Jump.CannotBeFound:					{0} est introuvable.
 Commands.GM.Jump.CannotBeFoundInRealm:			{0} est introuvable dans le royaume {1}.
 Commands.GM.Jump.CannotJumpToInsideHouse:		Impossible de « jump » sur quelqu'un dans une maison. Vous n’êtes pas le père noël.
-Commands.GM.Jump.CheckExpansion.CannotJump:		{0} ne peut « jump » dans la région de destination ({1}) car elle n’est pas supporter par son client.
+Commands.GM.Jump.CheckExpansion.CannotJump:		{0} ne peut « jump » dans la région de destination ({1}) car elle n’est pas supportée par son client.
 Commands.GM.Jump.CheckExpansion.ClientNoSup:	{0} a essayé de vous « jump » dans la région ({1}) mais votre client ne le supporte pas.
-Commands.GM.Jump.Description:					Téléporte un joueur ou vous-même a la localisation définit.
+Commands.GM.Jump.Description:					Téléporte un joueur ou vous-même aux coordonnées définies.
 Commands.GM.Jump.Information:					Nom du joueur peut-être [me]:
 Commands.GM.Jump.JumpToX:						'/Jump to {0}'
-Commands.GM.Jump.NothingPushed:					Pas le localisation dans la pile. Ajoutez des points avec '/jump push'.
-Commands.GM.Jump.PlayerIsNotInGame:				{0} n’est pas dans le jeux.
+Commands.GM.Jump.NothingPushed:					Pas de coordonnées dans la pile. Ajoutez des points avec '/jump push'.
+Commands.GM.Jump.PlayerIsNotInGame:				{0} n’est pas dans le jeu.
 Commands.GM.Jump.PopInstructions:				Utilisez '/jump pop' pour y retourner.
-Commands.GM.Jump.Pushed:						Localisation actuelle poussée.
+Commands.GM.Jump.Pushed:						Coordonnées actuelles empilées.
 Commands.GM.Jump.PushedTotal:					({0} total)
 Commands.GM.Jump.Usage.PlayerNameToXYZ:			'/jump <PlayerName> to <x> <y> <z>'
 Commands.GM.Jump.Usage.PlayerNameToXYZRegID:	'/jump <PlayerName> to <x> <y> <z> [<RegionID>]'
 Commands.GM.Jump.Usage.PlayerNToPlayerN:		'/jump <PlayerName> to <PlayerName>'
-Commands.GM.Jump.Usage.Pop:						'/jump pop' # Pop l’emplacement précédent et s’y rendre.
-Commands.GM.Jump.Usage.Push:					'/jump push' # Pousse la localisation actuel vers la pile.
+Commands.GM.Jump.Usage.Pop:						'/jump pop' Dépile les coordonnées précédentes et s’y rend.
+Commands.GM.Jump.Usage.Push:					'/jump push' Empile les coordonnées actuelles.
 Commands.GM.Jump.Usage.RelXYZ:					'/jump rel <x> <y> <z>'
 Commands.GM.Jump.Usage.ToGT:					'/jump to GT'
 Commands.GM.Jump.Usage.ToNameRealmID:			'/jump to <Name> <RealmID>'

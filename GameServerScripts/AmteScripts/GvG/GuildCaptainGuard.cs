@@ -8,6 +8,9 @@ namespace DOL.GS.Scripts
 {
 	public class GuildCaptainGuard : AmteMob
 	{
+		/// <summary>
+		/// "Fausses" guildes : Albion, Hibernia, Midgard, Les Maitres du Temps, Citoyens d'Amtenael
+		/// </summary>
 		private static readonly string[] _systemGuildIds = new[]
 		{
 			"063bbcc7-0005-4667-a9ba-402746c5ae15",
