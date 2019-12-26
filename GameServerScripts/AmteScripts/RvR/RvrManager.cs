@@ -150,7 +150,7 @@ namespace AmteScripts.Managers
 			_midgard.RealmPoints = 0;
 			_hibernia.RealmPoints = 0;
 
-			var reg = WorldMgr.GetRegion(region);
+			var reg = WorldMgr.GetRegion(_region);
 			_lords = reg.Objects.Where(o => o != null && o is LordRvR).Select(o => (LordRvR)o).ToArray();
 			foreach (var lord in _lords)
 				lord.StartRvR();
