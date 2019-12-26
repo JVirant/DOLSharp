@@ -593,9 +593,9 @@ namespace DOL.GS.ServerRules
 							var bonus = 0.1;
 							var lords = RvrManager.Instance.Lords;
 							foreach (var lord in lords)
-								if (killerPlayer.GetDistance(lord) < 4000)
+								if (lord.CurrentRegionID == killerPlayer.CurrentRegionID && killerPlayer.GetDistance(lord) < 4000)
 									bonus += 0.5;
-							if (lords.Any(l => l.GuildName == killerPlayer.GuildName))
+							if (!string.IsNullOrEmpty(killerPlayer.GuildName) && lords.Any(l => l.GuildName == killerPlayer.GuildName))
 								bonus += 0.5;
 							realmPoints += (int)(realmPoints * bonus);
 							rpCap += (int)(rpCap * bonus);
