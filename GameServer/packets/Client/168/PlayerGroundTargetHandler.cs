@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  */
+using DOL.GS.Spells;
+
 namespace DOL.GS.PacketHandler.Client.v168
 {
 	[PacketHandlerAttribute(PacketHandlerType.TCP, eClientPackets.PlayerGroundTarget, "Handles Player Ground Target Settings", eClientStatus.PlayerInGame)]
@@ -81,6 +83,9 @@ namespace DOL.GS.PacketHandler.Client.v168
 
 				if (!player.GroundTargetInView)
 					player.Out.SendMessage("Your ground target is not visible!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
+
+				if (player.IsCasting && (player.CurrentSpellHandler.Spell.Target == "area" || player.CurrentSpellHandler is SummonAnimistPet))
+					player.CurrentSpellHandler.InterruptCasting();
 
 				if (player.SiegeWeapon != null)
 				{

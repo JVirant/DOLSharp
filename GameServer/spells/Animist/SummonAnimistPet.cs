@@ -47,23 +47,23 @@ namespace DOL.GS.Spells
 		{
 			if (Caster.GroundTarget == null)
 			{
-                if (Caster is GamePlayer)
-                    MessageToCaster(LanguageMgr.GetTranslation((Caster as GamePlayer).Client, "SummonAnimistPet.CheckBeginCast.GroundTargetNull"), eChatType.CT_SpellResisted);
-                return false;
+				if (Caster is GamePlayer)
+					MessageToCaster(LanguageMgr.GetTranslation((Caster as GamePlayer).Client, "SummonAnimistPet.CheckBeginCast.GroundTargetNull"), eChatType.CT_SpellResisted);
+				return false;
 			}
 
 			if (!Caster.GroundTargetInView)
 			{
-                if (Caster is GamePlayer)
-                    MessageToCaster(LanguageMgr.GetTranslation((Caster as GamePlayer).Client, "SummonAnimistPet.CheckBeginCast.GroundTargetNotInView"), eChatType.CT_SpellResisted);
-                return false;
+				if (Caster is GamePlayer)
+					MessageToCaster(LanguageMgr.GetTranslation((Caster as GamePlayer).Client, "SummonAnimistPet.CheckBeginCast.GroundTargetNotInView"), eChatType.CT_SpellResisted);
+				return false;
 			}
 
 			if (!Caster.IsWithinRadius(Caster.GroundTarget, CalculateSpellRange()))
 			{
-                if (Caster is GamePlayer)
-                    MessageToCaster(LanguageMgr.GetTranslation((Caster as GamePlayer).Client, "SummonAnimistPet.CheckBeginCast.GroundTargetNotInSpellRange"), eChatType.CT_SpellResisted);
-                return false;
+				if (Caster is GamePlayer)
+					MessageToCaster(LanguageMgr.GetTranslation((Caster as GamePlayer).Client, "SummonAnimistPet.CheckBeginCast.GroundTargetNotInSpellRange"), eChatType.CT_SpellResisted);
+				return false;
 			}
 
 			return base.CheckBeginCast(selectedTarget);
@@ -72,23 +72,16 @@ namespace DOL.GS.Spells
 		{
 			if (Caster.GroundTarget == null)
 			{
-                if (Caster is GamePlayer)
-                    MessageToCaster(LanguageMgr.GetTranslation((Caster as GamePlayer).Client, "SummonAnimistPet.CheckBeginCast.GroundTargetNull"), eChatType.CT_SpellResisted);
-                return;
-			}
-
-			if (!Caster.GroundTargetInView)
-			{
-                if (Caster is GamePlayer)
-                    MessageToCaster(LanguageMgr.GetTranslation((Caster as GamePlayer).Client, "SummonAnimistPet.CheckBeginCast.GroundTargetNotInView"), eChatType.CT_SpellResisted);
-                return;
+				if (Caster is GamePlayer)
+					MessageToCaster(LanguageMgr.GetTranslation((Caster as GamePlayer).Client, "SummonAnimistPet.CheckBeginCast.GroundTargetNull"), eChatType.CT_SpellResisted);
+				return;
 			}
 
 			if (!Caster.IsWithinRadius(Caster.GroundTarget, CalculateSpellRange()))
 			{
-                if (Caster is GamePlayer)
-                    MessageToCaster(LanguageMgr.GetTranslation((Caster as GamePlayer).Client, "SummonAnimistPet.CheckBeginCast.GroundTargetNotInSpellRange"), eChatType.CT_SpellResisted);
-                return;
+				if (Caster is GamePlayer)
+					MessageToCaster(LanguageMgr.GetTranslation((Caster as GamePlayer).Client, "SummonAnimistPet.CheckBeginCast.GroundTargetNotInSpellRange"), eChatType.CT_SpellResisted);
+				return;
 			}
 
 			base.FinishSpellCast(target);
@@ -129,7 +122,7 @@ namespace DOL.GS.Spells
 			heading = Caster.Heading;
 			region = Caster.CurrentRegion;
 		}
-		
+
 		/// <summary>
 		/// Do not trigger SubSpells
 		/// </summary>

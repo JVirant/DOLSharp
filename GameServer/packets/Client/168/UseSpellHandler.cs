@@ -149,51 +149,47 @@ namespace DOL.GS.PacketHandler.Client.v168
 				List<Tuple<SpellLine, List<Skill>>> snap = player.GetAllUsableListSpells();
 				Skill sk = null;
 				SpellLine sl = null;
-				
+
 				// is spelline in index ?
 				if (m_spellLineIndex < snap.Count)
 				{
-					int index = snap[m_spellLineIndex].Item2.FindIndex(s => s is Spell ? 
-					                                                   s.Level == m_spellLevel 
-					                                                   : (s is Styles.Style ? ((Styles.Style)s).SpecLevelRequirement == m_spellLevel
-					                                                      : (s is Ability ? ((Ability)s).SpecLevelRequirement == m_spellLevel : false)));
-					
+					int index = snap[m_spellLineIndex].Item2.FindIndex(
+						s => s is Spell ? s.Level == m_spellLevel
+						: (s is Styles.Style style ? style.SpecLevelRequirement == m_spellLevel
+						: (s is Ability ability ? ability.SpecLevelRequirement == m_spellLevel : false))
+					);
+
 					if (index > -1)
 					{
 						sk = snap[m_spellLineIndex].Item2[index];
 					}
-					
+
 					sl = snap[m_spellLineIndex].Item1;
 				}
-				
-				if (sk is Spell && sl != null)
+
+				if (sk is Spell spell && sl != null)
 				{
-					player.CastSpell((Spell)sk, sl);
+					player.CastSpell(spell, sl);
 				}
-				else if (sk is Styles.Style)
+				else if (sk is Styles.Style style)
 				{
-					player.ExecuteWeaponStyle((Styles.Style)sk);
+					player.ExecuteWeaponStyle(style);
 				}
-				else if (sk is Ability)
+				else if (sk is Ability ab)
 				{
-					Ability ab = (Ability)sk;
 					IAbilityActionHandler handler = SkillBase.GetAbilityActionHandler(ab.KeyName);
 					if (handler != null)
-					{
 						handler.Execute(ab, player);
-					}
-					
 					ab.Execute(player);
 				}
 				else
 				{
 					if (Log.IsWarnEnabled)
-						Log.Warn("Client <" + player.Client.Account.Name + "> requested incorrect spell at level " + m_spellLevel +
-							" in spell-line " + ((sl == null || sl.Name == null) ? "unkown" : sl.Name));
-					
+						Log.Warn($"Client <{player.Client.Account.Name}> requested incorrect spell at level {m_spellLevel} in spell-line {sl?.Name ?? "unkown"}");
+
 					player.Out.SendMessage(string.Format("Error : Spell (Line {0}, Level {1}) can't be resolved...", m_spellLineIndex, m_spellLevel), eChatType.CT_SpellResisted, eChatLoc.CL_SystemWindow);
 				}
-				
+
 			}
 		}
 	}

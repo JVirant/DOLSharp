@@ -718,7 +718,7 @@ namespace DOL.GS.Spells
 			}
 
 			// Apply Mentalist RA5L
-			if (Spell.Range>0)
+			if (Spell.Range > 0)
 			{
 				SelectiveBlindnessEffect SelectiveBlindness = Caster.EffectList.GetOfType<SelectiveBlindnessEffect>();
 				if (SelectiveBlindness != null)
@@ -734,7 +734,7 @@ namespace DOL.GS.Spells
 				}
 			}
 
-			if (selectedTarget!=null && selectedTarget.HasAbility("DamageImmunity") && Spell.SpellType == "DirectDamage" && Spell.Radius == 0)
+			if (selectedTarget != null && selectedTarget.HasAbility("DamageImmunity") && Spell.SpellType == "DirectDamage" && Spell.Radius == 0)
 			{
 				if (!quiet) MessageToCaster(selectedTarget.Name + " is immune to this effect!", eChatType.CT_SpellResisted);
 				return false;
@@ -744,8 +744,7 @@ namespace DOL.GS.Spells
 			{
 				if (!CheckInstrument())
 				{
-					if (!quiet) MessageToCaster("You are not wielding the right type of instrument!",
-					                            eChatType.CT_SpellResisted);
+					if (!quiet) MessageToCaster("You are not wielding the right type of instrument!", eChatType.CT_SpellResisted);
 					return false;
 				}
 			}
@@ -793,7 +792,7 @@ namespace DOL.GS.Spells
 				}
 			}
 
-			String targetType = m_spell.Target;
+			var targetType = m_spell.Target;
 
 			//[Ganrod] Nidel: Can cast pet spell on all Pet/Turret/Minion (our pet)
 			if (targetType.Equals("pet"))
@@ -806,8 +805,7 @@ namespace DOL.GS.Spells
 					}
 					else
 					{
-						if (!quiet) MessageToCaster("You must cast this spell on a creature you are controlling.",
-						                            eChatType.CT_System);
+						if (!quiet) MessageToCaster("You must cast this spell on a creature you are controlling.", eChatType.CT_System);
 						return false;
 					}
 				}
@@ -851,7 +849,7 @@ namespace DOL.GS.Spells
 					case "enemy":
 						if (selectedTarget == m_caster)
 						{
-							if (!quiet) MessageToCaster("You can't attack yourself! ", eChatType.CT_System);
+							if (!quiet) MessageToCaster("You can't attack yourself!", eChatType.CT_System);
 							return false;
 						}
 
@@ -871,9 +869,9 @@ namespace DOL.GS.Spells
 							return false;
 						}
 
-						if (m_caster.TargetInView == false)
+						if (selectedTarget == Caster.TargetObject && !m_caster.TargetInView)
 						{
-							if (!quiet) MessageToCaster("Your target is not visible!", eChatType.CT_SpellResisted);
+							if (!quiet) MessageToCaster("Your target is not in view.", eChatType.CT_SpellResisted);
 							Caster.Notify(GameLivingEvent.CastFailed, new CastFailedEventArgs(this, CastFailedEventArgs.Reasons.TargetNotInView));
 							return false;
 						}
@@ -887,25 +885,21 @@ namespace DOL.GS.Spells
 					case "corpse":
 						if (selectedTarget.IsAlive || !GameServer.ServerRules.IsSameRealm(Caster, selectedTarget, true))
 						{
-							if (!quiet) MessageToCaster("This spell only works on dead members of your realm!", eChatType.CT_SpellResisted);
+							if (!quiet) MessageToCaster("This spell only works on dead members of your realm.", eChatType.CT_SpellResisted);
+							return false;
+						}
+						if (selectedTarget == Caster.TargetObject && !m_caster.TargetInView)
+						{
+							if (!quiet) MessageToCaster("Your target is not in view.", eChatType.CT_SpellResisted);
+							Caster.Notify(GameLivingEvent.CastFailed, new CastFailedEventArgs(this, CastFailedEventArgs.Reasons.TargetNotInView));
 							return false;
 						}
 						break;
 
 					case "realm":
 						if (!GameServer.ServerRules.IsSameRealm(Caster, selectedTarget, true))
-						{
 							return false;
-						}
 						break;
-				}
-
-				//heals/buffs/rez need LOS only to start casting, TargetInView only works if selectedTarget == TargetObject
-				if (selectedTarget == Caster.TargetObject && !m_caster.TargetInView && m_spell.Target != "pet")
-				{
-					if (!quiet) MessageToCaster("Your target is not in visible!", eChatType.CT_SpellResisted);
-					Caster.Notify(GameLivingEvent.CastFailed, new CastFailedEventArgs(this, CastFailedEventArgs.Reasons.TargetNotInView));
-					return false;
 				}
 
 				if (m_spell.Target != "corpse" && !selectedTarget.IsAlive)
@@ -918,7 +912,7 @@ namespace DOL.GS.Spells
 			//Ryan: don't want mobs to have reductions in mana
 			if (Spell.Power != 0 && m_caster is GamePlayer && (m_caster as GamePlayer).CharacterClass.ID != (int)eCharacterClass.Savage && m_caster.Mana < PowerCost(selectedTarget) && Spell.SpellType != "Archery")
 			{
-				if (!quiet) MessageToCaster("You don't have enough power to cast that!", eChatType.CT_SpellResisted);
+				if (!quiet) MessageToCaster("You don't have enough power to cast that.", eChatType.CT_SpellResisted);
 				return false;
 			}
 
@@ -926,7 +920,7 @@ namespace DOL.GS.Spells
 			{
 				if (m_caster.Concentration < m_spell.Concentration)
 				{
-					if (!quiet) MessageToCaster("This spell requires " + m_spell.Concentration + " concentration points to cast!", eChatType.CT_SpellResisted);
+					if (!quiet) MessageToCaster($"This spell requires {m_spell.Concentration} concentration points to cast.", eChatType.CT_SpellResisted);
 					return false;
 				}
 
