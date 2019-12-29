@@ -3138,11 +3138,7 @@ namespace DOL.GS.Commands
 			}
 			catch (Exception e)
 			{
-				if (ServerProperties.Properties.ENABLE_DEBUG)
-				{
-					log.Debug("Error in /gc script, " + args[1] + " command: " + e.ToString());
-				}
-
+				log.Error("Error in /gc script, " + string.Join(" ", args.Select(a => $"\"{a}\"")) + " command.", e);
 				DisplayHelp(client);
 			}
 		}

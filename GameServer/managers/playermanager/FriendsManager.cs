@@ -260,23 +260,33 @@ namespace DOL.GS.Friends
 		{
 			if (Player == null)
 				throw new ArgumentNullException("Player");
-			
+
 			// "TF" - clear friend list in social
 			Player.Out.SendMessage("TF", eChatType.CT_SocialInterface, eChatLoc.CL_SystemWindow);
 			
 			var offlineFriends = this[Player].ToList();
 			var index = 0;
 			foreach (var friend in this[Player].Select(name => PlayersFriendsListsCache.FirstOrDefault(kv => kv.Key.Name == name))
-			         .Where(kv => kv.Key != null && !kv.Key.IsAnonymous).Select(kv => kv.Key ))
+				.Where(kv => kv.Key != null && !kv.Key.IsAnonymous).Select(kv => kv.Key ))
 			{
 				offlineFriends.Remove(friend.Name);
-				Player.Out.SendMessage(string.Format("F,{0},{1},{2},{3},\"{4}\"",
-					index++,
-					friend.Name,
-					friend.Level,
-					friend.CharacterClass.ID,
-					friend.CurrentZone == null ? string.Empty : friend.CurrentZone.Description),
-					eChatType.CT_SocialInterface, eChatLoc.CL_SystemWindow);
+				if (GameServer.ServerRules.IsSameRealm(Player, friend, true))
+				{
+					Player.Out.SendMessage(
+						string.Format(
+							"F,{0},{1},{2},{3},\"{4}\"",
+							index++,
+							friend.Name,
+							friend.Level,
+							friend.CharacterClass.ID,
+							friend.CurrentZone == null ? string.Empty : friend.CurrentZone.Description
+						),
+						eChatType.CT_SocialInterface,
+						eChatLoc.CL_SystemWindow
+					);
+				}
+				else
+					Player.Out.SendMessage(string.Format("F,{0},{1},,,", index++, friend.Name), eChatType.CT_SocialInterface, eChatLoc.CL_SystemWindow);
 			}
 			
 			// Query Offline Characters
@@ -286,13 +296,17 @@ namespace DOL.GS.Friends
 			{
 				foreach(var friend in offline.Where(frd => offlineFriends.Contains(frd.Name)))
 				{
-					Player.Out.SendMessage(string.Format("F,{0},{1},{2},{3},\"{4}\"",
-						index++,
-						friend.Name,
-						friend.Level,
-						friend.ClassID,
-						friend.LastPlayed),
-						eChatType.CT_SocialInterface, eChatLoc.CL_SystemWindow);
+					Player.Out.SendMessage(
+						string.Format("F,{0},{1},{2},{3},\"{4}\"",
+							index++,
+							friend.Name,
+							friend.Level,
+							friend.ClassID,
+							friend.LastPlayed
+						),
+						eChatType.CT_SocialInterface,
+						eChatLoc.CL_SystemWindow
+					);
 				}
 			}
 			

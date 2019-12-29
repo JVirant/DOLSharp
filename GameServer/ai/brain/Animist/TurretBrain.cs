@@ -61,32 +61,20 @@ namespace DOL.AI.Brain
 
 
 			// slow thinking part
-			GamePlayer playerowner = GetPlayerOwner();
-			if (playerowner != null && (GameTimer.GetTickCount() - playerowner.Client.GameObjectUpdateArray[new Tuple<ushort, ushort>(Body.CurrentRegionID, (ushort)Body.ObjectID)]) > ThinkInterval)
-			{
-				playerowner.Out.SendObjectUpdate(Body);
-			}
-
 			if (!TryCastASpell(eCheckSpellType.Defensive))
-			{
 				AttackMostWanted();
-			}
 		}
 
 
 		public override bool TryCastASpell(eCheckSpellType type)
 		{
 			if(Body == null || ((TurretPet) Body).TurretSpell == null)
-			{
 				return false;
-			}
 
 			if(Body.IsCasting)
-			{
 				return true;
-			}
-			Spell spell = ((TurretPet) Body).TurretSpell;
 
+			Spell spell = ((TurretPet) Body).TurretSpell;
 			switch (type)
 			{
 				case eCheckSpellType.Defensive:
@@ -105,7 +93,7 @@ namespace DOL.AI.Brain
 				case "BodySpiritEnergyBuff":
 				case "ArmorAbsorptionBuff":
 				case "AblativeArmor":
-				  TrustCast(spell, eCheckSpellType.Defensive);
+					TrustCast(spell, eCheckSpellType.Defensive);
 					return true;
 			}
 			return false;
