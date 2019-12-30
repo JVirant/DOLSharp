@@ -1142,63 +1142,52 @@ namespace DOL.GS
             }
         }
 
-        /// <summary>
-        /// Removes the object with the specified ID from the region
-        /// </summary>
-        /// <param name="obj">A GameObject to be removed from the region</param>
-        internal void RemoveObject(GameObject obj)
-        {
-            lock (ObjectsSyncLock)
-            {
-                int index = obj.ObjectID - 1;
-                if (index < 0)
-                {
-                    return;
-                }
+		/// <summary>
+		/// Removes the object with the specified ID from the region
+		/// </summary>
+		/// <param name="obj">A GameObject to be removed from the region</param>
+		internal void RemoveObject(GameObject obj)
+		{
+			lock (ObjectsSyncLock)
+			{
+				int index = obj.ObjectID - 1;
+				if (index < 0)
+					return;
 
-                if (obj is GamePlayer)
-                {
-                    --m_numPlayer;
-                }
-                else
-                {
-                    if (obj is GameGravestone)
-                    {
-                        lock (m_graveStones.SyncRoot)
-                        {
-                            m_graveStones.Remove(obj.InternalID);
-                        }
-                    }
-                }
+				if (obj is GamePlayer)
+					--m_numPlayer;
+				else if (obj is GameGravestone)
+					lock (m_graveStones.SyncRoot)
+						m_graveStones.Remove(obj.InternalID);
 
-                GameObject inPlace = m_objects[obj.ObjectID - 1];
-                if (inPlace == null)
-                {
-                    log.Error("RemoveObject conflict! OID" + obj.ObjectID + " " + obj.Name + "(" + obj.CurrentRegionID + ") but there was no object at that slot");
-                    log.Error(new StackTrace().ToString());
-                    return;
-                }
-                if (obj != inPlace)
-                {
-                    log.Error("RemoveObject conflict! OID" + obj.ObjectID + " " + obj.Name + "(" + obj.CurrentRegionID + ") but there was another object already " + inPlace.Name + " region:" + inPlace.CurrentRegionID + " state:" + inPlace.ObjectState);
-                    log.Error(new StackTrace().ToString());
-                    return;
-                }
+				GameObject inPlace = m_objects[obj.ObjectID - 1];
+				if (inPlace == null)
+				{
+					log.Error("RemoveObject conflict! OID" + obj.ObjectID + " " + obj.Name + "(" + obj.CurrentRegionID + ") but there was no object at that slot");
+					log.Error(new StackTrace().ToString());
+					return;
+				}
+				if (obj != inPlace)
+				{
+					log.Error("RemoveObject conflict! OID" + obj.ObjectID + " " + obj.Name + "(" + obj.CurrentRegionID + ") but there was another object already " + inPlace.Name + " region:" + inPlace.CurrentRegionID + " state:" + inPlace.ObjectState);
+					log.Error(new StackTrace().ToString());
+					return;
+				}
 
-                if (m_objects[index] != obj)
-                {
-                    log.Error("Object OID is already used by another object! (used by:" + m_objects[index].ToString() + ")");
-                }
-                else
-                {
-                    m_objects[index] = null;
-                    m_nextObjectSlot = index;
-                    m_objectsAllocatedSlots[index / 32] &= ~(uint)(1 << (index % 32));
-                }
-                obj.ObjectID = -1; // invalidate object id
-                m_objectsInRegion--;
-            }
-        }
+				if (m_objects[index] != obj)
+				{
+					log.Error("Object OID is already used by another object! (used by:" + m_objects[index].ToString() + ")");
+				}
+				else
+				{
+					m_objects[index] = null;
+					m_nextObjectSlot = index;
+					m_objectsAllocatedSlots[index / 32] &= ~(uint)(1 << (index % 32));
+				}
+				obj.ObjectID = -1; // invalidate object id
+				m_objectsInRegion--;
+			}
+		}
 
         /// <summary>
         /// Searches for players gravestone in this region

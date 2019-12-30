@@ -670,7 +670,7 @@ namespace DOL.GS
 
 			if (Client.Account.PrivLevel > 1) // GMs can always insta quit
 				bInstaQuit = true;
-			else if (ServerProperties.Properties.DISABLE_QUIT_TIMER && Client.Player.InCombat == false)  // Players can only insta quit if they aren't in combat
+			else if (Properties.DISABLE_QUIT_TIMER && Client.Player.InCombat == false)  // Players can only insta quit if they aren't in combat
 				bInstaQuit = true;
 
 			if (bInstaQuit == false)
@@ -10015,7 +10015,10 @@ namespace DOL.GS
 		/// Marks this player as deleted
 		/// </summary>
 		public override void Delete()
-		{			
+		{
+			if (ObjectState == eObjectState.Deleted)
+				return;
+
 			// do some Cleanup
 			CleanupOnDisconnect();
 			

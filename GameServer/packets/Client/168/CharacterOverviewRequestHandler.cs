@@ -64,8 +64,6 @@ namespace DOL.GS.PacketHandler.Client.v168
 				}
 			}
 
-			client.Player = null;
-
 			//reset realm if no characters
 			if((client.Account.Characters == null || client.Account.Characters.Length <= 0) && client.Account.Realm != (int)eRealm.None)
 			{
@@ -158,8 +156,6 @@ namespace DOL.GS.PacketHandler.Client.v168
 					log.ErrorFormat("Error attempting to update cached player. {0}", ex.Message);
 				}
 			}
-
-			client.Player = null;
 
 			//reset realm if no characters
 			if ((client.Account.Characters == null || client.Account.Characters.Length <= 0) && client.Account.Realm != (int)eRealm.None)

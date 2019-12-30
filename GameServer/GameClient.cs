@@ -395,13 +395,9 @@ namespace DOL.GS
 			get { return m_player; }
 			set
 			{
-				GamePlayer oldPlayer = Interlocked.Exchange(ref m_player, value);
-				if (oldPlayer != null)
-				{
-					oldPlayer.Delete();
-				}
-
-				GameEventMgr.Notify(GameClientEvent.PlayerLoaded, this); // hmm seems not right
+				Interlocked.Exchange(ref m_player, value);
+				if (value != null)
+					GameEventMgr.Notify(GameClientEvent.PlayerLoaded, this); // hmm seems not right
 			}
 		}
 

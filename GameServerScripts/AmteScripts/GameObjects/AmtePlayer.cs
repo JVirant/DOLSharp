@@ -29,24 +29,6 @@ namespace DOL.GS
 			}
 		}
 
-		public override int RealmPointsValue
-		{
-			get
-			{
-				var pr = base.RealmPointsValue;
-				if (RvrManager.Instance.IsInRvr(this))
-				{
-					var bonus = 0;
-					foreach (var npc in GetNPCsInRadius(4000))
-						if (npc is LordRvR lord)
-							bonus += pr;
-					pr += bonus;
-					pr += pr / 10;
-				}
-				return pr;
-			}
-		}
-
 		public override void Die(GameObject killer)
 		{
 			base.Die(killer);
