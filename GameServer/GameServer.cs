@@ -418,7 +418,7 @@ namespace DOL.GS
 						}
 						else
 						{
-							var sender = (IPEndPoint) (tempRemoteEP);
+							var sender = (IPEndPoint)tempRemoteEP;
 
 							var pakin = new GSPacketIn(read - GSPacketIn.HDR_SIZE);
 							pakin.Load(server.UDPBuffer, 0, read);
@@ -489,8 +489,7 @@ namespace DOL.GS
 
 			try
 			{
-				s.BeginReceiveFrom(server.UDPBuffer, 0, MAX_UDPBUF, SocketFlags.None, ref tempRemoteEP, m_udpReceiveCallback,
-				                   server);
+				s.BeginReceiveFrom(server.UDPBuffer, 0, MAX_UDPBUF, SocketFlags.None, ref tempRemoteEP, m_udpReceiveCallback, server);
 				ret = true;
 			}
 			catch (SocketException e)

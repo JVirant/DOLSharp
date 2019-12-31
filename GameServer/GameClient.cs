@@ -241,7 +241,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Holds the time of the last UDP ping
 		/// </summary>
-		protected long m_udpPingTime = DateTime.Now.Ticks;
+		protected DateTime m_udpPingTime = new DateTime(1);
 		
 		/// <summary>
 		/// Custom Account Params
@@ -440,7 +440,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Gets/Sets the time of last UDP ping packet
 		/// </summary>
-		public long UdpPingTime
+		public DateTime UdpPingTime
 		{
 			get { return m_udpPingTime; }
 			set { m_udpPingTime = value; }
@@ -452,7 +452,7 @@ namespace DOL.GS
 		public bool UdpConfirm
 		{
 			get { return m_udpConfirm; }
-			set { m_udpConfirm = value; }
+			set  { m_udpConfirm = value; }
 		}
 
 		/// <summary>

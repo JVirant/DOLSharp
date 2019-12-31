@@ -49,7 +49,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 				client.LocalIP = localIP;
 			else
 				client.LocalIP = (client.Socket.RemoteEndPoint as IPEndPoint)?.Address?.ToString();
-			client.UdpEndPoint = new IPEndPoint(IPAddress.Parse(localIP), localPort);
+			log.Debug($"UDPInit for {client.Account.Name}: packet={localIP}:{localPort}, endpoint={client.UdpEndPoint.Address}:{client.UdpEndPoint.Port}");
 			client.Out.SendUDPInitReply();
 		}
 	}

@@ -46,11 +46,12 @@ namespace DOL.GS.PacketHandler.Client.v168
 				string localIP = packet.ReadString(22);
 				ushort localPort = packet.ReadShort();
 				// TODO check changed localIP
-				client.LocalIP = localIP;
+				// client.LocalIP = localIP;
 			}
 			// unsure what this value is now thats sent in 1.125
 			// Its just a ping back letting the server know that UDP connection is still alive
-			client.UdpPingTime = DateTime.Now.Ticks;
+			client.UdpPingTime = DateTime.Now;
+			client.UdpConfirm = true;
 		}
 	}
 }

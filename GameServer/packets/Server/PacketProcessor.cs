@@ -599,7 +599,7 @@ namespace DOL.GS.PacketHandler
 			
 			if (m_client.ClientState == GameClient.eClientState.Playing)
 			{
-				if ((DateTime.Now.Ticks - m_client.UdpPingTime) > 500000000L) // really 24s, not 50s
+				if ((DateTime.Now - m_client.UdpPingTime).TotalSeconds > 70)
 				{
 					//flagLostUDP = true;
 					m_client.UdpConfirm = false;
