@@ -84,9 +84,6 @@ namespace DOL.GS.PacketHandler.Client.v168
 				if (!player.GroundTargetInView)
 					player.Out.SendMessage("Your ground target is not visible!", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 
-				if (player.IsCasting && (player.CurrentSpellHandler.Spell.Target == "area" || player.CurrentSpellHandler is SummonAnimistPet))
-					player.CurrentSpellHandler.InterruptCasting();
-
 				if (player.SiegeWeapon != null)
 				{
 					player.SiegeWeapon.Move();

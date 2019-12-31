@@ -48,8 +48,10 @@ namespace DOL.GS.PacketHandler.Client.v168
 
 			ushort head = packet.ReadShort();
 			var unk1 = (byte)packet.ReadByte(); // unknown
-			var steedSlot = (byte) packet.ReadByte();
 			var flags = (byte)packet.ReadByte();
+			var steedSlot = (byte) packet.ReadByte();
+			if (client.Version >= GameClient.eClientVersion.Version1124)
+				packet.Skip(1);
 			var ridingFlag = (byte)packet.ReadByte();
 
 			client.Player.Heading = (ushort)(head & 0xFFF);
@@ -93,8 +95,8 @@ namespace DOL.GS.PacketHandler.Client.v168
 			outpak190.WriteShort((ushort) client.SessionID);
 			outpak190.WriteShort(head);
 			outpak190.WriteByte(unk1); // unknown
-			outpak190.WriteByte(steedSlot);
 			outpak190.WriteByte(flagcontent);
+			outpak190.WriteByte(steedSlot);
 			outpak190.WriteByte(ridingFlag);
 			outpak190.WriteByte((byte)(client.Player.HealthPercent + (client.Player.AttackState ? 0x80 : 0)));
 			outpak190.WriteByte(state);
@@ -105,8 +107,8 @@ namespace DOL.GS.PacketHandler.Client.v168
 			GSUDPPacketOut outpak = new GSUDPPacketOut(client.Out.GetPacketCode(eServerPackets.PlayerHeading));
 			outpak.WriteShort((ushort)client.SessionID);
 			outpak.WriteShort(head);
-			outpak.WriteByte(steedSlot);
 			outpak.WriteByte(flagcontent);
+			outpak.WriteByte(steedSlot);
 			outpak.WriteByte(0);
 			outpak.WriteByte(ridingFlag);
 			outpak.WriteByte((byte)(client.Player.HealthPercent + (client.Player.AttackState ? 0x80 : 0)));
