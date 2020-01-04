@@ -43,6 +43,8 @@ namespace DOL.GS
 		/// </summary>
 		protected readonly GamePlayer m_player;
 
+		public GamePlayer Player => m_player;
+
 		/// <summary>
 		/// Constructs a new empty inventory for player
 		/// </summary>
