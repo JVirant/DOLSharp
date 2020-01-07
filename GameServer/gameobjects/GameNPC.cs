@@ -3815,17 +3815,17 @@ namespace DOL.GS
 
 			TargetObject = target;
 
-			long lastTick = this.TempProperties.getProperty<long>(LAST_LOS_TICK_PROPERTY);
+			long lastTick = TempProperties.getProperty<long>(LAST_LOS_TICK_PROPERTY);
 
-			if (ServerProperties.Properties.ALWAYS_CHECK_PET_LOS &&
+			if (Properties.ALWAYS_CHECK_PET_LOS &&
 				Brain != null &&
 				Brain is IControlledBrain &&
 				(target is GamePlayer || (target is GameNPC && (target as GameNPC).Brain != null && (target as GameNPC).Brain is IControlledBrain)))
 			{
-				GameObject lastTarget = (GameObject)this.TempProperties.getProperty<object>(LAST_LOS_TARGET_PROPERTY, null);
+				GameObject lastTarget = TempProperties.getProperty<GameObject>(LAST_LOS_TARGET_PROPERTY, null);
 				if (lastTarget != null && lastTarget == target)
 				{
-					if (lastTick != 0 && CurrentRegion.Time - lastTick < ServerProperties.Properties.LOS_PLAYER_CHECK_FREQUENCY * 1000)
+					if (lastTick != 0 && CurrentRegion.Time - lastTick < Properties.LOS_PLAYER_CHECK_FREQUENCY * 1000)
 						return;
 				}
 
@@ -3841,7 +3841,7 @@ namespace DOL.GS
 				else
 				{
 					// try to find another player to use for checking line of site
-					foreach (GamePlayer player in this.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
+					foreach (GamePlayer player in GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
 					{
 						losChecker = player;
 						break;
@@ -3862,7 +3862,7 @@ namespace DOL.GS
 						log.DebugFormat("{0} LOS count check exceeds 10, aborting LOS check!", Name);
 
 						// Now do a safety check.  If it's been a while since we sent any check we should clear count
-						if (lastTick == 0 || CurrentRegion.Time - lastTick > ServerProperties.Properties.LOS_PLAYER_CHECK_FREQUENCY * 1000)
+						if (lastTick == 0 || CurrentRegion.Time - lastTick > Properties.LOS_PLAYER_CHECK_FREQUENCY * 1000)
 						{
 							log.Debug("LOS count reset!");
 							TempProperties.setProperty(NUM_LOS_CHECKS_INPROGRESS, 0);
@@ -3880,7 +3880,7 @@ namespace DOL.GS
 
 				}
 
-				losChecker.Out.SendCheckLOS(this, target, new CheckLOSResponse(this.NPCStartAttackCheckLOS));
+				losChecker.Out.SendCheckLOS(this, target, new CheckLOSResponse(NPCStartAttackCheckLOS));
 				return;
 			}
 
@@ -4852,7 +4852,7 @@ namespace DOL.GS
 				dps = dps.Clamp(0.1, cap);
 				dps *= 1.0 + (GetModified(eProperty.DPS) * 0.01);
 				// beware to use always ConditionPercent, because Condition is abolute value
-				dps *= weapon.Quality * 0.01 * weapon.ConditionPercent;
+				dps *= weapon.Quality * 0.01 * weapon.ConditionPercent * 0.01;
 
 				if (weapon.Item_Type == Slot.TWOHAND)
 				{

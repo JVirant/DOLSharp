@@ -86,7 +86,7 @@ namespace DOL.GS.PropertyCalc
 
 			regen = Math.Max(1, regen);
 
-			if (living.IsSitting)
+			if (living.IsSitting && !living.InCombat)
 				regen *= 3;
 
 			return (int)regen;

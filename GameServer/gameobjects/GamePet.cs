@@ -205,7 +205,7 @@ namespace DOL.GS
 				Charisma = (short)NPCTemplate.Charisma;
 
 			if (NPCTemplate == null || NPCTemplate.WeaponDps < 1)
-				WeaponDps = (int)((1.2 + 0.3 * Level + Level * Level * 0.002) * 10);
+				WeaponDps = (int)((1.4 + 0.3 * Level + Level * Level * 0.002) * 10);
 			else
 				WeaponDps = NPCTemplate.WeaponDps;
 			if (NPCTemplate == null || NPCTemplate.WeaponSpd < 1)
@@ -214,10 +214,12 @@ namespace DOL.GS
 				WeaponSpd = NPCTemplate.WeaponSpd;
 
 			if (NPCTemplate == null || NPCTemplate.ArmorFactor < 1)
-				ArmorFactor = (int)((1.0 + (Level / 110.0)) * Level * 1.67);
+				ArmorFactor = (int)((1.0 + (Level / 100.0)) * Level * 1.8);
 			else
 				ArmorFactor = NPCTemplate.ArmorFactor;
-			if (NPCTemplate != null)
+			if (NPCTemplate == null || NPCTemplate.ArmorAbsorb < 1)
+				ArmorAbsorb = (int)((Level - 10) * 0.5 - (Level - 60) * Level * 0.0015).Clamp(0, 75);
+			else
 				ArmorAbsorb = NPCTemplate.ArmorAbsorb;
 		}
 		#endregion

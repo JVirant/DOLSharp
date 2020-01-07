@@ -256,8 +256,8 @@ namespace DOL.AI.Brain
 			}
 			m_orderAttackTarget = target as GameLiving;
 			previousIsStealthed = false;
-			if (target is GamePlayer) 
-				previousIsStealthed = (target as GamePlayer).IsStealthed;
+			if (target is GamePlayer pl)
+				previousIsStealthed = pl.IsStealthed;
 			AttackMostWanted();
 		}
 
