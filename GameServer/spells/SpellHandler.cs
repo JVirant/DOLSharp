@@ -3717,7 +3717,7 @@ namespace DOL.GS.Spells
 
 			int bonustohit = m_caster.GetModified(eProperty.ToHitBonus);
 			//Piercing Magic affects to-hit bonus too
-			GameSpellEffect resPierce = SpellHandler.FindEffectOnTarget(m_caster, "PenetrateResists");
+			GameSpellEffect resPierce = FindEffectOnTarget(m_caster, "PenetrateResists");
 			if (resPierce != null)
 				bonustohit += (int)resPierce.Spell.Value;
 

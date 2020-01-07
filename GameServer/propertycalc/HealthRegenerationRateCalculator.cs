@@ -85,6 +85,10 @@ namespace DOL.GS.PropertyCalc
 			regen += living.BaseBuffBonusCategory[(int)property] - debuff;
 
 			regen = Math.Max(1, regen);
+
+			if (living.IsSitting)
+				regen *= 3;
+
 			return (int)regen;
 		}
 	}
