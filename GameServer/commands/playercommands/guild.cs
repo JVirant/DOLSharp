@@ -1905,7 +1905,7 @@ namespace DOL.GS.Commands
 									eChatType.CT_System, eChatLoc.CL_SystemWindow);
 								return;
 							}
-							if (!client.Player.Guild.HasRank(client.Player, Guild.eRank.Promote))
+							if (!client.Player.Guild.HasRank(client.Player, Guild.eRank.Promote) && client.Account.PrivLevel == 1)
 							{
 								client.Out.SendMessage(
 									LanguageMgr.GetTranslation(
@@ -2060,7 +2060,7 @@ namespace DOL.GS.Commands
 								return;
 							}
 							//if (commandUserGuildRank != 0 && (newrank < commandUserGuildRank || newrank < 0)) // Do we have to authorize Self Retrograde for GuildMaster?
-							if ((newrank < commandUserGuildRank) || (newrank < 0))
+							if ((newrank < commandUserGuildRank || newrank < 0) && client.Account.PrivLevel == 1)
 							{
 								client.Out.SendMessage(
 									LanguageMgr.GetTranslation(

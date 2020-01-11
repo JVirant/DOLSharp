@@ -1,4 +1,6 @@
-﻿using DOL.GS.PacketHandler;
+﻿using DOL.Database;
+using DOL.GS.PacketHandler;
+using DOL.GS.ServerProperties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,10 @@ namespace DOL.GS.Scripts
 {
 	public class GuildCaptainGuard : AmteMob
 	{
+		public const long CLAIM_COST = 500 * 100 * 100; // 500g
+		public const ushort AREA_RADIUS = 2048;
+		public const ushort NEUTRAL_EMBLEM = 256;
+
 		/// <summary>
 		/// "Fausses" guildes : Albion, Hibernia, Midgard, Les Maitres du Temps, Citoyens d'Amtenael
 		/// </summary>
@@ -17,7 +23,7 @@ namespace DOL.GS.Scripts
 			"bdbc6f4a-b9f8-4316-b88b-9698e06cdd7b",
 			"50d7af62-7142-4955-9f31-0c58ac1ac33f",
 			"ce6f0b34-78bc-45a9-9f65-6e849d498f6c",
-			"386c822f-996b-4db6-8bd8-121c07fc11cd"
+			"386c822f-996b-4db6-8bd8-121c07fc11cd",
 		};
 		public static readonly List<GuildCaptainGuard> allCaptains = new List<GuildCaptainGuard>();
 
@@ -57,6 +63,7 @@ namespace DOL.GS.Scripts
 			set {
 				base.GuildName = value;
 				_guild = GuildMgr.GetGuildByName(value);
+				ResetArea();
 			}
 		}
 
@@ -76,14 +83,30 @@ namespace DOL.GS.Scripts
 
 		public override bool Interact(GamePlayer player)
 		{
-			if (!base.Interact(player) || _guild == null)
-				return false;
-			if (player.Client.Account.PrivLevel == 1 && player.GuildID != _guild.GuildID)
+			if (!base.Interact(player) || player.Guild == null)
 				return false;
 
-			if (player.Client.Account.PrivLevel == 1 &&  !player.GuildRank.Claim)
+			if (player.Client.Account.PrivLevel == 1 && player.GuildID != _guild?.GuildID)
+			{
+				if (player.GuildRank.Claim)
+				{
+					player.Out.SendMessage(
+						$"Bonjour {player.GuildRank?.Title ?? ""} {player.Name} que puis-je faire pour vous ?\n[capturer le territoire] ({Money.GetShortString(CLAIM_COST)})",
+						eChatType.CT_System,
+						eChatLoc.CL_PopupWindow
+					);
+					return true;
+				}
+				return false;
+			}
+
+			if (player.Client.Account.PrivLevel == 1 && !player.GuildRank.Claim)
+			{
 				player.Out.SendMessage($"Bonjour {player.Name}, je ne discute pas avec les bleus, circulez.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
-			player.Out.SendMessage($"Bonjour {player.GuildRank?.Title ?? ""} {player.Name}, que puis-je faire pour vous ?\n[modifier les alliances] [acheter un garde]\n", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+				return true;
+			}
+
+			player.Out.SendMessage($"Bonjour {player.GuildRank?.Title ?? ""} {player.Name}, que puis-je faire pour vous ?\n\n[modifier les alliances]\n", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 			return true;
 		}
 
@@ -93,8 +116,15 @@ namespace DOL.GS.Scripts
 				return false;
 			if (!(source is GamePlayer player))
 				return false;
-			if (player.Client.Account.PrivLevel == 1 && (player.GuildID != _guild.GuildID || !player.GuildRank.Claim))
+			if (player.Client.Account.PrivLevel == 1 && player.GuildID != _guild.GuildID)
+			{
+				if (player.GuildRank.Claim && text == "capturer le territoire")
+				{
+					Claim(player);
+					return true;
+				}
 				return false;
+			}
 
 			switch(text)
 			{
@@ -116,7 +146,7 @@ namespace DOL.GS.Scripts
 					player.Out.SendMessage($"Voici la liste des guildes et leurs paramètres :\n${guilds}", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					return true;
 				case "acheter un garde":
-					player.Out.SendMessage($"Vous devez prendre contact avec un Game Master d'Amtenaël.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+					BuyGuard(player);
 					return true;
 			}
 
@@ -136,6 +166,80 @@ namespace DOL.GS.Scripts
 				return WhisperReceive(source, "default");
 			}
 			return false;
+		}
+
+		public IEnumerable<SimpleGvGGuard> GetGuardsInRadius(ushort radius = AREA_RADIUS)
+		{
+			foreach (var npc in GetNPCsInRadius(radius).OfType<SimpleGvGGuard>())
+			{
+				if (npc.Captain != this)
+					continue;
+				yield return npc;
+			}
+		}
+
+		public void ResetArea()
+		{
+			foreach (var guard in GetGuardsInRadius())
+				guard.Captain = this;
+		}
+
+		public void BuyGuard(GamePlayer player)
+		{
+			player.Out.SendMessage($"Vous devez prendre contact avec un Game Master d'Amtenaël.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+		}
+
+		public void Claim(GamePlayer player)
+		{
+			if (!Name.StartsWith("Capitaine"))
+			{
+				player.Out.SendMessage(
+					"Vous devez demander à un GM pour ce type de territoire.",
+					eChatType.CT_System,
+					eChatLoc.CL_PopupWindow
+				);
+				return;
+			}
+
+			if (DateTime.Now.DayOfWeek != DayOfWeek.Wednesday || DateTime.Now.Hour < 21 || DateTime.Now.Hour > 23)
+			{
+				player.Out.SendMessage(
+					"Il n'est pas possible de capturer des territoires aujourd'hui à cette heure-ci.\n" +
+					"Pour le moment, les territoires ne sont prenables que le mercredi entre 21h et 23h.\n",
+					eChatType.CT_System,
+					eChatLoc.CL_PopupWindow
+				);
+				return;
+			}
+
+			if (GetGuardsInRadius(AREA_RADIUS).Any(g => g.IsAlive))
+			{
+				player.Out.SendMessage(
+					"Vous devez tuer tous les gardes avant de pouvoir prendre possession du territoire.",
+					eChatType.CT_System,
+					eChatLoc.CL_PopupWindow
+				);
+				return;
+			}
+
+			if (!player.RemoveMoney(CLAIM_COST))
+			{
+				player.Out.SendMessage(
+					"Vous n'avez pas assez d'argent pour prendre possession du territoire.",
+					eChatType.CT_System,
+					eChatLoc.CL_PopupWindow
+				);
+				return;
+			}
+
+			GuildName = player.GuildName;
+			SaveIntoDatabase();
+			ResetArea();
+			player.Out.SendMessage(
+				"Le territoire appartient maintenant à votre guilde, que voulez-vous faire ?\n\n[modifier les alliances]\n",
+				eChatType.CT_System,
+				eChatLoc.CL_PopupWindow
+			);
 		}
 	}
 }
