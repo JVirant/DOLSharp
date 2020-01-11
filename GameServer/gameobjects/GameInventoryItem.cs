@@ -797,7 +797,7 @@ namespace DOL.GS
 				#region Poison
 				if (PoisonSpellID != 0)
 				{
-					if (GlobalConstants.IsWeapon(Object_Type))// Poisoned Weapon
+					if (GlobalConstants.IsWeapon(Object_Type) || (eObjectType)Object_Type == eObjectType.Poison)// Poisoned Weapon
 					{
 						SpellLine poisonLine = SkillBase.GetSpellLine(GlobalSpellsLines.Mundane_Poisons);
 						if (poisonLine != null)

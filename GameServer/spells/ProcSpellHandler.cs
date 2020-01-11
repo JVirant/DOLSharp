@@ -323,45 +323,20 @@ namespace DOL.GS.Spells
 		/// <param name="arguments"></param>
 		protected override void EventHandler(DOLEvent e, object sender, EventArgs arguments)
 		{
-			if (arguments == null)
-				return;
-
 			AttackFinishedEventArgs args = arguments as AttackFinishedEventArgs;
-			
-			if (args == null || args.AttackData == null || args.AttackData.AttackType == AttackData.eAttackType.Spell)
+			if (args?.AttackData == null)
 				return;
-			
 			AttackData ad = args.AttackData;
-			if (ad == null || (ad.AttackResult != GameLiving.eAttackResult.HitUnstyled && ad.AttackResult != GameLiving.eAttackResult.HitStyle))
+			if (ad.AttackResult != GameLiving.eAttackResult.HitUnstyled && ad.AttackResult != GameLiving.eAttackResult.HitStyle)
 				return;
 
 			int baseChance = Spell.Frequency / 100;
 
 			if (ad.AttackType == AttackData.eAttackType.MeleeDualWield)
 				baseChance /= 2;
-
 			if (baseChance < 1)
 				baseChance = 1;
-			
-			if (ad.Attacker is GameNPC pet) // Add support for multiple procs - Unty
-			{
-				Spell baseSpell = null;
 
-				var procSpells = new List<Spell>();
-				foreach (Spell spell in pet.Spells)
-				{
-					if (pet.GetSkillDisabledDuration(spell) == 0)
-					{
-						if (spell.SpellType.ToLower() == "offensiveproc")
-							procSpells.Add(spell);
-					}
-				}
-				if (procSpells.Count > 0)
-				{
-					baseSpell = procSpells[Util.Random((procSpells.Count - 1))];
-				}
-				m_procSpell = SkillBase.GetSpellByID((int)baseSpell.Value);
-			}
 			if (Util.Chance(baseChance))
 			{
 				ISpellHandler handler = ScriptMgr.CreateSpellHandler((GameLiving)sender, m_procSpell, m_procSpellLine);

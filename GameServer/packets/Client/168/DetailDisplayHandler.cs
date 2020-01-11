@@ -80,10 +80,10 @@ namespace DOL.GS.PacketHandler.Client.v168
 			var snapLists = client.Player.GetAllUsableListSpells();
 			// find the first non-specialization index.
 			int indexAtSpecOid = Math.Max(0, snapSkills.FindIndex(it => (it.Item1 is Specialization) == false)) + (objectId - 100);
-			
+
 			switch (objectType)
 			{
-					#region Inventory Item
+				#region Inventory Item
 				case 1: //Display Infos on inventory item
 				case 10: // market search
 					{
@@ -258,8 +258,8 @@ namespace DOL.GS.PacketHandler.Client.v168
 
 						#endregion Old Delve
 					}
-					#endregion
-					#region Spell
+				#endregion
+				#region Spell
 				case 2: //spell List
 					{
 						int lineId = objectId / 100;
@@ -267,7 +267,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 
 						Skill sk = null;
 						SpellLine sl = null;
-						
+
 						// is spelline in index ?
 						if (lineId < snapLists.Count)
 						{
@@ -289,7 +289,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 								sk = snapLists[lineId].Item2[index];
 							sl = snapLists[lineId].Item1;
 						}
-						
+
 						if (sk is Spell spell && sl != null)
 						{
 							caption = sk.Name;
@@ -308,32 +308,32 @@ namespace DOL.GS.PacketHandler.Client.v168
 							else
 								objectInfo.Add("There is no special information.");
 						}
-		
+
 						break;
 					}
 				case 3: //spell Hybrid
-					{	
-						
-	
+					{
+
+
 						SpellLine spellLine = null;
 						Spell spell = null;
-	
+
 						// are we in list ?
 						if (indexAtSpecOid < snapSkills.Count)
 						{
 							spell = (Spell)snapSkills[indexAtSpecOid].Item1;
 							spellLine = (SpellLine)snapSkills[indexAtSpecOid].Item2;
 						}
-						
+
 						if (spell == null || spellLine == null)
 							return;
-	
+
 						caption = spell.Name;
-						WriteSpellInfo(objectInfo, spell, spellLine, client);	
+						WriteSpellInfo(objectInfo, spell, spellLine, client);
 						break;
 					}
-					#endregion
-					#region Merchant / RewardQuest
+				#endregion
+				#region Merchant / RewardQuest
 				case 4: //Display Infos on Merchant objects
 				case 19: //Display Info quest reward
 					{
@@ -359,7 +359,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 
 							if (questID == 0)
 								return; // questID == 0, wrong ID ?
-							
+
 							if (questID <= DataQuest.DATAQUEST_CLIENTOFFSET)
 							{
 								AbstractQuest q = client.Player.IsDoingQuest(QuestMgr.GetQuestTypeForID(questID));
@@ -457,7 +457,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 						}
 
 						if ((item.Object_Type >= (int)eObjectType.GenericWeapon) && (item.Object_Type <= (int)eObjectType.MaulerStaff) ||
-						    item.Object_Type == (int)eObjectType.Instrument)
+							item.Object_Type == (int)eObjectType.Instrument)
 						{
 							WriteUsableClasses(objectInfo, item, client);
 							WriteMagicalBonuses(objectInfo, item, client, false);
@@ -590,9 +590,9 @@ namespace DOL.GS.PacketHandler.Client.v168
 						}
 						break;
 					}
-					#endregion
+				#endregion
 
-					#region Style
+				#region Style
 				case 6: //style
 					{
 						Style style = null;
@@ -605,8 +605,8 @@ namespace DOL.GS.PacketHandler.Client.v168
 						WriteStyleInfo(objectInfo, style, client);
 						break;
 					}
-					#endregion
-					#region Trade Window
+				#endregion
+				#region Trade Window
 				case 7: //trade windows
 					{
 						ITradeWindow playerTradeWindow = client.Player.TradeWindow;
@@ -638,7 +638,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 							objectInfo.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.HandlePacket.ChampionLevel", invItem.Level));
 						}
 						if ((invItem.Object_Type >= (int)eObjectType.GenericWeapon) && (invItem.Object_Type <= (int)eObjectType.MaulerStaff) ||
-						    invItem.Object_Type == (int)eObjectType.Instrument)
+							invItem.Object_Type == (int)eObjectType.Instrument)
 						{
 							WriteUsableClasses(objectInfo, invItem, client);
 							WriteMagicalBonuses(objectInfo, invItem, client, false);
@@ -678,8 +678,8 @@ namespace DOL.GS.PacketHandler.Client.v168
 						break;
 						#endregion Old Delve
 					}
-					#endregion
-					#region Ability
+				#endregion
+				#region Ability
 				case 8://abilities
 					{
 						Ability abil = null;
@@ -688,7 +688,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 							abil = (Ability)snapSkills[indexAtSpecOid].Item1;
 						if (abil == null)
 							return;
-						
+
 						caption = abil.Name;
 						if (abil.DelveInfo.Count > 0)
 							objectInfo.AddRange(abil.DelveInfo);
@@ -696,15 +696,15 @@ namespace DOL.GS.PacketHandler.Client.v168
 							objectInfo.Add("There is no special information.");
 						break;
 					}
-					#endregion
-					#region Trainer
+				#endregion
+				#region Trainer
 				case 9: //trainer window "info" button
 					{
 						Specialization spec = client.Player.GetSpecList().Where(e => e.Trainable).ElementAtOrDefault(objectId);
-						
+
 						if (spec != null)
 							caption = spec.Name;
-						
+
 						if (client.TrainerSkillCache != null && objectId < client.TrainerSkillCache.Count)
 						{
 							objectInfo.Add(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.HandlePacket.LevName"));
@@ -726,9 +726,9 @@ namespace DOL.GS.PacketHandler.Client.v168
 								int clientclassID = client.Player.CharacterClass.ID;
 								int sub = 50;
 								var ra_list = SkillBase.GetClassRealmAbilities(clientclassID).Where(ra => !(ra is RR5RealmAbility));
-								
+
 								RealmAbility ab = ra_list.ElementAtOrDefault(objectId - sub);
-								
+
 								if (ab != null)
 								{
 									caption = ab.Name;
@@ -742,8 +742,8 @@ namespace DOL.GS.PacketHandler.Client.v168
 						}
 						break;
 					}
-					#endregion
-					#region Group
+				#endregion
+				#region Group
 				case 12: // Item info to Group Chat
 					{
 						invItem = client.Player.Inventory.GetItem((eInventorySlot)objectId);
@@ -758,8 +758,8 @@ namespace DOL.GS.PacketHandler.Client.v168
 						client.Player.Group.SendMessageToGroupMembers(str, eChatType.CT_Group, eChatLoc.CL_ChatWindow);
 						return;
 					}
-					#endregion
-					#region Guild
+				#endregion
+				#region Guild
 				case 13: // Item info to Guild Chat
 					{
 						invItem = client.Player.Inventory.GetItem((eInventorySlot)objectId);
@@ -784,8 +784,8 @@ namespace DOL.GS.PacketHandler.Client.v168
 						}
 						return;
 					}
-					#endregion
-					#region ChatGroup
+				#endregion
+				#region ChatGroup
 				case 15: // Item info to Chat group
 					{
 						invItem = client.Player.Inventory.GetItem((eInventorySlot)objectId);
@@ -810,9 +810,9 @@ namespace DOL.GS.PacketHandler.Client.v168
 						}
 						return;
 					}
-					#endregion
-					#region Trainer Window
-					//styles
+				#endregion
+				#region Trainer Window
+				//styles
 				case 20:
 					{
 						// Search Id
@@ -827,11 +827,11 @@ namespace DOL.GS.PacketHandler.Client.v168
 						WriteStyleInfo(objectInfo, style, client);
 						break;
 					}
-					//spells
+				//spells
 				case 22:
-					//songs
+				//songs
 				case 21:
-					// Ability
+				// Ability
 				case 23:
 					{
 						Skill sk = null;
@@ -840,9 +840,9 @@ namespace DOL.GS.PacketHandler.Client.v168
 							// Search Id
 							sk = client.TrainerSkillCache.SelectMany(el => el.Item2).Where(e => ((objectType == 23 && e.Item2 == objectId && e.Item1 == 5) || (e.Item2 == objectId && e.Item1 != 5))).OrderBy(e => e.Item1).FirstOrDefault().Item3;
 						}
-						
+
 						if (sk == null) return;
-						
+
 						if (sk is Spell)
 						{
 							Spell spell = (Spell)sk;
@@ -854,17 +854,17 @@ namespace DOL.GS.PacketHandler.Client.v168
 						{
 							Ability abil = (Ability)sk;
 							caption = abil.Name;
-						
+
 							if (abil.DelveInfo.Count > 0)
 								objectInfo.AddRange(abil.DelveInfo);
 							else
 								objectInfo.Add("There is no special information.");
 						}
-						
+
 						break;
 					}
-					#endregion
-					#region Repair / craft / salvage
+				#endregion
+				#region Repair / craft / salvage
 				case 100: // repair
 					{
 						invItem = client.Player.Inventory.GetItem((eInventorySlot)objectId);
@@ -892,8 +892,8 @@ namespace DOL.GS.PacketHandler.Client.v168
 							client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "DetailDisplayHandler.HandlePacket.VeryStrange"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 						return;
 					}
-					#endregion
-					#region BattleGroup
+				#endregion
+				#region BattleGroup
 				case 103: // Item info to battle group
 					{
 						invItem = client.Player.Inventory.GetItem((eInventorySlot)objectId);
@@ -917,29 +917,29 @@ namespace DOL.GS.PacketHandler.Client.v168
 						}
 						return;
 					}
-					#endregion
+				#endregion
 				#region v1.110+
 				case 24://SpellsNew
 					if (client.CanSendTooltip(24, objectId))
-				        client.Out.SendDelveInfo(DelveSpell(client, objectId));
+						client.Out.SendDelveInfo(DelveSpell(client, objectId));
 					break;
 				case 25://StylesNew
 					if (client.CanSendTooltip(25, objectId))
-	                    client.Out.SendDelveInfo(DelveStyle(client, objectId));
-                    break;
+						client.Out.SendDelveInfo(DelveStyle(client, objectId));
+					break;
 				case 26://SongsNew
-                    if (client.CanSendTooltip(26, objectId))
+					if (client.CanSendTooltip(26, objectId))
 						client.Out.SendDelveInfo(DelveSong(client, objectId));
-						client.Out.SendDelveInfo(DelveSpell(client, objectId));
+					client.Out.SendDelveInfo(DelveSpell(client, objectId));
 					break;
 				case 27://RANew
 					if (client.CanSendTooltip(27, objectId))
-	                   client.Out.SendDelveInfo(DelveRealmAbility(client, objectId));
-                    break;
+						client.Out.SendDelveInfo(DelveRealmAbility(client, objectId));
+					break;
 				case 28://AbilityNew
-                    if (client.CanSendTooltip(28, objectId))
-				        client.Out.SendDelveInfo(DelveAbility(client, objectId));
-			        break;
+					if (client.CanSendTooltip(28, objectId))
+						client.Out.SendDelveInfo(DelveAbility(client, objectId));
+					break;
 				#endregion
 				#region ChampionAbilities delve from trainer window
 				default:
@@ -951,12 +951,12 @@ namespace DOL.GS.PacketHandler.Client.v168
 
 						// Get Player CL Spec
 						var clspec = client.Player.GetSpecList().Where(sp => sp is LiveChampionsSpecialization).Cast<LiveChampionsSpecialization>().FirstOrDefault();
-						
+
 						// check if the tree can be used
 						List<Tuple<MiniLineSpecialization, List<Tuple<Skill, byte>>>> tree = null;
 						if (clspec != null)
 							tree = clspec.GetTrainerTreeDisplay(client.Player, clspec.RetrieveTypeForIndex(clSpecID));
-						
+
 						// Try and handle all Champion lines, including custom lines
 						if (tree != null)
 						{
