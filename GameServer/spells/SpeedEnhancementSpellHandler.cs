@@ -201,45 +201,39 @@ namespace DOL.GS.Spells
 		/// <param name="e"></param>
 		/// <param name="sender"></param>
 		/// <param name="arguments"></param>
-		private void OnAttack(DOLEvent e, object sender, EventArgs arguments)
+		private void OnAttack(DOLEvent e, object sender, EventArgs args)
 		{
 			GameLiving living = sender as GameLiving;
-			if (living == null) return;
-			AttackedByEnemyEventArgs attackedByEnemy = arguments as AttackedByEnemyEventArgs;
-			AttackFinishedEventArgs attackFinished = arguments as AttackFinishedEventArgs;
-			CastingEventArgs castFinished = arguments as CastingEventArgs;
-			AttackData ad = null;
-			ISpellHandler sp = null;
+			if (living == null || args == null)
+				return;
 
-			if (attackedByEnemy != null)
+			if (args is AttackedByEnemyEventArgs attackedByEnemy)
 			{
-				ad = attackedByEnemy.AttackData;
+				if (attackedByEnemy.AttackData == null)
+					return;
+				var ar = attackedByEnemy.AttackData.AttackResult;
+				if (ar == GameLiving.eAttackResult.Fumbled || ar == GameLiving.eAttackResult.Missed || ar == GameLiving.eAttackResult.NotAllowed_ServerRules
+					|| ar == GameLiving.eAttackResult.NoTarget || ar == GameLiving.eAttackResult.NoValidTarget || ar == GameLiving.eAttackResult.OutOfRange
+					|| ar == GameLiving.eAttackResult.TargetDead || ar == GameLiving.eAttackResult.TargetNotVisible)
+					return;
 			}
-			else if (attackFinished != null)
+			else if (args is AttackFinishedEventArgs attackFinished)
 			{
-				ad = attackFinished.AttackData;
+				if (attackFinished.AttackData == null)
+					return;
+				var ar = attackFinished.AttackData.AttackResult;
+				if (ar == GameLiving.eAttackResult.NotAllowed_ServerRules || ar == GameLiving.eAttackResult.NoTarget
+					|| ar == GameLiving.eAttackResult.OutOfRange || ar == GameLiving.eAttackResult.TargetDead
+					|| ar == GameLiving.eAttackResult.TargetNotVisible || ar == GameLiving.eAttackResult.NoValidTarget)
+					return;
 			}
-			else if (castFinished != null)
+			else if (args is CastingEventArgs castFinished)
 			{
-				sp = castFinished.SpellHandler;
-				ad = castFinished.LastAttackData;
-			}
-
-			// Speed should drop if the player casts an offensive spell
-			if (sp == null && ad == null)
-			{
-				return;
-			}
-			else if (sp == null && (ad.AttackResult != GameLiving.eAttackResult.HitStyle && ad.AttackResult != GameLiving.eAttackResult.HitUnstyled))
-			{
-				return;
-			}
-			else if (sp != null && (sp.HasPositiveEffect || ad == null))
-			{
-				return;
+				if (castFinished.SpellHandler.HasPositiveEffect && castFinished.LastAttackData == null)
+					return;
 			}
 
-			GameSpellEffect speed = SpellHandler.FindEffectOnTarget(living, this);
+			GameSpellEffect speed = FindEffectOnTarget(living, this);
 			if (speed != null)
 				speed.Cancel(false);
 		}
@@ -255,7 +249,8 @@ namespace DOL.GS.Spells
 			GamePlayer player = (GamePlayer)sender;
 			if (player.IsStealthed)
 				player.BuffBonusMultCategory1.Remove((int)eProperty.MaxSpeed, this);
-			else player.BuffBonusMultCategory1.Set((int)eProperty.MaxSpeed, this, Spell.Value / 100.0);
+			else
+				player.BuffBonusMultCategory1.Set((int)eProperty.MaxSpeed, this, Spell.Value / 100.0);
 			// max speed update is sent in setalth method
 		}
 
