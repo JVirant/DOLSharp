@@ -401,11 +401,7 @@ namespace DOL.GS.Styles
 					double styleDamageBonus = living.GetModified(eProperty.StyleDamage) * 0.01 - 1;
 
 					if (staticGrowth)
-					{
-						if (living.AttackWeapon.Item_Type == Slot.TWOHAND)
-							styleGrowth = styleGrowth * 1.25 + living.WeaponDamage(living.AttackWeapon) * Math.Max(0,living.AttackWeapon.SPD_ABS - 21) * 10 / 66d;
 						attackData.StyleDamage = (int)(absorbRatio * styleGrowth * ServerProperties.Properties.CS_OPENING_EFFECTIVENESS);
-					}
 					else
 						attackData.StyleDamage = (int)(absorbRatio * styleGrowth * effectiveWeaponSpeed);
 

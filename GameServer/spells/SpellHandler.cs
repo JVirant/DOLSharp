@@ -3535,17 +3535,13 @@ namespace DOL.GS.Spells
 				return;
 			}
 
-			int speclevel = 1;
+			int speclevel = m_caster.Level;
 
-			if (m_caster is GamePet)
-			{
-				IControlledBrain brain = (m_caster as GameNPC).Brain as IControlledBrain;
-				speclevel = brain.GetLivingOwner().Level;
-			}
-			else if (m_caster is GamePlayer)
-			{
-				speclevel = ((GamePlayer)m_caster).GetModifiedSpecLevel(m_spellLine.Spec);
-			}
+			var pet = m_caster as GamePet;
+			if (pet != null && pet.Owner != null)
+				speclevel = pet.Owner.Level;
+			else if (m_caster is GamePlayer player)
+				speclevel = player.GetModifiedSpecLevel(m_spellLine.Spec);
 			min = 1.25;
 			max = 1.25;
 
@@ -3562,20 +3558,15 @@ namespace DOL.GS.Spells
 			}
 
 			// add level mod
-			if (m_caster is GamePlayer)
+			if (pet != null && pet.Owner != null)
+			{
+				min += Math.Min(0.6, Math.Max(-0.6, GetLevelModFactor() * (pet.Owner.Level - target.Level)));
+				max += Math.Min(0.6, Math.Max(-0.6, GetLevelModFactor() * (pet.Owner.Level - target.Level)));
+			}
+			else
 			{
 				min += Math.Min(0.6, Math.Max(-0.6, GetLevelModFactor() * (m_caster.Level - target.Level)));
 				max += Math.Min(0.6, Math.Max(-0.6, GetLevelModFactor() * (m_caster.Level - target.Level)));
-			}
-			else if (m_caster is GameNPC && ((GameNPC)m_caster).Brain is IControlledBrain)
-			{
-				//Get the root owner
-				GameLiving owner = ((IControlledBrain)((GameNPC)m_caster).Brain).GetLivingOwner();
-				if (owner != null)
-				{
-					min += Math.Min(0.6, Math.Max(-0.6, GetLevelModFactor() * (owner.Level - target.Level)));
-					max += Math.Min(0.6, Math.Max(-0.6, GetLevelModFactor() * (owner.Level - target.Level)));
-				}
 			}
 
 			if (min > max)
@@ -3645,7 +3636,13 @@ namespace DOL.GS.Spells
 
 			if (player != null)
 			{
-				if (Caster is GamePet pet)
+				if (SpellLine.KeyName == GlobalSpellsLines.Combat_Styles_Effect)
+				{
+					double WeaponSkill = player.GetWeaponSkill(player.AttackWeapon);
+					WeaponSkill /= 5;
+					spellDamage *= (WeaponSkill + 200) / 275.0;
+				}
+				else if (Caster is GamePet pet)
 				{
 					// There is no reason to cap pet spell damage if it's being scaled anyway.
 					if (Properties.PET_SCALE_SPELL_MAX_LEVEL == 0)
@@ -3653,16 +3650,7 @@ namespace DOL.GS.Spells
 
 					spellDamage *= (pet.Intelligence + 200) / 275.0;
 				}
-
-				if (SpellLine.KeyName == GlobalSpellsLines.Combat_Styles_Effect)
-				{
-					double WeaponSkill = player.GetWeaponSkill(player.AttackWeapon);
-					WeaponSkill /= 5;
-					spellDamage *= (WeaponSkill + 200) / 275.0;
-				}
-
-				if (player.CharacterClass.ManaStat != eStat.UNDEFINED
-					&& SpellLine.KeyName != GlobalSpellsLines.Combat_Styles_Effect
+				else if (player.CharacterClass.ManaStat != eStat.UNDEFINED
 					&& m_spellLine.KeyName != GlobalSpellsLines.Mundane_Poisons
 					&& SpellLine.KeyName != GlobalSpellsLines.Item_Effects
 					&& player.CharacterClass.ID != (int)eCharacterClass.MaulerAlb
@@ -3777,7 +3765,7 @@ namespace DOL.GS.Spells
 			int adjustedDamage = damage;
 
 			if (hitChance < 55)
-				adjustedDamage += (int)(adjustedDamage * (hitChance - 55) * ServerProperties.Properties.SPELL_HITCHANCE_DAMAGE_REDUCTION_MULTIPLIER * 0.01);
+				adjustedDamage += (int)(adjustedDamage * (hitChance - 55) * Properties.SPELL_HITCHANCE_DAMAGE_REDUCTION_MULTIPLIER * 0.01);
 
 			return Math.Max(adjustedDamage, 1);
 		}
@@ -3825,9 +3813,9 @@ namespace DOL.GS.Spells
 			if (m_caster is GamePlayer || (m_caster is GameNPC && (m_caster as GameNPC).Brain is IControlledBrain && m_caster.Realm != 0))
 			{
 				if (target is GamePlayer)
-					finalDamage = (int)(finalDamage * ServerProperties.Properties.PVP_SPELL_DAMAGE);
+					finalDamage = (int)(finalDamage * Properties.PVP_SPELL_DAMAGE);
 				else if (target is GameNPC)
-					finalDamage = (int)(finalDamage * ServerProperties.Properties.PVE_SPELL_DAMAGE);
+					finalDamage = (int)(finalDamage * Properties.PVE_SPELL_DAMAGE);
 			}
 
 			// Well the PenetrateResistBuff is NOT ResistPierce

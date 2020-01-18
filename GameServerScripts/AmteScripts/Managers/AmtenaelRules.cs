@@ -11,6 +11,7 @@ using DOL.GS.Keeps;
 using DOL.GS.Scripts;
 using log4net;
 using System.Reflection;
+using DOL.Events;
 
 namespace DOL.GS.ServerRules
 {
@@ -25,9 +26,9 @@ namespace DOL.GS.ServerRules
 			return "Règles d'Amtenaël (PvP + RvR)";
 		}
 
-		public override void OnReleased(Events.DOLEvent e, object sender, EventArgs args)
+		public override void OnReleased(DOLEvent e, object sender, EventArgs args)
 		{
-			if (RvrManager.Instance.IsInRvr(sender as GameLiving))
+			if (RvrManager.Instance.IsInRvr(sender as GameLiving) || PvpManager.Instance.IsIn(sender as GameLiving))
 				return;
 			base.OnReleased(e, sender, args);
 		}
@@ -43,14 +44,13 @@ namespace DOL.GS.ServerRules
 					return false;
 				}
 
-				if (playerAttacker != null && !PvpManager.Instance.IsIn(playerAttacker) && !UnsafeRegions.Contains(playerAttacker.CurrentRegionID))
+				if (playerAttacker != null && !UnsafeRegions.Contains(playerAttacker.CurrentRegionID))
 				{
 					// Attacker immunity
 					if (playerAttacker.IsInvulnerableToAttack)
 					{
 						if (quiet == false)
-							MessageToLiving(attacker,
-											"You can't attack players until your PvP invulnerability timer wears off!");
+							MessageToLiving(attacker, "You can't attack players until your PvP invulnerability timer wears off!");
 						return false;
 					}
 
@@ -458,7 +458,7 @@ namespace DOL.GS.ServerRules
 			return base.GetColorHandling(client);
 		}
 
-		public virtual void OnPlayerKilled(GamePlayer killedPlayer, GameObject killer)
+		public override void OnPlayerKilled(GamePlayer killedPlayer, GameObject killer)
 		{
 			if (Properties.ENABLE_WARMAPMGR && killer is GamePlayer && killer.CurrentRegion.ID == 163)
 				WarMapMgr.AddFight((byte)killer.CurrentZone.ID, killer.X, killer.Y, (byte)killer.Realm, (byte)killedPlayer.Realm);

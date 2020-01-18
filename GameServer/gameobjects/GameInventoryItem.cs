@@ -403,7 +403,7 @@ namespace DOL.GS
 				delve.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "DetailDisplayHandler.HandlePacket.CrafterName", Creator));
 				delve.Add(" ");
 			}
-			else if (Description != null && Description != "")
+			if (Description != null && Description != "")
 			{
 				delve.Add(Description);
 				delve.Add(" ");

@@ -51,7 +51,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Ping timeout definition in seconds
 		/// </summary>
-		public const long PING_TIMEOUT = 360; // 6 min default ping timeout (ticks are 100 nano seconds)
+		public const long PING_TIMEOUT = 180; // 3 min default ping timeout
 		/// <summary>
 		/// Holds the distance which player get experience from a living object
 		/// </summary>
@@ -79,7 +79,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Is the distance at which livings can give a item
 		/// </summary>
-		public const int GIVE_ITEM_DISTANCE = 128;  // tested
+		public const int GIVE_ITEM_DISTANCE = 192;  // tested
 		/// <summary>
 		/// Is the distance at which livings can interact
 		/// </summary>
@@ -87,19 +87,15 @@ namespace DOL.GS
 		/// <summary>
 		/// Is the distance an player can see
 		/// </summary>
-		public const int VISIBILITY_DISTANCE = 4096;
+		public const int VISIBILITY_DISTANCE = 8192;
 		/// <summary>
 		/// Moving greater than this distance requires the player to do a full world refresh
 		/// </summary>
 		public const int REFRESH_DISTANCE = 1000;
 		/// <summary>
-		/// Is the square distance a player can see
-		/// </summary>
-		public const int VISIBILITY_SQUARE_DISTANCE = REFRESH_DISTANCE * REFRESH_DISTANCE;
-		/// <summary>
 		/// Holds the distance at which objects are updated
 		/// </summary>
-		public const int OBJ_UPDATE_DISTANCE = 4096;
+		public const int OBJ_UPDATE_DISTANCE = 8192;
 
 		/// <summary>
 		/// This will store available teleport destinations as read from the 'teleport' table.  These are

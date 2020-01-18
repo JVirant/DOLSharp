@@ -11,7 +11,7 @@ namespace DOL.GS.Scripts
 	public class GuildCaptainGuard : AmteMob
 	{
 		public const long CLAIM_COST = 500 * 100 * 100; // 500g
-		public const ushort AREA_RADIUS = 2048;
+		public const ushort AREA_RADIUS = 4096;
 		public const ushort NEUTRAL_EMBLEM = 256;
 
 		/// <summary>
@@ -63,7 +63,7 @@ namespace DOL.GS.Scripts
 			set {
 				base.GuildName = value;
 				_guild = GuildMgr.GetGuildByName(value);
-				ResetArea();
+				ResetArea(_guild?.Emblem ?? NEUTRAL_EMBLEM);
 			}
 		}
 
@@ -86,23 +86,19 @@ namespace DOL.GS.Scripts
 			if (!base.Interact(player) || player.Guild == null)
 				return false;
 
-			if (player.Client.Account.PrivLevel == 1 && player.GuildID != _guild?.GuildID)
-			{
-				if (player.GuildRank.Claim)
-				{
-					player.Out.SendMessage(
-						$"Bonjour {player.GuildRank?.Title ?? ""} {player.Name} que puis-je faire pour vous ?\n[capturer le territoire] ({Money.GetShortString(CLAIM_COST)})",
-						eChatType.CT_System,
-						eChatLoc.CL_PopupWindow
-					);
-					return true;
-				}
-				return false;
-			}
-
 			if (player.Client.Account.PrivLevel == 1 && !player.GuildRank.Claim)
 			{
 				player.Out.SendMessage($"Bonjour {player.Name}, je ne discute pas avec les bleus, circulez.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
+				return true;
+			}
+
+			if (player.GuildID != _guild?.GuildID)
+			{
+				player.Out.SendMessage(
+					$"Bonjour {player.GuildRank?.Title ?? ""} {player.Name} que puis-je faire pour vous ?\n[capturer le territoire] ({Money.GetShortString(CLAIM_COST)})",
+					eChatType.CT_System,
+					eChatLoc.CL_PopupWindow
+				);
 				return true;
 			}
 
@@ -116,14 +112,15 @@ namespace DOL.GS.Scripts
 				return false;
 			if (!(source is GamePlayer player))
 				return false;
-			if (player.Client.Account.PrivLevel == 1 && player.GuildID != _guild.GuildID)
+			if (player.GuildID != _guild.GuildID)
 			{
 				if (player.GuildRank.Claim && text == "capturer le territoire")
 				{
 					Claim(player);
 					return true;
 				}
-				return false;
+				if (player.Client.Account.PrivLevel == 1)
+					return false;
 			}
 
 			switch(text)
@@ -178,10 +175,13 @@ namespace DOL.GS.Scripts
 			}
 		}
 
-		public void ResetArea()
+		public void ResetArea(int newemblem, int oldemblem = NEUTRAL_EMBLEM)
 		{
 			foreach (var guard in GetGuardsInRadius())
 				guard.Captain = this;
+			foreach (var obj in GetItemsInRadius(AREA_RADIUS))
+				if (obj is GameStaticItem item && item.Emblem == oldemblem)
+					item.Emblem = newemblem;
 		}
 
 		public void BuyGuard(GamePlayer player)
@@ -201,11 +201,11 @@ namespace DOL.GS.Scripts
 				return;
 			}
 
-			if (DateTime.Now.DayOfWeek != DayOfWeek.Wednesday || DateTime.Now.Hour < 21 || DateTime.Now.Hour > 23)
+			if (DateTime.Now.DayOfWeek != DayOfWeek.Monday || DateTime.Now.Hour < 21 || DateTime.Now.Hour > 23)
 			{
 				player.Out.SendMessage(
 					"Il n'est pas possible de capturer des territoires aujourd'hui à cette heure-ci.\n" +
-					"Pour le moment, les territoires ne sont prenables que le mercredi entre 21h et 23h.\n",
+					"Pour le moment, les territoires ne sont prenables que le lundi entre 21h et 23h.\n",
 					eChatType.CT_System,
 					eChatLoc.CL_PopupWindow
 				);
@@ -232,9 +232,10 @@ namespace DOL.GS.Scripts
 				return;
 			}
 
+			var oldguild = GuildMgr.GetGuildByName(GuildName);
 			GuildName = player.GuildName;
 			SaveIntoDatabase();
-			ResetArea();
+			ResetArea(player.Guild?.Emblem ?? NEUTRAL_EMBLEM, oldguild?.Emblem ?? NEUTRAL_EMBLEM);
 			player.Out.SendMessage(
 				"Le territoire appartient maintenant à votre guilde, que voulez-vous faire ?\n\n[modifier les alliances]\n",
 				eChatType.CT_System,

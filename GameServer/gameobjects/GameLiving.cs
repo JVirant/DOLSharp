@@ -951,9 +951,21 @@ namespace DOL.GS
 				return ticks;
 			}
 
+			if (EffectList.GetOfType<QuickCastEffect>() != null)
+			{
+				// Most casters have access to the Quickcast ability (or the Necromancer equivalent, Facilitate Painworking).
+				// This ability will allow you to cast a spell without interruption.
+				// http://support.darkageofcamelot.com/kb/article.php?id=022
+
+				// A: You're right. The answer I should have given was that Quick Cast reduces the time needed to cast to a flat two seconds,
+				// and that a spell that has been quick casted cannot be interrupted. ...
+				// http://www.camelotherald.com/news/news_article.php?storyid=1383
+
+				return 2000;
+			}
 
 			double percent = DexterityCastTimeReduction;
-
+			percent *= 1.0 - GetModified(eProperty.CastingSpeed) * 0.01;
 			ticks = (int)(ticks * Math.Max(CastingSpeedReductionCap, percent));
 			if (ticks < MinimumCastingSpeed)
 				ticks = MinimumCastingSpeed;
