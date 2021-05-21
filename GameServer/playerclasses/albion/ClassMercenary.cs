@@ -37,6 +37,11 @@ namespace DOL.GS.PlayerClass
 			m_baseHP = 880;
 		}
 
+		public override int WeaponSkillFactor(eObjectType type)
+		{
+			return 22;
+		}
+
 		public override bool CanUseLefthandedWeapon
 		{
 			get { return true; }

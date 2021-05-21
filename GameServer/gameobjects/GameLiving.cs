@@ -1025,7 +1025,8 @@ namespace DOL.GS
 		/// <returns></returns>
 		public virtual double GetArmorAF(eArmorSlot slot)
 		{
-			return GetModified(eProperty.ArmorFactor);
+			var af = (1.0 + (Level / 110.0)) * Level * 1.67;
+			return 5 + af + GetModified(eProperty.ArmorFactor) / 5;
 		}
 
 		/// <summary>
@@ -1070,8 +1071,7 @@ namespace DOL.GS
 		/// </summary>
 		public virtual double GetWeaponSkill(InventoryItem weapon)
 		{
-			const double bs = 128.0 / 50.0;	// base factor (not 400)
-			return (int)((Level + 1) * bs * (1 + (GetWeaponStat(weapon) - 50) * 0.005) * Level * 2 / 50);
+			return (Level + 1) * 22 * 200 / 500 * (100 + GetWeaponStat(weapon) / 100.0) * ((100 + Level / 5) / 100.0);
 		}
 
 		/// <summary>
@@ -1170,7 +1170,7 @@ namespace DOL.GS
 		/// <param name="weapon">the weapon used for attack</param>
 		public virtual double WeaponDamage(InventoryItem weapon)
 		{
-			return 0;
+			return 2.0;
 		}
 
 		/// <summary>
@@ -1752,17 +1752,6 @@ namespace DOL.GS
 			if (ad.AttackResult == eAttackResult.HitUnstyled
 			    || ad.AttackResult == eAttackResult.HitStyle)
 			{
-				double damage = AttackDamage(weapon) * effectiveness;
-
-				if (Level > ServerProperties.Properties.MOB_DAMAGE_INCREASE_STARTLEVEL &&
-				    ServerProperties.Properties.MOB_DAMAGE_INCREASE_PERLEVEL > 0 &&
-				    damage > 0 &&
-				    this is GameNPC && (this as GameNPC).Brain is IControlledBrain == false)
-				{
-					double modifiedDamage = ServerProperties.Properties.MOB_DAMAGE_INCREASE_PERLEVEL * (Level - ServerProperties.Properties.MOB_DAMAGE_INCREASE_STARTLEVEL);
-					damage += (modifiedDamage * effectiveness);
-				}
-
 				InventoryItem armor = null;
 
 				if (ad.Target.Inventory != null)
@@ -1797,34 +1786,61 @@ namespace DOL.GS
 					}
 				}
 
-				int lowerboundary = (WeaponSpecLevel(weaponTypeToUse) - 1) * 50 / (ad.Target.EffectiveLevel + 1) + 75;
-				lowerboundary = Math.Max(lowerboundary, 75);
-				lowerboundary = Math.Min(lowerboundary, 125);
-				damage *= (GetWeaponSkill(weapon) + 90.68) / (ad.Target.GetArmorAF(ad.ArmorHitLocation) + 20 * 4.67);
-
-				// Badge Of Valor Calculation 1+ absorb or 1- absorb
+				var player = this as GamePlayer;
+				double factor = player != null ? player.CharacterClass.WeaponSkillFactor((eObjectType)weapon.Object_Type) : 20;
+				double dmg_stat = GetWeaponStat(weapon);
+				double wp_spec = player != null ? GetModifiedSpecLevel(player.GetWeaponSpec(weapon)) : Level * 1.2;
+				double enemy_armor = ad.Target.GetArmorAF(ad.ArmorHitLocation);
 				if (ad.Attacker.EffectList.GetOfType<BadgeOfValorEffect>() != null)
-				{
-					damage *= 1.0 + Math.Min(0.85, ad.Target.GetArmorAbsorb(ad.ArmorHitLocation));
-				}
+					enemy_armor = enemy_armor / (1 + ad.Target.GetArmorAbsorb(ad.ArmorHitLocation));
 				else
+					enemy_armor = enemy_armor / (1 - ad.Target.GetArmorAbsorb(ad.ArmorHitLocation));
+				double enemy_resist = (ad.Target.GetResist(ad.DamageType) + SkillBase.GetArmorResist(armor, ad.DamageType)) * 0.01;
+
+				// calculate variance we start with 0 to 49 and tend to 19 to 29 (with 65 in spec)
+				int minVariance = WeaponSpecLevel(weaponTypeToUse).Clamp(0, 70) * 49 / 166; // x*0.6*49/100 => x * 49 / 166
+				int maxVariance = 49 - minVariance;
+
+				double dmg_mod = Level
+					* factor / 10.0
+					* (1 + 0.01 * dmg_stat)
+					* (0.75 + 0.5 * Math.Min(ad.Target.Level + 1.0, wp_spec) / (ad.Target.Level + 1.0) + 0.01 * Util.Random(minVariance, maxVariance))
+					/ Math.Max(1, enemy_armor)
+					* (1.0 - enemy_resist);
+				dmg_mod = dmg_mod.Clamp(0.01, 3);
+
+
+				double weapon_dps = WeaponDamage(weapon);
+				double base_dmg = dmg_mod * weapon_dps;
+
+				// double damage = AttackDamage(weapon) * effectiveness;
+				double damage = base_dmg * effectiveness;
+				ad.weaponDamage = weapon_dps;
+
+				// DEBUG
+				ad.dmgMod = Math.Round(dmg_mod, 3);
+				ad.enemyAF = Math.Round(enemy_armor, 3);
+				ad.enemyABS = Math.Round(ad.Target.GetArmorAbsorb(ad.ArmorHitLocation), 3);
+				ad.enemyResist = Math.Round(enemy_resist, 3);
+				ad.weaponStat = Math.Round(dmg_stat, 3);
+
+
+				if (Level > ServerProperties.Properties.MOB_DAMAGE_INCREASE_STARTLEVEL &&
+				    ServerProperties.Properties.MOB_DAMAGE_INCREASE_PERLEVEL > 0 &&
+				    damage > 0 &&
+				    this is GameNPC && (this as GameNPC).Brain is IControlledBrain == false)
 				{
-					damage *= 1.0 - Math.Min(0.85, ad.Target.GetArmorAbsorb(ad.ArmorHitLocation));
+					double modifiedDamage = ServerProperties.Properties.MOB_DAMAGE_INCREASE_PERLEVEL * (Level - ServerProperties.Properties.MOB_DAMAGE_INCREASE_STARTLEVEL);
+					damage += (modifiedDamage * effectiveness);
 				}
-				damage *= (lowerboundary + Util.Random(50)) * 0.01;
-				ad.Modifier = (int)(damage * (ad.Target.GetResist(ad.DamageType) + SkillBase.GetArmorResist(armor, ad.DamageType)) * -0.01);
-				damage += ad.Modifier;
+
+				ad.Modifier = (int)(damage * -enemy_resist);
+
 				// RA resist check
-				int resist = (int)(damage * ad.Target.GetDamageResist(GetResistTypeForDamage(ad.DamageType)) * -0.01);
-
-				eProperty property = ad.Target.GetResistTypeForDamage(ad.DamageType);
-				int secondaryResistModifier = ad.Target.SpecBuffBonusCategory[(int)property];
-				int resistModifier = 0;
-				resistModifier += (int)((ad.Damage + (double)resistModifier) * (double)secondaryResistModifier * -0.01);
-
-				damage += resist;
+				var property = ad.Target.GetResistTypeForDamage(ad.DamageType);
+				var secondaryResistModifier = ad.Target.SpecBuffBonusCategory[(int)property];
+				var resistModifier = damage * secondaryResistModifier / -100.0;
 				damage += resistModifier;
-				ad.Modifier += resist;
 				ad.Damage = (int)damage;
 
 				// apply total damage cap
@@ -3706,6 +3722,7 @@ namespace DOL.GS
 				missrate >>= 1; //halved
 			}
 
+			missrate = Math.Min(95, missrate); // cap the missrate
 			if (Util.Chance(missrate))
 			{
 				return eAttackResult.Missed;
@@ -3803,10 +3820,10 @@ namespace DOL.GS
 
 			if( evadeChance > 0 && !ad.Target.IsStunned && !ad.Target.IsSitting )
 			{
+				evadeChance *= 0.001;
 				if( attackerCount > 1 )
 					evadeChance -= ( attackerCount - 1 ) * 0.03;
 
-				evadeChance *= 0.001;
 				evadeChance += 0.01 * attackerConLevel; // 1% per con level distance multiplied by evade level
 
 				if( lastAD != null && lastAD.Style != null )
@@ -5873,7 +5890,7 @@ namespace DOL.GS
 					? base.Position + MovementElapsedTicks * new Vector3(TickSpeedX, TickSpeedY, TickSpeedZ)
 					: base.Position;
 			}
-		}
+			}
 
 		/// <summary>
 		/// Moves the item from one spot to another spot, possible even

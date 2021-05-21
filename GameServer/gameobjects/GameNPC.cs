@@ -326,35 +326,35 @@ namespace DOL.GS
 			{
 				Strength = (Properties.MOB_AUTOSET_STR_BASE > 0) ? Properties.MOB_AUTOSET_STR_BASE : (short)1;
 				if (Level > 1)
-					Strength += (byte)(10.0 * (Level - 1) * Properties.MOB_AUTOSET_STR_MULTIPLIER);
+					Strength += (short)((Level - 1) * Properties.MOB_AUTOSET_STR_MULTIPLIER);
 			}
 
 			if (Constitution < 1)
 			{
 				Constitution = (Properties.MOB_AUTOSET_CON_BASE > 0) ? Properties.MOB_AUTOSET_CON_BASE : (short)1;
 				if (Level > 1)
-					Constitution += (byte)((Level - 1) * Properties.MOB_AUTOSET_CON_MULTIPLIER);
+					Constitution += (short)((Level - 1) * Properties.MOB_AUTOSET_CON_MULTIPLIER);
 			}
 
 			if (Quickness < 1)
 			{
 				Quickness = (Properties.MOB_AUTOSET_QUI_BASE > 0) ? Properties.MOB_AUTOSET_QUI_BASE : (short)1;
 				if (Level > 1)
-					Quickness += (byte)((Level - 1) * Properties.MOB_AUTOSET_QUI_MULTIPLIER);
+					Quickness += (short)((Level - 1) * Properties.MOB_AUTOSET_QUI_MULTIPLIER);
 			}
 
 			if (Dexterity < 1)
 			{
 				Dexterity = (Properties.MOB_AUTOSET_DEX_BASE > 0) ? Properties.MOB_AUTOSET_DEX_BASE : (short)1;
 				if (Level > 1)
-					Dexterity += (byte)((Level - 1) * Properties.MOB_AUTOSET_DEX_MULTIPLIER);
+					Dexterity += (short)((Level - 1) * Properties.MOB_AUTOSET_DEX_MULTIPLIER);
 			}
 
 			if (Intelligence < 1)
 			{
 				Intelligence = (Properties.MOB_AUTOSET_INT_BASE > 0) ? Properties.MOB_AUTOSET_INT_BASE : (short)1;
 				if (Level > 1)
-					Intelligence += (byte)((Level - 1) * Properties.MOB_AUTOSET_INT_MULTIPLIER);
+					Intelligence += (short)((Level - 1) * Properties.MOB_AUTOSET_INT_MULTIPLIER);
 			}
 
 			if (Empathy < 1)
@@ -4873,6 +4873,47 @@ namespace DOL.GS
 				this.AddXPGainer(healSource, (float)healAmount);
 			}
 			//DealDamage needs to be called after addxpgainer!
+		}
+
+		public override double WeaponDamage(InventoryItem weapon)
+		{
+			double dps;
+			var spd = WeaponSpd * 0.1;
+			var twohand_bonus = 1.0;
+
+			if (weapon == null || weapon.DPS_AF <= 1)
+			{
+				dps = WeaponDps * 0.1;
+				dps *= 1.0 + (GetModified(eProperty.DPS) * 0.01);
+				dps *= 0.98;
+
+				if (ActiveWeaponSlot == eActiveWeaponSlot.TwoHanded)
+				{
+					var wp_spec = GetModifiedSpecLevel("Staff");
+					twohand_bonus = 1.1 + 0.005 * wp_spec;
+				}
+			}
+			else
+			{
+				dps = weapon.DPS_AF * 0.1;
+				spd = weapon.SPD_ABS * 0.1;
+				var cap = 1.5 + 0.3 * Level;
+				dps = dps.Clamp(0.1, cap);
+				dps *= 1.0 + (GetModified(eProperty.DPS) * 0.01);
+				// beware to use always ConditionPercent, because Condition is abolute value
+				dps *= weapon.Quality * 0.01 * weapon.ConditionPercent * 0.01;
+
+				if (weapon.Item_Type == Slot.TWOHAND)
+				{
+					var wp_spec = GetModifiedSpecLevel("Staff");
+					twohand_bonus = 1.1 + 0.005 * wp_spec;
+				}
+			}
+			var weapon_dps = dps * spd
+				* (0.94 + spd * 0.03)
+				* twohand_bonus
+				* (1 + 0.01 * GetModified(eProperty.MeleeDamage));
+			return 2.0 + weapon_dps;
 		}
 
 		public override double GetArmorAF(eArmorSlot slot)

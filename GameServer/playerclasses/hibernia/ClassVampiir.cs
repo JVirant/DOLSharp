@@ -39,6 +39,11 @@ namespace DOL.GS.PlayerClass
             m_baseHP = 878;
         }
 
+        public override int WeaponSkillFactor(eObjectType type)
+        {
+            return 22;
+        }
+
         public override eClassType ClassType
         {
             get { return eClassType.ListCaster; }

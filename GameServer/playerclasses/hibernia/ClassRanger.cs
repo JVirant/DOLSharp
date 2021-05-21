@@ -34,7 +34,12 @@ namespace DOL.GS.PlayerClass
 			m_primaryStat = eStat.DEX;
 			m_secondaryStat = eStat.QUI;
 			m_tertiaryStat = eStat.STR;
-			m_manaStat = eStat.DEX;
+			m_manaStat = eStat.INT;
+		}
+
+		public override int WeaponSkillFactor(eObjectType type)
+		{
+			return 18;
 		}
 
 		public override bool CanUseLefthandedWeapon

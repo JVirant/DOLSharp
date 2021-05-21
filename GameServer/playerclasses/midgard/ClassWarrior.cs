@@ -37,6 +37,11 @@ namespace DOL.GS.PlayerClass
 			m_wsbase = 460;
 		}
 
+		public override int WeaponSkillFactor(eObjectType type)
+		{
+			return 23;
+		}
+
 		public override IList<string> GetAutotrainableSkills()
 		{
 			return AutotrainableSkills;

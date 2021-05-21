@@ -51,6 +51,14 @@ namespace DOL.GS
 		private bool m_isSpellResisted = false;
 		private bool m_causesCombat = true;
 
+		public double weaponDamage = 0;
+		public double dmgMod = 0;
+		public double enemyAF = 0;
+		public double enemyABS = 0;
+		public double enemyResist = 0;
+		public double weaponStat = 0;
+
+
 		/// <summary>
 		/// Constructs new AttackData
 		/// </summary>

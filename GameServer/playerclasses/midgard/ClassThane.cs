@@ -37,6 +37,13 @@ namespace DOL.GS.PlayerClass
 			m_baseHP = 720;
 		}
 
+		public override int WeaponSkillFactor(eObjectType type)
+		{
+			if (type == eObjectType.Hammer)
+				return 19;
+			return 18;
+		}
+
 		public override eClassType ClassType
 		{
 			get { return eClassType.Hybrid; }

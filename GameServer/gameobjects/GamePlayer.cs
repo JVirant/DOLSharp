@@ -7052,7 +7052,7 @@ namespace DOL.GS
 					case eObjectType.RecurvedBow:
 					case eObjectType.Thrown:
 					case eObjectType.Shield:
-						return GetModified(eProperty.Dexterity);
+						return GetModified(eProperty.Dexterity) / 2;
 
 						// STR+DEX modifier
 					case eObjectType.ThrustWeapon:
@@ -7060,11 +7060,11 @@ namespace DOL.GS
 					case eObjectType.Spear:
 					case eObjectType.Flexible:
 					case eObjectType.HandToHand:
-						return (GetModified(eProperty.Strength) + GetModified(eProperty.Dexterity)) >> 1;
+						return (GetModified(eProperty.Strength) + GetModified(eProperty.Dexterity)) / 4;
 				}
 			}
 			// STR modifier for others
-			return GetModified(eProperty.Strength);
+			return GetModified(eProperty.Strength) / 2;
 		}
 
 		/// <summary>
@@ -7074,9 +7074,9 @@ namespace DOL.GS
 		/// <returns></returns>
 		public override double GetArmorAF(eArmorSlot slot)
 		{
-			if (slot == eArmorSlot.NOTSET) return 0;
+			if (slot == eArmorSlot.NOTSET) return 20;
 			InventoryItem item = Inventory.GetItem((eInventorySlot)slot);
-			if (item == null) return 0;
+			if (item == null) return 20;
 			double eaf = item.DPS_AF + BaseBuffBonusCategory[(int)eProperty.ArmorFactor]; // base AF buff
 
 			int itemAFcap = Level;
@@ -7087,20 +7087,19 @@ namespace DOL.GS
 				itemAFcap <<= 1;
 			}
 
-			eaf = Math.Min(eaf, itemAFcap);
-			eaf *= 4.67; // compensate *4.67 in damage formula
+			eaf = eaf.Clamp(0, itemAFcap);
 
 			// my test shows that qual is added after AF buff
 			eaf *= item.Quality * 0.01 * item.Condition / item.MaxCondition;
 
-			eaf += GetModified(eProperty.ArmorFactor);
+			eaf += GetModified(eProperty.ArmorFactor) / 5;
 
 			/*GameSpellEffect effect = SpellHandler.FindEffectOnTarget(this, typeof(VampiirArmorDebuff));
 			if (effect != null && slot == (effect.SpellHandler as VampiirArmorDebuff).Slot)
 			{
 				eaf -= (int)(effect.SpellHandler as VampiirArmorDebuff).Spell.Value;
 			}*/
-			return eaf;
+			return 20 + eaf;
 		}
 
 		/// <summary>
@@ -7125,10 +7124,7 @@ namespace DOL.GS
 		{
 			get
 			{
-				int itemBonus = WeaponSpecLevel(AttackWeapon) - WeaponBaseSpecLevel(AttackWeapon) - RealmLevel / 10;
-				double m = 0.56 + itemBonus / 70.0;
-				double weaponSpec = WeaponSpecLevel(AttackWeapon) + itemBonus * m;
-				return (int)(GetWeaponSkill(AttackWeapon) * (1.00 + weaponSpec * 0.01));
+				return (int)GetWeaponSkill(AttackWeapon);
 			}
 		}
 
@@ -7139,35 +7135,29 @@ namespace DOL.GS
 		/// <param name="weapon">the weapon used for attack</param>
 		public override double WeaponDamage(InventoryItem weapon)
 		{
-			if (weapon != null)
-			{
-				//TODO if attackweapon is ranged -> attackdamage is arrow damage
-				int DPS = weapon.DPS_AF;
+			if (weapon == null)
+				return 1.0;
 
-				// apply relic bonus prior to cap
-				DPS = (int)((double)DPS * (1.0 + RelicMgr.GetRelicBonusModifier(Realm, eRelicType.Strength)));
+			var dps = weapon.DPS_AF * 0.1;
+			var cap = 1.2 + 0.3 * Level;
+			if (RealmLevel > 39)
+				cap += 0.3;
+			dps = dps.Clamp(0.1, cap);
+			dps *= 1.0 + (GetModified(eProperty.DPS) * 0.01);
+			// beware to use always ConditionPercent, because Condition is abolute value
+			dps *= weapon.Quality * 0.01 * weapon.ConditionPercent * 0.01;
 
-				// apply damage cap before quality
-				// http://www.classesofcamelot.com/faq.asp?mode=view&cat=10
-				int cap = 12 + 3 * Level;
-				if (RealmLevel > 39)
-					cap += 3;
-
-				if (DPS > cap)
-				{
-					DPS = cap;
-				}
-				//(1.0 + BuffBonusCategory1[(int)eProperty.DPS]/100.0 - BuffBonusCategory3[(int)eProperty.DPS]/100.0)
-				DPS = (int)(DPS * (1 + (GetModified(eProperty.DPS) * 0.01)));
-				// beware to use always ConditionPercent, because Condition is abolute value
-				//				return (int) ((DPS/10.0)*(weapon.Quality/100.0)*(weapon.Condition/(double)weapon.MaxCondition)*100.0);
-				double wdamage = (0.001 * DPS * weapon.Quality * weapon.Condition) / weapon.MaxCondition;
-				return wdamage;
+			var twohand_bonus = 1.0;
+			if (weapon.Item_Type == Slot.TWOHAND) {
+				var wp_spec = GetModifiedSpecLevel(GetWeaponSpec(weapon));
+				twohand_bonus = 1.1 + 0.005 * wp_spec;
 			}
-			else
-			{
-				return 0;
-			}
+			var weapon_dps = dps * weapon.SPD_ABS * 0.1
+				* (0.94 + weapon.SPD_ABS * 0.1 * 0.03)
+				* twohand_bonus
+				* (1 + 0.01 * GetModified(eProperty.MeleeDamage));
+
+			return weapon_dps;
 		}
 
 		/// <summary>
@@ -9324,7 +9314,7 @@ namespace DOL.GS
 				ISpellHandler spellHandler = ScriptMgr.CreateSpellHandler(this, spell, chargeEffectLine);
 				if (spellHandler != null)
 				{
-					if (IsOnHorse && !spellHandler.HasPositiveEffect)
+					if (IsOnHorse && !spellHandler.HasPositiveEffect && spell.Target.ToLower() != "self")
 						IsOnHorse = false;
 
 					Stealth(false);

@@ -423,7 +423,7 @@ namespace DOL.GS
 			if (Level > 1)
 			{
 				// Now add stats for levelling
-				Strength += (short)Math.Round(10.0 * (Level - 1) * Properties.PET_AUTOSET_STR_MULTIPLIER);
+				Strength += (short)Math.Round((Level - 1) * Properties.PET_AUTOSET_STR_MULTIPLIER);
 				Constitution += (short)Math.Round((Level - 1) * Properties.PET_AUTOSET_CON_MULTIPLIER);
 				Quickness += (short)Math.Round((Level - 1) * Properties.PET_AUTOSET_QUI_MULTIPLIER);
 				Dexterity += (short)Math.Round((Level - 1) * Properties.PET_AUTOSET_DEX_MULTIPLIER);

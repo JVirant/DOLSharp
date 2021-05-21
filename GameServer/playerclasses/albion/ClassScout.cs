@@ -35,7 +35,12 @@ namespace DOL.GS.PlayerClass
 			m_secondaryStat = eStat.QUI;
 			m_tertiaryStat = eStat.STR;
 			m_baseHP = 720;
-            m_manaStat = eStat.DEX; 
+			m_manaStat = eStat.INT; 
+		}
+
+		public override int WeaponSkillFactor(eObjectType type)
+		{
+			return 19;
 		}
 
         public override eClassType ClassType

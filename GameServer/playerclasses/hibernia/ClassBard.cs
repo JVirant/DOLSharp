@@ -36,6 +36,11 @@ namespace DOL.GS.PlayerClass
 			m_wsbase = 360;
 		}
 
+		public override int WeaponSkillFactor(eObjectType type)
+		{
+			return 18;
+		}
+
 		public override bool HasAdvancedFromBaseClass()
 		{
 			return true;

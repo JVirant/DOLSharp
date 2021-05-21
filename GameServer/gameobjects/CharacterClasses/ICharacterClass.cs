@@ -100,6 +100,8 @@ namespace DOL.GS
 		/// </summary>
 		int WeaponSkillRangedBase { get; }
 
+		int WeaponSkillFactor(eObjectType type);
+
 		/// <summary>
 		/// Class Type
 		/// </summary>

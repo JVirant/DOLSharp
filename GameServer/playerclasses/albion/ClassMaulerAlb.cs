@@ -37,6 +37,11 @@ namespace DOL.GS.PlayerClass
             m_manaStat = eStat.STR;
 		}
 
+		public override int WeaponSkillFactor(eObjectType type)
+		{
+			return 20;
+		}
+
 		public override bool CanUseLefthandedWeapon
 		{
 			get { return true; }
