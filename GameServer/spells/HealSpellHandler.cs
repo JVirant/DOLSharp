@@ -446,19 +446,15 @@ namespace DOL.GS.Spells
                 upperLimit = 1;
             }
 
-            double eff = 1.25;
-            if (Caster is GamePlayer)
+            double lineSpec = Caster.GetModifiedSpecLevel(m_spellLine.Spec);
+            if (lineSpec < 1)
+                lineSpec = 1;
+            double eff = 0.25;
+            if (Spell.Level > 0)
             {
-                double lineSpec = Caster.GetModifiedSpecLevel(m_spellLine.Spec);
-                if (lineSpec < 1)
-                    lineSpec = 1;
-                eff = 0.25;
-                if (Spell.Level > 0)
-                {
-                    eff += (lineSpec - 1.0) / Spell.Level;
-                    if (eff > 1.25)
-                        eff = 1.25;
-                }
+                eff += (lineSpec - 1.0) / Spell.Level;
+                if (eff > 1.25)
+                    eff = 1.25;
             }
 
             int lowerLimit = (int)(spellValue * eff);

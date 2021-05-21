@@ -30,6 +30,7 @@ using DOL.GS.ServerProperties;
 using DOL.GS.RealmAbilities;
 using DOL.GS.SkillHandler;
 using DOL.Language;
+using DOL.GS.Utils;
 
 using log4net;
 using System.Numerics;
@@ -3496,7 +3497,7 @@ namespace DOL.GS.Spells
 				return;
 			}
 
-			int speclevel = 1;
+			int speclevel = m_caster.Level;
 
 			if (m_caster is GamePet)
 			{

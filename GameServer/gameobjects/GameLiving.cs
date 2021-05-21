@@ -33,6 +33,7 @@ using DOL.GS.PropertyCalc;
 using DOL.GS.SkillHandler;
 using DOL.GS.Spells;
 using DOL.GS.Styles;
+using DOL.GS.Utils;
 using DOL.Language;
 using DOL.GS.RealmAbilities;
 using System.Numerics;
@@ -952,9 +953,11 @@ namespace DOL.GS
 				return ticks;
 			}
 
+			if (EffectList.GetOfType<QuickCastEffect>() != null)
+				return 2000;
 
 			double percent = DexterityCastTimeReduction;
-
+			percent *= 1.0 - GetModified(eProperty.CastingSpeed) * 0.01;
 			ticks = (int)(ticks * Math.Max(CastingSpeedReductionCap, percent));
 			if (ticks < MinimumCastingSpeed)
 				ticks = MinimumCastingSpeed;
@@ -3863,7 +3866,7 @@ namespace DOL.GS
 			if( ad.IsMeleeAttack )
 			{
 				GamePlayer player = this as GamePlayer;
-				BladeBarrierEffect BladeBarrier = null;
+				BladeBarrierEffect BladeBarrier = EffectList.GetOfType<BladeBarrierEffect>();
 
 				GameSpellEffect parryBuff = SpellHandler.FindEffectOnTarget( this, "ParryBuff" );
 				if( parryBuff == null )
@@ -3872,7 +3875,6 @@ namespace DOL.GS
 				if( player != null )
 				{
 					//BladeBarrier overwrites all parrying, 90% chance to parry any attack, does not consider other bonuses to parry
-					BladeBarrier = player.EffectList.GetOfType<BladeBarrierEffect>();
 					//They still need an active weapon to parry with BladeBarrier
 					if( BladeBarrier != null && ( AttackWeapon != null ) )
 					{
@@ -3885,7 +3887,7 @@ namespace DOL.GS
 					}
 				}
 				else if( this is GameNPC && IsObjectInFront( ad.Attacker, 120 ) )
-					parryChance = GetModified( eProperty.ParryChance );
+					parryChance = BladeBarrier != null ? 0.9 : GetModified( eProperty.ParryChance );
 
 				//If BladeBarrier is up, do not adjust the parry chance.
 				if( BladeBarrier != null && !ad.Target.IsStunned && !ad.Target.IsSitting )
@@ -4928,6 +4930,9 @@ namespace DOL.GS
 		/// <returns></returns>
 		public virtual int GetModifiedFromItems(eProperty property)
 		{
+			if (property == eProperty.Undefined)
+				return 0;
+
 			if (m_propertyCalc != null && m_propertyCalc[(int)property] != null)
 			{
 				return m_propertyCalc[(int)property].CalcValueFromItems(this, property);
@@ -5106,7 +5111,11 @@ namespace DOL.GS
 		/// <returns></returns>
 		public virtual int GetModifiedSpecLevel(string keyName)
 		{
-			return Level;
+			int level = Level;
+			eProperty skillProp = SkillBase.SpecToSkill(keyName);
+			if (skillProp != eProperty.Undefined)
+				level += GetModified(skillProp);
+			return level;
 		}
 
 		#endregion

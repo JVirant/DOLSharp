@@ -214,7 +214,7 @@ namespace DOL.GS.Spells
 		public override AttackData CalculateDamageToTarget(GameLiving target, double effectiveness)
 		{
 			AttackData ad = base.CalculateDamageToTarget(target, effectiveness);
-			GamePlayer player;
+			var player = target as GamePlayer;
 			GameSpellEffect bladeturn = FindEffectOnTarget(target, "Bladeturn");
 			if (bladeturn != null)
 			{
@@ -222,9 +222,8 @@ namespace DOL.GS.Spells
 				{
 					case (int)eShotType.Critical:
 						{
-							if (target is GamePlayer)
+							if (player != null)
 							{
-								player = target as GamePlayer;
 								player.Out.SendMessage("A shot penetrated your magic barrier!", eChatType.CT_SpellResisted, eChatLoc.CL_SystemWindow);
 							}
 							ad.AttackResult = GameLiving.eAttackResult.HitUnstyled;
@@ -233,8 +232,8 @@ namespace DOL.GS.Spells
 
 					case (int)eShotType.Power:
 						{
-							player = target as GamePlayer;
-							player.Out.SendMessage("A shot penetrated your magic barrier!", eChatType.CT_SpellResisted, eChatLoc.CL_SystemWindow);
+							if (player != null)
+								player.Out.SendMessage("A shot penetrated your magic barrier!", eChatType.CT_SpellResisted, eChatLoc.CL_SystemWindow);
 							ad.AttackResult = GameLiving.eAttackResult.HitUnstyled;
 							bladeturn.Cancel(false);
 						}
@@ -243,18 +242,16 @@ namespace DOL.GS.Spells
 					case (int)eShotType.Other:
 					default:
 						{
-							if (Caster is GamePlayer)
+							if (Caster is GamePlayer pl)
 							{
-								player = Caster as GamePlayer;
-								player.Out.SendMessage("Your strike was absorbed by a magical barrier!", eChatType.CT_SpellResisted, eChatLoc.CL_SystemWindow);
+								pl.Out.SendMessage("Your strike was absorbed by a magical barrier!", eChatType.CT_SpellResisted, eChatLoc.CL_SystemWindow);
 							}
-							if (target is GamePlayer)
+							if (target != null)
 							{
-								player = target as GamePlayer;
 								player.Out.SendMessage("The blow was absorbed by a magical barrier!", eChatType.CT_SpellResisted, eChatLoc.CL_SystemWindow);
-								ad.AttackResult = GameLiving.eAttackResult.Missed;
-								bladeturn.Cancel(false);
 							}
+							ad.AttackResult = GameLiving.eAttackResult.Missed;
+							bladeturn.Cancel(false);
 						}
 						break;
 				}
@@ -308,11 +305,14 @@ namespace DOL.GS.Spells
 			double spellDamage = Spell.Damage;
 			GamePlayer player = Caster as GamePlayer;
 
+			int manaStatValue = 0;
 			if (player != null)
 			{
-				int manaStatValue = player.GetModified((eProperty)player.CharacterClass.ManaStat);
-				spellDamage *= (manaStatValue + 300) / 275.0;
+				manaStatValue = player.GetModified((eProperty)player.CharacterClass.ManaStat);
 			}
+			else
+				manaStatValue = Caster.GetModified(eProperty.Intelligence);
+			spellDamage *= (manaStatValue + 300) / 275.0;
 
 			if (spellDamage < 0)
 				spellDamage = 0;
@@ -389,12 +389,7 @@ namespace DOL.GS.Spells
 				percent = 1.0 - ((dex - 60) * 0.15 + (dex - 250) * 0.05) * 0.01;
 			}
 
-			GamePlayer player = m_caster as GamePlayer;
-
-			if (player != null)
-			{
-				percent *= 1.0 - m_caster.GetModified(eProperty.CastingSpeed) * 0.01;
-			}
+			percent *= 1.0 - Caster.GetModified(eProperty.CastingSpeed) * 0.01;
 
 			ticks = (int)(ticks * Math.Max(m_caster.CastingSpeedReductionCap, percent));
 
