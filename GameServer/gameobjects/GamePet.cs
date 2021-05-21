@@ -130,6 +130,9 @@ namespace DOL.GS
 			return true;
 		}
 
+		public override int Mana { get => 5000; set => base.Mana = value; }
+		public override int MaxMana => 5000;
+
 		#region Inventory
 
 		/// <summary>

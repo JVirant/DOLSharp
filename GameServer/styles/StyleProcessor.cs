@@ -240,14 +240,12 @@ namespace DOL.GS.Styles
 					return;
 				}
 
-				if (player != null) //Do mob use endurance?
+				int fatCost = CalculateEnduranceCost(living, style, weapon != null ? weapon.SPD_ABS : 40);
+				if (living.Endurance < fatCost)
 				{
-					int fatCost = CalculateEnduranceCost(player, style, weapon.SPD_ABS);
-					if (player.Endurance < fatCost)
-					{
+					if (player != null)
 						player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "StyleProcessor.TryToUseStyle.Fatigued"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
-						return;
-					}
+					return;
 				}
 
 				if (player != null)
@@ -366,9 +364,7 @@ namespace DOL.GS.Styles
 				{
 					attackData.AnimationId = (weapon.Hand != 1) ? attackData.Style.Icon : attackData.Style.TwoHandAnimation; // 2h shield?
 				}
-				int fatCost = 0;
-				if (weapon != null)
-					fatCost = CalculateEnduranceCost(living, attackData.Style, weapon.SPD_ABS);
+				int fatCost = CalculateEnduranceCost(living, attackData.Style, weapon?.SPD_ABS ?? 40);
 
 				//Reduce endurance if styled attack missed
 				switch (attackData.AttackResult)
@@ -377,8 +373,7 @@ namespace DOL.GS.Styles
 					case GameLiving.eAttackResult.Evaded:
 					case GameLiving.eAttackResult.Missed:
 					case GameLiving.eAttackResult.Parried:
-						if (player != null) //No mob endu lost yet
-							living.Endurance -= Math.Max(1, fatCost / 2);
+						living.Endurance -= Math.Max(1, fatCost / 2);
 						return false;
 				}
 
@@ -436,12 +431,9 @@ namespace DOL.GS.Styles
 					//Increase regular damage by styledamage ... like on live servers
 					attackData.Damage += attackData.StyleDamage;
 
-
+					living.Endurance -= fatCost;
 					if (player != null)
 					{
-						// reduce players endurance
-						player.Endurance -= fatCost;
-
 						if(absorb > 0)
 						{
 							player.Out.SendMessage("A barrier absorbs " + absorb + " damage!", eChatType.CT_YouHit, eChatLoc.CL_SystemWindow);

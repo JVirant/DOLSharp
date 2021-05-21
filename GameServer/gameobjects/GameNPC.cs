@@ -3099,6 +3099,7 @@ namespace DOL.GS
 				Mana = MaxMana;
 			else if (Mana > 0 && MaxMana > 0)
 				StartPowerRegeneration();
+			StartEnduranceRegeneration();
 
 			//If the Mob has a Path assigned he will now walk on it!
 			if (MaxSpeedBase > 0 && CurrentSpellHandler == null && !IsMoving
@@ -4110,33 +4111,6 @@ namespace DOL.GS
 				short maxSpeed = MaxSpeed;
 				if (CurrentSpeed > maxSpeed)
 					CurrentSpeed = maxSpeed;
-			}
-		}
-
-		/// <summary>
-		/// npcs can always have mana to cast
-		/// </summary>
-		public override int Mana
-		{
-			get { return 5000; }
-		}
-
-		/// <summary>
-		/// The Max Mana for this NPC
-		/// </summary>
-		public override int MaxMana
-		{
-			get { return 1000; }
-		}
-
-		/// <summary>
-		/// The Concentration for this NPC
-		/// </summary>
-		public override int Concentration
-		{
-			get
-			{
-				return 500;
 			}
 		}
 

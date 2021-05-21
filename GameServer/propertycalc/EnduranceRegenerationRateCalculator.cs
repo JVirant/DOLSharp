@@ -51,7 +51,7 @@ namespace DOL.GS.PropertyCalc
 				 living.BaseBuffBonusCategory[(int)property]
 				+living.ItemBonus[(int)property];
 
-			if (regen == 0 && living is GamePlayer) //&& ((GamePlayer)living).HasAbility(Abilities.Tireless))
+			if (regen == 0) //&& ((GamePlayer)living).HasAbility(Abilities.Tireless))
 				regen++;
 
 			/*    Patch 1.87 - COMBAT AND REGENERATION CHANGES

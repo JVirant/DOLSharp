@@ -86,14 +86,14 @@ namespace DOL.GS.PropertyCalc
 
 				//Q: What exactly does the power pool % increase do?Does it increase the amount of power my cleric
 				//can generate (like having higher piety)? Or, like the dex cap increase, do I have to put spellcraft points into power to make it worth anything?
-				//A: I’m better off quoting Balance Boy directly here: ” Power pool is affected by
+				//A: Iï¿½m better off quoting Balance Boy directly here: ï¿½ Power pool is affected by
 				//your acuity stat, +power bonus, the Ethereal Bond Realm ability, and your level.
 				//The resulting power pool is adjusted by your power pool % increase bonus.
 				return (int)(manaBase + itemBonus + abilityBonus + (manaBase + itemBonus + abilityBonus) * poolBonus * 0.01); 
 			}
 			else 
 			{
-				return 1000000;	// default
+				return living.AbilityBonus[(int)property] + Math.Max(5, (living.Level * 5) + (living.GetModified(eProperty.Intelligence) - 25));
 			}
 		}
 	}
