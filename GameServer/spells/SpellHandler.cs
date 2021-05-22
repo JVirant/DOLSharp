@@ -3526,8 +3526,8 @@ namespace DOL.GS.Spells
 			// add level mod
 			if (m_caster is GamePlayer)
 			{
-				min += GetLevelModFactor() * (m_caster.Level - target.Level);
-				max += GetLevelModFactor() * (m_caster.Level - target.Level);
+				min += (GetLevelModFactor() * (m_caster.Level - target.Level)).Clamp(-0.6, 0.6);
+				max += (GetLevelModFactor() * (m_caster.Level - target.Level)).Clamp(-0.6, 0.6);
 			}
 			else if (m_caster is GameNPC && ((GameNPC)m_caster).Brain is IControlledBrain)
 			{
@@ -3535,8 +3535,8 @@ namespace DOL.GS.Spells
 				GameLiving owner = ((IControlledBrain)((GameNPC)m_caster).Brain).GetLivingOwner();
 				if (owner != null)
 				{
-					min += GetLevelModFactor() * (owner.Level - target.Level);
-					max += GetLevelModFactor() * (owner.Level - target.Level);
+					min += (GetLevelModFactor() * (owner.Level - target.Level)).Clamp(-0.6, 0.6);
+					max += (GetLevelModFactor() * (owner.Level - target.Level)).Clamp(-0.6, 0.6);
 				}
 			}
 
