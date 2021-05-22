@@ -57,9 +57,11 @@ namespace DOL.GS.PropertyCalc
               - All health and power regeneration aids are now twice as effective.
              */
 
-			if (living.Level < 26)
+			if (living.Level < 10)
+				regen = 7 + (living.Level * 0.2);
+			else if (living.Level < 26)
 			{
-				regen = 10 + (living.Level * 0.2);
+				regen = 5 + (living.Level * 0.4);
 			}
 			else
 			{
@@ -94,6 +96,9 @@ namespace DOL.GS.PropertyCalc
 
 			if (regen < 1)
 				regen = 1;
+
+			if (living.IsSitting && !living.InCombat)
+				regen *= 3;
 
 			return (int)regen;
 		}

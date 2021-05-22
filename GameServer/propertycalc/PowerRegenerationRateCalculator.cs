@@ -67,6 +67,9 @@ namespace DOL.GS.PropertyCalc
 			if (regen < 1)
 				regen = 1;
 
+			if (living.IsSitting && !living.InCombat)
+				regen *= 3;
+
 			return (int)regen;
 		}
 	}

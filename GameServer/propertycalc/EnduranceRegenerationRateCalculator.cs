@@ -86,6 +86,9 @@ namespace DOL.GS.PropertyCalc
 				regen += 1;	// compensate int rounding error
 			}
 
+			if (living.IsSitting && !living.InCombat)
+				regen *= 3;
+
 			return (int)regen;
 		}
 	}
