@@ -95,8 +95,8 @@ namespace DOL.GS.Spells
 		{
 			if (target == null || target.ObjectState != GameLiving.eObjectState.Active) return false;
 
-			// we can't heal people we can attack
-			if (GameServer.ServerRules.IsAllowedToAttack(Caster, target, true))
+			// we can't heal enemy people
+			if (!GameServer.ServerRules.IsSameRealm(Caster, target, true))
 				return false;
 
 			if (!target.IsAlive)
