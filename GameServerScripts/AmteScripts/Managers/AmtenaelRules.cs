@@ -280,7 +280,7 @@ namespace DOL.GS.ServerRules
 				return false;
 
 			// classes restriction. 0 means every class
-			if (player != null && !Util.IsEmpty(item.AllowedClasses, true) && !item.AllowedClasses.SplitCSV(true).Contains(player.CharacterClass.ID.ToString()))
+			if (player != null && !Util.IsEmpty(item.AllowedClasses, true) && !Util.SplitCSV(item.AllowedClasses, true).Contains(player.CharacterClass.ID.ToString()))
 				return false;
 
 			//armor
@@ -470,12 +470,12 @@ namespace DOL.GS.ServerRules
 			{
 				lock (killedPlayer.XPGainers)
 				{
-					foreach (var de in killedPlayer.XPGainers)
+					foreach (DictionaryEntry de in killedPlayer.XPGainers)
 					{
-						if (de.Key is GamePlayer)
+						if (de.Key is GamePlayer pl)
 						{
-							((GamePlayer)de.Key).Out.SendMessage(killedPlayer.Name + " has been killed recently and is worth no realm points!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
-							((GamePlayer)de.Key).Out.SendMessage(killedPlayer.Name + " has been killed recently and is worth no experience!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+							pl.Out.SendMessage(killedPlayer.Name + " has been killed recently and is worth no realm points!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+							pl.Out.SendMessage(killedPlayer.Name + " has been killed recently and is worth no experience!", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 						}
 					}
 				}
@@ -487,7 +487,7 @@ namespace DOL.GS.ServerRules
 				bool dealNoXP = false;
 				var totalDamage = 0.0;
 				//Collect the total damage
-				foreach (var de in killedPlayer.XPGainers)
+				foreach (DictionaryEntry de in killedPlayer.XPGainers)
 				{
 					GameObject obj = (GameObject)de.Key;
 					if (obj is GamePlayer)
@@ -500,12 +500,12 @@ namespace DOL.GS.ServerRules
 							break;
 						}
 					}
-					totalDamage += de.Value;
+					totalDamage += (double)de.Value;
 				}
 
 				if (dealNoXP)
 				{
-					foreach (var de in killedPlayer.XPGainers)
+					foreach (DictionaryEntry de in killedPlayer.XPGainers)
 					{
 						GamePlayer player = de.Key as GamePlayer;
 						if (player != null)
@@ -539,7 +539,7 @@ namespace DOL.GS.ServerRules
 				List<KeyValuePair<GamePlayer, int>> playerKillers = new List<KeyValuePair<GamePlayer, int>>();
 
 				//Now deal the XP and RPs to all livings
-				foreach (var de in killedPlayer.XPGainers)
+				foreach (DictionaryEntry de in killedPlayer.XPGainers)
 				{
 					GameLiving living = de.Key as GameLiving;
 					GamePlayer expGainPlayer = living as GamePlayer;
@@ -556,7 +556,7 @@ namespace DOL.GS.ServerRules
 					if (!living.IsWithinRadius(killedPlayer, WorldMgr.MAX_EXPFORKILL_DISTANCE)) continue;
 
 
-					double damagePercent = de.Value / totalDamage;
+					double damagePercent = (double)de.Value / totalDamage;
 					if (!living.IsAlive)//Dead living gets 25% exp only
 						damagePercent *= 0.25;
 
@@ -695,7 +695,7 @@ namespace DOL.GS.ServerRules
 								if (expGainPlayer == killer)
 								{
 									expGainPlayer.KillsAlbionDeathBlows++;
-									if (de.Value == totalDamage)
+									if ((double)de.Value == totalDamage)
 										expGainPlayer.KillsAlbionSolo++;
 								}
 								break;
@@ -705,7 +705,7 @@ namespace DOL.GS.ServerRules
 								if (expGainPlayer == killer)
 								{
 									expGainPlayer.KillsHiberniaDeathBlows++;
-									if (de.Value == totalDamage)
+									if ((double)de.Value == totalDamage)
 										expGainPlayer.KillsHiberniaSolo++;
 								}
 								break;
@@ -715,7 +715,7 @@ namespace DOL.GS.ServerRules
 								if (expGainPlayer == killer)
 								{
 									expGainPlayer.KillsMidgardDeathBlows++;
-									if (de.Value == totalDamage)
+									if ((double)de.Value == totalDamage)
 										expGainPlayer.KillsMidgardSolo++;
 								}
 								break;

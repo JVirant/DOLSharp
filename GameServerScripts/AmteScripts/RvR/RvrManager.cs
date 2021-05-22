@@ -114,7 +114,7 @@ namespace AmteScripts.Managers
 			Console.WriteLine("Check RVR");
 			if (!_isOpen)
 			{
-				_maps.Keys.ForEach(r => WorldMgr.GetClientsOfRegion(r).Foreach(RemovePlayer));
+				_maps.Keys.Foreach(r => WorldMgr.GetClientsOfRegion(r).Foreach(RemovePlayer));
 				if (DateTime.Now.TimeOfDay >= _startTime && DateTime.Now.TimeOfDay < _endTime)
 					Open(0, false);
 			}

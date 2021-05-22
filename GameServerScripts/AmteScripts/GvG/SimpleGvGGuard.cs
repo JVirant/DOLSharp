@@ -193,7 +193,7 @@ namespace DOL.AI.Brain
 					continue;
 				AddToAggroList(pl, aggro);
 				if (pl.Level > Body.Level - 20 || (pl.Group != null && pl.Group.MemberCount > 2))
-					BringReinforcements(pl);
+					BringFriends(pl);
 			}
 		}
 
@@ -215,7 +215,7 @@ namespace DOL.AI.Brain
 					continue;
 				AddToAggroList(npc, aggro);
 				if (npc.Level > Body.Level)
-					BringReinforcements(npc);
+					BringFriends(npc);
 			}
 		}
 

@@ -113,7 +113,7 @@ public class AmteMob : GameNPC, IAmteNPC
 	public override void DeleteFromDatabase()
 	{
 		base.DeleteFromDatabase();
-		_nameXcp.Values.ForEach(o => GameServer.Database.DeleteObject(o));
+		_nameXcp.Values.Foreach(o => GameServer.Database.DeleteObject(o));
 	}
 
 	public virtual AmteCustomParam GetCustomParam()

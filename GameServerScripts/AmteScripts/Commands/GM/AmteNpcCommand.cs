@@ -38,7 +38,7 @@ namespace DOL.GS.Commands
             		                      	"Niveau: " + npc.Level,
             		                      	"Paramètres du pnj:"
             		                      };
-            		infos.AddRange(amteNpc.DelveInfo());
+            		Util.AddRange(infos, amteNpc.DelveInfo());
             		client.Out.SendCustomTextWindow("Informations de " + npc.Name, infos);
             		break;
 
