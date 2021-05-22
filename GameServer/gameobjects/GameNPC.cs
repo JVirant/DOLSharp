@@ -1718,7 +1718,7 @@ namespace DOL.GS
 				if (TargetObject.Realm == 0 || Realm == 0)
 					m_lastAttackTickPvE = m_CurrentRegion.Time;
 				else m_lastAttackTickPvP = m_CurrentRegion.Time;
-				if (this.CurrentRegion.Time - LastAttackedByEnemyTick > 10 * 1000)
+				if (this.CurrentRegion.Time - LastAttackedByEnemyTick > 5 * 1000)
 				{
 					// Aredhel: Erm, checking for spells in a follow method, what did we create
 					// brain classes for again?
@@ -2398,13 +2398,13 @@ namespace DOL.GS
 			// We need level set before assigning spells to scale pet spells
 			if (template.ReplaceMobValues)
 			{
-				byte choosenLevel = 1;
 				if (!Util.IsEmpty(template.Level))
 				{
+					byte choosenLevel = 1;
 					var split = Util.SplitCSV(template.Level, true);
 					byte.TryParse(split[Util.Random(0, split.Count - 1)], out choosenLevel);
+					this.Level = choosenLevel; // Also calls AutosetStats()
 				}
-				this.Level = choosenLevel; // Also calls AutosetStats()
 			}
 
 			if (template.Spells != null) this.Spells = template.Spells;
@@ -2431,12 +2431,17 @@ namespace DOL.GS
 			this.MessageArticle = template.MessageArticle;
 
 			#region Models, Sizes, Levels, Gender
+			// Dre: don't change an attribute if it's not set in the template
+
 			// Grav: this.Model/Size/Level accessors are triggering SendUpdate()
 			// so i must use them, and not directly use private variables
-			ushort choosenModel = 1;
-			var splitModel = Util.SplitCSV(template.Model, true);
-			ushort.TryParse(splitModel[Util.Random(0, splitModel.Count - 1)], out choosenModel);
-			this.Model = choosenModel;
+			if (!Util.IsEmpty(template.Model))
+			{
+				ushort choosenModel = 1;
+				var splitModel = Util.SplitCSV(template.Model, true);
+				ushort.TryParse(splitModel[Util.Random(0, splitModel.Count - 1)], out choosenModel);
+				this.Model = choosenModel;
+			}
 
 			// Graveen: template.Gender is 0,1 or 2 for respectively eGender.Neutral("it"), eGender.Male ("he"), 
 			// eGender.Female ("she"). Any other value is randomly choosing a gender for current GameNPC
@@ -2450,13 +2455,13 @@ namespace DOL.GS
 				case 2: this.Gender = eGender.Female; break;
 			}
 
-			byte choosenSize = 50;
 			if (!Util.IsEmpty(template.Size))
 			{
+				byte choosenSize = 50;
 				var split = Util.SplitCSV(template.Size, true);
 				byte.TryParse(split[Util.Random(0, split.Count - 1)], out choosenSize);
+				this.Size = choosenSize;
 			}
-			this.Size = choosenSize;
 			#endregion
 
 			#region Misc Stats
@@ -2551,21 +2556,32 @@ namespace DOL.GS
 			}
 			#endregion
 
-			BuffBonusCategory4[(int)eStat.STR] += template.Strength;
-			BuffBonusCategory4[(int)eStat.DEX] += template.Dexterity;
-			BuffBonusCategory4[(int)eStat.CON] += template.Constitution;
-			BuffBonusCategory4[(int)eStat.QUI] += template.Quickness;
-			BuffBonusCategory4[(int)eStat.INT] += template.Intelligence;
-			BuffBonusCategory4[(int)eStat.PIE] += template.Piety;
-			BuffBonusCategory4[(int)eStat.EMP] += template.Empathy;
-			BuffBonusCategory4[(int)eStat.CHR] += template.Charisma;
+				// Dre: don't change the brain if it's already a StandardMobBrain
+				if (Brain is StandardMobBrain brain)
+				{
+					brain.AggroLevel = template.AggroLevel;
+					brain.AggroRange = template.AggroRange;
+				}
+				else
+				{
+					m_ownBrain = new StandardMobBrain
+					{
+						Body = this,
+						AggroLevel = template.AggroLevel,
+						AggroRange = template.AggroRange
+					};
+				}
 
-			m_ownBrain = new StandardMobBrain
+			if (template.Spells != null) Spells = template.Spells;
+			if (template.Styles != null) Styles = template.Styles;
+			if (template.Abilities != null)
 			{
-				Body = this,
-				AggroLevel = template.AggroLevel,
-				AggroRange = template.AggroRange
-			};
+				lock (m_lockAbilities)
+				{
+					foreach (Ability ab in template.Abilities)
+						m_abilities[ab.KeyName] = ab;
+				}
+			}
 		}
 
 		/// <summary>

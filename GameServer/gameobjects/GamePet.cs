@@ -441,17 +441,15 @@ namespace DOL.GS
 			if (NPCTemplate != null)
 			{
 				if (NPCTemplate.Strength > 0)
-					Strength = (short)Math.Round(Strength * (NPCTemplate.Strength / 100.0));
+					Strength = NPCTemplate.Strength;
 				if (NPCTemplate.Constitution > 0)
-					Constitution = (short)Math.Round(Constitution * (NPCTemplate.Constitution / 100.0));
+					Constitution = NPCTemplate.Constitution;
 				if (NPCTemplate.Quickness > 0)
-					Quickness = (short)Math.Round(Quickness * (NPCTemplate.Quickness / 100.0));
+					Quickness = NPCTemplate.Quickness;
 				if (NPCTemplate.Dexterity > 0)
-					Dexterity = (short)Math.Round(Dexterity * (NPCTemplate.Dexterity / 100.0));
+					Dexterity = NPCTemplate.Dexterity;
 				if (NPCTemplate.Intelligence > 0)
-					Intelligence = (short)Math.Round(Intelligence * (NPCTemplate.Intelligence / 100.0));
-
-				// Except for CHA, EMP, AND PIE as those don't have autoset values.
+					Intelligence = NPCTemplate.Intelligence;
 				if (NPCTemplate.Empathy > 0)
 					Empathy = (short)NPCTemplate.Empathy;
 				if (NPCTemplate.Piety > 0)
