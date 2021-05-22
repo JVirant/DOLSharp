@@ -371,6 +371,22 @@ namespace DOL.GS
 			}
 		}
 
+		public string UniqueID;
+		private bool _doubleAccountCache = false;
+		private long _doubleAccountCacheDate = 0;
+		public bool IsDoubleAccount
+		{
+			get
+			{
+				if (_doubleAccountCacheDate < DateTime.Now.Ticks)
+				{
+					_doubleAccountCache = WorldMgr.GetAllPlayingClients().Where(cl => cl.UniqueID == UniqueID).Count() >= 2;
+					_doubleAccountCacheDate = DateTime.Now.Ticks + 30 * 60 * 1000 * 10000L;
+				}
+				return _doubleAccountCache;
+			}
+		}
+
 		/// <summary>
 		/// Gets or sets the player this client is using
 		/// </summary>

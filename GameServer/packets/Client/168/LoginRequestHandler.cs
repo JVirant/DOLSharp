@@ -18,6 +18,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -72,6 +73,9 @@ namespace DOL.GS.PacketHandler.Client.v168
 
 		private static DateTime m_lastAccountCreateTime;
 		private readonly Dictionary<string, LockCount> m_locks = new Dictionary<string, LockCount>();
+
+		public static readonly object Token2AccountSync = new object();
+		public static readonly Dictionary<string, (string, string)> Token2Account = new Dictionary<string, (string, string)>();
 
 		public void HandlePacket(GameClient client, GSPacketIn packet)
 		{
@@ -397,7 +401,8 @@ namespace DOL.GS.PacketHandler.Client.v168
 								playerAccount.Password = CryptPassword(playerAccount.Password);
 							}
 
-							if (!CryptPassword(password).Equals(playerAccount.Password))
+							var uniqueId = _UseToken(password, playerAccount.Name);
+							if (string.IsNullOrEmpty(uniqueId) && CryptPassword(password) != playerAccount.Password)
 							{
 								if (Log.IsInfoEnabled)
 									Log.Info("(" + client.TcpEndpoint + ") Wrong password!");
@@ -412,6 +417,19 @@ namespace DOL.GS.PacketHandler.Client.v168
 
 								return;
 							}
+							uniqueId = uniqueId ?? ipAddress;
+							var count = WorldMgr.GetAllClients().Count(c => c.UniqueID == uniqueId);
+							if (count >= 2)
+							{
+								Log.Info($"Refuse client {playerAccount.Name} ({client.TcpEndpoint}), too many ({count}) account connected (UUID: {uniqueId})");
+								var acclist = string.Join(", ", WorldMgr.GetAllClients().Where(c => c.UniqueID == uniqueId).Select(c => c.Account.Name));
+								Log.Info($"Connected accounts with uuid {uniqueId}: {acclist}");
+								client.IsConnected = false;
+								client.Out.SendLoginDenied(eLoginError.AccountAlreadyLoggedIntoOtherServer);
+								GameServer.Instance.Disconnect(client);
+								return;
+							}
+							client.UniqueID = uniqueId;
 
 							// save player infos
 							playerAccount.LastLogin = DateTime.Now;
@@ -493,6 +511,20 @@ namespace DOL.GS.PacketHandler.Client.v168
 			}
 
 			return crypted.ToString();
+		}
+
+		public static string _UseToken(string token, string account)
+		{
+			(string, string) infos;
+			lock (Token2AccountSync)
+			{
+				if (!Token2Account.TryGetValue(token, out infos))
+					return null;
+				Token2Account.Remove(token);
+			}
+			if (infos.Item1 == account)
+				return infos.Item2;
+			return null;
 		}
 
 		/// <summary>
