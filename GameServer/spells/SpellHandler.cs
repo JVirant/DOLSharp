@@ -807,7 +807,7 @@ namespace DOL.GS.Spells
 							return false;
 						}
 
-						if (m_caster.TargetInView == false)
+						if (selectedTarget == m_caster.TargetObject && m_caster.TargetInView == false)
 						{
 							if (!quiet) MessageToCaster("Your target is not visible!", eChatType.CT_SpellResisted);
 							Caster.Notify(GameLivingEvent.CastFailed, new CastFailedEventArgs(this, CastFailedEventArgs.Reasons.TargetNotInView));
