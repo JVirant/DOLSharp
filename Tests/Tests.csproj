@@ -1,6 +1,7 @@
 ﻿<Project>
   <PropertyGroup>
     <BaseIntermediateOutputPath>..\build\Tests\$(Configuration)\</BaseIntermediateOutputPath>
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <PropertyGroup>
@@ -51,10 +52,24 @@
     <BaseAddress>285212672</BaseAddress>
     <FileAlignment>4096</FileAlignment>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <PlatformTarget>x86</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x86'">
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <PlatformTarget>x86</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.6" Condition=" '$(OS)' != 'Unix' "/>
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.6" Condition=" '$(OS)' != 'Unix' " />
     <ProjectReference Include="..\DOLBase\DOLBase.csproj" Name="DOLBase" Private="True" />
     <ProjectReference Include="..\DOLDatabase\DOLDatabase.csproj" Name="DOLDatabase" Private="True" />
     <ProjectReference Include="..\DOLServer\DOLServer.csproj" Name="DOLServer" />

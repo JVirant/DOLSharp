@@ -134,14 +134,14 @@ namespace DOL.AI.Brain
 				if (Util.IsNearDistance(target, Body.Position, GameNPC.CONST_WALKTOTOLERANCE))
 				{
 					Body.TurnTo(target.X, target.Y);
-				}
-				else
-				{
-					Body.WalkTo(target, 50);
-				}
+					}
+					else
+					{
+						Body.PathTo(target, 50);
+					}
 
-				Body.FireAmbientSentence(GameNPC.eAmbientTrigger.roaming);
-			}
+					Body.FireAmbientSentence(GameNPC.eAmbientTrigger.roaming);
+				}
 			//If the npc can move, and the npc is not casting, not moving, and not attacking or in combat
 			else if (Body.MaxSpeedBase > 0 && Body.CurrentSpellHandler == null && !Body.IsMoving && !Body.AttackState && !Body.InCombat && !Body.IsMovingOnPath)
 			{
@@ -1575,8 +1575,14 @@ namespace DOL.AI.Brain
 
 		public virtual Vector3 CalcRandomWalkTarget()
 		{
-			int maxRoamingRadius = Body.CurrentRegion.IsDungeon ? 5 : 500;
+			if (Body.CurrentZone.IsPathingEnabled)
+			{
+				var pt = PathingMgr.Instance.GetRandomPointAsync(Body.CurrentZone, Body.Position, Body.RoamingRange > 0 ? Body.RoamingRange : 200).Result;
+				if (pt.HasValue)
+					return pt.Value;
+			}
 
+			int maxRoamingRadius = Body.CurrentRegion.IsDungeon ? 5 : 500;
 			if (Body.RoamingRange > 0)
 				maxRoamingRadius = Body.RoamingRange;
 

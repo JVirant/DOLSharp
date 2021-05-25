@@ -197,7 +197,7 @@ namespace DOL.AI.Brain
 					if (WalkState == eWalkState.Follow)
 						FollowOwner();
 					else if (m_temp.X > 0 && m_temp.Y > 0 && m_temp.Z > 0)
-						Body.WalkTo(m_temp, Body.MaxSpeed);
+						Body.PathTo(m_temp, Body.MaxSpeed);
 				}
 				AttackMostWanted();
 			}
@@ -249,7 +249,7 @@ namespace DOL.AI.Brain
 			m_temp = Body.Position;
 			WalkState = eWalkState.ComeHere;
 			Body.StopFollowing();
-			Body.WalkTo(Owner.Position, Body.MaxSpeed);
+			Body.PathTo(Owner.Position, Body.MaxSpeed);
 		}
 
 		/// <summary>
@@ -261,7 +261,7 @@ namespace DOL.AI.Brain
 			m_temp = Body.Position;
 			WalkState = eWalkState.GoTarget;
 			Body.StopFollowing();
-			Body.WalkTo(target.Position, Body.MaxSpeed);
+			Body.PathTo(target.Position, Body.MaxSpeed);
 		}
 
 		public virtual void SetAggressionState(eAggressionState state)
@@ -1061,7 +1061,7 @@ namespace DOL.AI.Brain
 				}
 				else if (m_temp.X > 0 && m_temp.Y > 0 && m_temp.Z > 0)
 				{
-					Body.WalkTo(m_temp, Body.MaxSpeed);
+					Body.PathTo(m_temp, Body.MaxSpeed);
 				}
 			}
 		}

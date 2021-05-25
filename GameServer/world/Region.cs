@@ -1227,6 +1227,16 @@ namespace DOL.GS
         }
 
         /// <summary>
+        /// Returns the zone that contains the specified point
+        /// </summary>
+        /// <param name="point">point for the zone you're retrieving</param>
+        /// <returns>The zone you're retrieving or null if it couldn't be found</returns>
+        public Zone GetZone(Vector3 point)
+        {
+            return this.GetZone((int)point.X, (int)point.Y);
+        }
+
+        /// <summary>
         /// Returns the zone that contains the specified x and y values
         /// </summary>
         /// <param name="x">X value for the zone you're retrieving</param>
@@ -1240,11 +1250,6 @@ namespace DOL.GS
                     return zone;
             }
             return null;
-        }
-
-        public Zone GetZone(System.Numerics.Vector3 pos)
-        {
-            return this.GetZone((int)pos.X, (int)pos.Y);
         }
 
         /// <summary>

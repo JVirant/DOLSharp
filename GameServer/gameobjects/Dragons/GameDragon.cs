@@ -28,6 +28,7 @@ using DOL.Events;
 using DOL.GS.ServerProperties;
 using DOL.AI.Brain;
 using System.Numerics;
+using System.Threading.Tasks;
 
 namespace DOL.GS
 {
@@ -257,10 +258,10 @@ namespace DOL.GS
 		/// Return to spawn point, dragon can't be attacked while it's
 		/// on it's way.
 		/// </summary>
-		public override void WalkToSpawn()
+		public override Task<bool> WalkToSpawn(short _speed)
 		{
 			EvadeChance = 100;
-			WalkToSpawn(MaxSpeed);
+			return WalkToSpawn(MaxSpeed);
 		}
 
 		public override void OnAttackedByEnemy(AttackData ad)

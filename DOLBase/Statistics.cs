@@ -43,5 +43,8 @@ namespace DOL
 		/// The total number of packets sent.
 		/// </summary>
 		public static long PacketsOut;
+
+		public static long PathToCalls;
+		public static long PathToCalculateNextTargetCalls;
 	}
 }

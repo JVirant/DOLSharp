@@ -72,7 +72,7 @@ namespace DOL.GS
 					{
 						(glimmerSpawn.Brain as RetrieverMobBrain).Master = this;
 						m_messengerList.Add(glimmerSpawn);
-						glimmerSpawn.WalkTo(GetExitCoordinates(Util.Random(1, 4)), 200);	// Pick 1 out of 4 possible exits.
+						glimmerSpawn.PathTo(GetExitCoordinates(Util.Random(1, 4)), 200);	// Pick 1 out of 4 possible exits.
 					}
 				}
 			}
