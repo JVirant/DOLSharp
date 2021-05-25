@@ -203,22 +203,23 @@ namespace DOL.GS
 			set { m_Heading = (ushort)(value & 0xFFF); }
 		}
 
-		/// <summary>
-		/// Get distance to a point (with z-axis adjustment)
-		/// </summary>
-		/// <remarks>
-		/// If either Z-value is zero, the z-axis is ignored
-		/// </remarks>
+        /// <summary>
+        /// Get distance to a point (with z-axis adjustment)
+        /// </summary>
+        /// <remarks>
+        /// If either Z-value is zero, the z-axis is ignored
+        /// </remarks>
 		/// <param name="obj">Target</param>
 		/// <param name="Zfactor"></param>
-		/// <returns>Adjusted distance or int.MaxValue if distance cannot be calculated</returns>
+        /// <returns>Adjusted distance or int.MaxValue if distance cannot be calculated</returns>
 		public float GetDistanceTo(GameObject obj, float Zfactor)
-		{
+        {
 			if (CurrentRegionID != obj?.CurrentRegionID)
 				return float.MaxValue;
 			var diff = Position - obj.Position;
 			return (float)Math.Sqrt(diff.X * diff.X + diff.Y * diff.Y + diff.Z * diff.Z * Zfactor);
 		}
+
 		public float GetDistanceTo(GameObject obj)
 		{
 			if (CurrentRegionID == obj?.CurrentRegionID)
@@ -259,7 +260,7 @@ namespace DOL.GS
 			if (rangeCheck)
 				return System.Numerics.Vector3.DistanceSquared(Position, target.Position) <= 32 * 32;
 
-			return false;
+                return false;
 		}
 
 		/// <summary>

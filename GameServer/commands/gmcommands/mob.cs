@@ -126,7 +126,8 @@ namespace DOL.GS.Commands
 	     "'/mob trigger <type> <chance> <emote> <text>' adds a trigger to targeted mob class.  Use '/mob trigger help' for more info.",
 	     "'/mob trigger info' Give trigger informations.",
 	     "'/mob trigger remove <id>' Remove a trigger.",
-	     "'/mob ownerid <id>' Sets and saves the OwnerID for this mob."
+	     "'/mob ownerid <id>' Sets and saves the OwnerID for this mob.",
+		 "'/mob debug' enable/disable pathing debug mode"
 	    )]
 	public class MobCommandHandler : AbstractCommandHandler, ICommandHandler
 	{
@@ -268,6 +269,7 @@ namespace DOL.GS.Commands
 						case "reload": reload(client, targetMob, args); break;
 						case "findname": findname(client, args); break;
 						case "trigger": trigger(client, targetMob, args); break;
+					case "debug": targetMob.DebugMode = !targetMob.DebugMode; break;
 					default:
 						DisplaySyntax(client);
 						return;

@@ -27,6 +27,7 @@ using DOL.GS.ServerProperties;
 using System.Collections.Generic;
 using DOL.GS.Realm;
 using DOL.GS.PlayerClass;
+using System.Threading.Tasks;
 using System.Numerics;
 
 namespace DOL.GS.Keeps
@@ -1014,15 +1015,16 @@ namespace DOL.GS.Keeps
 		/// <summary>
 		/// Adding special handling for walking to a point for patrol guards to be in a formation
 		/// </summary>
-		public override void WalkTo(float tx, float ty, float tz, short speed)
+		public override void WalkTo(Vector3 target, short speed)
 		{
-			int offX = 0; int offY = 0;
+			int offX = 0;
+			int offY = 0;
 			if (IsMovingOnPath && PatrolGroup != null)
 				PatrolGroup.GetMovementOffset(this, out offX, out offY);
-			base.WalkTo(tx - offX, ty - offY, tz, speed);
+			base.WalkTo(target - new Vector3(offX, offY, 0), speed);
 		}
 
-		public override void WalkToSpawn()
+		public override async Task<bool> WalkToSpawn(short speed)
 		{
 			if (PatrolGroup != null)
 			{
@@ -1036,11 +1038,9 @@ namespace DOL.GS.Keeps
 				}
 
 				PatrolGroup.StartPatrol();
+				return false;
 			}
-			else
-			{
-				WalkToSpawn(MaxSpeed);
-			}
+			return await WalkToSpawn(speed);
 		}
 
 		public void RefreshTemplate()

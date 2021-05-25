@@ -643,6 +643,7 @@ namespace DOL.GS
 				//Try to initialize the WorldManager
 				if (!InitComponent(() => WorldManager = new WorldManager(this), "Instancied World Manager Initialization"))
 					return false;
+
 				
 				//---------------------------------------------------------------
 				//Try to initialize the PlayerManager
@@ -666,6 +667,9 @@ namespace DOL.GS
 				//Try to initialize the WorldMgr in early state
 				RegionData[] regionsData;
 				if (!InitComponent(WorldMgr.EarlyInit(out regionsData), "World Manager PreInitialization"))
+					return false;
+
+				if (!InitComponent(() => PathingMgr.Init(), "Pathing Manager Initialization"))
 					return false;
 
 				//---------------------------------------------------------------

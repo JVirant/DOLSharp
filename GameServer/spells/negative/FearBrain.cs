@@ -56,7 +56,7 @@ namespace DOL.AI.Brain
             var fleePoint = Body.GetPointFromHeading(TargetAngle, 300);
 			Body.StopFollowing();
 			Body.StopAttack();
-			Body.WalkTo(new Vector3(fleePoint, Body.Position.Z), Body.MaxSpeed);
+			Body.PathTo(new Vector3(fleePoint, Body.Position.Z), Body.MaxSpeed);
 		}
 	}
 } 
