@@ -26,12 +26,6 @@ namespace DOL.GS
 		/// </summary>
 		public static readonly RpcPathingMgr RpcPathingMgr = new RpcPathingMgr();
 
-		/// <summary>
-		/// Calculates paths via a different RPC server
-		/// </summary>
-		public static readonly ShardedRpcPathingMgr ShardedRpcPathingMgr = new ShardedRpcPathingMgr();
-
-
 		public static bool Init()
 		{
 			log.Info("Starting PathingMgr");
@@ -59,7 +53,6 @@ namespace DOL.GS
 			log.Info("Stopping PathingMgr");
 			LocalPathingMgr.Stop();
 			RpcPathingMgr.Stop();
-			ShardedRpcPathingMgr.Stop();
 		}
 
 		/// <summary>

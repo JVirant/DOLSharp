@@ -28,7 +28,7 @@ namespace DOL.GS
 	{
 		protected ushort m_regionId;
 		protected ushort m_heading;
-		protected String m_name;
+		protected string m_name;
 		
 		public GameLocation(string name, GameObject obj) : this(name, obj.CurrentRegionID, obj.Position, obj.Heading)
         {
@@ -37,16 +37,16 @@ namespace DOL.GS
 			: this(name, regionId, new Vector3(x, y, z), heading)
         {
         }
-		public GameLocation(String name, ushort regionId, ushort zoneId, float x, float y, float z, ushort heading)
+		public GameLocation(string name, ushort regionId, ushort zoneId, float x, float y, float z, ushort heading)
 			: this(name, regionId, ConvertLocalXToGlobalX(x, zoneId), ConvertLocalYToGlobalY(y, zoneId), z, heading)
 		{
 		}
 
-		public GameLocation(String name, ushort regionId, float x, float y, float z) : this(name, regionId, x, y, z, 0)
+		public GameLocation(string name, ushort regionId, float x, float y, float z) : this(name, regionId, x, y, z, 0)
 		{
 		}
 
-		public GameLocation(String name, ushort regionId, Vector3 position, ushort heading)
+		public GameLocation(string name, ushort regionId, Vector3 position, ushort heading)
 		{
 			m_regionId = regionId;
 			m_name = name;
@@ -77,7 +77,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Name of this point
 		/// </summary>
-		public String Name
+		public string Name
 		{
 			get { return m_name; }
 			set { m_name = value; }
