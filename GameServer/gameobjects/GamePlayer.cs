@@ -21,6 +21,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Reflection;
 using System.Text;
 
@@ -836,7 +837,7 @@ namespace DOL.GS
 
 		private void CheckIfNearEnemyKeepAndAddToRvRLinkDeathListIfNecessary()
 		{
-			AbstractGameKeep keep = GameServer.KeepManager.GetKeepCloseToSpot(this.CurrentRegionID, this, WorldMgr.VISIBILITY_DISTANCE);
+			AbstractGameKeep keep = GameServer.KeepManager.GetKeepCloseToSpot(this.CurrentRegionID, this.Position, WorldMgr.VISIBILITY_DISTANCE);
 			if(keep != null && this.Client.Account.PrivLevel == 1 && GameServer.KeepManager.IsEnemy(keep, this))
 			{
 				if(WorldMgr.RvRLinkDeadPlayers.ContainsKey(this.m_InternalID))
@@ -1173,9 +1174,9 @@ namespace DOL.GS
 			{
 				BindRegion = CurrentRegionID;
 				BindHeading = Heading;
-				BindXpos = X;
-				BindYpos = Y;
-				BindZpos = Z;
+				BindXpos = (int)Position.X;
+				BindYpos = (int)Position.Y;
+				BindZpos = (int)Position.Z;
 				if (DBCharacter != null)
 					GameServer.Database.SaveObject(DBCharacter);
 				return;
@@ -1207,9 +1208,9 @@ namespace DOL.GS
 				bound = true;
 				BindRegion = CurrentRegionID;
 				BindHeading = Heading;
-				BindXpos = X;
-				BindYpos = Y;
-				BindZpos = Z;
+				BindXpos = (int)Position.X;
+				BindYpos = (int)Position.Y;
+				BindZpos = (int)Position.Z;
 				if (DBCharacter != null)
 					GameServer.Database.SaveObject(DBCharacter);
 			}
@@ -1240,14 +1241,14 @@ namespace DOL.GS
 					{
 						bound = true;
 						double angle = house.Heading * ((Math.PI * 2) / 360); // angle*2pi/360;
-						int outsideX = (int)(house.X + (0 * Math.Cos(angle) + 500 * Math.Sin(angle)));
-						int outsideY = (int)(house.Y - (500 * Math.Cos(angle) - 0 * Math.Sin(angle)));
+						int outsideX = (int)(house.Position.X + (0 * Math.Cos(angle) + 500 * Math.Sin(angle)));
+						int outsideY = (int)(house.Position.Y - (500 * Math.Cos(angle) - 0 * Math.Sin(angle)));
 						ushort outsideHeading = (ushort)((house.Heading < 180 ? house.Heading + 180 : house.Heading - 180) / 0.08789);
 						BindHouseRegion = CurrentRegionID;
 						BindHouseHeading = outsideHeading;
 						BindHouseXpos = outsideX;
 						BindHouseYpos = outsideY;
-						BindHouseZpos = house.Z;
+						BindHouseZpos = (int)house.Position.Z;
 						if (DBCharacter != null)
 							GameServer.Database.SaveObject(DBCharacter);
 					}
@@ -1764,9 +1765,7 @@ namespace DOL.GS
 				for (int i = 0; i < m_lastUniqueLocations.Length; i++)
 				{
 					GameLocation loc = m_lastUniqueLocations[i];
-					loc.X = X;
-					loc.Y = Y;
-					loc.Z = Z;
+					loc.Position = Position;
 					loc.Heading = Heading;
 					loc.RegionID = CurrentRegionID;
 				}
@@ -5038,22 +5037,22 @@ namespace DOL.GS
 			if (sendMessage && expTotal > 0)
 			{
 				System.Globalization.NumberFormatInfo format = System.Globalization.NumberFormatInfo.InvariantInfo;
-				string totalExpStr = expTotal.ToString("N0", format);
+				string totalExpStr = expTotal.ToString("F0", format);
 				string expCampBonusStr = "";
 				string expGroupBonusStr = "";
 				string expOutpostBonusStr = "";
 
 				if (expCampBonus > 0)
 				{
-					expCampBonusStr = LanguageMgr.GetTranslation(Client.Account.Language, "GamePlayer.GainExperience.CampBonus", expCampBonus.ToString("N0", format));
+					expCampBonusStr = LanguageMgr.GetTranslation(Client.Account.Language, "GamePlayer.GainExperience.CampBonus", expCampBonus.ToString("F0", format));
 				}
 				if (expGroupBonus > 0)
 				{
-					expGroupBonusStr = LanguageMgr.GetTranslation(Client.Account.Language, "GamePlayer.GainExperience.GroupBonus", expGroupBonus.ToString("N0", format));
+					expGroupBonusStr = LanguageMgr.GetTranslation(Client.Account.Language, "GamePlayer.GainExperience.GroupBonus", expGroupBonus.ToString("F0", format));
 				}
 				if (expOutpostBonus > 0)
 				{
-					expOutpostBonusStr = LanguageMgr.GetTranslation(Client.Account.Language, "GamePlayer.GainExperience.OutpostBonus", expOutpostBonus.ToString("N0", format));
+					expOutpostBonusStr = LanguageMgr.GetTranslation(Client.Account.Language, "GamePlayer.GainExperience.OutpostBonus", expOutpostBonus.ToString("F0", format));
 				}
 
 				Out.SendMessage(LanguageMgr.GetTranslation(Client.Account.Language, "GamePlayer.GainExperience.YouGet", totalExpStr) + expCampBonusStr + expGroupBonusStr, eChatType.CT_Important, eChatLoc.CL_SystemWindow);
@@ -7359,7 +7358,7 @@ namespace DOL.GS
 							case 2: range *= 1.15; break; //doesn't exist on live
 							case 3: range *= 1.25; break; //Flight +25%
 					}
-					if (livingTarget != null) range += Math.Min((Z - livingTarget.Z) / 2.0, 500);
+					if (livingTarget != null) range += Math.Min((Position.Z - livingTarget.Position.Z) / 2.0, 500);
 					if (range < 32) range = 32;
 
 					return (int)(range);
@@ -10031,7 +10030,7 @@ namespace DOL.GS
 			if (ObjectState == eObjectState.Active)
 			{
 				DismountSteed(true);
-				if (CurrentRegion.GetZone(X, Y) == null)
+				if (CurrentRegion.GetZone(Position) == null)
 				{
 					if (this is GamePlayer && this.Client.Account.PrivLevel < 3 && !(this as GamePlayer).TempProperties.getProperty("isbeingbanned", false))
 					{
@@ -10114,7 +10113,7 @@ namespace DOL.GS
 		/// <param name="z">Z target coordinate (0 to put player on floor)</param>
 		/// <param name="heading">Target heading</param>
 		/// <returns>true if move succeeded, false if failed</returns>
-		public override bool MoveTo(ushort regionID, int x, int y, int z, ushort heading)
+		public override bool MoveTo(ushort regionID, float x, float y, float z, ushort heading)
 		{
 			//if we are jumping somewhere away from our house not using house.Exit
 			//we need to make the server know we have left the house
@@ -10186,7 +10185,7 @@ namespace DOL.GS
 			//Current Speed = 0 when moved ... else X,Y,Z continue to be modified
 			CurrentSpeed = 0;
 			MovementStartTick = Environment.TickCount;
-			Point3D originalPoint = new Point3D(X, Y, Z);
+			Vector3 originalPoint = new Vector3(X, Y, Z);
 			X = x;
 			Y = y;
 			Z = z;
@@ -10210,7 +10209,7 @@ namespace DOL.GS
 				Out.SendPlayerJump(false);
 
 				// are we jumping far enough to force a complete refresh?
-				if (GetDistanceTo(originalPoint) > WorldMgr.REFRESH_DISTANCE)
+				if (Vector3.Distance(Position, originalPoint) > WorldMgr.REFRESH_DISTANCE)
 				{
 					RefreshWorld();
 				}
@@ -10235,7 +10234,7 @@ namespace DOL.GS
 
 				if (hasPetToMove)
 				{
-					Point2D point = GetPointFromHeading(Heading, 64);
+					Vector2 point = GameMath.GetPointFromHeading(Position, Heading, 64);
 
 					IControlledBrain npc = ControlledBrain;
 					if (npc != null)
@@ -10251,8 +10250,8 @@ namespace DOL.GS
 								if (icb != null && icb.Body != null)
 								{
 									GameNPC petBody2 = icb.Body;
-									if (petBody2 != null && originalPoint.IsWithinRadius(petBody2, 500))
-										petBody2.MoveInRegion(CurrentRegionID, point.X, point.Y, this.Z + 10, (ushort)((this.Heading + 2048) % 4096), false);
+									if (petBody2 != null && petBody2.IsWithinRadius(originalPoint, 500))
+										petBody2.MoveInRegion(CurrentRegionID, point.X, point.Y, this.Position.Z + 10, (ushort)((this.Heading + 2048) % 4096), false);
 								}
 							}
 						}
@@ -10520,39 +10519,18 @@ namespace DOL.GS
 			set { m_areaUpdateTick = value; }
 		}
 
-		/// <summary>
-		/// Gets the current position of this player
-		/// </summary>
-		public override int X
+		public override Vector3 Position
 		{
 			set
 			{
-				base.X = value;
-				if (DBCharacter != null) DBCharacter.Xpos = base.X;
-			}
-		}
-
-		/// <summary>
-		/// Gets the current position of this player
-		/// </summary>
-		public override int Y
-		{
-			set
-			{
-				base.Y = value;
-				if (DBCharacter != null) DBCharacter.Ypos = base.Y;
-			}
-		}
-
-		/// <summary>
-		/// Gets the current position of this player
-		/// </summary>
-		public override int Z
-		{
-			set
-			{
-				base.Z = value;
-				if (DBCharacter != null) DBCharacter.Zpos = base.Z;
+				base.Position = value;
+				if (DBCharacter != null)
+				{
+					var p = base.Position;
+					DBCharacter.Xpos = (int)p.X;
+					DBCharacter.Ypos = (int)p.Y;
+					DBCharacter.Zpos = (int)p.Z;
+				}
 			}
 		}
 
@@ -10609,30 +10587,21 @@ namespace DOL.GS
 			set { m_lastPositionUpdateTick = value; }
 		}
 
-		private Point3D m_lastPositionUpdatePoint = new Point3D(0, 0, 0);
+		private Vector3 m_lastPositionUpdatePoint = new Vector3(0, 0, 0);
 
 		/// <summary>
 		/// The last recorded position of this player
 		/// </summary>
-		public Point3D LastPositionUpdatePoint
+		public Vector3 LastPositionUpdatePoint
 		{
 			get { return m_lastPositionUpdatePoint; }
 			set { m_lastPositionUpdatePoint = value; }
 		}
 
 		/// <summary>
-		/// Holds the players max Z for fall damage
-		/// </summary>
-		private int m_maxLastZ;
-
-		/// <summary>
 		/// Gets or sets the players max Z for fall damage
 		/// </summary>
-		public int MaxLastZ
-		{
-			get { return m_maxLastZ; }
-			set { m_maxLastZ = value; }
-		}
+		public float MaxLastZ { get; set; }
 
 		/// <summary>
 		/// Gets or sets the realm of this player
@@ -11148,12 +11117,16 @@ namespace DOL.GS
 		/// <summary>
 		/// Sets the Living's ground-target Coordinates inside the current Region
 		/// </summary>
-		public override void SetGroundTarget(int groundX, int groundY, int groundZ)
+		public override Vector3? GroundTarget
 		{
-			base.SetGroundTarget(groundX, groundY, groundZ);
-			Out.SendMessage(String.Format("You ground-target {0},{1},{2}", groundX, groundY, groundZ), eChatType.CT_System, eChatLoc.CL_SystemWindow);
-			if (SiegeWeapon != null)
-				SiegeWeapon.SetGroundTarget(groundX, groundY, groundZ);
+			set
+			{
+				base.GroundTarget = value;
+				if (value.HasValue)
+					Out.SendMessage(String.Format("You ground-target {0}", value), eChatType.CT_System, eChatLoc.CL_SystemWindow);
+				if (SiegeWeapon != null)
+					SiegeWeapon.GroundTarget = value;
+			}
 		}
 
 		/// <summary>
@@ -11891,10 +11864,8 @@ namespace DOL.GS
 			{
 				gameItem = new WorldInventoryItem(item);
 
-				Point2D itemloc = this.GetPointFromHeading(this.Heading, 30);
-				gameItem.X = itemloc.X;
-				gameItem.Y = itemloc.Y;
-				gameItem.Z = Z;
+				var itemloc = GameMath.GetPointFromHeading(this.Position, this.Heading, 30);
+				gameItem.Position = new Vector3(itemloc, 0);
 				gameItem.Heading = Heading;
 				gameItem.CurrentRegionID = CurrentRegionID;
 
@@ -11926,7 +11897,7 @@ namespace DOL.GS
 				return false;
 			}
 
-			if ((floorObject is GameBoat == false) && !checkRange && !floorObject.IsWithinRadius(this, GS.ServerProperties.Properties.WORLD_PICKUP_DISTANCE, true))
+			if ((floorObject is GameBoat == false) && !checkRange && !floorObject.IsWithinRadius2D(this, GS.ServerProperties.Properties.WORLD_PICKUP_DISTANCE))
 			{
 				Out.SendMessage(LanguageMgr.GetTranslation(Client.Account.Language, "GamePlayer.PickupObject.ObjectTooFarAway", floorObject.Name), eChatType.CT_System, eChatLoc.CL_SystemWindow);
 				try
@@ -12605,26 +12576,22 @@ namespace DOL.GS
 			#endregion
 
 			#region setting world-init-position (delegate to PlayerCharacter dont make sense)
-			m_x = DBCharacter.Xpos;
-			m_y = DBCharacter.Ypos;
-			m_z = DBCharacter.Zpos;
+			Position = new Vector3(DBCharacter.Xpos, DBCharacter.Ypos, DBCharacter.Zpos);
 			m_Heading = (ushort)DBCharacter.Direction;
 			//important, use CurrentRegion property
 			//instead because it sets the Region too
 			CurrentRegionID = (ushort)DBCharacter.Region;
-			if (CurrentRegion == null || CurrentRegion.GetZone(m_x, m_y) == null)
+			if (CurrentRegion == null || CurrentRegion.GetZone(Position) == null)
 			{
-				log.WarnFormat("Invalid region/zone on char load ({0}): x={1} y={2} z={3} reg={4}; moving to bind point.", DBCharacter.Name, X, Y, Z, DBCharacter.Region);
-				m_x = DBCharacter.BindXpos;
-				m_y = DBCharacter.BindYpos;
-				m_z = DBCharacter.BindZpos;
+				log.WarnFormat("Invalid region/zone on char load ({0}): x={1:N0} y={2:N0} z={3:N0} reg={4}; moving to bind point.", DBCharacter.Name, Position.X, Position.Y, Position.Z, DBCharacter.Region);
+				Position = new Vector3(DBCharacter.BindXpos, DBCharacter.BindYpos, DBCharacter.BindZpos);
 				m_Heading = (ushort)DBCharacter.BindHeading;
 				CurrentRegionID = (ushort)DBCharacter.BindRegion;
 			}
 
 			for (int i = 0; i < m_lastUniqueLocations.Length; i++)
 			{
-				m_lastUniqueLocations[i] = new GameLocation(null, CurrentRegionID, m_x, m_y, m_z);
+				m_lastUniqueLocations[i] = new GameLocation(null, CurrentRegionID, Position.X, Position.Y, Position.Z);
 			}
 			#endregion
 
@@ -12759,9 +12726,9 @@ namespace DOL.GS
 					lock (m_lastUniqueLocations)
 					{
 						GameLocation loc = m_lastUniqueLocations[m_lastUniqueLocations.Length - 1];
-						DBCharacter.Xpos = loc.X;
-						DBCharacter.Ypos = loc.Y;
-						DBCharacter.Zpos = loc.Z;
+						DBCharacter.Xpos = (int)loc.Position.X;
+						DBCharacter.Ypos = (int)loc.Position.Y;
+						DBCharacter.Zpos = (int)loc.Position.Z;
 						DBCharacter.Region = loc.RegionID;
 						DBCharacter.Direction = loc.Heading;
 					}
@@ -13174,7 +13141,7 @@ namespace DOL.GS
 						fieldOfListen += (npc.Level - player.Level) * 3;
 					}
 
-					double angle = npc.GetAngle( player );
+					double angle = GameMath.GetAngle(npc, player);
 
 					//player in front
 					fieldOfView /= 2.0;
@@ -15359,7 +15326,7 @@ namespace DOL.GS
 			}
 
 			System.Globalization.NumberFormatInfo format = System.Globalization.NumberFormatInfo.InvariantInfo;
-			Out.SendMessage("You get " + experience.ToString("N0", format) + " champion experience points.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
+			Out.SendMessage("You get " + experience.ToString("F0", format) + " champion experience points.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 
 			ChampionExperience += experience;
 			Out.SendUpdatePoints();
@@ -15712,12 +15679,11 @@ namespace DOL.GS
 				.ToString();
 		}
 
-        public static GamePlayer CreateTestableGamePlayer() { return CreateTestableGamePlayer(new DefaultCharacterClass()); }
+        public static GamePlayer CreateTestableGamePlayer(GameClient client, ICharacterClass charClass) { return new GamePlayer(client, charClass); }
 
-        public static GamePlayer CreateTestableGamePlayer(ICharacterClass charClass) { return new GamePlayer(charClass); }
-
-        private GamePlayer(ICharacterClass charClass) : base()
+        private GamePlayer(GameClient client, ICharacterClass charClass) : base()
         {
+			m_client = client;
             m_characterClass = charClass;
         }
 

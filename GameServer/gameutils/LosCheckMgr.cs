@@ -285,7 +285,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Contamination radius Z-factor
 		/// </summary>
-		public static double LOSMGR_CONTAMINATION_ZFACTOR
+		public static float LOSMGR_CONTAMINATION_ZFACTOR
 		{
 			get
 			{
@@ -419,7 +419,7 @@ namespace DOL.GS
 				timeout = GetDefaultTimeouts(source, target);
 			
 			// check Threshold first
-			if(source.IsWithinRadius(target, GetDefaultThreshold(source, target), false))
+			if(source.IsWithinRadius(target, GetDefaultThreshold(source, target)))
 			{
 				// FIXME debug
 				if(LOSMGR_DEBUG_LEVEL >= LOSMGR_DEBUG_DEBUG)
@@ -524,7 +524,7 @@ namespace DOL.GS
 				timeout = GetDefaultTimeouts(source, target);
 			
 			// check Threshold first
-			if(source.IsWithinRadius(target, GetDefaultThreshold(source, target), false))
+			if(source.IsWithinRadius(target, GetDefaultThreshold(source, target)))
 			{
 				//we need an arbitrary player
 				foreach(GamePlayer player in source.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))

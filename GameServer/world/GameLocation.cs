@@ -17,32 +17,44 @@
  *
  */
 using System;
+using System.Numerics;
 
 namespace DOL.GS
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	public class GameLocation : Point3D, IGameLocation
+	public class GameLocation : IGameLocation
 	{
 		protected ushort m_regionId;
 		protected ushort m_heading;
-		protected String m_name;		
+		protected String m_name;
 		
-		public GameLocation(String name, ushort regionId, ushort zoneId, int x, int y, int z, ushort heading) : this(name,regionId,ConvertLocalXToGlobalX(x, zoneId),ConvertLocalYToGlobalY(y, zoneId),z, heading)
+		public GameLocation(string name, GameObject obj) : this(name, obj.CurrentRegionID, obj.Position, obj.Heading)
+        {
+        }
+		public GameLocation(string name, ushort regionId, float x, float y, float z, ushort heading)
+			: this(name, regionId, new Vector3(x, y, z), heading)
+        {
+        }
+		public GameLocation(String name, ushort regionId, ushort zoneId, float x, float y, float z, ushort heading)
+			: this(name, regionId, ConvertLocalXToGlobalX(x, zoneId), ConvertLocalYToGlobalY(y, zoneId), z, heading)
 		{
 		}
 
-		public GameLocation(String name, ushort regionId, int x, int y, int z) : this(name, regionId, x, y, z, 0)
+		public GameLocation(String name, ushort regionId, float x, float y, float z) : this(name, regionId, x, y, z, 0)
 		{
 		}
 
-		public GameLocation(String name, ushort regionId, int x, int y, int z, ushort heading) : base(x, y, z)
+		public GameLocation(String name, ushort regionId, Vector3 position, ushort heading)
 		{
 			m_regionId = regionId;
 			m_name = name;
 			m_heading = heading;
+			Position = position;
 		}
+
+		public Vector3 Position { get; set; }
 
 		/// <summary>
 		/// heading of this point
@@ -77,11 +89,11 @@ namespace DOL.GS
 		/// <param name="p1"></param>
 		/// <param name="p2"></param>
 		/// <returns></returns>
-		public int GetDistance( IGameLocation location )
+		public float GetDistance( IGameLocation location )
 		{
 			if (this.RegionID == location.RegionID)
 			{
-				return base.GetDistanceTo( location );
+				return Vector3.Distance(Position, location.Position);
 			}
 			else
 			{
@@ -89,35 +101,35 @@ namespace DOL.GS
 			}
 		}
 
-		public static int ConvertLocalXToGlobalX(int localX, ushort zoneId)
+		public static float ConvertLocalXToGlobalX(float localX, ushort zoneId)
 		{
 			Zone z = WorldMgr.GetZone(zoneId);
 			return z.XOffset + localX;
 		}
 
-		public static int ConvertLocalYToGlobalY(int localY, ushort zoneId)
+		public static float ConvertLocalYToGlobalY(float localY, ushort zoneId)
 		{
 			Zone z = WorldMgr.GetZone(zoneId);
 			return z.YOffset + localY;
 		}
 
-		public static int ConvertGlobalXToLocalX(int globalX, ushort zoneId)
+		public static float ConvertGlobalXToLocalX(float globalX, ushort zoneId)
 		{
 			Zone z = WorldMgr.GetZone(zoneId);
 			return globalX - z.XOffset;
 		}
 
-		public static int ConvertGlobalYToLocalY(int globalY, ushort zoneId)
+		public static float ConvertGlobalYToLocalY(float globalY, ushort zoneId)
 		{
 			Zone z = WorldMgr.GetZone(zoneId);
 			return globalY - z.YOffset;
 		}
 
         [Obsolete( "Use instance method GetDistance( IGameLocation location )" )]
-        public static int GetDistance( int r1, int x1, int y1, int z1, int r2, int x2, int y2, int z2 )
+        public static float GetDistance(ushort r1, float x1, float y1, float z1, ushort r2, float x2, float y2, float z2 )
         {
-            GameLocation loc1 = new GameLocation( "loc1", (ushort)r1, x1, y1, z1 );
-            GameLocation loc2 = new GameLocation( "loc2", (ushort)r2, x2, y2, z2 );
+            GameLocation loc1 = new GameLocation( "loc1", r1, x1, y1, z1 );
+            GameLocation loc2 = new GameLocation( "loc2", r2, x2, y2, z2 );
 
             return loc1.GetDistance( loc2 );
         }

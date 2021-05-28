@@ -17,6 +17,7 @@
  *
  */
 using System;
+using System.Numerics;
 using DOL.Database;
 using DOL.GS.PacketHandler;
 
@@ -77,11 +78,11 @@ namespace DOL.GS.Keeps
 			set { m_component = value; }
 		}
 
-		protected DBKeepPosition m_position;
-		public DBKeepPosition Position
+		protected DBKeepPosition m_dbposition;
+		public DBKeepPosition DBPosition
 		{
-			get { return m_position; }
-			set { m_position = value; }
+			get { return m_dbposition; }
+			set { m_dbposition = value; }
 		}
 
 		public void DeleteObject()
@@ -97,7 +98,7 @@ namespace DOL.GS.Keeps
 			}
 
 			Component = null;
-			Position = null;
+			DBPosition = null;
 
 			base.Delete();
 			CurrentRegion = null;
@@ -166,14 +167,14 @@ namespace DOL.GS.Keeps
 					if (component.Keep.Guild != null)
 					{
 						ChangeGuild();
-						Z += 1500;
+						Position += Vector3.UnitZ * 1500;
 						this.AddToWorld();
 					}
 				}
 				else
 				{
 					ChangeRealm();
-					Z += 1000;	// this works around an issue where all banners are at keep level instead of on top
+					Position += Vector3.UnitZ * 1000;	// this works around an issue where all banners are at keep level instead of on top
 							// with a z value > height of the keep the banners show correctly - tolakram
 					this.AddToWorld();
 				}
@@ -189,7 +190,7 @@ namespace DOL.GS.Keeps
 			if (BannerType == eBannerType.Guild)
 				zAdd = 1500;
 
-			this.MoveTo(this.CurrentRegionID, this.X, this.Y, this.Z + zAdd, this.Heading);
+			this.MoveTo(this.CurrentRegionID, Position + Vector3.UnitZ * zAdd, this.Heading);
 		}
 
 		public void ChangeRealm()

@@ -1473,7 +1473,7 @@ namespace DOL.GS.Quests.Albion
 			#endregion
 
 			#region defineAreas
-			Albion_Statue_Area = WorldMgr.GetRegion(Albion_Statue.RegionID).AddArea(new Area.Circle("", Albion_Statue.X, Albion_Statue.Y, Albion_Statue.Z, 500));
+			Albion_Statue_Area = WorldMgr.GetRegion(Albion_Statue.RegionID).AddArea(new Area.Circle("", Albion_Statue.Position, 500));
 			Albion_Statue_Area.RegisterPlayerEnter(new DOLEventHandler(PlayerEnterStatueArea));
 
 			#endregion

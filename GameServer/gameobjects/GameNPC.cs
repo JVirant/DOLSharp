@@ -38,6 +38,7 @@ using DOL.GS.Styles;
 using DOL.GS.Utils;
 using DOL.Language;
 using DOL.GS.ServerProperties;
+using System.Numerics;
 
 namespace DOL.GS
 {
@@ -730,7 +731,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Spawn point
 		/// </summary>
-		protected Point3D m_spawnPoint;
+		protected Vector3 m_spawnPoint;
 		/// <summary>
 		/// Spawn Heading
 		/// </summary>
@@ -802,7 +803,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Gets or sets the spawnposition of this npc
 		/// </summary>
-		public virtual Point3D SpawnPoint
+		public virtual Vector3 SpawnPoint
 		{
 			get { return m_spawnPoint; }
 			set { m_spawnPoint = value; }
@@ -812,7 +813,7 @@ namespace DOL.GS
 		/// Gets or sets the spawnposition of this npc
 		/// </summary>
 		[Obsolete("Use GameNPC.SpawnPoint")]
-		public virtual int SpawnX
+		public float SpawnX
 		{
 			get { return m_spawnPoint.X; }
 			set { m_spawnPoint.X = value; }
@@ -821,7 +822,7 @@ namespace DOL.GS
 		/// Gets or sets the spawnposition of this npc
 		/// </summary>
 		[Obsolete("Use GameNPC.SpawnPoint")]
-		public virtual int SpawnY
+		public float SpawnY
 		{
 			get { return m_spawnPoint.Y; }
 			set { m_spawnPoint.Y = value; }
@@ -830,7 +831,7 @@ namespace DOL.GS
 		/// Gets or sets the spawnposition of this npc
 		/// </summary>
 		[Obsolete("Use GameNPC.SpawnPoint")]
-		public virtual int SpawnZ
+		public float SpawnZ
 		{
 			get { return m_spawnPoint.Z; }
 			set { m_spawnPoint.Z = value; }
@@ -880,88 +881,24 @@ namespace DOL.GS
 		/// </summary>
 		protected short m_pathingNormalSpeed;
 
-		/// <summary>
-		/// Gets the current X of this living. Don't modify this property
-		/// to try to change position of the mob while active. Use the
-		/// MoveTo function instead
-		/// </summary>
-		public override int X
+		public override Vector3 Position
 		{
 			get
 			{
+				var basePos = base.Position;
 				if (!IsMoving)
-					return base.X;
-
-				if (TargetPosition.X != 0 || TargetPosition.Y != 0 || TargetPosition.Z != 0)
+					return basePos;
+				if (TargetPosition != Vector3.Zero)
 				{
-					long expectedDistance = FastMath.Abs((long)TargetPosition.X - m_x);
-
+					var expectedDistance = Vector3.Distance(basePos, TargetPosition);
 					if (expectedDistance == 0)
-						return TargetPosition.X;
+						return TargetPosition;
 
-					long actualDistance = FastMath.Abs((long)(MovementElapsedTicks * TickSpeedX));
-
-					if (expectedDistance - actualDistance < 0)
-						return TargetPosition.X;
+					var actualDistance = MovementElapsedTicks * new Vector3(TickSpeedX, TickSpeedY, TickSpeedZ);
+					if (expectedDistance - actualDistance.Length() < 0)
+						return TargetPosition;
 				}
-
-				return base.X;
-			}
-		}
-
-		/// <summary>
-		/// Gets the current Y of this NPC. Don't modify this property
-		/// to try to change position of the mob while active. Use the
-		/// MoveTo function instead
-		/// </summary>
-		public override int Y
-		{
-			get
-			{
-				if (!IsMoving)
-					return base.Y;
-
-				if (TargetPosition.X != 0 || TargetPosition.Y != 0 || TargetPosition.Z != 0)
-				{
-					long expectedDistance = FastMath.Abs((long)TargetPosition.Y - m_y);
-
-					if (expectedDistance == 0)
-						return TargetPosition.Y;
-
-					long actualDistance = FastMath.Abs((long)(MovementElapsedTicks * TickSpeedY));
-
-					if (expectedDistance - actualDistance < 0)
-						return TargetPosition.Y;
-				}
-				return base.Y;
-			}
-		}
-
-		/// <summary>
-		/// Gets the current Z of this NPC. Don't modify this property
-		/// to try to change position of the mob while active. Use the
-		/// MoveTo function instead
-		/// </summary>
-		public override int Z
-		{
-			get
-			{
-				if (!IsMoving)
-					return base.Z;
-
-				if (TargetPosition.X != 0 || TargetPosition.Y != 0 || TargetPosition.Z != 0)
-				{
-					long expectedDistance = FastMath.Abs((long)TargetPosition.Z - m_z);
-
-					if (expectedDistance == 0)
-						return TargetPosition.Z;
-
-					long actualDistance = FastMath.Abs((long)(MovementElapsedTicks * TickSpeedZ));
-
-					if (expectedDistance - actualDistance < 0)
-						return TargetPosition.Z;
-				}
-				return base.Z;
+				return basePos;
 			}
 		}
 
@@ -1100,12 +1037,12 @@ namespace DOL.GS
 			set { m_pathID = value; }
 		}
 
-		private IPoint3D m_targetPosition = new Point3D(0, 0, 0);
+		private Vector3 m_targetPosition = new Vector3(0, 0, 0);
 
 		/// <summary>
 		/// The target position.
 		/// </summary>
-		public virtual IPoint3D TargetPosition
+		public virtual Vector3 TargetPosition
 		{
 			get
 			{
@@ -1155,9 +1092,9 @@ namespace DOL.GS
 				return;
 			}
 
-			if (TargetPosition.X != 0 || TargetPosition.Y != 0 || TargetPosition.Z != 0)
+			if (TargetPosition != Vector3.Zero)
 			{
-				double dist = this.GetDistanceTo(new Point3D(TargetPosition.X, TargetPosition.Y, TargetPosition.Z));
+				var dist = Vector3.Distance(Position, TargetPosition);
 
 				if (dist <= 0)
 				{
@@ -1165,11 +1102,8 @@ namespace DOL.GS
 					return;
 				}
 
-				double dx = (double)(TargetPosition.X - m_x) / dist;
-				double dy = (double)(TargetPosition.Y - m_y) / dist;
-				double dz = (double)(TargetPosition.Z - m_z) / dist;
-
-				SetTickSpeed(dx, dy, dz, CurrentSpeed);
+				var diff = (TargetPosition - Position) / dist;
+				SetTickSpeed(diff.X, diff.Y, diff.Z, CurrentSpeed);
 				return;
 			}
 
@@ -1183,7 +1117,7 @@ namespace DOL.GS
 		{
 			get
 			{
-				return (X == TargetPosition.X && Y == TargetPosition.Y && Z == TargetPosition.Z);
+				return Vector3.DistanceSquared(Position, TargetPosition) < 1;
 			}
 		}
 
@@ -1192,7 +1126,7 @@ namespace DOL.GS
 		/// </summary>
 		/// <param name="tx">Target X</param>
 		/// <param name="ty">Target Y</param>
-		public virtual void TurnTo(int tx, int ty)
+		public void TurnTo(float tx, float ty)
 		{
 			TurnTo(tx, ty, true);
 		}
@@ -1203,16 +1137,16 @@ namespace DOL.GS
 		/// </summary>
 		/// <param name="tx">Target X</param>
 		/// <param name="ty">Target Y</param>
-		public virtual void TurnTo(int tx, int ty, bool sendUpdate)
+		public virtual void TurnTo(float tx, float ty, bool sendUpdate)
 		{
 			if (IsStunned || IsMezzed) return;
 
 			Notify(GameNPCEvent.TurnTo, this, new TurnToEventArgs(tx, ty));
 
 			if (sendUpdate)
-				Heading = GetHeading(new Point2D(tx, ty));
+				Heading = GameMath.GetHeading(Position, new Vector2(tx, ty));
 			else
-				base.Heading = GetHeading(new Point2D(tx, ty));
+				base.Heading = GameMath.GetHeading(Position, new Vector2(tx, ty));
 		}
 
 		/// <summary>
@@ -1257,12 +1191,12 @@ namespace DOL.GS
 		/// optionally sends update to client
 		/// </summary>
 		/// <param name="target">GameObject to turn towards</param>
-		public virtual void TurnTo(GameObject target, bool sendUpdate)
+		public void TurnTo(GameObject target, bool sendUpdate)
 		{
 			if (target == null || target.CurrentRegion != CurrentRegion)
 				return;
 
-			TurnTo(target.X, target.Y, sendUpdate);
+			TurnTo(target.Position.X, target.Position.Y, sendUpdate);
 		}
 
 		/// <summary>
@@ -1309,7 +1243,7 @@ namespace DOL.GS
 			/// <summary>
 			/// The NPCs old position
 			/// </summary>
-			protected readonly Point3D m_oldPosition;
+			protected readonly Vector3 m_oldPosition;
 
 			/// <summary>
 			/// Creates a new TurnBackAction
@@ -1319,7 +1253,7 @@ namespace DOL.GS
 				: base(actionSource)
 			{
 				m_oldHeading = actionSource.Heading;
-				m_oldPosition = new Point3D(actionSource);
+				m_oldPosition = actionSource.Position;
 			}
 
 			/// <summary>
@@ -1406,9 +1340,9 @@ namespace DOL.GS
 		/// <param name="target"></param>
 		/// <param name="speed"></param>
 		/// <returns></returns>
-		public virtual int GetTicksToArriveAt(IPoint3D target, int speed)
+		public virtual int GetTicksToArriveAt(Vector3 target, int speed)
 		{
-			return GetDistanceTo(target) * 1000 / speed;
+			return (int)Vector3.Distance(Position, target) * 1000 / speed;
 		}
 
 		/// <summary>
@@ -1416,18 +1350,15 @@ namespace DOL.GS
 		/// </summary>
 		private void SaveCurrentPosition()
 		{
-			SavePosition(this);
+			SavePosition(Position);
 		}
 
 		/// <summary>
 		/// Make the target position permanent.
 		/// </summary>
-		private void SavePosition(IPoint3D target)
+		private void SavePosition(Vector3 target)
 		{
-			X = target.X;
-			Y = target.Y;
-			Z = target.Z;
-
+			Position = target;
 			MovementStartTick = Environment.TickCount;
 		}
 
@@ -1438,9 +1369,9 @@ namespace DOL.GS
 		/// <param name="ty"></param>
 		/// <param name="tz"></param>
 		/// <param name="speed"></param>
-		public virtual void WalkTo(int targetX, int targetY, int targetZ, short speed)
+		public virtual void WalkTo(float targetX, float targetY, float targetZ, short speed)
 		{
-			WalkTo(new Point3D(targetX, targetY, targetZ), speed);
+			WalkTo(new Vector3(targetX, targetY, targetZ), speed);
 		}
 
 		/// <summary>
@@ -1448,7 +1379,7 @@ namespace DOL.GS
 		/// </summary>
 		/// <param name="p"></param>
 		/// <param name="speed"></param>
-		public virtual void WalkTo(IPoint3D target, short speed)
+		public virtual void WalkTo(Vector3 target, short speed)
 		{
 			if (IsTurningDisabled)
 				return;
@@ -1471,7 +1402,7 @@ namespace DOL.GS
 
 			CancelWalkToTimer();
 
-			m_Heading = GetHeading(TargetPosition);
+			m_Heading = GameMath.GetHeading(Position, TargetPosition);
 			m_currentSpeed = speed;
 
 			UpdateTickSpeed();
@@ -1539,7 +1470,7 @@ namespace DOL.GS
 
 			CancelWalkToTimer();
 			SaveCurrentPosition();
-			TargetPosition.Clear();
+			TargetPosition = Vector3.Zero;
 
 			m_currentSpeed = speed;
 
@@ -1571,7 +1502,7 @@ namespace DOL.GS
 		/// Stops the movement of the mob and forcibly moves it to the
 		/// given target position.
 		/// </summary>
-		public virtual void StopMovingAt(IPoint3D target)
+		public virtual void StopMovingAt(Vector3 target)
 		{
 			CancelWalkToSpawn();
 
@@ -1688,13 +1619,11 @@ namespace DOL.GS
 			}
 
 			//Calculate the difference between our position and the players position
-			float diffx = (long)followTarget.X - X;
-			float diffy = (long)followTarget.Y - Y;
-			float diffz = (long)followTarget.Z - Z;
+			var diff = followTarget.Position - Position;
 
 			//SH: Removed Z checks when one of the two Z values is zero(on ground)
 			//Tolakram: a Z of 0 does not indicate on the ground.  Z varies based on terrain  Removed 0 Z check
-			float distance = (float)Math.Sqrt(diffx * diffx + diffy * diffy + diffz * diffz);
+			float distance = diff.Length();
 
 			//if distance is greater then the max follow distance, stop following and return home
 			if ((int)distance > m_followMaxDist)
@@ -1704,7 +1633,7 @@ namespace DOL.GS
 				this.WalkToSpawn();
 				return 0;
 			}
-			int newX, newY, newZ;
+			float newX, newY, newZ;
 
 			if (this.Brain is StandardMobBrain)
 			{
@@ -1730,9 +1659,9 @@ namespace DOL.GS
 				}
 
 				//If we're part of a formation, we can get out early.
-				newX = followTarget.X;
-				newY = followTarget.Y;
-				newZ = followTarget.Z;
+				newX = followTarget.Position.X;
+				newY = followTarget.Position.Y;
+				newZ = followTarget.Position.Z;
 				if (brain.CheckFormation(ref newX, ref newY, ref newZ))
 				{
 					WalkTo(newX, newY, (ushort)newZ, MaxSpeed);
@@ -1761,16 +1690,11 @@ namespace DOL.GS
 			}
 
 			// follow on distance
-			diffx = (diffx / distance) * m_followMinDist;
-			diffy = (diffy / distance) * m_followMinDist;
-			diffz = (diffz / distance) * m_followMinDist;
+			diff = (diff / distance) * m_followMinDist;
 
 			//Subtract the offset from the target's position to get
 			//our target position
-			newX = (int)(followTarget.X - diffx);
-			newY = (int)(followTarget.Y - diffy);
-			newZ = (int)(followTarget.Z - diffz);
-			WalkTo(newX, newY, (ushort)newZ, MaxSpeed);
+			WalkTo(followTarget.Position - diff, MaxSpeed);
 			return ServerProperties.Properties.GAMENPC_FOLLOWCHECK_TIME;
 		}
 
@@ -1847,7 +1771,7 @@ namespace DOL.GS
 
 			PathingNormalSpeed = speed;
 
-			if (this.IsWithinRadius(CurrentWayPoint, 100))
+			if (this.IsWithinRadius(CurrentWayPoint.Position, 100))
 			{
 				// reaching a waypoint can start an ambient sentence
 				FireAmbientSentence(eAmbientTrigger.moving);
@@ -1866,7 +1790,7 @@ namespace DOL.GS
 			if (CurrentWayPoint != null)
 			{
 				GameEventMgr.AddHandler(this, GameNPCEvent.ArriveAtTarget, new DOLEventHandler(OnArriveAtWaypoint));
-				WalkTo(CurrentWayPoint, Math.Min(speed, (short)CurrentWayPoint.MaxSpeed));
+				WalkTo(CurrentWayPoint.Position, Math.Min(speed, (short)CurrentWayPoint.MaxSpeed));
 				m_IsMovingOnPath = true;
 				Notify(GameNPCEvent.PathMoveStarts, this);
 			}
@@ -1968,7 +1892,7 @@ namespace DOL.GS
 
 				if (npc.CurrentWayPoint != null)
 				{
-					npc.WalkTo(npc.CurrentWayPoint, (short)Math.Min(npc.PathingNormalSpeed, npc.CurrentWayPoint.MaxSpeed));
+					npc.WalkTo(npc.CurrentWayPoint.Position, (short)Math.Min(npc.PathingNormalSpeed, npc.CurrentWayPoint.MaxSpeed));
 				}
 				else
 				{
@@ -2061,9 +1985,7 @@ namespace DOL.GS
 			GuildName = dbMob.Guild;
 			ExamineArticle = dbMob.ExamineArticle;
 			MessageArticle = dbMob.MessageArticle;
-			m_x = dbMob.X;
-			m_y = dbMob.Y;
-			m_z = dbMob.Z;
+			Position = new Vector3(dbMob.X, dbMob.Y, dbMob.Z);
 			m_Heading = (ushort)(dbMob.Heading & 0xFFF);
 			m_maxSpeedBase = (short)dbMob.Speed;
 			m_currentSpeed = 0;
@@ -2239,9 +2161,9 @@ namespace DOL.GS
 			mob.Guild = GuildName;
 			mob.ExamineArticle = ExamineArticle;
 			mob.MessageArticle = MessageArticle;
-			mob.X = X;
-			mob.Y = Y;
-			mob.Z = Z;
+			mob.X = (int)Position.X;
+			mob.Y = (int)Position.Y;
+			mob.Z = (int)Position.Z;
 			mob.Heading = Heading;
 			mob.Speed = MaxSpeedBase;
 			mob.Region = CurrentRegionID;
@@ -2818,7 +2740,7 @@ namespace DOL.GS
 			if (exists != -1)
 				return false;
 
-			rider.MoveTo(CurrentRegionID, X, Y, Z, Heading);
+			rider.MoveTo(CurrentRegionID, Position, Heading);
 
 			Notify(GameNPCEvent.RiderMount, this, new RiderMountEventArgs(rider, this));
 			int slot = GetFreeArrayLocation();
@@ -3021,9 +2943,7 @@ namespace DOL.GS
 			if (anyPlayer)
 				m_lastVisibleToPlayerTick = (uint)Environment.TickCount;
 
-			m_spawnPoint.X = X;
-			m_spawnPoint.Y = Y;
-			m_spawnPoint.Z = Z;
+			m_spawnPoint = Position;
 			m_spawnHeading = Heading;
 			lock (BrainSync)
 			{
@@ -3046,7 +2966,7 @@ namespace DOL.GS
 				PathPoint path = MovementMgr.LoadPath(PathID);
 				if (path != null)
 				{
-					var p = path.GetNearestNextPoint(this);
+					var p = path.GetNearestNextPoint(Position);
 					CurrentWayPoint = p;
 					MoveOnPath((short)p.MaxSpeed);
 				}
@@ -3085,9 +3005,7 @@ namespace DOL.GS
 					m_teleporterIndicator.Flags ^= eFlags.CANTTARGET;
 					m_teleporterIndicator.Flags ^= eFlags.DONTSHOWNAME;
 					m_teleporterIndicator.Flags ^= eFlags.FLYING;
-					m_teleporterIndicator.X = X;
-					m_teleporterIndicator.Y = Y;
-					m_teleporterIndicator.Z = Z + 1;
+					m_teleporterIndicator.Position = Position + Vector3.UnitZ;
 					m_teleporterIndicator.CurrentRegionID = CurrentRegionID;
 				}
 
@@ -3156,7 +3074,7 @@ namespace DOL.GS
 		/// <param name="heading"></param>
 		/// <param name="forceMove">Move regardless of combat check</param>
 		/// <returns>true if npc was moved</returns>
-		public virtual bool MoveInRegion(ushort regionID, int x, int y, int z, ushort heading, bool forceMove)
+		public virtual bool MoveInRegion(ushort regionID, float x, float y, float z, ushort heading, bool forceMove)
 		{
 			if (m_ObjectState != eObjectState.Active)
 				return false;
@@ -3195,9 +3113,7 @@ namespace DOL.GS
 				}
 			}
 
-			m_x = x;
-			m_y = y;
-			m_z = z;
+			Position = new Vector3(x, y, z);
 			m_Heading = heading;
 
 			foreach (GamePlayer player in GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
@@ -4530,17 +4446,13 @@ namespace DOL.GS
 			Health = MaxHealth;
 			Mana = MaxMana;
 			Endurance = MaxEndurance;
-			int origSpawnX = m_spawnPoint.X;
-			int origSpawnY = m_spawnPoint.Y;
+			var origSpawn = m_spawnPoint;
 			//X=(m_spawnX+Random(750)-350); //new SpawnX = oldSpawn +- 350 coords
 			//Y=(m_spawnY+Random(750)-350);	//new SpawnX = oldSpawn +- 350 coords
-			X = m_spawnPoint.X;
-			Y = m_spawnPoint.Y;
-			Z = m_spawnPoint.Z;
+			Position = m_spawnPoint;
 			Heading = m_spawnHeading;
 			AddToWorld();
-			m_spawnPoint.X = origSpawnX;
-			m_spawnPoint.Y = origSpawnY;
+			m_spawnPoint = origSpawn;
 			return 0;
 		}
 
@@ -4709,9 +4621,7 @@ namespace DOL.GS
 						}
 						else
 						{
-							loot.X = X;
-							loot.Y = Y;
-							loot.Z = Z;
+							loot.Position = Position;
 							loot.Heading = Heading;
 							loot.CurrentRegion = CurrentRegion;
 							(loot as WorldInventoryItem).Item.IsCrafted = false;
@@ -4731,9 +4641,7 @@ namespace DOL.GS
 							invitem = GameInventoryItem.Create(lootTemplate);
 
 						loot = new WorldInventoryItem(invitem);
-						loot.X = X;
-						loot.Y = Y;
-						loot.Z = Z;
+						loot.Position = Position;
 						loot.Heading = Heading;
 						loot.CurrentRegion = CurrentRegion;
 						(loot as WorldInventoryItem).Item.IsCrafted = false;
@@ -5627,7 +5535,7 @@ namespace DOL.GS
 			// broadcasted , yelled or talked ?
 			if (chosen.Voice.StartsWith("b"))
 			{
-				foreach (GamePlayer player in CurrentRegion.GetPlayersInRadius(X, Y, Z, 25000, false, false))
+				foreach (GamePlayer player in CurrentRegion.GetPlayersInRadius(Position, 25000, false, false))
 				{
 					player.Out.SendMessage(text, eChatType.CT_Broadcast, eChatLoc.CL_ChatWindow);
 				}
@@ -5818,9 +5726,7 @@ namespace DOL.GS
 			copyTarget.Strength = Strength;
 			copyTarget.TetherRange = TetherRange;
 			copyTarget.MaxDistance = MaxDistance;
-			copyTarget.X = X;
-			copyTarget.Y = Y;
-			copyTarget.Z = Z;
+			copyTarget.Position = Position;
 			copyTarget.OwnerID = OwnerID;
 			copyTarget.PackageID = PackageID;
 
@@ -5904,7 +5810,7 @@ namespace DOL.GS
 			m_followTarget = new WeakRef(null);
 
 			m_size = 50; //Default size
-			TargetPosition = new Point3D();
+			TargetPosition = new Vector3();
 			m_followMinDist = 100;
 			m_followMaxDist = 3000;
 			m_flags = 0;
@@ -5913,7 +5819,7 @@ namespace DOL.GS
 			m_ownerID = "";
 
 			if (m_spawnPoint == null)
-				m_spawnPoint = new Point3D();
+				m_spawnPoint = new Vector3();
 
 			//m_factionName = "";
 			LinkedFactions = new ArrayList(1);

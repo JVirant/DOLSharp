@@ -126,7 +126,7 @@ namespace DOL.GS
 				{
 					PathPoint path = MovementMgr.LoadPath(item.Id_nb);
 
-					if ((path != null) && ((Math.Abs(path.X - this.X)) < 500) && ((Math.Abs(path.Y - this.Y)) < 500))
+					if ((path != null) && IsWithinRadius2D(path.Position, 500))
 					{
 						player.Inventory.RemoveCountFromStack(item, 1);
                         InventoryLogging.LogInventoryAction(player, this, eInventoryActionType.Merchant, item.Template);
@@ -204,11 +204,9 @@ namespace DOL.GS
 						}
 
 						mount.Realm = source.Realm;
-						mount.X = path.X;
-						mount.Y = path.Y;
-						mount.Z = path.Z;
+						mount.Position = path.Position;
 						mount.CurrentRegion = CurrentRegion;
-						mount.Heading = path.GetHeading( path.Next );
+						mount.Heading = GameMath.GetHeading(path.Position, path.Next.Position);
 						mount.AddToWorld();
 						mount.CurrentWayPoint = path;
 						GameEventMgr.AddHandler(mount, GameNPCEvent.PathMoveEnds, new DOLEventHandler(OnHorseAtPathEnd));

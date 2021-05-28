@@ -222,9 +222,9 @@ namespace DOL.GS.PacketHandler.Client.v168
 					if (m_zonePoint.SourceRegion == 0)
 					{
 						m_zonePoint.SourceRegion = player.CurrentRegionID;
-						m_zonePoint.SourceX = player.X;
-						m_zonePoint.SourceY = player.Y;
-						m_zonePoint.SourceZ = player.Z;
+						m_zonePoint.SourceX = (int)player.Position.X;
+						m_zonePoint.SourceY = (int)player.Position.Y;
+						m_zonePoint.SourceZ = (int)player.Position.Z;
 						GameServer.Database.SaveObject(m_zonePoint);
 					}
 

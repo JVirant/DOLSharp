@@ -17,6 +17,7 @@
  *
  */
 
+using System.Numerics;
 using DOL.Database;
 
 namespace DOL.GS
@@ -32,10 +33,11 @@ namespace DOL.GS
 	/// <summary>
 	/// IDoor is interface for door and keepdoor
 	/// </summary>
-	public interface IDoor : IPoint3D
+	public interface IDoor
 	{
 		string Name	{get;}
 		uint Flag {get;}
+		Vector3 Position {get;}
 		ushort Heading	{get;}
 		ushort ZoneID { get; }
 		eRealm Realm {get;}

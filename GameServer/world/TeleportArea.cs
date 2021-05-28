@@ -52,7 +52,7 @@ namespace DOL.GS
 			if (player.InCombat == false && GameRelic.IsPlayerCarryingRelic(player) == false)
 			{
 				player.LeaveHouse();
-				GameLocation currentLocation = new GameLocation("TeleportStart", player.CurrentRegionID, player.X, player.Y, player.Z);
+				GameLocation currentLocation = new GameLocation("TeleportStart", player.CurrentRegionID, player.Position, player.Heading);
 				player.MoveTo((ushort)destination.RegionID, destination.X, destination.Y, destination.Z, (ushort)destination.Heading);
 				GameServer.ServerRules.OnPlayerTeleport(player, currentLocation, destination);
 			}
@@ -66,26 +66,5 @@ namespace DOL.GS
 	/// </summary>	
 	public class TeleportPillarArea : TeleportArea
 	{
-		
-		public override bool IsContaining(int x, int y, int z)
-		{
-			return base.IsContaining(x, y, z, false);
-		}
-		
-		public override bool IsContaining(IPoint3D spot)
-		{
-			return base.IsContaining(spot, false);
-		}
-		
-		public override bool IsContaining(int x, int y, int z, bool checkZ)
-		{
-			return base.IsContaining(x, y, z, false);
-		}
-		
-		public override bool IsContaining(IPoint3D p, bool checkZ)
-		{
-			return base.IsContaining(p, false);
-		}
-		
 	}
 }

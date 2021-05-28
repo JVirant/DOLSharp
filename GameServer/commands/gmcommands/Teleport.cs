@@ -116,9 +116,9 @@ namespace DOL.GS.Commands
             teleport.TeleportID = teleportID;
             teleport.Realm = (int)realm;
             teleport.RegionID = player.CurrentRegion.ID;
-            teleport.X = player.X;
-            teleport.Y = player.Y;
-            teleport.Z = player.Z;
+            teleport.X = (int)player.Position.X;
+            teleport.Y = (int)player.Position.Y;
+            teleport.Z = (int)player.Position.Z;
             teleport.Heading = player.Heading;
             teleport.Type = type;
 

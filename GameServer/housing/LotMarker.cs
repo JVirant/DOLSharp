@@ -18,6 +18,7 @@
  */
 using System;
 using System.Collections;
+using System.Numerics;
 using DOL.Database;
 using DOL.GS.PacketHandler;
 
@@ -254,9 +255,7 @@ namespace DOL.GS.Housing
 		{
 			var obj = new GameLotMarker
 			          	{
-			          		X = house.X,
-			          		Y = house.Y,
-			          		Z = house.Z,
+			          		Position = new Vector3(house.X, house.Y, house.Z),
 			          		CurrentRegionID = house.RegionID,
 			          		Heading = (ushort) house.Heading,
 			          		Name = "Lot Marker",

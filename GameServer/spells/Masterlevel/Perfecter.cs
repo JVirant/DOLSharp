@@ -49,9 +49,7 @@ namespace DOL.GS.Spells
             font.Model = 2585;
             font.Name = spell.Name;
             font.Realm = caster.Realm;
-            font.X = caster.X;
-            font.Y = caster.Y;
-            font.Z = caster.Z;
+            font.Position = caster.Position;
             font.CurrentRegionID = caster.CurrentRegionID;
             font.Heading = caster.Heading;
             font.Owner = (GamePlayer)caster;
@@ -105,9 +103,7 @@ namespace DOL.GS.Spells
             font.Model = 2583;
             font.Name = spell.Name;
             font.Realm = caster.Realm;
-            font.X = caster.X;
-            font.Y = caster.Y;
-            font.Z = caster.Z;
+            font.Position = caster.Position;
             font.CurrentRegionID = caster.CurrentRegionID;
             font.Heading = caster.Heading;
             font.Owner = (GamePlayer)caster;
@@ -160,9 +156,7 @@ namespace DOL.GS.Spells
             font.Model = 2581;
             font.Name = spell.Name;
             font.Realm = caster.Realm;
-            font.X = caster.X;
-            font.Y = caster.Y;
-            font.Z = caster.Z;
+            font.Position = caster.Position;
             font.CurrentRegionID = caster.CurrentRegionID;
             font.Heading = caster.Heading;
             font.Owner = (GamePlayer)caster;
@@ -229,9 +223,7 @@ namespace DOL.GS.Spells
             font.Model = 2582;
             font.Name = spell.Name;
             font.Realm = caster.Realm;
-            font.X = caster.X;
-            font.Y = caster.Y;
-            font.Z = caster.Z;
+            font.Position = caster.Position;
             font.CurrentRegionID = caster.CurrentRegionID;
             font.Heading = caster.Heading;
             font.Owner = (GamePlayer)caster;

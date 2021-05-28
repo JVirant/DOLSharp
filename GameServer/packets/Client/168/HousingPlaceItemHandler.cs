@@ -42,7 +42,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 			{
 				int unknow1 = packet.ReadByte(); // 1=Money 0=Item (?)
 				int slot = packet.ReadByte(); // Item/money slot
-				ushort housenumber = packet.ReadShort(); // N° of house
+				ushort housenumber = packet.ReadShort(); // Nï¿½ of house
 				int unknow2 = (byte)packet.ReadByte();
 				_position = (byte)packet.ReadByte();
 				int method = packet.ReadByte(); // 2=Wall 3=Floor
@@ -329,7 +329,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 							ChatUtil.SendSystemMessage(client, "Scripts.Player.Housing.GardenItemPlacedName", orgitem.Name);
 
 							// update all nearby players
-							foreach (GamePlayer player in WorldMgr.GetPlayersCloseToSpot(house.RegionID, house, WorldMgr.OBJ_UPDATE_DISTANCE))
+							foreach (GamePlayer player in WorldMgr.GetPlayersCloseToSpot(house.RegionID, house.Position, WorldMgr.OBJ_UPDATE_DISTANCE))
 							{
 								player.Out.SendGarden(house);
 							}
@@ -887,9 +887,9 @@ namespace DOL.GS.PacketHandler.Client.v168
 			{
 				HouseModel = player.CurrentHouse.Model,
 				HookpointID = _position,
-				X = player.X - player.CurrentHouse.X,
-				Y = player.Y - player.CurrentHouse.Y,
-				Z = player.Z - 25000,
+				X = (int)(player.Position.X - player.CurrentHouse.Position.X),
+				Y = (int)(player.Position.Y - player.CurrentHouse.Position.Y),
+				Z = (int)(player.Position.Z - 25000),
 				Heading = player.Heading - player.CurrentHouse.Heading
 			};
 

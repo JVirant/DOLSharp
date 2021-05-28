@@ -26,9 +26,9 @@ namespace DOL.Events
 	public class MoveToEventArgs : EventArgs
 	{
 		private ushort regionID;
-		private int x;
-    private int y;
-		private int z;
+		private float x;
+		private float y;
+		private float z;
 		private ushort heading;
 
 		/// <summary>
@@ -39,7 +39,7 @@ namespace DOL.Events
 		/// <param name="y">the target y</param>
 		/// <param name="z">the target z</param>
 		/// <param name="heading">the target heading</param>
-		public MoveToEventArgs(ushort regionId, int x, int y, int z, ushort heading)
+		public MoveToEventArgs(ushort regionId, float x, float y, float z, ushort heading)
 		{
 			this.regionID = regionId;
 			this.x = x;
@@ -59,7 +59,7 @@ namespace DOL.Events
 		/// <summary>
 		/// Gets the target x
 		/// </summary>
-		public int X
+		public float X
 		{
 			get { return x; }
 		}
@@ -67,7 +67,7 @@ namespace DOL.Events
 		/// <summary>
 		/// Gets the target y
 		/// </summary>
-		public int Y
+		public float Y
 		{
 			get { return y; }
 		}
@@ -75,7 +75,7 @@ namespace DOL.Events
 		/// <summary>
 		/// Gets the target z
 		/// </summary>
-		public int Z
+		public float Z
 		{
 			get { return z; }
 		}

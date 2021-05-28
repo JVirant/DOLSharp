@@ -180,7 +180,7 @@ namespace DOL.GS.Quests.Albion {
 			#endregion
 
 			#region defineAreas
-			targetArea = WorldMgr.GetRegion(targetLocation.RegionID).AddArea(new Area.Circle("", targetLocation.X, targetLocation.Y, targetLocation.Z, 200));
+			targetArea = WorldMgr.GetRegion(targetLocation.RegionID).AddArea(new Area.Circle("", targetLocation.Position, 200));
 			#endregion
 
 			#region defineBehaviours

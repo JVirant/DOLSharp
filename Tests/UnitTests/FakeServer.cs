@@ -2,11 +2,24 @@
 using DOL.Database.Transaction;
 using DOL.GS;
 using DOL.GS.PacketHandler;
+using DOL.Network;
 using System;
 using System.Collections.Generic;
 
 namespace DOL.UnitTests.Gameserver
 {
+    public class FakeGameClient : GameClient
+    {
+        public FakeGameClient(BaseServer srvr) : base(srvr)
+        {
+            Out = new FakePacketLib();
+        }
+
+        public override void OnConnect() { }
+        public override void OnDisconnect() { }
+        protected override void OnReceive(int numBytes) { }
+    }
+
     public class FakePacketLib : PacketLib1124
     {
         public FakePacketLib() : base(null) { }

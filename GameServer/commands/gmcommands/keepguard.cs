@@ -216,9 +216,7 @@ namespace DOL.GS.Commands
 						else
 						{
 							guard.CurrentRegion = client.Player.CurrentRegion;
-							guard.X = client.Player.X;
-							guard.Y = client.Player.Y;
-							guard.Z = client.Player.Z;
+							guard.Position = client.Player.Position;
 							guard.Heading = client.Player.Heading;
 							guard.Realm = guard.CurrentZone.Realm;
                             guard.LoadedFromScript = false;
@@ -296,7 +294,7 @@ namespace DOL.GS.Commands
 									}
 
 									GameKeepGuard guard = client.Player.TargetObject as GameKeepGuard;
-									DBKeepPosition pos = guard.Position;
+									DBKeepPosition pos = guard.DBPosition;
 									if (pos != null)
 									{
 										PositionMgr.RemovePosition(pos);
@@ -344,7 +342,7 @@ namespace DOL.GS.Commands
 								{
 									RemoveAllTempPathObjects(client);
 
-									PathPoint startpoint = new PathPoint(client.Player.X, client.Player.Y, client.Player.Z, 100000, ePathType.Once);
+									PathPoint startpoint = new PathPoint(client.Player.Position, 100000, ePathType.Once);
 									client.Player.TempProperties.setProperty(TEMP_PATH_FIRST, startpoint);
 									client.Player.TempProperties.setProperty(TEMP_PATH_LAST, startpoint);
 									client.Player.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.KeepGuard.Path.CreationStarted"), eChatType.CT_System, eChatLoc.CL_SystemWindow);
@@ -376,7 +374,7 @@ namespace DOL.GS.Commands
 										}
 									}
 
-									PathPoint newpp = new PathPoint(client.Player.X, client.Player.Y, client.Player.Z, speedlimit, path.Type);
+									PathPoint newpp = new PathPoint(client.Player.Position, speedlimit, path.Type);
 									path.Next = newpp;
 									newpp.Prev = path;
 									client.Player.TempProperties.setProperty(TEMP_PATH_LAST, newpp);
@@ -452,9 +450,7 @@ namespace DOL.GS.Commands
 		private void CreateTempPathObject(GameClient client, PathPoint pp, string name)
 		{
 			GameStaticItem obj = new GameStaticItem();
-			obj.X = pp.X;
-			obj.Y = pp.Y;
-			obj.Z = pp.Z;
+			obj.Position = pp.Position;
 			obj.CurrentRegion = client.Player.CurrentRegion;
 			obj.Heading = client.Player.Heading;
 			obj.Name = name;

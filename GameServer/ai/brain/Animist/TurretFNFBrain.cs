@@ -50,10 +50,10 @@ namespace DOL.AI.Brain
 					if (living.IsMezzed || living.IsStealthed)
 						continue;
 
-					if (!Body.IsWithinRadius(living, MAX_AGGRO_DISTANCE, true))
+					if (!Body.IsWithinRadius2D(living, MAX_AGGRO_DISTANCE))
 						continue;
 
-					if (!Body.IsWithinRadius(living, ((TurretPet)Body).TurretSpell.Range, true))
+					if (!Body.IsWithinRadius2D(living, ((TurretPet)Body).TurretSpell.Range))
 						continue;
 
 					if (((TurretPet)Body).TurretSpell.SpellType != "SpeedDecrease" && SpellHandler.FindEffectOnTarget(living, "SpeedDecrease") != null)

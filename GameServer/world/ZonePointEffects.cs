@@ -22,6 +22,7 @@ using System.Collections.Generic;
 
 using DOL.Events;
 using DOL.Database;
+using System.Numerics;
 
 namespace DOL.GS.GameEvents
 {
@@ -62,9 +63,7 @@ namespace DOL.GS.GameEvents
 				GameNPC npc = new GameNPC(zp);
 
 				npc.CurrentRegionID = z.SourceRegion;
-				npc.X = z.SourceX;
-				npc.Y = z.SourceY;
-				npc.Z = z.SourceZ;
+				npc.Position = new Vector3(z.SourceX, z.SourceY, z.SourceZ);
 				npc.Name = r.Description;
 				npc.GuildName = "ZonePoint (Open)";			
 				if (r.IsDisabled) npc.GuildName = "ZonePoint (Closed)";

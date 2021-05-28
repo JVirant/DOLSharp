@@ -24,6 +24,7 @@
  *
  */
 using DOL.GS.PacketHandler;
+using System.Numerics;
 
 namespace DOL.GS.Commands
 {
@@ -69,7 +70,7 @@ namespace DOL.GS.Commands
 			}
 			int Xoffset = client.Player.CurrentZone.XOffset;
 			int Yoffset = client.Player.CurrentZone.YOffset;
-            Point2D gloc = new Point2D( Xoffset + x, Yoffset + y );
+            Vector2 gloc = new Vector2( Xoffset + x, Yoffset + y );
 			ushort direction = client.Player.GetHeading(gloc);
 			client.Player.Heading = direction;
 			client.Out.SendPlayerJump(true);

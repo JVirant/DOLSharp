@@ -404,9 +404,9 @@ namespace DOL.GS.Commands
                             GamePlayer p = client.Player.TempProperties.getProperty<GamePlayer>("AppealAssist");
                             if (p.ObjectState == GameObject.eObjectState.Active)
                             {
-                                GameLocation oldlocation = new GameLocation("old", client.Player.CurrentRegionID, client.Player.X, client.Player.Y, client.Player.Z);
+                                GameLocation oldlocation = new GameLocation("old", client.Player);
                                 client.Player.TempProperties.setProperty("AppealJumpOld", oldlocation);
-                                client.Player.MoveTo(p.CurrentRegionID, p.X, p.Y, p.Z, p.Heading);
+                                client.Player.MoveTo(p.CurrentRegionID, p.Position, p.Heading);
                             }
                             break;
                         }

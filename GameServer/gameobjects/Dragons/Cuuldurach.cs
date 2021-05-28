@@ -24,7 +24,7 @@ using DOL.Events;
 using System.Reflection;
 using System.Collections;
 using DOL.AI.Brain;
-
+using System.Numerics;
 
 namespace DOL.GS
 {
@@ -61,7 +61,7 @@ namespace DOL.GS
 				isMessenger = Util.Chance(25);
 				glimmerSpawn = SpawnTimedAdd((isMessenger) ? 620 : 621+Util.Random(2),
 					(isMessenger) ? Util.Random(47, 53) : Util.Random(57, 63),
-					X + Util.Random(300, 600), Y + Util.Random(300, 600), 60, isMessenger);
+					Position.X + Util.Random(300, 600), Position.Y + Util.Random(300, 600), 60, isMessenger);
 
 				// We got a messenger, tell it who its master is and which exit
 				// to run to.
@@ -84,7 +84,7 @@ namespace DOL.GS
 		/// 3 = SE, 4 = NE).
 		/// </summary>
 		/// <returns>Coordinates.</returns>
-		private Point3D GetExitCoordinates(int exitNo)
+		private Vector3 GetExitCoordinates(int exitNo)
 		{
 			// Get target coordinates (hardcoded). Yeah I know, this is
 			// ugly, but to get this right NPC pathing is a must; as it
@@ -93,10 +93,10 @@ namespace DOL.GS
 
 			switch (exitNo)
 			{
-				case 1: return new Point3D(407292, 704008, 0);
-				case 2: return new Point3D(406158, 707745, 0);
-				case 3: return new Point3D(410302, 708563, 0);
-				case 4: return new Point3D(411117, 704696, 0);
+				case 1: return new Vector3(407292, 704008, 0);
+				case 2: return new Vector3(406158, 707745, 0);
+				case 3: return new Vector3(410302, 708563, 0);
+				case 4: return new Vector3(411117, 704696, 0);
 				default: return SpawnPoint;
 			}
 		}
@@ -113,7 +113,7 @@ namespace DOL.GS
 			// Spawn nasty adds.
 
 			if (m_messengerList.Contains(sender))
-				SpawnGlimmers(Util.Random(7, 10), sender.X, sender.Y);
+				SpawnGlimmers(Util.Random(7, 10), sender.Position.X, sender.Position.Y);
 		}
 
 		/// <summary>
@@ -124,7 +124,7 @@ namespace DOL.GS
 		/// <param name="numAdds"></param>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
-		private void SpawnGlimmers(int numAdds, int x, int y)
+		private void SpawnGlimmers(int numAdds, float x, float y)
 		{
 			GameNPC glimmer;
 			for (int add = 0; add < numAdds; ++add)

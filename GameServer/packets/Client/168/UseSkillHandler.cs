@@ -19,6 +19,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Reflection;
 using DOL.GS.Styles;
 using log4net;
@@ -37,9 +38,10 @@ namespace DOL.GS.PacketHandler.Client.v168
 		{
 			if (client.Version >= GameClient.eClientVersion.Version1124)
 			{
-				client.Player.X = (int)packet.ReadFloatLowEndian();
-				client.Player.Y = (int)packet.ReadFloatLowEndian();
-				client.Player.Z = (int)packet.ReadFloatLowEndian();
+				var x = packet.ReadFloatLowEndian();
+				var y = packet.ReadFloatLowEndian();
+				var z = packet.ReadFloatLowEndian();
+				client.Player.Position = new Vector3(x, y, z);
 				client.Player.CurrentSpeed = (short)packet.ReadFloatLowEndian();
 				client.Player.Heading = packet.ReadShort();
 			}

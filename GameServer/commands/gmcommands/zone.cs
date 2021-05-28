@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using DOL.GS;
 using DOL.GS.PacketHandler;
 using DOL.Database;
+using System.Numerics;
 
 namespace DOL.GS.Commands
 {
@@ -130,7 +131,7 @@ namespace DOL.GS.Commands
 					// Update water level and diving flag for the new zone
 					client.Out.SendPlayerPositionAndObjectID();
 
-					client.Player.MoveTo(client.Player.CurrentRegionID, client.Player.X, client.Player.Y, client.Player.Z + 1, client.Player.Heading);
+					client.Player.MoveTo(client.Player.CurrentRegionID, client.Player.Position + Vector3.UnitZ, client.Player.Heading);
 
 					DisplayMessage(client, string.Format("Waterlevel for {0}:{1} changed to {2}.", zone.ID, zone.Description, waterlevel));
 					return;

@@ -32,8 +32,7 @@ using DOL.GS.Spells;
 using DOL.GS.Commands;
 using DOL.Events;
 using log4net;
-using Microsoft.CSharp;
-using Microsoft.VisualBasic;
+using Microsoft.CodeDom.Providers.DotNetCompilerPlatform;
 
 namespace DOL.GS
 {
@@ -522,11 +521,11 @@ namespace DOL.GS
 
 				if (compileVB)
 				{
-					compiler = new VBCodeProvider();
+					compiler = new VBCodeProvider(new ProviderOptions(GameServer.Instance.Configuration.RootDirectory + "/lib/roslyn/vbc.exe", 0));
 				}
 				else
 				{
-					compiler = new CSharpCodeProvider(new Dictionary<string, string> { { "CompilerVersion", "v4.0" } });
+					compiler = new CSharpCodeProvider(new ProviderOptions(GameServer.Instance.Configuration.RootDirectory + "/lib/roslyn/csc.exe", 0));
 				}
 				
 				// Graveen: allow script compilation in debug or release mode
@@ -540,6 +539,7 @@ namespace DOL.GS
 				param.WarningLevel = 2;
 				param.CompilerOptions = string.Format("/optimize /lib:.{0}lib", Path.DirectorySeparatorChar);
 				param.ReferencedAssemblies.Add("System.Core.dll");
+				param.ReferencedAssemblies.Add("System.Numerics.dll");
 
 				string[] filepaths = new string[files.Count];
 				for (int i = 0; i < files.Count; i++)

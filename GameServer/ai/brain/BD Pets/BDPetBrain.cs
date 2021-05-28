@@ -101,12 +101,12 @@ namespace DOL.AI.Brain
 		/// <param name="y"></param>
 		/// <param name="z"></param>
 		/// <returns></returns>
-		public override bool CheckFormation(ref int x, ref int y, ref int z)
+		public override bool CheckFormation(ref float x, ref float y, ref float z)
 		{
 			if (!Body.AttackState && Body.Attackers.Count == 0)
 			{
 				GameNPC commander = (GameNPC)Owner;
-				double heading = ((double)commander.Heading) * Point2D.HEADING_TO_RADIAN;
+				var heading = commander.Heading * GameMath.HEADING_TO_RADIAN;
 				//Get which place we should put minion
 				int i = 0;
 				//How much do we want to slide back and left/right

@@ -24,6 +24,7 @@ using DOL.Events;
 using DOL.GS.Behaviour.Attributes;
 using DOL.GS.Behaviour;
 using DOL.Language;
+using System.Numerics;
 
 namespace DOL.GS.Behaviour.Actions
 {
@@ -53,9 +54,8 @@ namespace DOL.GS.Behaviour.Actions
                 player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "Behaviour.TeleportAction.TeleportedToLoc", player, location.Name), eChatType.CT_System, eChatLoc.CL_SystemWindow);
             }
 
-            location.X += Util.Random(-radius, radius);
-            location.Y += Util.Random(-radius, radius);
-            player.MoveTo(location.RegionID, location.X, location.Y, location.Z, location.Heading);
+            location.Position += new Vector3(Util.Random(-radius, radius), Util.Random(-radius, radius), 0);
+            player.MoveTo(location);
         }
     }
 }

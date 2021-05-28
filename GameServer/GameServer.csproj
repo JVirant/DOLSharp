@@ -53,6 +53,7 @@
   <ItemGroup>
     <Reference Include="System.Net.Http" />
     <PackageReference Include="log4net" Version="2.0.12" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="3.6.0" />
     <ProjectReference Include="..\DOLBase\DOLBase.csproj" Name="DOLBase" Private="False" />
     <ProjectReference Include="..\DOLDatabase\DOLDatabase.csproj" Name="DOLDatabase" Private="False" />
   </ItemGroup>

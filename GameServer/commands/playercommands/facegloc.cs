@@ -24,6 +24,7 @@
  * 
  */
 using System;
+using System.Numerics;
 using DOL.GS.PacketHandler;
 
 namespace DOL.GS.Commands
@@ -58,7 +59,7 @@ namespace DOL.GS.Commands
 				return;
 			}
 
-            ushort direction = client.Player.GetHeading( new Point2D( x, y ) );
+            ushort direction = client.Player.GetHeading( new Vector2( x, y ) );
 			client.Player.Heading = direction;
 			client.Out.SendPlayerJump(true);
 		}

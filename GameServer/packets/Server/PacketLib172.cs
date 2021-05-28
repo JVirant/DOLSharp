@@ -70,11 +70,11 @@ namespace DOL.GS.PacketHandler
 				pak.WriteShort((ushort)playerToCreate.Client.SessionID);
 				pak.WriteShort((ushort)playerToCreate.ObjectID);
 				pak.WriteShort(playerToCreate.Model);
-				pak.WriteShort((ushort)playerToCreate.Z);
+				pak.WriteShort((ushort)playerToCreate.Position.Z);
 	            //Dinberg:Instances - Zoneskin ID for clientside positioning 'bluff'.
 				pak.WriteShort(playerZone.ZoneSkinID);
-				pak.WriteShort((ushort)playerRegion.GetXOffInZone(playerToCreate.X, playerToCreate.Y));
-				pak.WriteShort((ushort)playerRegion.GetYOffInZone(playerToCreate.X, playerToCreate.Y));
+				pak.WriteShort((ushort)playerRegion.GetXOffInZone(playerToCreate.Position.X, playerToCreate.Position.Y));
+				pak.WriteShort((ushort)playerRegion.GetYOffInZone(playerToCreate.Position.X, playerToCreate.Position.Y));
 				pak.WriteShort(playerToCreate.Heading);
 	
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.EyeSize)); //1-4 = Eye Size / 5-8 = Nose Size
@@ -170,10 +170,10 @@ namespace DOL.GS.PacketHandler
 				}
 
 				// Get Off Corrd
-				int offX = player.X - player.CurrentZone.XOffset;
-				int offY = player.Y - player.CurrentZone.YOffset;
+				var offX = player.Position.X - player.CurrentZone.XOffset;
+				var offY = player.Position.Y - player.CurrentZone.YOffset;
 
-				pak.WriteShort((ushort)player.Z);
+				pak.WriteShort((ushort)player.Position.Z);
 				pak.WriteShort((ushort)offX);
 				pak.WriteShort((ushort)offY);
 				

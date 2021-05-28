@@ -43,6 +43,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Reflection;
 using DOL.AI.Brain;
 using DOL.Database;
@@ -1034,9 +1035,7 @@ namespace DOL.GS.Quests.Midgard
 				briediClone.Size = briedi.Size;
 				briediClone.Level = 15; // to make the figthing against fairy sorceress a bit more dramatic :)
 
-				briediClone.X = locationBriediClone.X + Util.Random(-150, 150);
-				briediClone.Y = locationBriediClone.X + Util.Random(-150, 150);
-				briediClone.Z = locationBriediClone.Y;
+				briediClone.Position = locationBriediClone.Position + new Vector3(Util.Random(-150, 150), Util.Random(-150, 150), 0);
 				briediClone.Heading = locationBriediClone.Heading;
 
 				GameNpcInventoryTemplate template = new GameNpcInventoryTemplate();

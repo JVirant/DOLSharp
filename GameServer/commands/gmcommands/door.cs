@@ -181,9 +181,9 @@ namespace DOL.GS.Commands
 					door.Type = DoorID/100000000;
 					door.Level = 20;
 					door.Realm = 6;
-					door.X = targetDoor.X;
-					door.Y = targetDoor.Y;
-					door.Z = targetDoor.Z;
+					door.X = (int)targetDoor.Position.X;
+					door.Y = (int)targetDoor.Position.Y;
+					door.Z = (int)targetDoor.Position.Z;
 					door.Heading = targetDoor.Heading;
 					door.Health = 2545;
 					GameServer.Database.AddObject(door);
@@ -213,9 +213,9 @@ namespace DOL.GS.Commands
 					door.Realm = (byte) targetDoor.Realm;
 					door.Health = targetDoor.Health;
 					door.Locked = targetDoor.Locked;
-					door.X = client.Player.X;
-					door.Y = client.Player.Y;
-					door.Z = client.Player.Z;
+					door.X = (int)client.Player.Position.X;
+					door.Y = (int)client.Player.Position.Y;
+					door.Z = (int)client.Player.Position.Z;
 					door.Heading = client.Player.Heading;
 					GameServer.Database.AddObject(door);
 					(targetDoor).AddToWorld();
@@ -389,9 +389,9 @@ namespace DOL.GS.Commands
 			info.Add(" + Health : " + targetDoor.Health + " / " + targetDoor.MaxHealth);
 			info.Add(" + Statut : " + statut);
 			info.Add(" + Type : " + doorType);
-			info.Add(" + X : " + targetDoor.X);
-			info.Add(" + Y : " + targetDoor.Y);
-			info.Add(" + Z : " + targetDoor.Z);
+			info.Add(" + X : " + targetDoor.Position.X.ToString("F0"));
+			info.Add(" + Y : " + targetDoor.Position.Y.ToString("F0"));
+			info.Add(" + Z : " + targetDoor.Position.Z.ToString("F0"));
 			info.Add(" + Heading : " + targetDoor.Heading);
 
 			client.Out.SendCustomTextWindow("Door Information", info);

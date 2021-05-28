@@ -71,9 +71,7 @@ namespace DOL.GS
 		/// <param name="dropper">the gameobject that dropped this bag</param>
 		public GameMoney(long copperValue, GameObject dropper):this(copperValue)
 		{
-			X=dropper.X;
-			Y=dropper.Y;
-			Z=dropper.Z;
+			Position = dropper.Position;
 			Heading = dropper.Heading;
 			CurrentRegion = dropper.CurrentRegion;
 		}

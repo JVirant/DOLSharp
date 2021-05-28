@@ -342,9 +342,9 @@ namespace DOL.GS
 
 			merchant.Name = Name;
 			merchant.Guild = GuildName;
-			merchant.X = X;
-			merchant.Y = Y;
-			merchant.Z = Z;
+			merchant.X = (int)Position.X;
+			merchant.Y = (int)Position.Y;
+			merchant.Z = (int)Position.Z;
 			merchant.Heading = Heading;
 			merchant.Speed = MaxSpeedBase;
 			merchant.Region = CurrentRegionID;

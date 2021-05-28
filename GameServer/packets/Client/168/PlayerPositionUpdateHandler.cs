@@ -29,6 +29,7 @@ using DOL.Language;
 using DOL.GS;
 using DOL.GS.PacketHandler;
 using log4net;
+using System.Numerics;
 
 namespace DOL.GS.PacketHandler.Client.v168
 {
@@ -138,8 +139,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 				return;
 			}
 
-			int realX = newZone.XOffset + xOffsetInZone;
-			int realY = newZone.YOffset + yOffsetInZone;
+			var realPos = new Vector3(newZone.XOffset + xOffsetInZone, newZone.YOffset + yOffsetInZone, realZ);
 
 			bool zoneChange = newZone != client.Player.LastPositionUpdateZone;
 			if (zoneChange)
@@ -179,14 +179,14 @@ namespace DOL.GS.PacketHandler.Client.v168
 				client.Player.LastPositionUpdateZone = newZone;
 			}
 
-			int coordsPerSec = 0;
-			int jumpDetect = 0;
+			float coordsPerSec = 0;
+			float jumpDetect = 0;
 			int timediff = Environment.TickCount - client.Player.LastPositionUpdateTick;
-			int distance = 0;
+			float distance = 0;
 
 			if (timediff > 0)
 			{
-				distance = client.Player.LastPositionUpdatePoint.GetDistanceTo(new Point3D(realX, realY, realZ));
+				distance = Vector3.Distance(client.Player.LastPositionUpdatePoint, realPos);
 				coordsPerSec = distance * 1000 / timediff;
 
 				if (distance < 100 && client.Player.LastPositionUpdatePoint.Z > 0)
@@ -209,9 +209,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 			#endregion DEBUG
 
 			client.Player.LastPositionUpdateTick = Environment.TickCount;
-			client.Player.LastPositionUpdatePoint.X = realX;
-			client.Player.LastPositionUpdatePoint.Y = realY;
-			client.Player.LastPositionUpdatePoint.Z = realZ;
+			client.Player.LastPositionUpdatePoint = realPos;
 
 			int tolerance = ServerProperties.Properties.CPS_TOLERANCE;
 
@@ -318,11 +316,9 @@ namespace DOL.GS.PacketHandler.Client.v168
 			var flags = (byte)packet.ReadByte();
 
 			client.Player.Heading = (ushort)(headingflag & 0xFFF);
-			if (client.Player.X != realX || client.Player.Y != realY)
+			if (client.Player.Position.X != realPos.X || client.Player.Position.Y != realPos.Y)
 				client.Player.TempProperties.setProperty(LASTMOVEMENTTICK, client.Player.CurrentRegion.Time);
-			client.Player.X = realX;
-			client.Player.Y = realY;
-			client.Player.Z = realZ;
+			client.Player.Position = realPos;
 
 			// update client zone information for waterlevel and diving
 			if (zoneChange)
@@ -340,7 +336,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 				// Because we may be in an instance we need to do the area check from the current region
 				// rather than relying on the zone which is in the skinned region.  - Tolakram
 
-				var newAreas = client.Player.CurrentRegion.GetAreasOfZone(newZone, client.Player);
+				var newAreas = client.Player.CurrentRegion.GetAreasOfZone(newZone, client.Player.Position);
 
 				// Check for left areas
 				if (oldAreas != null)
@@ -525,14 +521,12 @@ namespace DOL.GS.PacketHandler.Client.v168
 			{
 				GameLocation[] locations = client.Player.LastUniqueLocations;
 				GameLocation loc = locations[0];
-				if (loc.X != realX || loc.Y != realY || loc.Z != realZ || loc.RegionID != client.Player.CurrentRegionID)
+				if (loc.Position != realPos || loc.RegionID != client.Player.CurrentRegionID)
 				{
 					loc = locations[locations.Length - 1];
 					Array.Copy(locations, 0, locations, 1, locations.Length - 1);
 					locations[0] = loc;
-					loc.X = realX;
-					loc.Y = realY;
-					loc.Z = realZ;
+					loc.Position = realPos;
 					loc.Heading = client.Player.Heading;
 					loc.RegionID = client.Player.CurrentRegionID;
 				}
@@ -541,11 +535,11 @@ namespace DOL.GS.PacketHandler.Client.v168
 			//**************//
 			//FALLING DAMAGE//
 			//**************//
-			int fallSpeed = 0;
+			var fallSpeed = 0.0f;
 			double fallDamage = 0;
 			if (GameServer.ServerRules.CanTakeFallDamage(client.Player) && !client.Player.IsSwimming)
 			{
-				int maxLastZ = client.Player.MaxLastZ;
+				var maxLastZ = client.Player.MaxLastZ;
 				/* Are we on the ground? */
 				if ((flyingflag >> 15) != 0)
 				{
@@ -559,26 +553,26 @@ namespace DOL.GS.PacketHandler.Client.v168
 						fallDivide = 15;
 					}
 
-					int fallPercent = Math.Min(99, (fallSpeed - (fallMinSpeed + 1)) / fallDivide);
+					var fallPercent = Math.Min(99, (fallSpeed - (fallMinSpeed + 1)) / fallDivide);
 
 					if (fallSpeed > fallMinSpeed)
 					{
 						client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "PlayerPositionUpdateHandler.FallingDamage"),
 						eChatType.CT_Damaged, eChatLoc.CL_SystemWindow);
-						fallDamage = client.Player.CalcFallDamage(fallPercent);
+						fallDamage = client.Player.CalcFallDamage((int)fallPercent);
 					}
 
-					client.Player.MaxLastZ = client.Player.Z;
+					client.Player.MaxLastZ = client.Player.Position.Z;
 				}
 
 				else
 				{
 					// always set Z if on the ground
 					if (flyingflag == 0)
-						client.Player.MaxLastZ = client.Player.Z;
+						client.Player.MaxLastZ = client.Player.Position.Z;
 					// set Z if in air and higher than old Z
-					else if (maxLastZ < client.Player.Z)
-						client.Player.MaxLastZ = client.Player.Z;
+					else if (maxLastZ < client.Player.Position.Z)
+						client.Player.MaxLastZ = client.Player.Position.Z;
 				}
 			}
 			//**************//
@@ -617,9 +611,9 @@ namespace DOL.GS.PacketHandler.Client.v168
 				}
 				outpak.WriteShort(content);
 			}
-			outpak.WriteShort((ushort)client.Player.Z);
-			outpak.WriteShort((ushort)(client.Player.X - client.Player.CurrentZone.XOffset));
-			outpak.WriteShort((ushort)(client.Player.Y - client.Player.CurrentZone.YOffset));
+			outpak.WriteShort((ushort)client.Player.Position.Z);
+			outpak.WriteShort((ushort)(client.Player.Position.X - client.Player.CurrentZone.XOffset));
+			outpak.WriteShort((ushort)(client.Player.Position.Y - client.Player.CurrentZone.YOffset));
 			// Write Zone
 			outpak.WriteShort(client.Player.CurrentZone.ZoneSkinID);
 
@@ -683,9 +677,9 @@ namespace DOL.GS.PacketHandler.Client.v168
 			if (client.Player.IsStealthed)
 				playerAction |= 0x02;
 			ushort playerState = 0;
-			outpak1124.WriteFloatLowEndian(client.Player.X);
-			outpak1124.WriteFloatLowEndian(client.Player.Y);
-			outpak1124.WriteFloatLowEndian(client.Player.Z);
+			outpak1124.WriteFloatLowEndian(client.Player.Position.X);
+			outpak1124.WriteFloatLowEndian(client.Player.Position.Y);
+			outpak1124.WriteFloatLowEndian(client.Player.Position.Z);
 			outpak1124.WriteFloatLowEndian(client.Player.CurrentSpeed);
 			outpak1124.WriteFloatLowEndian(fallSpeed);
 			outpak1124.WriteShort((ushort)client.SessionID);
@@ -870,26 +864,24 @@ namespace DOL.GS.PacketHandler.Client.v168
 				client.Player.LastPositionUpdateZone = newZone;
 			}
 
-			int coordsPerSec = 0;
-			int jumpDetect = 0;
+			float coordsPerSec = 0;
+			float jumpDetect = 0;
 			int timediff = Environment.TickCount - client.Player.LastPositionUpdateTick;
-			int distance = 0;
+			float distance = 0;
 
 			if (timediff > 0)
 			{
-				distance = client.Player.LastPositionUpdatePoint.GetDistanceTo(new Point3D(newPlayerX, newPlayerY, newPlayerZ));
+				distance = Vector3.Distance(client.Player.LastPositionUpdatePoint, new Vector3(newPlayerX, newPlayerY, newPlayerZ));
 				coordsPerSec = distance * 1000 / timediff;
 
 				if (distance < 100 && client.Player.LastPositionUpdatePoint.Z > 0)
 				{
-					jumpDetect = (int)newPlayerZ - client.Player.LastPositionUpdatePoint.Z;
+					jumpDetect = newPlayerZ - client.Player.LastPositionUpdatePoint.Z;
 				}
 			}
 
 			client.Player.LastPositionUpdateTick = Environment.TickCount;
-			client.Player.LastPositionUpdatePoint.X = (int)newPlayerX;
-			client.Player.LastPositionUpdatePoint.Y = (int)newPlayerY;
-			client.Player.LastPositionUpdatePoint.Z = (int)newPlayerZ;
+			client.Player.LastPositionUpdatePoint = new Vector3(newPlayerX, newPlayerY, newPlayerZ);
 
 			int tolerance = ServerProperties.Properties.CPS_TOLERANCE;
 
@@ -996,14 +988,12 @@ namespace DOL.GS.PacketHandler.Client.v168
 			}
 			//client.Player.Heading = (ushort)(newHeading & 0xFFF); //patch 0024 expermental
 
-			if (client.Player.X != newPlayerX || client.Player.Y != newPlayerY)
+			if (Vector3.DistanceSquared(client.Player.Position, new Vector3(newPlayerX, newPlayerY, newPlayerZ)) < 1)
 			{
 				client.Player.TempProperties.setProperty(LASTMOVEMENTTICK, client.Player.CurrentRegion.Time);
 			}
 
-			client.Player.X = (int)newPlayerX;
-			client.Player.Y = (int)newPlayerY;
-			client.Player.Z = (int)newPlayerZ;
+			client.Player.Position = new Vector3(newPlayerX, newPlayerY, newPlayerZ);
 			client.Player.Heading = (ushort)(newHeading & 0xFFF);
 
 			// used to predict current position, should be before
@@ -1018,7 +1008,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 				// Because we may be in an instance we need to do the area check from the current region
 				// rather than relying on the zone which is in the skinned region.  - Tolakram
 
-				var newAreas = client.Player.CurrentRegion.GetAreasOfZone(newZone, client.Player);
+				var newAreas = client.Player.CurrentRegion.GetAreasOfZone(newZone, client.Player.Position);
 
 				// Check for left areas
 				if (oldAreas != null)
@@ -1102,14 +1092,12 @@ namespace DOL.GS.PacketHandler.Client.v168
 			{
 				GameLocation[] locations = client.Player.LastUniqueLocations;
 				GameLocation loc = locations[0];
-				if (loc.X != (int)newPlayerX || loc.Y != (int)newPlayerY || loc.Z != (int)newPlayerZ || loc.RegionID != client.Player.CurrentRegionID)
+				if (loc.Position.X != newPlayerX || loc.Position.Y != newPlayerY || loc.Position.Z != newPlayerZ || loc.RegionID != client.Player.CurrentRegionID)
 				{
 					loc = locations[locations.Length - 1];
 					Array.Copy(locations, 0, locations, 1, locations.Length - 1);
 					locations[0] = loc;
-					loc.X = (int)newPlayerX;
-					loc.Y = (int)newPlayerY;
-					loc.Z = (int)newPlayerZ;
+					loc.Position = new Vector3(newPlayerX, newPlayerY, newPlayerZ);
 					loc.Heading = client.Player.Heading;
 					loc.RegionID = client.Player.CurrentRegionID;
 				}
@@ -1121,7 +1109,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 			{
 				try
 				{
-					int maxLastZ = client.Player.MaxLastZ;
+					var maxLastZ = client.Player.MaxLastZ;
 
 					// Are we on the ground?
 					if ((fallingDMG >> 15) != 0)
@@ -1142,10 +1130,10 @@ namespace DOL.GS.PacketHandler.Client.v168
 							client.Player.CalcFallDamage((int)fallPercent);
 						}
 
-						client.Player.MaxLastZ = client.Player.Z;
+						client.Player.MaxLastZ = client.Player.Position.Z;
 					}
-					else if (maxLastZ < client.Player.Z || client.Player.IsRiding || newPlayerZSpeed > -150) // is riding, for dragonflys
-						client.Player.MaxLastZ = client.Player.Z;
+					else if (maxLastZ < client.Player.Position.Z || client.Player.IsRiding || newPlayerZSpeed > -150) // is riding, for dragonflys
+						client.Player.MaxLastZ = client.Player.Position.Z;
 				}
 				catch
 				{

@@ -18,7 +18,7 @@
  */
 using System;
 using System.Linq;
-
+using System.Numerics;
 using DOL.Database;
 using DOL.Events;
 
@@ -27,42 +27,43 @@ namespace DOL.GS.Keeps
 	/// <summary>
 	/// A keepComponent
 	/// </summary>
-	public class GameKeepHookPoint : Point3D
+	public class GameKeepHookPoint
 	{
+		public Vector3 Position { get; set; }
 		public GameKeepHookPoint(int id, GameKeepComponent component)
 		{
 			m_index = id;
 			m_component = component;
 			m_hookpointTimer = new HookpointTimer(this, this.Component);
-			this.X = component.X;
-			this.Y = component.Y;
-			this.Z = component.Z;
+			this.Position = component.Position;
 			this.Heading = component.Heading;
 		}
 
 		public GameKeepHookPoint(DBKeepHookPoint dbhookPoint, GameKeepComponent component)
 		{
 			double angle = component.Keep.Heading * ((Math.PI * 2) / 360); // angle*2pi/360;
+			Vector3 p = component.Position;
 			switch (component.ComponentHeading)
 			{
 				case 0:
-					X = (int)(component.X + Math.Cos(angle) * dbhookPoint.X + Math.Sin(angle) * dbhookPoint.Y);
-					Y = (int)(component.Y - Math.Cos(angle) * dbhookPoint.Y + Math.Sin(angle) * dbhookPoint.X);
+					p.X += (int)(Math.Cos(angle) * dbhookPoint.X + Math.Sin(angle) * dbhookPoint.Y);
+					p.Y -= (int)(Math.Cos(angle) * dbhookPoint.Y + Math.Sin(angle) * dbhookPoint.X);
 					break;
 				case 1:
-					X = (int)(component.X + Math.Cos(angle) * dbhookPoint.Y - Math.Sin(angle) * dbhookPoint.X);
-					Y = (int)(component.Y + Math.Cos(angle) * dbhookPoint.X + Math.Sin(angle) * dbhookPoint.Y);
+					p.X += (int)(Math.Cos(angle) * dbhookPoint.Y - Math.Sin(angle) * dbhookPoint.X);
+					p.Y += (int)(Math.Cos(angle) * dbhookPoint.X + Math.Sin(angle) * dbhookPoint.Y);
 					break;
 				case 2:
-					X = (int)(component.X - Math.Cos(angle) * dbhookPoint.X - Math.Sin(angle) * dbhookPoint.Y);
-					Y = (int)(component.Y + Math.Cos(angle) * dbhookPoint.Y - Math.Sin(angle) * dbhookPoint.X);
+					p.X -= (int)(Math.Cos(angle) * dbhookPoint.X - Math.Sin(angle) * dbhookPoint.Y);
+					p.Y += (int)(Math.Cos(angle) * dbhookPoint.Y - Math.Sin(angle) * dbhookPoint.X);
 					break;
 				case 3:
-					X = (int)(component.X - Math.Cos(angle) * dbhookPoint.Y + Math.Sin(angle) * dbhookPoint.X);
-					Y = (int)(component.Y - Math.Cos(angle) * dbhookPoint.X - Math.Sin(angle) * dbhookPoint.Y);
+					p.X -= (int)(Math.Cos(angle) * dbhookPoint.Y + Math.Sin(angle) * dbhookPoint.X);
+					p.Y -= (int)(Math.Cos(angle) * dbhookPoint.X - Math.Sin(angle) * dbhookPoint.Y);
 					break;
 			}
-			this.Z = component.Z + dbhookPoint.Z;
+			p.Z += dbhookPoint.Z;
+			this.Position = p;
 			this.Heading = (ushort)(component.Heading + dbhookPoint.Heading);
 			this.m_index = dbhookPoint.HookPointID;
 			this.Component = component;

@@ -93,7 +93,7 @@ namespace DOL.GS.Commands
 
 			AbstractGameKeep myKeep = (AbstractGameKeep)client.Player.TempProperties.getProperty<object>(TEMP_KEEP_LAST, null);
 			if (myKeep == null) myKeep = (client.Player.TargetObject as GameKeepComponent)?.AbstractKeep;
-			if (myKeep == null) myKeep = GameServer.KeepManager.GetKeepCloseToSpot(client.Player.CurrentRegionID, client.Player, 10000);
+			if (myKeep == null) myKeep = GameServer.KeepManager.GetKeepCloseToSpot(client.Player.CurrentRegionID, client.Player.Position, 10000);
 
 			
 			switch (args[1])
@@ -147,9 +147,9 @@ namespace DOL.GS.Commands
 						keep.BaseLevel = 50;
 						keep.Realm = client.Player.Realm;
 						keep.Region = client.Player.CurrentRegionID;
-						keep.X = client.Player.X;
-						keep.Y = client.Player.Y;
-						keep.Z = client.Player.Z;
+						keep.X = (int)client.Player.Position.X;
+						keep.Y = (int)client.Player.Position.Y;
+						keep.Z = (int)client.Player.Position.Z;
 						keep.Heading = client.Player.Heading;
 
 						if ((int)keepType < 8)
@@ -2045,9 +2045,9 @@ namespace DOL.GS.Commands
 						keep.KeepID = keepid;
 						keep.Level = 0;
 						keep.Region = client.Player.CurrentRegionID;
-						keep.X = client.Player.X;
-						keep.Y = client.Player.Y;
-						keep.Z = client.Player.Z;
+						keep.X = (int)client.Player.Position.X;
+						keep.Y = (int)client.Player.Position.Y;
+						keep.Z = (int)client.Player.Position.Z;
 						keep.Heading = client.Player.Heading;
 						keep.BaseLevel = baseLevel;
 						GameServer.Database.AddObject(keep);
@@ -2140,9 +2140,9 @@ namespace DOL.GS.Commands
 						keep.KeepID = keepid;
 						keep.Level = 0;
 						keep.Region = client.Player.CurrentRegionID;
-						keep.X = client.Player.X;
-						keep.Y = client.Player.Y;
-						keep.Z = client.Player.Z;
+						keep.X = (int)client.Player.Position.X;
+						keep.Y = (int)client.Player.Position.Y;
+						keep.Z = (int)client.Player.Position.Z;
 						keep.Heading = client.Player.Heading;
 						keep.BaseLevel = baselevel;
 						GameServer.Database.AddObject(keep);
@@ -2160,9 +2160,7 @@ namespace DOL.GS.Commands
 							d.CurrentRegionID = (ushort)keep.Region;
 							d.Name = door.Name;
 							d.Heading = (ushort)door.Heading;
-							d.X = door.X;
-							d.Y = door.Y;
-							d.Z = door.Z;
+							d.Position = door.Position;
 							d.Level = 0;
 							d.Model = 0xFFFF;
 							d.DoorID = door.DoorID;
@@ -2416,9 +2414,7 @@ namespace DOL.GS.Commands
 						{
 							FrontiersPortalStone stone = new FrontiersPortalStone();
 							stone.CurrentRegion = client.Player.CurrentRegion;
-							stone.X = client.Player.X;
-							stone.Y = client.Player.Y;
-							stone.Z = client.Player.Z;
+							stone.Position = client.Player.Position;
 							stone.Heading = client.Player.Heading;
 							stone.SaveIntoDatabase();
 							stone.AddToWorld();
@@ -2455,9 +2451,7 @@ namespace DOL.GS.Commands
 							GameKeepBanner banner = new GameKeepBanner();
 							banner.BannerType = bannerType;
 							banner.CurrentRegion = client.Player.CurrentRegion;
-							banner.X = client.Player.X;
-							banner.Y = client.Player.Y;
-							banner.Z = client.Player.Z;
+							banner.Position = client.Player.Position;
 							banner.Heading = client.Player.Heading;
 							banner.SaveIntoDatabase();
 
@@ -2497,9 +2491,9 @@ namespace DOL.GS.Commands
 						if (args.Length < 3)
 						{
 							// simple move to player location
-							myKeep.X = client.Player.X;
-							myKeep.Y = client.Player.Y;
-							myKeep.Z = client.Player.Z;
+							myKeep.X = (int)client.Player.Position.X;
+							myKeep.Y = (int)client.Player.Position.Y;
+							myKeep.Z = (int)client.Player.Position.Z;
 							myKeep.Heading = client.Player.Heading;
 						}
 						else if (args.Length < 4)

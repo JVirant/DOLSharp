@@ -154,9 +154,7 @@ namespace DOL.GS.Quests.Midgard
 				ladyHinda.CurrentRegionID = hindaStart.RegionID;
 				ladyHinda.Size = 50;
 				ladyHinda.Level = 30;
-				ladyHinda.X = hindaStart.X;
-				ladyHinda.Y = hindaStart.Y;
-				ladyHinda.Z = hindaStart.Z;
+				ladyHinda.Position = hindaStart.Position;
 				ladyHinda.Heading = hindaStart.Heading;
 
 				StandardMobBrain brain = new StandardMobBrain();
@@ -441,7 +439,7 @@ namespace DOL.GS.Quests.Midgard
 				InventoryItem item = player.Inventory.GetItem((eInventorySlot)uArgs.Slot);
 				if (item != null && item.Id_nb == necklaceOfDoppelganger.Id_nb)
 				{
-                    if ( player.IsWithinRadius( hindaEnd, 2500 ) )
+                    if ( player.IsWithinRadius( hindaEnd.Position, 2500 ) )
 					{
 						foreach (GamePlayer visPlayer in player.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
 						{
@@ -454,12 +452,10 @@ namespace DOL.GS.Quests.Midgard
 
 						if (!ladyHinda.IsAlive || ladyHinda.ObjectState != GameObject.eObjectState.Active)
 						{
-							ladyHinda.X = hindaStart.X;
-							ladyHinda.Y = hindaStart.Y;
-							ladyHinda.Z = hindaStart.Z;
+							ladyHinda.Position = hindaStart.Position;
 							ladyHinda.Heading = hindaStart.Heading;
 							ladyHinda.AddToWorld();
-							ladyHinda.WalkTo(hindaEnd.X, hindaEnd.Y, hindaEnd.Z, ladyHinda.MaxSpeed);
+							ladyHinda.WalkTo(hindaEnd.Position, ladyHinda.MaxSpeed);
 						}
 						quest.Step = 3;
 					}
@@ -481,9 +477,7 @@ namespace DOL.GS.Quests.Midgard
 
 				if (quest.Step == 3 && (!ladyHinda.IsAlive || ladyHinda.ObjectState != GameObject.eObjectState.Active))
 				{
-					ladyHinda.X = hindaEnd.X;
-					ladyHinda.Y = hindaEnd.Y;
-					ladyHinda.Z = hindaEnd.Z;
+					ladyHinda.Position = hindaEnd.Position;
 					ladyHinda.Heading = hindaEnd.Heading;
 					ladyHinda.AddToWorld();
 				}

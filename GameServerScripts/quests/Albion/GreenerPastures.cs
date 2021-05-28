@@ -216,13 +216,13 @@ namespace DOL.GS.Quests.Albion
 			#endregion
 
 
-			firstFieldArea = WorldMgr.GetRegion(firstField.RegionID).AddArea(new Area.Circle("First Vacant Field", firstField.X, firstField.Y, 0, 1450));
+			firstFieldArea = WorldMgr.GetRegion(firstField.RegionID).AddArea(new Area.Circle("First Vacant Field", firstField.Position, 1450));
 			firstFieldArea.RegisterPlayerEnter(new DOLEventHandler(PlayerEnterFirstFieldArea));
 
-			secondFieldArea = WorldMgr.GetRegion(secondField.RegionID).AddArea(new Area.Circle("Second Vacant Field", secondField.X, secondField.Y, 0, 1100));
+			secondFieldArea = WorldMgr.GetRegion(secondField.RegionID).AddArea(new Area.Circle("Second Vacant Field", secondField.Position, 1100));
 			secondFieldArea.RegisterPlayerEnter(new DOLEventHandler(PlayerEnterSecondFieldArea));
 
-			thirdFieldArea = WorldMgr.GetRegion(thirdField.RegionID).AddArea(new Area.Circle("Third Vacant Field", thirdField.X, thirdField.Y, 0, 1100));
+			thirdFieldArea = WorldMgr.GetRegion(thirdField.RegionID).AddArea(new Area.Circle("Third Vacant Field", thirdField.Position, 1100));
 			thirdFieldArea.RegisterPlayerEnter(new DOLEventHandler(PlayerEnterThirdFieldArea));
 			
 			/* Now we add some hooks to the npc we found.

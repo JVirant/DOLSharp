@@ -35,6 +35,7 @@ using DOL.GS.SkillHandler;
 using DOL.GS.Spells;
 using DOL.GS.Styles;
 using DOL.GS.PacketHandler.Client.v168;
+using System.Numerics;
 
 namespace DOL.GS
 {
@@ -84,9 +85,7 @@ namespace DOL.GS
 			this.CurrentRegion = curZone.ZoneRegion;
 			m_name = m_dbdoor.Name;
 			m_Heading = (ushort)m_dbdoor.Heading;
-			m_x = m_dbdoor.X;
-			m_y = m_dbdoor.Y;
-			m_z = m_dbdoor.Z;
+			Position = new Vector3(m_dbdoor.X, m_dbdoor.Y, m_dbdoor.Z);
 			m_level = 0;
 			m_model = 0xFFFF;
 			m_doorID = m_dbdoor.InternalID;
@@ -263,7 +262,7 @@ namespace DOL.GS
 		/// <param name="open"></param>
 		public virtual void NPCManipulateDoorRequest(GameNPC npc, bool open)
 		{
-			npc.TurnTo(this.X, this.Y);
+			npc.TurnTo(this);
 			if (open && m_state != eDoorState.Open)
 				this.Open();
 			else if (!open && m_state != eDoorState.Closed)

@@ -27,6 +27,7 @@ using System.Reflection;
 using DOL.Database;
 using DOL.GS.Utils;
 using log4net;
+using System.Numerics;
 
 namespace DOL.GS
 {
@@ -118,10 +119,7 @@ namespace DOL.GS
 
 
 				//We now have an object that isnt null. Lets place it at the location, in this region.
-
-				obj.X = entry.X;
-				obj.Y = entry.Y;
-				obj.Z = entry.Z;
+				obj.Position = new Vector3(entry.X, entry.Y, entry.Z);
 				obj.Heading = entry.Heading;
 				obj.CurrentRegionID = ID;
 

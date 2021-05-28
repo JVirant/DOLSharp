@@ -140,7 +140,7 @@ namespace DOL.GS
                 {
                     foreach(MinotaurRelic relic in relics[clt.Player.CurrentRegionID])
                     {
-                        clt.Player.Out.SendMinotaurRelicMapUpdate((byte)relic.RelicID, relic.CurrentRegionID, relic.X, relic.Y, relic.Z);
+                        clt.Player.Out.SendMinotaurRelicMapUpdate((byte)relic.RelicID, relic.CurrentRegionID, (int)relic.Position.X, (int)relic.Position.Y, (int)relic.Position.Z);
                     }
                 }
             }

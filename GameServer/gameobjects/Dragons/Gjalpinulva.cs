@@ -24,7 +24,7 @@ using DOL.Events;
 using System.Reflection;
 using System.Collections;
 using DOL.AI.Brain;
-
+using System.Numerics;
 
 namespace DOL.GS
 {
@@ -61,9 +61,14 @@ namespace DOL.GS
 			for (int dog = 1; dog <= 10; ++dog)
 			{
 				isRetriever = Util.Chance(25);
-				dogSpawn = SpawnTimedAdd((isRetriever) ? 610 : 611, 
-					(isRetriever) ? Util.Random(47, 53) : 37, 
-					X + Util.Random(300, 600), Y + Util.Random(300, 600), 60, isRetriever);
+				dogSpawn = SpawnTimedAdd(
+					(isRetriever) ? 610 : 611, 
+					(isRetriever) ? Util.Random(47, 53) : 37,
+					Position.X + Util.Random(300, 600),
+					Position.Y + Util.Random(300, 600),
+					60,
+					isRetriever
+				);
 
 				// We got a retriever, tell it who its master is and which exit
 				// to run to.
@@ -86,7 +91,7 @@ namespace DOL.GS
 		/// 3 = SE, 4 = NE).
 		/// </summary>
 		/// <returns>Coordinates.</returns>
-		private Point3D GetExitCoordinates(int exitNo)
+		private Vector3 GetExitCoordinates(int exitNo)
 		{
 			// Get target coordinates (hardcoded). Yeah I know, this is
 			// ugly, but to get this right NPC pathing is a must; as it
@@ -95,10 +100,10 @@ namespace DOL.GS
 
 			switch (exitNo)
 			{
-				case 1: return new Point3D(707026, 1019564, 0);
-				case 2: return new Point3D(706924, 1023596, 0);
-				case 3: return new Point3D(711441, 1023175, 0);
-				case 4: return new Point3D(710708, 1018894, 0);
+				case 1: return new Vector3(707026, 1019564, 0);
+				case 2: return new Vector3(706924, 1023596, 0);
+				case 3: return new Vector3(711441, 1023175, 0);
+				case 4: return new Vector3(710708, 1018894, 0);
 				default: return SpawnPoint;
 			}
 		}
@@ -115,7 +120,7 @@ namespace DOL.GS
 			// Spawn nasty adds.
 
 			if (m_retrieverList.Contains(sender))
-                SpawnDrakulvs(Util.Random(7, 10), sender.X, sender.Y);
+                SpawnDrakulvs(Util.Random(7, 10), sender.Position.X, sender.Position.Y);
 		}
 
 		/// <summary>
@@ -126,7 +131,7 @@ namespace DOL.GS
 		/// <param name="numAdds"></param>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
-		private void SpawnDrakulvs(int numAdds, int x, int y)
+		private void SpawnDrakulvs(int numAdds, float x, float y)
 		{
 			GameNPC drakulv;
 			bool isDisciple = false;

@@ -285,11 +285,11 @@ namespace DOL.GS.PacketHandler
 				pak.WriteShort((ushort)playerToCreate.Client.SessionID);
 				pak.WriteShort((ushort)playerToCreate.ObjectID);
 				pak.WriteShort(playerToCreate.Model);
-				pak.WriteShort((ushort)playerToCreate.Z);
+				pak.WriteShort((ushort)playerToCreate.Position.Z);
 	            //Dinberg:Instances - zoneSkinID for object positioning clientside (as zones are hardcoded).
 				pak.WriteShort(playerZone.ZoneSkinID);
-				pak.WriteShort((ushort)playerRegion.GetXOffInZone(playerToCreate.X, playerToCreate.Y));
-				pak.WriteShort((ushort)playerRegion.GetYOffInZone(playerToCreate.X, playerToCreate.Y));
+				pak.WriteShort((ushort)playerRegion.GetXOffInZone(playerToCreate.Position.X, playerToCreate.Position.Y));
+				pak.WriteShort((ushort)playerRegion.GetYOffInZone(playerToCreate.Position.X, playerToCreate.Position.Y));
 				pak.WriteShort(playerToCreate.Heading);
 	
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.EyeSize)); //1-4 = Eye Size / 5-8 = Nose Size
@@ -331,9 +331,9 @@ namespace DOL.GS.PacketHandler
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.PositionAndObjectID)))
 			{
 				pak.WriteShort((ushort)m_gameClient.Player.ObjectID); //This is the player's objectid not Sessionid!!!
-				pak.WriteShort((ushort)m_gameClient.Player.Z);
-				pak.WriteInt((uint)m_gameClient.Player.X);
-				pak.WriteInt((uint)m_gameClient.Player.Y);
+				pak.WriteShort((ushort)m_gameClient.Player.Position.Z);
+				pak.WriteInt((uint)m_gameClient.Player.Position.X);
+				pak.WriteInt((uint)m_gameClient.Player.Position.Y);
 				pak.WriteShort(m_gameClient.Player.Heading);
 	
 				int flags = 0;
@@ -382,8 +382,8 @@ namespace DOL.GS.PacketHandler
 				pak.WriteByte((byte)(0x40 | living.GroupIndex));
                 //Dinberg - ZoneSkinID for group members aswell.
 				pak.WriteShort(zone.ZoneSkinID);
-				pak.WriteShort((ushort)(living.X - zone.XOffset));
-				pak.WriteShort((ushort)(living.Y - zone.YOffset));
+				pak.WriteShort((ushort)(living.Position.X - zone.XOffset));
+				pak.WriteShort((ushort)(living.Position.Y - zone.YOffset));
 			}
 		}
 

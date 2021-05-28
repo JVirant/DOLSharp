@@ -61,9 +61,9 @@ namespace DOL.GS.ServerRules
 
             if (loc != null)
             {
-                targetPoint.TargetX = loc.X;
-                targetPoint.TargetY = loc.Y;
-                targetPoint.TargetZ = loc.Z;
+                targetPoint.TargetX = (int)loc.Position.X;
+                targetPoint.TargetY = (int)loc.Position.Y;
+                targetPoint.TargetZ = (int)loc.Position.Z;
                 targetPoint.TargetRegion = loc.RegionID;
                 targetPoint.TargetHeading = loc.Heading;
                 return true;

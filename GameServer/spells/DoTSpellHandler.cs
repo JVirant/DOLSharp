@@ -54,7 +54,7 @@ namespace DOL.GS.Spells
 		/// <param name="distance"></param>
 		/// <param name="radius"></param>
 		/// <returns></returns>
-		protected override double CalculateAreaVariance(GameLiving target, int distance, int radius)
+		protected override double CalculateAreaVariance(GameLiving target, float distance, int radius)
 		{
 			return 0;
 		}

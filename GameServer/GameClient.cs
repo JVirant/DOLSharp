@@ -725,7 +725,7 @@ namespace DOL.GS
 						//Let get saved poistion from DB.
 						int[] oldloc = { getp.Xpos, getp.Ypos, getp.Zpos, getp.Direction, getp.Region };
 						//Lets get current player Gloc.
-						int[] currentloc = { m_player.X, m_player.Y, m_player.Z, m_player.Heading, m_player.CurrentRegionID };
+						int[] currentloc = { (int)m_player.Position.X, (int)m_player.Position.Y, (int)m_player.Position.Z, m_player.Heading, m_player.CurrentRegionID };
 						//Compapre Old and Current.
 						bool check = oldloc.SequenceEqual(currentloc);
 						//If match

@@ -27,6 +27,7 @@ using DOL.Database;
 using DOL.AI.Brain;
 using DOL.GS.Keeps;
 using DOL.GS.Housing;
+using System.Numerics;
 
 namespace DOL.Tests
 {
@@ -628,8 +629,8 @@ namespace DOL.Tests
 		{
 			if (SendChangeTargetMethod != null) SendChangeTargetMethod(this, newTarget);
 		}
-		public Action<TestPacketLib, Point3D> SendChangeGroundTargetMethod { get; set; }
-		public void SendChangeGroundTarget(Point3D newTarget)
+		public Action<TestPacketLib, Vector3> SendChangeGroundTargetMethod { get; set; }
+		public void SendChangeGroundTarget(Vector3 newTarget)
 		{
 			if (SendChangeGroundTargetMethod != null) SendChangeGroundTargetMethod(this, newTarget);
 		}

@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using DOL.Database;
 using DOL.GS.Styles;
 using DOL.GS.Keeps;
+using System.Numerics;
 
 namespace DOL.GS.ServerRules
 {
@@ -449,7 +450,7 @@ namespace DOL.GS.ServerRules
 		/// <param name="heading"></param>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		GameNPC PlaceHousingNPC(DOL.GS.Housing.House house, ItemTemplate item, IPoint3D location, ushort heading);
+		GameNPC PlaceHousingNPC(DOL.GS.Housing.House house, ItemTemplate item, Vector3 location, ushort heading);
 
 		/// <summary>
 		/// Get a static interior object for a house hookpoint
@@ -459,7 +460,7 @@ namespace DOL.GS.ServerRules
 		/// <param name="location"></param>
 		/// <param name="heading"></param>
 		/// <returns></returns>
-		GameStaticItem PlaceHousingInteriorItem(DOL.GS.Housing.House house, ItemTemplate item, IPoint3D location, ushort heading);
+		GameStaticItem PlaceHousingInteriorItem(DOL.GS.Housing.House house, ItemTemplate item, Vector3 location, ushort heading);
 
 		/// <summary>
 		/// Create a new consignment merchant for housing

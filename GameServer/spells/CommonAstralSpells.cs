@@ -19,6 +19,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Reflection;
 
 using DOL.AI.Brain;
@@ -121,28 +122,23 @@ namespace DOL.GS.Spells
                 return;
             }
 
-            Point2D summonloc;
             beffect = CreateSpellEffect(target, effectiveness);
-            {
-                summonloc = target.GetPointFromHeading(target.Heading, 64);
+            var summonloc = GameMath.GetPointFromHeading(target, 64);
 
-                BrittleBrain controlledBrain = new BrittleBrain(player);
-                controlledBrain.IsMainPet = false;
-                summoned = new GameNPC(template);
-                summoned.SetOwnBrain(controlledBrain);
-                summoned.X = summonloc.X;
-                summoned.Y = summonloc.Y;
-                summoned.Z = target.Z;
-                summoned.CurrentRegion = target.CurrentRegion;
-                summoned.Heading = (ushort)((target.Heading + 2048) % 4096);
-                summoned.Realm = target.Realm;
-                summoned.CurrentSpeed = 0;
-                summoned.Level = Caster.Level;
-                summoned.Size = 50;
-                summoned.AddToWorld();
-                controlledBrain.AggressionState = eAggressionState.Passive;
-                beffect.Start(Caster);
-            }
+            BrittleBrain controlledBrain = new BrittleBrain(player);
+            controlledBrain.IsMainPet = false;
+            summoned = new GameNPC(template);
+            summoned.SetOwnBrain(controlledBrain);
+            summoned.Position = new Vector3(summonloc, target.Position.Z);
+            summoned.CurrentRegion = target.CurrentRegion;
+            summoned.Heading = (ushort)((target.Heading + 2048) % 4096);
+            summoned.Realm = target.Realm;
+            summoned.CurrentSpeed = 0;
+            summoned.Level = Caster.Level;
+            summoned.Size = 50;
+            summoned.AddToWorld();
+            controlledBrain.AggressionState = eAggressionState.Passive;
+            beffect.Start(Caster);
         }
 
         /// <summary>

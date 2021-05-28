@@ -55,9 +55,9 @@ namespace DOL.GS.PacketHandler
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.PositionAndObjectID)))
 			{
 				pak.WriteShort((ushort)m_gameClient.Player.ObjectID); //This is the player's objectid not Sessionid!!!
-				pak.WriteShort((ushort)m_gameClient.Player.Z);
-				pak.WriteInt((uint)m_gameClient.Player.X);
-				pak.WriteInt((uint)m_gameClient.Player.Y);
+				pak.WriteShort((ushort)m_gameClient.Player.Position.Z);
+				pak.WriteInt((uint)m_gameClient.Player.Position.X);
+				pak.WriteInt((uint)m_gameClient.Player.Position.Y);
 				pak.WriteShort(m_gameClient.Player.Heading);
 	
 				int flags = 0;
@@ -92,9 +92,9 @@ namespace DOL.GS.PacketHandler
 					pak.WriteShort((ushort)(obj as GameStaticItem).Emblem);
 				else pak.WriteShort(0);
 				pak.WriteShort(obj.Heading);
-				pak.WriteShort((ushort)obj.Z);
-				pak.WriteInt((uint)obj.X);
-				pak.WriteInt((uint)obj.Y);
+				pak.WriteShort((ushort)obj.Position.Z);
+				pak.WriteInt((uint)obj.Position.X);
+				pak.WriteInt((uint)obj.Position.Y);
 				int flag = ((byte)obj.Realm & 3) << 4;
 				ushort model = obj.Model;
 				if (obj.IsUnderwater)
@@ -181,9 +181,9 @@ namespace DOL.GS.PacketHandler
 				pak.WriteShort((ushort)npc.ObjectID);
 				pak.WriteShort((ushort)(speed));
 				pak.WriteShort(npc.Heading);
-				pak.WriteShort((ushort)npc.Z);
-				pak.WriteInt((uint)npc.X);
-				pak.WriteInt((uint)npc.Y);
+				pak.WriteShort((ushort)npc.Position.Z);
+				pak.WriteInt((uint)npc.Position.X);
+				pak.WriteInt((uint)npc.Position.Y);
 				pak.WriteShort(speedZ);
 				pak.WriteShort(npc.Model);
 				pak.WriteByte(npc.Size);

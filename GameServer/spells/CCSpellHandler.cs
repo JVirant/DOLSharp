@@ -227,7 +227,7 @@ namespace DOL.GS.Spells
 		/// <param name="distance">distance from the target the spell was cast on</param>
 		/// <param name="radius">radius of the spell</param>
 		/// <returns>amount to subtract from effectiveness</returns>
-		protected override double CalculateAreaVariance(GameLiving target, int distance, int radius)
+		protected override double CalculateAreaVariance(GameLiving target, float distance, int radius)
 		{
 			if (target is GamePlayer || (target is GameNPC && (target as GameNPC).Brain is IControlledBrain))
 			{
@@ -482,7 +482,7 @@ namespace DOL.GS.Spells
 		/// <param name="distance">distance from the target the spell was cast on</param>
 		/// <param name="radius">radius of the spell</param>
 		/// <returns>amount to subtract from effectiveness</returns>
-		protected override double CalculateAreaVariance(GameLiving target, int distance, int radius)
+		protected override double CalculateAreaVariance(GameLiving target, float distance, int radius)
 		{
 			if (target is GamePlayer || (target is GameNPC && (target as GameNPC).Brain is IControlledBrain))
 			{

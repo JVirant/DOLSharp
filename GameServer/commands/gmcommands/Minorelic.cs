@@ -69,9 +69,9 @@ namespace DOL.GS.Commands
                         relic.Name = args[2];
 
                         relic.SpawnHeading = client.Player.Heading;
-                        relic.SpawnX = client.Player.X;
-                        relic.SpawnY = client.Player.Y;
-                        relic.SpawnZ = client.Player.Z;
+                        relic.SpawnX = (int)client.Player.Position.X;
+                        relic.SpawnY = (int)client.Player.Position.Y;
+                        relic.SpawnZ = (int)client.Player.Position.Z;
                         relic.SpawnRegion = client.Player.CurrentRegionID;
 
                         relic.relicTarget = args[4].ToLower();
@@ -111,15 +111,13 @@ namespace DOL.GS.Commands
                         MinotaurRelic relic = client.Player.TargetObject as MinotaurRelic;
 
                         relic.Heading = client.Player.Heading;
-                        relic.X = client.Player.X;
-                        relic.Y = client.Player.Y;
-                        relic.Z = client.Player.Z;
+                        relic.Position = client.Player.Position;
                         relic.CurrentRegionID = client.Player.CurrentRegionID;
 
                         relic.SpawnHeading = client.Player.Heading;
-                        relic.SpawnX = client.Player.X;
-                        relic.SpawnY = client.Player.Y;
-                        relic.SpawnZ = client.Player.Z;
+                        relic.SpawnX = (int)client.Player.Position.X;
+                        relic.SpawnY = (int)client.Player.Position.Y;
+                        relic.SpawnZ = (int)client.Player.Position.Z;
                         relic.SpawnRegion = client.Player.CurrentRegionID;
 
                         relic.SaveIntoDatabase();

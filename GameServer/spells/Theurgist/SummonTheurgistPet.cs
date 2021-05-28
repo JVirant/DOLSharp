@@ -24,6 +24,7 @@ using DOL.AI.Brain;
 using DOL.GS.Effects;
 using log4net;
 using System.Reflection;
+using System.Numerics;
 
 namespace DOL.GS.Spells
 {
@@ -101,9 +102,9 @@ namespace DOL.GS.Spells
 		{
 		}
 
-		protected override void GetPetLocation(out int x, out int y, out int z, out ushort heading, out Region region)
+		protected override void GetPetLocation(out Vector3 pos, out ushort heading, out Region region)
 		{
-			base.GetPetLocation(out x, out y, out z, out heading, out region);
+			base.GetPetLocation(out pos, out heading, out region);
 			heading = Caster.Heading;
 		}
 	}

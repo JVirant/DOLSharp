@@ -21,6 +21,7 @@ using DOL.GS.Housing;
 using DOL.GS.PacketHandler;
 using DOL.Language;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace DOL.GS.Commands
 {
@@ -62,7 +63,8 @@ namespace DOL.GS.Commands
 				#region Jump to GT
 				if (args.Length == 3 && args[1].ToLower() == "to" && args[2].ToLower() == "gt")
 				{
-					client.Player.MoveTo(client.Player.CurrentRegionID, client.Player.GroundTarget.X, client.Player.GroundTarget.Y, client.Player.GroundTarget.Z, client.Player.Heading);
+					if (client.Player.GroundTarget.HasValue)
+						client.Player.MoveTo(client.Player.CurrentRegionID, client.Player.GroundTarget.Value, client.Player.Heading);
 					return;
 				}
 				#endregion Jump to GT
@@ -92,7 +94,7 @@ namespace DOL.GS.Commands
 				#region Jump t region #
 				if (args.Length == 4 && args[1] == "to" && args[2] == "region")
 				{
-					client.Player.MoveTo(Convert.ToUInt16(args[3]), client.Player.X, client.Player.Y, client.Player.Z, client.Player.Heading);
+					client.Player.MoveTo(Convert.ToUInt16(args[3]), client.Player.Position, client.Player.Heading);
 					return;
 				}
 				#endregion Jump t region #
@@ -141,7 +143,7 @@ namespace DOL.GS.Commands
 							}
 							else
 							{
-								client.Player.MoveTo(jumpTarget.CurrentRegionID, jumpTarget.X, jumpTarget.Y, jumpTarget.Z, jumpTarget.Heading);
+								client.Player.MoveTo(jumpTarget.CurrentRegionID, jumpTarget.Position, jumpTarget.Heading);
 							}
 							return;
 						}
@@ -156,7 +158,7 @@ namespace DOL.GS.Commands
 						if (clientc.Player.CurrentHouse != null && clientc.Player.InHouse)
 							clientc.Player.CurrentHouse.Enter(client.Player);
 						else
-							client.Player.MoveTo(clientc.Player.CurrentRegionID, clientc.Player.X, clientc.Player.Y, clientc.Player.Z, client.Player.Heading);
+							client.Player.MoveTo(clientc.Player.CurrentRegionID, clientc.Player.Position, client.Player.Heading);
 						return;
 					}
 
@@ -192,7 +194,7 @@ namespace DOL.GS.Commands
 							}
 
 							client.Out.SendMessage(LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Jump.JumpToX", npcs[0].CurrentRegion.Description), eChatType.CT_System, eChatLoc.CL_SystemWindow);
-							client.Player.MoveTo(jumpTarget.CurrentRegionID, jumpTarget.X, jumpTarget.Y, jumpTarget.Z, jumpTarget.Heading);
+							client.Player.MoveTo(jumpTarget.CurrentRegionID, jumpTarget.Position, jumpTarget.Heading);
 							return;
 						}
 
@@ -210,7 +212,7 @@ namespace DOL.GS.Commands
 						if (clientc.Player.CurrentHouse != null && clientc.Player.InHouse)
 							clientc.Player.CurrentHouse.Enter(client.Player);
 						else
-							client.Player.MoveTo(clientc.Player.CurrentRegionID, clientc.Player.X, clientc.Player.Y, clientc.Player.Z, client.Player.Heading);
+							client.Player.MoveTo(clientc.Player.CurrentRegionID, clientc.Player.Position, client.Player.Heading);
 						return;
 					}
 					return;
@@ -227,9 +229,7 @@ namespace DOL.GS.Commands
 				else if (args.Length == 5 && args[1] == "rel")
 				{
 					client.Player.MoveTo(client.Player.CurrentRegionID,
-										 client.Player.X + Convert.ToInt32(args[2]),
-										 client.Player.Y + Convert.ToInt32(args[3]),
-										 client.Player.Z + Convert.ToInt32(args[4]),
+										 client.Player.Position + new Vector3(Convert.ToInt32(args[2]), Convert.ToInt32(args[3]), Convert.ToInt32(args[4])),
 										 client.Player.Heading);
 					return;
 				}
@@ -309,7 +309,7 @@ namespace DOL.GS.Commands
 							if (clientto.Player.CurrentHouse != null && clientto.Player.InHouse)
 								clientto.Player.CurrentHouse.Enter(clientc.Player);
 							else
-								clientc.Player.MoveTo(clientto.Player.CurrentRegionID, clientto.Player.X, clientto.Player.Y, clientto.Player.Z, client.Player.Heading);
+								clientc.Player.MoveTo(clientto.Player.CurrentRegionID, clientto.Player.Position, client.Player.Heading);
 							return;
 						}
 						return;
@@ -329,7 +329,7 @@ namespace DOL.GS.Commands
 						client.Player.TempProperties.setProperty(TEMP_KEY_JUMP, locations);
 					}
 
-					locations.Push(new GameLocation("temploc", client.Player.CurrentRegionID, client.Player.X, client.Player.Y, client.Player.Z, client.Player.Heading));
+					locations.Push(new GameLocation("temploc", client.Player.CurrentRegionID, client.Player.Position, client.Player.Heading));
 
 					string message = LanguageMgr.GetTranslation(client.Account.Language, "GMCommands.Jump.Pushed");
 
@@ -358,7 +358,7 @@ namespace DOL.GS.Commands
 					if (locations.Count < 1)
 						locations.Push(jumploc);
 
-					client.Player.MoveTo(jumploc.RegionID, jumploc.X, jumploc.Y, jumploc.Z, jumploc.Heading);
+					client.Player.MoveTo(jumploc.RegionID, jumploc.Position, jumploc.Heading);
 				}
 				#endregion push/pop
 				#region DisplaySyntax

@@ -23,6 +23,7 @@ using System.Linq;
 
 using DOL.Language;
 using DOL.Database;
+using System.Numerics;
 
 namespace DOL.GS
 {
@@ -38,7 +39,7 @@ namespace DOL.GS
 		/// <param name="reg"></param>
 		/// <param name="spot"></param>
 		/// <returns></returns>
-		public static string GetSpotDescription(this Region reg, IPoint3D spot)
+		public static string GetSpotDescription(this Region reg, Vector3 spot)
 		{
 			return reg.GetSpotDescription(spot.X, spot.Y, spot.Z);
 		}
@@ -51,7 +52,7 @@ namespace DOL.GS
 		/// <param name="y"></param>
 		/// <param name="z"></param>
 		/// <returns></returns>
-		public static string GetSpotDescription(this Region reg, int x, int y, int z)
+		public static string GetSpotDescription(this Region reg, float x, float y, float z)
 		{
 			if (reg != null)
 			{
@@ -78,7 +79,7 @@ namespace DOL.GS
 		/// <param name="client"></param>
 		/// <param name="spot"></param>
 		/// <returns></returns>
-		public static string GetTranslatedSpotDescription(this Region reg, GameClient client, IPoint3D spot)
+		public static string GetTranslatedSpotDescription(this Region reg, GameClient client, Vector3 spot)
 		{
 			return reg.GetTranslatedSpotDescription(client, spot.X, spot.Y, spot.Z);
 		}
@@ -92,7 +93,7 @@ namespace DOL.GS
 		/// <param name="y"></param>
 		/// <param name="z"></param>
 		/// <returns></returns>
-		public static string GetTranslatedSpotDescription(this Region reg, GameClient client, int x, int y, int z)
+		public static string GetTranslatedSpotDescription(this Region reg, GameClient client, float x, float y, float z)
 		{
 			if (reg != null)
 			{
@@ -134,7 +135,7 @@ namespace DOL.GS
 		/// <returns></returns>
 		public static string GetTranslatedSpotDescription(this GamePlayer player)
 		{
-			return player.GetTranslatedSpotDescription(player.CurrentRegion, player.X, player.Y, player.Z);
+			return player.GetTranslatedSpotDescription(player.CurrentRegion, player.Position.X, player.Position.Y, player.Position.Z);
 		}
 		
 		/// <summary>
@@ -146,7 +147,7 @@ namespace DOL.GS
 		/// <param name="y"></param>
 		/// <param name="z"></param>
 		/// <returns></returns>
-		public static string GetTranslatedSpotDescription(this GamePlayer player, Region region, int x, int y, int z)
+		public static string GetTranslatedSpotDescription(this GamePlayer player, Region region, float x, float y, float z)
 		{
 			return player.Client.GetTranslatedSpotDescription(region, x, y, z);
 		}
@@ -160,7 +161,7 @@ namespace DOL.GS
 		/// <param name="y"></param>
 		/// <param name="z"></param>
 		/// <returns></returns>
-		public static string GetTranslatedSpotDescription(this GameClient client, Region region, int x, int y, int z)
+		public static string GetTranslatedSpotDescription(this GameClient client, Region region, float x, float y, float z)
 		{
 			return region.GetTranslatedSpotDescription(client, x, y, z);
 		}

@@ -17,7 +17,7 @@
  *
  */
 using System;
-
+using System.Numerics;
 using DOL.GS;
 
 namespace DOL.AI.Brain
@@ -53,10 +53,10 @@ namespace DOL.AI.Brain
 		{
 			ushort TargetAngle = (ushort)((Body.GetHeading(target) + 2048) % 4096);
 
-            Point2D fleePoint = Body.GetPointFromHeading(TargetAngle, 300);
+            var fleePoint = Body.GetPointFromHeading(TargetAngle, 300);
 			Body.StopFollowing();
 			Body.StopAttack();
-			Body.WalkTo(fleePoint.X, fleePoint.Y, Body.Z, Body.MaxSpeed);
+			Body.WalkTo(new Vector3(fleePoint, Body.Position.Z), Body.MaxSpeed);
 		}
 	}
 } 

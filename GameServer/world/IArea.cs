@@ -18,7 +18,7 @@
  */
 
 using System;
-
+using System.Numerics;
 using DOL.Events;
 using DOL.Language;
 
@@ -55,13 +55,13 @@ namespace DOL.GS
 		/// </summary>
 		/// <param name="spot"></param>
 		/// <returns></returns>
-		bool IsContaining(IPoint3D spot);
+		bool IsContaining(Vector3 spot);
 
-		bool IsContaining(IPoint3D spot, bool checkZ);
+		bool IsContaining(Vector3 spot, bool checkZ);
 
-		bool IsContaining(int x, int y, int z);
+		bool IsContaining(float x, float y, float z);
 
-		bool IsContaining(int x, int y, int z, bool checkZ);
+		bool IsContaining(float x, float y, float z, bool checkZ);
 		
 		/// <summary>
 		/// Called whenever a player leaves the given area

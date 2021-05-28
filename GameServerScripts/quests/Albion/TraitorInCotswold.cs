@@ -441,7 +441,7 @@ namespace DOL.GS.Quests.Albion
 				InventoryItem item = player.Inventory.GetItem((eInventorySlot)uArgs.Slot);
 				if (item != null && item.Id_nb == necklaceOfDoppelganger.Id_nb)
 				{
-					if (player.IsWithinRadius( felinEnd, 2500 ))
+					if (player.IsWithinRadius( felinEnd.Position, 2500 ))
 					{
 						foreach (GamePlayer visPlayer in player.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
 						{
@@ -454,12 +454,10 @@ namespace DOL.GS.Quests.Albion
 
 						if (!ladyFelin.IsAlive || ladyFelin.ObjectState != GameObject.eObjectState.Active)
 						{
-							ladyFelin.X = felinStart.X;
-							ladyFelin.Y = felinStart.Y;
-							ladyFelin.Z = felinStart.Z;
+							ladyFelin.Position = felinStart.Position;
 							ladyFelin.Heading = felinStart.Heading;
 							ladyFelin.AddToWorld();
-							ladyFelin.WalkTo(felinEnd.X, felinEnd.Y, felinEnd.Z, ladyFelin.MaxSpeed);
+							ladyFelin.WalkTo(felinEnd.Position, ladyFelin.MaxSpeed);
 						}
 						quest.Step = 3;
 					}
@@ -481,9 +479,7 @@ namespace DOL.GS.Quests.Albion
 
 				if (quest.Step == 3 && (!ladyFelin.IsAlive || ladyFelin.ObjectState != GameObject.eObjectState.Active))
 				{
-					ladyFelin.X = felinEnd.X;
-					ladyFelin.Y = felinEnd.Y;
-					ladyFelin.Z = felinEnd.Z;
+					ladyFelin.Position = felinEnd.Position;
 					ladyFelin.Heading = felinEnd.Heading;
 					ladyFelin.AddToWorld();
 				}

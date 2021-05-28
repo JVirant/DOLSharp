@@ -846,9 +846,9 @@ namespace DOL.GS.Housing
 			int radiussqrt = radius * radius;
 			foreach (House house in GetHouses(regionid).Values)
 			{
-				int xdiff = house.X - x;
-				int ydiff = house.Y - y;
-				int range = xdiff * xdiff + ydiff * ydiff;
+				float xdiff = house.Position.X - x;
+				float ydiff = house.Position.Y - y;
+				float range = xdiff * xdiff + ydiff * ydiff;
 				if (range < 0)
 					range *= -1;
 				if (range > radiussqrt)

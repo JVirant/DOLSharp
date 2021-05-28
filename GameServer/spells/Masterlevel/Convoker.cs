@@ -10,6 +10,8 @@ using DOL.GS.SkillHandler;
 using log4net;
 using DOL.Database;
 using DOL.GS.RealmAbilities;
+using System.Numerics;
+using DOL;
 
 namespace DOL.GS.Spells
 {
@@ -56,9 +58,7 @@ namespace DOL.GS.Spells
 			font.Model = 2584;
 			font.Name = spell.Name;
 			font.Realm = caster.Realm;
-			font.X = caster.X;
-			font.Y = caster.Y;
-			font.Z = caster.Z;
+			font.Position = caster.Position;
 			font.CurrentRegionID = caster.CurrentRegionID;
 			font.Heading = caster.Heading;
 			font.Owner = (GamePlayer)caster;
@@ -129,9 +129,7 @@ namespace DOL.GS.Spells
 			mine.Model = 2590;
 			mine.Name = spell.Name;
 			mine.Realm = caster.Realm;
-			mine.X = caster.X;
-			mine.Y = caster.Y;
-			mine.Z = caster.Z;
+			mine.Position = caster.Position;
 			mine.CurrentRegionID = caster.CurrentRegionID;
 			mine.Heading = caster.Heading;
 			mine.Owner = (GamePlayer)caster;
@@ -180,9 +178,7 @@ namespace DOL.GS.Spells
 			font.Model = 2586;
 			font.Name = spell.Name;
 			font.Realm = caster.Realm;
-			font.X = caster.X;
-			font.Y = caster.Y;
-			font.Z = caster.Z;
+			font.Position = caster.Position;
 			font.CurrentRegionID = caster.CurrentRegionID;
 			font.Heading = caster.Heading;
 			font.Owner = (GamePlayer)caster;
@@ -308,9 +304,7 @@ namespace DOL.GS.Spells
 					GameEventMgr.AddHandler(warder, GameLivingEvent.Dying, new DOLEventHandler(BattleWarderDie));
 					GameEventMgr.AddHandler(casterPlayer, GamePlayerEvent.CastStarting, new DOLEventHandler(PlayerMoves));
 					GameEventMgr.AddHandler(casterPlayer, GamePlayerEvent.AttackFinished, new DOLEventHandler(PlayerMoves));
-					warder.X = casterPlayer.GroundTarget.X;
-					warder.Y = casterPlayer.GroundTarget.Y;
-					warder.Z = casterPlayer.GroundTarget.Z;
+					warder.Position = casterPlayer.GroundTarget.Value;
 					warder.AddBrain(new MLBrain());
 					warder.AddToWorld();
 				}
@@ -410,9 +404,7 @@ namespace DOL.GS.Spells
 			mine.Model = 2588;
 			mine.Name = spell.Name;
 			mine.Realm = caster.Realm;
-			mine.X = caster.X;
-			mine.Y = caster.Y;
-			mine.Z = caster.Z;
+			mine.Position = caster.Position;
 			mine.CurrentRegionID = caster.CurrentRegionID;
 			mine.Heading = caster.Heading;
 			mine.Owner = (GamePlayer)caster;
@@ -490,29 +482,25 @@ namespace DOL.GS.Spells
 				return;
 			}
 
-			Point2D summonloc;
 			beffect = CreateSpellEffect(target, effectiveness);
-			{
-				summonloc = target.GetPointFromHeading( target.Heading, 64 );
 
-				BrittleBrain controlledBrain = new BrittleBrain(player);
-				controlledBrain.IsMainPet = false;
-				summoned = new GameNPC(template);
-				summoned.SetOwnBrain(controlledBrain);
-				summoned.X = summonloc.X;
-				summoned.Y = summonloc.Y;
-				summoned.Z = target.Z;
-				summoned.CurrentRegion = target.CurrentRegion;
-				summoned.Heading = (ushort)((target.Heading + 2048) % 4096);
-				summoned.Realm = target.Realm;
-				summoned.CurrentSpeed = 0;
-				summoned.Level = 1;
-				summoned.Size = 10;
-				summoned.AddToWorld();
-				controlledBrain.AggressionState = eAggressionState.Passive;
-				GameEventMgr.AddHandler(summoned, GameLivingEvent.Dying, new DOLEventHandler(GuardDie));
-				beffect.Start(Caster);
-			}
+			var summonloc = GameMath.GetPointFromHeading(target, 64 );
+
+			BrittleBrain controlledBrain = new BrittleBrain(player);
+			controlledBrain.IsMainPet = false;
+			summoned = new GameNPC(template);
+			summoned.SetOwnBrain(controlledBrain);
+			summoned.Position = new Vector3(summonloc, target.Position.Z);
+			summoned.CurrentRegion = target.CurrentRegion;
+			summoned.Heading = (ushort)((target.Heading + 2048) % 4096);
+			summoned.Realm = target.Realm;
+			summoned.CurrentSpeed = 0;
+			summoned.Level = 1;
+			summoned.Size = 10;
+			summoned.AddToWorld();
+			controlledBrain.AggressionState = eAggressionState.Passive;
+			GameEventMgr.AddHandler(summoned, GameLivingEvent.Dying, new DOLEventHandler(GuardDie));
+			beffect.Start(Caster);
 		}
 		private void GuardDie(DOLEvent e, object sender, EventArgs args)
 		{
@@ -612,7 +600,7 @@ namespace DOL.GS.Spells
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		private int x, y, z;
+		private float x, y, z;
 		GameNPC summoned = null;
 		RegionTimer m_growTimer;
 		private const int C_GROWTIMER = 2000;
@@ -666,9 +654,7 @@ namespace DOL.GS.Spells
 			//	Is needed, else it can cause error (i.e. /cast-command)
 			if (x == 0 || y == 0)
 				CheckCastLocation();
-			summoned.X = x;
-			summoned.Y = y;
-			summoned.Z = z;
+			summoned.Position = new Vector3(x, y, z);
 			summoned.CurrentRegion = player.CurrentRegion;
 			summoned.Heading = (ushort)((player.Heading + 2048) % 4096);
 			summoned.Realm = player.Realm;
@@ -701,16 +687,16 @@ namespace DOL.GS.Spells
 		
 		private bool CheckCastLocation()
 		{
-			x = Caster.X;
-			y = Caster.Y;
-			z = Caster.Z;
+			x = Caster.Position.X;
+			y = Caster.Position.Y;
+			z = Caster.Position.Z;
 			if (Spell.Target.ToLower() == "area")
 			{
 				if (Caster.GroundTargetInView && Caster.GroundTarget != null)
 				{
-					x = Caster.GroundTarget.X;
-					y = Caster.GroundTarget.Y;
-					z = Caster.GroundTarget.Z;
+					x = Caster.GroundTarget.Value.X;
+					y = Caster.GroundTarget.Value.Y;
+					z = Caster.GroundTarget.Value.Z;
 				}
 				else
 				{

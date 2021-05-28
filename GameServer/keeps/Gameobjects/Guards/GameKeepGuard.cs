@@ -27,6 +27,7 @@ using DOL.GS.ServerProperties;
 using System.Collections.Generic;
 using DOL.GS.Realm;
 using DOL.GS.PlayerClass;
+using System.Numerics;
 
 namespace DOL.GS.Keeps
 {
@@ -58,11 +59,11 @@ namespace DOL.GS.Keeps
 			set { m_component = value; }
 		}
 
-		private DBKeepPosition m_position;
-		public DBKeepPosition Position
+		private DBKeepPosition m_dbposition;
+		public DBKeepPosition DBPosition
 		{
-			get { return m_position; }
-			set { m_position = value; }
+			get { return m_dbposition; }
+			set { m_dbposition = value; }
 		}
 
 		private GameKeepHookPoint m_hookPoint;
@@ -418,7 +419,7 @@ namespace DOL.GS.Keeps
 			{
 				StopAttack();
 
-				if (TargetObject != null && TargetPosition is GameLiving)
+				if (TargetObject != null && TargetObject is GameLiving)
 				{
 					(this.Brain as KeepGuardBrain).RemoveFromAggroList(TargetObject as GameLiving);
 				}
@@ -732,7 +733,7 @@ namespace DOL.GS.Keeps
 					{
 						CurrentWayPoint = guard.CurrentWayPoint;
 						m_changingPositions = true;
-						MoveTo(guard.CurrentRegionID, guard.X - Util.Random(200, 350), guard.Y - Util.Random(200, 350), guard.Z, guard.Heading);
+						MoveTo(guard.CurrentRegionID, guard.Position - new Vector3(Util.Random(200, 350), Util.Random(200, 350), 0), guard.Heading);
 						m_changingPositions = false;
 						foundGuard = true;
 						break;
@@ -900,7 +901,7 @@ namespace DOL.GS.Keeps
 					if (Component.Keep.Guards.ContainsKey(skey))
 						Component.Keep.Guards.Remove(skey);
 					else if (log.IsWarnEnabled)
-						log.Warn($"Can't find {Position.ClassType} with dataObjectId {m_dataObjectID} in Component InternalID {Component.InternalID} Guard list.");
+						log.Warn($"Can't find {DBPosition.ClassType} with dataObjectId {m_dataObjectID} in Component InternalID {Component.InternalID} Guard list.");
 				}
 				else if (log.IsWarnEnabled)
 					log.Warn($"Keep is null on delete of guard {Name} with dataObjectId {m_dataObjectID}");
@@ -915,7 +916,7 @@ namespace DOL.GS.Keeps
 			if (Inventory != null)
 				Inventory.ClearInventory();
 			Inventory = null;
-			Position = null;
+			DBPosition = null;
 			TempProperties.removeAllProperties();
 
 			base.Delete();
@@ -967,7 +968,7 @@ namespace DOL.GS.Keeps
 		{
 			PositionMgr.LoadGuardPosition(position, this);
 			if (!InCombat)
-				MoveTo(CurrentRegionID, X, Y, Z, Heading);
+				MoveTo(CurrentRegionID, Position, Heading);
 		}
 		#endregion
 
@@ -1013,7 +1014,7 @@ namespace DOL.GS.Keeps
 		/// <summary>
 		/// Adding special handling for walking to a point for patrol guards to be in a formation
 		/// </summary>
-		public override void WalkTo(int tx, int ty, int tz, short speed)
+		public override void WalkTo(float tx, float ty, float tz, short speed)
 		{
 			int offX = 0; int offY = 0;
 			if (IsMovingOnPath && PatrolGroup != null)

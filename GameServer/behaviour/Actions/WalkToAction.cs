@@ -22,11 +22,12 @@ using System.Text;
 using DOL.GS.PacketHandler;
 using DOL.Events;
 using DOL.GS.Behaviour.Attributes;using DOL.GS.Behaviour;
+using System.Numerics;
 
 namespace DOL.GS.Behaviour.Actions
 {
     [ActionAttribute(ActionType = eActionType.WalkTo,DefaultValueQ=eDefaultValueConstants.NPC)]
-    public class WalkToAction : AbstractAction<IPoint3D,GameNPC>
+    public class WalkToAction : AbstractAction<Vector3?, GameNPC>
     {
 
         public WalkToAction(GameNPC defaultNPC,  Object p, Object q)
@@ -35,7 +36,7 @@ namespace DOL.GS.Behaviour.Actions
             }
 
 
-        public WalkToAction(GameNPC defaultNPC,  IPoint3D destination, GameNPC npc)
+        public WalkToAction(GameNPC defaultNPC, Vector3 destination, GameNPC npc)
             : this(defaultNPC, (object) destination,(object) npc) { }
         
 
@@ -43,10 +44,8 @@ namespace DOL.GS.Behaviour.Actions
         public override void Perform(DOLEvent e, object sender, EventArgs args)
         {
             GamePlayer player = BehaviourUtils.GuessGamePlayerFromNotify(e, sender, args);
-            IPoint3D location = (P is IPoint3D) ? (IPoint3D)P : player;            
-
+            var location = P.HasValue ? P.Value : player.Position;
             Q.WalkTo(location, Q.CurrentSpeed);
-            
         }
     }
 }

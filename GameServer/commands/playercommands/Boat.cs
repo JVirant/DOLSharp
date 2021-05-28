@@ -62,9 +62,7 @@ namespace DOL.GS.Commands
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("scout_boat", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
 									playerBoat.Name = client.Player.Name + "'s scout boat";
-									playerBoat.X = client.Player.X;
-									playerBoat.Y = client.Player.Y;
-									playerBoat.Z = client.Player.Z;
+									playerBoat.Position = client.Player.Position;
 									playerBoat.Model = 2648;
 									playerBoat.Heading = client.Player.Heading;
 									playerBoat.Realm = client.Player.Realm;
@@ -94,9 +92,7 @@ namespace DOL.GS.Commands
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("warship", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
 									playerBoat.Name = client.Player.Name + "'s warship";
-									playerBoat.X = client.Player.X;
-									playerBoat.Y = client.Player.Y;
-									playerBoat.Z = client.Player.Z;
+									playerBoat.Position = client.Player.Position;
 									playerBoat.Model = 2647;
 									playerBoat.Heading = client.Player.Heading;
 									playerBoat.Realm = client.Player.Realm;
@@ -126,9 +122,7 @@ namespace DOL.GS.Commands
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("galleon", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
 									playerBoat.Name = client.Player.Name + "'s galleon";
-									playerBoat.X = client.Player.X;
-									playerBoat.Y = client.Player.Y;
-									playerBoat.Z = client.Player.Z;
+									playerBoat.Position = client.Player.Position;
 									playerBoat.Model = 2646;
 									playerBoat.Heading = client.Player.Heading;
 									playerBoat.Realm = client.Player.Realm;
@@ -158,9 +152,7 @@ namespace DOL.GS.Commands
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("skiff", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
 									playerBoat.Name = client.Player.Name + "'s skiff";
-									playerBoat.X = client.Player.X;
-									playerBoat.Y = client.Player.Y;
-									playerBoat.Z = client.Player.Z;
+									playerBoat.Position = client.Player.Position;
 									playerBoat.Model = 1616;
 									playerBoat.Heading = client.Player.Heading;
 									playerBoat.Realm = client.Player.Realm;
@@ -190,9 +182,7 @@ namespace DOL.GS.Commands
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("Viking_Longship", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
 									playerBoat.Name = client.Player.Name + "'s Viking longship";
-									playerBoat.X = client.Player.X;
-									playerBoat.Y = client.Player.Y;
-									playerBoat.Z = client.Player.Z;
+									playerBoat.Position = client.Player.Position;
 									playerBoat.Model = 1615;
 									playerBoat.Heading = client.Player.Heading;
 									playerBoat.Realm = client.Player.Realm;
@@ -222,9 +212,7 @@ namespace DOL.GS.Commands
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("ps_longship", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
 									playerBoat.Name = client.Player.Name + "'s Longship";
-									playerBoat.X = client.Player.X;
-									playerBoat.Y = client.Player.Y;
-									playerBoat.Z = client.Player.Z;
+									playerBoat.Position = client.Player.Position;
 									playerBoat.Model = 1595;
 									playerBoat.Heading = client.Player.Heading;
 									playerBoat.Realm = client.Player.Realm;
@@ -254,9 +242,7 @@ namespace DOL.GS.Commands
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("stygian_ship", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
 									playerBoat.Name = client.Player.Name + "'s Stygian ship";
-									playerBoat.X = client.Player.X;
-									playerBoat.Y = client.Player.Y;
-									playerBoat.Z = client.Player.Z;
+									playerBoat.Position = client.Player.Position;
 									playerBoat.Model = 1612;
 									playerBoat.Heading = client.Player.Heading;
 									playerBoat.Realm = client.Player.Realm;
@@ -286,9 +272,7 @@ namespace DOL.GS.Commands
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("atlantean_ship", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
 									playerBoat.Name = client.Player.Name + "'s Atlantean ship";
-									playerBoat.X = client.Player.X;
-									playerBoat.Y = client.Player.Y;
-									playerBoat.Z = client.Player.Z;
+									playerBoat.Position = client.Player.Position;
 									playerBoat.Model = 1613;
 									playerBoat.Heading = client.Player.Heading;
 									playerBoat.Realm = client.Player.Realm;
@@ -318,9 +302,7 @@ namespace DOL.GS.Commands
 									InventoryItem item = client.Player.Inventory.GetFirstItemByID("British_Cog", eInventorySlot.Min_Inv, eInventorySlot.Max_Inv);
 									playerBoat.BoatID = System.Guid.NewGuid().ToString();
 									playerBoat.Name = client.Player.Name + "'s British Cog";
-									playerBoat.X = client.Player.X;
-									playerBoat.Y = client.Player.Y;
-									playerBoat.Z = client.Player.Z;
+									playerBoat.Position = client.Player.Position;
 									playerBoat.Model = 1614;
 									playerBoat.Heading = client.Player.Heading;
 									playerBoat.Realm = client.Player.Realm;
@@ -361,9 +343,7 @@ namespace DOL.GS.Commands
 									curBoat.GuildName = client.Player.Guild.Name;
 								}
 
-								curBoat.X = client.Player.X;
-								curBoat.Y = client.Player.Y;
-								curBoat.Z = client.Player.Z;
+								curBoat.Position = client.Player.Position;
 								curBoat.Heading = client.Player.Heading;
 								curBoat.Realm = client.Player.Realm;
 								curBoat.CurrentRegionID = client.Player.CurrentRegionID;

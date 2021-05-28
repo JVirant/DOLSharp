@@ -170,7 +170,7 @@ namespace DOL.GS.Scripts
 			for (int cnt = 0 ; cnt < PortalTeleporterCount ; cnt++)
 			{
 				GameNPC teleporter = new GameNPC(teleporters);
-				Point2D tgt = GetPointFromHeading((ushort)((Heading+(cnt*divisor))%4096), PortalCeremonyRange);
+				var tgt = GameMath.GetPointFromHeading(Position, (ushort)((Heading+(cnt*divisor))%4096), PortalCeremonyRange);
 				teleporter.X = tgt.X;
 				teleporter.Y = tgt.Y;
 				teleporter.Z = Z;

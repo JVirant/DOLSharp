@@ -29,6 +29,7 @@
  */
 
 using System;
+using System.Numerics;
 using System.Reflection;
 using DOL.AI.Brain;
 using DOL.Database;
@@ -291,7 +292,7 @@ namespace DOL.GS.Quests.Hibernia
 
 			#endregion
 
-			sluaghArea = WorldMgr.GetRegion(sluaghLocation.RegionID).AddArea(new Area.Circle("Sluagh contamined Area", sluaghLocation.X, sluaghLocation.Y, 0, 1500));
+			sluaghArea = WorldMgr.GetRegion(sluaghLocation.RegionID).AddArea(new Area.Circle("Sluagh contamined Area", sluaghLocation.Position, 1500));
 			sluaghArea.RegisterPlayerEnter(new DOLEventHandler(PlayerEnterSluaghArea));
 
 			/* Now we add some hooks to the npc we found.
@@ -381,9 +382,7 @@ namespace DOL.GS.Quests.Hibernia
 			sluagh.CurrentRegionID = 200;
 			sluagh.Size = 50;
 			sluagh.Level = 4;
-			sluagh.X = sluaghLocation.X + Util.Random(-150, 150);
-			sluagh.Y = sluaghLocation.Y + Util.Random(-150, 150);
-			sluagh.Z = sluaghLocation.Z;
+			sluagh.Position = sluaghLocation.Position + new Vector3(Util.Random(-150, 150), Util.Random(-150, 150), 0);
 			sluagh.Heading = sluaghLocation.Heading;
 
 			StandardMobBrain brain = new StandardMobBrain();

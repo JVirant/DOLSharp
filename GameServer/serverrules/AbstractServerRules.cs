@@ -19,6 +19,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Reflection;
 
 using DOL.AI.Brain;
@@ -1287,7 +1288,7 @@ namespace DOL.GS.ServerRules
 
 					if (player != null)
 					{
-						AbstractGameKeep keep = GameServer.KeepManager.GetKeepCloseToSpot(living.CurrentRegionID, living, 16000);
+						AbstractGameKeep keep = GameServer.KeepManager.GetKeepCloseToSpot(living.CurrentRegionID, living.Position, 16000);
 						if (keep != null)
 						{
 							byte bonus = 0;
@@ -1473,7 +1474,7 @@ namespace DOL.GS.ServerRules
 		public virtual void OnPlayerKilled(GamePlayer killedPlayer, GameObject killer)
 		{
 			if (ServerProperties.Properties.ENABLE_WARMAPMGR && killer is GamePlayer && killer.CurrentRegion.ID == 163)
-				WarMapMgr.AddFight((byte)killer.CurrentZone.ID, killer.X, killer.Y, (byte)killer.Realm, (byte)killedPlayer.Realm);
+				WarMapMgr.AddFight((byte)killer.CurrentZone.ID, (int)killer.Position.X, (int)killer.Position.Y, (byte)killer.Realm, (byte)killedPlayer.Realm);
 
 			killedPlayer.LastDeathRealmPoints = 0;
 			// "player has been killed recently"
@@ -1654,7 +1655,7 @@ namespace DOL.GS.ServerRules
 
 					if (!BG && living is GamePlayer)
 					{
-						AbstractGameKeep keep = GameServer.KeepManager.GetKeepCloseToSpot(living.CurrentRegionID, living, 16000);
+						AbstractGameKeep keep = GameServer.KeepManager.GetKeepCloseToSpot(living.CurrentRegionID, living.Position, 16000);
 						if (keep != null)
 						{
 							byte bonus = 0;
@@ -1887,22 +1888,22 @@ namespace DOL.GS.ServerRules
 				switch ((eRealm)player.Realm)
 				{
 					case eRealm.Albion:
-						if (player.KillsMidgardPlayers > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Kill.MidgardPlayer") + ": " + player.KillsMidgardPlayers.ToString("N0"));
-						if (player.KillsHiberniaPlayers > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Kill.HiberniaPlayer") + ": " + player.KillsHiberniaPlayers.ToString("N0"));
+						if (player.KillsMidgardPlayers > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Kill.MidgardPlayer") + ": " + player.KillsMidgardPlayers.ToString("F0"));
+						if (player.KillsHiberniaPlayers > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Kill.HiberniaPlayer") + ": " + player.KillsHiberniaPlayers.ToString("F0"));
 						total = player.KillsMidgardPlayers + player.KillsHiberniaPlayers;
 						break;
 					case eRealm.Midgard:
-						if (player.KillsAlbionPlayers > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Kill.AlbionPlayer") + ": " + player.KillsAlbionPlayers.ToString("N0"));
-						if (player.KillsHiberniaPlayers > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Kill.HiberniaPlayer") + ": " + player.KillsHiberniaPlayers.ToString("N0"));
+						if (player.KillsAlbionPlayers > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Kill.AlbionPlayer") + ": " + player.KillsAlbionPlayers.ToString("F0"));
+						if (player.KillsHiberniaPlayers > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Kill.HiberniaPlayer") + ": " + player.KillsHiberniaPlayers.ToString("F0"));
 						total = player.KillsAlbionPlayers + player.KillsHiberniaPlayers;
 						break;
 					case eRealm.Hibernia:
-						if (player.KillsAlbionPlayers > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Kill.AlbionPlayer") + ": " + player.KillsAlbionPlayers.ToString("N0"));
-						if (player.KillsMidgardPlayers > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Kill.MidgardPlayer") + ": " + player.KillsMidgardPlayers.ToString("N0"));
+						if (player.KillsAlbionPlayers > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Kill.AlbionPlayer") + ": " + player.KillsAlbionPlayers.ToString("F0"));
+						if (player.KillsMidgardPlayers > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Kill.MidgardPlayer") + ": " + player.KillsMidgardPlayers.ToString("F0"));
 						total = player.KillsMidgardPlayers + player.KillsAlbionPlayers;
 						break;
 				}
-				stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Kill.TotalPlayers") + ": " + total.ToString("N0"));
+				stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Kill.TotalPlayers") + ": " + total.ToString("F0"));
 			}
 			#endregion
 			stat.Add(" ");
@@ -1914,22 +1915,22 @@ namespace DOL.GS.ServerRules
 				switch ((eRealm)player.Realm)
 				{
 					case eRealm.Albion:
-						if (player.KillsMidgardDeathBlows > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Deathblows.MidgardPlayer") + ": " + player.KillsMidgardDeathBlows.ToString("N0"));
-						if (player.KillsHiberniaDeathBlows > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Deathblows.HiberniaPlayer") + ": " + player.KillsHiberniaDeathBlows.ToString("N0"));
+						if (player.KillsMidgardDeathBlows > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Deathblows.MidgardPlayer") + ": " + player.KillsMidgardDeathBlows.ToString("F0"));
+						if (player.KillsHiberniaDeathBlows > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Deathblows.HiberniaPlayer") + ": " + player.KillsHiberniaDeathBlows.ToString("F0"));
 						total = player.KillsMidgardDeathBlows + player.KillsHiberniaDeathBlows;
 						break;
 					case eRealm.Midgard:
-						if (player.KillsAlbionDeathBlows > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Deathblows.AlbionPlayer") + ": " + player.KillsAlbionDeathBlows.ToString("N0"));
-						if (player.KillsHiberniaDeathBlows > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Deathblows.HiberniaPlayer") + ": " + player.KillsHiberniaDeathBlows.ToString("N0"));
+						if (player.KillsAlbionDeathBlows > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Deathblows.AlbionPlayer") + ": " + player.KillsAlbionDeathBlows.ToString("F0"));
+						if (player.KillsHiberniaDeathBlows > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Deathblows.HiberniaPlayer") + ": " + player.KillsHiberniaDeathBlows.ToString("F0"));
 						total = player.KillsAlbionDeathBlows + player.KillsHiberniaDeathBlows;
 						break;
 					case eRealm.Hibernia:
-						if (player.KillsAlbionDeathBlows > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Deathblows.AlbionPlayer") + ": " + player.KillsAlbionDeathBlows.ToString("N0"));
-						if (player.KillsMidgardDeathBlows > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Deathblows.MidgardPlayer") + ": " + player.KillsMidgardDeathBlows.ToString("N0"));
+						if (player.KillsAlbionDeathBlows > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Deathblows.AlbionPlayer") + ": " + player.KillsAlbionDeathBlows.ToString("F0"));
+						if (player.KillsMidgardDeathBlows > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Deathblows.MidgardPlayer") + ": " + player.KillsMidgardDeathBlows.ToString("F0"));
 						total = player.KillsMidgardDeathBlows + player.KillsAlbionDeathBlows;
 						break;
 				}
-				stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Deathblows.TotalPlayers") + ": " + total.ToString("N0"));
+				stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Deathblows.TotalPlayers") + ": " + total.ToString("F0"));
 			}
 			#endregion
 			stat.Add(" ");
@@ -1941,22 +1942,22 @@ namespace DOL.GS.ServerRules
 				switch ((eRealm)player.Realm)
 				{
 					case eRealm.Albion:
-						if (player.KillsMidgardSolo > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Solo.MidgardPlayer") + ": " + player.KillsMidgardSolo.ToString("N0"));
-						if (player.KillsHiberniaSolo > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Solo.HiberniaPlayer") + ": " + player.KillsHiberniaSolo.ToString("N0"));
+						if (player.KillsMidgardSolo > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Solo.MidgardPlayer") + ": " + player.KillsMidgardSolo.ToString("F0"));
+						if (player.KillsHiberniaSolo > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Solo.HiberniaPlayer") + ": " + player.KillsHiberniaSolo.ToString("F0"));
 						total = player.KillsMidgardSolo + player.KillsHiberniaSolo;
 						break;
 					case eRealm.Midgard:
-						if (player.KillsAlbionSolo > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Solo.AlbionPlayer") + ": " + player.KillsAlbionSolo.ToString("N0"));
-						if (player.KillsHiberniaSolo > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Solo.HiberniaPlayer") + ": " + player.KillsHiberniaSolo.ToString("N0"));
+						if (player.KillsAlbionSolo > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Solo.AlbionPlayer") + ": " + player.KillsAlbionSolo.ToString("F0"));
+						if (player.KillsHiberniaSolo > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Solo.HiberniaPlayer") + ": " + player.KillsHiberniaSolo.ToString("F0"));
 						total = player.KillsAlbionSolo + player.KillsHiberniaSolo;
 						break;
 					case eRealm.Hibernia:
-						if (player.KillsAlbionSolo > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Solo.AlbionPlayer") + ": " + player.KillsAlbionSolo.ToString("N0"));
-						if (player.KillsMidgardSolo > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Solo.MidgardPlayer") + ": " + player.KillsMidgardSolo.ToString("N0"));
+						if (player.KillsAlbionSolo > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Solo.AlbionPlayer") + ": " + player.KillsAlbionSolo.ToString("F0"));
+						if (player.KillsMidgardSolo > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Solo.MidgardPlayer") + ": " + player.KillsMidgardSolo.ToString("F0"));
 						total = player.KillsMidgardSolo + player.KillsAlbionSolo;
 						break;
 				}
-				stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Solo.TotalPlayers") + ": " + total.ToString("N0"));
+				stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Solo.TotalPlayers") + ": " + total.ToString("F0"));
 			}
 			#endregion
 			stat.Add(" ");
@@ -1965,21 +1966,21 @@ namespace DOL.GS.ServerRules
 			if ((player.CapturedKeeps + player.CapturedTowers) > 0)
 			{
 				stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Capture.Title"));
-				//stat.Add("Relics Taken: " + player.RelicsTaken.ToString("N0"));
-				//stat.Add("Albion Keeps Captured: " + player.CapturedAlbionKeeps.ToString("N0"));
-				//stat.Add("Midgard Keeps Captured: " + player.CapturedMidgardKeeps.ToString("N0"));
-				//stat.Add("Hibernia Keeps Captured: " + player.CapturedHiberniaKeeps.ToString("N0"));
-				if (player.CapturedKeeps > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Capture.Keeps") + ": " + player.CapturedKeeps.ToString("N0"));
-				//stat.Add("Keep Lords Slain: " + player.KeepLordsSlain.ToString("N0"));
-				//stat.Add("Albion Towers Captured: " + player.CapturedAlbionTowers.ToString("N0"));
-				//stat.Add("Midgard Towers Captured: " + player.CapturedMidgardTowers.ToString("N0"));
-				//stat.Add("Hibernia Towers Captured: " + player.CapturedHiberniaTowers.ToString("N0"));
-				if (player.CapturedTowers > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Capture.Towers") + ": " + player.CapturedTowers.ToString("N0"));
-				//stat.Add("Tower Captains Slain: " + player.TowerCaptainsSlain.ToString("N0"));
-				//stat.Add("Realm Guard Kills Albion: " + player.RealmGuardTotalKills.ToString("N0"));
-				//stat.Add("Realm Guard Kills Midgard: " + player.RealmGuardTotalKills.ToString("N0"));
-				//stat.Add("Realm Guard Kills Hibernia: " + player.RealmGuardTotalKills.ToString("N0"));
-				//stat.Add("Total Realm Guard Kills: " + player.RealmGuardTotalKills.ToString("N0"));
+				//stat.Add("Relics Taken: " + player.RelicsTaken.ToString("F0"));
+				//stat.Add("Albion Keeps Captured: " + player.CapturedAlbionKeeps.ToString("F0"));
+				//stat.Add("Midgard Keeps Captured: " + player.CapturedMidgardKeeps.ToString("F0"));
+				//stat.Add("Hibernia Keeps Captured: " + player.CapturedHiberniaKeeps.ToString("F0"));
+				if (player.CapturedKeeps > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Capture.Keeps") + ": " + player.CapturedKeeps.ToString("F0"));
+				//stat.Add("Keep Lords Slain: " + player.KeepLordsSlain.ToString("F0"));
+				//stat.Add("Albion Towers Captured: " + player.CapturedAlbionTowers.ToString("F0"));
+				//stat.Add("Midgard Towers Captured: " + player.CapturedMidgardTowers.ToString("F0"));
+				//stat.Add("Hibernia Towers Captured: " + player.CapturedHiberniaTowers.ToString("F0"));
+				if (player.CapturedTowers > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.Capture.Towers") + ": " + player.CapturedTowers.ToString("F0"));
+				//stat.Add("Tower Captains Slain: " + player.TowerCaptainsSlain.ToString("F0"));
+				//stat.Add("Realm Guard Kills Albion: " + player.RealmGuardTotalKills.ToString("F0"));
+				//stat.Add("Realm Guard Kills Midgard: " + player.RealmGuardTotalKills.ToString("F0"));
+				//stat.Add("Realm Guard Kills Hibernia: " + player.RealmGuardTotalKills.ToString("F0"));
+				//stat.Add("Total Realm Guard Kills: " + player.RealmGuardTotalKills.ToString("F0"));
 			}
 			#endregion
 			stat.Add(" ");
@@ -1988,9 +1989,9 @@ namespace DOL.GS.ServerRules
 			if ((player.KillsDragon + player.KillsEpicBoss + player.KillsLegion) > 0)
 			{
 				stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.PvE.Title"));
-				if (player.KillsDragon > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.PvE.KillsDragon") + ": " + player.KillsDragon.ToString("N0"));
-				if (player.KillsEpicBoss > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.PvE.KillsEpic") + ": " + player.KillsEpicBoss.ToString("N0"));
-				if (player.KillsLegion > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.PvE.KillsLegion") + ": " + player.KillsLegion.ToString("N0"));
+				if (player.KillsDragon > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.PvE.KillsDragon") + ": " + player.KillsDragon.ToString("F0"));
+				if (player.KillsEpicBoss > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.PvE.KillsEpic") + ": " + player.KillsEpicBoss.ToString("F0"));
+				if (player.KillsLegion > 0) stat.Add(LanguageMgr.GetTranslation(player.Client.Account.Language, "PlayerStatistic.PvE.KillsLegion") + ": " + player.KillsLegion.ToString("F0"));
 			}
 			#endregion
 
@@ -2206,7 +2207,7 @@ namespace DOL.GS.ServerRules
 		/// <param name="heading"></param>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		public virtual GameNPC PlaceHousingNPC(DOL.GS.Housing.House house, ItemTemplate item, IPoint3D location, ushort heading)
+		public virtual GameNPC PlaceHousingNPC(DOL.GS.Housing.House house, ItemTemplate item, Vector3 location, ushort heading)
 		{
 			NpcTemplate npcTemplate = NpcTemplateMgr.GetTemplate(item.Bonus);
 
@@ -2276,9 +2277,7 @@ namespace DOL.GS.ServerRules
 				npc.CurrentHouse = house;
 				npc.InHouse = true;
 				npc.OwnerID = item.Id_nb;
-				npc.X = location.X;
-				npc.Y = location.Y;
-				npc.Z = location.Z;
+				npc.Position = location;
 				npc.Heading = heading;
 				npc.CurrentRegionID = house.RegionID;
 				if ((npc.Flags & GameNPC.eFlags.PEACE) == 0)
@@ -2297,15 +2296,13 @@ namespace DOL.GS.ServerRules
 		}
 
 
-		public virtual GameStaticItem PlaceHousingInteriorItem(DOL.GS.Housing.House house, ItemTemplate item, IPoint3D location, ushort heading)
+		public virtual GameStaticItem PlaceHousingInteriorItem(DOL.GS.Housing.House house, ItemTemplate item, Vector3 location, ushort heading)
 		{
 			GameStaticItem hookpointObject = new GameStaticItem();
 			hookpointObject.CurrentHouse = house;
 			hookpointObject.InHouse = true;
 			hookpointObject.OwnerID = item.Id_nb;
-			hookpointObject.X = location.X;
-			hookpointObject.Y = location.Y;
-			hookpointObject.Z = location.Z;
+			hookpointObject.Position = location;
 			hookpointObject.Heading = heading;
 			hookpointObject.CurrentRegionID = house.RegionID;
 			hookpointObject.Name = item.Name;

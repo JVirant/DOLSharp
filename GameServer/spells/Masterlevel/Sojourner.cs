@@ -8,6 +8,7 @@ using DOL.AI.Brain;
 using DOL.GS;
 using DOL.Events;
 using System.Collections.Specialized;
+using System.Numerics;
 
 namespace DOL.GS.Spells
 {
@@ -96,9 +97,7 @@ namespace DOL.GS.Spells
                 GamePlayer casterPlayer = caster as GamePlayer;
                 merchant = new GameMerchant();
                 //Fill the object variables
-                merchant.X = casterPlayer.X + Util.Random(20, 40) - Util.Random(20, 40);
-                merchant.Y = casterPlayer.Y + Util.Random(20, 40) - Util.Random(20, 40);
-                merchant.Z = casterPlayer.Z;
+                merchant.Position = casterPlayer.Position + new Vector3(Util.Random(20, 40) - Util.Random(20, 40), Util.Random(20, 40) - Util.Random(20, 40), 0);
                 merchant.CurrentRegion = casterPlayer.CurrentRegion;
                 merchant.Heading = (ushort)((casterPlayer.Heading + 2048) % 4096);
                 merchant.Level = 1;
@@ -167,7 +166,7 @@ namespace DOL.GS.Spells
         protected RegionTimer m_expireTimer;
         protected GameNPC m_npc;
         protected GamePlayer m_target;
-		protected IPoint3D m_loc;
+		protected Vector3 m_loc;
 
         public override void OnDirectEffect(GameLiving target, double effectiveness)
         {
@@ -206,9 +205,7 @@ namespace DOL.GS.Spells
             npc.Realm = Caster.Realm;
             npc.Heading = Caster.Heading;
             npc.Model = 1269;
-            npc.Y = Caster.Y;
-            npc.X = Caster.X;
-            npc.Z = Caster.Z;
+            npc.Position = Caster.Position;
             npc.Name = "Forceful Zephyr";
             npc.MaxSpeedBase = 400;
             npc.Level = 55;
@@ -318,12 +315,9 @@ namespace DOL.GS.Spells
 				m_npc.WalkTo(m_loc.X, m_loc.Y, m_loc.Z, 100);
         }
 
-        public virtual IPoint3D GetTargetLoc()
+        public virtual Vector3 GetTargetLoc()
         {
-            double targetX = m_npc.X + Util.Random(-1500, 1500);
-            double targetY = m_npc.Y + Util.Random(-1500, 1500);
-
-            return new Point3D((int)targetX, (int)targetY, m_npc.Z);
+            return m_npc.Position + new Vector3(Util.Random(-1500, 1500), Util.Random(-1500, 1500), 0);
         }
 
         public override int CalculateSpellResistChance(GameLiving target)

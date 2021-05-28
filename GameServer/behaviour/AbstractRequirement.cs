@@ -208,5 +208,31 @@ namespace DOL.GS.Behaviour
         {
             return compare((long)value1, (long)value2, comp);
         }
+        /// <summary>
+        /// Compares value1 with value2 
+        /// Allowed Comparators: Less,Greater,Equal, NotEqual, None
+        /// </summary>
+        /// <param name="value1">Value1 one to compare</param>
+        /// <param name="value2">Value2 to cmopare</param>
+        /// <param name="comp">Comparator to use for Comparison</param>
+        /// <returns>result of comparison</returns>
+        protected static bool compare(float value1, float value2, eComparator comp)
+        {
+            switch (comp)
+            {
+                case eComparator.Less:
+                    return (value1 < value2);
+                case eComparator.Greater:
+                    return (value1 > value2);
+                case eComparator.Equal:
+                    return (value1 == value2);
+                case eComparator.NotEqual:
+                    return (value1 != value2);
+                case eComparator.None:
+                    return true;
+                default:
+                    throw new ArgumentException("Comparator not supported:" + comp, "comp");
+            }
+        }
     }
 }

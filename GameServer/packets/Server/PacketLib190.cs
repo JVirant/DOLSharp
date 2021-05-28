@@ -290,10 +290,10 @@ namespace DOL.GS.PacketHandler
 				}
 
 				// Get Off Corrd
-				int offX = player.X - player.CurrentZone.XOffset;
-				int offY = player.Y - player.CurrentZone.YOffset;
+				var offX = player.Position.X - player.CurrentZone.XOffset;
+				var offY = player.Position.Y - player.CurrentZone.YOffset;
 
-				pak.WriteShort((ushort)player.Z);
+				pak.WriteShort((ushort)player.Position.Z);
 				pak.WriteShort((ushort)offX);
 				pak.WriteShort((ushort)offY);
 				
