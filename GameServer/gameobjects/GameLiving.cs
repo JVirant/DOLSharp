@@ -35,6 +35,7 @@ using DOL.GS.Spells;
 using DOL.GS.Styles;
 using DOL.Language;
 using DOL.GS.RealmAbilities;
+using System.Numerics;
 
 namespace DOL.GS
 {
@@ -1991,7 +1992,7 @@ namespace DOL.GS
 						bool preCheck = false;
 						if (ad.Target is GamePlayer) //only start if we are behind the player
 						{
-							float angle = ad.Target.GetAngle( ad.Attacker );
+							float angle = GameMath.GetAngle(ad.Target, ad.Attacker);
 							if (angle >= 150 && angle < 210) preCheck = true;
 						}
 						else preCheck = true;
@@ -2470,7 +2471,7 @@ namespace DOL.GS
 						}
 					}
 
-					ticksToTarget = 1 + owner.GetDistanceTo( attackTarget ) * 100 / 150; // 150 units per 1/10s
+					ticksToTarget = (int)(1 + Vector3.Distance(owner.Position, attackTarget.Position) * 100 / 150); // 150 units per 1/10s
 				}
 				else
 				{
@@ -5630,10 +5631,6 @@ namespace DOL.GS
 		/// The base maximum speed of this living
 		/// </summary>
 		protected short m_maxSpeedBase;
-		/// <summary>
-		/// Holds the Living's Coordinate inside the current Region
-		/// </summary>
-		protected Point3D m_groundTarget;
 
 		/// <summary>
 		/// Gets the current direction the Object is facing
@@ -5720,22 +5717,9 @@ namespace DOL.GS
 			set { }
 		}
 		/// <summary>
-		/// Gets the Living's ground-target Coordinate inside the current Region
+		/// Gets or Sets the Living's ground-target Coordinate inside the current Region
 		/// </summary>
-		public virtual Point3D GroundTarget
-		{
-			get { return m_groundTarget; }
-		}
-
-		/// <summary>
-		/// Sets the Living's ground-target Coordinates inside the current Region
-		/// </summary>
-		public virtual void SetGroundTarget(int groundX, int groundY, int groundZ)
-		{
-			m_groundTarget.X = groundX;
-			m_groundTarget.Y = groundY;
-			m_groundTarget.Z = groundZ;
-		}
+		public virtual Vector3? GroundTarget { get; set; } = new Vector3(0, 0, 0);
 
 		/// <summary>
 		/// Gets or Sets the current level of the Object
@@ -5780,17 +5764,17 @@ namespace DOL.GS
 		/// <summary>
 		/// The tick speed in X direction.
 		/// </summary>
-		public double TickSpeedX { get; protected set; }
+		public float TickSpeedX { get; protected set; }
 
 		/// <summary>
 		/// The tick speed in Y direction.
 		/// </summary>
-		public double TickSpeedY { get; protected set; }
+		public float TickSpeedY { get; protected set; }
 
 		/// <summary>
 		/// The tick speed in Z direction.
 		/// </summary>
-		public double TickSpeedZ { get; protected set; }
+		public float TickSpeedZ { get; protected set; }
 
 		/// <summary>
 		/// Updates tick speed for this living.
@@ -5805,8 +5789,8 @@ namespace DOL.GS
 			{
 				// Living will move in the direction it is currently heading.
 
-				double heading = Heading * HEADING_TO_RADIAN;
-				SetTickSpeed(-Math.Sin(heading), Math.Cos(heading), 0, speed);
+				var heading = Heading * GameMath.HEADING_TO_RADIAN;
+				SetTickSpeed(-(float)Math.Sin(heading), (float)Math.Cos(heading), 0, speed);
 			}
 		}
 
@@ -5831,7 +5815,7 @@ namespace DOL.GS
 		/// <param name="dx"></param>
 		/// <param name="dy"></param>
 		/// <param name="dz"></param>
-		protected void SetTickSpeed(double dx, double dy, double dz)
+		protected void SetTickSpeed(float dx, float dy, float dz)
 		{
 			TickSpeedX = dx;
 			TickSpeedY = dy;
@@ -5845,9 +5829,9 @@ namespace DOL.GS
 		/// <param name="dy"></param>
 		/// <param name="dz"></param>
 		/// <param name="speed"></param>
-		protected void SetTickSpeed(double dx, double dy, double dz, int speed)
+		protected void SetTickSpeed(float dx, float dy, float dz, float speed)
 		{
-			double tickSpeed = speed * 0.001;
+			float tickSpeed = speed * 0.001f;
 			SetTickSpeed(dx * tickSpeed, dy * tickSpeed, dz * tickSpeed);
 		}
 
@@ -5872,54 +5856,13 @@ namespace DOL.GS
 			get { return m_currentSpeed != 0; }
 		}
 
-		/// <summary>
-		/// The current X position of this living.
-		/// </summary>
-		public override int X
+		public override Vector3 Position
 		{
 			get
 			{
-				return (IsMoving)
-					? (int)(base.X + MovementElapsedTicks * TickSpeedX)
-					: base.X;
-			}
-			set
-			{
-				base.X = value;
-			}
-		}
-
-		/// <summary>
-		/// The current Y position of this living.
-		/// </summary>
-		public override int Y
-		{
-			get
-			{
-				return (IsMoving)
-					? (int)(base.Y + MovementElapsedTicks * TickSpeedY)
-					: base.Y;
-			}
-			set
-			{
-				base.Y = value;
-			}
-		}
-
-		/// <summary>
-		/// The current Z position of this living.
-		/// </summary>
-		public override int Z
-		{
-			get
-			{
-				return (IsMoving)
-					? (int)(base.Z + MovementElapsedTicks * TickSpeedZ)
-					: base.Z;
-			}
-			set
-			{
-				base.Z = value;
+				return IsMoving
+					? base.Position + MovementElapsedTicks * new Vector3(TickSpeedX, TickSpeedY, TickSpeedZ)
+					: base.Position;
 			}
 		}
 
@@ -5933,7 +5876,7 @@ namespace DOL.GS
 		/// <param name="z">new z</param>
 		/// <param name="heading">new heading</param>
 		/// <returns>true if moved</returns>
-		public override bool MoveTo(ushort regionID, int x, int y, int z, ushort heading)
+		public override bool MoveTo(ushort regionID, float x, float y, float z, ushort heading)
 		{
 			if (regionID != CurrentRegionID)
 				CancelAllConcentrationEffects();
@@ -6971,7 +6914,6 @@ namespace DOL.GS
 		{
 			m_guildName = string.Empty;
 			m_targetObjectWeakReference = new WeakRef(null);
-			m_groundTarget = new Point3D(0, 0, 0);
 
 			//Set all combat properties
 			m_activeWeaponSlot = eActiveWeaponSlot.Standard;

@@ -28,6 +28,7 @@ using DOL.GS.PacketHandler;
 using DOL.Language;
 using DOL.Database;
 using DOL.GS.Styles;
+using System.Numerics;
 
 namespace DOL.GS.Spells
 {
@@ -75,9 +76,9 @@ namespace DOL.GS.Spells
                 effect.Cancel(false);
         }
 
-        protected override void GetPetLocation(out int x, out int y, out int z, out ushort heading, out Region region)
+        protected override void GetPetLocation(out Vector3 pos, out ushort heading, out Region region)
         {
-            base.GetPetLocation(out x, out y, out z, out heading, out region);
+            base.GetPetLocation(out pos, out heading, out region);
             heading = Caster.Heading;
         }
 

@@ -262,8 +262,10 @@ namespace DOL.GS.Quests
 
 			m_portObjectQueue.Enqueue(target);
 
-			location.X += Util.Random(0 - fuzzyLocation, fuzzyLocation);
-			location.Y += Util.Random(0 - fuzzyLocation, fuzzyLocation);
+			var p = location.Position;
+			p.X += Util.Random(0 - fuzzyLocation, fuzzyLocation);
+			p.Y += Util.Random(0 - fuzzyLocation, fuzzyLocation);
+			location.Position = p;
 
 			m_portDestinationQueue.Enqueue(location);
 			m_portTeleportTimerQueue.Enqueue(new RegionTimer(target, new RegionTimerCallback(MakePortSequence), (int)delay + 3000));
@@ -282,7 +284,7 @@ namespace DOL.GS.Quests
 				m_portTeleportTimerQueue.Dequeue();
 				GameObject gameObject = (GameObject)m_portObjectQueue.Dequeue();
 				GameLocation location = (GameLocation)m_portDestinationQueue.Dequeue();
-				gameObject.MoveTo(location.RegionID, location.X, location.Y, location.Z, location.Heading);
+				gameObject.MoveTo(location);
 			}
 			return 0;
 		}

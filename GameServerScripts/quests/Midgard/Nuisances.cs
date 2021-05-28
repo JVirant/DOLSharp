@@ -29,6 +29,7 @@
  */
 
 using System;
+using System.Numerics;
 using System.Reflection;
 using DOL.AI.Brain;
 using DOL.Database;
@@ -289,7 +290,7 @@ namespace DOL.GS.Quests.Midgard
 
 			#endregion
 
-			askefruerArea = WorldMgr.GetRegion(askefruerLocation.RegionID).AddArea(new Area.Circle("Askefruer contamined Area", askefruerLocation.X, askefruerLocation.Y, 0, 1500));
+			askefruerArea = WorldMgr.GetRegion(askefruerLocation.RegionID).AddArea(new Area.Circle("Askefruer contamined Area", askefruerLocation.Position, 1500));
 			askefruerArea.RegisterPlayerEnter(new DOLEventHandler(PlayerEnterAskefruerArea));
 
 			/* Now we add some hooks to the npc we found.
@@ -378,9 +379,7 @@ namespace DOL.GS.Quests.Midgard
 			askefruer.CurrentRegionID = askefruerLocation.RegionID;
 			askefruer.Size = 50;
 			askefruer.Level = 4;
-			askefruer.X = askefruerLocation.X + Util.Random(-150, 150);
-			askefruer.Y = askefruerLocation.Y + Util.Random(-150, 150);
-			askefruer.Z = askefruerLocation.Z;
+			askefruer.Position = askefruerLocation.Position + new Vector3(Util.Random(-150, 150), Util.Random(-150, 150), 0);
 			askefruer.Heading = askefruerLocation.Heading;
 
 			StandardMobBrain brain = new StandardMobBrain();

@@ -158,7 +158,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 										if (stone != null) 
 										{
 											heading = stone.Heading;
-											z = stone.Z;
+											z = (int)stone.Position.Z;
 											stone.GetTeleportLocation(out x, out y);
 										}
 										else

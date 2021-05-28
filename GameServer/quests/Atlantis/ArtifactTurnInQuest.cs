@@ -27,6 +27,7 @@ using DOL.Events;
 using DOL.Language;
 using DOL.GS.PacketHandler;
 using log4net;
+using System.Numerics;
 
 namespace DOL.GS.Quests.Atlantis
 {
@@ -181,9 +182,7 @@ namespace DOL.GS.Quests.Atlantis
 				m_scholarAlaria.CurrentRegionID = 71;
 				m_scholarAlaria.Size = 50;
 				m_scholarAlaria.Level = 45;
-				m_scholarAlaria.X = 565733;
-				m_scholarAlaria.Y = 569502;
-				m_scholarAlaria.Z = 7255;
+				m_scholarAlaria.Position = new Vector3(565733, 569502, 7255);
 				m_scholarAlaria.Heading = 708;
 				m_scholarAlaria.MaxSpeedBase = 200;
 
@@ -206,9 +205,7 @@ namespace DOL.GS.Quests.Atlantis
 				m_scholarJarron.CurrentRegionID = 70;
 				m_scholarJarron.Size = 50;
 				m_scholarJarron.Level = 45;
-				m_scholarJarron.X = 577936;
-				m_scholarJarron.Y = 533228;
-				m_scholarJarron.Z = 7295;
+				m_scholarJarron.Position = new Vector3(577936, 533228, 7295);
 				m_scholarJarron.Heading = 3731;
 				m_scholarJarron.MaxSpeedBase = 200;
 
@@ -231,9 +228,7 @@ namespace DOL.GS.Quests.Atlantis
 				m_scholarElmer.CurrentRegionID = 72;
 				m_scholarElmer.Size = 50;
 				m_scholarElmer.Level = 45;
-				m_scholarElmer.X = 552291;
-				m_scholarElmer.Y = 576366;
-				m_scholarElmer.Z = 6767;
+				m_scholarElmer.Position = new Vector3(552291, 576366, 6767);
 				m_scholarElmer.Heading = 1074;
 				m_scholarElmer.MaxSpeedBase = 200;
 

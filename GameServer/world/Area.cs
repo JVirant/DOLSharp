@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using DOL.Events;
 using DOL.GS.PacketHandler;
 using DOL.Database;
+using System.Numerics;
 
 namespace DOL.GS
 {		
@@ -121,28 +122,13 @@ namespace DOL.GS
 			/// </summary>
 			/// <param name="p"></param>
 			/// <returns></returns>
-			public override bool IsContaining(IPoint3D p)
+			public override bool IsContaining(Vector3 p, bool checkZ)
 			{
-				return IsContaining(p, true);
-			}
-
-			public override bool IsContaining(int x, int y, int z)
-			{
-				return IsContaining(x, y, z, true);
-			}
-
-			public override bool IsContaining(IPoint3D p, bool checkZ)
-			{
-				return IsContaining(p.X, p.Y, p.Z, checkZ);
-			}
-
-			public override bool IsContaining(int x, int y, int z, bool checkZ)
-			{
-				long m_xdiff = (long)x - X;
+				var m_xdiff = p.X - X;
 				if (m_xdiff < 0 || m_xdiff > Width)
 					return false;
 
-				long m_ydiff = (long)y - Y;
+				var m_ydiff = p.Y - Y;
 				if (m_ydiff < 0 || m_ydiff > Height)
 					return false;
 
@@ -173,22 +159,6 @@ namespace DOL.GS
 
 		public class Circle : AbstractArea
 		{
-			
-			/// <summary>
-			/// The X coordinate of this Area
-			/// </summary>
-			protected int m_X;
-
-			/// <summary>
-			/// The Y coordinate of this Area
-			/// </summary>
-			protected int m_Y;
-
-			/// <summary>
-			/// The Z coordinate of this Area
-			/// </summary>
-			protected int m_Z;
-
 			/// <summary>
 			/// The radius of the area in Coordinates
 			/// </summary>
@@ -201,40 +171,19 @@ namespace DOL.GS
 			{
 			}
 
-			public Circle( string desc, int x, int y, int z, int radius) : base(desc)
-			{															
+			public Circle(string desc, Vector3 center, int radius) : base(desc)
+			{
 				m_Description = desc;
-				m_X = x;
-				m_Y = y;
-				m_Z= z;
-				m_Radius= radius;
-					
-				m_RadiusRadius = radius*radius;
+				Position = center;
+				m_Radius = radius;
+				m_RadiusRadius = radius * radius;
 			}
 
-			/// <summary>
-			/// Returns the X Coordinate of this Area
-			/// </summary>
-			public int X
-			{
-				get { return m_X; }
-			}
+			public Circle( string desc, float x, float y, float z, int radius) : this(desc, new Vector3(x, y, z), radius)
+            {
+            }
 
-			/// <summary>
-			/// Returns the Y Coordinate of this Area
-			/// </summary>
-			public int Y
-			{
-				get { return m_Y; }
-			}
-
-			/// <summary>
-			/// Returns the Width of this Area
-			/// </summary>
-			public int Z
-			{
-				get { return m_Z; }
-			}
+			public Vector3 Position { get; private set; }
 
 			/// <summary>
 			/// Returns the Height of this Area
@@ -258,70 +207,39 @@ namespace DOL.GS
 			/// <returns></returns>
 			public override bool IsIntersectingZone(Zone zone)
 			{
-				if (X+Radius < zone.XOffset)
+				if (Position.X + Radius < zone.XOffset)
 					return false;
-				if (X-Radius >= zone.XOffset + 65536)
+				if (Position.X - Radius >= zone.XOffset + 65536)
 					return false;
-				if (Y+Radius < zone.YOffset)
+				if (Position.Y + Radius < zone.YOffset)
 					return false;
-				if (Y-Radius >= zone.YOffset + 65536)
+				if (Position.Y - Radius >= zone.YOffset + 65536)
 					return false;
 
 				return true;
 			}
 
-			public override bool IsContaining(IPoint3D spot)
-			{
-				return IsContaining(spot, true);
-			}
-
-			public override bool IsContaining(int x, int y, int z, bool checkZ)
+			public override bool IsContaining(Vector3 point, bool checkZ)
 			{
 				// spot is not in square around circle no need to check for circle...
-				long m_xdiff = (long)x - X;
-				if (m_xdiff > Radius)
-					return false;
-
-				long m_ydiff = (long)y - Y;
-				if (m_ydiff > Radius)
-					return false;
-
+				var diff = point - Position;
 
 				// check if spot is in circle
-				m_distSq = m_xdiff * m_xdiff + m_ydiff * m_ydiff;
-
-				if (Z != 0 && z != 0 && checkZ)
+				var m_distSq = diff.ToVector2().LengthSquared();
+				if (Position.Z != 0 && point.Z != 0 && checkZ)
 				{
-					long m_zdiff = (long)z - Z;
+					float m_zdiff = point.Z - Position.Z;
 					m_distSq += m_zdiff * m_zdiff;
 				}
 
 				return (m_distSq <= m_RadiusRadius);
 			}
 
-			public override bool IsContaining(int x, int y, int z)
-			{
-				return IsContaining(x, y, z, true);
-			}
-
-			/// <summary>
-			/// Checks wether given point is within area boundaries
-			/// </summary>
-			/// <param name="p"></param>
-			/// <param name="checkZ"></param>
-			/// <returns></returns>
-			public override bool IsContaining(IPoint3D p, bool checkZ)
-			{
-				return IsContaining(p.X, p.Y, p.Z, checkZ);
-			}
-
 			public override void LoadFromDatabase(DBArea area)
 			{
                 m_translationId = area.TranslationId;
 				m_Description = area.Description;
-				m_X = area.X;
-				m_Y = area.Y;
-				m_Z = area.Z;
+				Position = new Vector3(area.X, area.Y, area.Z);
 				m_Radius = area.Radius;
 				m_RadiusRadius = area.Radius * area.Radius;
 			}
@@ -360,7 +278,7 @@ namespace DOL.GS
             /// <summary>
             /// The Points list
             /// </summary>
-            protected IList<Point2D> m_points;
+            protected IList<Vector2> m_points;
 
             public Polygon()
                 : base()
@@ -405,7 +323,7 @@ namespace DOL.GS
                 set
                 {
                     m_stringpoints = value;
-                    m_points = new List<Point2D>();
+                    m_points = new List<Vector2>();
                     if (m_stringpoints.Length < 1) return;
                     string[] points = m_stringpoints.Split('|');
                     foreach (string point in points)
@@ -414,7 +332,7 @@ namespace DOL.GS
                         if (pts.Length != 2) continue;
                         int x = Convert.ToInt32(pts[0]);
                         int y = Convert.ToInt32(pts[1]);
-                        Point2D p = new Point2D(x, y);
+                        Vector2 p = new Vector2(x, y);
                         if (!m_points.Contains(p)) m_points.Add(p);
                     }
                 }
@@ -440,32 +358,17 @@ namespace DOL.GS
                 return true;
             }
 
-            public override bool IsContaining(int x, int y, int z, bool checkZ)
-            {
-                return IsContaining(new Point3D(x, y, z));
-            }
-
-            public override bool IsContaining(int x, int y, int z)
-            {
-                return IsContaining(new Point3D(x, y, z));
-            }
-
-            public override bool IsContaining(IPoint3D obj, bool checkZ)
-            {
-                return IsContaining(obj);
-            }
-
-            public override bool IsContaining(IPoint3D obj)
+            public override bool IsContaining(Vector3 obj, bool _checkZ)
             {
                 if (m_points.Count < 3) return false;
-                Point2D p1, p2;
+                Vector2 p1, p2;
                 bool inside = false;
 
-                Point2D oldpt = new Point2D(m_points[m_points.Count - 1].X, m_points[m_points.Count - 1].Y);
+                Vector2 oldpt = new Vector2(m_points[m_points.Count - 1].X, m_points[m_points.Count - 1].Y);
 
-                foreach (Point2D pt in m_points)
+                foreach (Vector2 pt in m_points)
                 {
-                    Point2D newpt = new Point2D(pt.X, pt.Y);
+                    Vector2 newpt = new Vector2(pt.X, pt.Y);
 
                     if (newpt.X > oldpt.X) { p1 = oldpt; p2 = newpt; }
                     else { p1 = newpt; p2 = oldpt; }

@@ -38,6 +38,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 using DOL.GS.Effects;
 using DOL.GS.PacketHandler;
@@ -55,9 +56,7 @@ namespace DOL.GS
             //foreman fogo doesn't leave the room.
             TetherRange = 1000;
 
-            X = 49293;
-            Y = 42208;
-            Z = 27562;
+            Position = new Vector3(49293, 42208, 27562);
             Heading = 2057;
             CurrentRegionID = 245;
 

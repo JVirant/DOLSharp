@@ -187,9 +187,7 @@ namespace DOL.GS.Quests.Midgard
 
 				dalikor.Size = 50;
 				dalikor.Level = 50;
-				dalikor.X = locationDalikor.X;
-				dalikor.Y = locationDalikor.Y;
-				dalikor.Z = locationDalikor.Z;
+				dalikor.Position = locationDalikor.Position;
 				dalikor.Heading = locationDalikor.Heading;
 
 				StandardMobBrain brain = new StandardMobBrain();

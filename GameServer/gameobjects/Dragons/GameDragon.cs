@@ -27,7 +27,7 @@ using System.Reflection;
 using DOL.Events;
 using DOL.GS.ServerProperties;
 using DOL.AI.Brain;
-
+using System.Numerics;
 
 namespace DOL.GS
 {
@@ -92,9 +92,9 @@ namespace DOL.GS
 		{
 			base.LoadFromDatabase(obj);
 			String[] dragonName = Name.Split(new char[] { ' ' });
-			WorldMgr.GetRegion(CurrentRegionID).AddArea(new Area.Circle(String.Format("{0}'s Lair",
-				dragonName[0]),
-				X, Y, 0, LairRadius + 200));
+			WorldMgr.GetRegion(CurrentRegionID).AddArea(
+				new Area.Circle(String.Format("{0}'s Lair", dragonName[0]),
+				Position.X, Position.Y, 0, LairRadius + 200));
 		}
 
 		public override bool HasAbility(string keyName)
@@ -384,7 +384,7 @@ namespace DOL.GS
 		/// <param name="y"></param>
 		/// <param name="uptime"></param>
 		/// <returns></returns>
-		protected GameNPC SpawnTimedAdd(int templateID, int level, int x, int y, int uptime, bool isRetriever)
+		protected GameNPC SpawnTimedAdd(int templateID, int level, float x, float y, int uptime, bool isRetriever)
 		{
 			GameNPC add = null;
 
@@ -409,9 +409,7 @@ namespace DOL.GS
 					add.CurrentRegion = this.CurrentRegion;
 					add.Heading = (ushort)(Util.Random(0, 4095));
 					add.Realm = 0;
-					add.X = x;
-					add.Y = y;
-					add.Z = Z;
+					add.Position = Position;
 					add.CurrentSpeed = 0;
 					add.Level = (byte)level;
 					add.RespawnInterval = -1;
@@ -617,7 +615,7 @@ namespace DOL.GS
 
 			GameObject oldTarget = TargetObject;
 			TargetObject = GlareTarget;
-			Z = SpawnPoint.Z; // this is a fix to correct Z errors that sometimes happen during dragon fights
+			Position = new Vector3(Position.X, Position.Y, SpawnPoint.Z); // this is a fix to correct Z errors that sometimes happen during dragon fights
 			TurnTo(GlareTarget);
 			CastSpell(Glare, SkillBase.GetSpellLine(GlobalSpellsLines.Mob_Spells));
 			GlareTarget = null;
@@ -765,7 +763,7 @@ namespace DOL.GS
 
 			TurnTo(target);
 
-			Point3D targetPosition = PositionOfTarget(target, 700, Heading, Util.Random(300, 500) );
+			Vector3 targetPosition = PositionOfTarget(target.Position, 700, Heading, Util.Random(300, 500) );
 
 			if (target is GamePlayer)
 			{
@@ -788,13 +786,9 @@ namespace DOL.GS
 		/// <param name="heading">The direction the object is displaced in.</param>
 		/// <param name="displacement">The amount the object is displaced by.</param>
 		/// <returns></returns>
-		private Point3D PositionOfTarget( IPoint3D target, int height, int heading, int displacement)
+		private Vector3 PositionOfTarget(Vector3 target, int height, int heading, int displacement)
 		{
-            Point3D targetPoint;
-
-            targetPoint = new Point3D( target.GetPointFromHeading( (ushort)heading, displacement ), target.Z + height );
-
-			return targetPoint;
+			return new Vector3(GameMath.GetPointFromHeading(target, (ushort)heading, displacement), target.Z + height);
 		}
 
 		#endregion

@@ -38,11 +38,11 @@ namespace DOL.GS.Keeps
 			set { m_component = value; }
 		}
 
-		private DBKeepPosition m_position;
-		public DBKeepPosition Position
+		private DBKeepPosition m_dbposition;
+		public DBKeepPosition DBPosition
 		{
-			get { return m_position; }
-			set { m_position = value; }
+			get { return m_dbposition; }
+			set { m_dbposition = value; }
 		}
 
 		public void LoadFromPosition(DBKeepPosition pos, GameKeepComponent component)
@@ -130,9 +130,9 @@ namespace DOL.GS.Keeps
 			ushort originalHeading = m_Heading;
 			m_Heading = (ushort)Util.Random((m_Heading - 500), (m_Heading + 500));
 			int distance = Util.Random(50, 150);
-            Point2D portloc = this.GetPointFromHeading( this.Heading, distance );
-            x = portloc.X;
-            y = portloc.Y;
+            var portloc = GameMath.GetPointFromHeading(Position, Heading, distance);
+            x = (int)portloc.X;
+            y = (int)portloc.Y;
 			m_Heading = originalHeading;
 		}
 
@@ -158,9 +158,7 @@ namespace DOL.GS.Keeps
 			if (!base.AddToWorld()) return false;
 			TeleporterEffect mob = new TeleporterEffect();
 			mob.CurrentRegion = this.CurrentRegion;
-			mob.X = this.X;
-			mob.Y = this.Y;
-			mob.Z = this.Z;
+			mob.Position = this.Position;
 			mob.Heading = this.Heading;
 			mob.Health = mob.MaxHealth;
 			mob.MaxSpeedBase = 0;

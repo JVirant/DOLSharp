@@ -23,6 +23,7 @@ using DOL.Events;
 using DOL.Database;
 using DOL.GS.PacketHandler;
 using DOL.GS.Housing;
+using System.Numerics;
 
 namespace DOL.GS
 {
@@ -51,9 +52,7 @@ namespace DOL.GS
             Heading = djinnStone.Heading;
             Realm = eRealm.None;
             Flags ^= GameNPC.eFlags.FLYING | GameNPC.eFlags.PEACE;
-            X = djinnStone.X;
-            Y = djinnStone.Y;
-            Z = djinnStone.Z + HoverHeight;
+            Position = djinnStone.Position + Vector3.UnitZ * HoverHeight;
             base.Size = Size;
         }
 

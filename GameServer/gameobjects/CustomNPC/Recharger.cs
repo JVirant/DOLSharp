@@ -53,7 +53,7 @@ namespace DOL.GS
 			if (!base.Interact(player))
 				return false;
 
-			TurnTo(player.X, player.Y);
+			TurnTo(player);
 			SayTo(player, eChatLoc.CL_ChatWindow, LanguageMgr.GetTranslation(player.Client.Account.Language, "Scripts.Recharger.Interact"));
 			return true;
 		}

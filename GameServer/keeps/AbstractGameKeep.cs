@@ -512,9 +512,7 @@ namespace DOL.GS.Keeps
 				d.Name = "door";
 				d.Realm = door.Realm;
 				d.State = eDoorState.Closed;
-				d.X = door.X;
-				d.Y = door.Y;
-				d.Z = door.Z;
+				d.Position = door.Position;
 				DoorMgr.RegisterDoor(door);
 				d.AddToWorld();
 			}
@@ -660,7 +658,7 @@ namespace DOL.GS.Keeps
 				int count = 0;
 				foreach (GamePlayer p in player.Group.GetPlayersInTheGroup())
 				{
-					if (GameServer.KeepManager.GetKeepCloseToSpot(p.CurrentRegionID, p, WorldMgr.VISIBILITY_DISTANCE) == this)
+					if (GameServer.KeepManager.GetKeepCloseToSpot(p.CurrentRegionID, p.Position, WorldMgr.VISIBILITY_DISTANCE) == this)
 						count++;
 				}
 
@@ -1169,16 +1167,16 @@ namespace DOL.GS.Keeps
 			DBKeepHookPoint hp = DOLDB<DBKeepHookPoint>.SelectObject(DB.Column("HookPointID").IsEqualTo(97).And(DB.Column("Height").IsEqualTo(Height)));
 			if (hp == null)
 				return;
-			int z = component.Z + hp.Z;
+			float z = component.Position.Z + hp.Z;
 
 			foreach (GamePlayer player in component.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
 			{
-                int d = hookpoint.GetDistance( player as IPoint2D );
+                var d = player.GetDistanceTo(hookpoint.Position);
 				if (d > distance)
 					continue;
 
-				if (player.Z > z)
-					player.MoveTo(player.CurrentRegionID, player.X, player.Y, z, player.Heading);
+				if (player.Position.Z > z)
+					player.MoveTo(player.CurrentRegionID, player.Position.X, player.Position.Y, z, player.Heading);
 			}
 		}
 

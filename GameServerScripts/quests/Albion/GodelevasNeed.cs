@@ -478,7 +478,7 @@ namespace DOL.GS.Quests.Albion
 				InventoryItem item = player.Inventory.GetItem((eInventorySlot)uArgs.Slot);
 				if (item != null && item.Id_nb == woodenBucket.Id_nb)
 				{
-					if (player.IsWithinRadius(cotswoldVillageBridge, 500))
+					if (player.IsWithinRadius(cotswoldVillageBridge.Position, 500))
 					{
 						SendSystemMessage(player, "You use the wooden bucket and scoop up some fresh river water.");
 

@@ -17,6 +17,7 @@
  *
  */
 using System;
+using System.Numerics;
 using DOL.Database;
 
 namespace DOL.GS.Movement
@@ -24,7 +25,7 @@ namespace DOL.GS.Movement
 	/// <summary>
 	/// represents a point in a way path
 	/// </summary>
-	public class PathPoint : Point3D
+	public class PathPoint
 	{
 		protected int m_maxspeed;
 		protected PathPoint m_next = null;
@@ -33,12 +34,15 @@ namespace DOL.GS.Movement
 		protected bool m_flag;
 		protected int m_waitTime = 0;
 
-		public PathPoint(PathPoint pp) : this(pp, pp.MaxSpeed,pp.Type) {}
+		public Vector3 Position { get; set; }
 
-		public PathPoint(Point3D p, int maxspeed, ePathType type) : this(p.X,  p.Y,  p.Z, maxspeed, type) {}
+		public PathPoint(PathPoint pp) : this(pp.Position, pp.MaxSpeed,pp.Type) {}
 
-		public PathPoint(int x, int y, int z, int maxspeed, ePathType type) : base(x, y, z)
+		public PathPoint(Vector3 p, int maxspeed, ePathType type) : this(p.X,  p.Y,  p.Z, maxspeed, type) {}
+
+		public PathPoint(float x, float y, float z, int maxspeed, ePathType type)
 		{
+			Position = new Vector3(x, y, z);
 			m_maxspeed = maxspeed;
 			m_type = type;
 			m_flag = false;
@@ -99,16 +103,16 @@ namespace DOL.GS.Movement
 			set { m_waitTime = value; }
 		}
 
-		public PathPoint GetNearestNextPoint(IPoint3D pos)
+		public PathPoint GetNearestNextPoint(Vector3 pos)
 		{
 			var nearest = this;
-			var dist = nearest.GetDistanceTo(pos);
+			var dist = Vector3.Distance(nearest.Position, pos);
 
 			var pp = this;
 			while (pp.Next != null)
 			{
 				pp = pp.Next;
-				var d = pp.GetDistanceTo(pos);
+				var d = Vector3.Distance(pp.Position, pos);
 				if (d < dist)
 				{
 					nearest = pp;

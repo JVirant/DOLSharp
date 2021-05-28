@@ -50,7 +50,7 @@ namespace DOL.GS.Commands
 				return;
 			}
 
-			AbstractGameKeep myKeep = GameServer.KeepManager.GetKeepCloseToSpot(client.Player.CurrentRegionID, client.Player, WorldMgr.OBJ_UPDATE_DISTANCE);
+			AbstractGameKeep myKeep = GameServer.KeepManager.GetKeepCloseToSpot(client.Player.CurrentRegionID, client.Player.Position, WorldMgr.OBJ_UPDATE_DISTANCE);
 
 			if (myKeep == null)
 			{
@@ -113,9 +113,7 @@ namespace DOL.GS.Commands
 						}
 
 						GameKeepComponent component = new GameKeepComponent();
-						component.X = client.Player.X;
-						component.Y = client.Player.Y;
-						component.Z = client.Player.Z;
+						component.Position = client.Player.Position;
 						component.ComponentHeading = (client.Player.Heading - myKeep.Heading) / 1024;
 						component.Heading = (ushort)(component.ComponentHeading * 1024 + myKeep.Heading);
 						component.Keep = myKeep;
@@ -163,10 +161,7 @@ namespace DOL.GS.Commands
                 case "move":
                     {
                         GameKeepComponent component = client.Player.TargetObject as GameKeepComponent;
-
-                        component.X = client.Player.X;
-                        component.Y = client.Player.Y;
-                        component.Z = client.Player.Z;
+						component.Position = client.Player.Position;
                         component.ComponentHeading = (client.Player.Heading - myKeep.Heading) / 1024;
                         component.Heading = (ushort)(component.ComponentHeading * 1024 + myKeep.Heading);
                         component.Keep = myKeep;
@@ -330,11 +325,11 @@ namespace DOL.GS.Commands
         {
             if (Math.Abs(Math.Sin(angle)) < 0.0001) //for approximations, == 0 wont work.
             {
-                return (player.X - myKeep.X) / 148;
+                return ((int)player.Position.X - myKeep.X) / 148;
             }
             else
             {
-                return (int)((148 * Math.Sin(angle) * myKeep.X - 148 * Math.Sin(angle) * player.X + player.Y - myKeep.Y)
+                return (int)((148 * Math.Sin(angle) * myKeep.X - 148 * Math.Sin(angle) * player.Position.X + player.Position.Y - myKeep.Y)
                             / (148 * Math.Sin(angle) - 148 * 148 * 2 * Math.Sin(angle) * Math.Cos(angle)));
             }
         }
@@ -343,13 +338,13 @@ namespace DOL.GS.Commands
         {
             if (Math.Abs(Math.Sin(angle)) < 0.0001)
             {
-                return (myKeep.Y - player.Y) / 148;
+                return (myKeep.Y - (int)player.Position.Y) / 148;
             }
             else
             {
-                int cx = (int)((148 * Math.Sin(angle) * myKeep.X - 148 * Math.Sin(angle) * player.X + player.Y - myKeep.Y)
+                int cx = (int)((148 * Math.Sin(angle) * myKeep.X - 148 * Math.Sin(angle) * player.Position.X + player.Position.Y - myKeep.Y)
                             / (148 * Math.Sin(angle) - 148 * 148 * 2 * Math.Sin(angle) * Math.Cos(angle)));
-                return (int)((myKeep.Y - player.Y + 148 * Math.Sin(angle) * cx) / (148 * Math.Cos(angle)));
+                return (int)((myKeep.Y - player.Position.Y + 148 * Math.Sin(angle) * cx) / (148 * Math.Cos(angle)));
             }
         }
 	}

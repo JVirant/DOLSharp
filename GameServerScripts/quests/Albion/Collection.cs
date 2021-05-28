@@ -162,9 +162,7 @@ namespace DOL.GS.Quests.Albion
 					general[i].Model = 603;
 
 					general[i].Name = generalNames[i];
-					general[i].X = generalLocations[i].X;
-					general[i].Y = generalLocations[i].Y;
-					general[i].Z = generalLocations[i].Z;
+					general[i].Position = generalLocations[i].Position;
 					general[i].Heading = generalLocations[i].Heading;
 
 					general[i].GuildName = "Part of " + questTitle + " Quest";

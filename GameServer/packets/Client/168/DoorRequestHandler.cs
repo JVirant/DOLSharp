@@ -190,9 +190,9 @@ namespace DOL.GS.PacketHandler.Client.v168
 				door.MaxHealth = 2545;
 				door.Health = 2545;
 				door.Locked = 0;
-				door.X = player.X;
-				door.Y = player.Y;
-				door.Z = player.Z;
+				door.X = (int)player.Position.X;
+				door.Y = (int)player.Position.Y;
+				door.Z = (int)player.Position.Z;
 				door.Heading = player.Heading;
 				GameServer.Database.AddObject(door);
 
@@ -261,7 +261,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 						}
 						else
 						{
-							if (player.IsWithinRadius(mydoor, m_radius))
+							if (player.IsWithinRadius(mydoor.Position, m_radius))
 							{
 								if (m_doorState == 0x01)
 									mydoor.Open(player);
@@ -297,9 +297,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 					//else basic quick hack
 					var door = new GameDoor();
 					door.DoorID = m_doorId;
-					door.X = player.X;
-					door.Y = player.Y;
-					door.Z = player.Z;
+					door.Position = player.Position;
 					door.Realm = eRealm.Door;
 					door.CurrentRegion = player.CurrentRegion;
 					door.Open(player);

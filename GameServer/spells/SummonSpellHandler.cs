@@ -20,6 +20,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Reflection;
 using DOL.AI.Brain;
 using DOL.Events;
@@ -86,12 +87,10 @@ namespace DOL.GS.Spells
 
 		#region ApplyEffectOnTarget Gets
 
-		protected virtual void GetPetLocation(out int x, out int y, out int z, out ushort heading, out Region region)
+		protected virtual void GetPetLocation(out Vector3 position, out ushort heading, out Region region)
 		{
-			Point2D point = Caster.GetPointFromHeading( Caster.Heading, 64 );
-			x = point.X;
-			y = point.Y;
-			z = Caster.Z;
+			Vector2 point = Caster.GetPointFromHeading( Caster.Heading, 64 );
+			position = new Vector3(point, Caster.Position.Z);
 			heading = (ushort)((Caster.Heading + 2048) % 4096);
 			region = Caster.CurrentRegion;
 		}
@@ -155,15 +154,13 @@ namespace DOL.GS.Spells
 			m_pet.SummonSpellDamage = Spell.Damage;
 			m_pet.SummonSpellValue = Spell.Value;
 
-			int x, y, z;
+			Vector3 pos;
 			ushort heading;
 			Region region;
 
-			GetPetLocation(out x, out y, out z, out heading, out region);
+			GetPetLocation(out pos, out heading, out region);
 
-			m_pet.X = x;
-			m_pet.Y = y;
-			m_pet.Z = z;
+			m_pet.Position = pos;
 			m_pet.Heading = heading;
 			m_pet.CurrentRegion = region;
 

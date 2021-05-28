@@ -18,6 +18,7 @@
  */
 using DOL.AI;
 using DOL.AI.Brain;
+using System.Numerics;
 
 namespace DOL.GS
 {
@@ -146,10 +147,8 @@ namespace DOL.GS
                     ushort sideHeading = (ushort)(Heading + 900);
                     if (Util.Random(1) < 1)
                         sideHeading += 1800;
-                    Point2D point = GetPointFromHeading(sideHeading, PetSummonDistance);
-                    m_pet.X = point.X;
-                    m_pet.Y = point.Y;
-                    m_pet.Z = Z;
+                    Vector2 point = GetPointFromHeading(sideHeading, PetSummonDistance);
+                    m_pet.Position = new Vector3(point, Position.Z);
 
                     m_pet.Heading = Heading;
                     m_pet.Realm = eRealm.None;

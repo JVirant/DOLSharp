@@ -26,6 +26,7 @@ using DOL.GS;
 using DOL.GS.Movement;
 using DOL.GS.PacketHandler;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace DOL.GS.Keeps
 {
@@ -82,9 +83,7 @@ namespace DOL.GS.Keeps
 		{
 			LoadKeepItemPosition(pos, guard);
 
-            guard.SpawnPoint.X = guard.X;
-            guard.SpawnPoint.Y = guard.Y;
-            guard.SpawnPoint.Z = guard.Z;
+			guard.SpawnPoint = guard.Position;
 			guard.SpawnHeading = guard.Heading;
 		}
 
@@ -93,14 +92,11 @@ namespace DOL.GS.Keeps
 			item.CurrentRegionID = item.Component.CurrentRegionID;
 			int x, y;
 			LoadXY(item.Component, pos.XOff, pos.YOff, out x, out y);
-			item.X = x;
-			item.Y = y;
-
-			item.Z = item.Component.Keep.Z + pos.ZOff;
+			item.Position = new Vector3(x, y, item.Component.Keep.Z + pos.ZOff);
 
 			item.Heading = (ushort)(item.Component.Heading + pos.HOff);
 
-			item.Position = pos;
+			item.DBPosition = pos;
 		}
 
 		/// <summary>
@@ -120,26 +116,26 @@ namespace DOL.GS.Keeps
 			{
 				case 0:
 					{
-						outX = (int)(component.X + C * inX + S * inY);
-						outY = (int)(component.Y - C * inY + S * inX);
+						outX = (int)(component.Position.X + C * inX + S * inY);
+						outY = (int)(component.Position.Y - C * inY + S * inX);
 						break;
 					}
 				case 1:
 					{
-						outX = (int)(component.X + C * inY - S * inX);
-						outY = (int)(component.Y + C * inX + S * inY);
+						outX = (int)(component.Position.X + C * inY - S * inX);
+						outY = (int)(component.Position.Y + C * inX + S * inY);
 						break;
 					}
 				case 2:
 					{
-						outX = (int)(component.X - C * inX - S * inY);
-						outY = (int)(component.Y + C * inY - S * inX);
+						outX = (int)(component.Position.X - C * inX - S * inY);
+						outY = (int)(component.Position.Y + C * inY - S * inX);
 						break;
 					}
 				case 3:
 					{
-						outX = (int)(component.X - C * inY + S * inX);
-						outY = (int)(component.Y - C * inX - S * inY);
+						outX = (int)(component.Position.X - C * inY + S * inX);
+						outY = (int)(component.Position.Y - C * inX - S * inY);
 						break;
 					}
 				default:
@@ -162,8 +158,8 @@ namespace DOL.GS.Keeps
 		public static void SaveXY(GameKeepComponent component, int inX, int inY, out int outX, out int outY)
 		{
 			double angle = component.Keep.Heading * ((Math.PI * 2) / 360); // angle*2pi/360;
-			int gx = inX - component.X;
-			int gy = inY - component.Y;
+			int gx = (int)(inX - component.Position.X);
+			int gy = (int)(inY - component.Position.Y);
 			double C = Math.Cos(angle);
 			double S = Math.Sin(angle);
 			switch (component.ComponentHeading)
@@ -251,11 +247,11 @@ namespace DOL.GS.Keeps
 			pos.TemplateID = templateID;
 			int x, y;
 
-			SaveXY(component, player.X, player.Y, out x, out y);
+			SaveXY(component, (int)player.Position.X, (int)player.Position.Y, out x, out y);
 			pos.XOff = x;
 			pos.YOff = y;
 
-			pos.ZOff = player.Z - component.Z;
+			pos.ZOff = (int)(player.Position.Z - component.Position.Z);
 
 			pos.HOff = player.Heading - component.Heading;
 			return pos;
@@ -348,9 +344,7 @@ namespace DOL.GS.Keeps
 
 				int x, y;
 				LoadXY(component, pp.X, pp.Y, out x, out y);
-				p.X = x;
-				p.Y = y;
-				p.Z = component.Keep.Z + p.Z;
+				p.Position = new Vector3(x, y, component.Keep.Z + p.Position.Z);
 
 				p.WaitTime = pp.WaitTime;
 
@@ -391,12 +385,12 @@ namespace DOL.GS.Keeps
 			int i = 1;
 			do
 			{
-				DBPathPoint dbpp = new DBPathPoint(path.X, path.Y, path.Z, path.MaxSpeed);
+				DBPathPoint dbpp = new DBPathPoint((int)path.Position.X, (int)path.Position.Y, (int)path.Position.Z, path.MaxSpeed);
 				int x, y;
 				SaveXY(component, dbpp.X, dbpp.Y, out x, out y);
 				dbpp.X = x;
 				dbpp.Y = y;
-				dbpp.Z = dbpp.Z - component.Z;
+				dbpp.Z = (int)(dbpp.Z - component.Position.Z);
 
 				dbpp.Step = i++;
 				dbpp.PathID = pathID;
@@ -442,11 +436,11 @@ namespace DOL.GS.Keeps
 			pos.TemplateID = Guid.NewGuid().ToString();
 			int x, y;
 
-			SaveXY(component, player.X, player.Y, out x, out y);
+			SaveXY(component, (int)player.Position.X, (int)player.Position.Y, out x, out y);
 			pos.XOff = x;
 			pos.YOff = y;
 
-			pos.ZOff = player.Z - component.Z;
+			pos.ZOff = (int)(player.Position.Z - component.Position.Z);
 
 			pos.HOff = player.Heading - component.Heading;
 

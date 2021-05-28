@@ -53,9 +53,10 @@ namespace DOL.GS.Commands
 				DBKeepHookPoint dbkeephp = new DBKeepHookPoint();
 				dbkeephp.HookPointID = id;
 				dbkeephp.KeepComponentSkinID = skin;
-				dbkeephp.X = client.Player.X - comp.X;
-				dbkeephp.Y = client.Player.Y - comp.Y;
-				dbkeephp.Z = client.Player.Z - comp.Z;
+				var diff = client.Player.Position - comp.Position;
+				dbkeephp.X = (int)diff.X;
+				dbkeephp.Y = (int)diff.Y;
+				dbkeephp.Z = (int)diff.Z;
 				dbkeephp.Heading = client.Player.Heading - comp.Heading;
 				GameServer.Database.AddObject(dbkeephp);
 			}

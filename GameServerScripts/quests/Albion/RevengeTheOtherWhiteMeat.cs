@@ -29,6 +29,7 @@
  */
 
 using System;
+using System.Numerics;
 using System.Reflection;
 using DOL.AI.Brain;
 using DOL.Database;
@@ -496,9 +497,7 @@ namespace DOL.GS.Quests.Albion
 
 						pigHerderWyatt.Size = 54;
 						pigHerderWyatt.Level = 33;
-						pigHerderWyatt.X = wilburSpawnLocation.X - 1000;
-						pigHerderWyatt.Y = wilburSpawnLocation.Y + 1500;
-						pigHerderWyatt.Z = wilburSpawnLocation.Z;
+						pigHerderWyatt.Position = wilburSpawnLocation.Position + new Vector3(-1000, 1500, 0);
 						pigHerderWyatt.Heading = 2548;
 						pigHerderWyatt.AddToWorld();
 
@@ -535,7 +534,7 @@ namespace DOL.GS.Quests.Albion
 				pigHerderWyatt.Yell("The King's men will hear about this!!! Oh, Wilbur...");
 				pigHerderWyatt.Emote(eEmote.Cry);
 				GameEventMgr.AddHandler(pigHerderWyatt, GameNPCEvent.CloseToTarget, new DOLEventHandler(OnRemovePigHerder));
-				pigHerderWyatt.WalkTo(wilburSpawnLocation.X - 1000, wilburSpawnLocation.Y + 1500, wilburSpawnLocation.Z, 200);
+				pigHerderWyatt.WalkTo(wilburSpawnLocation.Position + new Vector3(-1000, 1500, 0), 200);
 			}
 			return 0;
 		}

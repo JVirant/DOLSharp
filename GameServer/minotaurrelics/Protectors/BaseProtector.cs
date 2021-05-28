@@ -69,9 +69,7 @@ namespace DOL.GS
             LockedEffect = new GameNPC();
             LockedEffect.Model = 1583;
             LockedEffect.Name = "LOCKED_RELIC";
-            LockedEffect.X = Relic.X;
-            LockedEffect.Y = Relic.Y;
-            LockedEffect.Z = Relic.Z;
+            LockedEffect.Position = Relic.Position;
             LockedEffect.Heading = Relic.Heading;
             LockedEffect.CurrentRegionID = Relic.CurrentRegionID;
             LockedEffect.Flags = GameNPC.eFlags.CANTTARGET;

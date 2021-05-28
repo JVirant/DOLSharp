@@ -76,9 +76,7 @@ namespace DOL.GS.Effects
             Cauldron.Realm = EffectOwner.Realm;
             Cauldron.Name = cauldronName;
             Cauldron.Model = cauldronModel;
-            Cauldron.X = EffectOwner.X;
-            Cauldron.Y = EffectOwner.Y;
-            Cauldron.Z = EffectOwner.Z;
+            Cauldron.Position = EffectOwner.Position;
             Cauldron.AddToWorld();
 
             new RegionTimer(EffectOwner, new RegionTimerCallback(CauldronCallBack), RealmAbilities.BoilingCauldronAbility.DURATION - 1000);

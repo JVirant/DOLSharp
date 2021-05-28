@@ -280,7 +280,7 @@ namespace DOL.GS.Quests.Albion
 
 			#endregion
 			#region defineAreas
-			Burial_Tomb_Area = WorldMgr.GetRegion(Burial_Tomb.RegionID).AddArea(new Area.Circle("", Burial_Tomb.X, Burial_Tomb.Y, Burial_Tomb.Z, 200));
+			Burial_Tomb_Area = WorldMgr.GetRegion(Burial_Tomb.RegionID).AddArea(new Area.Circle("", Burial_Tomb.Position, 200));
 			Burial_Tomb_Area.RegisterPlayerEnter(new DOLEventHandler(PlayerEnterBurialTombArea));
 			#endregion
 

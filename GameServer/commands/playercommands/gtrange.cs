@@ -16,6 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  */
+using System.Numerics;
 using DOL.GS.PacketHandler;
 
 namespace DOL.GS.Commands
@@ -34,7 +35,7 @@ namespace DOL.GS.Commands
 
 			if (client.Player.GroundTarget != null)
 			{
-                int range = client.Player.GetDistanceTo( client.Player.GroundTarget );
+				var range = (int)Vector3.Distance(client.Player.Position, client.Player.GroundTarget.Value);
 				client.Out.SendMessage("Range to target: " + range + " units.", eChatType.CT_System, eChatLoc.CL_SystemWindow);
 			}
 			else

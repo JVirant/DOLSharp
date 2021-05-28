@@ -26,6 +26,7 @@ using DOL.Database;
 using DOL.GS.PacketHandler;
 using DOL.GS.RealmAbilities;
 using DOL.GS.Spells;
+using System.Numerics;
 
 namespace DOL.GS.Effects
 {
@@ -126,9 +127,8 @@ namespace DOL.GS.Effects
             spirits[spiritId].MaxSpeedBase = spiritSpeed;
             spirits[spiritId].GuildName = "";
             spirits[spiritId].Size = 50;
-            spirits[spiritId].X = EffectOwner.X + Util.Random(20, 40) - Util.Random(20, 40);
-            spirits[spiritId].Y = EffectOwner.Y + Util.Random(20, 40) - Util.Random(20, 40);
-            spirits[spiritId].Z = EffectOwner.Z;
+            var rand = new Vector3(Util.Random(20, 40) - Util.Random(20, 40), Util.Random(20, 40) - Util.Random(20, 40), 0);
+            spirits[spiritId].Position = EffectOwner.Position + rand;
             spirits[spiritId].Flags |= GameNPC.eFlags.DONTSHOWNAME;
             spirits[spiritId].SetOwnBrain(new StandardMobBrain());
             spirits[spiritId].AddToWorld();

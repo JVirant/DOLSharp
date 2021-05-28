@@ -143,14 +143,11 @@ namespace DOL.UnitTests.Gameserver
             Assert.AreEqual(81, actual);
         }
 
-        private static GamePlayer NewPlayer()
+        private static GamePlayer NewPlayer(ICharacterClass charClass = null)
         {
-            return GamePlayer.CreateTestableGamePlayer();
-        }
-
-        private static GamePlayer NewPlayer(ICharacterClass charClass)
-        {
-            return GamePlayer.CreateTestableGamePlayer(charClass);
+            var player = GamePlayer.CreateTestableGamePlayer(new GameClient(GameServer.Instance), charClass ?? new DefaultCharacterClass());
+            player.Client.Player = player;
+            return player;
         }
     }
 }

@@ -46,9 +46,7 @@ namespace DOL.GS.Commands
 			pad.Realm = (eRealm)byte.Parse(args[3]);
 			pad.Emblem = emblem;
 			pad.CurrentRegionID = client.Player.CurrentRegionID;
-			pad.X = client.Player.X;
-			pad.Y = client.Player.Y;
-			pad.Z = client.Player.Z;
+			pad.Position = client.Player.Position;
 			pad.Heading = client.Player.Heading;
 			pad.AddToWorld();
 			pad.SaveIntoDatabase();

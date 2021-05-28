@@ -422,7 +422,7 @@ namespace DOL.GS
 			// Get All House in Region
 			IDictionary<int, House> housesDict = HouseMgr.GetHouses(player.CurrentRegionID);
 			// Build Vincinity List
-			var houses = housesDict.Values.Where(h => h != null && player.IsWithinRadius(h, HousingConstants.HouseViewingDistance)).ToArray();
+			var houses = housesDict.Values.Where(h => h != null && player.IsWithinRadius(h.Position, HousingConstants.HouseViewingDistance)).ToArray();
 			
 			try
 			{

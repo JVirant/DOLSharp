@@ -42,9 +42,7 @@ namespace DOL.GS.Commands
 							case "miniram":
 								{
 									GameSiegeRam ram = new GameSiegeRam();
-									ram.X = client.Player.X;
-									ram.Y = client.Player.Y;
-									ram.Z = client.Player.Z;
+									ram.Position = client.Player.Position;
 									ram.CurrentRegion = client.Player.CurrentRegion;
 									ram.Model = 2605;
 									ram.Level = 0;
@@ -56,9 +54,7 @@ namespace DOL.GS.Commands
 							case "lightram":
 								{
 									GameSiegeRam ram = new GameSiegeRam();
-									ram.X = client.Player.X;
-									ram.Y = client.Player.Y;
-									ram.Z = client.Player.Z;
+									ram.Position = client.Player.Position;
 									ram.CurrentRegion = client.Player.CurrentRegion;
 									ram.Model = 2600;
 									ram.Level = 1;
@@ -70,9 +66,7 @@ namespace DOL.GS.Commands
 							case "mediumram":
 								{
 									GameSiegeRam ram = new GameSiegeRam();
-									ram.X = client.Player.X;
-									ram.Y = client.Player.Y;
-									ram.Z = client.Player.Z;
+									ram.Position = client.Player.Position;
 									ram.CurrentRegion = client.Player.CurrentRegion;
 									ram.Model = 2601;
 									ram.Level = 2;
@@ -84,9 +78,7 @@ namespace DOL.GS.Commands
 							case "heavyram":
 								{
 									GameSiegeRam ram = new GameSiegeRam();
-									ram.X = client.Player.X;
-									ram.Y = client.Player.Y;
-									ram.Z = client.Player.Z;
+									ram.Position = client.Player.Position;
 									ram.CurrentRegion = client.Player.CurrentRegion;
 									ram.Model = 2602;
 									ram.Level = 3;
@@ -98,9 +90,7 @@ namespace DOL.GS.Commands
 								case "catapult":
 								{
 									GameSiegeCatapult cat = new GameSiegeCatapult();
-									cat.X = client.Player.X;
-									cat.Y = client.Player.Y;
-									cat.Z = client.Player.Z;
+									cat.Position = client.Player.Position;
 									cat.CurrentRegion = client.Player.CurrentRegion;
 									cat.Model = 0xA26;
 									cat.Level = 3;
@@ -112,9 +102,7 @@ namespace DOL.GS.Commands
 								case "ballista":
 								{
 									GameSiegeBallista bal = new GameSiegeBallista();
-									bal.X = client.Player.X;
-									bal.Y = client.Player.Y;
-									bal.Z = client.Player.Z;
+									bal.Position = client.Player.Position;
 									bal.CurrentRegion = client.Player.CurrentRegion;
 									bal.Model = 0x0A55;
 									bal.Level = 3;
@@ -126,9 +114,7 @@ namespace DOL.GS.Commands
 								case "cauldron":
 								{
 									GameSiegeRam ram = new GameSiegeRam();
-									ram.X = client.Player.X;
-									ram.Y = client.Player.Y;
-									ram.Z = client.Player.Z;
+									ram.Position = client.Player.Position;
 									ram.CurrentRegion = client.Player.CurrentRegion;
 									ram.Model =  0xA2F;
 									ram.Level = 3;
@@ -140,9 +126,7 @@ namespace DOL.GS.Commands
 								case "trebuchet":
 								{
 									GameSiegeTrebuchet tre = new GameSiegeTrebuchet();
-									tre.X = client.Player.X;
-									tre.Y = client.Player.Y;
-									tre.Z = client.Player.Z;
+									tre.Position = client.Player.Position;
 									tre.CurrentRegion = client.Player.CurrentRegion;
 									tre.Model = 0xA2E;
 									tre.Level = 3;

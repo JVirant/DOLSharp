@@ -18,6 +18,7 @@
  */
 using System;
 using System.Collections;
+using System.Numerics;
 using DOL.Database;
 using DOL.Events;
 using DOL.Language;
@@ -203,9 +204,7 @@ namespace DOL.GS
 			Emblem = item.Emblem;
 			Realm = (eRealm)item.Realm;
 			Heading = item.Heading;
-			X = item.X;
-			Y = item.Y;
-			Z = item.Z;
+			Position = new Vector3(item.X, item.Y, item.Z);
 			RespawnInterval = item.RespawnInterval;
 		}
 
@@ -284,9 +283,9 @@ namespace DOL.GS
 			obj.Realm = (byte)Realm;
 			obj.Heading = Heading;
 			obj.Region = CurrentRegionID;
-			obj.X = X;
-			obj.Y = Y;
-			obj.Z = Z;
+			obj.X = (int)Position.X;
+			obj.Y = (int)Position.Y;
+			obj.Z = (int)Position.Z;
 			obj.ClassType = this.GetType().ToString();
 			obj.RespawnInterval = RespawnInterval;
 

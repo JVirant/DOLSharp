@@ -40,15 +40,14 @@ namespace DOL.GS.Behaviour.Actions
 		{
 			GameLiving npc = Q;
 
-			if (P is GameLocation)
+			if (P is GameLocation location)
 			{
-				GameLocation location = (GameLocation)P;
-				npc.MoveTo(location.RegionID, location.X, location.Y, location.Z, location.Heading);
+				npc.MoveTo(location);
 			}
 			else
 			{
 				GamePlayer player = BehaviourUtils.GuessGamePlayerFromNotify(e, sender, args);
-				npc.MoveTo(player.CurrentRegionID, player.X, player.Y, player.Z, (ushort)player.Heading);
+				npc.MoveTo(player.CurrentRegionID, player.Position, player.Heading);
 			}
 		}
 	}

@@ -38,6 +38,7 @@ using DOL.GS.Styles;
 
 using log4net;
 using DOL.GS.ServerProperties;
+using System.Numerics;
 
 namespace DOL.GS.PacketHandler
 {
@@ -520,9 +521,9 @@ namespace DOL.GS.PacketHandler
 			using (var pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.PositionAndObjectID)))
 			{
 				pak.WriteShort((ushort) m_gameClient.Player.ObjectID); //This is the player's objectid not Sessionid!!!
-				pak.WriteShort((ushort) m_gameClient.Player.Z);
-				pak.WriteInt((uint) m_gameClient.Player.X);
-				pak.WriteInt((uint) m_gameClient.Player.Y);
+				pak.WriteShort((ushort) m_gameClient.Player.Position.Z);
+				pak.WriteInt((uint) m_gameClient.Player.Position.X);
+				pak.WriteInt((uint) m_gameClient.Player.Position.Y);
 				pak.WriteShort(m_gameClient.Player.Heading);
 
 				int flags = 0;
@@ -542,10 +543,10 @@ namespace DOL.GS.PacketHandler
 
 			using (var pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.CharacterJump)))
 			{
-				pak.WriteInt((uint) (headingOnly ? 0 : m_gameClient.Player.X));
-				pak.WriteInt((uint) (headingOnly ? 0 : m_gameClient.Player.Y));
+				pak.WriteInt((uint) (headingOnly ? 0 : m_gameClient.Player.Position.X));
+				pak.WriteInt((uint) (headingOnly ? 0 : m_gameClient.Player.Position.Y));
 				pak.WriteShort((ushort) m_gameClient.Player.ObjectID);
-				pak.WriteShort((ushort) (headingOnly ? 0 : m_gameClient.Player.Z));
+				pak.WriteShort((ushort) (headingOnly ? 0 : m_gameClient.Player.Position.Z));
 				pak.WriteShort(m_gameClient.Player.Heading);
 				if (m_gameClient.Player.InHouse == false || m_gameClient.Player.CurrentHouse == null)
 				{
@@ -675,13 +676,13 @@ namespace DOL.GS.PacketHandler
 				pak.WriteShort((ushort) playerToCreate.ObjectID);
 				//pak.WriteInt(playerToCreate.X);
 				//pak.WriteInt(playerToCreate.Y);
-				pak.WriteShort((ushort) playerRegion.GetXOffInZone(playerToCreate.X, playerToCreate.Y));
-				pak.WriteShort((ushort) playerRegion.GetYOffInZone(playerToCreate.X, playerToCreate.Y));
+				pak.WriteShort((ushort) playerRegion.GetXOffInZone(playerToCreate.Position.X, playerToCreate.Position.Y));
+				pak.WriteShort((ushort) playerRegion.GetYOffInZone(playerToCreate.Position.X, playerToCreate.Position.Y));
 
 				//Dinberg:Instances - changing to ZoneSkinID for instance zones.
 				pak.WriteByte((byte) playerZone.ZoneSkinID);
 				pak.WriteByte(0);
-				pak.WriteShort((ushort) playerToCreate.Z);
+				pak.WriteShort((ushort) playerToCreate.Position.Z);
 				pak.WriteShort(playerToCreate.Heading);
 				pak.WriteShort(playerToCreate.Model);
 				//DOLConsole.WriteLine("send created player "+target.Player.Name+" to "+client.Player.Name+" alive="+target.Player.Alive);
@@ -745,8 +746,8 @@ namespace DOL.GS.PacketHandler
 				return;
 			}
 
-			var xOffsetInZone = (ushort) (obj.X - z.XOffset);
-			var yOffsetInZone = (ushort) (obj.Y - z.YOffset);
+			var xOffsetInZone = (ushort) (obj.Position.X - z.XOffset);
+			var yOffsetInZone = (ushort) (obj.Position.Y - z.YOffset);
 			ushort xOffsetInTargetZone = 0;
 			ushort yOffsetInTargetZone = 0;
 			ushort zOffsetInTargetZone = 0;
@@ -828,7 +829,7 @@ namespace DOL.GS.PacketHandler
 				pak.WriteShort(xOffsetInTargetZone);
 				pak.WriteShort(yOffsetInZone);
 				pak.WriteShort(yOffsetInTargetZone);
-				pak.WriteShort((ushort) obj.Z);
+				pak.WriteShort((ushort) obj.Position.Z);
 				pak.WriteShort(zOffsetInTargetZone);
 				pak.WriteShort((ushort) obj.ObjectID);
 				pak.WriteShort((ushort) targetOID);
@@ -911,9 +912,9 @@ namespace DOL.GS.PacketHandler
 					pak.WriteShort((ushort) (obj as GameStaticItem).Emblem);
 				else pak.WriteShort(0);
 				pak.WriteShort(obj.Heading);
-				pak.WriteShort((ushort) obj.Z);
-				pak.WriteInt((uint) obj.X);
-				pak.WriteInt((uint) obj.Y);
+				pak.WriteShort((ushort) obj.Position.Z);
+				pak.WriteInt((uint) obj.Position.X);
+				pak.WriteInt((uint) obj.Position.Y);
 				int flag = ((byte) obj.Realm & 3) << 4;
 				ushort model = obj.Model;
 				if (obj.IsUnderwater)
@@ -1040,9 +1041,9 @@ namespace DOL.GS.PacketHandler
 				pak.WriteShort((ushort) npc.ObjectID);
 				pak.WriteShort((ushort) speed);
 				pak.WriteShort(npc.Heading);
-				pak.WriteShort((ushort) npc.Z);
-				pak.WriteInt((uint) npc.X);
-				pak.WriteInt((uint) npc.Y);
+				pak.WriteShort((ushort) npc.Position.Z);
+				pak.WriteInt((uint) npc.Position.X);
+				pak.WriteInt((uint) npc.Position.Y);
 				pak.WriteShort(speedZ);
 				pak.WriteShort(npc.Model);
 				pak.WriteByte(npc.Size);
@@ -2099,10 +2100,10 @@ namespace DOL.GS.PacketHandler
 				}
 
 				// Get Off Corrd
-				int offX = player.X - player.CurrentZone.XOffset;
-				int offY = player.Y - player.CurrentZone.YOffset;
+				float offX = player.Position.X - player.CurrentZone.XOffset;
+				float offY = player.Position.Y - player.CurrentZone.YOffset;
 
-				pak.WriteShort((ushort)player.Z);
+				pak.WriteShort((ushort)player.Position.Z);
 				pak.WriteShort((ushort)offX);
 				pak.WriteShort((ushort)offY);
 				
@@ -3078,7 +3079,7 @@ namespace DOL.GS.PacketHandler
 			}
 		}
 
-		public void SendChangeGroundTarget(Point3D newTarget)
+		public void SendChangeGroundTarget(Vector3 newTarget)
 		{
 			using (var pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.ChangeGroundTarget)))
 			{
@@ -3206,9 +3207,9 @@ namespace DOL.GS.PacketHandler
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.HouseCreate)))
 			{
 				pak.WriteShort((ushort) house.HouseNumber);
-				pak.WriteShort((ushort) house.Z);
-				pak.WriteInt((uint) house.X);
-				pak.WriteInt((uint) house.Y);
+				pak.WriteShort((ushort) house.Position.Z);
+				pak.WriteInt((uint) house.Position.X);
+				pak.WriteInt((uint) house.Position.Y);
 				pak.WriteShort((ushort) house.Heading);
 				pak.WriteShort((ushort) house.PorchRoofColor);
 				pak.WriteShort((ushort) house.GetPorchAndGuildEmblemFlags());
@@ -3242,9 +3243,9 @@ namespace DOL.GS.PacketHandler
 			using (var pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.HouseCreate)))
 			{
 				pak.WriteShort((ushort) house.HouseNumber);
-				pak.WriteShort((ushort) house.Z);
-				pak.WriteInt((uint) house.X);
-				pak.WriteInt((uint) house.Y);
+				pak.WriteShort((ushort) house.Position.Z);
+				pak.WriteInt((uint) house.Position.X);
+				pak.WriteInt((uint) house.Position.Y);
 				pak.Fill(0x00, 15);
 				pak.WriteByte(0x03);
 				pak.WritePascalString("");
@@ -3333,8 +3334,8 @@ namespace DOL.GS.PacketHandler
 			{
 				pak.WriteShort((ushort) house.HouseNumber);
 				pak.WriteShort(25000); //constant!
-				pak.WriteInt((uint) house.X);
-				pak.WriteInt((uint) house.Y);
+				pak.WriteInt((uint) house.Position.X);
+				pak.WriteInt((uint) house.Position.Y);
 				pak.WriteShort((ushort) house.Heading); //useless/ignored by client.
 				pak.WriteByte(0x00);
 				pak.WriteByte((byte) house.GetGuildEmblemFlags()); //emblem style
@@ -3504,9 +3505,9 @@ namespace DOL.GS.PacketHandler
 				pak.WriteShort((ushort) obj.ObjectID);
 				pak.WriteShort(0);
 				pak.WriteShort(obj.Heading);
-				pak.WriteShort((ushort) obj.Z);
-				pak.WriteInt((uint) obj.X);
-				pak.WriteInt((uint) obj.Y);
+				pak.WriteShort((ushort) obj.Position.Z);
+				pak.WriteInt((uint) obj.Position.X);
+				pak.WriteInt((uint) obj.Position.Y);
 				pak.WriteShort(obj.Model);
 				int flag = (obj.Type() | ((byte)obj.Realm == 3 ? 0x40 : (byte)obj.Realm << 4) | obj.GetDisplayLevel(m_gameClient.Player) << 9);
 				pak.WriteShort((ushort) flag); //(0x0002-for Ship,0x7D42-for catapult,0x9602,0x9612,0x9622-for ballista)
@@ -3605,21 +3606,10 @@ namespace DOL.GS.PacketHandler
 			using (var pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.SiegeWeaponAnimation)))
 			{
 				pak.WriteInt((uint) siegeWeapon.ObjectID);
-				pak.WriteInt(
-					(uint)
-					(siegeWeapon.TargetObject == null
-					 ? (siegeWeapon.GroundTarget == null ? 0 : siegeWeapon.GroundTarget.X)
-					 : siegeWeapon.TargetObject.X));
-				pak.WriteInt(
-					(uint)
-					(siegeWeapon.TargetObject == null
-					 ? (siegeWeapon.GroundTarget == null ? 0 : siegeWeapon.GroundTarget.Y)
-					 : siegeWeapon.TargetObject.Y));
-				pak.WriteInt(
-					(uint)
-					(siegeWeapon.TargetObject == null
-					 ? (siegeWeapon.GroundTarget == null ? 0 : siegeWeapon.GroundTarget.Z)
-					 : siegeWeapon.TargetObject.Z));
+				var pos = siegeWeapon.GroundTarget ?? siegeWeapon.TargetObject?.Position ?? Vector3.Zero;
+				pak.WriteInt((uint)pos.X);
+				pak.WriteInt((uint)pos.Y);
+				pak.WriteInt((uint)pos.Z);
 				pak.WriteInt((uint) (siegeWeapon.TargetObject == null ? 0 : siegeWeapon.TargetObject.ObjectID));
 				pak.WriteShort(siegeWeapon.Effect);
 				pak.WriteShort((ushort) (siegeWeapon.SiegeWeaponTimer.TimeUntilElapsed/100));
@@ -3636,9 +3626,9 @@ namespace DOL.GS.PacketHandler
 			using (var pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.SiegeWeaponAnimation)))
 			{
 				pak.WriteInt((uint) siegeWeapon.ObjectID);
-				pak.WriteInt((uint) (siegeWeapon.TargetObject == null ? 0 : siegeWeapon.TargetObject.X));
-				pak.WriteInt((uint) (siegeWeapon.TargetObject == null ? 0 : siegeWeapon.TargetObject.Y));
-				pak.WriteInt((uint) (siegeWeapon.TargetObject == null ? 0 : siegeWeapon.TargetObject.Z + 50));
+				pak.WriteInt((uint) (siegeWeapon.TargetObject == null ? 0 : siegeWeapon.TargetObject.Position.X));
+				pak.WriteInt((uint) (siegeWeapon.TargetObject == null ? 0 : siegeWeapon.TargetObject.Position.Y));
+				pak.WriteInt((uint) (siegeWeapon.TargetObject == null ? 0 : siegeWeapon.TargetObject.Position.Z + 50));
 				pak.WriteInt((uint) (siegeWeapon.TargetObject == null ? 0 : siegeWeapon.TargetObject.ObjectID));
 				pak.WriteShort(siegeWeapon.Effect);
 				pak.WriteShort((ushort) (timer/100));

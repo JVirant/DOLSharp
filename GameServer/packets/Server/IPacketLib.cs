@@ -19,7 +19,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Numerics;
 using DOL.AI.Brain;
 using DOL.Database;
 using DOL.GS.Housing;
@@ -741,7 +741,7 @@ namespace DOL.GS.PacketHandler
 		void SendConcentrationList();
 		void SendUpdateCraftingSkills();
 		void SendChangeTarget(GameObject newTarget);
-		void SendChangeGroundTarget(Point3D newTarget);
+		void SendChangeGroundTarget(Vector3 newTarget);
 		void SendPetWindow(GameLiving pet, ePetWindowAction windowAction, eAggressionState aggroState, eWalkState walkState);
 		void SendPlaySound(eSoundType soundType, ushort soundID);
 		void SendNPCsQuestEffect(GameNPC npc, eQuestIndicator indicator);

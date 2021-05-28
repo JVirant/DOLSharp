@@ -18,6 +18,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 using System.Threading;
 
@@ -176,9 +177,7 @@ namespace DOL.GS
 
 			Heading = (ushort)m_dbRelic.SpawnHeading;
 			CurrentRegionID = (ushort)m_dbRelic.SpawnRegion;
-			X = m_dbRelic.SpawnX;
-			Y = m_dbRelic.SpawnY;
-			Z = m_dbRelic.SpawnZ;
+			Position = new Vector3(m_dbRelic.SpawnX, m_dbRelic.SpawnY, m_dbRelic.SpawnZ);
 
 			SpawnHeading = m_dbRelic.SpawnHeading;
 			SpawnRegion = m_dbRelic.SpawnRegion;
@@ -211,9 +210,9 @@ namespace DOL.GS
 		{
 			m_dbRelic.SpawnHeading = Heading;
 			m_dbRelic.SpawnRegion = CurrentRegionID;
-			m_dbRelic.SpawnX = X;
-			m_dbRelic.SpawnY = Y;
-			m_dbRelic.SpawnZ = Z;
+			m_dbRelic.SpawnX = (int)Position.X;
+			m_dbRelic.SpawnY = (int)Position.Y;
+			m_dbRelic.SpawnZ = (int)Position.Z;
 
 			m_dbRelic.Effect = Effect;
 
@@ -512,9 +511,7 @@ namespace DOL.GS
 			}
 
 			if (ObjectState == eObjectState.Active) return 0;
-			X = SpawnX;
-			Y = SpawnY;
-			Z = SpawnZ;
+			Position = new Vector3(SpawnX, SpawnY, SpawnZ);
 			Heading = (ushort)SpawnHeading;
 			CurrentRegionID = (ushort)SpawnRegion;
 			XP = MinotaurRelicManager.MAX_RELIC_EXP;
@@ -530,9 +527,7 @@ namespace DOL.GS
 				respawntimer = null;
 			}
 			if (ObjectState == eObjectState.Active) return;
-			X = SpawnX;
-			Y = SpawnY;
-			Z = SpawnZ;
+			Position = new Vector3(SpawnX, SpawnY, SpawnZ);
 			Heading = (ushort)SpawnHeading;
 			CurrentRegionID = (ushort)SpawnRegion;
 			XP = MinotaurRelicManager.MAX_RELIC_EXP;
@@ -547,15 +542,13 @@ namespace DOL.GS
 		{
 			if (living == null) return;
 			CurrentRegionID = living.CurrentRegionID;
-			X = living.X;
-			Y = living.Y;
-			Z = living.Z;
+			Position = living.Position;
 			Heading = living.Heading;
 			foreach (GameClient clt in WorldMgr.GetClientsOfRegion(CurrentRegionID))
 			{
 				if (clt == null || clt.Player == null) continue;
 				if (XP > 0)
-					clt.Player.Out.SendMinotaurRelicMapUpdate((byte)RelicID, CurrentRegionID, X, Y, Z);
+					clt.Player.Out.SendMinotaurRelicMapUpdate((byte)RelicID, CurrentRegionID, (int)Position.X, (int)Position.Y, (int)Position.Z);
 				else
 					clt.Player.Out.SendMinotaurRelicMapRemove((byte)RelicID);
 			}
@@ -635,7 +628,7 @@ namespace DOL.GS
         {
             if (SpawnLocked)
             {
-                if (X == SpawnX && Y == SpawnY)
+                if ((int)Position.X == SpawnX && (int)Position.Y == SpawnY)
                 {
                     if (ProtectorClassType != string.Empty)
                     {

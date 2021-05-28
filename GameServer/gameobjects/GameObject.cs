@@ -32,6 +32,7 @@ using DOL.GS.PacketHandler;
 using DOL.GS.Utils;
 
 using log4net;
+using System.Numerics;
 
 namespace DOL.GS
 {
@@ -39,7 +40,7 @@ namespace DOL.GS
 	/// This class holds all information that
 	/// EVERY object in the game world needs!
 	/// </summary>
-	public abstract class GameObject : Point3D
+	public abstract class GameObject
 	{
 		/// <summary>
 		/// Defines a logger for this class.
@@ -96,6 +97,27 @@ namespace DOL.GS
 		#endregion
 
 		#region Position
+		public virtual Vector3 Position {get; set;}
+
+		[Obsolete("use Position.X")]
+		public float X
+		{
+			get => Position.X;
+			set => Position = new System.Numerics.Vector3(value, Position.Y, Position.Z);
+		}
+		[Obsolete("use Position.Y")]
+		public float Y
+		{
+			get => Position.Y;
+			set => Position = new System.Numerics.Vector3(Position.X, value, Position.Z);
+		}
+		[Obsolete("use Position.Z")]
+		public float Z
+		{
+			get => Position.Z;
+			set => Position = new System.Numerics.Vector3(Position.X, Position.Y, value);
+		}
+		
 
 		/// <summary>
 		/// The Object's current Region
@@ -166,7 +188,7 @@ namespace DOL.GS
 			{
 				if (m_CurrentRegion != null)
 				{
-					return m_CurrentRegion.GetZone(X, Y);
+					return m_CurrentRegion.GetZone(Position);
 				}
 				return null;
 			}
@@ -181,132 +203,39 @@ namespace DOL.GS
 			set { m_Heading = (ushort)(value & 0xFFF); }
 		}
 
-        /// <summary>
-        /// Calculates the heading this object needs to have to face the target spot
-        /// </summary>
-        /// <param name="tx">target x</param>
-        /// <param name="ty">target y</param>
-        /// <returns>the heading towards the target spot</returns>
-        [Obsolete( "Use GetHeading" )]
-        public ushort GetHeadingToSpot( int tx, int ty )
-        {
-            return GetHeading( new Point2D( tx, ty ) );
-        }
-
-        /// <summary>
-        /// Calculates the heading this object needs to have, to face the target
-        /// </summary>
-        /// <param name="target">IPoint3D target</param>
-        /// <returns>the heading towards the target</returns>
-        [Obsolete( "Use GetHeading" )]
-        public ushort GetHeadingToTarget( IPoint3D target )
-        {
-            return GetHeading( target );
-        }
-
-        /// <summary>
-        /// Returns the angle towards a target, clockwise
-        /// </summary>
-        /// <param name="target">the target</param>
-        /// <returns>the angle towards the target</returns>
-        [Obsolete( "Use GetAngle" )]
-        public float GetAngleToTarget( GameObject target )
-        {
-            return GetAngle( target );
-        }
-
-        [Obsolete( "Use GetAngle" )]
-        public float GetAngleToSpot( int x, int y )
-        {
-            return GetAngle( new Point2D( x, y ) );
-        }
-
-        [Obsolete( "Use GetPointFromHeading" )]
-        public void GetSpotFromHeading( int distance, out int tx, out int ty )
-        {
-            Point2D point = GetPointFromHeading( this.Heading, distance );
-            tx = point.X;
-            ty = point.Y;
-        }
-
 		/// <summary>
-		/// Returns the angle towards a target spot in degrees, clockwise
+		/// Get distance to a point (with z-axis adjustment)
 		/// </summary>
-		/// <param name="tx">target x</param>
-		/// <param name="ty">target y</param>
-		/// <returns>the angle towards the spot</returns>
-		public float GetAngle( IPoint2D point )
+		/// <remarks>
+		/// If either Z-value is zero, the z-axis is ignored
+		/// </remarks>
+		/// <param name="obj">Target</param>
+		/// <param name="Zfactor"></param>
+		/// <returns>Adjusted distance or int.MaxValue if distance cannot be calculated</returns>
+		public float GetDistanceTo(GameObject obj, float Zfactor)
 		{
-			float headingDifference = ( GetHeading( point ) & 0xFFF ) - ( this.Heading & 0xFFF );
-
-			if (headingDifference < 0)
-				headingDifference += 4096.0f;
-
-			return (headingDifference * 360.0f / 4096.0f);
+			if (CurrentRegionID != obj?.CurrentRegionID)
+				return float.MaxValue;
+			var diff = Position - obj.Position;
+			return (float)Math.Sqrt(diff.X * diff.X + diff.Y * diff.Y + diff.Z * diff.Z * Zfactor);
+		}
+		public float GetDistanceTo(GameObject obj)
+		{
+			if (CurrentRegionID == obj?.CurrentRegionID)
+				return Vector3.Distance(Position, obj.Position);
+			return float.MaxValue;
 		}
 
-        /// <summary>
-        /// Get distance to a point
-        /// </summary>
-        /// <remarks>
-        /// If either Z-value is zero, the z-axis is ignored
-        /// </remarks>
-        /// <param name="point">Target point</param>
-        /// <returns>Distance or int.MaxValue if distance cannot be calculated</returns>
-        public override int GetDistanceTo( IPoint3D point )
-        {
-			GameObject obj = point as GameObject;
-
-			if ( obj == null || this.CurrentRegionID == obj.CurrentRegionID )
-			{
-				return base.GetDistanceTo( point );
-			}
-			else
-			{
-				return int.MaxValue;
-			}
-        }
-
-        /// <summary>
-        /// Get distance to a point (with z-axis adjustment)
-        /// </summary>
-        /// <remarks>
-        /// If either Z-value is zero, the z-axis is ignored
-        /// </remarks>
-        /// <param name="point">Target point</param>
-        /// <param name="zfactor">Z-axis factor - use values between 0 and 1 to decrease the influence of Z-axis</param>
-        /// <returns>Adjusted distance or int.MaxValue if distance cannot be calculated</returns>
-        public override int GetDistanceTo( IPoint3D point, double zfactor )
-        {
-			GameObject obj = point as GameObject;
-
-			if ( obj == null || this.CurrentRegionID == obj.CurrentRegionID )
-			{
-				return base.GetDistanceTo( point, zfactor );
-			}
-			else
-			{
-				return int.MaxValue;
-			}
-        }
-
-		/// <summary>
-		/// Checks if an object is within a given radius, optionally ignoring z values
-		/// </summary>
-		/// <param name="obj">Target object</param>
-		/// <param name="radius">Radius</param>
-		/// <param name="ignoreZ">Ignore Z values</param>
-		/// <returns>False if the object is null, in a different region, or outside the radius; otherwise true</returns>
-		public bool IsWithinRadius(GameObject obj, int radius, bool ignoreZ = false)
-		{
-			if (obj == null)
-				return false;
-
-			if (this.CurrentRegionID != obj.CurrentRegionID)
-				return false;
-
-			return base.IsWithinRadius(obj, radius, ignoreZ);
-		}
+		public float GetDistanceTo(Vector3 target) => Vector3.Distance(Position, target);
+		public float GetDistance2DTo(Vector3 target) => Vector2.Distance(Position.ToVector2(), target.ToVector2());
+		public bool IsWithinRadius(GameObject target, float distance) => GameMath.IsWithinRadius(this, target, distance);
+		public bool IsWithinRadius(Vector3 target, float distance) => GameMath.IsWithinRadius(this, target, distance);
+		public bool IsWithinRadius2D(GameObject target, float distance) => GameMath.IsWithinRadius2D(this, target, distance);
+		public bool IsWithinRadius2D(Vector3 target, float distance) => GameMath.IsWithinRadius2D(this, target, distance);
+		public Vector2 GetPointFromHeading(ushort heading, float distance) => GameMath.GetPointFromHeading(Position, heading, distance);
+		public ushort GetHeading(GameObject target) => GameMath.GetHeading(Position, target.Position);
+		public ushort GetHeading(Vector3 target) => GameMath.GetHeading(Position, target);
+		public ushort GetHeading(Vector2 target) => GameMath.GetHeading(Position, target);
 
 		/// <summary>
 		/// determines wether a target object is front
@@ -320,15 +249,17 @@ namespace DOL.GS
 		{
 			if (target == null)
 				return false;
-			float angle = this.GetAngle(target);
+			float angle = GameMath.GetAngle(Position.ToVector2(), Heading, target.Position.ToVector2());
 			if (angle >= 360 - viewangle / 2 || angle < viewangle / 2)
 				return true;
+
+			// Dre: WTF?! This check has nothing to do here!
 			// if target is closer than 32 units it is considered always in view
 			// tested and works this way for normal evade, parry, block (in 1.69)
 			if (rangeCheck)
-                return this.IsWithinRadius( target, 32 );
-			else
-                return false;
+				return System.Numerics.Vector3.DistanceSquared(Position, target.Position) <= 32 * 32;
+
+			return false;
 		}
 
 		/// <summary>
@@ -344,35 +275,35 @@ namespace DOL.GS
 				if (CurrentRegion.ID == 163)
 				{
 					// Mount Collory
-					if ((Y > 664000) && (Y < 670000) && (X > 479000) && (X < 488000)) return false;
-					if ((Y > 656000) && (Y < 664000) && (X > 472000) && (X < 488000)) return false;
-					if ((Y > 624000) && (Y < 654000) && (X > 468500) && (X < 488000)) return false;
-					if ((Y > 659000) && (Y < 683000) && (X > 431000) && (X < 466000)) return false;
-					if ((Y > 646000) && (Y < 659001) && (X > 431000) && (X < 460000)) return false;
-					if ((Y > 624000) && (Y < 646001) && (X > 431000) && (X < 455000)) return false;
-					if ((Y > 671000) && (Y < 683000) && (X > 431000) && (X < 471000)) return false;
+					if ((Position.Y > 664000) && (Position.Y < 670000) && (Position.X > 479000) && (Position.X < 488000)) return false;
+					if ((Position.Y > 656000) && (Position.Y < 664000) && (Position.X > 472000) && (Position.X < 488000)) return false;
+					if ((Position.Y > 624000) && (Position.Y < 654000) && (Position.X > 468500) && (Position.X < 488000)) return false;
+					if ((Position.Y > 659000) && (Position.Y < 683000) && (Position.X > 431000) && (Position.X < 466000)) return false;
+					if ((Position.Y > 646000) && (Position.Y < 659001) && (Position.X > 431000) && (Position.X < 460000)) return false;
+					if ((Position.Y > 624000) && (Position.Y < 646001) && (Position.X > 431000) && (Position.X < 455000)) return false;
+					if ((Position.Y > 671000) && (Position.Y < 683000) && (Position.X > 431000) && (Position.X < 471000)) return false;
 					// Breifine
-					if ((Y > 558000) && (Y < 618000) && (X > 456000) && (X < 479000)) return false;
+					if ((Position.Y > 558000) && (Position.Y < 618000) && (Position.X > 456000) && (Position.X < 479000)) return false;
 					// Cruachan Gorge
-					if ((Y > 586000) && (Y < 618000) && (X > 360000) && (X < 424000)) return false;
-					if ((Y > 563000) && (Y < 578000) && (X > 360000) && (X < 424000)) return false;
+					if ((Position.Y > 586000) && (Position.Y < 618000) && (Position.X > 360000) && (Position.X < 424000)) return false;
+					if ((Position.Y > 563000) && (Position.Y < 578000) && (Position.X > 360000) && (Position.X < 424000)) return false;
 					// Emain Macha
-					if ((Y > 505000) && (Y < 555000) && (X > 428000) && (X < 444000)) return false;
+					if ((Position.Y > 505000) && (Position.Y < 555000) && (Position.X > 428000) && (Position.X < 444000)) return false;
 					// Hadrian's Wall
-					if ((Y > 500000) && (Y < 553000) && (X > 603000) && (X < 620000)) return false;
+					if ((Position.Y > 500000) && (Position.Y < 553000) && (Position.X > 603000) && (Position.X < 620000)) return false;
 					// Snowdonia
-					if ((Y > 633000) && (Y < 678000) && (X > 592000) && (X < 617000)) return false;
-					if ((Y > 662000) && (Y < 678000) && (X > 581000) && (X < 617000)) return false;
+					if ((Position.Y > 633000) && (Position.Y < 678000) && (Position.X > 592000) && (Position.X < 617000)) return false;
+					if ((Position.Y > 662000) && (Position.Y < 678000) && (Position.X > 581000) && (Position.X < 617000)) return false;
 					// Sauvage Forrest
-					if ((Y > 584000) && (Y < 615000) && (X > 626000) && (X < 681000)) return false;
+					if ((Position.Y > 584000) && (Position.Y < 615000) && (Position.X > 626000) && (Position.X < 681000)) return false;
 					// Uppland
-					if ((Y > 297000) && (Y < 353000) && (X > 610000) && (X < 652000)) return false;
+					if ((Position.Y > 297000) && (Position.Y < 353000) && (Position.X > 610000) && (Position.X < 652000)) return false;
 					// Yggdra
-					if ((Y > 408000) && (Y < 421000) && (X > 671000) && (X < 693000)) return false;
-					if ((Y > 364000) && (Y < 394000) && (X > 674000) && (X < 716000)) return false;
+					if ((Position.Y > 408000) && (Position.Y < 421000) && (Position.X > 671000) && (Position.X < 693000)) return false;
+					if ((Position.Y > 364000) && (Position.Y < 394000) && (Position.X > 674000) && (Position.X < 716000)) return false;
 				}
 
-				return Z < CurrentZone.Waterlevel;
+				return Position.Z < CurrentZone.Waterlevel;
 			}
 		}
 
@@ -384,7 +315,7 @@ namespace DOL.GS
 			get
 			{
 				if (CurrentZone != null)
-					return CurrentZone.GetAreasOfSpot(this);
+					return CurrentZone.GetAreasOfSpot(this.Position);
 				return new List<IArea>();
 			}
 			set { }
@@ -812,9 +743,7 @@ namespace DOL.GS
 			if (m_ObjectState == eObjectState.Active)
 				return false;
 			CurrentRegionID = regionID;
-			m_x = x;
-			m_y = y;
-			m_z = z;
+			Position = new Vector3(x, y, z);
 			m_Heading = heading;
 			return AddToWorld();
 		}
@@ -870,9 +799,9 @@ namespace DOL.GS
 		/// </summary>
 		/// <param name="loc"></param>
 		/// <returns></returns>
-		public virtual bool MoveTo(GameLocation loc)
+		public bool MoveTo(GameLocation loc)
 		{
-			return MoveTo(loc.RegionID, loc.X, loc.Y, loc.Z, loc.Heading);
+			return MoveTo(loc.RegionID, loc.Position.X, loc.Position.Y, loc.Position.Z, loc.Heading);
 		}
 
 		/// <summary>
@@ -885,7 +814,7 @@ namespace DOL.GS
 		/// <param name="z">new z</param>
 		/// <param name="heading">new heading</param>
 		/// <returns>true if moved</returns>
-		public virtual bool MoveTo(ushort regionID, int x, int y, int z, ushort heading)
+		public virtual bool MoveTo(ushort regionID, float x, float y, float z, ushort heading)
 		{
 			if (m_ObjectState != eObjectState.Active)
 				return false;
@@ -900,13 +829,12 @@ namespace DOL.GS
 
 			if (!RemoveFromWorld())
 				return false;
-			m_x = x;
-			m_y = y;
-			m_z = z;
+			Position = new Vector3(x, y, z);
 			m_Heading = heading;
 			CurrentRegionID = regionID;
 			return AddToWorld();
 		}
+		public bool MoveTo(ushort regionID, Vector3 pos, ushort heading) => MoveTo(regionID, pos, heading);
 
 		/// <summary>
 		/// Marks this object as deleted!
@@ -1249,7 +1177,7 @@ namespace DOL.GS
 			if (CurrentRegion != null)
 			{
 				//Eden - avoid server freeze
-				if (CurrentRegion.GetZone(X, Y) == null)
+				if (CurrentZone == null)
 				{
 					if (this is GamePlayer && (this as GamePlayer).Client.Account.PrivLevel < 3 && !(this as GamePlayer).TempProperties.getProperty("isbeingbanned", false))
 					{
@@ -1260,7 +1188,7 @@ namespace DOL.GS
 				}
 				else
 				{
-					return CurrentRegion.GetPlayersInRadius(X, Y, Z, radiusToCheck, withDistance, ignoreZ);
+					return CurrentRegion.GetPlayersInRadius(Position, radiusToCheck, withDistance, ignoreZ);
 				}
 			}
 			return new Region.EmptyEnumerator();
@@ -1309,7 +1237,7 @@ namespace DOL.GS
 			if (CurrentRegion != null)
 			{
 				//Eden - avoid server freeze
-				if (CurrentRegion.GetZone(X, Y) == null)
+				if (CurrentRegion.GetZone(Position) == null)
 				{
 					if (this is GamePlayer && !(this as GamePlayer).TempProperties.getProperty("isbeingbanned", false))
 					{
@@ -1320,7 +1248,7 @@ namespace DOL.GS
 				}
 				else
 				{
-					IEnumerable result = CurrentRegion.GetNPCsInRadius(X, Y, Z, radiusToCheck, withDistance, ignoreZ);
+					IEnumerable result = CurrentRegion.GetNPCsInRadius(Position, radiusToCheck, withDistance, ignoreZ);
 					return result;
 				}
 			}
@@ -1352,7 +1280,7 @@ namespace DOL.GS
 			if (CurrentRegion != null)
 			{
 				//Eden - avoid server freeze
-				if (CurrentRegion.GetZone(X, Y) == null)
+				if (CurrentRegion.GetZone(Position) == null)
 				{
 					if (this is GamePlayer && !(this as GamePlayer).TempProperties.getProperty("isbeingbanned", false))
 					{
@@ -1363,7 +1291,7 @@ namespace DOL.GS
 				}
 				else
 				{
-					return CurrentRegion.GetItemsInRadius(X, Y, Z, radiusToCheck, withDistance);
+					return CurrentRegion.GetItemsInRadius(Position, radiusToCheck, withDistance);
 				}
 			}
 			return new Region.EmptyEnumerator();
@@ -1391,7 +1319,7 @@ namespace DOL.GS
 			if (CurrentRegion != null)
 			{
 				//Eden : avoid server freeze
-				if (CurrentRegion.GetZone(X, Y) == null)
+				if (CurrentRegion.GetZone(Position) == null)
 				{
 					if (this is GamePlayer && !(this as GamePlayer).TempProperties.getProperty("isbeingbanned", false))
 					{
@@ -1402,7 +1330,7 @@ namespace DOL.GS
 				}
 				else
 				{
-					return CurrentRegion.GetDoorsInRadius(X, Y, Z, radiusToCheck, withDistance);
+					return CurrentRegion.GetDoorsInRadius(Position, radiusToCheck, withDistance);
 				}
 			}
 			return new Region.EmptyEnumerator();
@@ -1516,7 +1444,7 @@ namespace DOL.GS
 				.Append(" oid=").Append(ObjectID.ToString())
 				.Append(" state=").Append(ObjectState.ToString())
 				.Append(" reg=").Append(reg == null ? "null" : reg.ID.ToString())
-				.Append(" loc=").Append(X.ToString()).Append(',').Append(Y.ToString()).Append(',').Append(Z.ToString())
+				.Append(" loc=").Append(Position.X.ToString("F0")).Append(',').Append(Position.Y.ToString("F0")).Append(',').Append(Position.Z.ToString("F0"))
 				.ToString();
 		}
 

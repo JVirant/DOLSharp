@@ -45,9 +45,9 @@ namespace DOL.GS.Commands
 			relic.Realm = 0;
 			relic.Region = client.Player.CurrentRegionID;
 			relic.relicType = (args[1] == "strength") ? 0 : 1;
-			relic.X = client.Player.X;
-			relic.Y = client.Player.Y;
-			relic.Z = client.Player.Z;
+			relic.X = (int)client.Player.Position.X;
+			relic.Y = (int)client.Player.Position.Y;
+			relic.Z = (int)client.Player.Position.Z;
 			relic.RelicID = Util.Random(100);
 			GameServer.Database.AddObject(relic);
 			RelicMgr.Init();

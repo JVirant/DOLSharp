@@ -22,6 +22,7 @@ using DOL.Database;
 using DOL.Events;
 using DOL.Language;
 using DOL.GS.PacketHandler;
+using System.Numerics;
 
 namespace DOL.GS
 {
@@ -186,14 +187,23 @@ namespace DOL.GS
 		/// Checks wether given spot is within areas boundaries or not
 		/// </summary>
 		/// <param name="spot"></param>
+		/// <param name="checkZ"></param>
 		/// <returns></returns>
-		public abstract bool IsContaining(IPoint3D spot);
+		public abstract bool IsContaining(Vector3 spot, bool checkZ);
 
-		public abstract bool IsContaining(IPoint3D spot, bool checkZ);
+		public bool IsContaining(Vector3 spot)
+		{
+			return IsContaining(spot, true);
+		}
+		public bool IsContaining(float x, float y, float z, bool checkZ)
+		{
+			return IsContaining(new Vector3(x, y, z), checkZ);
+		}
+		public bool IsContaining(float x, float y, float z)
+		{
+			return IsContaining(new Vector3(x, y, z), true);
+		}
 
-		public abstract bool IsContaining(int x, int y, int z);
-
-		public abstract bool IsContaining(int x, int y, int z, bool checkZ);
 
 		/// <summary>
 		/// Called whenever a player leaves the given area

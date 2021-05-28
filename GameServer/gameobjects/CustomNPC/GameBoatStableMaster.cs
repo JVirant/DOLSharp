@@ -128,7 +128,7 @@ namespace DOL.GS
                     String destination = item.Name.Substring(LanguageMgr.GetTranslation(ServerProperties.Properties.DB_LANGUAGE, "GameStableMaster.ReceiveItem.TicketTo").Length);
 					PathPoint path = MovementMgr.LoadPath(item.Id_nb);
 					//PathPoint path = MovementMgr.Instance.LoadPath(this.Name + "=>" + destination);
-                    if ((path != null) && ((Math.Abs(path.X - this.X)) < 500) && ((Math.Abs(path.Y - this.Y)) < 500))
+                    if ((path != null) && IsWithinRadius2D(path.Position, 500))
 					{
 						player.Inventory.RemoveCountFromStack(item, 1);
                         InventoryLogging.LogInventoryAction(player, this, eInventoryActionType.Merchant, item.Template);
@@ -136,11 +136,9 @@ namespace DOL.GS
 						GameTaxiBoat boat = new GameTaxiBoat();
 						boat.Name = "Boat to " + destination;
 						boat.Realm = source.Realm;
-						boat.X = path.X;
-						boat.Y = path.Y;
-						boat.Z = path.Z;
+						boat.Position = path.Position;
 						boat.CurrentRegion = CurrentRegion;
-                        boat.Heading = path.GetHeading( path.Next );
+                        boat.Heading = GameMath.GetHeading(path.Position, path.Next.Position);
 						boat.AddToWorld();
 						boat.CurrentWayPoint = path;
 						GameEventMgr.AddHandler(boat, GameNPCEvent.PathMoveEnds, new DOLEventHandler(OnHorseAtPathEnd));

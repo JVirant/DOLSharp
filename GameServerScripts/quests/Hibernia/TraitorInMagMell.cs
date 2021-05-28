@@ -153,9 +153,7 @@ namespace DOL.GS.Quests.Hibernia
 				ladyLegada.CurrentRegionID = legadaStart.RegionID;
 				ladyLegada.Size = 50;
 				ladyLegada.Level = 30;
-				ladyLegada.X = legadaStart.X;
-				ladyLegada.Y = legadaStart.Y;
-				ladyLegada.Z = legadaStart.Z;
+				ladyLegada.Position = legadaStart.Position;
 				ladyLegada.Heading = legadaStart.Heading;
 
 				StandardMobBrain brain = new StandardMobBrain();
@@ -438,7 +436,7 @@ namespace DOL.GS.Quests.Hibernia
 				InventoryItem item = player.Inventory.GetItem((eInventorySlot)uArgs.Slot);
 				if (item != null && item.Id_nb == necklaceOfDoppelganger.Id_nb)
 				{
-					if (player.IsWithinRadius( legadaEnd, 2500 ))
+					if (player.IsWithinRadius( legadaEnd.Position, 2500 ))
 					{
 						foreach (GamePlayer visPlayer in player.GetPlayersInRadius(WorldMgr.VISIBILITY_DISTANCE))
 						{
@@ -451,12 +449,10 @@ namespace DOL.GS.Quests.Hibernia
 
 						if (!ladyLegada.IsAlive || ladyLegada.ObjectState != GameObject.eObjectState.Active)
 						{
-							ladyLegada.X = legadaStart.X;
-							ladyLegada.Y = legadaStart.Y;
-							ladyLegada.Z = legadaStart.Z;
+							ladyLegada.Position = legadaStart.Position;
 							ladyLegada.Heading = legadaStart.Heading;
 							ladyLegada.AddToWorld();
-							ladyLegada.WalkTo(legadaEnd.X, legadaEnd.Y, legadaEnd.Z, ladyLegada.MaxSpeed);
+							ladyLegada.WalkTo(legadaEnd.Position, ladyLegada.MaxSpeed);
 						}
 						quest.Step = 3;
 					}
@@ -478,9 +474,7 @@ namespace DOL.GS.Quests.Hibernia
 
 				if (quest.Step == 3 && (!ladyLegada.IsAlive || ladyLegada.ObjectState != GameObject.eObjectState.Active))
 				{
-					ladyLegada.X = legadaEnd.X;
-					ladyLegada.Y = legadaEnd.Y;
-					ladyLegada.Z = legadaEnd.Z;
+					ladyLegada.Position = legadaEnd.Position;
 					ladyLegada.Heading = legadaEnd.Heading;
 					ladyLegada.AddToWorld();
 				}

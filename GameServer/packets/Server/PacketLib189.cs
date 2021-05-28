@@ -418,9 +418,9 @@ namespace DOL.GS.PacketHandler
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.HouseCreate)))
 			{
 				pak.WriteShort((ushort)house.HouseNumber);
-				pak.WriteShort((ushort)house.Z);
-				pak.WriteInt((uint)house.X);
-				pak.WriteInt((uint)house.Y);
+				pak.WriteShort((ushort)house.Position.Z);
+				pak.WriteInt((uint)house.Position.X);
+				pak.WriteInt((uint)house.Position.Y);
 				pak.WriteShort((ushort)house.Heading);
 				pak.WriteShort((ushort)house.PorchRoofColor);
 				int flagPorchAndGuildEmblem = (house.Emblem & 0x010000) >> 13;//new Guild Emblem
@@ -519,8 +519,8 @@ namespace DOL.GS.PacketHandler
 			{
 				pak.WriteShort((ushort)house.HouseNumber);
 				pak.WriteShort((ushort)25000);         //constant!
-				pak.WriteInt((uint)house.X);
-				pak.WriteInt((uint)house.Y);
+				pak.WriteInt((uint)house.Position.X);
+				pak.WriteInt((uint)house.Position.Y);
 				pak.WriteShort((ushort)house.Heading); //useless/ignored by client.
 				pak.WriteByte(0x00);
 				pak.WriteByte((byte)(house.GetGuildEmblemFlags() | (house.Emblem & 0x010000) >> 14));//new Guild Emblem

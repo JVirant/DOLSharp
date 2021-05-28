@@ -549,9 +549,9 @@ namespace DOL.GS
 					teleport.TeleportID = "personal";
 					teleport.Realm = (int)player.Realm;
 					teleport.RegionID = location.RegionID;
-					teleport.X = location.X;
-					teleport.Y = location.Y;
-					teleport.Z = location.Z;
+					teleport.X = (int)location.Position.X;
+					teleport.Y = (int)location.Position.Y;
+					teleport.Z = (int)location.Position.Z;
 					teleport.Heading = location.Heading;
 					return teleport;
 				}
@@ -634,9 +634,9 @@ namespace DOL.GS
 					teleport.TeleportID = "guild house";
 					teleport.Realm = (int)player.Realm;
 					teleport.RegionID = location.RegionID;
-					teleport.X = location.X;
-					teleport.Y = location.Y;
-					teleport.Z = location.Z;
+					teleport.X = (int)location.Position.X;
+					teleport.Y = (int)location.Position.Y;
+					teleport.Z = (int)location.Position.Z;
 					teleport.Heading = location.Heading;
 					return teleport;
 				}

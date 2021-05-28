@@ -38,7 +38,7 @@ namespace DOL.GS.Commands
 				DisplayMessage(client, (LanguageMgr.GetTranslation(client.Account.Language, "Scripts.Players.Range.NeedTarget")));
 			else if (living == null || (living != null && client.Account.PrivLevel > 1))
 			{
-				int range = client.Player.GetDistanceTo( client.Player.TargetObject );
+				var range = client.Player.GetDistanceTo(client.Player.TargetObject.Position);
 				DisplayMessage(client, LanguageMgr.GetTranslation(client.Account.Language, "Scripts.Players.Range.Result", range, (client.Player.TargetInView ? "" : LanguageMgr.GetTranslation(client.Account.Language, "Scripts.Players.Range.NotVisible"))));
 			}
 			else

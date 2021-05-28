@@ -1502,8 +1502,7 @@ namespace DOL.GS.Commands
                                 player.Health = player.MaxHealth;
                                 player.Mana = player.MaxMana;
                                 player.Endurance = player.MaxEndurance;
-                                player.MoveTo(client.Player.CurrentRegionID, client.Player.X, client.Player.Y, client.Player.Z,
-                                              client.Player.Heading);
+                                player.MoveTo(client.Player.CurrentRegionID, client.Player.Position, client.Player.Heading);
 
                                 client.Out.SendMessage("You resurrected " + player.Name + " successfully!", eChatType.CT_Important,
                                                        eChatLoc.CL_SystemWindow);
@@ -1536,8 +1535,7 @@ namespace DOL.GS.Commands
                                                 aplayer.Player.Health = aplayer.Player.MaxHealth;
                                                 aplayer.Player.Mana = aplayer.Player.MaxMana;
                                                 aplayer.Player.Endurance = aplayer.Player.MaxEndurance;
-                                                aplayer.Player.MoveTo(client.Player.CurrentRegionID, client.Player.X, client.Player.Y, client.Player.Z,
-                                                                      client.Player.Heading);
+                                                aplayer.Player.MoveTo(client.Player.CurrentRegionID, client.Player.Position, client.Player.Heading);
 
                                                 aplayer.Player.StopReleaseTimer();
                                                 aplayer.Player.Out.SendPlayerRevive(aplayer.Player);
@@ -1559,8 +1557,7 @@ namespace DOL.GS.Commands
                                                 hplayer.Player.Health = hplayer.Player.MaxHealth;
                                                 hplayer.Player.Mana = hplayer.Player.MaxMana;
                                                 hplayer.Player.Endurance = hplayer.Player.MaxEndurance;
-                                                hplayer.Player.MoveTo(client.Player.CurrentRegionID, client.Player.X, client.Player.Y, client.Player.Z,
-                                                                      client.Player.Heading);
+                                                hplayer.Player.MoveTo(client.Player.CurrentRegionID, client.Player.Position, client.Player.Heading);
 
                                                 hplayer.Player.StopReleaseTimer();
                                                 hplayer.Player.Out.SendPlayerRevive(hplayer.Player);
@@ -1582,8 +1579,7 @@ namespace DOL.GS.Commands
                                                 mplayer.Player.Health = mplayer.Player.MaxHealth;
                                                 mplayer.Player.Mana = mplayer.Player.MaxMana;
                                                 mplayer.Player.Endurance = mplayer.Player.MaxEndurance;
-                                                mplayer.Player.MoveTo(client.Player.CurrentRegionID, client.Player.X, client.Player.Y, client.Player.Z,
-                                                                      client.Player.Heading);
+                                                mplayer.Player.MoveTo(client.Player.CurrentRegionID, client.Player.Position, client.Player.Heading);
 
                                                 mplayer.Player.StopReleaseTimer();
                                                 mplayer.Player.Out.SendPlayerRevive(mplayer.Player);
@@ -1605,8 +1601,7 @@ namespace DOL.GS.Commands
                                             selfplayer.Health = selfplayer.MaxHealth;
                                             selfplayer.Mana = selfplayer.MaxMana;
                                             selfplayer.Endurance = selfplayer.MaxEndurance;
-                                            selfplayer.MoveTo(client.Player.CurrentRegionID, client.Player.X, client.Player.Y, client.Player.Z,
-                                                              client.Player.Heading);
+                                            selfplayer.MoveTo(client.Player.CurrentRegionID, client.Player.Position, client.Player.Heading);
 
                                             selfplayer.Out.SendMessage("You revive yourself.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 
@@ -1632,8 +1627,7 @@ namespace DOL.GS.Commands
                                                 allplayer.Player.Health = allplayer.Player.MaxHealth;
                                                 allplayer.Player.Mana = allplayer.Player.MaxMana;
                                                 allplayer.Player.Endurance = allplayer.Player.MaxEndurance;
-                                                allplayer.Player.MoveTo(client.Player.CurrentRegionID, client.Player.X, client.Player.Y, client.Player.Z,
-                                                                        client.Player.Heading);
+                                                allplayer.Player.MoveTo(client.Player.CurrentRegionID, client.Player.Position, client.Player.Heading);
 
                                                 allplayer.Player.StopReleaseTimer();
                                                 allplayer.Player.Out.SendPlayerRevive(allplayer.Player);
@@ -1806,8 +1800,7 @@ namespace DOL.GS.Commands
                                         if (pname.Player.GuildName == guild && guild != "")
                                         {
                                             count++;
-                                            pname.Player.MoveTo(client.Player.CurrentRegionID, client.Player.X, client.Player.Y, client.Player.Z,
-                                                                client.Player.Heading);
+                                            pname.Player.MoveTo(client.Player.CurrentRegionID, client.Player.Position, client.Player.Heading);
                                         }
                                     }
 
@@ -1833,8 +1826,7 @@ namespace DOL.GS.Commands
                                         {
                                             foreach (GameLiving groupedplayers in pname.Player.Group.GetMembersInTheGroup())
                                             {
-                                                groupedplayers.MoveTo(client.Player.CurrentRegionID, client.Player.X, client.Player.Y, client.Player.Z,
-                                                                      client.Player.Heading);
+                                                groupedplayers.MoveTo(client.Player.CurrentRegionID, client.Player.Position, client.Player.Heading);
                                                 count++;
                                             }
                                         }
@@ -1863,8 +1855,7 @@ namespace DOL.GS.Commands
                                         {
                                             foreach (GamePlayer cgplayers in cg.Members.Keys)
                                             {
-                                                cgplayers.MoveTo(client.Player.CurrentRegionID, client.Player.X, client.Player.Y, client.Player.Z,
-                                                                 client.Player.Heading);
+                                                cgplayers.MoveTo(client.Player.CurrentRegionID, client.Player.Position, client.Player.Heading);
                                                 count++;
                                             }
                                         }
@@ -1894,8 +1885,7 @@ namespace DOL.GS.Commands
                                         {
                                             foreach (GamePlayer cgplayers in cg.Members.Keys)
                                             {
-                                                cgplayers.MoveTo(client.Player.CurrentRegionID, client.Player.X, client.Player.Y, client.Player.Z,
-                                                                 client.Player.Heading);
+                                                cgplayers.MoveTo(client.Player.CurrentRegionID, client.Player.Position, client.Player.Heading);
                                                 count++;
                                             }
                                         }
@@ -2014,9 +2004,9 @@ namespace DOL.GS.Commands
 
                         client.Out.SendMessage("\"" + player.Name + "\", " +
                                                player.CurrentRegionID + ", " +
-                                               player.X + ", " +
-                                               player.Y + ", " +
-                                               player.Z + ", " +
+                                               player.Position.X.ToString("F0") + ", " +
+                                               player.Position.Y.ToString("F0") + ", " +
+                                               player.Position.Z.ToString("F0") + ", " +
                                                player.Heading,
                                                eChatType.CT_System, eChatLoc.CL_SystemWindow);
                     }

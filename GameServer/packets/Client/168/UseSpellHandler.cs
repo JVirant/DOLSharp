@@ -19,6 +19,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Reflection;
 using log4net;
 
@@ -42,9 +43,10 @@ namespace DOL.GS.PacketHandler.Client.v168
 			int spellLineIndex;
 			if (client.Version >= GameClient.eClientVersion.Version1124)
 			{
-				client.Player.X = (int)packet.ReadFloatLowEndian();
-				client.Player.Y = (int)packet.ReadFloatLowEndian();
-				client.Player.Z = (int)packet.ReadFloatLowEndian();
+				var x = packet.ReadFloatLowEndian();
+				var y = packet.ReadFloatLowEndian();
+				var z = packet.ReadFloatLowEndian();
+				client.Player.Position = new Vector3(x, y, z);
 				client.Player.CurrentSpeed = (short)packet.ReadFloatLowEndian();
 				client.Player.Heading = packet.ReadShort();
 				flagSpeedData = packet.ReadShort(); // target visible ? 0xA000 : 0x0000
@@ -71,9 +73,7 @@ namespace DOL.GS.PacketHandler.Client.v168
 					}
 					else
 					{
-						client.Player.X = newZone.XOffset + xOffsetInZone;
-						client.Player.Y = newZone.YOffset + yOffsetInZone;
-						client.Player.Z = realZ;
+						client.Player.Position = new Vector3(newZone.XOffset + xOffsetInZone, newZone.YOffset + yOffsetInZone, realZ);
 						client.Player.MovementStartTick = Environment.TickCount;
 					}
 				}

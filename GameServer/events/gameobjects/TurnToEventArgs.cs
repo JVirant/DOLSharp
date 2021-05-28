@@ -25,15 +25,15 @@ namespace DOL.Events
 	/// </summary>
 	public class TurnToEventArgs : EventArgs
 	{
-		private int x;
-		private int y;
+		private float x;
+		private float y;
 
 		/// <summary>
 		/// Constructs a new TurnToEventArgs
 		/// </summary>
 		/// <param name="x">the target x</param>
 		/// <param name="y">the target y</param>
-		public TurnToEventArgs(int x, int y)
+		public TurnToEventArgs(float x, float y)
 		{
 			this.x=x;
 			this.y=y;
@@ -42,7 +42,7 @@ namespace DOL.Events
 		/// <summary>
 		/// Gets the target X
 		/// </summary>
-		public int X
+		public float X
 		{
 			get { return x; }
 		}		
@@ -50,7 +50,7 @@ namespace DOL.Events
 		/// <summary>
 		/// Gets the target Y
 		/// </summary>
-		public int Y
+		public float Y
 		{
 			get { return y; }
 		}

@@ -193,7 +193,7 @@ namespace DOL.GS.GameEvents
 											PathPoint path = MovementMgr.LoadPath(npc.PathID);
 											if (path != null)
 											{
-												var p = path.GetNearestNextPoint(npc);
+												var p = path.GetNearestNextPoint(npc.Position);
 												npc.CurrentWayPoint = p;
 												npc.MoveOnPath((short)p.MaxSpeed);
 											}
@@ -205,14 +205,14 @@ namespace DOL.GS.GameEvents
 										}
 										catch(Exception e)
 										{
-											log.Error("Can't restart Brain in RegionTimerResynch, NPC Name = "+npc.Name+" X="+npc.X+"/Y="+npc.Y+"/Z="+npc.Z+"/R="+npc.CurrentRegion.ID+" "+e);
+											log.Error("Can't restart Brain in RegionTimerResynch, NPC Name = "+npc.Name+" Position="+npc.Position.ToString("F0")+"/R="+npc.CurrentRegion.ID+" "+e);
 											try
 											{
 												npc.Die(null);
 											}
 											catch(Exception ee)
 											{
-												log.Error("Can't restart Brain and Kill NPC in RegionTimerResynch, NPC Name = "+npc.Name+" X="+npc.X+"/Y="+npc.Y+"/Z="+npc.Z+"/R="+npc.CurrentRegion.ID+" "+ee);
+												log.Error("Can't restart Brain and Kill NPC in RegionTimerResynch, NPC Name = "+npc.Name+ " Position=" + npc.Position.ToString("F0") + "/R="+npc.CurrentRegion.ID+" "+ee);
 											}
 										}
 									}

@@ -290,7 +290,7 @@ namespace DOL.GS.Quests.Albion
 
 			#endregion
 
-			fairyArea = WorldMgr.GetRegion(fairyLocation.RegionID).AddArea(new Area.Circle("Fairy contamined Area", fairyLocation.X, fairyLocation.Y, 0, 1500));
+			fairyArea = WorldMgr.GetRegion(fairyLocation.RegionID).AddArea(new Area.Circle("Fairy contamined Area", fairyLocation.Position, 1500));
 			fairyArea.RegisterPlayerEnter(new DOLEventHandler(PlayerEnterFairyArea));
 
 			/* Now we add some hooks to the npc we found.

@@ -26,6 +26,7 @@ using DOL.Database;
 using DOL.GS.Spells;
 
 using log4net;
+using System.Numerics;
 
 namespace DOL.GS
 {
@@ -227,10 +228,8 @@ namespace DOL.GS
 		{
 			WorldInventoryItem worldItem = new WorldInventoryItem(this);
 
-			Point2D itemloc = player.GetPointFromHeading(player.Heading, 30);
-			worldItem.X = itemloc.X;
-			worldItem.Y = itemloc.Y;
-			worldItem.Z = player.Z;
+			var itemloc = GameMath.GetPointFromHeading(player.Position, player.Heading, 30);
+			worldItem.Position = new Vector3(itemloc, player.Position.Z);
 			worldItem.Heading = player.Heading;
 			worldItem.CurrentRegionID = player.CurrentRegionID;
 

@@ -30,6 +30,7 @@ using log4net;
 
 using DOL.GS;
 using DOL.Database;
+using System.Numerics;
 
 namespace DOL.GS
 {
@@ -419,7 +420,7 @@ namespace DOL.GS
 		/// <param name="p"></param>
 		/// <param name="checkZ"></param>
 		/// <returns></returns>
-		public override IList<IArea> GetAreasOfZone(Zone zone, IPoint3D p, bool checkZ)
+		public override IList<IArea> GetAreasOfZone(Zone zone, Vector3 p, bool checkZ)
 		{
 			Zone checkZone = zone;
 			var areas = new List<IArea>();

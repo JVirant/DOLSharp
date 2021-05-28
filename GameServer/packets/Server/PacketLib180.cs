@@ -157,11 +157,11 @@ namespace DOL.GS.PacketHandler
 				pak.WriteShort((ushort)playerToCreate.Client.SessionID);
 				pak.WriteShort((ushort)playerToCreate.ObjectID);
 				pak.WriteShort(playerToCreate.Model);
-				pak.WriteShort((ushort)playerToCreate.Z);
+				pak.WriteShort((ushort)playerToCreate.Position.Z);
 				//Dinberg:Instances - send out the 'fake' zone ID to the client for positioning purposes.
 				pak.WriteShort(playerZone.ZoneSkinID);
-				pak.WriteShort((ushort)playerRegion.GetXOffInZone(playerToCreate.X, playerToCreate.Y));
-				pak.WriteShort((ushort)playerRegion.GetYOffInZone(playerToCreate.X, playerToCreate.Y));
+				pak.WriteShort((ushort)playerRegion.GetXOffInZone(playerToCreate.Position.X, playerToCreate.Position.Y));
+				pak.WriteShort((ushort)playerRegion.GetYOffInZone(playerToCreate.Position.X, playerToCreate.Position.Y));
 				pak.WriteShort(playerToCreate.Heading);
 	
 				pak.WriteByte(playerToCreate.GetFaceAttribute(eCharFacePart.EyeSize)); //1-4 = Eye Size / 5-8 = Nose Size

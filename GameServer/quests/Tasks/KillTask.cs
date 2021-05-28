@@ -249,9 +249,7 @@ namespace DOL.GS.Quests
 							}
 							droppeditem.Name = itemdrop.Name;
 							droppeditem.Level = 1;
-							droppeditem.X = target.X;
-							droppeditem.Y = target.Y;
-							droppeditem.Z = target.Z;
+							droppeditem.Position = target.Position;
 							droppeditem.CurrentRegion = target.CurrentRegion;
 							droppeditem.AddToWorld();
 							if (dropMessages.Count > 0)

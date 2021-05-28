@@ -112,16 +112,14 @@ namespace DOL.GS
 
 			_hookedItem = hookedItem;
 
-			IPoint3D position = house.GetHookpointLocation(hookedItem.HookpointID);
+			var position = house.GetHookpointLocation(hookedItem.HookpointID);
 			if (position == null)
 				return false;
 
 			CurrentHouse = house;
 			CurrentRegionID = house.RegionID;
 			InHouse = true;
-			X = position.X;
-			Y = position.Y;
-			Z = position.Z;
+			Position = position.Value;
 			Heading = (ushort) (hookedItem.Heading%4096);
 			AddToWorld();
 

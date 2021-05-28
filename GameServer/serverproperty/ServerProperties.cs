@@ -824,8 +824,8 @@ namespace DOL.GS.ServerProperties
 		/// <summary>
 		/// Line of Sight Manager Contamination Z-Factor in range checks
 		/// </summary>
-		[ServerProperty("world", "losmgr_contamination_zfactor", "Line of Sight (LoS) Manager Contamination will use this to lower or raise the Z checks when updating LoS checks. 0 = Z must be exact, 1 = Z range is radius.", 0.5)]
-		public static double LOSMGR_CONTAMINATION_ZFACTOR;
+		[ServerProperty("world", "losmgr_contamination_zfactor", "Line of Sight (LoS) Manager Contamination will use this to lower or raise the Z checks when updating LoS checks. 0 = Z must be exact, 1 = Z range is radius.", 0.5f)]
+		public static float LOSMGR_CONTAMINATION_ZFACTOR;
 
 		/// <summary>
 		/// Property to cause beneficial spells to target the caster if current target isn't valid

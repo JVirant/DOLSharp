@@ -46,21 +46,21 @@ namespace DOL.GS
 						Say("Instance is currently null.");
 					else
 					{
-						int x = 32361;
-						int y = 31744;
-						int z = 16003;
+						float x = 32361;
+						float y = 31744;
+						float z = 16003;
 						ushort heading = 1075;
 
 						if (m_instance.InstanceEntranceLocation != null)
 						{
-							x = m_instance.InstanceEntranceLocation.X;
-							y = m_instance.InstanceEntranceLocation.Y;
-							z = m_instance.InstanceEntranceLocation.Z;
+							x = m_instance.InstanceEntranceLocation.Position.X;
+							y = m_instance.InstanceEntranceLocation.Position.Y;
+							z = m_instance.InstanceEntranceLocation.Position.Z;
 							heading = m_instance.InstanceEntranceLocation.Heading;
 						}
 
 						// save current position so player can use /instance exit
-						GameLocation saveLocation = new GameLocation(source.Name + "_exit", source.CurrentRegionID, source.X, source.Y, source.Z);
+						GameLocation saveLocation = new GameLocation(source.Name + "_exit", source.CurrentRegionID, source.Position, source.Heading);
 						source.TempProperties.setProperty(saveLocation.Name, saveLocation);
 
 						Say("Instance ID " + m_instance.ID + ", Skin: " + m_instance.Skin + ", with " + m_instance.Zones.Count + " zones inside the region.");
@@ -69,7 +69,7 @@ namespace DOL.GS
 						{
 							Say("Source could not be moved to instance entrance; MoveTo returned false.  Now trying to move to current location inside the instance.");
 
-							if (!source.MoveTo(m_instance.ID, source.X, source.Y, source.Z, source.Heading))
+							if (!source.MoveTo(m_instance.ID, source.Position, source.Heading))
 							{
 								Say("Sorry, that failed as well.");
 							}

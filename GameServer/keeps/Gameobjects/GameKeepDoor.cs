@@ -18,6 +18,7 @@
  */
 using System;
 using System.Collections;
+using System.Numerics;
 using System.Reflection;
 
 using DOL.Database;
@@ -271,11 +272,11 @@ namespace DOL.GS.Keeps
 			set { m_component = value; }
 		}
 
-		protected DBKeepPosition m_position;
-		public DBKeepPosition Position
+		protected DBKeepPosition m_dbposition;
+		public DBKeepPosition DBPosition
 		{
-			get { return m_position; }
-			set { m_position = value; }
+			get { return m_dbposition; }
+			set { m_dbposition = value; }
 		}
 
 		#endregion
@@ -405,7 +406,7 @@ namespace DOL.GS.Keeps
 
 			if (!GameServer.KeepManager.IsEnemy(this, player) || player.Client.Account.PrivLevel != 1)
 			{
-				int keepz = Z, distance = 0;
+				float keepz = Position.Z, distance = 0;
 
 				//calculate distance
 				//normal door
@@ -424,7 +425,7 @@ namespace DOL.GS.Keeps
 					{
 						if (DoorID == 1)
 						{
-							keepz = Z + 83;
+							keepz = Position.Z + 83;
 						}
 						else
 						{
@@ -439,33 +440,33 @@ namespace DOL.GS.Keeps
 					{
 						//To find out if a door is the keeps inner door, we compare the distance between
 						//the component for the keep and the component for the gate
-						int keepdistance = int.MaxValue;
-						int gatedistance = int.MaxValue;
+						var keepdistance = float.MaxValue;
+						var gatedistance = float.MaxValue;
 						foreach (GameKeepComponent c in Component.Keep.KeepComponents)
 						{
 							if ((GameKeepComponent.eComponentSkin)c.Skin == GameKeepComponent.eComponentSkin.Keep)
 							{
-								keepdistance = GetDistanceTo(c);
+								keepdistance = Vector3.Distance(Position, c.Position);
 							}
 							if ((GameKeepComponent.eComponentSkin)c.Skin == GameKeepComponent.eComponentSkin.Gate)
 							{
-								gatedistance = GetDistanceTo(c);
+								gatedistance = Vector3.Distance(Position, c.Position);
 							}
 							//when these are filled we can stop the search
 							if (keepdistance != int.MaxValue && gatedistance != int.MaxValue)
 								break;
 						}
 						if (DoorIndex == 1 && keepdistance < gatedistance)
-							keepz = Z + 92;//checked in game with lvl 1 keep
+							keepz = Position.Z + 92;//checked in game with lvl 1 keep
 					}
 				}
 
-                Point2D keepPoint;
+                Vector2 keepPoint;
 				//calculate x y
 				if (IsObjectInFront(player, 180, false))
-					keepPoint = GetPointFromHeading( this.Heading, -distance );
+					keepPoint = GameMath.GetPointFromHeading(Position, Heading, -distance);
 				else
-					keepPoint = GetPointFromHeading( this.Heading, distance );
+					keepPoint = GameMath.GetPointFromHeading(Position, Heading, distance);
 
 				//move player
 				player.MoveTo(CurrentRegionID, keepPoint.X, keepPoint.Y, keepz, player.Heading);
@@ -573,7 +574,7 @@ namespace DOL.GS.Keeps
 			}
 
 			Component = null;
-			Position = null;
+			DBPosition = null;
 			base.Delete();
 			CurrentRegion = null;
 		}
@@ -615,9 +616,7 @@ namespace DOL.GS.Keeps
 			this.CurrentRegion = curZone.ZoneRegion;
 			m_name = door.Name;
 			m_Heading = (ushort)door.Heading;
-			m_x = door.X;
-			m_y = door.Y;
-			m_z = door.Z;
+			Position = new Vector3(door.X, door.Y, door.Z);
 			m_level = 0;
 			m_model = 0xFFFF;
 			m_doorID = door.InternalID;
@@ -704,7 +703,7 @@ namespace DOL.GS.Keeps
 			int componentID = m_component.ID;
 
 			//index not sure yet
-			int doorIndex = this.Position.TemplateType;
+			int doorIndex = this.DBPosition.TemplateType;
 			int id = 0;
 			//add door type
 			id += doortype * 100000000;

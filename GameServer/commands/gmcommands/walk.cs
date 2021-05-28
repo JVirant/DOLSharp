@@ -17,6 +17,7 @@
  *
  */
 using System;
+using System.Numerics;
 using DOL.GS.PacketHandler;
 
 namespace DOL.GS.Commands
@@ -79,7 +80,7 @@ namespace DOL.GS.Commands
 				return;
 			}
 
-			targetNPC.WalkTo((targetNPC.X + xoff), (targetNPC.Y + yoff), (targetNPC.Z + zoff), speed);
+			targetNPC.WalkTo(targetNPC.Position + new Vector3(xoff, yoff, zoff), speed);
 		}
 	}
 }

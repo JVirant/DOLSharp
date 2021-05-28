@@ -98,9 +98,7 @@ namespace DOL.GS.Commands
 							return;
 						}
 						//Fill the object variables
-						merchant.X = client.Player.X;
-						merchant.Y = client.Player.Y;
-						merchant.Z = client.Player.Z;
+						merchant.Position = client.Player.Position;
 						merchant.CurrentRegion = client.Player.CurrentRegion;
 						merchant.Heading = client.Player.Heading;
 						merchant.Level = 1;
@@ -419,9 +417,7 @@ namespace DOL.GS.Commands
 							return;
 						}
 						//Fill the object variables
-						merchant.X = targetMerchant.X;
-						merchant.Y = targetMerchant.Y;
-						merchant.Z = targetMerchant.Z;
+						merchant.Position = targetMerchant.Position;
 						merchant.CurrentRegion = targetMerchant.CurrentRegion;
 						merchant.Heading = targetMerchant.Heading;
 						merchant.Level = targetMerchant.Level;

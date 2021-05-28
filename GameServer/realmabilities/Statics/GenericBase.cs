@@ -4,6 +4,7 @@ using DOL.GS;
 using DOL.GS.Spells;
 using DOL.Events;
 using DOL.GS.PacketHandler;
+using System.Numerics;
 
 namespace DOL.GS.RealmAbilities.Statics
 {
@@ -21,7 +22,7 @@ namespace DOL.GS.RealmAbilities.Statics
 		protected int getCurrentPulse ()
 		{return currentPulse;}
 		
-		public void CreateStatic(GamePlayer caster, Point3D gt, uint lifeTime, uint pulseFrequency, ushort radius) 
+		public void CreateStatic(GamePlayer caster, Vector3 gt, uint lifeTime, uint pulseFrequency, ushort radius) 
         {
 			m_lifeTime = lifeTime;
 			m_caster = caster;
@@ -29,9 +30,7 @@ namespace DOL.GS.RealmAbilities.Statics
 			m_pulseFrequency = pulseFrequency;
 			this.Name = GetStaticName();
 			this.Model = GetStaticModel();
-			this.X = gt.X;
-			this.Y = gt.Y;
-			this.Z = gt.Z;
+			this.Position = gt;
 			this.CurrentRegionID = m_caster.CurrentRegionID;
 			this.Level = caster.Level;
             this.Realm = caster.Realm;

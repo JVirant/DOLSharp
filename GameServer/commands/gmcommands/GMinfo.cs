@@ -215,7 +215,7 @@ namespace DOL.GS.Commands
 						
 					info.Add(" ");
 					info.Add(" + Mob_ID:  " + target.InternalID);
-					info.Add(" + Position:  " + target.X + ", " + target.Y + ", " + target.Z + ", " + target.Heading);
+					info.Add(" + Position:  " + target.Position.ToString("F0") + ", " + target.Heading);
 					info.Add(" + OID: " + target.ObjectID);
 					info.Add(" + Package ID:  " + target.PackageID);
 					
@@ -435,7 +435,7 @@ namespace DOL.GS.Commands
 					}
 
 					info.Add(" ");
-					info.Add(" Location: X= " + target.X + " ,Y= " + target.Y + " ,Z= " + target.Z);
+					info.Add(" Location: " + target.Position.ToString("F0"));
 				}
 
 				#endregion StaticItem
@@ -484,9 +484,7 @@ namespace DOL.GS.Commands
 					info.Add(" + Statut : " + statut);
 					info.Add(" + Type : " + DoorRequestHandler.m_handlerDoorID / 100000000);
 					info.Add(" ");
-					info.Add(" + X : " + target.X);  
-					info.Add(" + Y : " + target.Y);
-					info.Add(" + Z : " + target.Z);
+					info.Add(" + Position : " + target.Position.ToString("F0"));
 					info.Add(" + Heading : " + target.Heading);
 				}
 
