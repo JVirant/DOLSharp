@@ -55,12 +55,12 @@ namespace DOL.GS.Scripts
 			log.Info("BlacklistMgr: reputation changing...");
 			foreach (var player in WorldMgr.GetAllPlayingClients().Where(c => c.Player != null).Select(c => c.Player).OfType<AmtePlayer>())
 			{
-				if (player.LastPosition == player && DateTime.Now - player.LastActivity > new TimeSpan(0, 10, 0))
+				if (player.LastPosition == player.Position && DateTime.Now - player.LastActivity > new TimeSpan(0, 10, 0))
 					continue;
-				if (player.LastPosition != player)
+				if (player.LastPosition != player.Position)
 				{
 					player.LastActivity = DateTime.Now;
-					player.LastPosition = new Point3D(player);
+					player.LastPosition = player.Position;
 				}
 
 				lock (player.Blacklist)
@@ -111,9 +111,9 @@ namespace DOL.GS.Scripts
 				return;
 			player.BindRegion = Bind.RegionID;
 			player.BindHeading = Bind.Heading;
-			player.BindXpos = Bind.X;
-			player.BindYpos = Bind.Y;
-            player.BindZpos = Bind.Z;
+			player.BindXpos = (int)Bind.Position.X;
+			player.BindYpos = (int)Bind.Position.Y;
+            player.BindZpos = (int)Bind.Position.Z;
             player.SaveIntoDatabase();
 		}
 

@@ -461,7 +461,7 @@ namespace DOL.GS.ServerRules
 		public override void OnPlayerKilled(GamePlayer killedPlayer, GameObject killer)
 		{
 			if (Properties.ENABLE_WARMAPMGR && killer is GamePlayer && killer.CurrentRegion.ID == 163)
-				WarMapMgr.AddFight((byte)killer.CurrentZone.ID, killer.X, killer.Y, (byte)killer.Realm, (byte)killedPlayer.Realm);
+				WarMapMgr.AddFight((byte)killer.CurrentZone.ID, (int)killer.Position.X, (int)killer.Position.Y, (byte)killer.Realm, (byte)killedPlayer.Realm);
 
 			killedPlayer.LastDeathRealmPoints = 0;
 			// "player has been killed recently"
@@ -593,7 +593,7 @@ namespace DOL.GS.ServerRules
 							var bonus = 0.1;
 							var lords = RvrManager.Instance.Lords;
 							foreach (var lord in lords)
-								if (lord.CurrentRegionID == killerPlayer.CurrentRegionID && killerPlayer.GetDistance(lord) < 4000)
+								if (lord.CurrentRegionID == killerPlayer.CurrentRegionID && GameMath.GetDistance(killerPlayer, lord) < 4000)
 									bonus += 0.5;
 							if (!string.IsNullOrEmpty(killerPlayer.GuildName) && lords.Any(l => l.GuildName == killerPlayer.GuildName))
 								bonus += 0.5;
@@ -655,7 +655,7 @@ namespace DOL.GS.ServerRules
 
 					if (!BG && living is GamePlayer)
 					{
-						AbstractGameKeep keep = GameServer.KeepManager.GetKeepCloseToSpot(living.CurrentRegionID, living, 16000);
+						AbstractGameKeep keep = GameServer.KeepManager.GetKeepCloseToSpot(living.CurrentRegionID, living.Position, 16000);
 						if (keep != null)
 						{
 							byte bonus = 0;

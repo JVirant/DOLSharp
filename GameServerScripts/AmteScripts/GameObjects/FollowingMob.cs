@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using DOL.AI.Brain;
 using DOL.Database;
 using DOL.Events;
@@ -36,7 +37,7 @@ namespace DOL.GS.Scripts
 					if (DY > 0) m_Angle += (Math.PI / 2 - m_Angle) * 2;
 					m_Angle -= Math.PI / 2;
 
-					m_Angle = (m_Angle - value.SpawnHeading / RADIAN_TO_HEADING) % (Math.PI * 2);
+					m_Angle = (m_Angle - value.SpawnHeading / GameMath.RADIAN_TO_HEADING) % (Math.PI * 2);
 				}
 				else m_Angle = 0;
 			}
@@ -126,16 +127,14 @@ namespace DOL.GS.Scripts
 			}
 
 			//Calculate the difference between our position and the players position
-			var diffx = (double)followTarget.X - X;
-			var diffy = (double)followTarget.Y - Y;
-			var diffz = (double)followTarget.Z - Z;
+			var diff = followTarget.Position - Position;
 
 			//SH: Removed Z checks when one of the two Z values is zero(on ground)
-			double distance;
-			if (followTarget.Z == 0 || Z == 0)
-				distance = Math.Sqrt(diffx * diffx + diffy * diffy);
+			float distance;
+			if (followTarget.Position.Z == 0 || Position.Z == 0)
+				distance = (float)Math.Sqrt(diff.X * diff.X + diff.Y * diff.Y);
 			else
-				distance = Math.Sqrt(diffx * diffx + diffy * diffy + diffz * diffz);
+				distance = (float)Math.Sqrt(diff.X * diff.X + diff.Y * diff.Y + diff.Z * diff.Z);
 
 			//if distance is greater then the max follow distance, stop following and return home
 			if (distance > m_followMaxDist)
@@ -185,28 +184,23 @@ namespace DOL.GS.Scripts
 			}
 
 			// follow on distance
-			diffx = (diffx / distance) * m_followMinDist;
-			diffy = (diffy / distance) * m_followMinDist;
-			diffz = (diffz / distance) * m_followMinDist;
-
-			int newX = (int)(followTarget.X - diffx);
-			int newY = (int)(followTarget.Y - diffy);
-			int newZ = (int)(followTarget.Z - diffz);
+			diff = (diff / distance) * m_followMinDist;
+			var newPos = followTarget.Position - diff;
 
 			if (followTarget == MobFollow)
 			{
-				double angle = (m_Angle + followTarget.Heading / RADIAN_TO_HEADING) % (Math.PI * 2);
+				var angle = (m_Angle + followTarget.Heading / GameMath.RADIAN_TO_HEADING) % (Math.PI * 2);
 
-				newX = (int)(followTarget.X + Math.Cos(angle) * m_DistMob);
-				newY = (int)(followTarget.Y + Math.Sin(angle) * m_DistMob);
+				newPos.X = followTarget.Position.X + (float)Math.Cos(angle) * m_DistMob;
+				newPos.Y = followTarget.Position.Y + (float)Math.Sin(angle) * m_DistMob;
 
 				var speed = MaxSpeed;
-				if (GetDistance(new Point2D(newX, newY)) < 500)
-					speed = (short)Math.Max(MaxSpeed, MobFollow.CurrentSpeed + 6);
-				WalkTo(newX, newY, newZ, speed);
+				if (GameMath.GetDistance2D(Position, newPos) < 500)
+					speed = (short)Math.Min(MaxSpeed, MobFollow.CurrentSpeed + 6);
+				PathTo(newPos, speed);
 			}
 			else
-				WalkTo(newX, newY, (ushort)newZ, MaxSpeed);
+				PathTo(newPos, MaxSpeed);
 			return ServerProperties.Properties.GAMENPC_FOLLOWCHECK_TIME;
 		}
 

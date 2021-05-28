@@ -9,8 +9,8 @@ namespace DOL.Database
 		public RTInformation(GamePlayer player)
 		{
 			PlayerName = player.Name;
-			X = player.X;
-			Y = player.Y;
+			X = (int)player.Position.X;
+			Y = (int)player.Position.Y;
 			Region = player.CurrentRegionID;
 		}
 

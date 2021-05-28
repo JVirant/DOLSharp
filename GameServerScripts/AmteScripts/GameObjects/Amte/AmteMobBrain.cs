@@ -25,17 +25,6 @@ namespace DOL.AI.Brain
             m_aggroMaxRange = old.AggroRange;
         }
 
-		#region RandomWalk
-		public override IPoint3D CalcRandomWalkTarget()
-        {
-            var roamingRadius = Body.RoamingRange > 0 ? Util.Random(0, Body.RoamingRange) : (Body.CurrentRegion.IsDungeon ? 100 : 500);
-            var angle = Util.Random(0, 360) / (2 * Math.PI);
-            var targetX = Body.SpawnPoint.X + Math.Cos(angle) * roamingRadius;
-            var targetY = Body.SpawnPoint.Y + Math.Sin(angle) * roamingRadius;
-            return new Point3D((int)targetX, (int)targetY, Body.SpawnPoint.Z);
-        }
-		#endregion
-
 		public override int CalculateAggroLevelToTarget(GameLiving target)
 		{
 			if (GameServer.ServerRules.IsSameRealm(Body, target, true))

@@ -384,9 +384,9 @@ namespace DOL.GS.Scripts
 				Coffre = new DBCoffre();
 
 			Coffre.Name = Name;
-			Coffre.X = X;
-			Coffre.Y = Y;
-			Coffre.Z = Z;
+			Coffre.X = (int)Position.X;
+			Coffre.Y = (int)Position.Y;
+			Coffre.Z = (int)Position.Z;
 			Coffre.Heading = Heading;
 			Coffre.Region = CurrentRegionID;
 			Coffre.Model = Model;

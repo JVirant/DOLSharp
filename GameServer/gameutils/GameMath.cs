@@ -119,6 +119,19 @@ namespace DOL
 			vec.Z = 0; // 2D
 			return vec.Length();
 		}
+		public static float GetDistance2D(GameObject a, GameObject b)
+		{
+			if (a.CurrentRegion != b.CurrentRegion)
+				return float.MaxValue;
+			return GetDistance2D(a.Position, b.Position);
+		}
+
+		public static float GetDistance(GameObject a, GameObject b)
+		{
+			if (a.CurrentRegion != b.CurrentRegion)
+				return float.MaxValue;
+			return Vector3.Distance(a.Position, b.Position);
+		}
 
 		public static bool IsWithinRadius(GameObject source, GameObject target, float distance)
 		{

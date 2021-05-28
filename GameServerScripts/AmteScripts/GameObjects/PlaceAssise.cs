@@ -83,9 +83,9 @@ namespace DOL.GS.Scripts
 
 			mob.Name = Name;
 			mob.Guild = GuildName;
-			mob.X = X;
-			mob.Y = Y;
-			mob.Z = Z;
+			mob.X = (int)Position.X;
+			mob.Y = (int)Position.Y;
+			mob.Z = (int)Position.Z;
 			mob.Heading = Heading;
 			mob.Speed = MaxSpeedBase;
 			mob.Region = CurrentRegionID;

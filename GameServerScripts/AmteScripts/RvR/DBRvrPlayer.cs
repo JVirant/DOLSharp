@@ -72,9 +72,9 @@ namespace DOL.Database
 		    GuildID = player.GuildID;
 		    GuildRank = player.GuildRank != null ? player.GuildRank.RankLevel : 9;
 
-		    OldX = player.X;
-		    OldY = player.Y;
-            OldZ = player.Z;
+		    OldX = (int)player.Position.X;
+		    OldY = (int)player.Position.Y;
+            OldZ = (int)player.Position.Z;
             OldHeading = player.Heading;
 		    OldRegion = player.CurrentRegionID;
 

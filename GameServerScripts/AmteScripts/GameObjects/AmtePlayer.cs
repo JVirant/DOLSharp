@@ -1,6 +1,5 @@
 using System;
-using System.Linq;
-using Amte;
+using System.Numerics;
 using AmteScripts.Managers;
 using DOL.Database;
 using DOL.GS.PacketHandler;
@@ -15,7 +14,7 @@ namespace DOL.GS
 		public BlacklistPlayer Blacklist;
 
 		public DateTime LastActivity = DateTime.Now;
-		public Point3D LastPosition = new Point3D(0, 0, 0);
+		public Vector3 LastPosition = Vector3.Zero;
 
 		public AmtePlayer(GameClient client, DOLCharacters dbChar) : base(client, dbChar) {}
 

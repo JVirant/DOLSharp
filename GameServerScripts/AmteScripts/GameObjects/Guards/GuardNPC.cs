@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Threading.Tasks;
 using DOL.AI.Brain;
 using DOL.GS.PacketHandler;
 
@@ -79,9 +80,9 @@ namespace DOL.GS.Scripts
 			return true;
 		}
 
-		public override void WalkToSpawn(short speed)
+		public override Task<bool> WalkToSpawn(short speed)
 		{
-			base.WalkToSpawn(MaxSpeed);
+			return base.WalkToSpawn(MaxSpeed);
 		}
 	}
 

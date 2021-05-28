@@ -23,8 +23,8 @@ namespace DOL.Database
                 }
                 Killed = killed.Name;
                 KilledClass = killed.GetType().ToString();
-                X = killed.X;
-                Y = killed.Y;
+                X = (int)killed.Position.X;
+                Y = (int)killed.Position.Y;
                 Region = killed.CurrentRegionID;
                 DeathDate = DateTime.Now;
             }
@@ -33,16 +33,16 @@ namespace DOL.Database
             public long Id { get; set; }
 
             [DataElement(AllowDbNull = false)]
-            public String Killer { get; set; }
+            public string Killer { get; set; }
 
             [DataElement(AllowDbNull = false)]
-            public String KillerClass { get; set; }
+            public string KillerClass { get; set; }
 
             [DataElement(AllowDbNull = false)]
-            public String Killed { get; set; }
+            public string Killed { get; set; }
 
             [DataElement(AllowDbNull = false)]
-            public String KilledClass { get; set; }
+            public string KilledClass { get; set; }
 
             [DataElement(AllowDbNull = false, Index = true)]
             public int X { get; set; }
