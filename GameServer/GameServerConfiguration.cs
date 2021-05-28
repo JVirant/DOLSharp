@@ -433,6 +433,7 @@ namespace DOL.GS
 						.EnumerateFiles("*.dll", SearchOption.TopDirectoryOnly)
 						.Select(f => f.Name)
 						.Where(f => !f.EndsWith(".x64.dll") && !f.EndsWith(".x86.dll")) // hack to bypass grpc native dll
+						.Where(f => f != "dol_detour.dll") // hack to bypass detour native dll
 						.Where(f => !f.Equals(new FileInfo(ScriptCompilationTarget).Name, StringComparison.OrdinalIgnoreCase)))
 					.ToArray();
 			}
