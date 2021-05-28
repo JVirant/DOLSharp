@@ -39,19 +39,19 @@ namespace DOL.GS
 		private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 		private static Dictionary<ushort, IntPtr[]> _navmeshPtrs = new Dictionary<ushort, IntPtr[]>();
 
-		[DllImport("ReUth", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
 		private static extern bool LoadNavMesh(string file, ref IntPtr meshPtr, ref IntPtr queryPtr);
 
-		[DllImport("ReUth", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
 		private static extern bool FreeNavMesh(IntPtr meshPtr, IntPtr queryPtr);
 
-		[DllImport("ReUth", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
 		private static extern dtStatus PathStraight(IntPtr queryPtr, float[] start, float[] end, float[] polyPickExt, dtPolyFlags[] queryFilter, dtStraightPathOptions pathOptions, ref int pointCount, float[] pointBuffer, dtPolyFlags[] pointFlags);
 
-		[DllImport("ReUth", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
 		private static extern dtStatus FindRandomPointAroundCircle(IntPtr queryPtr, float[] center, float radius, float[] polyPickExt, dtPolyFlags[] queryFilter, float[] outputVector);
 
-		[DllImport("ReUth", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
 		private static extern dtStatus FindClosestPoint(IntPtr queryPtr, float[] center, float[] polyPickExt, dtPolyFlags[] queryFilter, float[] outputVector);
 
 		/// <summary>
@@ -84,8 +84,10 @@ namespace DOL.GS
 		/// Loads the navmesh for the specified zone (if available)
 		/// </summary>
 		/// <param name="zone"></param>
-		private void LoadNavMesh(Zone zone)
+		public void LoadNavMesh(Zone zone)
 		{
+			if (_navmeshPtrs.ContainsKey(zone.ID))
+				throw new Exception($"Loading NavMesh failed for zone {zone.ID}: already loaded");
 			var id = zone.ID;
 			var file = $"pathing{Path.DirectorySeparatorChar}zone{id:D3}.nav";
 			file = Path.GetFullPath(file); // not sure if c dll can load relative stuff
@@ -111,16 +113,18 @@ namespace DOL.GS
 			}
 			log.InfoFormat("Loading NavMesh sucessful for zone {0}", id);
 			_navmeshPtrs[zone.ID] = new[] { meshPtr, queryPtr };
+			zone.IsPathingEnabled = true;
 		}
 
 		/// <summary>
 		/// Unloads the navmesh for a specific zone
 		/// </summary>
 		/// <param name="zone"></param>
-		private void UnloadNavMesh(Zone zone)
+		public void UnloadNavMesh(Zone zone)
 		{
 			if (_navmeshPtrs.ContainsKey(zone.ID))
 			{
+				zone.IsPathingEnabled = false;
 				var ptrs = _navmeshPtrs[zone.ID];
 				FreeNavMesh(ptrs[0], ptrs[1]);
 				_navmeshPtrs.Remove(zone.ID);

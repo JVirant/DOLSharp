@@ -27,6 +27,8 @@ namespace DOL.GS
 		/// <returns></returns>
 		public bool Init()
 		{
+			if (string.IsNullOrWhiteSpace(GameServer.Instance.Configuration.PathingNodeIp))
+				return false;
 			try
 			{
 				Log.Info("Connecting to Pathing Service ...");

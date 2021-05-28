@@ -343,8 +343,7 @@ namespace DOL.GS
 
 		public override string ToString()
 		{
-			return
-			  $"PathCalc[Target={_lastTarget}, Nodes={_pathNodes.Count}, NextNode={(_pathNodes.Count > 0 ? _pathNodes.Peek().ToString() : null)}, NextDoor={NextDoor}]";
+			return $"PathCalc[Target={_lastTarget}, Nodes={_pathNodes.Count}, NextNode={(_pathNodes.Count > 0 ? _pathNodes.Peek().ToString() : null)}, NextDoor={NextDoor}]";
 		}
 	}
 }
