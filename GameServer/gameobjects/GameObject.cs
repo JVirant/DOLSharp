@@ -835,7 +835,7 @@ namespace DOL.GS
 			CurrentRegionID = regionID;
 			return AddToWorld();
 		}
-		public bool MoveTo(ushort regionID, Vector3 pos, ushort heading) => MoveTo(regionID, pos, heading);
+		public bool MoveTo(ushort regionID, Vector3 pos, ushort heading) => MoveTo(regionID, pos.X, pos.Y, pos.Z, heading);
 
 		/// <summary>
 		/// Marks this object as deleted!
