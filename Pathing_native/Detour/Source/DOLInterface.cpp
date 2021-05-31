@@ -2,6 +2,8 @@
 #include <exception>
 #include <functional>
 #include <iostream>
+#include <random>
+#include "DetourCommon.h"
 #include "DetourNavMesh.h"
 #include "DetourNavMeshQuery.h"
 
@@ -129,6 +131,37 @@ DLLEXPORT bool FreeNavMesh(dtNavMesh* meshPtr, dtNavMeshQuery* queryPtr)
 	return true;
 }
 
+void PathOptimize(int* pointCount, float* pointBuffer, dtPolyRef* refs)
+{
+	for (int i = 0; i < *pointCount - 2; ++i)
+	{
+		// we take 3 points: first --- mid --- last and check if mid is on the line, in this case, we remove mid
+		float d[3] = { // last - first
+			pointBuffer[(i + 2) * 3 + 0] - pointBuffer[i * 3 + 0],
+			pointBuffer[(i + 2) * 3 + 1] - pointBuffer[i * 3 + 1],
+			pointBuffer[(i + 2) * 3 + 2] - pointBuffer[i * 3 + 2],
+		};
+		float e[3] = { // mid - first
+			pointBuffer[(i + 1) * 3 + 0] - pointBuffer[i * 3 + 0],
+			pointBuffer[(i + 1) * 3 + 1] - pointBuffer[i * 3 + 1],
+			pointBuffer[(i + 1) * 3 + 2] - pointBuffer[i * 3 + 2],
+		};
+
+		if (e[0] != 0 || e[1] != 0 || e[2] != 0)
+		{
+			float dot = dtVdot(d, e);
+			float res = (dot * dot) / dtVdot(d, d) / dtVdot(e, e);
+			if (res >= 0.9999)
+			{
+				std::copy(pointBuffer + (i + 2) * 3, pointBuffer + (*pointCount) * 3, pointBuffer + (i + 1) * 3);
+				std::copy(refs + i + 2, refs + *pointCount, refs + i + 1);
+				*pointCount -= 1;
+				--i; // we redo this loop
+			}
+		}
+	}
+}
+
 DLLEXPORT dtStatus PathStraight(dtNavMeshQuery* query, float start[], float end[], float polyPickExt[], dtPolyFlags queryFilter[], dtStraightPathOptions pathOptions, int* pointCount, float* pointBuffer, dtPolyFlags* pointFlags)
 {
 	dtStatus status;
@@ -157,6 +190,7 @@ DLLEXPORT dtStatus PathStraight(dtNavMeshQuery* query, float start[], float end[
 				auto straightPathRefs = &straightPathPolys[0];
 				if (dtStatusSucceed(status = query->findStraightPath(start, epos, polys, npolys, pointBuffer, straightPathFlags, straightPathRefs, pointCount, 256, pathOptions)) && (0 < *pointCount))
 				{
+					PathOptimize(pointCount, pointBuffer, straightPathRefs);
 					int pointIdx = 0;
 					while (*pointCount != pointIdx && pointIdx <= *pointCount)
 					{
@@ -173,9 +207,12 @@ DLLEXPORT dtStatus PathStraight(dtNavMeshQuery* query, float start[], float end[
 	return status;
 }
 
+thread_local std::mt19937 rngMt = std::mt19937(std::random_device{}());
+thread_local std::uniform_real_distribution<float> rng(0.0f, 1.0f);
+
 float frand()
 {
-	return static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
+	return rng(rngMt);
 }
 
 DLLEXPORT dtStatus FindRandomPointAroundCircle(dtNavMeshQuery* query, float center[], float radius, float polyPickExt[], dtPolyFlags queryFilter[], float* outputVector)

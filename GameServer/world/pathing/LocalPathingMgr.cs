@@ -194,7 +194,7 @@ namespace DOL.GS
 					points[i].Flags = flags[i];
 				}
 
-				ImprovePath(zone, points);
+				// ImprovePath(zone, points);
 
 				if ((status & dtStatus.DT_PARTIAL_RESULT) == 0)
 				{
