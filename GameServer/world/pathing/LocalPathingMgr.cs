@@ -194,8 +194,6 @@ namespace DOL.GS
 					points[i].Flags = flags[i];
 				}
 
-				// ImprovePath(zone, points);
-
 				if ((status & dtStatus.DT_PARTIAL_RESULT) == 0)
 				{
 					return new WrappedPathingResult
@@ -214,69 +212,6 @@ namespace DOL.GS
 				}
 			}, TaskCreationOptions.LongRunning);
 		}
-
-		#region Path Improvement
-		/// <summary>
-		/// Curve dist improvement factor
-		/// </summary>
-		private const float CURVE_DIST_FACTOR = 1.1f;
-
-		/// <summary>
-		/// Maximum distance a curve point can be moved
-		/// </summary>
-		private const float CURVE_MAX_DIST = 80f;
-
-		private void ImprovePath(Zone zone, WrappedPathPoint[] recastPath)
-		{
-			if (recastPath.Length <= 2)
-				return;
-
-			// Assuming that we have three points A --> M ---> C, and we encounter any kind of a collision, then point
-			// M will be sharply "bent" around the colliding object (since recast picks points very close to the object.
-			// This means that the evil object is always in the inner side of the curve A --> M --> C, so by moving the point
-			// M further "outwards" from the curve we can make our paths smoother.
-			Vector3? oldM = null;
-			for (int i = 0; i < recastPath.Length - 2; i++)
-			{
-				// http://mathworld.wolfram.com/Point-LineDistance3-Dimensional.html
-				var pointA = (oldM ?? recastPath[i + 0].Position).To2D();
-				var pointM = (recastPath[i + 1].Position).To2D();
-				var pointB = (recastPath[i + 2].Position).To2D();
-
-				// Calculate the line between A --> C
-				var lineOrigin = pointA;
-				var lineDir = (pointB - pointA);
-				oldM = pointM;
-
-				// Figure out where pointM is closest to that line
-				var distAB = Vector3.DistanceSquared(pointA, pointB);
-				if (distAB <= 0.1 || pointA == pointM)
-				{
-					continue;
-				}
-				var t = -Vector3.Dot(pointA - pointM, lineDir) / distAB;
-				var closestPoint = lineOrigin + lineDir * t;
-
-				// Add a bit of this distance to point M to move it outwards
-				var offsetVector = (pointM - closestPoint) * CURVE_DIST_FACTOR;
-				var offsetMagnitude = offsetVector.Length();
-				if (offsetMagnitude > CURVE_MAX_DIST)
-				{
-					offsetVector = offsetVector * CURVE_MAX_DIST / offsetMagnitude;
-				}
-
-				if (offsetVector.Length() > 4096)
-				{
-					log.Error("PathCalculator.ImprovePath returned very large offset (" + offsetVector + ") for A=" + pointA +
-							  ", M=" + pointM + ", B=" + pointB + " for this=" + this);
-				}
-				var newPos = recastPath[i + 1].Position + offsetVector;
-				newPos = PathingMgr.Instance.GetClosestPointAsync(zone, newPos, xRange: 64f, yRange: 64f, zRange: 128f).Result ?? newPos;
-				recastPath[i + 1].Position = newPos;
-			}
-		}
-
-		#endregion
 
 		/// <summary>
 		/// Returns a random point on the navmesh around the given position
