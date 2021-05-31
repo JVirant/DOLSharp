@@ -11,7 +11,7 @@
 		// Dre: I don't understand what this function should do...
 		public static Vector3 To2D(this Vector3 v)
 		{
-			return v;
+			return new Vector3(v.X, v.Y, 0);
 		}
 	}
 }

@@ -312,7 +312,7 @@ namespace DOL.GS.Spells
 		public void ZephyrCheckLOS(GamePlayer player, ushort response, ushort targetOID)
         {
             if ((response & 0x100) == 0x100)
-				m_npc.WalkTo(m_loc.X, m_loc.Y, m_loc.Z, 100);
+				m_npc.PathTo(m_loc.X, m_loc.Y, m_loc.Z, 100);
         }
 
         public virtual Vector3 GetTargetLoc()

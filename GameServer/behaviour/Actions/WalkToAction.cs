@@ -45,7 +45,7 @@ namespace DOL.GS.Behaviour.Actions
         {
             GamePlayer player = BehaviourUtils.GuessGamePlayerFromNotify(e, sender, args);
             var location = P.HasValue ? P.Value : player.Position;
-            Q.WalkTo(location, Q.CurrentSpeed);
+            Q.PathTo(location, Q.CurrentSpeed);
         }
     }
 }

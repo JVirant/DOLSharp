@@ -79,7 +79,7 @@ namespace DOL.GS
 					{
 						(dogSpawn.Brain as RetrieverMobBrain).Master = this;
 						m_retrieverList.Add(dogSpawn);
-						dogSpawn.WalkTo(GetExitCoordinates(Util.Random(1, 4)), 200);	// Pick 1 out of 4 possible exits.
+						dogSpawn.PathTo(GetExitCoordinates(Util.Random(1, 4)), 200);	// Pick 1 out of 4 possible exits.
 					}
 				}
 			}

@@ -80,7 +80,7 @@ namespace DOL.GS.Commands
 				return;
 			}
 
-			targetNPC.WalkTo(targetNPC.Position + new Vector3(xoff, yoff, zoff), speed);
+			targetNPC.PathTo(targetNPC.Position + new Vector3(xoff, yoff, zoff), speed);
 		}
 	}
 }
