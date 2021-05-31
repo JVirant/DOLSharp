@@ -290,7 +290,7 @@ namespace DOL.GS
 
 			//unarmed siege weapon
 			CurrentState &= ~eState.Armed;
-			WalkTo(groundTarget, 100);
+			PathTo(groundTarget, 100);
 		}
 
 		public void StopMove()

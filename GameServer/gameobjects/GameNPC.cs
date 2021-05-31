@@ -1803,7 +1803,7 @@ namespace DOL.GS
 				newZ = followTarget.Position.Z;
 				if (brain.CheckFormation(ref newX, ref newY, ref newZ))
 				{
-					WalkTo(newX, newY, (ushort)newZ, MaxSpeed);
+					PathTo(newX, newY, (ushort)newZ, MaxSpeed);
 					return ServerProperties.Properties.GAMENPC_FOLLOWCHECK_TIME;
 				}
 			}
@@ -1833,7 +1833,7 @@ namespace DOL.GS
 
 			//Subtract the offset from the target's position to get
 			//our target position
-			WalkTo(followTarget.Position - diff, MaxSpeed);
+			PathTo(followTarget.Position - diff, MaxSpeed);
 			return ServerProperties.Properties.GAMENPC_FOLLOWCHECK_TIME;
 		}
 
@@ -1929,7 +1929,7 @@ namespace DOL.GS
 			if (CurrentWayPoint != null)
 			{
 				GameEventMgr.AddHandler(this, GameNPCEvent.ArriveAtTarget, new DOLEventHandler(OnArriveAtWaypoint));
-				WalkTo(CurrentWayPoint.Position, Math.Min(speed, (short)CurrentWayPoint.MaxSpeed));
+				PathTo(CurrentWayPoint.Position, Math.Min(speed, (short)CurrentWayPoint.MaxSpeed));
 				m_IsMovingOnPath = true;
 				Notify(GameNPCEvent.PathMoveStarts, this);
 			}
@@ -2031,7 +2031,7 @@ namespace DOL.GS
 
 				if (npc.CurrentWayPoint != null)
 				{
-					npc.WalkTo(npc.CurrentWayPoint.Position, (short)Math.Min(npc.PathingNormalSpeed, npc.CurrentWayPoint.MaxSpeed));
+					npc.PathTo(npc.CurrentWayPoint.Position, (short)Math.Min(npc.PathingNormalSpeed, npc.CurrentWayPoint.MaxSpeed));
 				}
 				else
 				{
