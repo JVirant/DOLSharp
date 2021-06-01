@@ -45,4 +45,5 @@
 /IntegrationTests/obj
 /IntegrationTests_Database/obj
 
-/Pathing_native/Detour/out
+/Pathing_native/.vs
+/Pathing_native/out
