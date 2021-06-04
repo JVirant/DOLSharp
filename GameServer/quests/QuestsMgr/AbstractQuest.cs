@@ -61,7 +61,7 @@ namespace DOL.GS.Quests
 		/// The quest database object, storing the information for the player
 		/// and the quest. Eg. QuestStep etc.
 		/// </summary>
-		private DBQuest m_dbQuest = null;
+		protected DBQuest m_dbQuest = null;
 
 		/// <summary>
 		/// List of all QuestParts that can be fired on notify method of quest.
@@ -109,7 +109,6 @@ namespace DOL.GS.Quests
 			dbQuest.Name = GetType().FullName;
 			dbQuest.Step = step;
 			m_dbQuest = dbQuest;
-			SaveIntoDatabase();
 		}
 
 		/// <summary>
@@ -122,7 +121,6 @@ namespace DOL.GS.Quests
 			m_questPlayer = questingPlayer;
 			m_dbQuest = dbQuest;
 			ParseCustomProperties();
-			SaveIntoDatabase();
 		}
 
 		/// <summary>

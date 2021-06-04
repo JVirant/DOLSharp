@@ -55,7 +55,7 @@ namespace DOL.GS.Behaviour
 
         #region Variables
                         
-		private GameNPC npc;
+		private GameObject _gameObject;
 		
 		private List<IBehaviourRequirement> requirements;              
         private List<IBehaviourAction> actions;        
@@ -78,10 +78,10 @@ namespace DOL.GS.Behaviour
         /// <summary>
         /// NPC assigned with behaviour
         /// </summary>
-        public GameNPC NPC
+        public GameObject GameObject
         {
-            get { return npc; }
-            set { npc = value; }
+            get { return _gameObject; }
+            set { _gameObject = value; }
         }
         
         /// <summary>
@@ -122,10 +122,10 @@ namespace DOL.GS.Behaviour
         /// <summary>
         /// Creates a Behaviour for the given default npc.
         /// </summary>        
-        /// <param name="npc">NPC associated with his behaviour typically NPC talking to or mob killing, etc...</param>                
-        public BaseBehaviour(GameNPC npc)
+        /// <param name="obj">NPC associated with his behaviour typically NPC talking to or mob killing, etc...</param>                
+        public BaseBehaviour(GameObject obj)
         {            
-            this.NPC = npc;
+            this.GameObject = obj;
             NotifyHandler = new DOLEventHandler(this.Notify);
         }
 
@@ -165,7 +165,7 @@ namespace DOL.GS.Behaviour
             Type type = BehaviourMgr.GetTypeForTriggerType(triggerType);
             if (type != null)
             {
-                trigger = (IBehaviourTrigger)Activator.CreateInstance(type, new object[] { this.NPC, NotifyHandler, keyword, var });
+                trigger = (IBehaviourTrigger)Activator.CreateInstance(type, new object[] { this.GameObject, NotifyHandler, keyword, var });
                 AddTrigger(trigger);
             }
             else
@@ -237,7 +237,7 @@ namespace DOL.GS.Behaviour
             Type type = BehaviourMgr.GetTypeForActionType(actionType);
             if (type != null)
             {                
-                action = (IBehaviourAction)Activator.CreateInstance(type, new object[] { this.NPC, p, q });
+                action = (IBehaviourAction)Activator.CreateInstance(type, new object[] { this.GameObject, p, q });
                 AddAction(action);
             }
             else
@@ -324,7 +324,7 @@ namespace DOL.GS.Behaviour
             Type type = BehaviourMgr.GetTypeForRequirementType(requirementType);
             if (type != null)
             {                                
-                requ = (IBehaviourRequirement)Activator.CreateInstance(type, new object[] { this.NPC, requirementN, requirementV, requirementComparator });
+                requ = (IBehaviourRequirement)Activator.CreateInstance(type, new object[] { this.GameObject, requirementN, requirementV, requirementComparator });
                 AddRequirement(requ);
             }
             else

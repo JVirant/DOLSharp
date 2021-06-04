@@ -1113,7 +1113,7 @@ namespace DOL.GS
 		/// <returns>All NPCs with the specified parameters</returns>
 		public static GameNPC[] GetNPCsByNameFromRegion(string name, ushort regionID, eRealm realm)
 		{
-			return (GameNPC[])GetObjectsByNameFromRegion(name, regionID, realm, typeof(GameNPC));
+			return GetObjectsByNameFromRegion(name, regionID, realm, typeof(GameNPC)).OfType<GameNPC>().ToArray();
 		}
 
 		/// <summary>

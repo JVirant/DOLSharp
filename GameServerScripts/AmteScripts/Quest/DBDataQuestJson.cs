@@ -29,6 +29,12 @@ namespace DOL.Database
 		private ushort m_id;
 		private string m_name;
 		private string m_description;
+		private string m_summary;
+		private string m_story;
+		private string m_conclusion;
+
+		private string m_npcName;
+		private ushort m_npcRegion;
 
 		private ushort m_maxCount;
 		private byte m_minLevel;
@@ -36,15 +42,16 @@ namespace DOL.Database
 		private string m_questDependency;
 		private string m_allowedClasses;
 
-		private int m_rewardMoney;
-		private int m_rewardXP;
+		private long m_rewardMoney;
+		private long m_rewardXP;
 		private int m_rewardCLXP;
 		private int m_rewardRP;
 		private int m_rewardBP;
+		private int m_nbChooseOptionalItems;
 		private string m_optionalRewardItemTemplates;
 		private string m_finalRewardItemTemplates;
 
-		private string m_stepsJson;
+		private string m_goalsJson;
 
 		public DBDataQuestJson()
 		{
@@ -76,6 +83,39 @@ namespace DOL.Database
 			get { return m_description; }
 			set { m_description = value; Dirty = true; }
 		}
+
+		[DataElement(AllowDbNull = true)]
+		public string Summary
+		{
+			get { return m_summary; }
+			set { m_summary = value; Dirty = true; }
+		}
+		[DataElement(AllowDbNull = true)]
+		public string Story
+		{
+			get { return m_story; }
+			set { m_story = value; Dirty = true; }
+		}
+		[DataElement(AllowDbNull = true)]
+		public string Conclusion
+		{
+			get { return m_conclusion; }
+			set { m_conclusion = value; Dirty = true; }
+		}
+
+		[DataElement(AllowDbNull = false)]
+		public string NpcName
+		{
+			get { return m_npcName; }
+			set { m_npcName = value; Dirty = true; }
+		}
+		[DataElement(AllowDbNull = false)]
+		public ushort NpcRegion
+		{
+			get { return m_npcRegion; }
+			set { m_npcRegion = value; Dirty = true; }
+		}
+
 
 		/// <summary>
 		/// Max number of times a player can do this quest
@@ -110,8 +150,8 @@ namespace DOL.Database
 		/// <summary>
 		/// Reward Money to give at each step, 0 for none
 		/// </summary>
-		[DataElement(AllowDbNull = true)]
-		public int RewardMoney
+		[DataElement(AllowDbNull = false)]
+		public long RewardMoney
 		{
 			get { return m_rewardMoney; }
 			set { m_rewardMoney = value; Dirty = true; }
@@ -120,8 +160,8 @@ namespace DOL.Database
 		/// <summary>
 		/// Reward XP to give at each step, 0 for none
 		/// </summary>
-		[DataElement(AllowDbNull = true)]
-		public int RewardXP
+		[DataElement(AllowDbNull = false)]
+		public long RewardXP
 		{
 			get { return m_rewardXP; }
 			set { m_rewardXP = value; Dirty = true; }
@@ -130,7 +170,7 @@ namespace DOL.Database
 		/// <summary>
 		/// Reward CLXP to give at each step, 0 for none
 		/// </summary>
-		[DataElement(AllowDbNull = true)]
+		[DataElement(AllowDbNull = false)]
 		public int RewardCLXP
 		{
 			get { return m_rewardCLXP; }
@@ -140,7 +180,7 @@ namespace DOL.Database
 		/// <summary>
 		/// Reward RP to give at each step, 0 for none
 		/// </summary>
-		[DataElement(AllowDbNull = true)]
+		[DataElement(AllowDbNull = false)]
 		public int RewardRP
 		{
 			get { return m_rewardRP; }
@@ -150,11 +190,18 @@ namespace DOL.Database
 		/// <summary>
 		/// Reward BP to give at each step, 0 for none
 		/// </summary>
-		[DataElement(AllowDbNull = true)]
+		[DataElement(AllowDbNull = false)]
 		public int RewardBP
 		{
 			get { return m_rewardBP; }
 			set { m_rewardBP = value; Dirty = true; }
+		}
+
+		[DataElement(AllowDbNull = false)]
+		public int NbChooseOptionalItems
+		{
+			get { return m_nbChooseOptionalItems; }
+			set { m_nbChooseOptionalItems = value; Dirty = true; }
 		}
 
 		/// <summary>
@@ -201,15 +248,15 @@ namespace DOL.Database
 		}
 
 		/// <summary>
-		/// The step data serialized as a json array
+		/// The step data serialized as a json object where the key is the goal id
 		/// Each item of the array must have a type property which load the correct code for this step
-		/// Format: [{"type":"Collect","collectItemTemplate":"quest1","to":["Guard",1]},...]
+		/// Format: [{"id":1,"type":"DOL.GS.Quests.CollectGoal","data":{"collectItemTemplate":"quest1","to":["Guard",1]}},...]
 		/// </summary>
 		[DataElement(AllowDbNull = false)]
-		public string StepsJson
+		public string GoalsJson
 		{
-			get { return m_stepsJson; }
-			set { m_stepsJson = value; Dirty = true; }
+			get { return m_goalsJson; }
+			set { m_goalsJson = value; Dirty = true; }
 		}
 	}
 }

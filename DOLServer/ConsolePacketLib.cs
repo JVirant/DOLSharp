@@ -125,8 +125,8 @@ namespace DOLGameServerConsole
 		public void SendGuildLeaveCommand(GamePlayer invitingPlayer, string inviteMessage) { }
 		public void SendGuildInviteCommand(GamePlayer invitingPlayer, string inviteMessage) { }
 		public void SendQuestSubscribeCommand(GameNPC invitingNPC, ushort questid, string inviteMessage) { }
-		public void SendQuestOfferWindow(GameNPC questNPC, GamePlayer player, RewardQuest quest) { }
-		public void SendQuestRewardWindow(GameNPC questNPC, GamePlayer player, RewardQuest quest) { }
+		public void SendQuestOfferWindow(GameNPC questNPC, GamePlayer player, IQuestData quest) { }
+		public void SendQuestRewardWindow(GameNPC questNPC, GamePlayer player, IQuestData quest) { }
 		public void SendQuestOfferWindow(GameNPC questNPC, GamePlayer player, DataQuest quest) { }
 		public void SendQuestRewardWindow(GameNPC questNPC, GamePlayer player, DataQuest quest) { }
 		public void SendQuestAbortCommand(GameNPC abortingNPC, ushort questid, string abortMessage) { }

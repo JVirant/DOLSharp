@@ -63,6 +63,7 @@
     <PackageReference Include="log4net" Version="2.0.12" ExcludeAssets="Runtime" />
     <ProjectReference Include="..\DOLBase\DOLBase.csproj" Name="DOLBase" Private="False" ExcludeAssets="All" />
     <ProjectReference Include="..\DOLDatabase\DOLDatabase.csproj" Name="DOLDatabase" Private="False" ExcludeAssets="All" />
+    <ProjectReference Include="..\GameServerScripts\GameServerScripts.csproj" />
     <ProjectReference Include="..\GameServer\GameServer.csproj" Name="GameServer" Private="False" ExcludeAssets="All" />
   </ItemGroup>
   <ItemGroup>

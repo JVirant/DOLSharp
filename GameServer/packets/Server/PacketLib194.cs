@@ -134,13 +134,12 @@ namespace DOL.GS.PacketHandler
 		}
 
 
-		protected override void SendQuestWindow(GameNPC questNPC, GamePlayer player, RewardQuest quest,	bool offer)
+		protected override void SendQuestWindow(GameNPC questNPC, GamePlayer player, IQuestData quest,	bool offer)
 		{
 			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.Dialog)))
 			{
-				ushort QuestID = QuestMgr.GetIDForQuestType(quest.GetType());
 				pak.WriteShort((offer) ? (byte)0x22 : (byte)0x21); // Dialog
-				pak.WriteShort(QuestID);
+				pak.WriteShort(quest.QuestId);
 				pak.WriteShort((ushort)questNPC.ObjectID);
 				pak.WriteByte(0x00); // unknown
 				pak.WriteByte(0x00); // unknown
@@ -185,22 +184,22 @@ namespace DOL.GS.PacketHandler
 					}
 				}
 	
-				pak.WriteShort(QuestID);
+				pak.WriteShort(quest.QuestId);
 				pak.WriteByte((byte)quest.Goals.Count); // #goals count
-				foreach (RewardQuest.QuestGoal goal in quest.Goals)
+				foreach (var goal in quest.Goals)
 				{
 					pak.WritePascalString(String.Format("{0}\r", goal.Description));
 				}
-				pak.WriteInt((uint)(quest.Rewards.Money)); // unknown, new in 1.94
-				pak.WriteByte((byte)quest.Rewards.ExperiencePercent(player));
-				pak.WriteByte((byte)quest.Rewards.BasicItems.Count);
-				foreach (ItemTemplate reward in quest.Rewards.BasicItems)
+				pak.WriteInt((uint)(quest.FinalRewards.Money)); // unknown, new in 1.94
+				pak.WriteByte((byte)GamePlayerUtils.GetExperiencePercentForCurrentLevel(player, quest.FinalRewards.Experience));
+				pak.WriteByte((byte)quest.FinalRewards.BasicItems.Count);
+				foreach (ItemTemplate reward in quest.FinalRewards.BasicItems)
 				{
 					WriteItemData(pak, GameInventoryItem.Create(reward));
 				}
-				pak.WriteByte((byte)quest.Rewards.ChoiceOf);
-				pak.WriteByte((byte)quest.Rewards.OptionalItems.Count);
-				foreach (ItemTemplate reward in quest.Rewards.OptionalItems)
+				pak.WriteByte((byte)quest.FinalRewards.ChoiceOf);
+				pak.WriteByte((byte)quest.FinalRewards.OptionalItems.Count);
+				foreach (ItemTemplate reward in quest.FinalRewards.OptionalItems)
 				{
 					WriteItemData(pak, GameInventoryItem.Create(reward));
 				}

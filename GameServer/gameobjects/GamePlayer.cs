@@ -3667,6 +3667,8 @@ namespace DOL.GS
 		/// <returns></returns>
 		public override int GetModifiedSpecLevel(string keyName)
 		{
+			if (keyName == null)
+				return 0;
 			if (keyName.StartsWith(GlobalSpellsLines.Champion_Lines_StartWith))
 				return 50;
 

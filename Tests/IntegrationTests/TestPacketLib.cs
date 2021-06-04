@@ -369,13 +369,13 @@ namespace DOL.Tests
 		{
 			if (SendGuildInviteCommandMethod != null) SendGuildInviteCommandMethod(this, invitingPlayer, inviteMessage);
 		}
-		public Action<TestPacketLib, GameNPC, GamePlayer, RewardQuest> SendQuestOfferWindowMethod { get; set; }
-		public void SendQuestOfferWindow(GameNPC questNPC, GamePlayer player, RewardQuest quest)
+		public Action<TestPacketLib, GameNPC, GamePlayer, IQuestData> SendQuestOfferWindowMethod { get; set; }
+		public void SendQuestOfferWindow(GameNPC questNPC, GamePlayer player, IQuestData quest)
 		{
 			if (SendQuestOfferWindowMethod != null) SendQuestOfferWindowMethod(this, questNPC, player, quest);
 		}
-		public Action<TestPacketLib, GameNPC, GamePlayer, RewardQuest> SendQuestRewardWindowMethod { get; set; }
-		public void SendQuestRewardWindow(GameNPC questNPC, GamePlayer player, RewardQuest quest)
+		public Action<TestPacketLib, GameNPC, GamePlayer, IQuestData> SendQuestRewardWindowMethod { get; set; }
+		public void SendQuestRewardWindow(GameNPC questNPC, GamePlayer player, IQuestData quest)
 		{
 			if (SendQuestRewardWindowMethod != null) SendQuestRewardWindowMethod(this, questNPC, player, quest);
 		}

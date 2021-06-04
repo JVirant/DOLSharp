@@ -23,6 +23,8 @@ using DOL.Database;
 using DOL.Events;
 using DOL.Language;
 using DOL.GS.PacketHandler;
+using System.Linq;
+using DOL.GS.Utils;
 
 namespace DOL.GS.Quests
 {
@@ -31,7 +33,7 @@ namespace DOL.GS.Quests
 	/// the enhanced quest dialog.
 	/// </summary>
 	/// <author>Aredhel</author>
-	public class RewardQuest : BaseQuest
+	public class RewardQuest : BaseQuest, IQuestData
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -85,7 +87,7 @@ namespace DOL.GS.Quests
 		/// <param name="questItem"></param>
 		protected QuestGoal AddGoal(string description, QuestGoal.GoalType type, int targetNumber, ItemTemplate questItem)
 		{
-			QuestGoal goal = new QuestGoal("none", this, description, type, m_goals.Count + 1, targetNumber, questItem);
+			QuestGoal goal = new QuestGoal("none", this, description, (eQuestGoalType)type, m_goals.Count + 1, targetNumber, questItem);
 			m_goals.Add(goal);
 			return goal;
 		}
@@ -101,7 +103,7 @@ namespace DOL.GS.Quests
 		/// <returns></returns>
 		protected QuestGoal AddGoal(string id, string description, QuestGoal.GoalType type, int targetNumber, ItemTemplate questItem)
 		{
-			QuestGoal goal = new QuestGoal(id, this, description, type, m_goals.Count + 1, targetNumber, questItem);
+			QuestGoal goal = new QuestGoal(id, this, description, (eQuestGoalType)type, m_goals.Count + 1, targetNumber, questItem);
 			m_goals.Add(goal);
 			return goal;
 		}
@@ -119,9 +121,9 @@ namespace DOL.GS.Quests
 		/// <summary>
 		/// List of all goals for this quest
 		/// </summary>
-		public List<QuestGoal> Goals
+		public IList<IQuestGoal> Goals
 		{
-			get { return m_goals; }
+			get { return m_goals.Cast<IQuestGoal>().ToList(); }
 		}
 
 		/// <summary>
@@ -132,6 +134,8 @@ namespace DOL.GS.Quests
 			get { return m_rewards; }
 			set { m_rewards = value; }
 		}
+
+		public IQuestRewards FinalRewards => Rewards;
 
 		/// <summary>
 		/// The fully-fledged story to the quest.
@@ -156,6 +160,12 @@ namespace DOL.GS.Quests
 		{
 			get { return "QUEST CONCLUSION UNDEFINED"; }
 		}
+
+		public virtual ushort QuestId => QuestMgr.GetIDForQuest(this);
+
+		public virtual eQuestStatus Status => Step == -1 ? eQuestStatus.Done : eQuestStatus.InProgress;
+
+		public virtual IList<IQuestGoal> VisibleGoals => Goals;
 
 		public override bool CheckQuestQualification(GamePlayer player)
 		{
@@ -201,11 +211,11 @@ namespace DOL.GS.Quests
 
 				// Check if this particular quest has been finished.
 
-				if (QuestMgr.GetIDForQuestType(this.GetType()) != rewardArgs.QuestID)
+				if (QuestMgr.GetIDForQuest(this) != rewardArgs.QuestID)
 					return;
 
 				for (int reward = 0; reward < rewardArgs.CountChosen; ++reward)
-					Rewards.Choose(rewardArgs.ItemsChosen[reward]);
+					m_rewards.Choose(rewardArgs.ItemsChosen[reward]);
 
                 //k109: Handle the player not choosing a reward.
                 if (Rewards.ChoiceOf > 0 && rewardArgs.CountChosen <= 0)
@@ -233,26 +243,26 @@ namespace DOL.GS.Quests
 		/// </summary>
 		public override void FinishQuest()
 		{
-			int inventorySpaceRequired = Rewards.BasicItems.Count + Rewards.ChosenItems.Count;
+			int inventorySpaceRequired = Rewards.BasicItems.Count + m_rewards.ChosenItems.Count;
 
 			if (QuestPlayer.Inventory.IsSlotsFree(inventorySpaceRequired, eInventorySlot.FirstBackpack, eInventorySlot.LastBackpack))
 			{
 				base.FinishQuest();
 				QuestPlayer.Out.SendSoundEffect(11, 0, 0, 0, 0, 0);
-				QuestPlayer.GainExperience(GameLiving.eXPSource.Quest, Rewards.Experience);
-				QuestPlayer.AddMoney(Rewards.Money);
-                InventoryLogging.LogInventoryAction("(QUEST;" + Name + ")", QuestPlayer, eInventoryActionType.Quest, Rewards.Money);
-				if (Rewards.GiveBountyPoints > 0)
-					QuestPlayer.GainBountyPoints(Rewards.GiveBountyPoints);
-				if (Rewards.GiveRealmPoints > 0)
-					QuestPlayer.GainRealmPoints(Rewards.GiveRealmPoints);
+				QuestPlayer.GainExperience(GameLiving.eXPSource.Quest, m_rewards.Experience);
+				QuestPlayer.AddMoney(m_rewards.Money);
+                InventoryLogging.LogInventoryAction("(QUEST;" + Name + ")", QuestPlayer, eInventoryActionType.Quest, m_rewards.Money);
+				if (m_rewards.GiveBountyPoints > 0)
+					QuestPlayer.GainBountyPoints(m_rewards.GiveBountyPoints);
+				if (m_rewards.GiveRealmPoints > 0)
+					QuestPlayer.GainRealmPoints(m_rewards.GiveRealmPoints);
 
 				foreach (ItemTemplate basicReward in Rewards.BasicItems)
 				{
 					GiveItem(QuestPlayer, basicReward);
 				}
 
-				foreach (ItemTemplate optionalReward in Rewards.ChosenItems)
+				foreach (ItemTemplate optionalReward in m_rewards.ChosenItems)
 				{
 					GiveItem(QuestPlayer, optionalReward);
 				}
@@ -262,15 +272,21 @@ namespace DOL.GS.Quests
 			else
 			{
 				QuestPlayer.Out.SendMessage(string.Format("Your inventory is full, you need {0} free slot(s) to complete this quest.", inventorySpaceRequired), eChatType.CT_System, eChatLoc.CL_SystemWindow);
-				Rewards.ChosenItems.Clear();
+				m_rewards.ChosenItems.Clear();
 			}
 		}
 
 		/// <summary>
 		/// A single quest goal.
 		/// </summary>
-		public class QuestGoal
+		public class QuestGoal : IQuestGoal
 		{
+			public enum GoalType
+			{
+				KillTask = 3,
+				ScoutMission = 5,
+			}
+
 			private string m_id;
 			private RewardQuest m_quest;
 			private string m_description;
@@ -278,10 +294,8 @@ namespace DOL.GS.Quests
 			private int m_current, m_target;
 			private int m_zoneID1 = 0, m_xOffset1 = 0, m_yOffset1 = 0;
 			private int m_zoneID2 = 0, m_xOffset2 = 0, m_yOffset2 = 0;
-			private GoalType m_goalType;
+			private eQuestGoalType m_goalType;
 			private ItemTemplate m_questItem = null;
-
-			public enum GoalType { KillTask = 3, ScoutMission = 5 };	// These are just a hunch for now.
 
 			/// <summary>
 			/// Constructs a new QuestGoal.
@@ -292,7 +306,7 @@ namespace DOL.GS.Quests
 			/// <param name="type"></param>
 			/// <param name="index"></param>
 			/// <param name="target"></param>
-			public QuestGoal(string id, RewardQuest quest, string description, GoalType type, int index, int target, ItemTemplate questItem)
+			public QuestGoal(string id, RewardQuest quest, string description, eQuestGoalType type, int index, int target, ItemTemplate questItem)
 			{
 				m_id = id;
 				m_quest = quest;
@@ -332,7 +346,7 @@ namespace DOL.GS.Quests
 			/// <summary>
 			/// The type of the goal, i.e. whether to scout or to kill things.
 			/// </summary>
-			public GoalType Type
+			public eQuestGoalType Type
 			{
 				get { return m_goalType; }
 			}
@@ -470,12 +484,22 @@ namespace DOL.GS.Quests
 			{
 				get { return m_yOffset2; }
 			}
+
+			public int Progress => Current;
+
+			public int ProgressTotal => Target;
+
+			public QuestZonePoint PointA => new QuestZonePoint { ZoneID = (ushort)ZoneID1, X = (ushort)XOffset1, Y = (ushort)YOffset1 };
+
+			public QuestZonePoint PointB => new QuestZonePoint { ZoneID = (ushort)ZoneID2, X = (ushort)XOffset2, Y = (ushort)YOffset2 };
+
+			public eQuestGoalStatus Status => IsAchieved ? eQuestGoalStatus.Done : eQuestGoalStatus.InProgress;
 		}
 
 		/// <summary>
 		/// Class encapsulating the different types of rewards.
 		/// </summary>
-		public class QuestRewards
+		public class QuestRewards : IQuestRewards
 		{
 			private RewardQuest m_quest;
 			private int m_moneyPercent;
@@ -524,7 +548,7 @@ namespace DOL.GS.Quests
 			/// The maximum amount of copper awarded for a quest with a
 			/// particular level.
 			/// </summary>
-			private long[] m_maxCopperForLevel = {
+			private static readonly long[] m_maxCopperForLevel = {
 				0,
 				115,
 				310,
@@ -577,6 +601,10 @@ namespace DOL.GS.Quests
 				11018817,
 				11018817	// level 50, this appears to be the overall cap
 			};
+			public static int GetMoneyPercent(int level, long copperAmount)
+			{
+				return (int)(copperAmount * 100 / m_maxCopperForLevel[level.Clamp(0, 50)]);
+			}
 			
 			/// <summary>
 			/// Add a basic reward (up to a maximum of 8).
@@ -631,9 +659,9 @@ namespace DOL.GS.Quests
 			/// </summary>
 			public long Money
 			{
-				get 
+				get
 				{
-					return (long)((m_maxCopperForLevel[m_quest.Level] * MoneyPercent / 100) + (GiveGold * 10000));
+					return (m_maxCopperForLevel[m_quest.Level] * MoneyPercent / 100) + (GiveGold * 10000);
 				}
 			}
 

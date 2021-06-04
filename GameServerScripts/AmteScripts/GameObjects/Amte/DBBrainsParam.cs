@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using DOL.Database;
 using DOL.Database.Attributes;
 using DOL.Events;
@@ -38,6 +40,10 @@ namespace DOL.Database
         public static void ScriptLoaded(DOLEvent e, object sender, EventArgs args)
         {
             GameServer.Database.RegisterDataObject(typeof(DBBrainsParam));
+            // cache every objects
+            var entries = GameServer.Database.SelectAllObjects<DBBrainsParam>();
+            MobXDBBrains = entries.GroupBy(o => o.MobID).ToDictionary(o => o.Key, v => v.ToArray());
         }
+        public static Dictionary<string, DBBrainsParam[]> MobXDBBrains = new Dictionary<string, DBBrainsParam[]>();
     }
 }

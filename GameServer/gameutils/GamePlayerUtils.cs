@@ -409,5 +409,18 @@ namespace DOL.GS
 			return string.Format("+{0}{1}{2}", iBonus, str, SkillBase.GetPropertyName(((eProperty)iBonusType)));
 		}
 		#endregion
+
+		/// <summary>
+		/// Calculate the experience percent of current player's level
+		/// </summary>
+		/// <param name="player">player who receive the experience</param>
+		/// <param name="experience">given experience</param>
+		/// <returns>percent of current player's level</returns>
+		public static int GetExperiencePercentForCurrentLevel(GamePlayer player, long experience)
+		{
+			int currentLevel = player.Level;
+			long experienceToLevel = player.GetExperienceNeededForLevel(currentLevel + 1) - player.GetExperienceNeededForLevel(currentLevel);
+			return (int)(experience * 100 / experienceToLevel);
+		}
 	}
 }

@@ -541,6 +541,7 @@ namespace DOL.GS
 				param.CompilerOptions = string.Format("/optimize /lib:.{0}lib", Path.DirectorySeparatorChar);
 				param.ReferencedAssemblies.Add("System.Core.dll");
 				param.ReferencedAssemblies.Add("System.Numerics.dll");
+				param.ReferencedAssemblies.Add("Microsoft.CSharp.dll");
 				if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 				{
 					param.ReferencedAssemblies.Add("netstandard.dll");

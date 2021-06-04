@@ -26,6 +26,7 @@ using log4net;
 
 using DOL.GS.Quests.Atlantis;
 using DOL.Database;
+using System.Collections.Generic;
 
 namespace DOL.GS.Quests
 {
@@ -43,21 +44,8 @@ namespace DOL.GS.Quests
 		/// </summary>
 		private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-		/// <summary>
-		/// Holds all the quests descriptors used in the world (unique id => descriptor)
-		/// </summary>
-		private static readonly IDictionary m_questDescriptors = new HybridDictionary(1);
-
-		/// <summary>
-		/// Holds all the npc quests descriptors used in the world (npc => list of descriptors)
-		/// </summary>
-		private static readonly IDictionary  m_questDescriptorsByNPC = new HybridDictionary();
-
-        private static readonly IDictionary m_questTypeMap = new HybridDictionary();
-
-        private static readonly IDictionary m_questActionMap = new HybridDictionary();
-        private static readonly IDictionary m_questTriggerMap = new HybridDictionary();
-        private static readonly IDictionary m_questRequirementMap = new HybridDictionary();
+		private static ushort m_nextQuestID = 1;
+        private static readonly IDictionary<ushort, Type> m_questTypeMap = new Dictionary<ushort, Type>();
 
 		#endregion
 
@@ -244,9 +232,8 @@ namespace DOL.GS.Quests
         /// <param name="type"></param>
         public static void RegisterQuestType(Type type)
         {
-//            ushort typeId =(ushort) type.GetHashCode();
-			ushort typeId = (ushort)(m_questTypeMap.Count + 1);
-            if (m_questTypeMap.Contains(typeId))
+			ushort typeId = GetNewQuestID();
+            if (m_questTypeMap.ContainsKey(typeId))
             {
                 if (log.IsErrorEnabled)
                     log.Error(type.FullName+ ": Quest with computed id of="+typeId+" already found.");
@@ -254,6 +241,11 @@ namespace DOL.GS.Quests
             }
             m_questTypeMap.Add(typeId, type);
         }
+
+		public static ushort GetNewQuestID()
+		{
+			return m_nextQuestID++;
+		}
 
         /// <summary>
         /// Returns a short id for the quest type.
@@ -265,15 +257,19 @@ namespace DOL.GS.Quests
 //        {
 //            return (ushort)questType.GetHashCode();
 //        }
-		public static ushort GetIDForQuestType(Type questType)
+		private static ushort GetIDForQuestType(Type questType)
 		{
-			IDictionaryEnumerator questEnumerator = m_questTypeMap.GetEnumerator();
-			while (questEnumerator.MoveNext())
-			{
-				if ((Type)questEnumerator.Value == questType)
-					return (ushort)questEnumerator.Key;
-			}
+			foreach (var kvp in m_questTypeMap)
+				if (kvp.Value == questType)
+					return kvp.Key;
 			return 0;
+		}
+
+		public static ushort GetIDForQuest(AbstractQuest quest)
+		{
+			if (quest is IQuestData questData)
+				return questData.QuestId;
+			return GetIDForQuestType(quest.GetType());
 		}
 
         /// <summary>
@@ -284,7 +280,7 @@ namespace DOL.GS.Quests
         /// <returns></returns>
         public static Type GetQuestTypeForID(ushort typeId)
         {
-            return (Type)m_questTypeMap[typeId];
+            return m_questTypeMap[typeId];
         }
 
 		/// <summary>
