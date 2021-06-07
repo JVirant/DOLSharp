@@ -1348,9 +1348,9 @@ namespace DOL.GS
 		/// <returns>true if the item was successfully received</returns>
 		public virtual bool ReceiveItem(GameLiving source, InventoryItem item)
 		{
-			foreach (DataQuest quest in DataQuestList)
+			foreach (AbstractQuest quest in DataQuestList)
 			{
-				quest.Notify(GameLivingEvent.ReceiveItem, this, new ReceiveItemEventArgs(source, this, item));
+				quest.Notify(GameObjectEvent.ReceiveItem, this, new ReceiveItemEventArgs(source, this, item));
 			}
 
 			if (item == null || item.OwnerID == null)

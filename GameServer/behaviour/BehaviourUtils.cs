@@ -32,7 +32,7 @@ namespace DOL.GS.Behaviour
         NPC
     }
 
-    class BehaviourUtils
+    public class BehaviourUtils
     {
 
         /// <summary>

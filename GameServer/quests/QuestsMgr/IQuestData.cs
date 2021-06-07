@@ -1,5 +1,6 @@
 ﻿using DOL.Database;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace DOL.GS.Quests
 {
@@ -61,10 +62,31 @@ namespace DOL.GS.Quests
 
 	public struct QuestZonePoint
 	{
-		public ushort ZoneID;
+		public ushort ZoneId;
 		public ushort X;
 		public ushort Y;
 
-		public static QuestZonePoint None => new QuestZonePoint { ZoneID = 0, X = 0, Y = 0 };
+		public QuestZonePoint(ushort zoneId, ushort x, ushort y)
+		{
+			ZoneId = zoneId;
+			X = x;
+			Y = y;
+		}
+
+		public QuestZonePoint(GameObject obj)
+		{
+			ZoneId = obj.CurrentZone.ZoneSkinID;
+			X = (ushort)(obj.Position.X - obj.CurrentZone.XOffset);
+			Y = (ushort)(obj.Position.Y - obj.CurrentZone.YOffset);
+		}
+
+		public QuestZonePoint(Zone zone, Vector3 globalPos)
+		{
+			ZoneId = zone.ZoneSkinID;
+			X = (ushort)(globalPos.X - zone.XOffset);
+			Y = (ushort)(globalPos.Y - zone.YOffset);
+		}
+
+		public static QuestZonePoint None => new QuestZonePoint { ZoneId = 0, X = 0, Y = 0 };
 	}
 }

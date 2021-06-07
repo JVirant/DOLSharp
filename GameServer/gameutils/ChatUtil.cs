@@ -125,9 +125,12 @@ namespace DOL.GS
 				target.Out.SendMessage(message, eChatType.CT_Staff, eChatLoc.CL_SystemWindow);
 		}
 
+		public static void SendPopup(GamePlayer target, string message) => target.Out.SendMessage(message, eChatType.CT_System, eChatLoc.CL_PopupWindow);
 		public static void SendSystem(GamePlayer target, string message) => target.Out.SendMessage(message, eChatType.CT_System, eChatLoc.CL_SystemWindow);
 		public static void SendImportant(GamePlayer target, string message) => target.Out.SendMessage(message, eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 		public static void SendScreenCenter(GamePlayer target, string message) => target.Out.SendMessage(message, eChatType.CT_ScreenCenter, eChatLoc.CL_SystemWindow);
+
+		public static void SendPopup(GameClient target, string message) => target.Out.SendMessage(message, eChatType.CT_System, eChatLoc.CL_PopupWindow);
 		public static void SendSystem(GameClient target, string message) => target.Out.SendMessage(message, eChatType.CT_System, eChatLoc.CL_SystemWindow);
 		public static void SendImportant(GameClient target, string message) => target.Out.SendMessage(message, eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 		public static void SendScreenCenter(GameClient target, string message) => target.Out.SendMessage(message, eChatType.CT_ScreenCenter, eChatLoc.CL_SystemWindow);

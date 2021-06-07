@@ -1,5 +1,6 @@
 ﻿using DOL.Events;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DOL.GS.Quests
@@ -13,8 +14,9 @@ namespace DOL.GS.Quests
 		public override string Description => m_description;
 		public override eQuestGoalType Type => eQuestGoalType.Kill;
 		public override int ProgressTotal => m_killCount;
+		public override QuestZonePoint PointA => new QuestZonePoint(m_target);
 
-		public KillGoal(DataQuestJson quest, int goalId, dynamic db) : base(quest, goalId)
+		public KillGoal(DataQuestJson quest, int goalId, dynamic db) : base(quest, goalId, (object)db)
 		{
 			m_description = db.Description;
 			m_target = WorldMgr.GetNPCsByNameFromRegion((string)db.TargetName, (ushort)db.TargetRegion, eRealm.None).FirstOrDefault();
@@ -23,18 +25,17 @@ namespace DOL.GS.Quests
 			m_killCount = db.KillCount;
 		}
 
-		public override object GetDatabaseJsonObject()
+		public override Dictionary<string, object> GetDatabaseJsonObject()
 		{
-			return new
-			{
-				Description = m_description,
-				TargetName = m_target.Name,
-				TargetRegion = m_target.CurrentRegionID,
-				KillCount = m_killCount,
-			};
+			var dict = base.GetDatabaseJsonObject();
+			dict.Add("Description", m_description);
+			dict.Add("TargetName", m_target.Name);
+			dict.Add("TargetRegion", m_target.CurrentRegionID);
+			dict.Add("KillCount", m_killCount);
+			return dict;
 		}
 
-		public override void Notify(PlayerQuest questData, PlayerGoalState goalData, DOLEvent e, object sender, EventArgs args)
+		public override void NotifyActive(PlayerQuest questData, PlayerGoalState goalData, DOLEvent e, object sender, EventArgs args)
 		{
 			// Enemy of player with quest was killed, check quests and steps
 			if (e == GameLivingEvent.EnemyKilled && args is EnemyKilledEventArgs killedArgs)
@@ -42,11 +43,7 @@ namespace DOL.GS.Quests
 				var killed = killedArgs.Target;
 				if (killed == null || m_target.Name != killed.Name || m_target.CurrentRegion != killed.CurrentRegion)
 					return;
-				goalData.Progress += 1;
-				if (goalData.Progress >= ProgressTotal)
-					EndGoal(questData, goalData);
-				questData.SaveIntoDatabase();
-				questData.QuestPlayer.Out.SendQuestUpdate(questData);
+				AdvanceGoal(questData, goalData);
 			}
 		}
 	}

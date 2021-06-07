@@ -13,7 +13,7 @@ namespace DOL.GS.Quests
 	{
 		private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-		public static readonly Dictionary<int, DataQuestJson> Quests = new Dictionary<int, DataQuestJson>();
+		public static Dictionary<int, DataQuestJson> Quests = new Dictionary<int, DataQuestJson>();
 
 		[ScriptLoadedEvent]
 		public static void OnScriptsCompiled(DOLEvent e, object sender, EventArgs args)
@@ -25,24 +25,33 @@ namespace DOL.GS.Quests
 		[GameServerStartedEvent]
 		public static void OnGameServerStarted(DOLEvent e, object sender, EventArgs args)
 		{
+			ReloadQuests();
+			GameEventMgr.AddHandlerUnique(GameObjectEvent.Interact, OnInteract);
+			GameEventMgr.AddHandlerUnique(GamePlayerEvent.AcceptQuest, OnAcceptQuest);
+		}
+
+		public static void ReloadQuests()
+		{
+			var quests = new Dictionary<int, DataQuestJson>();
 			foreach (var db in GameServer.Database.SelectAllObjects<DBDataQuestJson>())
 			{
 				try
 				{
 					var loaded = new DataQuestJson(db);
-					Quests.Add(loaded.Id, loaded);
+					quests.Add(loaded.Id, loaded);
 				}
 				catch (Exception ex)
 				{
 					log.Error($"QuestLoader: error when loading quest {db.Id}", ex);
 				}
 			}
-			log.Info($"QuestLoader: {Quests.Count} quests loaded");
-
-			GameEventMgr.AddHandlerUnique(GameObjectEvent.Interact, OnInteract);
-			GameEventMgr.AddHandlerUnique(GamePlayerEvent.AcceptQuest, OnAcceptQuest);
+			// just exchange the reference
+			var old = Quests;
+			Quests = quests;
+			foreach (var quest in old.Values)
+				quest.Unload();
+			log.Info($"QuestLoader: {old.Count} quests unloaded, {Quests.Count} quests loaded");
 		}
-
 
 		public static void OnInteract(DOLEvent _, object sender, EventArgs args)
 		{
@@ -84,6 +93,8 @@ namespace DOL.GS.Quests
 				dq.SaveIntoDatabase();
 				player.Out.SendNPCsQuestEffect(npc, npc.GetQuestIndicator(player));
 				player.Out.SendSoundEffect(7, 0, 0, 0, 0, 0);
+				ChatUtil.SendScreenCenter(player, $"Quest {quest.Name} accepted!");
+				player.Out.SendQuestListUpdate();
 			}
 		}
 	}

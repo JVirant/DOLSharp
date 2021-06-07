@@ -25,6 +25,25 @@ namespace DOL.GS.Quests
 		public ushort QuestId => m_questId;
 		public readonly List<PlayerGoalState> GoalStates = new List<PlayerGoalState>();
 
+		public DataQuestJson Quest => DataQuestJsonMgr.Quests[m_questId];
+		public override string Name => Quest.Name;
+		public override string Description => Quest.Description;
+		public string Summary => Quest.Summary;
+		public string Story => Quest.Story;
+		public string Conclusion => Quest.Conclusion;
+		public override int Level
+		{
+			get { return Quest.MinLevel; }
+			set { throw new NotSupportedException("PlayerDataQuestJson set level"); }
+		}
+
+		public eQuestStatus Status => Step == -1 ? eQuestStatus.Done : eQuestStatus.InProgress;
+
+		public IList<IQuestGoal> Goals => Quest.Goals.Values.Select(g => g.ToQuestGoal(this, GoalStates.Find(gs => gs.GoalId == g.GoalId))).ToList();
+		public IList<IQuestGoal> VisibleGoals => Quest.GetVisibleGoals(this);
+
+		public IQuestRewards FinalRewards => new QuestRewards(Quest);
+
 		public PlayerQuest(GamePlayer owner, DataQuestJson quest) : base()
 		{
 			m_offerPlayer = owner;
@@ -44,30 +63,11 @@ namespace DOL.GS.Quests
 
 			// shoudn't happen, we start the next goal
 			if (VisibleGoals.Count == 0)
-				Quest.Goals.Values.Where(g => g.CanStart(this)).Foreach(g => g.StartGoal(this));
+				Quest.Goals.Values.Foreach(g => g.StartGoal(this));
 
 			if (VisibleGoals.Count == 0)
 				AbortQuest();
 		}
-
-		public DataQuestJson Quest => DataQuestJsonMgr.Quests[m_questId];
-		public override string Name => Quest.Name;
-		public override string Description => Quest.Description;
-		public string Summary => Quest.Summary;
-		public string Story => Quest.Story;
-		public string Conclusion => Quest.Conclusion;
-		public override int Level
-		{
-			get { return Quest.MinLevel; }
-			set { throw new NotSupportedException("PlayerDataQuestJson set level"); }
-		}
-
-		public eQuestStatus Status => Step == -1 ? eQuestStatus.Done : eQuestStatus.InProgress;
-
-		public IList<IQuestGoal> Goals => Quest.Goals.Values.Select(g => g.ToQuestGoal(this, GoalStates.Find(gs => gs.GoalId == g.GoalId))).ToList();
-		public IList<IQuestGoal> VisibleGoals => Quest.GetVisibleGoals(this);
-
-		public IQuestRewards FinalRewards => new QuestRewards(Quest);
 
 		public override bool CheckQuestQualification(GamePlayer player) => Quest.CheckQuestQualification(player);
 

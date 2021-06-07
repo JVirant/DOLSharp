@@ -52,10 +52,13 @@ namespace DOL.GS.Quests
 		{
 		}
 
-		public void Notify(PlayerQuest quest, DOLEvent e, object sender, EventArgs args)
+		public void Notify(PlayerQuest questData, DOLEvent e, object sender, EventArgs args)
 		{
 			foreach (var goal in Goals.Values)
-				goal.Notify(quest, e, sender, args);
+				if (goal.IsActive(questData))
+					goal.NotifyActive(questData, e, sender, args);
+			foreach (var goal in Goals.Values)
+				goal.Notify(questData, e, sender, args);
 		}
 
 		public List<IQuestGoal> GetVisibleGoals(PlayerQuest data)
@@ -112,7 +115,7 @@ namespace DOL.GS.Quests
 			data.FinishQuest();
 		}
 
-		private void GiveItem(GamePlayer player, ItemTemplate itemTemplate)
+		private static void GiveItem(GamePlayer player, ItemTemplate itemTemplate)
 		{
 			var item = GameInventoryItem.Create(itemTemplate);
 			if (!player.ReceiveItem(null, item))
@@ -215,6 +218,12 @@ namespace DOL.GS.Quests
 			}
 
 			Npc.QuestListToGive.Add(new PlayerQuest(null, this));
+		}
+
+		public void Unload()
+		{
+			foreach (var goal in Goals.Values)
+				goal.Unload();
 		}
 	}
 }

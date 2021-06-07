@@ -247,13 +247,13 @@ namespace DOL.GS.PacketHandler
 						var desc = $"{goal.Description} ({goal.Progress} / {goal.ProgressTotal})\r";
 						pak.WriteShortLowEndian((ushort)desc.Length);
 						pak.WriteStringBytes(desc);
-						pak.WriteShortLowEndian(goal.PointA.ZoneID);
+						pak.WriteShortLowEndian(goal.PointA.ZoneId);
 						pak.WriteShortLowEndian(goal.PointA.X);
 						pak.WriteShortLowEndian(goal.PointA.Y);
 						pak.WriteShortLowEndian(0x00); // unknown
 						pak.WriteShortLowEndian((ushort)goal.Type);
 						pak.WriteShortLowEndian(0x00); // unknown
-						pak.WriteShortLowEndian(goal.PointB.ZoneID);
+						pak.WriteShortLowEndian(goal.PointB.ZoneId);
 						pak.WriteShortLowEndian(goal.PointB.X);
 						pak.WriteShortLowEndian(goal.PointB.Y);
 						pak.WriteByte((byte)goal.Status);

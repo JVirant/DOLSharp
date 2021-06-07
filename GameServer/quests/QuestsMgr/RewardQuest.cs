@@ -489,9 +489,9 @@ namespace DOL.GS.Quests
 
 			public int ProgressTotal => Target;
 
-			public QuestZonePoint PointA => new QuestZonePoint { ZoneID = (ushort)ZoneID1, X = (ushort)XOffset1, Y = (ushort)YOffset1 };
+			public QuestZonePoint PointA => new QuestZonePoint { ZoneId = (ushort)ZoneID1, X = (ushort)XOffset1, Y = (ushort)YOffset1 };
 
-			public QuestZonePoint PointB => new QuestZonePoint { ZoneID = (ushort)ZoneID2, X = (ushort)XOffset2, Y = (ushort)YOffset2 };
+			public QuestZonePoint PointB => new QuestZonePoint { ZoneId = (ushort)ZoneID2, X = (ushort)XOffset2, Y = (ushort)YOffset2 };
 
 			public eQuestGoalStatus Status => IsAchieved ? eQuestGoalStatus.Done : eQuestGoalStatus.InProgress;
 		}
