@@ -54,7 +54,8 @@ namespace DOL.GS
 				var tick = GameServer.Instance.TickCount;
 				log.Debug($"loading region {region.Description} (id:{region.ID})...");
 				var zoneTriangles = new LosTreeType[region.Zones.Count];
-				_regionTriangles.Add(region.ID, zoneTriangles);
+				lock (_regionTriangles)
+					_regionTriangles.Add(region.ID, zoneTriangles);
 				int i = 0;
 				foreach (var zone in region.Zones)
 					zoneTriangles[i++] = _LoadZone(region, zone, Path.Combine("obj", $"zone{zone.ZoneSkinID:D3}.obj"));
