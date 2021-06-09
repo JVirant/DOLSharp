@@ -13,7 +13,6 @@ namespace DOL.GS.Quests
 		private Area.Circle m_area;
 		private ushort m_areaRegion;
 		private QuestZonePoint m_pointB;
-		private List<int> m_endWhenGoalsDone = new List<int>();
 
 		public override string Description => m_description;
 		public override eQuestGoalType Type => eQuestGoalType.Unknown;
@@ -32,10 +31,6 @@ namespace DOL.GS.Quests
 			m_area.RegisterPlayerEnter(OnPlayerEnterArea);
 			m_area.RegisterPlayerLeave(OnPlayerLeaveArea);
 			m_pointB = new QuestZonePoint(reg.GetZone(m_area.Position), m_area.Position);
-
-			if (db.EndWhenGoalsDone != null)
-				foreach (var id in db.EndWhenGoalsDone)
-					m_endWhenGoalsDone.Add((int)id);
 		}
 
 		public override Dictionary<string, object> GetDatabaseJsonObject()
@@ -45,13 +40,7 @@ namespace DOL.GS.Quests
 			dict.Add("AreaCenter", m_area.Position);
 			dict.Add("AreaRadius", m_area.Radius);
 			dict.Add("AreaRegion", m_areaRegion);
-			dict.Add("EndWhenGoalsDone", m_endWhenGoalsDone);
 			return dict;
-		}
-
-		public override bool CanEnd(PlayerQuest questData)
-		{
-			return base.CanEnd(questData) && m_endWhenGoalsDone.All(id => questData.GoalStates.Any(s => s.GoalId == id && s.Done));
 		}
 
 		private void OnPlayerEnterArea(DOLEvent e, object sender, EventArgs arguments)

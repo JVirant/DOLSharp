@@ -20,7 +20,9 @@ namespace DOL.GS.Quests
 		public virtual ItemTemplate QuestItem => null;
 		public virtual bool Visible => true;
 		public virtual ItemTemplate GiveItemTemplate { get; set; } = null;
+
 		public virtual List<int> StartGoalsDone { get; set; } = new List<int>();
+		public virtual List<int> EndWhenGoalsDone { get; set; } = new List<int>();
 
 		public DataQuestJsonGoal(DataQuestJson quest, int goalId, dynamic db)
 		{
@@ -36,6 +38,9 @@ namespace DOL.GS.Quests
 			}
 			else if (GoalId > 1)
 				StartGoalsDone.Add(GoalId - 1);
+			if (db.EndWhenGoalsDone != null)
+				foreach (var id in db.EndWhenGoalsDone)
+					EndWhenGoalsDone.Add((int)id);
 		}
 
 		public bool IsActive(PlayerQuest questData) => questData.GoalStates.Any(gs => gs.GoalId == GoalId && gs.Active);
@@ -65,7 +70,7 @@ namespace DOL.GS.Quests
 		}
 		public virtual bool CanEnd(PlayerQuest questData)
 		{
-			return IsActive(questData) && IsDone(questData);
+			return IsActive(questData) && IsDone(questData) && EndWhenGoalsDone.All(id => questData.GoalStates.Any(s => s.GoalId == id && s.Done));
 		}
 		public PlayerGoalState StartGoal(PlayerQuest questData)
 		{
@@ -140,6 +145,8 @@ namespace DOL.GS.Quests
 			return new Dictionary<string, object>
 			{
 				{ "GiveItem", GiveItemTemplate?.Id_nb },
+				{ "StartGoalsDone", StartGoalsDone.Count > 0 ? StartGoalsDone : null },
+				{ "EndWhenGoalsDone", EndWhenGoalsDone.Count > 0 ? EndWhenGoalsDone : null },
 			};
 		}
 
