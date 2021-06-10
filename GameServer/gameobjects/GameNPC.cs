@@ -76,7 +76,9 @@ namespace DOL.GS
 		{
 			if (!DebugMode)
 				return;
-			Say("[DEBUG] " + string.Format(str, args));
+			str = string.Format(str, args);
+			Say("[DEBUG] " + str);
+			log.Debug($"[pathing {Name}] {str}");
 		}
 		#endregion
 
@@ -1531,6 +1533,8 @@ namespace DOL.GS
 		/// <returns>true if a path was found</returns>
 		public async Task<bool> PathTo(Vector3 dest, short? speed = null, Action<GameNPC> onLastNodeReached = null)
 		{
+			if (dest == Position)
+				return true;
 			if (IsTurningDisabled)
 				return false;
 
@@ -3684,7 +3688,7 @@ namespace DOL.GS
 		public override bool Interact(GamePlayer player)
 		{
 			if (!base.Interact(player)) return false;
-			if (!GameServer.ServerRules.IsSameRealm(this, player, true) && Faction.GetAggroToFaction(player) > 25)
+			if (!GameServer.ServerRules.IsSameRealm(this, player, true) && (Faction?.GetAggroToFaction(player) ?? 0) > 25)
 			{
 				player.Out.SendMessage(LanguageMgr.GetTranslation(player.Client.Account.Language, "GameNPC.Interact.DirtyLook",
 					GetName(0, true, player.Client.Account.Language, this)), eChatType.CT_System, eChatLoc.CL_SystemWindow);
