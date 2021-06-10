@@ -42,9 +42,7 @@ namespace DOL.GS.Scripts
 				case "create":
 					npc = new TeleportNPC
 						  {
-							  X = player.X,
-							  Y = player.Y,
-							  Z = player.Z,
+							  Position = player.Position,
 							  Heading = player.Heading,
 							  CurrentRegion = player.CurrentRegion,
 							  Name = "Nouveau téléporteur",

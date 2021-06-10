@@ -44,9 +44,7 @@ namespace DOL.GS.Scripts
 
             if (add && IsAlive && ObjectState != eObjectState.Active)
             {
-                X = SpawnPoint.X;
-                Y = SpawnPoint.Y;
-                Z = SpawnPoint.Z;
+	            Position = SpawnPoint;
                 Heading = SpawnHeading;
                 AddToWorld();
             }

@@ -15,9 +15,7 @@ namespace DOL.GS.Commands
 			{
 				case "create":
 					PlaceAssise p = new PlaceAssise();
-					p.X = client.Player.X;
-					p.Y = client.Player.Y;
-					p.Z = client.Player.Z;
+					p.Position = client.Player.Position;
 					p.CurrentRegion = client.Player.CurrentRegion;
 					p.Heading = client.Player.Heading;
 					p.AddToWorld();

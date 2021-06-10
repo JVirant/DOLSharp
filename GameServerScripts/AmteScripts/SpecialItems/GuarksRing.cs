@@ -94,9 +94,9 @@ namespace DOL.GS.Scripts
 			_playerIDs.Add(player.InternalID);
 
 			RegionTimer timer = new RegionTimer(player, TimerTicks);
-			timer.Properties.setProperty("X", player.X);
-			timer.Properties.setProperty("Y", player.Y);
-			timer.Properties.setProperty("Z", player.Z);
+			timer.Properties.setProperty("X", player.Position.X);
+			timer.Properties.setProperty("Y", player.Position.Y);
+			timer.Properties.setProperty("Z", player.Position.Z);
 			player.TempProperties.setProperty(RING_IS_AMULETTE, (arg.Item.Id_nb == "dre_guarks_amulette"));
 			player.TempProperties.setProperty(RING_TIMER, timer);
 			timer.Start(1000);
@@ -145,7 +145,7 @@ namespace DOL.GS.Scripts
 			int x = timer.Properties.getProperty("X", 0);
 			int y = timer.Properties.getProperty("Y", 0);
 			int z = timer.Properties.getProperty("Z", 0);
-			if (stop || player.InCombat || player.X != x || player.Y != y || player.Z != z)
+			if (stop || player.InCombat || (int)player.Position.X != x || (int)player.Position.Y != y || (int)player.Position.Z != z)
 			{
 				timer.Stop();
 				player.TempProperties.removeProperty(RING_TARGET);

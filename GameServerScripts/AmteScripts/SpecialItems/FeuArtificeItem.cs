@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using DOL.AI.Brain;
 using DOL.GS.PacketHandler;
 using DOL.Database;
@@ -156,9 +157,7 @@ namespace DOL.GS.Scripts
 	                          		Level = 1,
 	                          		Model = 1,
 	                          		Realm = 0,
-	                          		Z = obj.Z + 800,
-	                          		Y = obj.Y,
-	                          		X = obj.X,
+	                                Position = obj.Position + new Vector3(0, 0, 800),
 	                          		CurrentRegion = obj.CurrentRegion
 	                          	};
 
@@ -167,42 +166,30 @@ namespace DOL.GS.Scripts
 	        }
 
 	        //Pied
-            mobs[0].Z = obj.Z;
+            mobs[0].Position = obj.Position;
 	        
 	        //Pyramide:
 	        //Base
-            mobs[2].X += 250;
-            mobs[2].Y += 250;
-            mobs[3].X += 250;
-            mobs[4].X += 250;
-            mobs[4].Y -= 250;
-            mobs[5].Y -= 250;
-            mobs[6].X -= 250;
-            mobs[6].Y -= 250;
-            mobs[7].X -= 250;
-            mobs[8].X -= 250;
-            mobs[8].Y += 250;
-            mobs[9].Y += 250;
+	        mobs[2].Position += new Vector3(250, 250, 0);
+            mobs[3].Position += new Vector3(250, 0, 0);
+            mobs[4].Position += new Vector3(250, -250, 0);
+            mobs[5].Position += new Vector3(0, -250, 0);
+            mobs[6].Position -= new Vector3(250, 250, 0);
+            mobs[7].Position -= new Vector3(250, 0, 0);
+            mobs[8].Position += new Vector3(-250, 250, 0);
+            mobs[9].Position += new Vector3(0, 250, 0);
 	        
 	        //2e étage
-            mobs[10].Z += 250;
-            mobs[10].X += 125;
-            mobs[10].Y += 125;
-            mobs[11].Z += 250;
-            mobs[11].X += 125;
-            mobs[11].Y -= 125;
-            mobs[12].Z += 250;
-            mobs[12].X -= 125;
-            mobs[12].Y -= 125;
-            mobs[13].Z += 250;
-            mobs[13].X -= 125;
-            mobs[13].Y += 125;
+            mobs[10].Position += new Vector3(+125, +125, 250);
+            mobs[11].Position += new Vector3(+125, -125, 250);
+            mobs[12].Position += new Vector3(-125, -125, 250);
+            mobs[13].Position += new Vector3(-125, +125, 250);
 	        
-            mobs[14].Z += 250;
+            mobs[14].Position += new Vector3(0, 0, 250);
             mobs[14].Size = 75;
 	        
 	        //Sommet
-            mobs[15].Z += 500;
+            mobs[15].Position += new Vector3(0, 0, 500);
             mobs[15].Size = 100;
 
             foreach (KeyValuePair<int, GameNPC> mob in mobs)

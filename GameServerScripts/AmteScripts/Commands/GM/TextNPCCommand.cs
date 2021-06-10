@@ -89,9 +89,7 @@ namespace DOL.GS.Scripts
 
                     if(npc == null) npc = new TextNPC();
                     ((GameNPC)npc).LoadedFromScript = false;
-					((GameNPC)npc).X = player.X;
-                    ((GameNPC)npc).Y = player.Y;
-                    ((GameNPC)npc).Z = player.Z;
+					((GameNPC)npc).Position = player.Position;
                     ((GameNPC)npc).Heading = player.Heading;
                     ((GameNPC)npc).CurrentRegion = player.CurrentRegion;
                     ((GameNPC)npc).Name = "Nouveau pnj";

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using DOL.Database;
 using DOL.GS.PacketHandler;
 
@@ -187,9 +188,9 @@ namespace DOL.GS.Scripts
             }
 
 		    RegionTimer timer = new RegionTimer(player, UnlockCallback);
-			timer.Properties.setProperty("X", player.X);
-			timer.Properties.setProperty("Y", player.Y);
-			timer.Properties.setProperty("Z", player.Z);
+			timer.Properties.setProperty("X", player.Position.X);
+			timer.Properties.setProperty("Y", player.Position.Y);
+			timer.Properties.setProperty("Z", player.Position.Z);
 			timer.Properties.setProperty("Head", (int)player.Heading);
 			timer.Properties.setProperty("player", player);
 			timer.Start(500);
@@ -206,7 +207,7 @@ namespace DOL.GS.Scripts
 			int Head = timer.Properties.getProperty("Head",0);
 			if (player == null)
 				return 0;
-			if (Xpos != player.X || Ypos != player.Y || Zpos != player.Z || Head != player.Heading || player.InCombat)
+			if (Xpos != (int)player.Position.X || Ypos != (int)player.Position.Y || Zpos != (int)player.Position.Z || Head != player.Heading || player.InCombat)
 			{
 				player.Out.SendCloseTimerWindow();
 				return 0;
@@ -358,9 +359,7 @@ namespace DOL.GS.Scripts
             DBCoffre coffre = obj as DBCoffre;
             if (coffre == null) return;
             Name = coffre.Name;
-            X = coffre.X;
-            Y = coffre.Y;
-            Z = coffre.Z;
+            Position = new Vector3(coffre.X, coffre.Y, coffre.Z);
             Heading = (ushort) (coffre.Heading & 0xFFF);
             CurrentRegionID = coffre.Region;
             Model = coffre.Model;
@@ -462,7 +461,7 @@ namespace DOL.GS.Scripts
 				{
 					" + OID: " + ObjectID,
 					" + Class: " + GetType(),
-					" + Position: X=" + X + " Y=" + Y + " Z=" + Z + " Heading=" + Heading,
+					" + Position: " + Position + " Heading=" + Heading,
 					" + Realm: " + Realm,
 					" + Model: " + Model,
 					"",

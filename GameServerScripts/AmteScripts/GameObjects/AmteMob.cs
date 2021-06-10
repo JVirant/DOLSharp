@@ -64,9 +64,8 @@ public class AmteMob : GameNPC, IAmteNPC
 			{
 				cp.Value = param.Value;
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
-				
 			}
 			_nameXcp.Add(cp.name, param);
 		}

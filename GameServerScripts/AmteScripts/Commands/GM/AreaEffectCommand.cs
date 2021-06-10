@@ -67,9 +67,7 @@ namespace DOL.GS.Commands
 					}
 					AE = new AreaEffect
 					    {
-					        X = player.X,
-					        Y = player.Y,
-					        Z = player.Z,
+					        Position = player.Position,
 					        CurrentRegion = player.CurrentRegion,
 					        Heading = player.Heading,
 					        Model = 1,

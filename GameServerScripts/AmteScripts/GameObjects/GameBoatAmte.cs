@@ -1,3 +1,4 @@
+using System.Numerics;
 using DOL.AI.Brain;
 using DOL.Database;
 using DOL.GS.PacketHandler;
@@ -103,11 +104,9 @@ namespace DOL.GS
             Mob npc = (Mob)obj;
             Name = npc.Name;
             GuildName = npc.Guild;
-            X = npc.X;
-            Y = npc.Y;
-            Z = npc.Z;
+            Position = new Vector3(npc.X, npc.Y, npc.Z);
             m_Heading = (ushort)(npc.Heading & 0xFFF);
-            m_maxSpeedBase = (short)npc.Speed;	// TODO db has currntly senseless information here, mob type db required
+            m_maxSpeedBase = (short)npc.Speed;	// TODO db has currently senseless information here, mob type db required
             if (m_maxSpeedBase == 0)
                 m_maxSpeedBase = 600;
             m_currentSpeed = 0;

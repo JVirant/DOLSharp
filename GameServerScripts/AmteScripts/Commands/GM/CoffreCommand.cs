@@ -45,9 +45,7 @@ namespace DOL.GS.Scripts
 					         	{
 					         		Name = "Coffre",
 					         		Model = 1596,
-					         		X = player.X,
-					         		Y = player.Y,
-					         		Z = player.Z,
+					                Position = player.Position,
 					         		Heading = player.Heading,
 					         		CurrentRegionID = player.CurrentRegionID,
 					         		ItemInterval = 60,
@@ -163,9 +161,8 @@ namespace DOL.GS.Scripts
 						DisplaySyntax(client);
 						break;
 					}
-					coffre.X = player.X;
-					coffre.Y = player.Y;
-					coffre.Z = player.Z;
+
+					coffre.Position = player.Position;
 					coffre.Heading = player.Heading;
 					coffre.SaveIntoDatabase();
 					ChatUtil.SendSystemMessage(client, "Le coffre selectionné a été déplacé à votre position.");
@@ -235,9 +232,7 @@ namespace DOL.GS.Scripts
 						coffre2 = new GameCoffre(coffre.Items);
 
 					coffre2.Name = coffre.Name;
-					coffre2.X = player.X;
-					coffre2.Y = player.Y;
-					coffre2.Z = player.Z;
+					coffre2.Position = player.Position;
 					coffre2.Heading = player.Heading;
 					coffre2.CurrentRegion = player.CurrentRegion;
 					coffre2.Model = coffre.Model;

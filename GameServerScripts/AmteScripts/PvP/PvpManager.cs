@@ -75,7 +75,7 @@ namespace AmteScripts.Managers
 				var spawn = WorldMgr.GetNPCsByNameFromRegion("SPAWN", id, eRealm.None).FirstOrDefault();
 				if (spawn == null)
 					continue;
-				_maps.Add(id, new Tuple<GameNPC, GameLocation>(spawn, new GameLocation("Spawn", spawn.CurrentRegionID, spawn.X, spawn.Y, spawn.Z, spawn.Heading)));
+				_maps.Add(id, new Tuple<GameNPC, GameLocation>(spawn, new GameLocation("Spawn", spawn)));
 			}
 			return (from m in _maps select m.Key);
 		}

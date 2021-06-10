@@ -98,12 +98,9 @@ namespace AmteScripts.Managers
 				if (spawnAlb == null || spawnMid == null || spawnHib == null)
 					continue;
 				_maps.Add(id, new Tuple<GameNPC[], GameLocation, GameLocation, GameLocation>(new[] { spawnAlb, spawnMid, spawnHib },
-					new GameLocation("Alb", spawnAlb.CurrentRegionID, spawnAlb.X, spawnAlb.Y, spawnAlb.Z,
-						spawnAlb.Heading),
-					new GameLocation("Mid", spawnMid.CurrentRegionID, spawnMid.X, spawnMid.Y, spawnMid.Z,
-						spawnMid.Heading),
-					new GameLocation("Hib", spawnHib.CurrentRegionID, spawnHib.X, spawnHib.Y, spawnHib.Z,
-						spawnHib.Heading)
+					new GameLocation("Alb", spawnAlb),
+					new GameLocation("Mid", spawnMid),
+					new GameLocation("Hib", spawnHib)
 					));
 			}
 			return (from m in _maps select m.Key);

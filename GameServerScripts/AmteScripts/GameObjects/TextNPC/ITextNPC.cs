@@ -412,7 +412,7 @@ namespace DOL.GS.Scripts
 				{
 					" + OID: " + _body.ObjectID,
 					" + Class: " + _body.GetType(),
-					" + Position: X=" + _body.X + " Y=" + _body.Y + " Z=" + _body.Z + " Heading=" + _body.Heading,
+					" + Position: " + _body.Position + " Heading=" + _body.Heading,
 					" + Realm: " + _body.Realm,
 					" + Model: " + _body.Model,
 					"",

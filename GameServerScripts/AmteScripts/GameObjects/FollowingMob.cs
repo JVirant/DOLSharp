@@ -246,8 +246,7 @@ namespace DOL.AI.Brain
 			}
 
 			if (!Body.AttackState && !Body.IsCasting && !Body.IsMoving
-				&& Body.Heading != Body.SpawnHeading && Body.X == Body.SpawnPoint.X
-				&& Body.Y == Body.SpawnPoint.Y && Body.Z == Body.SpawnPoint.Z)
+				&& Body.Heading != Body.SpawnHeading && Body.Position == Body.SpawnPoint)
 				Body.TurnTo(Body.SpawnHeading);
 
 			if (!Body.InCombat)

@@ -35,9 +35,8 @@ namespace DOL.GS.Commands
                         DisplaySyntax(client);
                         return;
                     }
-			        mob.X = client.Player.X;
-                    mob.Y = client.Player.Y;
-                    mob.Z = client.Player.Z;
+
+                    mob.Position = client.Player.Position;
                     mob.Heading = client.Player.Heading;
                     mob.CurrentRegion = client.Player.CurrentRegion;
                     mob.Name = "New Boat";
