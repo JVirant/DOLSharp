@@ -64,7 +64,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Is the distance a say is broadcast
 		/// </summary>
-		public const int SAY_DISTANCE = 1024; // tested
+		public const int SAY_DISTANCE = 512; // tested
 		/// <summary>
 		/// Is the distance info messages are broadcast (player attacks, spell cast, player stunned/rooted/mezzed, loot dropped)
 		/// </summary>
@@ -80,7 +80,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Is the distance at which livings can give a item
 		/// </summary>
-		public const int GIVE_ITEM_DISTANCE = 192;  // tested
+		public const int GIVE_ITEM_DISTANCE = 256;  // tested
 		/// <summary>
 		/// Is the distance at which livings can interact
 		/// </summary>
@@ -88,7 +88,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Is the distance an player can see
 		/// </summary>
-		public const int VISIBILITY_DISTANCE = 8192;
+		public const int VISIBILITY_DISTANCE = 4096;
 		/// <summary>
 		/// Moving greater than this distance requires the player to do a full world refresh
 		/// </summary>
@@ -96,7 +96,7 @@ namespace DOL.GS
 		/// <summary>
 		/// Holds the distance at which objects are updated
 		/// </summary>
-		public const int OBJ_UPDATE_DISTANCE = 8192;
+		public const int OBJ_UPDATE_DISTANCE = 4096;
 
 		/// <summary>
 		/// This will store available teleport destinations as read from the 'teleport' table.  These are
