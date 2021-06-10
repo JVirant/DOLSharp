@@ -2851,6 +2851,9 @@ namespace DOL.GS.PacketHandler
 					SendQuestPacket((quest.Step == 0 || quest == null) ? null : quest, questIndex++);
 				}
 			}
+
+			while (questIndex <= 25)
+				SendQuestPacket(null, questIndex++);
 		}
 
 		public virtual void SendQuestOfferWindow(GameNPC questNPC, GamePlayer player, DataQuest quest)
@@ -3017,26 +3020,30 @@ namespace DOL.GS.PacketHandler
 				pak.WriteInt((uint)(quest.FinalRewards.Money)); // unknown, new in 1.94
 				pak.WriteByte((byte)GamePlayerUtils.GetExperiencePercentForCurrentLevel(player, quest.FinalRewards.Experience));
 				pak.WriteByte((byte)quest.FinalRewards.BasicItems.Count);
+				var rewardIdx = 0;
 				foreach (ItemTemplate reward in quest.FinalRewards.BasicItems)
 				{
-					WriteItemData(pak, GameInventoryItem.Create(reward));
+					WriteItemData(pak, GameInventoryItem.Create(reward), (quest.QuestId * 16 + rewardIdx));
+					rewardIdx += 1;
 				}
 				pak.WriteByte((byte)quest.FinalRewards.ChoiceOf);
 				pak.WriteByte((byte)quest.FinalRewards.OptionalItems.Count);
+				var rewardOptionalIdx = 8;
 				foreach (ItemTemplate reward in quest.FinalRewards.OptionalItems)
 				{
-					WriteItemData(pak, GameInventoryItem.Create(reward));
+					WriteItemData(pak, GameInventoryItem.Create(reward), (quest.QuestId * 16 + rewardOptionalIdx));
+					rewardOptionalIdx += 1;
 				}
 				SendTCP(pak);
 			}
 		}
 		protected virtual void SendQuestPacket(AbstractQuest q, int index)
 		{
-			if (q == null)
+			using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.QuestEntry)))
 			{
-				using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.QuestEntry)))
+				pak.WriteByte((byte) index);
+				if (q == null)
 				{
-					pak.WriteByte((byte)index);
 					pak.WriteByte(0);
 					pak.WriteByte(0);
 					pak.WriteByte(0);
@@ -3045,84 +3052,59 @@ namespace DOL.GS.PacketHandler
 					SendTCP(pak);
 					return;
 				}
-			}
-			else if (q is IQuestData data)
-			{
-				using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.QuestEntry)))
+
+				var name = $"{q.Name} (Level {q.Level})";
+				if (name.Length > byte.MaxValue)
+					name = name.Substring(0, 256);
+
+				if (q is IQuestData data)
 				{
-					var name = $"{data.Name} (Level {data.Level})";
-					if (name.Length > byte.MaxValue)
-						name = name.Substring(0, 256);
-					pak.WriteByte((byte)index);
-					pak.WriteByte((byte)name.Length);
-					pak.WriteShort((ushort)data.Status);
-					pak.WriteByte((byte)data.VisibleGoals.Count);
-					pak.WriteByte((byte)data.Level);
+					pak.WriteByte((byte) name.Length);
+					pak.WriteShort((ushort) data.Status);
+					pak.WriteByte((byte) data.VisibleGoals.Count);
+					pak.WriteByte((byte) data.Level);
 					pak.WriteStringBytes(name);
 					pak.WritePascalString(data.Description);
 					for (var idx = 0; idx < data.VisibleGoals.Count; ++idx)
 					{
 						var goal = data.VisibleGoals[idx];
 						var desc = $"{goal.Description} ({goal.Progress} / {goal.ProgressTotal})\r";
-						pak.WriteShortLowEndian((ushort)desc.Length);
+						pak.WriteShortLowEndian((ushort) desc.Length);
 						pak.WriteStringBytes(desc);
 						pak.WriteShortLowEndian(goal.PointA.ZoneId);
 						pak.WriteShortLowEndian(goal.PointA.X);
 						pak.WriteShortLowEndian(goal.PointA.Y);
 						pak.WriteShortLowEndian(0x00); // unknown
-						pak.WriteShortLowEndian((ushort)goal.Type);
+						pak.WriteShortLowEndian((ushort) goal.Type);
 						pak.WriteShortLowEndian(0x00); // unknown
 						pak.WriteShortLowEndian(goal.PointB.ZoneId);
 						pak.WriteShortLowEndian(goal.PointB.X);
 						pak.WriteShortLowEndian(goal.PointB.Y);
-						pak.WriteByte((byte)goal.Status);
+						pak.WriteByte((byte) goal.Status);
 						if (goal.QuestItem == null)
 						{
 							pak.WriteByte(0x00);
 						}
 						else
 						{
-							pak.WriteByte((byte)idx);
+							pak.WriteByte((byte) idx);
 							WriteTemplateData(pak, goal.QuestItem, 1);
 						}
 					}
+
 					SendTCP(pak);
 					return;
 				}
-			}
-			else
-			{
-				using (GSTCPPacketOut pak = new GSTCPPacketOut(GetPacketCode(eServerPackets.QuestEntry)))
-				{
-					pak.WriteByte((byte)index);
 
-					string name = string.Format("{0} (Level {1})", q.Name, q.Level);
-					string desc = string.Format("[Step #{0}]: {1}", q.Step, q.Description);
-					if (name.Length > byte.MaxValue)
-					{
-						if (log.IsWarnEnabled)
-						{
-							log.Warn(q.GetType().ToString() + ": name is too long for 1.68+ clients (" + name.Length + ") '" + name + "'");
-						}
-						name = name.Substring(0, byte.MaxValue);
-					}
-					if (desc.Length > byte.MaxValue)
-					{
-						if (log.IsWarnEnabled)
-						{
-							log.Warn(q.GetType().ToString() + ": description is too long for 1.68+ clients (" + desc.Length + ") '" + desc + "'");
-						}
-						desc = desc.Substring(0, byte.MaxValue);
-					}
-					pak.WriteByte((byte)name.Length);
-					pak.WriteShortLowEndian((ushort)desc.Length);
-					pak.WriteByte(0); // Quest Zone ID ?
-					pak.WriteByte(0);
-					pak.WriteStringBytes(name); //Write Quest Name without trailing 0
-					pak.WriteStringBytes(desc); //Write Quest Description without trailing 0                   
+				var baseDesc = string.Format("[Step #{0}]: {1}", q.Step, q.Description);
+				pak.WriteByte((byte) name.Length);
+				pak.WriteShortLowEndian((ushort) baseDesc.Length);
+				pak.WriteByte(0); // Quest Zone ID ?
+				pak.WriteByte(0);
+				pak.WriteStringBytes(name); //Write Quest Name without trailing 0
+				pak.WriteStringBytes(baseDesc); //Write Quest Description without trailing 0
 
-					SendTCP(pak);
-				}
+				SendTCP(pak);
 			}
 		}
 
@@ -4788,14 +4770,14 @@ namespace DOL.GS.PacketHandler
 		/// <summary>
 		/// New item data packet for 1.119
 		/// </summary>		
-		protected virtual void WriteItemData(GSTCPPacketOut pak, InventoryItem item)
+		protected virtual void WriteItemData(GSTCPPacketOut pak, InventoryItem item, ushort itemId = 0)
 		{
 			if (item == null)
 			{
 				pak.Fill(0x00, 24); // +1 item.Effect changed to short
 				return;
 			}
-			pak.WriteShort((ushort)0); // item uniqueID
+			pak.WriteShort(itemId); // item uniqueID
 			pak.WriteByte((byte)item.Level);
 
 			int value1; // some object types use this field to display count

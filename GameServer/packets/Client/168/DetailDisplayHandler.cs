@@ -503,30 +503,18 @@ namespace DOL.GS.PacketHandler.Client.v168
 					{
 						if (objectType == 29)
 						{
-							int index = objectId & 0x0F;
-							ushort questID = (ushort)((extraId >> 5) | (ushort)(objectId >> 4));
-							GameLiving questGiver = null;
-							if (client.Player.TargetObject is GameLiving) //- Unty
-								questGiver = (GameLiving)client.Player.TargetObject;
+							var index = objectId & 0x0F;
+							var questId = (ushort)(objectId >> 4);
 
-							ChatUtil.SendDebugMessage(client, $"Quest ID: {questID}");
+							ChatUtil.SendDebugMessage(client, $"Quest ID: {questId}");
 
-							if (questID == 0)
+							if (questId == 0)
 								return;
-							questID = (ushort)(objectId >> 4);
+							var aQuest = QuestMgr.GetQuestFromId(questId);
+							if (aQuest == null)
+								return;
 
-							DataQuest dq = null;
-							questID = (ushort)(objectId >> 4);
-							foreach (DBDataQuest d in GameObject.DataQuestCache)
-							{
-								if (d.ID == questID)
-								{
-									dq = new DataQuest(d);
-									break;
-								}
-							}
-
-							if (dq != null && dq.StartType == DataQuest.eStartType.RewardQuest)
+							if (aQuest is DataQuest dq && dq.StartType == DataQuest.eStartType.RewardQuest)
 							{
 								List<ItemTemplate> rewards = null;
 								if (index < 8)
@@ -540,6 +528,13 @@ namespace DOL.GS.PacketHandler.Client.v168
 								{
 									item = rewards[index];
 								}
+							}
+							else if (aQuest is IQuestData quest)
+							{
+								if (index < 8 && quest.FinalRewards.BasicItems.Count > index)
+									item = quest.FinalRewards.BasicItems[index];
+								else if (index >= 8 && quest.FinalRewards.OptionalItems.Count > index - 8)
+									item = quest.FinalRewards.OptionalItems[index - 8];
 							}
 						}
 

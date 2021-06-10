@@ -46,6 +46,7 @@ namespace DOL.GS.Quests
 
 		private static ushort m_nextQuestID = 1;
         private static readonly IDictionary<ushort, Type> m_questTypeMap = new Dictionary<ushort, Type>();
+        private static readonly IDictionary<ushort, AbstractQuest> m_quests = new Dictionary<ushort, AbstractQuest>();
 
 		#endregion
 
@@ -241,6 +242,28 @@ namespace DOL.GS.Quests
             }
             m_questTypeMap.Add(typeId, type);
         }
+
+		public static void RegisterQuest(AbstractQuest aQuest)
+		{
+			if (aQuest is IQuestData quest)
+				m_quests.Add(quest.QuestId, aQuest);
+			else
+				RegisterQuestType(aQuest.GetType());
+		}
+
+		public static void UnregisterQuest(ushort questId)
+		{
+			m_quests.Remove(questId);
+			m_questTypeMap.Remove(questId);
+		}
+
+		public static AbstractQuest GetQuestFromId(ushort id)
+		{
+			AbstractQuest quest;
+			if (m_quests.TryGetValue(id, out quest))
+				return quest;
+			return null;
+		}
 
 		public static ushort GetNewQuestID()
 		{
