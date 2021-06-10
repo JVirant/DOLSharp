@@ -49,7 +49,13 @@ namespace DOL.GS.Quests
 			var old = Quests;
 			Quests = quests;
 			foreach (var quest in old.Values)
+			{
 				quest.Unload();
+				QuestMgr.UnregisterQuest(quest.Id);
+			}
+
+			foreach (var quest in Quests.Values)
+				QuestMgr.RegisterQuest(new PlayerQuest(null, quest));
 			log.Info($"QuestLoader: {old.Count} quests unloaded, {Quests.Count} quests loaded");
 		}
 
