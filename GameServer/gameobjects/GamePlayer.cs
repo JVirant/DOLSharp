@@ -10185,10 +10185,8 @@ namespace DOL.GS
 			//Current Speed = 0 when moved ... else X,Y,Z continue to be modified
 			CurrentSpeed = 0;
 			MovementStartTick = Environment.TickCount;
-			Vector3 originalPoint = new Vector3(X, Y, Z);
-			X = x;
-			Y = y;
-			Z = z;
+			Vector3 originalPoint = Position;
+			Position = new Vector3(x, y, z);
 			Heading = heading;
 
 			//Remove the last update tick property, to prevent speedhack messages during zoning and teleporting!
@@ -10241,7 +10239,7 @@ namespace DOL.GS
 					{
 						GameNPC petBody = npc.Body;
 
-						petBody.MoveInRegion(CurrentRegionID, point.X, point.Y, this.Z + 10, (ushort)((this.Heading + 2048) % 4096), false);
+						petBody.MoveInRegion(CurrentRegionID, point.X, point.Y, this.Position.Z + 10, (ushort)((this.Heading + 2048) % 4096), false);
 
 						if (petBody != null && petBody.ControlledNpcList != null)
 						{
@@ -10312,7 +10310,7 @@ namespace DOL.GS
 					b.Account = Client.Account.Name;
 					b.DateBan = DateTime.Now;
 					b.Type = "B";
-					b.Reason = "X/Y/Zone : " + X + "/" + Y + "/" + CurrentRegion.ID;
+					b.Reason = "X/Y/Zone : " + Position.X + "/" + Position.Y + "/" + CurrentRegion.ID;
 					GameServer.Database.AddObject(b);
 					GameServer.Database.SaveObject(b);
 					string message = "Unknown bind point, your account is banned, contact a GM.";
@@ -11904,8 +11902,8 @@ namespace DOL.GS
 				{
 					log.DebugFormat("Pickup error: {0}  object x{1}, y{2}, z{3}, r{4} - player x{5}, y{6}, z{7}, r{8}",
 					                Name,
-					                floorObject.X, floorObject.Y, floorObject.Z, floorObject.CurrentRegionID,
-					                X, Y, Z, CurrentRegionID);
+					                floorObject.Position.X, floorObject.Position.Y, floorObject.Position.Z, floorObject.CurrentRegionID,
+					                Position.X, Position.Y, Position.Z, CurrentRegionID);
 				}
 				catch
 				{

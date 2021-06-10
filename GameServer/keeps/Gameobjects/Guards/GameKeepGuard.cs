@@ -1040,7 +1040,7 @@ namespace DOL.GS.Keeps
 				PatrolGroup.StartPatrol();
 				return false;
 			}
-			return await WalkToSpawn(speed);
+			return await base.WalkToSpawn(speed);
 		}
 
 		public void RefreshTemplate()
