@@ -62,8 +62,8 @@ namespace DOL
 		/// <returns>Heading to target point</returns>
 		public static ushort GetHeading(Vector2 origin, Vector2 target)
 		{
-			float dx = origin.X - target.X;
-			float dy = origin.Y - target.Y;
+			float dx = target.X - origin.X;
+			float dy = target.Y - origin.Y;
 
 			float heading = (float)Math.Atan2(-dx, dy) * RADIAN_TO_HEADING;
 
