@@ -214,7 +214,18 @@ namespace DOL.GS.Quests
 			if (!Goals.Values.Any(g => g is EndGoal))
 			{
 				var id = Goals.Keys.Max() + 1;
-				Goals.Add(id, new EndGoal(this, id, new { Description = $"Talk to {Npc.Name} to get your reward", TargetName = "", TargetRegion = 0 }));
+				Goals.Add(id, new EndGoal(
+					this,
+					id,
+					new
+					{
+						Description = $"Talk to {Npc.Name} to get your reward",
+						TargetName = db.NpcName,
+						TargetRegion = db.NpcRegion,
+						GiveItem = (string)null,
+						StartGoalsDone = (List<int>)null,
+						EndWhenGoalsDone = (List<int>)null,
+					}));
 			}
 
 			Npc.QuestListToGive.Add(new PlayerQuest(null, this));
