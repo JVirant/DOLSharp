@@ -36,6 +36,7 @@ namespace DOL.GS.Quests
 			get { return Quest.MinLevel; }
 			set { throw new NotSupportedException("PlayerDataQuestJson set level"); }
 		}
+		public override int MaxQuestCount => int.MaxValue;
 
 		public eQuestStatus Status => Step == -1 ? eQuestStatus.Done : eQuestStatus.InProgress;
 

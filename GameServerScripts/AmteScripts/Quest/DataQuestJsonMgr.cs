@@ -32,6 +32,13 @@ namespace DOL.GS.Quests
 
 		public static void ReloadQuests()
 		{
+			var old = Quests;
+			foreach (var quest in old.Values)
+			{
+				quest.Unload();
+				QuestMgr.UnregisterQuest(quest.Id);
+			}
+
 			var quests = new Dictionary<int, DataQuestJson>();
 			foreach (var db in GameServer.Database.SelectAllObjects<DBDataQuestJson>())
 			{
@@ -46,16 +53,10 @@ namespace DOL.GS.Quests
 				}
 			}
 			// just exchange the reference
-			var old = Quests;
 			Quests = quests;
-			foreach (var quest in old.Values)
-			{
-				quest.Unload();
-				QuestMgr.UnregisterQuest(quest.Id);
-			}
-
 			foreach (var quest in Quests.Values)
 				QuestMgr.RegisterQuest(new PlayerQuest(null, quest));
+
 			log.Info($"QuestLoader: {old.Count} quests unloaded, {Quests.Count} quests loaded");
 		}
 
