@@ -24,14 +24,17 @@ namespace DOL.GS.Scripts
         /// Noms de guilde interdits
         /// </summary>
         public List<string> GuildNames = new List<string>();
+
         /// <summary>
         /// Noms de guilde autorisées
         /// </summary>
         public List<string> GuildNamesA = new List<string>();
+
         /// <summary>
         /// Races interdites
         /// </summary>
         public List<string> Races = new List<string>();
+
         /// <summary>
         /// Classes interdites
         /// </summary>
@@ -40,12 +43,12 @@ namespace DOL.GS.Scripts
         public int Heure_min;
         public int Heure_max = 24;
 
-        public bool CanGiveQuest = false;
-    	public float Reput_min = BlacklistMgr.MinReputation;
-		public float Reput_max = BlacklistMgr.MaxReputation;
+        public eQuestIndicator CanGiveQuest = eQuestIndicator.None;
+        public float Reput_min = BlacklistMgr.MinReputation;
+        public float Reput_max = BlacklistMgr.MaxReputation;
 
 
-    	/// <summary>
+        /// <summary>
         /// Parse la variable cond
         /// </summary>
         /// <param name="cond">Texte à parser, exemple:
@@ -57,7 +60,9 @@ namespace DOL.GS.Scripts
         public TextNPCCondition(string cond)
         {
             GuildNamesA.Add("ALL");
+
             #region Parse condition
+
             if (!string.IsNullOrEmpty(cond))
             {
                 foreach (string txt in cond.Split('\n'))
@@ -78,6 +83,7 @@ namespace DOL.GS.Scripts
                                 Level_min = 0;
                                 Level_max = 50;
                             }
+
                             break;
 
                         case "guild":
@@ -89,6 +95,7 @@ namespace DOL.GS.Scripts
                                 else
                                     GuildNames.Add(name);
                             }
+
                             break;
 
                         case "guildA":
@@ -98,6 +105,7 @@ namespace DOL.GS.Scripts
                                 if (first) first = false;
                                 else GuildNamesA.Add(name);
                             }
+
                             break;
 
                         case "race":
@@ -109,6 +117,7 @@ namespace DOL.GS.Scripts
                                 else
                                     Races.Add(name);
                             }
+
                             break;
 
                         case "class":
@@ -120,6 +129,7 @@ namespace DOL.GS.Scripts
                                 else
                                     Classes.Add(name);
                             }
+
                             break;
 
                         case "heure":
@@ -133,27 +143,31 @@ namespace DOL.GS.Scripts
                                 Heure_min = 0;
                                 Heure_max = 24;
                             }
+
                             break;
 
-						case "reput":
-							try
-							{
-								Reput_min = float.Parse(condition[1]);
-								Reput_max = float.Parse(condition[2]);
-							}
-							catch
-							{
-								Reput_min = -5;
-								Reput_max = 20;
-							}
-							break;
+                        case "reput":
+                            try
+                            {
+                                Reput_min = float.Parse(condition[1]);
+                                Reput_max = float.Parse(condition[2]);
+                            }
+                            catch
+                            {
+                                Reput_min = -5;
+                                Reput_max = 20;
+                            }
+
+                            break;
 
                         case "quest":
-                            CanGiveQuest = true;
+                            if (condition.Length <= 1 || !Enum.TryParse(condition[1], true, out CanGiveQuest))
+                                CanGiveQuest = eQuestIndicator.Available;
                             break;
                     }
                 }
             }
+
             #endregion
         }
 
@@ -199,13 +213,13 @@ namespace DOL.GS.Scripts
                 txt.Append("\n");
             }
 
-        	if (Heure_min > 0 || Heure_max < 24)
-        		txt.Append("hour/").Append(Heure_min).Append('/').Append(Heure_max).Append('\n');
-			if (Reput_min > BlacklistMgr.MinReputation || Reput_max < BlacklistMgr.MaxReputation)
-				txt.Append("reput/").Append(Reput_min).Append('/').Append(Reput_max).Append('\n');
+            if (Heure_min > 0 || Heure_max < 24)
+                txt.Append("hour/").Append(Heure_min).Append('/').Append(Heure_max).Append('\n');
+            if (Reput_min > BlacklistMgr.MinReputation || Reput_max < BlacklistMgr.MaxReputation)
+                txt.Append("reput/").Append(Reput_min).Append('/').Append(Reput_max).Append('\n');
 
-        	if (CanGiveQuest)
-                txt.Append("quest\n");
+            if (CanGiveQuest != eQuestIndicator.None)
+                txt.Append($"quest/{CanGiveQuest}\n");
 
             return txt.ToString();
         }
@@ -223,29 +237,30 @@ namespace DOL.GS.Scripts
             if (GuildNames.Contains(player.GuildName) || (player.GuildName == "" && GuildNames.Contains("NO GUILD")))
                 return false;
             if (!GuildNamesA.Contains("ALL") && (!GuildNamesA.Contains(player.GuildName) ||
-                (player.GuildName == "" && !GuildNamesA.Contains("NO GUILD"))))
+                                                 (player.GuildName == "" && !GuildNamesA.Contains("NO GUILD"))))
                 return false;
             //Classe
-            if (Classes.Contains(((eCharacterClass)player.CharacterClass.ID).ToString().ToLower()))
+            if (Classes.Contains(((eCharacterClass) player.CharacterClass.ID).ToString().ToLower()))
                 return false;
             //Race
             if (Races.Contains(player.RaceName.ToLower()))
                 return false;
 
             //Heure
-            int heure = (int)(WorldMgr.GetCurrentGameTime() / 1000 / 60 / 54);
+            int heure = (int) (WorldMgr.GetCurrentGameTime() / 1000 / 60 / 54);
             if (Heure_max < Heure_min && (Heure_min > heure || heure <= Heure_max))
                 return false;
             if (Heure_max > Heure_min && (Heure_min > heure || heure >= Heure_max))
                 return false;
             if (Heure_max == Heure_min && heure != Heure_min)
                 return false;
-			if (player is AmtePlayer)
-			{
-				var p = (AmtePlayer) player;
-				if (p.Blacklist.Reputation < Reput_min || p.Blacklist.Reputation > Reput_max)
-					return false;
-			}
+            if (player is AmtePlayer)
+            {
+                var p = (AmtePlayer) player;
+                if (p.Blacklist.Reputation < Reput_min || p.Blacklist.Reputation > Reput_max)
+                    return false;
+            }
+
             return true;
         }
     }

@@ -94,22 +94,14 @@ namespace DOL.GS.Quests
 				CustomPropertiesString = JsonConvert.SerializeObject(new PlayerQuest.JsonState { QuestId = quest.Id, Goals = null }),
 			};
 			var dq = new PlayerQuest(player, dbQuest);
+			player.Out.SendSoundEffect(7, 0, 0, 0, 0, 0);
+			ChatUtil.SendScreenCenter(player, $"Quest \"{quest.Name}\" accepted!");
 			if (player.AddQuest(dq))
 			{
 				dq.SaveIntoDatabase();
 				player.Out.SendNPCsQuestEffect(npc, npc.GetQuestIndicator(player));
-				player.Out.SendSoundEffect(7, 0, 0, 0, 0, 0);
-				ChatUtil.SendScreenCenter(player, $"Quest {quest.Name} accepted!");
 				player.Out.SendQuestListUpdate();
 			}
 		}
-	}
-
-	public enum eStepStatus
-	{
-		Ignore = 0,
-		Advance = 1,
-		Finished = 2,
-		Aborted = 3,
 	}
 }

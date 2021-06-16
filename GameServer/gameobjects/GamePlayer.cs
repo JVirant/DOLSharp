@@ -4037,7 +4037,7 @@ namespace DOL.GS
 				
 				foreach (Tuple<Skill, Skill> el in innerList)
 					results.Add(el);
-			                           });
+			});
 			
 			return results;
 		}

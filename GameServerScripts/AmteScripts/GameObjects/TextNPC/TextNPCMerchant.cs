@@ -75,9 +75,9 @@ namespace DOL.GS.Scripts
 			var result = base.GetQuestIndicator(player);
 			if (result != eQuestIndicator.None)
 				return result;
-			return TextNPCData.Condition.CanGiveQuest && TextNPCData.Condition.CheckAccess(player)
-					? eQuestIndicator.Available
-					: eQuestIndicator.None;
+			return TextNPCData.Condition.CanGiveQuest != eQuestIndicator.None && TextNPCData.Condition.CheckAccess(player)
+				? TextNPCData.Condition.CanGiveQuest
+				: eQuestIndicator.None;
 		}
         #endregion
 	}

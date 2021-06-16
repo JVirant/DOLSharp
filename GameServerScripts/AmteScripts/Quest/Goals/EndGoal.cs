@@ -16,6 +16,8 @@ namespace DOL.GS.Quests
 		public override eQuestGoalType Type => eQuestGoalType.Unknown;
 		public override int ProgressTotal => 1;
 
+		public GameNPC Target => m_target;
+
 		public EndGoal(DataQuestJson quest, int goalId, dynamic db) : base(quest, goalId, (object)db)
 		{
 			m_description = db.Description;

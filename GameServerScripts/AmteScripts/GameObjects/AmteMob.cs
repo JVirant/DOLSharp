@@ -4,6 +4,7 @@ using System.Linq;
 using DOL.AI.Brain;
 using DOL.Database;
 using DOL.GS;
+using DOL.GS.Quests;
 using DOL.GS.Scripts;
 
 public class AmteMob : GameNPC, IAmteNPC
@@ -128,5 +129,23 @@ public class AmteMob : GameNPC, IAmteNPC
 		for (var cp = GetCustomParam(); cp != null; cp = cp.next)
 			list.Add(" - " + cp.name + ": " + cp.Value);
 		return list;
+	}
+
+	public override eQuestIndicator GetQuestIndicator(GamePlayer player)
+	{
+		var res = base.GetQuestIndicator(player);
+		if (res != eQuestIndicator.None)
+			return res;
+
+		foreach (var q in QuestListToGive.OfType<PlayerQuest>())
+		{
+			var quest = player.QuestList.OfType<PlayerQuest>().FirstOrDefault(pq => pq.QuestId == q.QuestId);
+			if (quest == null)
+				continue;
+			if (quest.VisibleGoals.OfType<DataQuestJsonGoal.GenericDataQuestGoal>().Any(g => g.Goal is EndGoal end && end.Target == this))
+				return eQuestIndicator.Finish;
+		}
+
+		return eQuestIndicator.None;
 	}
 }

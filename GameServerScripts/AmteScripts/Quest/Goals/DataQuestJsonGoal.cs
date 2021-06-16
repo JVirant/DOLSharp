@@ -165,7 +165,7 @@ namespace DOL.GS.Quests
 			}
 		}
 
-		protected class GenericDataQuestGoal : IQuestGoal
+		public class GenericDataQuestGoal : IQuestGoal
 		{
 			public string Description => Goal.Description;
 			public eQuestGoalType Type => Goal.Type;

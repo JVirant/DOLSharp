@@ -233,6 +233,9 @@ namespace DOL.GS.Quests
 
 		public void Unload()
 		{
+			var quest = Npc.QuestListToGive.OfType<PlayerQuest>().FirstOrDefault(q => q.QuestId == Id);
+			if (quest != null)
+				Npc.QuestListToGive.Remove(quest);
 			foreach (var goal in Goals.Values)
 				goal.Unload();
 		}

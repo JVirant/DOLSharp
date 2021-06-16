@@ -39,7 +39,7 @@ namespace DOL.GS.Scripts
 		 "'/textnpc randomphrase view'",
 
 		 //conditions
-         "'/textnpc quest <on/off>' affiche ou non l'icone pour la quête",
+         "'/textnpc quest <None/Availabe/Lesson/Lore/Finish/Pending>' affiche ou non l'icone pour la quête",
 		 "'/textnpc level <levelmin> <levelmax>' règle le niveau minimum et maximum des personnage pouvant parler au pnj",
 		 "'/textnpc guild add <guildname>' ajoute une guilde à laquelle le pnj ne parle pas (mettre 'NO GUILD' pour les non guildé)",
 		 "'/textnpc guild remove <guildname>' retire une guilde à laquelle le pnj ne parle pas",
@@ -424,12 +424,13 @@ namespace DOL.GS.Scripts
 
 					#region level/guild/race/class/prp/hour/karma
                 case "quest":
-                    if (npc == null || args.Length < 3)
+	                eQuestIndicator indicator;
+                    if (npc == null || args.Length < 3 || !Enum.TryParse(args[2], out indicator))
                     {
                         DisplaySyntax(client);
                         return;
                     }
-                    npc.TextNPCData.Condition.CanGiveQuest = args[2].ToLower() == "on";
+                    npc.TextNPCData.Condition.CanGiveQuest = indicator;
                     npc.TextNPCData.SaveIntoDatabase();
                     break;
 
@@ -701,8 +702,8 @@ namespace DOL.GS.Scripts
 							foreach(string classe in npc.TextNPCData.Condition.Classes)
 								lines.Add("   " + classe);
 						}
-                        if (npc.TextNPCData.Condition.CanGiveQuest)
-                            lines.Add("+ Quêtes: activées");
+                        if (npc.TextNPCData.Condition.CanGiveQuest != eQuestIndicator.None)
+                            lines.Add($"+ Quêtes: {npc.TextNPCData.Condition.CanGiveQuest}");
                         player.Out.SendCustomTextWindow("Conditions de " + ((GameNPC)npc).Name, lines);
 					}
 					else if(args[2].ToLower() == "help")
