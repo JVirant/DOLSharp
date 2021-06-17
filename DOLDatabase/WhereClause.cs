@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DOL.Database
 {
@@ -239,6 +240,9 @@ namespace DOL.Database
     public class DB
     {
         public static DBColumn Column(string columnName) => new DBColumn(columnName);
+
+        public static WhereClause Where<TObject>(Expression<Func<TObject, bool>> expr) where TObject : DataObject
+            => WhereLinqExpression.CreateWhereClause(expr);
     }
 
     public class DBColumn
