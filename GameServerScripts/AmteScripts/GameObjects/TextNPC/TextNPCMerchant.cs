@@ -12,8 +12,11 @@
 	- classe
 	- prp
 */
+
+using System.Linq;
 using DOL.AI.Brain;
 using DOL.Database;
+using DOL.GS.Quests;
 
 namespace DOL.GS.Scripts
 {
@@ -75,6 +78,16 @@ namespace DOL.GS.Scripts
 			var result = base.GetQuestIndicator(player);
 			if (result != eQuestIndicator.None)
 				return result;
+
+			foreach (var q in QuestListToGive.OfType<PlayerQuest>())
+			{
+				var quest = player.QuestList.OfType<PlayerQuest>().FirstOrDefault(pq => pq.QuestId == q.QuestId);
+				if (quest == null)
+					continue;
+				if (quest.VisibleGoals.OfType<DataQuestJsonGoal.GenericDataQuestGoal>().Any(g => g.Goal is EndGoal end && end.Target == this))
+					return eQuestIndicator.Finish;
+			}
+
 			return TextNPCData.Condition.CanGiveQuest != eQuestIndicator.None && TextNPCData.Condition.CheckAccess(player)
 				? TextNPCData.Condition.CanGiveQuest
 				: eQuestIndicator.None;

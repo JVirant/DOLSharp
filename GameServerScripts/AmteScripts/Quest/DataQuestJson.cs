@@ -68,7 +68,7 @@ namespace DOL.GS.Quests
 
 		public bool CheckQuestQualification(GamePlayer player)
 		{
-			if (MinLevel < player.Level && player.Level > MaxLevel)
+			if (MinLevel > player.Level || player.Level > MaxLevel)
 				return false;
 
 			lock (player.QuestList)

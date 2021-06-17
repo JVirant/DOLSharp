@@ -13,7 +13,7 @@ namespace DOL.GS.Commands
 	{
 		public void OnCommand(GameClient client, string[] args)
 		{
-			DataQuestJsonMgr.OnGameServerStarted(null, null, null);
+			client.Out.SendCustomTextWindow("Quest reload status", DataQuestJsonMgr.ReloadQuests());
 		}
 	}
 }

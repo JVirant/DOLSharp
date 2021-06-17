@@ -8,19 +8,16 @@ namespace DOL.GS.Quests
 {
 	public class WhisperGoal : DataQuestJsonGoal
 	{
-		private readonly string m_description;
 		private GameNPC m_target;
 		private string m_text;
 		private string m_whisperText;
 
-		public override string Description => m_description;
 		public override eQuestGoalType Type => eQuestGoalType.Unknown;
 		public override int ProgressTotal => 1;
 		public override bool Visible => false;
 
 		public WhisperGoal(DataQuestJson quest, int goalId, dynamic db) : base(quest, goalId, (object)db)
 		{
-			m_description = db.Description;
 			m_target = WorldMgr.GetNPCsByNameFromRegion((string)db.TargetName ??  "", (ushort)db.TargetRegion, eRealm.None).FirstOrDefault();
 			if (m_target == null)
 				m_target = quest.Npc;
@@ -31,7 +28,6 @@ namespace DOL.GS.Quests
 		public override Dictionary<string, object> GetDatabaseJsonObject()
 		{
 			var dict = base.GetDatabaseJsonObject();
-			dict.Add("Description", m_description);
 			dict.Add("TargetName", m_target.Name);
 			dict.Add("TargetRegion", m_target.CurrentRegionID);
 			dict.Add("Text", m_text);

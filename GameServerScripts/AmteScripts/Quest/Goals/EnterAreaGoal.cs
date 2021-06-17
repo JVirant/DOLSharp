@@ -9,19 +9,16 @@ namespace DOL.GS.Quests
 {
 	public class EnterAreaGoal : DataQuestJsonGoal
 	{
-		private readonly string m_description;
 		private Area.Circle m_area;
 		private ushort m_areaRegion;
 		private QuestZonePoint m_pointB;
 
-		public override string Description => m_description;
 		public override eQuestGoalType Type => eQuestGoalType.Unknown;
 		public override int ProgressTotal => 1;
 		public override QuestZonePoint PointB => m_pointB;
 
 		public EnterAreaGoal(DataQuestJson quest, int goalId, dynamic db) : base(quest, goalId, (object)db)
 		{
-			m_description = db.Description;
 			m_area = new Area.Circle($"{quest.Name} EnterAreaGoal {goalId}", new Vector3((float)db.AreaCenter.X, (float)db.AreaCenter.Y, (float)db.AreaCenter.Z), (int)db.AreaRadius);
 			m_area.DisplayMessage = false;
 			m_areaRegion = db.AreaRegion;
@@ -36,7 +33,6 @@ namespace DOL.GS.Quests
 		public override Dictionary<string, object> GetDatabaseJsonObject()
 		{
 			var dict = base.GetDatabaseJsonObject();
-			dict.Add("Description", m_description);
 			dict.Add("AreaCenter", m_area.Position);
 			dict.Add("AreaRadius", m_area.Radius);
 			dict.Add("AreaRegion", m_areaRegion);

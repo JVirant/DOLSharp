@@ -9,10 +9,8 @@ namespace DOL.GS.Quests
 {
 	public class EndGoal : DataQuestJsonGoal
 	{
-		private readonly string m_description;
 		private GameNPC m_target;
 
-		public override string Description => m_description;
 		public override eQuestGoalType Type => eQuestGoalType.Unknown;
 		public override int ProgressTotal => 1;
 
@@ -20,7 +18,6 @@ namespace DOL.GS.Quests
 
 		public EndGoal(DataQuestJson quest, int goalId, dynamic db) : base(quest, goalId, (object)db)
 		{
-			m_description = db.Description;
 			m_target = WorldMgr.GetNPCsByNameFromRegion((string)db.TargetName ??  "", (ushort)(db.TargetRegion ?? 0), eRealm.None).FirstOrDefault();
 			if (m_target == null)
 				m_target = quest.Npc;
@@ -29,7 +26,6 @@ namespace DOL.GS.Quests
 		public override Dictionary<string, object> GetDatabaseJsonObject()
 		{
 			var dict = base.GetDatabaseJsonObject();
-			dict.Add("Description", m_description);
 			dict.Add("TargetName", m_target.Name);
 			dict.Add("TargetRegion", m_target.CurrentRegionID);
 			return dict;
@@ -55,6 +51,14 @@ namespace DOL.GS.Quests
 				var items = questData.Quest.OptionalRewardItemTemplates.Where((item, idx) => rewardArgs.ItemsChosen.Contains(idx + 1)).ToList();
 				questData.Quest.FinishQuest(questData, items);
 			}
+		}
+
+		public override PlayerGoalState ForceStartGoal(PlayerQuest questData)
+		{
+			var res = base.ForceStartGoal(questData);
+			if (res.Active && GameMath.IsWithinRadius(questData.QuestPlayer, Target, WorldMgr.OBJ_UPDATE_DISTANCE))
+				questData.QuestPlayer.Out.SendNPCsQuestEffect(Target, Target.GetQuestIndicator(questData.QuestPlayer));
+			return res;
 		}
 	}
 }

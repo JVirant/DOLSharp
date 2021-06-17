@@ -12,24 +12,25 @@ namespace DOL.GS.Quests
 		public readonly DataQuestJson Quest;
 		public readonly int GoalId;
 
-		public abstract string Description { get; }
+		public string Description { get; set; }
 		public abstract eQuestGoalType Type { get; }
 		public abstract int ProgressTotal { get; }
 		public virtual QuestZonePoint PointA => QuestZonePoint.None;
 		public virtual QuestZonePoint PointB => QuestZonePoint.None;
 		public virtual ItemTemplate QuestItem => null;
 		public virtual bool Visible => true;
-		public virtual ItemTemplate GiveItemTemplate { get; set; } = null;
+		public ItemTemplate GiveItemTemplate { get; set; }
 
-		public virtual List<int> StartGoalsDone { get; set; } = new List<int>();
-		public virtual List<int> EndWhenGoalsDone { get; set; } = new List<int>();
+		public List<int> StartGoalsDone { get; set; } = new List<int>();
+		public List<int> EndWhenGoalsDone { get; set; } = new List<int>();
 
 		public DataQuestJsonGoal(DataQuestJson quest, int goalId, dynamic db)
 		{
 			Quest = quest;
 			GoalId = goalId;
+			Description = db.Description;
 			string item = db.GiveItem ?? "";
-			if (item != null && !string.IsNullOrWhiteSpace(item))
+			if (!string.IsNullOrWhiteSpace(item))
 				GiveItemTemplate = GameServer.Database.FindObjectByKey<ItemTemplate>(item);
 			if (db.StartGoalsDone != null)
 			{
@@ -86,9 +87,11 @@ namespace DOL.GS.Quests
 				Active = true,
 			};
 			questData.GoalStates.Add(goalData);
-			questData.QuestPlayer.Out.SendQuestUpdate(questData);
 			if (Visible)
+			{
+				questData.QuestPlayer.Out.SendQuestUpdate(questData);
 				ChatUtil.SendScreenCenter(questData.QuestPlayer, $"{Description} - {goalData.Progress}/{ProgressTotal}");
+			}
 			return goalData;
 		}
 		public virtual void AdvanceGoal(PlayerQuest questData, PlayerGoalState goalData)
@@ -100,9 +103,11 @@ namespace DOL.GS.Quests
 				return;
 			}
 			questData.SaveIntoDatabase();
-			questData.QuestPlayer.Out.SendQuestUpdate(questData);
 			if (Visible)
+			{
+				questData.QuestPlayer.Out.SendQuestUpdate(questData);
 				ChatUtil.SendScreenCenter(questData.QuestPlayer, $"{Description} - {goalData.Progress}/{ProgressTotal}");
+			}
 		}
 		public virtual void EndGoal(PlayerQuest questData, PlayerGoalState goalData, List<DataQuestJsonGoal> except = null)
 		{
@@ -121,7 +126,8 @@ namespace DOL.GS.Quests
 				goalData.Active = false;
 			}
 
-			questData.QuestPlayer.Out.SendQuestUpdate(questData);
+			if (Visible)
+				questData.QuestPlayer.Out.SendQuestUpdate(questData);
 			questData.SaveIntoDatabase();
 		}
 
@@ -144,6 +150,7 @@ namespace DOL.GS.Quests
 		{
 			return new Dictionary<string, object>
 			{
+				{ "Description", Description },
 				{ "GiveItem", GiveItemTemplate?.Id_nb },
 				{ "StartGoalsDone", StartGoalsDone.Count > 0 ? StartGoalsDone : null },
 				{ "EndWhenGoalsDone", EndWhenGoalsDone.Count > 0 ? EndWhenGoalsDone : null },
