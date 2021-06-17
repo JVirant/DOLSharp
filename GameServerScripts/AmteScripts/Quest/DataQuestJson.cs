@@ -63,7 +63,11 @@ namespace DOL.GS.Quests
 
 		public List<IQuestGoal> GetVisibleGoals(PlayerQuest data)
 		{
-			return data.GoalStates.Where(gs => gs.Active).Select(gs => Goals[gs.GoalId].ToQuestGoal(data, gs)).ToList();
+			return data.GoalStates
+				.Where(gs => gs.Active)
+				.Select(gs => Goals[gs.GoalId].ToQuestGoal(data, gs))
+				.Where(g => !(g is DataQuestJsonGoal.GenericDataQuestGoal gen) || gen.Goal.Visible)
+				.ToList();
 		}
 
 		public bool CheckQuestQualification(GamePlayer player)
@@ -111,8 +115,8 @@ namespace DOL.GS.Quests
 			foreach (var item in chosenItems)
 				GiveItem(player, item);
 
-			player.Out.SendNPCsQuestEffect(Npc, Npc.GetQuestIndicator(player));
 			data.FinishQuest();
+			player.Out.SendNPCsQuestEffect(Npc, Npc.GetQuestIndicator(player));
 		}
 
 		private static void GiveItem(GamePlayer player, ItemTemplate itemTemplate)

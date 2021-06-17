@@ -131,7 +131,7 @@ namespace DOL.GS.Quests
 			questData.SaveIntoDatabase();
 		}
 
-		public void EndOtherGoals(PlayerQuest questData, List<DataQuestJsonGoal> except)
+		protected void EndOtherGoals(PlayerQuest questData, List<DataQuestJsonGoal> except)
 		{
 			except.Add(this);
 			foreach (var goal in Quest.Goals.Values)
