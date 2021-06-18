@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -38,20 +39,26 @@ namespace DOL.Database
 
 			protected override Expression VisitMethodCall(MethodCallExpression node)
 			{
-				if (node.Method.Name.StartsWith("Contains") && node.Method.DeclaringType == typeof(Enumerable))
+				if (node.Method.Name == "Contains")
 				{
-					if (node.Method.GetGenericArguments().First() == typeof(Int32))
-						Expressions.Add(DB.Column(GetColumnName(node.Arguments[1])).IsIn((IEnumerable<int>) GetValue(node.Arguments[0])));
-					else if (node.Method.GetGenericArguments().First() == typeof(String))
-						Expressions.Add(DB.Column(GetColumnName(node.Arguments[1])).IsIn((IEnumerable<string>) GetValue(node.Arguments[0])));
+					if (node.Method.DeclaringType == typeof(Enumerable))
+					{
+						var column = DB.Column(GetColumnName(node.Arguments[1]));
+						if (node.Method.GetGenericArguments().First() == typeof(Int32))
+							Expressions.Add(column.IsIn((IEnumerable<int>) GetValue(node.Arguments[0])));
+						else if (node.Method.GetGenericArguments().First() == typeof(String))
+							Expressions.Add(column.IsIn((IEnumerable<string>) GetValue(node.Arguments[0])));
+						else
+							Expressions.Add(column.IsIn((IEnumerable<object>) GetValue(node.Arguments[0])));
+					}
+					else if (node.Method.DeclaringType?.GetInterfaces().Contains(typeof(ICollection<int>)) ?? false)
+						Expressions.Add(DB.Column(GetColumnName(node.Arguments[0])).IsIn((IEnumerable<int>) GetValue(node.Object)));
+					else if (node.Method.DeclaringType?.GetInterfaces().Contains(typeof(ICollection<string>)) ?? false)
+						Expressions.Add(DB.Column(GetColumnName(node.Arguments[0])).IsIn((IEnumerable<string>) GetValue(node.Object)));
+					else if (node.Method.DeclaringType?.GetInterfaces().Contains(typeof(IList)) ?? false)
+						Expressions.Add(DB.Column(GetColumnName(node.Arguments[0])).IsIn((IEnumerable<object>) GetValue(node.Object)));
 				}
 				return base.VisitMethodCall(node);
-			}
-
-			protected override Expression VisitInvocation(InvocationExpression node)
-			{
-				Console.WriteLine("Invocation");
-				return base.VisitInvocation(node);
 			}
 
 			protected override Expression VisitBinary(BinaryExpression node)
@@ -85,6 +92,13 @@ namespace DOL.Database
 				return node;
 			}
 
+			protected override Expression VisitMember(MemberExpression node)
+			{
+				if (node.Type == typeof(Boolean))
+					Expressions.Add(DB.Column(GetColumnName(node)).IsEqualTo(1));
+				return base.VisitMember(node);
+			}
+
 			protected static string GetColumnName(Expression expr)
 			{
 				var prop = expr as MemberExpression;
@@ -96,18 +110,14 @@ namespace DOL.Database
 			}
 			protected static object GetValue(Expression node)
 			{
-				var prop = node as MemberExpression;
-				if (prop == null && node is UnaryExpression unary)
-					prop = unary.Operand as MemberExpression;
-
-				if (prop != null)
-					return Expression.Lambda(prop).Compile().DynamicInvoke();
-
 				if (node is ConstantExpression constant)
 					return constant.Value;
-
-				if (node is NewArrayExpression arr)
-					return Expression.Lambda(arr).Compile().DynamicInvoke();
+				try
+				{
+					// we try to evaluate the expression to get a value
+					return Expression.Lambda(node).Compile().DynamicInvoke();
+				}
+				catch {}
 
 				throw new NotImplementedException($"GetValue() for node type {node.NodeType} is not implemented");
 			}
