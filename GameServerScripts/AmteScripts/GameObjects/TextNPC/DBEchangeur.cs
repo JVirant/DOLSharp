@@ -33,7 +33,7 @@ namespace DOL.Database
                 {
                     if (String.IsNullOrEmpty(m_itemGiveID))
                         return null;
-                	m_GiveTemplate = GameServer.Database.SelectObject<ItemTemplate>("Id_nb = '" + GameServer.Database.Escape(m_itemGiveID) + "'");
+                	m_GiveTemplate = GameServer.Database.FindObjectByKey<ItemTemplate>(m_itemGiveID);
                 }
 			    return m_GiveTemplate;
 			}

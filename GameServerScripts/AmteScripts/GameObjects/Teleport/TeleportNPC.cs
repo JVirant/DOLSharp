@@ -177,7 +177,7 @@ namespace DOL.GS.Scripts
         {
             base.LoadFromDatabase(mobobject);
 
-			db = GameServer.Database.SelectObject<DBTeleportNPC>("`MobID` = '" + InternalID + "'");
+			db = GameServer.Database.SelectObject<DBTeleportNPC>(t => t.MobID == InternalID);
             if (db == null) 
                 return;
             m_Range = db.Range;
@@ -383,7 +383,7 @@ namespace DOL.GS.Scripts
                 set
                 {
                     _item = value;
-                    ItemTemplate = GameServer.Database.SelectObject<ItemTemplate>("Id_nb = '" + GameServer.Database.Escape(_item) + "'");
+                    ItemTemplate = GameServer.Database.FindObjectByKey<ItemTemplate>(_item);
                 }
             }
             public int LevelMin;

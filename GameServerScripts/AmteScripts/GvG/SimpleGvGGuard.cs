@@ -67,7 +67,7 @@ namespace DOL.GS.Scripts
 
 			var cloaks = GameServer.Database.SelectObjects<NPCEquipment>("TemplateID like 'gvg_guard_%' AND Slot = 26");
 			player.Out.SendMessage(
-				$"Bonjour {player.Name}, vous pouvez modifier l'équippement que je porte, sélectionner l'ensemble que vous souhaitez :\n" +
+				$"Bonjour {player.Name}, vous pouvez modifier l'Ã©quippement que je porte, sÃ©lectionnez l'ensemble que vous souhaitez :\n" +
 				string.Join("\n", cloaks.Select(c => $"[{c.TemplateID.Substring(10)}]")),
 				eChatType.CT_System,
 				eChatLoc.CL_PopupWindow
@@ -112,7 +112,7 @@ namespace DOL.GS.Scripts
 				if (!string.IsNullOrEmpty(plKiller.GuildName))
 					name = $"un membre de la guilde {plKiller.GuildName}";
 				guild.SendMessageToGuildMembers(
-					$"{Captain?.Name ?? "Capitaine"}: un garde vient d'être tué par {name}.",
+					$"{Captain?.Name ?? "Capitaine"}: un garde vient d'ï¿½tre tuï¿½ par {name}.",
 					eChatType.CT_Guild,
 					eChatLoc.CL_ChatWindow
 				);

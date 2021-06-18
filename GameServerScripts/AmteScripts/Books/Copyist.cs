@@ -25,7 +25,7 @@ namespace DOL.GS.Scripts
 
 			if (item.Id_nb.StartsWith("scroll"))
 			{
-				var book = GameServer.Database.SelectObject<DBBook>("Name = '" + GameServer.Database.Escape(item.Name) + "'");
+				var book = GameServer.Database.SelectObject<DBBook>(b => b.Name == item.Name);
 				if (book != null)
 				{
 					if (book.PlayerID != p.InternalID)

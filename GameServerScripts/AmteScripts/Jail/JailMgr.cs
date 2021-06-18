@@ -65,7 +65,7 @@ namespace DOL.GS.Scripts
 		{
             GamePlayer player = sender as GamePlayer;
             if (player == null) return;
-			Prisoner prison = GameServer.Database.SelectObject<Prisoner>("PlayerId = '" + GameServer.Database.Escape(player.InternalID) + "'");
+			var prison = GameServer.Database.SelectObject<Prisoner>(p => p.PlayerId == player.InternalID);
             if (prison == null) return;
             if (prison.Sortie != DateTime.MinValue && prison.Sortie.Ticks <= DateTime.Now.Ticks)
             {
@@ -124,7 +124,7 @@ namespace DOL.GS.Scripts
         {
             GamePlayer player = sender as GamePlayer;
             if (player == null) return;
-			Prisoner prison = GameServer.Database.SelectObject<Prisoner>("PlayerId = '" + GameServer.Database.Escape(player.InternalID) + "'");
+			var prison = GameServer.Database.SelectObject<Prisoner>(p => p.PlayerId == player.InternalID);
             if (prison == null) return;
             Prisonniers.Remove(player);
             PlayerXPrisoner.Remove(player);
@@ -226,7 +226,7 @@ namespace DOL.GS.Scripts
                 return false;
             
             //On vérifie si le joueur existe
-        	DOLCharacters perso = GameServer.Database.SelectObject<DOLCharacters>("Name LIKE '" + GameServer.Database.Escape(playerName) + "'");
+        	var perso = GameServer.Database.SelectObject<DOLCharacters>(c => c.Name  == playerName);
             if (perso == null || perso.Name.ToLower() != playerName.ToLower())
                 return false;
             
@@ -310,7 +310,7 @@ namespace DOL.GS.Scripts
 		/// <returns></returns>
 		public static bool Relacher(GamePlayer player)
 		{
-			Prisoner Prisonnier = GameServer.Database.SelectObject<Prisoner>("PlayerId = '" + GameServer.Database.Escape(player.InternalID) + "'");
+			var Prisonnier = GameServer.Database.SelectObject<Prisoner>(p => p.PlayerId == player.InternalID);
 			if(Prisonnier == null)
 				return false;
 			GameServer.Database.DeleteObject(Prisonnier);
@@ -342,7 +342,7 @@ namespace DOL.GS.Scripts
 		{
             if (player == null)
                 return false;
-			Prisoner Prisonnier = GameServer.Database.SelectObject<Prisoner>("PlayerId = '" + GameServer.Database.Escape(player.ObjectId) + "'");
+			var Prisonnier = GameServer.Database.SelectObject<Prisoner>(p => p.PlayerId == player.ObjectId);
 			if (Prisonnier == null)
 				return false;
 			GameServer.Database.DeleteObject(Prisonnier);
@@ -379,36 +379,35 @@ namespace DOL.GS.Scripts
 		/// <summary>
 		/// Relâche un prisonnier
 		/// </summary>
-		/// <param name="Name">Nom du prisonnier</param>
+		/// <param name="name">Nom du prisonnier</param>
 		/// <returns></returns>
-		public static bool Relacher(string Name)
+		public static bool Relacher(string name)
 		{
             GameClient client = null;
             if (WorldMgr.GetAllPlayingClientsCount() > 0)
-                client = WorldMgr.GetClientByPlayerName(Name, true, true);
+                client = WorldMgr.GetClientByPlayerName(name, true, true);
             if (client != null && client.Player != null)
                 return Relacher(client.Player);
-		    return Relacher(GameServer.Database.SelectObject<DOLCharacters>("Name = '" + GameServer.Database.Escape(Name) + "'"));
+		    return Relacher(GameServer.Database.SelectObject<DOLCharacters>(c => c.Name == name));
 		}
 		#endregion
 
         /// <summary>
         /// Donne l'entrée dans la base du prisonnier par son nom
         /// </summary>
-        /// <param name="Name">Nom du prisonnier</param>
+        /// <param name="name">Nom du prisonnier</param>
         /// <returns>Null si non trouvable</returns>
-        public static Prisoner GetPrisoner(string Name)
+        public static Prisoner GetPrisoner(string name)
         {
-            Name = GameServer.Database.Escape(Name);
-			return GameServer.Database.SelectObject<Prisoner>("Name = '" + Name + "'");
+			return GameServer.Database.SelectObject<Prisoner>(p => p.Name == name);
         }
 
 		/// <summary>
 		/// Retourne true si le joueur est un prisonnier.
 		/// </summary>
-		public static bool IsPrisoner(string Name)
+		public static bool IsPrisoner(string name)
 		{
-			return GetPrisoner(Name) != null;
+			return GetPrisoner(name) != null;
 		}
 
         /// <summary>

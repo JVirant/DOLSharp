@@ -63,7 +63,7 @@ namespace DOL.GS.Scripts
 							return;
 						}
 
-						var book = GameServer.Database.SelectObject<DBBook>("Title = '" + GameServer.Database.Escape(ScrollTitle) + "'");
+						var book = GameServer.Database.SelectObject<DBBook>(b => b.Title == ScrollTitle);
 						if (book != null)
 						{
 							player.Out.SendMessage("Ce livre existe déjà.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
@@ -157,7 +157,7 @@ namespace DOL.GS.Scripts
 
 		public DBBook GetBookFromTitle(string ScrollTitle)
 		{
-			return GameServer.Database.SelectObject<DBBook>("Title ='" + GameServer.Database.Escape(ScrollTitle) + "'");
+			return GameServer.Database.SelectObject<DBBook>(b => b.Title == ScrollTitle);
 		}
 
 		/// <summary>

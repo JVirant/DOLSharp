@@ -278,7 +278,7 @@ namespace DOL.GS.Scripts
 						coffre.KeyItem = "";
 					else
 					{
-						if (GameServer.Database.SelectObject<ItemTemplate>("Id_nb = '" + GameServer.Database.Escape(args[2]) + "'") == null)
+						if (GameServer.Database.FindObjectByKey<ItemTemplate>(args[2]) == null)
 						{
 							ChatUtil.SendSystemMessage(client, "La clef ayant l'id_nb \"" + args[2] + "\" n'existe pas.");
 							break;

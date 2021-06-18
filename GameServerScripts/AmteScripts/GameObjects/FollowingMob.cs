@@ -67,7 +67,7 @@ namespace DOL.GS.Scripts
 		public override void LoadFromDatabase(DataObject obj)
 		{
 			base.LoadFromDatabase(obj);
-			m_param = GameServer.Database.SelectObject<DBBrainsParam>("`MobID` = '" + obj.ObjectId + "'");
+			m_param = GameServer.Database.SelectObject<DBBrainsParam>(b => b.MobID == obj.ObjectId);
 			if (m_param != null && m_param.Param == "MobIDToFollow")
 				FollowMobID = m_param.Value;
 		}

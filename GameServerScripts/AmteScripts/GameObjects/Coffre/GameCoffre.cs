@@ -152,7 +152,7 @@ namespace DOL.GS.Scripts
                 player.Out.SendMessage("Vous ne trouvez rien d'intéressant.", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
 			else
 			{
-				ItemTemplate item = GameServer.Database.SelectObject<ItemTemplate>("Id_nb = '" + GameServer.Database.Escape(coffre.Id_nb) + "'");
+				var item = GameServer.Database.FindObjectByKey<ItemTemplate>(coffre.Id_nb);
 				if(item == null)
 				{
 					player.Out.SendMessage("Vous ne trouvez rien d'intéressant. (Erreur de donnée, veuillez le signaliser à un GameMaster)", eChatType.CT_Important, eChatLoc.CL_SystemWindow);
@@ -316,7 +316,7 @@ namespace DOL.GS.Scripts
 		/// <returns>Retourne false si l'item n'existe pas dans la base de donné ItemTemplate</returns>
 		public bool ModifyItemList(string Id_nb, int chance)
 		{
-			ItemTemplate item = GameServer.Database.SelectObject<ItemTemplate>("Id_nb = '" + GameServer.Database.Escape(Id_nb) + "'");
+			var item = GameServer.Database.FindObjectByKey<ItemTemplate>(Id_nb);
 			if(item == null) 
 				return false;
 

@@ -30,7 +30,7 @@ namespace DOL.GS.Scripts
 				case "Voir les livres":
 					player.SendMessage("Voici la liste des livres que je détiens:", eChatType.CT_System, eChatLoc.CL_PopupWindow);
 					StringBuilder sb = new StringBuilder(2048);
-					GameServer.Database.SelectObjects<DBBook>("IsInLibrary = 1").OrderBy(b => b.Title).Foreach(
+					GameServer.Database.SelectObjects<DBBook>(b => b.IsInLibrary).OrderBy(b => b.Title).Foreach(
 						b =>
 						{
 							sb.Append("\n[").AppendLine(b.Title).Append("] de ").Append(b.Author);
@@ -48,7 +48,7 @@ namespace DOL.GS.Scripts
 					break;
 
 				default:
-					var book = GameServer.Database.SelectObject<DBBook>("Title = '" + GameServer.Database.Escape(text) + "' AND IsInLibrary = 1");
+					var book = GameServer.Database.SelectObject<DBBook>(b => b.Title == text && b.IsInLibrary);
 					if (book == null)
 					{
 						player.SendMessage("Je ne trouve pas ce livre.", eChatType.CT_System, eChatLoc.CL_PopupWindow);
@@ -68,7 +68,7 @@ namespace DOL.GS.Scripts
 
 			if (item.Id_nb.StartsWith("scroll"))
 			{
-				var book = GameServer.Database.SelectObject<DBBook>("Name = '" + GameServer.Database.Escape(item.Name) + "'");
+				var book = GameServer.Database.SelectObject<DBBook>(b => b.Name == item.Name);
 				if (book != null)
 				{
 					if (book.PlayerID != p.InternalID)

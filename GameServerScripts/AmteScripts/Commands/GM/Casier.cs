@@ -20,7 +20,7 @@ namespace DOL.GS.Commands
 			if (client.Account.PrivLevel <= (uint)ePrivLevel.Player)
 			{
 				var db =
-					GameServer.Database.SelectObjects<Casier>("AccountName = '" + GameServer.Database.Escape(client.Account.Name) + "'");
+					GameServer.Database.SelectObjects<Casier>(c => c.AccountName == client.Account.Name);
 				var text = new List<string>();
 				db.Where(i => !i.StaffOnly).OrderBy(i => i.Date).Foreach(
 					i => text.Add(i.Date.ToShortDateString() + " " + i.Date.ToShortTimeString() + " - " + i.Reason));
@@ -53,9 +53,7 @@ namespace DOL.GS.Commands
         				args = new[] {args[0], args[1], ((GamePlayer) client.Player.TargetObject).Client.Account.Name};
         			}
 
-        			var db =
-        				GameServer.Database.SelectObjects<Casier>("AccountName = '" + GameServer.Database.Escape(args[2].ToLower()) +
-        				                                          "'").OrderBy(i => i.Date);
+        			var db = GameServer.Database.SelectObjects<Casier>(c => c.AccountName == args[2].ToLower()).OrderBy(i => i.Date);
         			var text = new List<string>();
         			text.Add("Public:");
         			db.Where(i => !i.StaffOnly).Foreach(
@@ -69,7 +67,7 @@ namespace DOL.GS.Commands
 
         		case "staff":
         		case "add":
-					if (GameServer.Database.SelectObject<Account>("Name = '" + GameServer.Database.Escape(args[2].ToLower()) +"'") == null)
+					if (GameServer.Database.FindObjectByKey<Account>(args[2].ToLower()) == null)
 					{
 						DisplayMessage(client, "Le compte \"{0}\" est introuvable.", args[2]);
 						break;
@@ -81,7 +79,7 @@ namespace DOL.GS.Commands
 
 				case "pstaff":
 				case "padd":
-        			var ch = GameServer.Database.SelectObject<DOLCharacters>("Name LIKE '" + GameServer.Database.Escape(args[2]) + "'");
+        			var ch = GameServer.Database.SelectObject<DOLCharacters>(c => c.Name == args[2]);
 					if (ch == null)
 					{
 						DisplayMessage(client, "Le joueur \"{0}\" est introuvable.", args[2]);

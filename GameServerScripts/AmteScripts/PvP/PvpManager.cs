@@ -120,7 +120,7 @@ namespace AmteScripts.Managers
 			_isForcedOpen = false;
 
 			WorldMgr.GetClientsOfRegion(_region).Where(player => player.Player != null).Foreach(RemovePlayer);
-			GameServer.Database.SelectObjects<DOLCharacters>("Region = " + _region).Foreach(RemovePlayer);
+			GameServer.Database.SelectObjects<DOLCharacters>(c => c.Region == _region).Foreach(RemovePlayer);
 			return true;
 		}
 
@@ -155,7 +155,7 @@ namespace AmteScripts.Managers
 		{
 			if (player.Client.Account.PrivLevel == (uint)ePrivLevel.GM)
 				return;
-			var rvr = GameServer.Database.SelectObject<RvrPlayer>("PlayerID = '" + GameServer.Database.Escape(player.InternalID) + "'");
+			var rvr = GameServer.Database.SelectObject<RvrPlayer>(r => r.PlayerID == player.InternalID);
 			if (rvr == null)
 			{
 				player.MoveTo(_stuckSpawn);
@@ -180,7 +180,7 @@ namespace AmteScripts.Managers
 
 		public void RemovePlayer(DOLCharacters ch)
 		{
-			var rvr = GameServer.Database.SelectObject<RvrPlayer>("PlayerID = '" + GameServer.Database.Escape(ch.ObjectId) + "'");
+			var rvr = GameServer.Database.SelectObject<RvrPlayer>(r => r.PlayerID == ch.ObjectId);
 			if (rvr == null)
 			{
 				// AHHHHHHHHHHH

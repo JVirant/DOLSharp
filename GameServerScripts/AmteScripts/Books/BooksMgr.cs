@@ -34,7 +34,7 @@ namespace DOL.GS.Scripts
             if(item == null) return;
 
         	if (item.Id_nb.StartsWith("scroll"))
-        		ReadBook(player, GameServer.Database.SelectObject<DBBook>("ID ='" + item.MaxCondition + "'"));
+        		ReadBook(player, GameServer.Database.FindObjectByKey<DBBook>(item.MaxCondition));
         }
 
 		public static void ReadBook(GamePlayer player, DBBook dbBook)

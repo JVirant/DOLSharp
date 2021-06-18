@@ -212,7 +212,7 @@ namespace DOL.GS.Scripts
 
         public void LoadFromDatabase(DataObject obj)
         {
-            var objs = GameServer.Database.SelectObjects<DBEchangeur>("`NpcID` = '" + GameServer.Database.Escape(obj.ObjectId) + "'");
+            var objs = GameServer.Database.SelectObjects<DBEchangeur>(e => e.NpcID == obj.ObjectId);
             foreach (DBEchangeur echangeur in objs)
                 if (!EchangeurDB.ContainsKey(echangeur.ItemRecvID))
                     EchangeurDB.Add(echangeur.ItemRecvID, echangeur);
@@ -220,14 +220,14 @@ namespace DOL.GS.Scripts
             DBTextNPC data = null;
             try
             {
-                data = GameServer.Database.SelectObject<DBTextNPC>("MobID = '" + GameServer.Database.Escape(obj.ObjectId) + "'");
+                data = GameServer.Database.SelectObject<DBTextNPC>(t => t.MobID == obj.ObjectId);
             }
             catch
             {
                 DBTextNPC.Init();
             }
             if (data == null)
-                data = GameServer.Database.SelectObject<DBTextNPC>("MobID = '" + GameServer.Database.Escape(obj.ObjectId) + "'");
+                data = GameServer.Database.SelectObject<DBTextNPC>(t => t.MobID == obj.ObjectId);
             if (data == null)
                 return;
 
@@ -379,7 +379,7 @@ namespace DOL.GS.Scripts
             if (Condition != null)
                 TextDB.Condition = Condition.GetConditionString();
 
-            DBTextNPC data = GameServer.Database.SelectObject<DBTextNPC>("MobID = '" + GameServer.Database.Escape(_body.InternalID) + "'");
+            var data = GameServer.Database.SelectObject<DBTextNPC>(t => t.MobID == _body.InternalID);
             if (data == null)
                 GameServer.Database.AddObject(TextDB);
             else

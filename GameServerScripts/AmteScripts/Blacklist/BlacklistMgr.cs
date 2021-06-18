@@ -282,9 +282,7 @@ namespace DOL.GS.Scripts
 
 		public static List<string> GetBlacklistedNames()
 		{
-			var data = GameServer.Database.SelectObjects<BlacklistPlayer>(
-				"Reputation > '" + GameServer.Database.Escape(ReputationForBlacklist.ToString().Replace(',', '.')) + "'");
-
+			var data = GameServer.Database.SelectObjects<BlacklistPlayer>(r => r.Reputation > ReputationForBlacklist);
 			return data.OrderBy(p => p.PlayerName).Select(p => p.PlayerName).ToList();
 		}
 		#endregion

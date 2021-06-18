@@ -52,7 +52,7 @@ namespace DOL.GS.Scripts
 			if (TempItems.ContainsKey(player.InternalID))
 				return Recapitulatif(player);
 
-			IList<DBFret> ItemsFret = GameServer.Database.SelectObjects<DBFret>("`ToPlayer` = '" + GameServer.Database.Escape(player.InternalID) + "'");
+			var ItemsFret = GameServer.Database.SelectObjects<DBFret>(f => f.ToPlayer == player.InternalID);
 
 			if (ItemsFret == null || ItemsFret.Count <= 0)
 			{
@@ -94,7 +94,7 @@ namespace DOL.GS.Scripts
 			int id;
 			if (int.TryParse(str, out id))
 			{
-				IList<DBFret> ItemsFret = GameServer.Database.SelectObjects<DBFret>("`ToPlayer` = '" + GameServer.Database.Escape(player.InternalID) + "'");
+				var ItemsFret = GameServer.Database.SelectObjects<DBFret>(f => f.ToPlayer == player.InternalID);
 				string msg;
 				try
 				{
@@ -134,7 +134,7 @@ namespace DOL.GS.Scripts
 			else if (TempItems.ContainsKey(player.InternalID) && str.Split(' ').Length == 1)
 			{
 				//On récupére le joueur existant à ce nom:
-				DOLCharacters ch = GameServer.Database.SelectObject<DOLCharacters>("`Name` LIKE '" + GameServer.Database.Escape(str) + "'");
+				DOLCharacters ch = GameServer.Database.SelectObject<DOLCharacters>(c => c.Name == str);
 				string msg;
 				if (ch == null)
 					msg = "Je ne trouve pas de personne nommée " + str + ", vérifiez le nom.";

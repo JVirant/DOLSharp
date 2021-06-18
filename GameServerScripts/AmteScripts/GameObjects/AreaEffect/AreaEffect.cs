@@ -81,7 +81,7 @@ namespace DOL.GS.Scripts
             DBAreaEffect data = null;
             try
             {
-                data = GameServer.Database.SelectObject<DBAreaEffect>("MobID = '" + obj.ObjectId + "'");
+                data = GameServer.Database.SelectObject<DBAreaEffect>(a => a.MobID == obj.ObjectId);
                 if (data == null)
                     return;
             }
@@ -90,7 +90,7 @@ namespace DOL.GS.Scripts
                 DBAreaEffect.Init();
             }
             if (data == null)
-                data = GameServer.Database.SelectObject<DBAreaEffect>("MobID = '" + obj.ObjectId + "'");
+                data = GameServer.Database.SelectObject<DBAreaEffect>(a => a.MobID == obj.ObjectId);
             if (data == null)
                 return;
 

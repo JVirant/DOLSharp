@@ -29,14 +29,14 @@ namespace DOL.GS
 
             foreach (var obj in mXlc)
             {
-                var templates = GameServer.Database.SelectObjects<DBLootChangerTemplate>("LootChangerTemplateName = '" + GameServer.Database.Escape(obj.LootChangerTemplateName) + "'");
+                var templates = GameServer.Database.SelectObjects<DBLootChangerTemplate>(o => o.LootChangerTemplateName == obj.LootChangerTemplateName);
                 if (templates == null)
                     continue;
 
                 var dico = new Dictionary<string, DBLootChangerTemplate>();
                 foreach (var tpl in templates)
                 {
-                    var template = GameServer.Database.SelectObject<ItemTemplate>("Id_nb = '" + GameServer.Database.Escape(tpl.ItemsTemplatesGives) + "'");
+                    var template = GameServer.Database.FindObjectByKey<ItemTemplate>(tpl.ItemsTemplatesGives);
                     if (template == null)
                         log.Error("[LOOT CHANGER] item template (" + tpl.ItemsTemplatesRecvs + ") not found (mob name=" + obj.MobName + ") !");
                     else
@@ -63,13 +63,13 @@ namespace DOL.GS
                 case "add":
                     try
                     {
-                        var templates = GameServer.Database.SelectObjects<DBLootChangerTemplate>("LootChangerTemplateName = '" + GameServer.Database.Escape(lootTemplate) + "'");
+                        var templates = GameServer.Database.SelectObjects<DBLootChangerTemplate>(o => o.LootChangerTemplateName == lootTemplate);
                         var template = templates.FirstOrDefault(tmp => tmp.ItemsTemplatesRecvs == args[2]);
 
-                        var itemGive = GameServer.Database.SelectObject<ItemTemplate>("Id_nb = '" + GameServer.Database.Escape(args[3]) + "'");
+                        var itemGive = GameServer.Database.FindObjectByKey<ItemTemplate>(args[3]);
                         if (itemGive == null)
                             return SendMsg(client, "L'item '" + args[3] + "' n'existe pas.");
-                        var itemRecv = GameServer.Database.SelectObject<ItemTemplate>("Id_nb = '" + GameServer.Database.Escape(args[2]) + "'");
+                        var itemRecv = GameServer.Database.FindObjectByKey<ItemTemplate>(args[2]);
                         if (itemRecv == null)
                             return SendMsg(client, "L'item '" + args[2] + "' n'existe pas.");
 

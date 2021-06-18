@@ -209,11 +209,11 @@ namespace DOL.GS.Scripts
 				{
 					case "rp":
 						title = "Prisonniers RP";
-						prisonniers = GameServer.Database.SelectObjects<Prisoner>("RP = 1");
+						prisonniers = GameServer.Database.SelectObjects<Prisoner>(p => p.RP);
 						break;
 					case "hrp":
 						title = "Prisonniers HRP";
-						prisonniers = GameServer.Database.SelectObjects<Prisoner>("RP = 0");
+						prisonniers = GameServer.Database.SelectObjects<Prisoner>(p => p.RP == false);
 						break;
 					default:
 						DisplaySyntax(client, args);
