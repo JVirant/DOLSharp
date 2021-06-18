@@ -21,6 +21,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq.Expressions;
 using System.Reflection;
 
 using DOL.Database.Attributes;
@@ -714,6 +715,16 @@ namespace DOL.Database
 		#endregion
 
 		#region Public Parameterized Query Abstraction
+		public TObject SelectObject<TObject>(Expression<Func<TObject, bool>> whereExpression) where TObject : DataObject
+		{
+			return SelectObject<TObject>(DB.Where(whereExpression));
+		}
+
+		public IList<TObject> SelectObjects<TObject>(Expression<Func<TObject, bool>> whereExpression) where TObject : DataObject
+		{
+			return SelectObjects<TObject>(DB.Where(whereExpression));
+		}
+
 		public TObject SelectObject<TObject>(WhereClause whereClause)
 			where TObject : DataObject
 		{

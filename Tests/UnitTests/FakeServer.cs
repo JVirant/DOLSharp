@@ -6,6 +6,7 @@ using DOL.Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DOL.UnitTests.Gameserver
 {
@@ -103,6 +104,11 @@ namespace DOL.UnitTests.Gameserver
         public TObject SelectObject<TObject>(string whereExpression) where TObject : DataObject => throw new NotImplementedException();
         public TObject SelectObject<TObject>(string whereExpression, IsolationLevel isolation) where TObject : DataObject => throw new NotImplementedException();
 
+        public TObject SelectObject<TObject>(Expression<Func<TObject, bool>> whereExpression) where TObject : DataObject
+        {
+            return SelectObject<TObject>(DB.Where(whereExpression));
+        }
+
         public IList<IList<TObject>> SelectObjects<TObject>(string whereExpression, IEnumerable<IEnumerable<QueryParameter>> parameters) where TObject : DataObject => throw new NotImplementedException();
         public IList<TObject> SelectObjects<TObject>(string whereExpression, IEnumerable<QueryParameter> parameter) where TObject : DataObject => (IList<TObject>)SelectObjectReturns;
         public IList<TObject> SelectObjects<TObject>(string whereExpression, QueryParameter param) where TObject : DataObject => throw new NotImplementedException();
@@ -112,6 +118,10 @@ namespace DOL.UnitTests.Gameserver
         public TObject SelectObject<TObject>(WhereClause whereClause) where TObject : DataObject => (TObject)SelectObjectReturns.FirstOrDefault();
         public IList<TObject> SelectObjects<TObject>(WhereClause whereClause) where TObject : DataObject => (IList<TObject>)SelectObjectReturns;
         public IList<IList<TObject>> MultipleSelectObjects<TObject>(IEnumerable<WhereClause> whereClauseBatch) where TObject : DataObject => throw new NotImplementedException();
+        public IList<TObject> SelectObjects<TObject>(Expression<Func<TObject, bool>> whereExpression) where TObject : DataObject
+        {
+            return SelectObjects<TObject>(DB.Where(whereExpression));
+        }
 
         public bool UpdateInCache<TObject>(object key) where TObject : DataObject => false;
         public bool UpdateObjsInCache<TObject>(IEnumerable<object> keys) where TObject : DataObject => throw new NotImplementedException();

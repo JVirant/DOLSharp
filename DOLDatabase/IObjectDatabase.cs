@@ -18,6 +18,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace DOL.Database
 {
@@ -93,9 +94,27 @@ namespace DOL.Database
 
 		#region Select Where Clause With Parameters
 		/// <summary>
+		/// Retrieve a Single DataObject from the database based on the WhereExpression with implied parameters
+		/// </summary>
+		/// <typeparam name="TObject"></typeparam>
+		/// <param name="whereExpression">WhereExpression lambda with implied parameters</param>
+		/// <returns></returns>
+		TObject SelectObject<TObject>(Expression<Func<TObject, bool>> whereExpression)
+			where TObject : DataObject;
+
+		/// <summary>
+		/// Retrieve a Collection of DataObjects from database based on the WhereExpression with implied parameters
+		/// </summary>
+		/// <param name="whereExpression">WhereExpression lambda with implied parameters</param>
+		/// <returns>Collection of matching DataObjects</returns>
+		IList<TObject> SelectObjects<TObject>(Expression<Func<TObject, bool>> whereExpression)
+			where TObject : DataObject;
+
+		/// <summary>
 		/// Retrieve a Single DataObject from the database based on the WhereClause with implied parameters
 		/// </summary>
 		/// <typeparam name="TObject"></typeparam>
+		/// <param name="whereExpression">WhereExpression object with implied parameters</param>
 		/// <param name="whereClause">WhereClause object with implied parameters</param>
 		/// <returns></returns>
 		TObject SelectObject<TObject>(WhereClause whereClause)
