@@ -5,10 +5,10 @@ namespace DOL.GS.Scripts
 {
 	public class AmteCustomParam
 	{
-		public string name;
-		public string defaultValue;
+		public readonly string name;
+		public readonly string defaultValue;
 		public AmteCustomParam next;
-		public string Value { get { return _getValue(); } set { _setValue(value); } }
+		public string Value { get => _getValue(); set => _setValue(value); }
 
 		private readonly Func<string> _getValue;
 		private readonly Action<string> _setValue;

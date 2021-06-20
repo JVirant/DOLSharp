@@ -13,6 +13,7 @@ namespace DOL.GS.Scripts
 		 "Gestions des TextNPC",
 		 "'/textnpc create' créé un nouveau pnj",
          "'/textnpc createmerchant' créé un nouveau marchand qui parle",
+		 "'/textnpc createitemmerchant' créé un nouveau marchand qui prend des items comme monnaie",
          "'/textnpc createguard' créé un garde qui parle",
 		 "'/textnpc reponse' affiche les réponses du pnj (les 20 premières lettres de la réponse)",
 
@@ -82,9 +83,11 @@ namespace DOL.GS.Scripts
 					#region create - view - reponse - text
 				case "create":
                 case "createmerchant":
+				case "createitemmerchant":
                 case "createguard":
                     if (args[1].ToLower() == "create") npc = new TextNPC();
                     else if (args[1].ToLower() == "createmerchant") npc = new TextNPCMerchant();
+                    else if (args[1].ToLower() == "createitemmerchant") npc = new TextNPCItemMerchant();
                     else if (args[1].ToLower() == "createguard") npc = new GuardTextNPC();
 
                     if(npc == null) npc = new TextNPC();

@@ -102,11 +102,11 @@ public class AmteMob : GameNPC, IAmteNPC
 			else if (cp.defaultValue != cp.Value)
 			{
 				param = new DBBrainsParam
-				        {
-				        	MobID = InternalID,
-				        	Param = cp.name,
-				        	Value = cp.Value
-				        };
+				{
+					MobID = InternalID,
+					Param = cp.name,
+					Value = cp.Value,
+				};
 				_nameXcp.Add(cp.name, param);
 				GameServer.Database.AddObject(param);
 			}
