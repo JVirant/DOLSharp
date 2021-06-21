@@ -74,6 +74,8 @@ namespace DOL.GS.Quests
 		{
 			if (MinLevel > player.Level || player.Level > MaxLevel)
 				return false;
+			if (AllowedClasses.Count(id => id > 0) > 0 && !AllowedClasses.Contains((eCharacterClass) player.CharacterClass.ID))
+				return false;
 
 			lock (player.QuestList)
 			{
@@ -150,7 +152,7 @@ namespace DOL.GS.Quests
 			_db.OptionalRewardItemTemplates = string.Join("|", OptionalRewardItemTemplates.Select(i => i.Id_nb));
 			_db.FinalRewardItemTemplates = string.Join("|", FinalRewardItemTemplates.Select(i => i.Id_nb));
 			_db.QuestDependency = string.Join("|", QuestDependencyIDs);
-			_db.AllowedClasses = string.Join("|", AllowedClasses);
+			_db.AllowedClasses = string.Join("|", AllowedClasses.Select(c => (int)c));
 			_db.GoalsJson = JsonConvert.SerializeObject(Goals.Select(kv => new { Id = kv.Key, Type = kv.Value.GetType().FullName, Data = kv.Value.GetDatabaseJsonObject() }).ToArray());
 			if (_db.IsPersisted)
 				GameServer.Database.SaveObject(_db);
