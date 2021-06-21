@@ -33,12 +33,8 @@ namespace DOL.GS.Quests
 			if (!string.IsNullOrWhiteSpace(item))
 				GiveItemTemplate = GameServer.Database.FindObjectByKey<ItemTemplate>(item);
 			if (db.StartGoalsDone != null)
-			{
 				foreach (var id in db.StartGoalsDone)
 					StartGoalsDone.Add((int)id);
-			}
-			else if (GoalId > 1)
-				StartGoalsDone.Add(GoalId - 1);
 			if (db.EndWhenGoalsDone != null)
 				foreach (var id in db.EndWhenGoalsDone)
 					EndWhenGoalsDone.Add((int)id);
