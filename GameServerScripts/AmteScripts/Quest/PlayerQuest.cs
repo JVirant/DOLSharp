@@ -56,6 +56,9 @@ namespace DOL.GS.Quests
 			m_dbQuest = dbquest;
 			var json = JsonConvert.DeserializeObject<JsonState>(dbquest.CustomPropertiesString);
 			m_questId = json.QuestId;
+			if (!DataQuestJsonMgr.Quests.ContainsKey(m_questId))
+				DataQuestJsonMgr.Quests.Add(m_questId, new DataQuestJson {Name = "ERROR"});
+
 			if (json.Goals != null)
 				GoalStates = json.Goals;
 			else

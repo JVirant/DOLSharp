@@ -400,10 +400,11 @@ namespace DOL.GS.Scripts
 
         public void DeleteFromDatabase()
         {
-            if (TextDB != null)
+            if (TextDB != null && TextDB.IsPersisted)
                 GameServer.Database.DeleteObject(TextDB);
             foreach (KeyValuePair<string, DBEchangeur> pair in EchangeurDB)
-                GameServer.Database.DeleteObject(pair.Value);
+                if (pair.Value.IsPersisted)
+                    GameServer.Database.DeleteObject(pair.Value);
         }
 
         public IList<string> DelveInfo()
