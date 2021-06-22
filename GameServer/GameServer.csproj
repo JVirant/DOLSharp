@@ -65,6 +65,11 @@
     <EmbeddedResource Include="config\invalidnames.txt" />
     <TranslationFiles Include="language\**\*.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="dol_detour.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Target Name="CopyFiles" AfterTargets="AfterBuild">
     <Copy SourceFiles="@(TranslationFiles)" DestinationFiles="@(TranslationFiles->'$(MSBuildProjectDirectory)\..\$(Configuration)\languages\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
