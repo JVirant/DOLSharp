@@ -17,6 +17,7 @@
  *
  */
 using System;
+using System.Numerics;
 using DOL.Events;
 using DOL.GS;
 using NUnit.Framework;
@@ -38,9 +39,7 @@ namespace DOL.Integration.Server
 			Region region = WorldMgr.GetRegion(1);
 			GameObject obj = new GameNPC();
 			obj.Name="TestObject";
-			obj.X = 400000;
-			obj.Y = 200000;
-			obj.Z = 2000;
+			obj.Position = new Vector3(400000, 200000, 2000);
 			obj.CurrentRegion = region;
 
 			obj.AddToWorld();
