@@ -28,8 +28,8 @@ using DOL.GS.RealmAbilities;
 using DOL.GS.Styles;
 using DOL.Language;
 using log4net;
-using DOL.GS.PacketHandler.Client.v168;
 using System.Numerics;
+using DOL.GS.PacketHandler.Client.v168;
 using DOL.GS.Spells;
 
 namespace DOL.GS.PacketHandler

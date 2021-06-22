@@ -40,6 +40,7 @@ using DOL.GS.Styles;
 using log4net;
 using DOL.GS.PacketHandler.Client.v168;
 using System.Numerics;
+using DOL.GS.PacketHandler.Client.v168;
 
 namespace DOL.GS.PacketHandler
 {
