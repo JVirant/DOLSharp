@@ -56,7 +56,7 @@ namespace DOL.GS.GameEvents
 		[GameServerStartedEvent]
 		public static void OnScriptCompiled(DOLEvent e, object sender, EventArgs args)
 		{
-			if (Properties.SERVERLISTUPDATE_ENABLED && AmteUtils.IsLiveServer)
+			if (AmteUtils.IsLiveServer)
 				Init();
 		}
 
@@ -66,7 +66,7 @@ namespace DOL.GS.GameEvents
 		[GameServerStoppedEvent]
 		public static void OnScriptUnloaded(DOLEvent e, object sender, EventArgs args)
 		{
-			if (Properties.SERVERLISTUPDATE_ENABLED && AmteUtils.IsLiveServer)
+			if (AmteUtils.IsLiveServer)
 				Stop();
 		}
 
