@@ -87,12 +87,8 @@
     <XmlFiles Include="dbupdater\**\*.xml" />
   </ItemGroup>
   <Target Name="CopyFiles" AfterTargets="AfterBuild">
-    <Copy
-      SourceFiles="@(ScriptFiles)"
-      DestinationFiles="@(ScriptFiles->'$(MSBuildProjectDirectory)\..\$(Configuration)\scripts\%(RecursiveDir)%(Filename)%(Extension)')" />
-    <Copy
-      SourceFiles="@(XmlFiles)"
-      DestinationFiles="@(XmlFiles->'$(MSBuildProjectDirectory)\..\$(Configuration)\scripts\dbupdater\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(ScriptFiles)" DestinationFiles="@(ScriptFiles->'$(MSBuildProjectDirectory)\..\$(Configuration)\scripts\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(XmlFiles)" DestinationFiles="@(XmlFiles->'$(MSBuildProjectDirectory)\..\$(Configuration)\scripts\dbupdater\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
 </Project>

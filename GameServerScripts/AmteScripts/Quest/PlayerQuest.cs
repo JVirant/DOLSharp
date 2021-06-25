@@ -69,8 +69,13 @@ namespace DOL.GS.Quests
 			if (VisibleGoals.Count == 0)
 				Quest.Goals.Values.Foreach(g => g.StartGoal(this));
 
+			// happen when the quest has been removed
 			if (VisibleGoals.Count == 0)
-				AbortQuest();
+				new RegionTimer(owner, _timer =>
+				{
+					AbortQuest();
+					return 0;
+				}).Start(1);
 		}
 
 		public override bool CheckQuestQualification(GamePlayer player) => Quest.CheckQuestQualification(player);
