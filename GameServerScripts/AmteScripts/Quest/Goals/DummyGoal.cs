@@ -22,6 +22,11 @@ namespace DOL.GS.Quests
 		{
 			var state = base.ForceStartGoal(questData);
 			EndGoal(questData, state);
+			new RegionTimer(questData.QuestPlayer, _timer =>
+			{
+				EndGoal(questData, state);
+				return 0;
+			}).Start(1);
 			return state;
 		}
 	}

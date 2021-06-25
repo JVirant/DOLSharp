@@ -34,8 +34,12 @@ namespace DOL.GS.Quests
 		public override PlayerGoalState ForceStartGoal(PlayerQuest questData)
 		{
 			var state = base.ForceStartGoal(questData);
-			questData.AbortQuest();
-			ChatUtil.SendPopup(questData.QuestPlayer, BehaviourUtils.GetPersonalizedMessage(m_text, questData.QuestPlayer));
+			new RegionTimer(questData.QuestPlayer, _timer =>
+			{
+				questData.AbortQuest();
+				ChatUtil.SendPopup(questData.QuestPlayer, BehaviourUtils.GetPersonalizedMessage(m_text, questData.QuestPlayer));
+				return 0;
+			}).Start(1);
 			return state;
 		}
 	}
