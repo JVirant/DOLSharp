@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace DOL.GS.Quests
 {
@@ -66,7 +67,7 @@ namespace DOL.GS.Quests
 				return false;
 			return StartGoalsDone.All(gId => questData.GoalStates.Any(gs => gs.GoalId == gId && gs.IsDone));
 		}
-		public virtual bool CanEnd(PlayerQuest questData)
+		public virtual bool CanComplete(PlayerQuest questData)
 		{
 			var gs = questData.GoalStates.Find(s => s.GoalId == GoalId);
 			return gs?.State == eQuestGoalStatus.DoneAndActive && EndWhenGoalsDone.All(id => questData.GoalStates.Any(s => s.GoalId == id && s.IsDone));
@@ -107,7 +108,16 @@ namespace DOL.GS.Quests
 				ChatUtil.SendScreenCenter(questData.QuestPlayer, $"{Description} - {goalData.Progress}/{ProgressTotal}");
 			}
 		}
-		public virtual void EndGoal(PlayerQuest questData, PlayerGoalState goalData, List<DataQuestJsonGoal> except = null)
+
+		public void EndGoal(PlayerQuest questData, PlayerGoalState goalData)
+		{
+			EndGoal(questData, goalData, null);
+			questData.SaveIntoDatabase();
+			questData.QuestPlayer.Out.SendQuestUpdate(questData);
+		}
+
+		/// <summary>Recursive call</summary>
+		private void EndGoal(PlayerQuest questData, PlayerGoalState goalData, List<DataQuestJsonGoal> except)
 		{
 			goalData.Progress = ProgressTotal;
 			goalData.State = eQuestGoalStatus.DoneAndActive;
@@ -116,25 +126,29 @@ namespace DOL.GS.Quests
 				ChatUtil.SendScreenCenter(questData.QuestPlayer, $"{Description} - {goalData.Progress}/{ProgressTotal}");
 			EndOtherGoals(questData, except ?? new List<DataQuestJsonGoal>());
 
-			// start other goals
-			if (Quest.Goals.Values.Select(g => g.StartGoal(questData)).Any(gs => gs != null) && CanEnd(questData))
+			CompleteGoal(questData, goalData);
+		}
+
+		private void EndOtherGoals(PlayerQuest questData, List<DataQuestJsonGoal> except)
+		{
+			except.Add(this);
+			foreach (var goal in Quest.Goals.Values)
+				if (!except.Contains(goal) && goal.CanComplete(questData))
+					goal.EndGoal(questData, questData.GoalStates.Find(s => s.GoalId == goal.GoalId), except);
+		}
+
+		private void CompleteGoal(PlayerQuest questData, PlayerGoalState goalData)
+		{
+			// try starting new goals
+			foreach (var goal in Quest.Goals.Values)
+				goal.StartGoal(questData);
+
+			if (CanComplete(questData))
 			{
 				if (GiveItemTemplate != null)
 					GiveItem(questData.QuestPlayer, GiveItemTemplate);
 				goalData.State = eQuestGoalStatus.Completed;
 			}
-
-			if (Visible)
-				questData.QuestPlayer.Out.SendQuestUpdate(questData);
-			questData.SaveIntoDatabase();
-		}
-
-		protected void EndOtherGoals(PlayerQuest questData, List<DataQuestJsonGoal> except)
-		{
-			except.Add(this);
-			foreach (var goal in Quest.Goals.Values)
-				if (!except.Contains(goal) && goal.CanEnd(questData))
-					goal.EndGoal(questData, questData.GoalStates.Find(s => s.GoalId == goal.GoalId), except);
 		}
 
 		public virtual IQuestGoal ToQuestGoal(PlayerQuest questData, PlayerGoalState goalData)
