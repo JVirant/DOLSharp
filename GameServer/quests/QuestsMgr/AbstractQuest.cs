@@ -286,7 +286,8 @@ namespace DOL.GS.Quests
 		public virtual void AbortQuest()
 		{
 			Step = -1;
-			m_questPlayer.QuestList.Remove(this);
+			lock (m_questPlayer.QuestList)
+				m_questPlayer.QuestList.Remove(this);
 			DeleteFromDatabase();
 			m_questPlayer.Out.SendQuestListUpdate();
             m_questPlayer.Out.SendMessage(LanguageMgr.GetTranslation(m_questPlayer.Client, "AbstractQuest.AbortQuest"), eChatType.CT_System, eChatLoc.CL_SystemWindow);

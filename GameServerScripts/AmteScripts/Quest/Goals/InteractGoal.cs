@@ -13,7 +13,7 @@ namespace DOL.GS.Quests
 
 		public override eQuestGoalType Type => eQuestGoalType.Unknown;
 		public override int ProgressTotal => 1;
-		public override QuestZonePoint PointB => new QuestZonePoint(m_target);
+		public override QuestZonePoint PointA => new QuestZonePoint(m_target);
 
 		public InteractGoal(DataQuestJson quest, int goalId, dynamic db) : base(quest, goalId, (object)db)
 		{

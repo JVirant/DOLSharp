@@ -3061,34 +3061,37 @@ namespace DOL.GS.PacketHandler
 				{
 					pak.WriteByte((byte) name.Length);
 					pak.WriteShort((ushort) data.Status);
-					pak.WriteByte((byte) data.VisibleGoals.Count);
+					pak.WriteByte((byte) (data.Status == eQuestStatus.Done ? 0 : data.VisibleGoals.Count));
 					pak.WriteByte((byte) data.Level);
 					pak.WriteStringBytes(name);
 					pak.WritePascalString(data.Description);
-					for (var idx = 0; idx < data.VisibleGoals.Count; ++idx)
+					if (data.Status != eQuestStatus.Done)
 					{
-						var goal = data.VisibleGoals[idx];
-						var desc = $"{goal.Description} ({goal.Progress} / {goal.ProgressTotal})\r";
-						pak.WriteShortLowEndian((ushort) desc.Length);
-						pak.WriteStringBytes(desc);
-						pak.WriteShortLowEndian(goal.PointA.ZoneId);
-						pak.WriteShortLowEndian(goal.PointA.X);
-						pak.WriteShortLowEndian(goal.PointA.Y);
-						pak.WriteShortLowEndian(0x00); // unknown
-						pak.WriteShortLowEndian((ushort) goal.Type);
-						pak.WriteShortLowEndian(0x00); // unknown
-						pak.WriteShortLowEndian(goal.PointB.ZoneId);
-						pak.WriteShortLowEndian(goal.PointB.X);
-						pak.WriteShortLowEndian(goal.PointB.Y);
-						pak.WriteByte((byte) goal.Status);
-						if (goal.QuestItem == null)
+						for (var idx = 0; idx < data.VisibleGoals.Count; ++idx)
 						{
-							pak.WriteByte(0x00);
-						}
-						else
-						{
-							pak.WriteByte((byte) idx);
-							WriteTemplateData(pak, goal.QuestItem, 1);
+							var goal = data.VisibleGoals[idx];
+							var desc = $"{goal.Description} ({goal.Progress} / {goal.ProgressTotal})\r";
+							pak.WriteShortLowEndian((ushort) desc.Length);
+							pak.WriteStringBytes(desc);
+							pak.WriteShortLowEndian(goal.PointA.ZoneId);
+							pak.WriteShortLowEndian(goal.PointA.X);
+							pak.WriteShortLowEndian(goal.PointA.Y);
+							pak.WriteShortLowEndian(0x00); // unknown
+							pak.WriteShortLowEndian((ushort) goal.Type);
+							pak.WriteShortLowEndian(0x00); // unknown
+							pak.WriteShortLowEndian(goal.PointB.ZoneId);
+							pak.WriteShortLowEndian(goal.PointB.X);
+							pak.WriteShortLowEndian(goal.PointB.Y);
+							pak.WriteByte((byte) ((goal.Status & eQuestGoalStatus.FlagDone) != 0 ? 1 : 0));
+							if (goal.QuestItem == null)
+							{
+								pak.WriteByte(0x00);
+							}
+							else
+							{
+								pak.WriteByte((byte) idx);
+								WriteTemplateData(pak, goal.QuestItem, 1);
+							}
 						}
 					}
 

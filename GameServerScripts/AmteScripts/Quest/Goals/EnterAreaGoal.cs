@@ -11,11 +11,11 @@ namespace DOL.GS.Quests
 	{
 		private Area.Circle m_area;
 		private ushort m_areaRegion;
-		private QuestZonePoint m_pointB;
+		private QuestZonePoint m_pointA;
 
 		public override eQuestGoalType Type => eQuestGoalType.Unknown;
 		public override int ProgressTotal => 1;
-		public override QuestZonePoint PointB => m_pointB;
+		public override QuestZonePoint PointA => m_pointA;
 
 		public EnterAreaGoal(DataQuestJson quest, int goalId, dynamic db) : base(quest, goalId, (object)db)
 		{
@@ -27,7 +27,7 @@ namespace DOL.GS.Quests
 			reg.AddArea(m_area);
 			m_area.RegisterPlayerEnter(OnPlayerEnterArea);
 			m_area.RegisterPlayerLeave(OnPlayerLeaveArea);
-			m_pointB = new QuestZonePoint(reg.GetZone(m_area.Position), m_area.Position);
+			m_pointA = new QuestZonePoint(reg.GetZone(m_area.Position), m_area.Position);
 		}
 
 		public override Dictionary<string, object> GetDatabaseJsonObject()
@@ -57,14 +57,14 @@ namespace DOL.GS.Quests
 			var args = (AreaEventArgs)arguments;
 			if (!(args.GameObject is GamePlayer player))
 				return;
-			var questData = player.QuestList.Find(q => q is PlayerQuest pq && pq.QuestId == Quest.Id) as PlayerQuest;
-			if (questData != null && IsActive(questData))
+			var quest = player.QuestList.Find(q => q is PlayerQuest pq && pq.QuestId == Quest.Id);
+			if (quest is PlayerQuest questData && IsActive(questData))
 			{
 				var goalData = questData.GoalStates.Find(s => s.GoalId == GoalId);
 				if (goalData == null)
 					return;
 				goalData.Progress -= 1;
-				goalData.Done = false;
+				goalData.State = eQuestGoalStatus.Active;
 				questData.SaveIntoDatabase();
 				questData.QuestPlayer.Out.SendQuestUpdate(questData);
 			}

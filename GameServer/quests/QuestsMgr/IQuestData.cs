@@ -1,4 +1,5 @@
-﻿using DOL.Database;
+﻿using System;
+using DOL.Database;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -53,11 +54,19 @@ namespace DOL.GS.Quests
 		ScoutMission = 5,
 	}
 
+	[Flags]
 	public enum eQuestGoalStatus
 	{
-		NotStarted = -1,
-		InProgress = 0,
-		Done = 1,
+		// Flags
+		FlagActive = 0b001,
+		FlagDone = 0b010,
+		FlagFinished = 0b100,
+
+		NotStarted = 0b000,
+		Active = FlagActive,
+		DoneAndActive = FlagDone | FlagActive,
+		Completed = FlagDone | FlagFinished,
+		Aborted = FlagFinished,
 	}
 
 	public struct QuestZonePoint

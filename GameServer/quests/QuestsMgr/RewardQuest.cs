@@ -493,7 +493,7 @@ namespace DOL.GS.Quests
 
 			public QuestZonePoint PointB => new QuestZonePoint { ZoneId = (ushort)ZoneID2, X = (ushort)XOffset2, Y = (ushort)YOffset2 };
 
-			public eQuestGoalStatus Status => IsAchieved ? eQuestGoalStatus.Done : eQuestGoalStatus.InProgress;
+			public eQuestGoalStatus Status => IsAchieved ? eQuestGoalStatus.Completed : eQuestGoalStatus.Active;
 		}
 
 		/// <summary>

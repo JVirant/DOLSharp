@@ -12,8 +12,11 @@ namespace DOL.GS.Quests
 		public int GoalId;
 		public int Progress = 0;
 		public object CustomData = null;
-		public bool Active = false;
-		public bool Done = false;
+		public eQuestGoalStatus State = eQuestGoalStatus.NotStarted;
+
+		public bool IsActive => (State & eQuestGoalStatus.FlagActive) != 0;
+		public bool IsDone => (State & eQuestGoalStatus.FlagDone) != 0;
+		public bool IsFinished => (State & eQuestGoalStatus.FlagFinished) != 0;
 	}
 
 	/// <summary>

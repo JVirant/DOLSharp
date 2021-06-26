@@ -64,7 +64,7 @@ namespace DOL.GS.Quests
 		public List<IQuestGoal> GetVisibleGoals(PlayerQuest data)
 		{
 			return data.GoalStates
-				.Where(gs => gs.Active)
+				.Where(gs => gs.IsActive)
 				.Select(gs => Goals[gs.GoalId].ToQuestGoal(data, gs))
 				.Where(g => !(g is DataQuestJsonGoal.GenericDataQuestGoal gen) || gen.Goal.Visible)
 				.ToList();
