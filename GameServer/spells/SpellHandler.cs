@@ -4069,7 +4069,7 @@ namespace DOL.GS.Spells
 				if (spell == null)
 					spell = Spell.MultipleSubSpells.Select(SkillBase.GetSpellByID).FirstOrDefault();
 				if (spell != null)
-					dw.AddKeyValuePair("delve_spell", spell.InternalID);
+					dw.AddKeyValuePair("link", spell.InternalID);
 			}
 
 			// default values, remove them if Function changes in a specific SpellHandler
@@ -4099,6 +4099,8 @@ namespace DOL.GS.Spells
 					return 3;
 				case "Area":
 					return 0; // TODO
+				case "Corpse":
+					return 8;
 				default:
 					return 0;
 			}
