@@ -100,8 +100,8 @@ namespace DOL.GS.PacketHandler
 			else
 				m_encoding = new PacketEncoding1110();
 
-			m_asyncUdpCallback = new AsyncCallback(AsyncUdpSendCallback);
-			m_tcpSendBuffer = client.Server.AcquirePacketBuffer();
+			m_asyncUdpCallback = AsyncUdpSendCallback;
+			m_tcpSendBuffer = new byte[8192]; // the client can't accept a daoc packet of more than 2kb but we can send a bigger stream
 			m_udpSendBuffer = new byte[512]; // we want a smaller maximum size packet for UDP
 		}
 
@@ -287,7 +287,6 @@ namespace DOL.GS.PacketHandler
 			byte[] tcp = m_tcpSendBuffer;
 			m_tcpSendBuffer = null;
 			m_udpSendBuffer = null;
-			m_client.Server.ReleasePacketBuffer(tcp);
 		}
 
 		#region TCP
