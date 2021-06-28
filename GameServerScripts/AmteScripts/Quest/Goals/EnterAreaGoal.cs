@@ -57,16 +57,15 @@ namespace DOL.GS.Quests
 			var args = (AreaEventArgs)arguments;
 			if (!(args.GameObject is GamePlayer player))
 				return;
-			var quest = player.QuestList.Find(q => q is PlayerQuest pq && pq.QuestId == Quest.Id);
-			if (quest is PlayerQuest questData && IsActive(questData))
+			var (quest, goal) = DataQuestJsonMgr.FindQuestAndGoalFromPlayer(player, Quest.Id, GoalId);
+			if (quest != null && IsActive(quest))
 			{
-				var goalData = questData.GoalStates.Find(s => s.GoalId == GoalId);
-				if (goalData == null)
+				if (goal == null)
 					return;
-				goalData.Progress -= 1;
-				goalData.State = eQuestGoalStatus.Active;
-				questData.SaveIntoDatabase();
-				questData.QuestPlayer.Out.SendQuestUpdate(questData);
+				goal.Progress = 0;
+				goal.State = eQuestGoalStatus.Active;
+				quest.SaveIntoDatabase();
+				quest.QuestPlayer.Out.SendQuestUpdate(quest);
 			}
 		}
 

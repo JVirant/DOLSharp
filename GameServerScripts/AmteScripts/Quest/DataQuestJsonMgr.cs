@@ -116,5 +116,12 @@ namespace DOL.GS.Quests
 				player.Out.SendQuestListUpdate();
 			}
 		}
+
+		public static (PlayerQuest quest, PlayerGoalState goal) FindQuestAndGoalFromPlayer(GamePlayer player, ushort questId, int goalId)
+		{
+			var quest = player.QuestList.Find(q => q is PlayerQuest pq && pq.QuestId == questId) as PlayerQuest;
+			var goal = quest?.GoalStates.Find(gs => gs.GoalId == goalId);
+			return (quest, goal);
+		}
 	}
 }

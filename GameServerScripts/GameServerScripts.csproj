@@ -2,6 +2,7 @@
   <PropertyGroup>
     <BaseIntermediateOutputPath>..\build\GameServerScripts\$(Configuration)\</BaseIntermediateOutputPath>
     <Platforms>AnyCPU;x86;x64</Platforms>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <PropertyGroup>

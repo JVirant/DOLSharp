@@ -22,11 +22,11 @@ namespace DOL.GS.Quests
 		public CollectGoal(DataQuestJson quest, int goalId, dynamic db) : base(quest, goalId, (object)db)
 		{
 			m_target = WorldMgr.GetNPCsByNameFromRegion((string)db.TargetName ??  "", (ushort)db.TargetRegion, eRealm.None).FirstOrDefault();
-			if (m_target == null)
-				m_target = quest.Npc;
+			m_target = m_target ?? quest.Npc;
 			m_text = db.Text;
 			m_item = GameServer.Database.FindObjectByKey<ItemTemplate>((string)db.Item);
 			m_itemCount = db.ItemCount;
+			GameEventMgr.AddHandler(m_target, GameObjectEvent.ReceiveItem, _Notify);
 		}
 
 		public override Dictionary<string, object> GetDatabaseJsonObject()
@@ -42,17 +42,29 @@ namespace DOL.GS.Quests
 
 		public override void NotifyActive(PlayerQuest questData, PlayerGoalState goalData, DOLEvent e, object sender, EventArgs args)
 		{
-			var player = questData.QuestPlayer;
-			if (e == GamePlayerEvent.GiveItem && args is GiveItemEventArgs interact && interact.Target.Name == m_target.Name && interact.Target.CurrentRegion == m_target.CurrentRegion && interact.Item.Id_nb == m_item.Id_nb)
+		}
+
+		private void _Notify(DOLEvent e, object sender, EventArgs args)
+		{
+			if (e != GameObjectEvent.ReceiveItem || !(args is ReceiveItemEventArgs interact))
+				return;
+			if (!(interact.Source is GamePlayer player) || interact.Target != m_target)
+				return;
+			var (quest, goal) = DataQuestJsonMgr.FindQuestAndGoalFromPlayer(player, Quest.Id, GoalId);
+
+			if (!player.Inventory.RemoveCountFromStack(interact.Item, m_itemCount))
 			{
-				if (!player.Inventory.RemoveCountFromStack(interact.Item, m_itemCount))
-				{
-					ChatUtil.SendImportant(player, "An error happened, retry in a few seconds");
-					return;
-				}
-				ChatUtil.SendPopup(player, BehaviourUtils.GetPersonalizedMessage(m_text, player));
-				AdvanceGoal(questData, goalData);
+				ChatUtil.SendImportant(player, "An error happened, retry in a few seconds");
+				return;
 			}
+			ChatUtil.SendPopup(player, BehaviourUtils.GetPersonalizedMessage(m_text, player));
+			AdvanceGoal(quest, goal);
+		}
+
+		public override void Unload()
+		{
+			GameEventMgr.RemoveHandler(m_target, GameObjectEvent.ReceiveItem, _Notify);
+			base.Unload();
 		}
 	}
 }
