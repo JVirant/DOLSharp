@@ -256,7 +256,16 @@ namespace DOL.GS.Housing
 			}
 		}
 
-		public Vector3 Position { get; set; }
+		public Vector3 Position
+		{
+			get => new Vector3(_databaseItem.X, _databaseItem.Y, _databaseItem.Z);
+			set
+			{
+				_databaseItem.X = (int)value.X;
+				_databaseItem.Y = (int)value.Y;
+				_databaseItem.Z = (int)value.Z;
+			}
+		}
 
 		public ushort RegionID
 		{
