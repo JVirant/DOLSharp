@@ -27,20 +27,29 @@ enum dtPolyFlags : unsigned short
 };
 
 /*
-	[DllImport("ReUth", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+	[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
 	private static extern bool LoadNavMesh(string file, ref IntPtr meshPtr, ref IntPtr queryPtr);
 
-	[DllImport("ReUth", CallingConvention = CallingConvention.Cdecl)]
+	[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
 	private static extern bool FreeNavMesh(IntPtr meshPtr, IntPtr queryPtr);
 
-	[DllImport("ReUth", CallingConvention = CallingConvention.Cdecl)]
+	[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
 	private static extern dtStatus PathStraight(IntPtr queryPtr, float[] start, float[] end, float[] polyPickExt, dtPolyFlags[] queryFilter, dtStraightPathOptions pathOptions, ref int pointCount, float[] pointBuffer, dtPolyFlags[] pointFlags);
 
-	[DllImport("ReUth", CallingConvention = CallingConvention.Cdecl)]
+	[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
 	private static extern dtStatus FindRandomPointAroundCircle(IntPtr queryPtr, float[] center, float radius, float[] polyPickExt, dtPolyFlags[] queryFilter, float[] outputVector);
 
-	[DllImport("ReUth", CallingConvention = CallingConvention.Cdecl)]
+	[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
 	private static extern dtStatus FindClosestPoint(IntPtr queryPtr, float[] center, float[] polyPickExt, dtPolyFlags[] queryFilter, float[] outputVector);
+
+	[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
+	private static extern dtStatus GetPolyAt(IntPtr queryPtr, float[] center, float[] polyPickExt, dtPolyFlags[] queryFilter, ref uint outputPolyRef, float[] outputVector);
+
+	[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
+	private static extern dtStatus SetPolyFlags(IntPtr meshPtr, uint polyRef, dtPolyFlags flags);
+
+	[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
+	private static extern dtStatus QueryPolygons(IntPtr queryPtr, float[] center, float[] polyPickExt, dtPolyFlags[] queryFilter, uint[] outputPolyRefs, ref int outputPolyCount, int maxPolyCount);
 */
 
 // RAII helper
@@ -147,7 +156,7 @@ void PathOptimize(int* pointCount, float* pointBuffer, dtPolyRef* refs)
 			pointBuffer[(i + 1) * 3 + 2] - pointBuffer[i * 3 + 2],
 		};
 
-		if (e[0] != 0 || e[1] != 0 || e[2] != 0)
+		if ((e[0] != 0 || e[1] != 0 || e[2] != 0) && refs[i] == refs[i + 1])
 		{
 			float dot = dtVdot(d, e);
 			float res = (dot * dot) / dtVdot(d, d) / dtVdot(e, e);
@@ -240,4 +249,25 @@ DLLEXPORT dtStatus FindClosestPoint(dtNavMeshQuery* query, float center[], float
 	if (dtStatusSucceed(status))
 		status = query->closestPointOnPoly(centerRef, center, outputVector, nullptr);
 	return status;
+}
+
+DLLEXPORT dtStatus GetPolyAt(dtNavMeshQuery* query, float* center, float* extents, unsigned short* queryFilter, dtPolyRef* polyRef, float* point)
+{
+	dtQueryFilter filter;
+	filter.setIncludeFlags(queryFilter[0]);
+	filter.setExcludeFlags(queryFilter[1]);
+	return query->findNearestPoly(center, extents, &filter, polyRef, point);
+}
+
+DLLEXPORT dtStatus SetPolyFlags(dtNavMesh* navMesh, dtPolyRef ref, unsigned short flags)
+{
+	return navMesh->setPolyFlags(ref, flags);
+}
+
+DLLEXPORT dtStatus QueryPolygons(dtNavMeshQuery* query, float* center, float* polyPickExtents, unsigned short* queryFilter, dtPolyRef* polys, int* polyCount, int maxPolys)
+{
+	dtQueryFilter filter;
+	filter.setIncludeFlags(queryFilter[0]);
+	filter.setExcludeFlags(queryFilter[1]);
+	return query->queryPolygons(center, polyPickExtents, &filter, polys, polyCount, maxPolys);
 }

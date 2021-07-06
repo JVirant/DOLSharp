@@ -54,6 +54,15 @@ namespace DOL.GS
 		[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
 		private static extern dtStatus FindClosestPoint(IntPtr queryPtr, float[] center, float[] polyPickExt, dtPolyFlags[] queryFilter, float[] outputVector);
 
+		[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
+		private static extern dtStatus GetPolyAt(IntPtr queryPtr, float[] center, float[] polyPickExt, dtPolyFlags[] queryFilter, ref uint outputPolyRef, float[] outputVector);
+
+		[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
+		private static extern dtStatus SetPolyFlags(IntPtr meshPtr, uint polyRef, dtPolyFlags flags);
+
+		[DllImport("dol_detour", CallingConvention = CallingConvention.Cdecl)]
+		private static extern dtStatus QueryPolygons(IntPtr queryPtr, float[] center, float[] polyPickExt, dtPolyFlags[] queryFilter, uint[] outputPolyRefs, ref int outputPolyCount, int maxPolyCount);
+
 		/// <summary>
 		/// Initializes the PathingMgr  by loading all available navmeshes
 		/// </summary>
