@@ -221,5 +221,7 @@ namespace DOL.GS.Geometry
 
 			return true;
 		}
+
+		public bool ContainsPoint(Vector3 point) => false; // not needed
 	}
 }

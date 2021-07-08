@@ -95,5 +95,6 @@ namespace DOL.GS.Geometry
 		}
 
 		public bool CollideWithAABB(AABoundingBox box) => Box.CollideWithAABB(box);
+		public bool ContainsPoint(Vector3 point) => Box.ContainsPoint(point);
 	}
 }

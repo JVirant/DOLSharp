@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 using System.Reflection;
 
@@ -16,8 +17,10 @@ namespace DOL.GS.Geometry
 	{
 		private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-		public static (Vector3[], List<List<(int, int, int)>>) Load(Zone zone, string filename)
+		public static (Vector3[], List<(int, int, int)[]>) Load(Zone zone, string filename)
 		{
+			if (File.Exists(filename + ".bin"))
+				return LoadObjFromBinary(filename + ".bin");
 			if (!File.Exists(filename))
 				return (null, null);
 			var offset = new Vector3(zone.XOffset, zone.YOffset, 0);
@@ -65,7 +68,70 @@ namespace DOL.GS.Geometry
 				if (vertices.Count > 0 && faces.Count > 0)
 					objects.Add(faces);
 			}
-			return (vertices.ToArray(), objects);
+
+			var res = (vertices.ToArray(), objects.Select(faces => faces.ToArray()).ToList());
+			SaveObjAsBinary(filename + ".bin", res);
+			return res;
+		}
+
+		private static (Vector3[], List<(int, int, int)[]>) LoadObjFromBinary(string filename)
+		{
+			using (var br = new BinaryReader(File.OpenRead(filename)))
+			{
+				var vertices = new Vector3[br.ReadInt32()];
+				for (var i = 0; i < vertices.Length; ++i)
+				{
+					var x = br.ReadSingle();
+					var y = br.ReadSingle();
+					var z = br.ReadSingle();
+					vertices[i] = new Vector3(x, y, z);
+				}
+
+				var length = br.ReadInt32();
+				var objects = new List<(int, int, int)[]>(length);
+				for (var i = 0; i < length; ++i)
+				{
+					var nbFaces = br.ReadInt32();
+					var faces = new (int, int, int)[nbFaces];
+					for (var j = 0; j < nbFaces; ++j)
+					{
+						var a = br.ReadInt32();
+						var b = br.ReadInt32();
+						var c = br.ReadInt32();
+						faces[j] = (a, b, c);
+					}
+					objects.Add(faces);
+				}
+
+				return (vertices, objects);
+			}
+		}
+		private static void SaveObjAsBinary(string filename, (Vector3[], List<(int, int, int)[]>) obj)
+		{
+			using (var bw = new BinaryWriter(File.Create(filename)))
+			{
+				bw.Write(obj.Item1.Length);
+				foreach (var v in obj.Item1)
+				{
+					bw.Write(v.X);
+					bw.Write(v.Y);
+					bw.Write(v.Z);
+				}
+
+				bw.Write(obj.Item2.Count);
+				foreach (var o in obj.Item2)
+				{
+					bw.Write(o.Length);
+					foreach (var (a, b, c) in o)
+					{
+						bw.Write(a);
+						bw.Write(b);
+						bw.Write(c);
+					}
+				}
+
+				bw.Close();
+			}
 		}
 	}
 }

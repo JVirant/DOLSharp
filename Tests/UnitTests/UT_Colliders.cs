@@ -62,5 +62,39 @@ namespace DOL.UnitTests.Gameserver
 			Assert.AreEqual(triangle.CollideWithRay(Vector3.Zero, Vector3.Normalize(triangle.B), 5), triangle.B.Length(), 1e-6, "the ray should collide with the triangle");
 			Assert.AreEqual(triangle.CollideWithRay(Vector3.Zero, Vector3.Normalize(new Vector3(2, 1, 1)), 5), new Vector3(1, 0.5f, 0.5f).Length(), 1e-6, "the ray should collide with the triangle");
 		}
+
+		[Test]
+		public void CheckOrientedBoundingBox_ContainingPoint()
+		{
+			var boxA = new OrientedBoundingBox(Vector3.One, Vector3.One, Quaternion.Identity);
+			Assert.True(boxA.ContainsPoint(Vector3.One), "box A should contains its center");
+			Assert.True(boxA.ContainsPoint(Vector3.Zero), "(0, 0, 0) is inside the box A");
+			Assert.False(boxA.ContainsPoint(3 * Vector3.One), "(3, 3, 3) is outside the box A");
+
+			var boxB = new OrientedBoundingBox(Vector3.One, new Vector3(1, 2, 3), Quaternion.CreateFromAxisAngle(Vector3.UnitZ, (float)Math.PI / 4));
+			Assert.True(boxB.ContainsPoint(Vector3.One), "box B should contains its center");
+			Assert.False(boxB.ContainsPoint(Vector3.Zero), "(0, 0, 0) is outside the box B");
+			Assert.False(boxB.ContainsPoint(3 * Vector3.One), "(3, 3, 3) is outside the box B");
+
+			Assert.True(boxB.ContainsPoint(new Vector3(2, -0.5f, 1)), "(2, -0.5f, 1) is inside the box B");
+			Assert.True(boxB.ContainsPoint(new Vector3(0, 2, 1)), "(0, 2, 1) is inside the box B");
+			Assert.False(boxB.ContainsPoint(new Vector3(1, 3, 1)), "(1, 3, 1) is outside the box B");
+		}
+
+		[Test]
+		public void CheckOrientedBoundingBox_RayCollision()
+		{
+			var boxA = new OrientedBoundingBox(Vector3.One, Vector3.One, Quaternion.Identity);
+			Assert.AreEqual(boxA.CollideWithRay(Vector3.Zero, Vector3.Normalize(Vector3.One), 10), 0, 1e-6);
+			Assert.AreEqual(boxA.CollideWithRay(Vector3.One, Vector3.UnitX, 10), 0, 1e-6);
+			Assert.AreEqual(boxA.CollideWithRay(-Vector3.One, Vector3.Normalize(Vector3.One), 10), Vector3.One.Length(), 1e-6);
+			Assert.AreEqual(boxA.CollideWithRay(-Vector3.One, Vector3.UnitX, 10), 10);
+
+			var boxB = new OrientedBoundingBox(Vector3.One, new Vector3(1, 2, 3), Quaternion.CreateFromAxisAngle(Vector3.UnitZ, (float)Math.PI / 4));
+			Assert.Less(boxB.CollideWithRay(Vector3.Zero, Vector3.Normalize(Vector3.One), 10), 1);
+			Assert.AreEqual(boxB.CollideWithRay(Vector3.One, Vector3.UnitX, 10), 0, 1e-6);
+			Assert.Less(boxB.CollideWithRay(-Vector3.One, Vector3.Normalize(Vector3.One), 10), 2.3f);
+			Assert.AreEqual(boxB.CollideWithRay(-2 * Vector3.One, Vector3.UnitX, 10), 10);
+		}
 	}
 }

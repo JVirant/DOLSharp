@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace DOL.GS.Geometry
 {
-	public struct AABoundingBox : ICollider
+	public readonly struct AABoundingBox : ICollider
 	{
 		public readonly Vector3 Min;
 		public readonly Vector3 Max;
@@ -17,9 +17,7 @@ namespace DOL.GS.Geometry
 
 		public float CollideWithRay(Vector3 origin, Vector3 direction, float maxDistance)
 		{
-			if ((origin.X >= Min.X && origin.X <= Max.X) &&
-				(origin.Y >= Min.Y && origin.Y <= Max.Y) &&
-				(origin.Z >= Min.Z && origin.Z <= Max.Z))
+			if (ContainsPoint(origin))
 				return 0;
 
 			var t1 = (Min - origin) / direction;
@@ -51,6 +49,14 @@ namespace DOL.GS.Geometry
 				(Min.X <= box.Max.X && Max.X >= box.Min.X) &&
 				(Min.Y <= box.Max.Y && Max.Y >= box.Min.Y) &&
 				(Min.Z <= box.Max.Z && Max.Z >= box.Min.Z);
+		}
+
+		public bool ContainsPoint(Vector3 point)
+		{
+			return
+				Min.X <= point.X && point.X <= Max.X &&
+				Min.Y <= point.Y && point.Y <= Max.Y &&
+				Min.Z <= point.Z && point.Z <= Max.Z;
 		}
 	}
 }

@@ -127,10 +127,10 @@ namespace DOL.GS
 
 			var zoneTree = new LosTreeType(new AABoundingBox(zoneMin, zoneMax), 1);
 			foreach (var faces in objects)
-				foreach (var f in faces)
-					zoneTree.AddObject(new Triangle(vertices, f.Item1, f.Item2, f.Item3));
+				foreach (var (a, b, c) in faces)
+					zoneTree.AddObject(new Triangle(vertices, a, b, c));
 			if (log.IsDebugEnabled)
-				log.Debug($"[LosMgr] Zone {zone.ZoneSkinID} loaded: {objects.Count:N0} objects {objects.Select(o => o.Count).Sum():N0} faces {vertices.Length:N0} vertices");
+				log.Debug($"[LosMgr] Zone {zone.ZoneSkinID} loaded: {objects.Count:N0} objects {objects.Select(o => o.Length).Sum():N0} faces {vertices.Length:N0} vertices");
 			return zoneTree;
 		}
 

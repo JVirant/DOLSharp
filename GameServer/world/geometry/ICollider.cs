@@ -16,5 +16,6 @@ namespace DOL.GS.Geometry
 		float CollideWithRay(Vector3 origin, Vector3 direction, float maxDistance);
 		float CollideWithRay(Vector3 origin, Vector3 direction, float maxDistance, ref RaycastStats stats);
 		bool CollideWithAABB(AABoundingBox box);
+		bool ContainsPoint(Vector3 point);
 	}
 }
